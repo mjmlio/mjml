@@ -7,15 +7,13 @@ The `mjml-engine` is the core of the MJML renderer. It exposes the MJML parser a
 
 ## How it works
 
-(how it works image)
-
 The engine is composed of multiple parts:
- - [`documentParser`](#) : Parse the markup MJML string and return a JSON representation
- - [`mjml2html`](#) : Turn a JSON MJML representation and returns an HTML string using react components
- - [`MJMLElementsCollection`](#) : Contains the standard MJML elements exposed to the API
+ - [`documentParser`](https://github.com/mjmlio/mjml/blob/master/src/documentParser.js) : Parse the markup MJML string and return a JSON representation
+ - [`mjml2html`](https://github.com/mjmlio/mjml/blob/master/src/mjml2html.js) : Turn a JSON MJML representation and returns an HTML string using react components
+ - [`MJMLElementsCollection`](https://github.com/mjmlio/mjml/blob/master/src/MJMLElementsCollection.js) : Contains the standard MJML elements exposed to the API
 
 ## Changelog
-Please refer to the [release](#) section to get more details about the different improvements.
+Please refer to the [release](https://github.com/mjmlio/mjml/releases) section to get more details about the different improvements.
 
 ## Issues
 

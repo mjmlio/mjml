@@ -135,6 +135,7 @@ Get your hands dirty by trying the MJML online editor! Write awesome code on the
     <th><a href="https://github.com/GuillaumeBadi"><img src="https://avatars3.githubusercontent.com/u/6558790?v=3&s=192" alt="Guillaume" width="100px"></a></th>
     <th><a href="https://github.com/meriadec"><img src="https://avatars1.githubusercontent.com/u/315259?v=3&s=192" alt="Meriadec" width="100px"></a></th>
     <th><a href="https://github.com/arnaudbreton"><img src="https://avatars0.githubusercontent.com/u/1361191?v=3&s=192" alt="Arnaud" width="100px"></a></th>
+     <th><a href="https://github.com/hteumeuleu"><img src="https://avatars2.githubusercontent.com/u/3451753?v=3&s=460" alt="HTeuMeuLeu" width="100px"></a></th>
   </tr>
   <tr>
     <td><a href="https://github.com/iRyusa">Maxime</a></td>
@@ -143,6 +144,7 @@ Get your hands dirty by trying the MJML online editor! Write awesome code on the
     <td><a href="https://github.com/GuillaumeBadi">Guillaume</a></td>
     <td><a href="https://github.com/meriadec">Meriadec</a></td>
     <td><a href="https://github.com/arnaudbreton">Arnaud</a></td>
+    <td><a href="https://github.com/hteumeuleu">HTeuMeuLeu</a></td>
   </tr>
 </table>
 

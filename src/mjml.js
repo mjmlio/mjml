@@ -19,7 +19,7 @@ import createComponent from './create-component'
  * Importing this library in your project will
  * give you the MJML engine
  */
-export default mjmlEngine
+module.exports = mjmlEngine
 
 /*
  * The version number is the NPM

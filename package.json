@@ -1,6 +1,6 @@
 {
   "name": "mjml",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "MJML: the only framework that makes responsive-email easy",
   "main": "./lib/mjml",
   "scripts": {
@@ -9,6 +9,7 @@
     "prepublish": "npm run compile",
     "lint": "eslint src test"
   },
+  "bin": "lib/mjml",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mjmlio/mjml.git"

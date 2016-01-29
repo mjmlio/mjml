@@ -25,6 +25,7 @@
     {"name": "Maxime Brazeilles", "email": "Maxime@derniercri.io", "url": "github.com/iryusa"},
     {"name": "Arnaud Breton", "email": "abreton@mailjet.com", "url": "github.com/arnaudbreton"},
     {"name": "Loëck Vézien", "email": "loeck@mailjet.com", "url": "github.com/lohek"}
+    {"name": "Rémi Parmentier", "email": "rparmentier@tilt-studio.fr", "url": "github.com/rparmentier"}
   ],
   "license": "MIT",
   "bugs": {

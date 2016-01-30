@@ -79,7 +79,7 @@ import {
  */
 const {
   ${lowerName}: Mj${name},
-} = collection;
+} = elements;
 
 const NAME = '${lowerName}'
 

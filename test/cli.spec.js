@@ -38,7 +38,7 @@ import {
  */
 const {
   mock: MjMock,
-} = collection;
+} = elements;
 
 const NAME = 'mock'
 

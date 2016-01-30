@@ -92,8 +92,21 @@ import mjml from 'mjml'
 /*
   Compile an mjml string
 */
-const outputString = mjml.mjml2html('mjml code')
+const htmlOutput = mjml.mjml2html(`<mj-body>
+  <mj-section>
+    <mj-column>
+      <mj-text>
+        Hello World!
+      </mj-text>
+    </mj-column>
+  </mj-section>
+</mj-body>
+`)
 
+/*
+  Print the responsive HTML generated
+*/
+console.log(htmlOutput);
 ```
 
 ### Create your component

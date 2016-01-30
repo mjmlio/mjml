@@ -102,10 +102,10 @@ const outputString = mjml.mjml2html('mjml code')
 
 ``` bash
 
-$> mjml --register <name of your component>
+$> mjml --init-component <name of your component>
 
 # If your component cannot contain anything else than text:
-$> mjml --register <name of you component> -e
+$> mjml --init-component <name of you component> -e
 
 # It means nothing inside it will be parsed by the mjml engine.
 

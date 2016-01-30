@@ -22,6 +22,7 @@ const main = () => {
     .option('-o, --output <file>', 'Redirect the HTML to a file', 'a.html')
     .option('-m, --min', 'Minify the final output file', 'false')
     .option('-e, --ending', 'Specifies that the newly created component is an ending tag')
+    .option('--register <name>', 'Initialize a self-registering MJML component (deprecated)')
     .option('--init-component <name>', 'Initialize an MJML component')
 
   binary.parse(process.argv)
@@ -29,6 +30,7 @@ const main = () => {
   switch (true) {
     case (!!binary.watch)     : return mjmlCLI.watch(binary.watch, binary)
     case (!!binary.render)    : return mjmlCLI.render(binary.render, binary)
+	  case (!!binary.register)  : console.error("--register option is deprecated, please now use --init-component"); process.exit(1)
 	  case (!!binary.initComponent)  : return mjmlCLI.initComponent(binary.initComponent, binary.ending, false)
     default                   : return console.log(mjmlCLI.version())
   }

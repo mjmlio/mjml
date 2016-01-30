@@ -19,7 +19,7 @@ describe('MJML Command Line Interface', () => {
     const name = 'Mock'
     const lowerName = name.toLowerCase()
 
-    mjmlCLI.init(name, false, false).then(() => {
+    mjmlCLI.initComponent(name, false, false).then(() => {
       fs.readFile(`./${name}.js`, 'utf-8', (err, data) => {
         if(err) {
           assert.fail()
@@ -90,6 +90,7 @@ class Mock extends Component {
 export default Mock
 `
 )
+        fs.unlink(`./${name}.js`)
         done()
       })
     })

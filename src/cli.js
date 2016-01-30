@@ -135,12 +135,12 @@ export default ${name}
 /*
  * Create a new component based on the default template
  */
-const init = (name, ending) =>
+const initComponent = (name, ending) =>
   write(`./${capitalize(name)}.js`, createComponent(capitalize(name), ending))
     .then(() => console.log(`Component created: ${capitalize(name)}`))
 
 module.exports = {
-  init: init,
+  initComponent: initComponent,
   render: render,
   watch: watch,
   version: version

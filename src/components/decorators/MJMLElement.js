@@ -1,8 +1,8 @@
 import Immutable from 'immutable'
-import MJMLElementsCollection from '../MJMLElementsCollection'
+import MJMLElementsCollection from '../../MJMLElementsCollection'
 import React, { Component } from 'react'
 import _ from 'lodash'
-import { UnknownMJMLElement } from '../Error'
+import { UnknownMJMLElement } from '../../Error'
 
 const getElementWidth = (element, siblings) => {
   const { elem } = element.props

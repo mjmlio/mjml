@@ -1,4 +1,4 @@
-import MJMLElement from './MJMLElement'
+import MJMLElement from './decorators/MJMLElement'
 import React, { Component } from 'react'
 import _ from 'lodash'
 

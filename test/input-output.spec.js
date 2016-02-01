@@ -37,7 +37,6 @@ const format = (input) => {
  *   - use a good formatting instead of the cheerio parsing
  */
 const compare = (input, output) => {
-
   const $input  = format(cheerio.load(input)('body').html())
   const $output = format(cheerio.load(output)('body').html())
 
@@ -94,19 +93,6 @@ describe('MJML engine.mjml2html test', () => {
   describe('Register a component', () => {
     it('should return true when registering a new component', () => {
       expect(engine.registerElement('mock', {})).to.be.true
-    })
-
-    it('should return true when forcing to register an already registered component', () => {
-      const htmlElement = {}
-      expect(engine.registerElement('html', htmlElement, { force : true })).to.be.true
-      expect(engine.elements.html).to.be.equal(htmlElement)
-    })
-
-    it('return false when registering an already registered component', () => {
-      const htmlElement = {}
-      const originalHtmlElement = engine.elements.html
-      expect(engine.registerElement('html', htmlElement)).to.be.false
-      expect(engine.elements.html).to.be.equal(originalHtmlElement)
     })
   })
 

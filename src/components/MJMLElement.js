@@ -90,12 +90,12 @@ function createComponent(ComposedComponent, defaultAttributes) {
         if ( n < elements.length - 1 ) {
           const width = getElementWidth(elements[n+1], elements.length)
 
-          wrappedElements.push(<div className={`${prefix}-line`} data-width={width}/>)
+          wrappedElements.push(<div key={`outlook-${n}`}className={`${prefix}-line`} data-width={width}/>)
         }
       })
 
-      const outlookOpenTag  = <div className={`${prefix}-open`} data-width={getElementWidth(elements[0], elements.length)} />
-      const outlookCloseTag = <div className={`${prefix}-close`} />
+      const outlookOpenTag  = <div key="outlook-open" className={`${prefix}-open`} data-width={getElementWidth(elements[0], elements.length)} />
+      const outlookCloseTag = <div key="outlook-close" className={`${prefix}-close`} />
 
       return [outlookOpenTag].concat(wrappedElements, [outlookCloseTag])
     }

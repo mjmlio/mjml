@@ -11,6 +11,7 @@ export default `
     margin: 13px 0;
   }
   @media only screen and (min-width:480px) {
+    .mj-1column, * [aria-labelledby="mj-1column"] { width:100%!important; }
     .mj-2column, * [aria-labelledby="mj-2column"] { width:50%!important; }
     .mj-3column, * [aria-labelledby="mj-3column"] { width:33.3333%!important; }
     .mj-4column, * [aria-labelledby="mj-4column"] { width:25%!important; }

@@ -2,6 +2,7 @@ import Immutable from 'immutable'
 import MJMLElementsCollection from '../../MJMLElementsCollection'
 import React, { Component } from 'react'
 import _ from 'lodash'
+import { widthParser } from "../../helpers/mjAttribute"
 import { UnknownMJMLElement } from '../../Error'
 
 const getElementWidth = (element, siblings) => {
@@ -16,15 +17,15 @@ const getElementWidth = (element, siblings) => {
     return 600 / siblings
   }
 
-  const widthUnit = /[0-9]+([^ ,\)`]*)/.exec(width.toString())[1]
+  const { width: parsedWidth, unit } = widthParser(width)
 
-  switch(widthUnit) {
+  switch(unit) {
   case '%':
-    return parseInt(width) * 6 // * 600 / 100
+    return parsedWidth * 6 // * 600 / 100
 
   case 'px':
   default:
-    return parseInt(width)
+    return parsedWidth
   }
 }
 

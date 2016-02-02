@@ -1,4 +1,4 @@
-import MJMLColumnElement from './MJMLColumnElement'
+import MJMLColumnElement from './decorators/MJMLColumnElement'
 import React, { Component } from 'react'
 import _ from 'lodash'
 

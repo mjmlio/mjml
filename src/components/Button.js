@@ -1,4 +1,4 @@
-import MJMLColumnElement from './MJMLColumnElement'
+import MJMLColumnElement from './decorators/MJMLColumnElement'
 import React, { Component } from 'react'
 import _ from 'lodash'
 
@@ -36,7 +36,7 @@ class Button extends Component {
 
     return _.merge({}, this.constructor.baseStyles, {
       td: {
-        backgroundColor: mjAttribute('background-color'),
+        background: mjAttribute('background-color'),
         borderRadius: mjAttribute('border-radius'),
         color: mjAttribute('color'),
         fontStyle: mjAttribute('font-style'),
@@ -48,7 +48,7 @@ class Button extends Component {
         borderRadius: mjAttribute('border-radius')
       },
       a: {
-        backgroundColor: mjAttribute('background-color'),
+        background: mjAttribute('background-color'),
         border: `1px solid ${mjAttribute('background-color')}`,
         borderRadius: mjAttribute('border-radius'),
         color: mjAttribute('color'),

@@ -1,6 +1,7 @@
-import MJMLElement from './MJMLElement'
+import MJMLElement from './decorators/MJMLElement'
 import React, { Component } from 'react'
 import _ from 'lodash'
+import  { widthParser } from '../helpers/mjAttribute'
 
 /**
  * Columns are the basic containers for your content. They must be located under mj-section tags in order to be considered by the engine
@@ -39,25 +40,24 @@ class Column extends Component {
     let width = mjAttribute('width')
 
     if (width == undefined) {
-      return `mj-${sibling}column`
+      return `mj-column-per-${100/sibling}`
     }
 
-    const widthUnit = /[0-9]+([^ ,\)`]*)/.exec(width)[1]
-    width = parseInt(width)
+    const { width: parsedWidth, unit } = widthParser(width)
 
-    switch(widthUnit) {
+    switch(unit) {
     case '%':
-      return `mj-column-per-${width}`
+      return `mj-column-per-${parsedWidth}`
 
     case 'px':
     default:
-      return `mj-column-px-${width}`
+      return `mj-column-px-${parsedWidth}`
     }
   }
 
   render() {
-    const { mjAttribute, renderChildren } = this.props
-    const width = mjAttribute('width')
+    const { mjAttribute, renderChildren, sibling } = this.props
+    const width = mjAttribute('width') || (100 / sibling)
     const mjColumnClass = this.getColumnClass()
 
     this.styles = this.getStyles()

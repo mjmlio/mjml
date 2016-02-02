@@ -56,8 +56,8 @@ class Column extends Component {
   }
 
   render() {
-    const { mjAttribute, renderChildren } = this.props
-    const width = mjAttribute('width')
+    const { mjAttribute, renderChildren, sibling } = this.props
+    const width = mjAttribute('width') || (100 / sibling)
     const mjColumnClass = this.getColumnClass()
 
     this.styles = this.getStyles()

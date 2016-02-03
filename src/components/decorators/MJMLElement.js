@@ -66,7 +66,7 @@ function createComponent(ComposedComponent, defaultAttributes) {
       return this.hasReactChildren() ?  React.Children.count(children) : this.state.getIn(['elem', 'children']).size
     }
 
-    childDefaultProps(id, element) {
+    childDefaultProps(id) {
       return {
         id,
         key: id,
@@ -110,7 +110,7 @@ function createComponent(ComposedComponent, defaultAttributes) {
 
     upgradeReactChildren(children) {
       return children.map((child, i) => {
-        return React.cloneElement(child, this.childDefaultProps(i, child))
+        return React.cloneElement(child, this.childDefaultProps(i))
       })
     }
 
@@ -138,7 +138,7 @@ function createComponent(ComposedComponent, defaultAttributes) {
             throw new UnknownMJMLElement(`Could not find element for : ${elem.get('tagName')}`)
           }
 
-          const props = _.merge(this.childDefaultProps(i, elem.toJS()), {
+          const props = _.merge(this.childDefaultProps(i), {
             elem: elem.toJS(),
           })
 

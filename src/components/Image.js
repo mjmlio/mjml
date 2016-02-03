@@ -41,11 +41,7 @@ class Image extends Component {
     const paddingLeft = parseInt(mjAttribute('padding-right')) || 0
     const widthOverflow = paddingLeft + paddingRight + width - parseInt(mjAttribute('parentWidth'))
 
-    if (widthOverflow > 0) {
-      return width - widthOverflow
-    }
-
-    return width
+    return widthOverflow > 0 ? width - widthOverflow : width
   }
 
   getStyles() {

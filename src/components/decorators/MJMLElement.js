@@ -62,13 +62,20 @@ function createComponent(ComposedComponent, defaultAttributes) {
       return this.state.getIn(['elem', 'tagName']).substr(3)
     }
 
+    siblingsCount() {
+      const children = this.state.getIn(['elem', 'children'])
+
+      return this.hasReactChildren() ?  React.Children.count(children) : this.state.getIn(['elem', 'children']).size
+    }
+
     childDefaultProps(id) {
       return {
         id,
         key: id,
         color: this.mjAttribute('color'),
-        parentWidth: this.mjAttribute('width'),
-        verticalAlign: this.mjAttribute('vertical-align')
+        parentWidth: this.mjAttribute('rawPxWidth'),
+        verticalAlign: this.mjAttribute('vertical-align'),
+        sibling: this.siblingsCount()
       }
     }
 
@@ -87,11 +94,13 @@ function createComponent(ComposedComponent, defaultAttributes) {
       }
 
       elements.forEach((element, n) => {
-        wrappedElements.push(element)
-        if ( n < elements.length - 1 ) {
-          const width = getElementWidth(elements[n+1], elements.length)
+        const width = getElementWidth(element, elements.length)
+        wrappedElements.push(React.cloneElement(element, {rawPxWidth: width}))
 
-          wrappedElements.push(<div key={`outlook-${n}`}className={`${prefix}-line`} data-width={width}/>)
+        if ( n < elements.length - 1 ) {
+          const nextWidth = getElementWidth(elements[n+1], elements.length)
+
+          wrappedElements.push(<div key={`outlook-${n}`}className={`${prefix}-line`} data-width={nextWidth}/>)
         }
       })
 
@@ -102,20 +111,23 @@ function createComponent(ComposedComponent, defaultAttributes) {
     }
 
     upgradeReactChildren(children) {
-      const sibling = React.Children.count(children)
-
       return children.map((child, i) => {
-        return React.cloneElement(child, _.merge(this.childDefaultProps(i), { sibling }))
+        return React.cloneElement(child, this.childDefaultProps(i))
       })
     }
 
-    renderChildren() {
+    hasReactChildren() {
       const children = this.state.getIn(['elem', 'children'])
 
-      if (!children || children.count() === 0 && React.Children.count(this.props.children) >= 1) {
+      return !children || children.count() === 0 && React.Children.count(this.props.children) >= 1
+    }
+
+    renderChildren() {
+      if (this.hasReactChildren()) {
         return this.upgradeReactChildren(React.Children.toArray(this.props.children));
       }
 
+      const children = this.state.getIn(['elem', 'children'])
       let i = 0
 
       return children.map((elem) => {
@@ -130,7 +142,6 @@ function createComponent(ComposedComponent, defaultAttributes) {
 
           const props = _.merge(this.childDefaultProps(i), {
             elem: elem.toJS(),
-            sibling: children.size
           })
 
           return React.createElement(Element, props)

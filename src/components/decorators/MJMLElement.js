@@ -63,6 +63,8 @@ function createComponent(ComposedComponent, defaultAttributes) {
     }
 
     siblingsCount() {
+      const children = this.state.getIn(['elem', 'children'])
+
       return this.hasReactChildren() ?  React.Children.count(children) : this.state.getIn(['elem', 'children']).size
     }
 

@@ -36,12 +36,16 @@ class Image extends Component {
 
   getContentWidth() {
     const { mjAttribute, parentWidth } = this.props
+    const width = _.min([parseInt(mjAttribute('width')), parseInt(mjAttribute('parentWidth'))])
+    const paddingRight = parseInt(mjAttribute('padding-left')) || 0
+    const paddingLeft = parseInt(mjAttribute('padding-right')) || 0
+    const widthOverflow = paddingLeft + paddingRight + width - parseInt(mjAttribute('parentWidth'))
 
-    if (mjAttribute('padding-right') && mjAttribute('padding-left')) {
-      return parseInt(parentWidth) - parseInt(mjAttribute('padding-right')) - parseInt(mjAttribute('padding-left'))
+    if (widthOverflow > 0) {
+      return width - widthOverflow
     }
 
-    return parentWidth
+    return width
   }
 
   getStyles() {
@@ -58,14 +62,13 @@ class Image extends Component {
   renderImage() {
     const { mjAttribute } = this.props
 
-    const width = _.min([mjAttribute('width'), this.styles.img.maxWidth])
     const img = (
       <img
         alt={mjAttribute('alt')}
         border="0"
         src={mjAttribute('src')}
         style={this.styles.img}
-        width={width} />
+        width={this.styles.img.maxWidth} />
     )
 
     if (mjAttribute('href') != '') {

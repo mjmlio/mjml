@@ -4,6 +4,8 @@ import { tidy as htmltidy }    from 'htmltidy'
 import mjmlEngine              from './index'
 import { version as VERSION }  from '../package.json'
 
+const engine = mjmlEngine.mjml2html
+
 /*
  * The version number is the NPM
  * version number. It should be the same as the MJML engine

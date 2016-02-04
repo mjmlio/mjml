@@ -34,10 +34,6 @@ class Divider extends Component {
     return _.merge({}, this.constructor.baseStyles, {
       p: {
         borderTop: `${mjAttribute('border-width')} ${mjAttribute('border-style')} ${mjAttribute('border-color')}`,
-        paddingBottom: mjAttribute('vertical-spacing'),
-        paddingLeft: mjAttribute('horizontal-spacing'),
-        paddingRight: mjAttribute('horizontal-spacing'),
-        paddingTop: mjAttribute('vertical-spacing'),
         width: "100%"
       }
     })
@@ -46,7 +42,7 @@ class Divider extends Component {
   render() {
     this.styles = this.getStyles()
 
-    return <p style={this.styles.p} />
+    return <p className="outlook-divider-fix" style={this.styles.p} />
   }
 
 }

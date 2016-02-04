@@ -10,7 +10,7 @@ import _ from 'lodash'
   attributes: {
     'border-color': '#000000',
     'border-style': 'solid',
-    'border-width': '4px 0 0',
+    'border-width': '4px',
     'horizontal-spacing': '10px',
     'padding-bottom': '10px',
     'padding-left': '25px',
@@ -23,8 +23,7 @@ import _ from 'lodash'
 class Divider extends Component {
 
   static baseStyles = {
-    div: {
-      height: '0',
+    p: {
       fontSize: '1px'
     }
   };
@@ -33,14 +32,13 @@ class Divider extends Component {
     const { mjAttribute } = this.props
 
     return _.merge({}, this.constructor.baseStyles, {
-      div: {
-        borderColor: mjAttribute('border-color'),
-        borderStyle: mjAttribute('border-style'),
-        borderWidth: mjAttribute('border-width'),
-        marginBottom: mjAttribute('vertical-spacing'),
-        marginLeft: mjAttribute('horizontal-spacing'),
-        marginRight: mjAttribute('horizontal-spacing'),
-        marginTop: mjAttribute('vertical-spacing')
+      p: {
+        borderTop: `${mjAttribute('border-width')} ${mjAttribute('border-style')} ${mjAttribute('border-color')}`,
+        paddingBottom: mjAttribute('vertical-spacing'),
+        paddingLeft: mjAttribute('horizontal-spacing'),
+        paddingRight: mjAttribute('horizontal-spacing'),
+        paddingTop: mjAttribute('vertical-spacing'),
+        width: "100%"
       }
     })
   }
@@ -48,7 +46,7 @@ class Divider extends Component {
   render() {
     this.styles = this.getStyles()
 
-    return <div style={this.styles.div} />
+    return <p style={this.styles.p} />
   }
 
 }

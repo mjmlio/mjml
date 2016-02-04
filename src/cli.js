@@ -70,6 +70,7 @@ const createComponent = (name, ending) => {
 
 return `
 import React, { Component } from 'react'
+import _ from 'loadash'
 import {
   MJMLColumnElement,
   elements,
@@ -80,7 +81,7 @@ import {
  * Wrap your dependencies here.
  */
 const {
-  ${lowerName}: Mj${name},
+  text: MjText,
 } = elements;
 
 const NAME = '${lowerName}'

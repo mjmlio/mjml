@@ -131,6 +131,7 @@ class ${name} extends Component {
   }
 }
 
+registerElement('${lowerName}', ${name}${ending ? ', true' : ''})
 export default ${name}
 `
 }

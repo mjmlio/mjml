@@ -1,8 +1,9 @@
 <br>
 <p align="center"><a href="http://mjml.io" target="_blank"><img width="250"src="https://cloud.githubusercontent.com/assets/6558790/12672296/7b66d8cc-c675-11e5-805d-c6d196320537.png"></a></p>
 
-[![Build Status](https://travis-ci.org/mjmlio/mjml.svg?branch=master)](https://travis-ci.org/mjmlio/mjml)
-
+<p align="center">
+  <a href="https://travis-ci.org/mjmlio/mjml"><img src="https://travis-ci.org/mjmlio/mjml.svg?branch=master" alt="travis"></a>
+</p>
 
 <p align="center">
 <br>

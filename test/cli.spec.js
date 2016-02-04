@@ -27,6 +27,7 @@ describe('MJML Command Line Interface', () => {
 expect(data).to.equal(
 `
 import React, { Component } from 'react'
+import _ from 'loadash'
 import {
   MJMLColumnElement,
   elements,
@@ -37,7 +38,7 @@ import {
  * Wrap your dependencies here.
  */
 const {
-  mock: MjMock,
+  text: MjText,
 } = elements;
 
 const NAME = 'mock'
@@ -80,13 +81,14 @@ class Mock extends Component {
           content = 'Hello World!'
 
     return (
-      <MjMock style={ css }>
+      <MjText style={ css }>
         { content }
       </MjText>
     )
   }
 }
 
+registerElement('mock', Mock)
 export default Mock
 `
 )

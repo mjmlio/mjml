@@ -124,7 +124,7 @@ class ${name} extends Component {
           content = 'Hello World!'
 
     return (
-      <Mj${name} style={ css }>
+      <MjText style={ css }>
         { content }
       </MjText>
     )

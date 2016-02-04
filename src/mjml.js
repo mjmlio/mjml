@@ -2,9 +2,7 @@
 
 import binary                  from 'commander'
 import mjmlEngine              from './index'
-import mjmlCLI              from './cli'
-
-const engine = mjmlEngine.mjml2html
+import mjmlCLI                 from './cli'
 
 /*
  * If require.main

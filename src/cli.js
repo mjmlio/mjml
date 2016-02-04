@@ -4,6 +4,8 @@ import { tidy as htmltidy }    from 'htmltidy'
 import mjmlEngine              from './index'
 import { version as VERSION }  from '../package.json'
 
+const engine = mjmlEngine.mjml2html
+
 /*
  * The version number is the NPM
  * version number. It should be the same as the MJML engine
@@ -68,6 +70,7 @@ const createComponent = (name, ending) => {
 
 return `
 import React, { Component } from 'react'
+import _ from 'loadash'
 import {
   MJMLColumnElement,
   elements,
@@ -78,7 +81,7 @@ import {
  * Wrap your dependencies here.
  */
 const {
-  ${lowerName}: Mj${name},
+  text: MjText,
 } = elements;
 
 const NAME = '${lowerName}'
@@ -128,6 +131,7 @@ class ${name} extends Component {
   }
 }
 
+registerElement('${lowerName}', ${name}${ending ? ', true' : ''})
 export default ${name}
 `
 }

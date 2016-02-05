@@ -7,9 +7,8 @@
  *    npm test
  *
  */
-import path from 'path'
 import fs from 'fs'
-import cheerio from 'cheerio'
+import assert from 'assert'
 import { expect } from 'chai'
 
 import mjmlCLI from '../src/cli'
@@ -17,14 +16,13 @@ import mjmlCLI from '../src/cli'
 describe('MJML Command Line Interface', () => {
   it('should generate a component code', (done) => {
     const name = 'Mock'
-    const lowerName = name.toLowerCase()
 
     mjmlCLI.initComponent(name, false, false).then(() => {
       fs.readFile(`./${name}.js`, 'utf-8', (err, data) => {
         if(err) {
           assert.fail()
         }
-expect(data).to.equal(
+        expect(data).to.equal(
 `
 import React, { Component } from 'react'
 import _ from 'loadash'

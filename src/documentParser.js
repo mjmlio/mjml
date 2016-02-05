@@ -7,8 +7,9 @@ const internals = {
    * converts MJML body into a JSON representation
    */
   mjmlElementParser(elem) {
-    if (!elem)
+    if (!elem) {
       throw new NullElementError('Null element found in mjmlElementParser')
+    }
 
     const that = internals.mjmlElementParser
     const tagName = elem.tagName

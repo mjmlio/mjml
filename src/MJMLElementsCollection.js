@@ -9,7 +9,7 @@ const MJMLStandardElements = {
   'raw': require('./components/Raw').default,
   'section': require('./components/Section').default,
   'social': require('./components/Social').default,
-  'text': require('./components/Text').default,
+  'text': require('./components/Text').default
 }
 
 export const endingTags = ["mj-text", "mj-html", "mj-button", "mj-list", "mj-raw"]

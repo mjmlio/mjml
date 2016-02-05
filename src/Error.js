@@ -16,11 +16,13 @@ const error = (name, code) => {
 /*
  * Warnings are printed to stderr
  */
+/* eslint-disable no-unused-vars */
 const warning = (name) => {
   return (message) => {
     console.error(`[MJMLWarning] ${name}: ${message}`)
   }
 }
+/* eslint-enable no-unused-vars */
 
 /*
  * Error while parsing the code with cheerio

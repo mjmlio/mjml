@@ -37,7 +37,7 @@ class Column extends Component {
 
   getColumnClass() {
     const { mjAttribute, sibling } = this.props
-    let width = mjAttribute('width')
+    const width = mjAttribute('width')
 
     if (width == undefined) {
       return `mj-column-per-${100/sibling}`
@@ -46,12 +46,12 @@ class Column extends Component {
     const { width: parsedWidth, unit } = widthParser(width)
 
     switch(unit) {
-    case '%':
-      return `mj-column-per-${parsedWidth}`
+      case '%':
+        return `mj-column-per-${parsedWidth}`
 
-    case 'px':
-    default:
-      return `mj-column-px-${parsedWidth}`
+      case 'px':
+      default:
+        return `mj-column-px-${parsedWidth}`
     }
   }
 

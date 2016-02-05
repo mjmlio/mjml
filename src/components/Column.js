@@ -40,7 +40,7 @@ class Column extends Component {
     const width = mjAttribute('width')
 
     if (width == undefined) {
-      return `mj-column-per-${100/sibling}`
+      return `mj-column-per-${parseInt(100/sibling)}`
     }
 
     const { width: parsedWidth, unit } = widthParser(width)

@@ -109,8 +109,6 @@ const internals = {
         </v:rect>
         <![endif]-->
       `)
-
-
     })
 
     $(".mj-body-outlook-open").each(function() {
@@ -150,6 +148,13 @@ const internals = {
       $(this).replaceWith(`<!--[if mso]>
       </td></tr></table>
       <![endif]-->`)
+    })
+
+    $(".outlook-divider-fix").each(function() {
+      const $insertNode = $('<table></table>').css($(this).css())
+
+      $(this).removeClass("outlook-divider-fix")
+             .after(`<!--[if mso]>${$insertNode}<![endif]-->`)
     })
   },
 

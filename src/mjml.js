@@ -28,8 +28,8 @@ const main = () => {
   switch (true) {
     case (!!binary.watch)     : return mjmlCLI.watch(binary.watch, binary)
     case (!!binary.render)    : return mjmlCLI.render(binary.render, binary)
-	  case (!!binary.register)  : console.error("--register option is deprecated, please now use --init-component"); process.exit(1)
-	  case (!!binary.initComponent)  : return mjmlCLI.initComponent(binary.initComponent, binary.ending, false)
+    case (!!binary.register)  : console.error("--register option is deprecated, please now use --init-component"); return process.exit(1)
+    case (!!binary.initComponent)  : return mjmlCLI.initComponent(binary.initComponent, binary.ending, false)
     default                   : return console.log(mjmlCLI.version())
   }
 }
@@ -40,5 +40,6 @@ const main = () => {
  */
 module.exports = mjmlEngine
 
-if (require.main === module)
-  main();
+if (require.main === module) {
+  main()
+}

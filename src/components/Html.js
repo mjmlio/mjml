@@ -12,7 +12,7 @@ import React, { Component } from 'react'
     'padding-bottom': '10px',
     'padding-left': '0',
     'padding-right': '0',
-    'padding-top': '10px',
+    'padding-top': '10px'
   }
 })
 class Html extends Component {

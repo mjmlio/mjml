@@ -15,17 +15,41 @@
     "url": "git+https://github.com/mjmlio/mjml.git"
   },
   "author": {
-    "name" : "Mailjet SAS",
-    "email" : "dev@mailjet.com",
-    "url" : "https://www.mailjet.com/"
+    "name": "Mailjet SAS",
+    "email": "dev@mailjet.com",
+    "url": "https://www.mailjet.com/"
   },
   "contributors": [
-    {"name": "Robin Komiwes", "email": "robin.komiwes@gmail.com", "url": "github.com/robink"},
-    {"name": "Guillaume Badi", "email": "gbadi@mailjet.com", "url": "github.com/GuillaumeBadi"},
-    {"name": "Maxime Brazeilles", "email": "Maxime@derniercri.io", "url": "github.com/iryusa"},
-    {"name": "Arnaud Breton", "email": "abreton@mailjet.com", "url": "github.com/arnaudbreton"},
-    {"name": "Loëck Vézien", "email": "loeck@mailjet.com", "url": "github.com/lohek"},
-    {"name": "Rémi Parmentier", "email": "rparmentier@tilt-studio.fr", "url": "github.com/rparmentier"}
+    {
+      "name": "Robin Komiwes",
+      "email": "robin.komiwes@gmail.com",
+      "url": "github.com/robink"
+    },
+    {
+      "name": "Guillaume Badi",
+      "email": "gbadi@mailjet.com",
+      "url": "github.com/GuillaumeBadi"
+    },
+    {
+      "name": "Maxime Brazeilles",
+      "email": "Maxime@derniercri.io",
+      "url": "github.com/iryusa"
+    },
+    {
+      "name": "Arnaud Breton",
+      "email": "abreton@mailjet.com",
+      "url": "github.com/arnaudbreton"
+    },
+    {
+      "name": "Loëck Vézien",
+      "email": "loeck@mailjet.com",
+      "url": "github.com/lohek"
+    },
+    {
+      "name": "Rémi Parmentier",
+      "email": "rparmentier@tilt-studio.fr",
+      "url": "github.com/rparmentier"
+    }
   ],
   "license": "MIT",
   "bugs": {
@@ -42,7 +66,8 @@
     "eslint-plugin-react": "^3.15.0",
     "eslint": "^1.10.3",
     "chai": "^3.4.1",
-    "mocha": "^2.3.4"
+    "mocha": "^2.3.4",
+    "babel-eslint": "^4.1.8"
   },
   "dependencies": {
     "commander": "^2.9.0",

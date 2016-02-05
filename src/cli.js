@@ -58,7 +58,7 @@ const render = (input, { min, output }) => {
  * Watch changes on a specific input file by calling render on each change
  */
 const watch = (input, options) =>
-  fs.watch(input, (_, file) => render(input, options))
+  fs.watch(input, () => render(input, options))
 
 const capitalize = name => name.charAt(0).toUpperCase() + name.slice(1).toLowerCase().replace(/-/g, '')
 
@@ -68,7 +68,7 @@ const capitalize = name => name.charAt(0).toUpperCase() + name.slice(1).toLowerC
 const createComponent = (name, ending) => {
   const lowerName = name.toLowerCase()
 
-return `
+  return `
 import React, { Component } from 'react'
 import _ from 'loadash'
 import {

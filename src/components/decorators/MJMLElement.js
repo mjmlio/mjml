@@ -20,12 +20,12 @@ const getElementWidth = (element, siblings) => {
   const { width: parsedWidth, unit } = widthParser(width)
 
   switch(unit) {
-  case '%':
-    return parsedWidth * 6 // * 600 / 100
+    case '%':
+      return parsedWidth * 6 // * 600 / 100
 
-  case 'px':
-  default:
-    return parsedWidth
+    case 'px':
+    default:
+      return parsedWidth
   }
 }
 
@@ -119,7 +119,7 @@ function createComponent(ComposedComponent, defaultAttributes) {
     hasReactChildren() {
       const children = this.state.getIn(['elem', 'children'])
 
-      return !children || children.count() === 0 && React.Children.count(this.props.children) >= 1
+      return !children || children.count() === 0 && React.Children.count(this.props.children) >= 1
     }
 
     renderChildren() {
@@ -141,7 +141,7 @@ function createComponent(ComposedComponent, defaultAttributes) {
           }
 
           const props = _.merge(this.childDefaultProps(i), {
-            elem: elem.toJS(),
+            elem: elem.toJS()
           })
 
           return React.createElement(Element, props)

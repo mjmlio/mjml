@@ -10,7 +10,8 @@ import _ from 'lodash'
   attributes: {
     'background-repeat': 'repeat',
     'padding-top': '20px',
-    'padding-bottom': '20px'
+    'padding-bottom': '20px',
+    'background-size': 'auto'
   }
 })
 class Section extends Component {

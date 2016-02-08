@@ -34,6 +34,9 @@ MJML is a markup language designed to reduce the pain of coding a responsive ema
 
 # Installation
 
+## Requirements:
+ - Node >= 4.2.x
+
 <p>
   <a href="https://www.npmjs.com/package/mjml" target="_blank">
     <strong align="left">Via NPM: </strong>

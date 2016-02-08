@@ -9,6 +9,9 @@
     "prepublish": "npm run compile",
     "lint": "eslint src test"
   },
+  "engine": {
+    "node": ">= 4.2.0"
+  },
   "bin": "lib/mjml",
   "repository": {
     "type": "git",

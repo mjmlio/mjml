@@ -8,6 +8,7 @@ import _ from 'lodash'
 @MJMLColumnElement({
   tagName: 'mj-image',
   attributes: {
+    'height': 'auto',
     'padding-bottom': '10px',
     'padding-left': '25px',
     'padding-right': '25px',
@@ -50,7 +51,8 @@ class Image extends Component {
     return _.merge({}, this.constructor.baseStyles, {
       img: {
         border: mjAttribute('border'),
-        maxWidth: this.getContentWidth()
+        maxWidth: this.getContentWidth(),
+        height: mjAttribute('height')
       }
     })
   }
@@ -64,7 +66,8 @@ class Image extends Component {
         border="0"
         src={mjAttribute('src')}
         style={this.styles.img}
-        width={this.styles.img.maxWidth} />
+        width={this.styles.img.maxWidth}
+        height={this.styles.img.height} />
     )
 
     if (mjAttribute('href') != '') {

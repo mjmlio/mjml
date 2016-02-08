@@ -24,7 +24,8 @@ class Divider extends Component {
 
   static baseStyles = {
     p: {
-      fontSize: '1px'
+      fontSize: '1px',
+      margin: '0'
     }
   };
 

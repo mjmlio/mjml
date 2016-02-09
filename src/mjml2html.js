@@ -88,6 +88,9 @@ const internals = {
   },
 
   fixOutlookLayout($) {
+    const bodyWidth = $('.mj-body').data('width')
+    $('.mj-body').removeAttr('data-width')
+
     $(".outlook-background-fix-open").each(function() {
       const url = $(this).data('url')
       $(this).removeClass('outlook-background-fix-open').removeAttr('data-url')
@@ -113,7 +116,7 @@ const internals = {
 
     $(".mj-body-outlook-open").each(function() {
       $(this).replaceWith(`<!--[if mso]>
-  		<table border="0" cellpadding="0" cellspacing="0" width="600" align="center" style="width:600px;"><tr><td>
+  		<table border="0" cellpadding="0" cellspacing="0" width="${bodyWidth}" align="center" style="width:${bodyWidth}px;"><tr><td>
   		<![endif]-->`)
     })
 
@@ -122,7 +125,7 @@ const internals = {
       </td></tr></table>
   		<![endif]-->
   		<!--[if mso]>
-  		<table border="0" cellpadding="0" cellspacing="0" width="600" align="center" style="width:600px;"><tr><td>
+  		<table border="0" cellpadding="0" cellspacing="0" width="${bodyWidth}" align="center" style="width:${bodyWidth}px;"><tr><td>
   		<![endif]-->`)
     })
 

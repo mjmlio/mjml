@@ -5,7 +5,7 @@ import _ from 'lodash'
 import { widthParser } from "../../helpers/mjAttribute"
 import { UnknownMJMLElement } from '../../Error'
 
-const getElementWidth = (element, siblings) => {
+const getElementWidth = (element, siblings, parentWidth) => {
   const { elem } = element.props
   let { width } = element.props
 
@@ -14,14 +14,14 @@ const getElementWidth = (element, siblings) => {
   }
 
   if (width == undefined) {
-    return 600 / siblings
+    return parentWidth / siblings
   }
 
   const { width: parsedWidth, unit } = widthParser(width)
 
   switch(unit) {
     case '%':
-      return parsedWidth * 6 // * 600 / 100
+      return parsedWidth * parentWidth / 100
 
     case 'px':
     default:
@@ -68,18 +68,24 @@ function createComponent(ComposedComponent, defaultAttributes) {
       return this.hasReactChildren() ?  React.Children.count(children) : this.state.getIn(['elem', 'children']).size
     }
 
+    getWidth() {
+      console.log(' -_,>>', this.mjAttribute('rawPxWidth'))
+      return this.mjAttribute('rawPxWidth') || this.mjAttribute('width')
+    }
+
     childDefaultProps(id) {
       return {
         id,
         key: id,
         color: this.mjAttribute('color'),
-        parentWidth: this.mjAttribute('rawPxWidth'),
+        parentWidth: this.getWidth(),
         verticalAlign: this.mjAttribute('vertical-align'),
         sibling: this.siblingsCount()
       }
     }
 
     renderWrappedOutlookChildren() {
+      console.log(this.mjElementName())
       let elements          = this.renderChildren()
       const wrappedElements = []
       const prefix          = `mj-${this.mjElementName()}-outlook`
@@ -94,17 +100,17 @@ function createComponent(ComposedComponent, defaultAttributes) {
       }
 
       elements.forEach((element, n) => {
-        const width = getElementWidth(element, elements.length)
+        const width = getElementWidth(element, elements.length, this.getWidth())
         wrappedElements.push(React.cloneElement(element, {rawPxWidth: width}))
 
         if ( n < elements.length - 1 ) {
-          const nextWidth = getElementWidth(elements[n+1], elements.length)
+          const nextWidth = getElementWidth(elements[n+1], elements.length, this.getWidth())
 
           wrappedElements.push(<div key={`outlook-${n}`}className={`${prefix}-line`} data-width={nextWidth}/>)
         }
       })
 
-      const outlookOpenTag  = <div key="outlook-open" className={`${prefix}-open`} data-width={getElementWidth(elements[0], elements.length)} />
+      const outlookOpenTag  = <div key="outlook-open" className={`${prefix}-open`} data-width={getElementWidth(elements[0], elements.length, this.getWidth())} />
       const outlookCloseTag = <div key="outlook-close" className={`${prefix}-close`} />
 
       return [outlookOpenTag].concat(wrappedElements, [outlookCloseTag])

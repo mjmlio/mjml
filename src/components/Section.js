@@ -18,8 +18,7 @@ class Section extends Component {
 
   static baseStyles = {
     div: {
-      margin: "0 auto",
-      maxWidth: "600px"
+      margin: "0 auto"
     },
     table: {
       width: "100%",
@@ -43,13 +42,10 @@ class Section extends Component {
     const background = mjAttribute('background-url') ? {
       background: `url(${mjAttribute('background-url')}) top center / ${mjAttribute('background-size') || ''} ${mjAttribute('background-repeat') || ''}`
     } : {
-      backgroundColor: mjAttribute('background-color')
+      background: mjAttribute('background-color')
     }
 
     return _.merge({}, this.constructor.baseStyles, {
-      div: this.isFullWidth() ? {} : _.cloneDeep(background),
-      table: this.isFullWidth() ? {} : _.cloneDeep(background),
-      tableFullwidth: this.isFullWidth() ? _.cloneDeep(background) : {},
       td: {
         fontSize: 0,
         verticalAlign: mjAttribute('vertical-align'),
@@ -57,7 +53,14 @@ class Section extends Component {
         paddingBottom: mjAttribute('padding-bottom'),
         paddingRight: mjAttribute('padding-right'),
         paddingLeft: mjAttribute('padding-left')
+      },
+      div: {
+        maxWidth: mjAttribute('parentWidth')
       }
+    }, {
+      div: this.isFullWidth() ? {} : _.cloneDeep(background),
+      table: this.isFullWidth() ? {} : _.cloneDeep(background),
+      tableFullwidth: this.isFullWidth() ? _.cloneDeep(background) : {}
     })
   }
 

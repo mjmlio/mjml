@@ -12,7 +12,7 @@ function createComponent(ComposedComponent, defaultAttributes) {
       return {
         td: {
           fontSize: 0,
-		  padding: mjAttribute('padding'),
+          padding: mjAttribute('padding'),
           paddingTop: mjAttribute('padding-top'),
           paddingBottom: mjAttribute('padding-bottom'),
           paddingRight: mjAttribute('padding-right'),

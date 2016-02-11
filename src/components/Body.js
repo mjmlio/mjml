@@ -9,7 +9,10 @@ import { widthParser } from '../helpers/mjAttribute'
   tagName: 'mj-body',
   attributes: {
     'width': '600'
-  }
+  },
+  inheritedAttributes: [
+    'width'
+  ]
 })
 class Body extends Component {
 

@@ -14,7 +14,6 @@ const getElementWidth = ({element, siblings, parentWidth}) => {
   }
 
   if (width == undefined) {
-    console.log(parentWidth)
     return parentWidth / siblings
   }
 
@@ -40,7 +39,8 @@ function createComponent(ComposedComponent, defaultAttributes) {
       this.state = Immutable.fromJS({
         elem: _.merge({
           children: [],
-          attributes: {}
+          attributes: {},
+          inheritedAttributes: []
         }, defaultAttributes)
       })
 
@@ -61,6 +61,17 @@ function createComponent(ComposedComponent, defaultAttributes) {
 
     mjElementName() {
       return this.state.getIn(['elem', 'tagName']).substr(3)
+    }
+
+    inheritedAttributes() {
+      return _.reduce(this.state.getIn(['elem', 'inheritedAttributes']).toJS(), (result, value) => {
+        result[value] = this.mjAttribute(value)
+        return result
+      }, {})
+    }
+
+    isInheritedAttributes(name) {
+      return _.indexOf(this.state.getIn(['elem', 'inheritedAttributes']).toJS(), name) != -1
     }
 
     siblingsCount() {
@@ -97,6 +108,10 @@ function createComponent(ComposedComponent, defaultAttributes) {
       const parentWidth     = this.getWidth()
       const siblings        = elements.length
       const elementsWidth   = elements.map((element) => {
+        if (this.isInheritedAttributes('width')) {
+          return parentWidth
+        }
+
         return getElementWidth({element, siblings, parentWidth})
       })
 
@@ -104,11 +119,10 @@ function createComponent(ComposedComponent, defaultAttributes) {
         return []
       }
 
-
       elements.forEach((element, n) => {
         const width = elementsWidth[n]
 
-        wrappedElements.push(React.cloneElement(element, {rawPxWidth: width}))
+        wrappedElements.push(React.cloneElement(element, _.merge({rawPxWidth: width}, this.inheritedAttributes())))
 
         if ( n < elements.length - 1 ) {
           wrappedElements.push(<div key={`outlook-${n}`}className={`${prefix}-line`} data-width={elementsWidth[n+1]}/>)

@@ -53,11 +53,11 @@ class Section extends Component {
       td: {
         fontSize: 0,
         verticalAlign: mjAttribute('vertical-align'),
+		padding: mjAttribute('padding'),
         paddingTop: mjAttribute('padding-top'),
         paddingBottom: mjAttribute('padding-bottom'),
         paddingRight: mjAttribute('padding-right'),
-        paddingLeft: mjAttribute('padding-left'),
-        padding: mjAttribute('padding')
+        paddingLeft: mjAttribute('padding-left')
       }
     })
   }

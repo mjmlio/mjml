@@ -75,7 +75,6 @@
   "dependencies": {
     "commander": "^2.9.0",
     "html-minify": "^0.3.1",
-    "htmltidy": "0.0.6",
     "cheerio": "^0.19.0",
     "classnames": "^2.2.0",
     "debug": "^2.2.0",

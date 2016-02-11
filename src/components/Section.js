@@ -56,7 +56,8 @@ class Section extends Component {
         paddingTop: mjAttribute('padding-top'),
         paddingBottom: mjAttribute('padding-bottom'),
         paddingRight: mjAttribute('padding-right'),
-        paddingLeft: mjAttribute('padding-left')
+        paddingLeft: mjAttribute('padding-left'),
+		padding: mjAttribute('padding')
       }
     })
   }

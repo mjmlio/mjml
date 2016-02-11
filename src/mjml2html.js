@@ -27,9 +27,9 @@ const internals = {
     return render
   },
 
-  render(options) {
-    const elem    = options.mjml
-    let content   = ""
+  render({ mjml, options }) {
+    const elem  = mjml
+    let content = ""
 
     if (elem) {
       const propsElement = {
@@ -176,12 +176,12 @@ const internals = {
     })
   },
 
-  container(subject) {
+  container(title = '') {
     return `<!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>${subject}</title>
+  <title>${title}</title>
   <style type="text/css">
     ${defaultStyle}
   </style>

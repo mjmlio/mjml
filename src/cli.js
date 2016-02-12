@@ -40,7 +40,7 @@ const exists  = promisify((file, cb) => fs.access(file, fs.R_OK | fs.W_OK, cb))
  * Turns an MJML input file into a pretty HTML file
  * min: boolean that specify the output format (pretty/minified)
  */
-const render = (input, { min, output, register }) => {
+const render = (input, { min, output }) => {
   exists(input)
     .then(()      => read(input))
     .then(mjml    => engine(mjml.toString()))

@@ -1,6 +1,5 @@
 import fs                      from 'fs'
 import minify                  from 'html-minify'
-import { tidy as htmltidy }    from 'htmltidy'
 import mjmlEngine              from './index'
 import { version as VERSION }  from '../package.json'
 
@@ -26,20 +25,16 @@ const promisify = fn =>
  */
 const error   = (e) => {
   console.log(e.stack ? e.stack : e)
-  process.exit(42)
 }
 
 /*
  * Utility functions
  * write: write to a file
- * pretty: prettify an html file
  * read: read a fileexists: ensure the file exists
  */
 const write   = promisify(fs.writeFile)
 const read    = promisify(fs.readFile)
 const exists  = promisify((file, cb) => fs.access(file, fs.R_OK | fs.W_OK, cb))
-const pretty  = (html) =>
-  promisify(htmltidy)(html, { indent: true, wrap: 0, bare: true })
 
 /*
  * Turns an MJML input file into a pretty HTML file
@@ -49,7 +44,7 @@ const render = (input, { min, output }) => {
   exists(input)
     .then(()      => read(input))
     .then(mjml    => engine(mjml.toString()))
-    .then(html    => min ? minify(html) : pretty(html))
+    .then(html    => min ? minify(html) : html)
     .then(result  => write(output, result))
     .catch(error)
 }
@@ -58,7 +53,8 @@ const render = (input, { min, output }) => {
  * Watch changes on a specific input file by calling render on each change
  */
 const watch = (input, options) =>
-  fs.watch(input, () => render(input, options))
+  fs.watch(input, () =>
+    render(input, options))
 
 const capitalize = name => name.charAt(0).toUpperCase() + name.slice(1).toLowerCase().replace(/-/g, '')
 

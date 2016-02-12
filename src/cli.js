@@ -40,7 +40,7 @@ const exists  = promisify((file, cb) => fs.access(file, fs.R_OK | fs.W_OK, cb))
  * Turns an MJML input file into a pretty HTML file
  * min: boolean that specify the output format (pretty/minified)
  */
-const render = (input, { min, output }) => {
+const render = (input, { min, output, register }) => {
   exists(input)
     .then(()      => read(input))
     .then(mjml    => engine(mjml.toString()))
@@ -52,11 +52,9 @@ const render = (input, { min, output }) => {
 /*
  * Watch changes on a specific input file by calling render on each change
  */
-const watch = (input, options) => {
-  fs.watch(input, () => {
-      render(input, options)
-  })
-}
+const watch = (input, options) =>
+  fs.watch(input, () =>
+    render(input, options))
 
 const capitalize = name => name.charAt(0).toUpperCase() + name.slice(1).toLowerCase().replace(/-/g, '')
 

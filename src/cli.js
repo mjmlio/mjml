@@ -25,7 +25,6 @@ const promisify = fn =>
  */
 const error   = (e) => {
   console.log(e.stack ? e.stack : e)
-  process.exit(42)
 }
 
 /*
@@ -53,8 +52,11 @@ const render = (input, { min, output }) => {
 /*
  * Watch changes on a specific input file by calling render on each change
  */
-const watch = (input, options) =>
-  fs.watch(input, () => render(input, options))
+const watch = (input, options) => {
+  fs.watch(input, () => {
+      render(input, options)
+  })
+}
 
 const capitalize = name => name.charAt(0).toUpperCase() + name.slice(1).toLowerCase().replace(/-/g, '')
 

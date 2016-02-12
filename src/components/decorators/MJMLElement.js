@@ -5,7 +5,7 @@ import _ from 'lodash'
 import { widthParser } from "../../helpers/mjAttribute"
 import { UnknownMJMLElement } from '../../Error'
 
-const getElementWidth = (element, siblings) => {
+const getElementWidth = ({element, siblings, parentWidth}) => {
   const { elem } = element.props
   let { width } = element.props
 
@@ -14,14 +14,14 @@ const getElementWidth = (element, siblings) => {
   }
 
   if (width == undefined) {
-    return 600 / siblings
+    return parentWidth / siblings
   }
 
   const { width: parsedWidth, unit } = widthParser(width)
 
   switch(unit) {
     case '%':
-      return parsedWidth * 6 // * 600 / 100
+      return parsedWidth * parentWidth / 100
 
     case 'px':
     default:
@@ -39,7 +39,8 @@ function createComponent(ComposedComponent, defaultAttributes) {
       this.state = Immutable.fromJS({
         elem: _.merge({
           children: [],
-          attributes: {}
+          attributes: {},
+          inheritedAttributes: []
         }, defaultAttributes)
       })
 
@@ -62,10 +63,25 @@ function createComponent(ComposedComponent, defaultAttributes) {
       return this.state.getIn(['elem', 'tagName']).substr(3)
     }
 
+    inheritedAttributes() {
+      return _.reduce(this.state.getIn(['elem', 'inheritedAttributes']).toJS(), (result, value) => {
+        result[value] = this.mjAttribute(value)
+        return result
+      }, {})
+    }
+
+    isInheritedAttributes(name) {
+      return _.indexOf(this.state.getIn(['elem', 'inheritedAttributes']).toJS(), name) != -1
+    }
+
     siblingsCount() {
       const children = this.state.getIn(['elem', 'children'])
 
       return this.hasReactChildren() ?  React.Children.count(children) : this.state.getIn(['elem', 'children']).size
+    }
+
+    getWidth() {
+      return this.mjAttribute('rawPxWidth') || this.mjAttribute('width')
     }
 
     childDefaultProps(id) {
@@ -73,7 +89,7 @@ function createComponent(ComposedComponent, defaultAttributes) {
         id,
         key: id,
         color: this.mjAttribute('color'),
-        parentWidth: this.mjAttribute('rawPxWidth'),
+        parentWidth: this.getWidth(),
         verticalAlign: this.mjAttribute('vertical-align'),
         sibling: this.siblingsCount()
       }
@@ -81,30 +97,39 @@ function createComponent(ComposedComponent, defaultAttributes) {
 
     renderWrappedOutlookChildren() {
       let elements          = this.renderChildren()
-      const wrappedElements = []
-      const prefix          = `mj-${this.mjElementName()}-outlook`
 
       if (elements && elements.get) {
         // had to break immutable here :(
         elements = elements.toArray()
       }
 
-      if (elements.length == 0) {
+      const wrappedElements = []
+      const prefix          = `mj-${this.mjElementName()}-outlook`
+      const parentWidth     = this.getWidth()
+      const siblings        = elements.length
+      const elementsWidth   = elements.map((element) => {
+        if (this.isInheritedAttributes('width')) {
+          return parentWidth
+        }
+
+        return getElementWidth({element, siblings, parentWidth})
+      })
+
+      if (siblings == 0) {
         return []
       }
 
       elements.forEach((element, n) => {
-        const width = getElementWidth(element, elements.length)
-        wrappedElements.push(React.cloneElement(element, {rawPxWidth: width}))
+        const width = elementsWidth[n]
+
+        wrappedElements.push(React.cloneElement(element, _.merge({rawPxWidth: width}, this.inheritedAttributes())))
 
         if ( n < elements.length - 1 ) {
-          const nextWidth = getElementWidth(elements[n+1], elements.length)
-
-          wrappedElements.push(<div key={`outlook-${n}`}className={`${prefix}-line`} data-width={nextWidth}/>)
+          wrappedElements.push(<div key={`outlook-${n}`}className={`${prefix}-line`} data-width={elementsWidth[n+1]}/>)
         }
       })
 
-      const outlookOpenTag  = <div key="outlook-open" className={`${prefix}-open`} data-width={getElementWidth(elements[0], elements.length)} />
+      const outlookOpenTag  = <div key="outlook-open" className={`${prefix}-open`} data-width={elementsWidth[0]} />
       const outlookCloseTag = <div key="outlook-close" className={`${prefix}-close`} />
 
       return [outlookOpenTag].concat(wrappedElements, [outlookCloseTag])

@@ -30,7 +30,11 @@ class Column extends Component {
         verticalAlign: mjAttribute('vertical-align'),
         fontSize: "13",
         textAlign: "left",
+        width: "100%",
         minWidth: mjAttribute('width')
+      },
+      table: {
+        background: mjAttribute('background-color')
       }
     })
   }
@@ -64,8 +68,7 @@ class Column extends Component {
 
     return (
       <div style={this.styles.div} className={mjColumnClass} aria-labelledby={mjColumnClass} data-column-width={parseInt(width)}>
-        <table
-          width="100%">
+        <table style={this.styles.table} data-legacy-background={mjAttribute('background')} width="100%">
           <tbody>
             {renderChildren()}
           </tbody>

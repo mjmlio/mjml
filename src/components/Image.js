@@ -31,7 +31,8 @@ class Image extends Component {
       border: 'none',
       display: 'block',
       outline: 'none',
-      textDecoration: 'none'
+      textDecoration: 'none',
+      width: "100%"
     }
   };
 

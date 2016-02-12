@@ -88,9 +88,16 @@ const internals = {
   },
 
   fixOutlookLayout($) {
+    const bodyWidth = $('.mj-body').data('width')
+    $('.mj-body').removeAttr('data-width')
+
     $(".outlook-background-fix-open").each(function() {
       const url = $(this).data('url')
-      $(this).removeClass('outlook-background-fix-open').removeAttr('data-url')
+      const width = $(this).data('width')
+
+      $(this).removeClass('outlook-background-fix-open')
+             .removeAttr('data-url')
+             .removeAttr('data-width')
 
       if (!url) {
         return;
@@ -98,7 +105,7 @@ const internals = {
 
       $(this).before(`
           <!--[if gte mso 9]>
-          <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;">
+          <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:${width}px;">
             <v:fill origin="0.5, 0" position="0.5,0" type="tile" src="${url}" />
             <v:textbox style="mso-fit-shape-to-text:true" inset="0,0,0,0">
           <![endif]-->`)
@@ -113,7 +120,7 @@ const internals = {
 
     $(".mj-body-outlook-open").each(function() {
       $(this).replaceWith(`<!--[if mso]>
-  		<table border="0" cellpadding="0" cellspacing="0" width="600" align="center" style="width:600px;"><tr><td>
+  		<table border="0" cellpadding="0" cellspacing="0" width="${bodyWidth}" align="center" style="width:${bodyWidth}px;"><tr><td>
   		<![endif]-->`)
     })
 
@@ -122,7 +129,7 @@ const internals = {
       </td></tr></table>
   		<![endif]-->
   		<!--[if mso]>
-  		<table border="0" cellpadding="0" cellspacing="0" width="600" align="center" style="width:600px;"><tr><td>
+  		<table border="0" cellpadding="0" cellspacing="0" width="${bodyWidth}" align="center" style="width:${bodyWidth}px;"><tr><td>
   		<![endif]-->`)
     })
 
@@ -134,13 +141,13 @@ const internals = {
 
     $(".mj-section-outlook-open").each(function() {
       $(this).replaceWith(`<!--[if mso]>
-      <table border="0" cellpadding="0" cellspacing="0"><tr><td style="width:${$(this).data('width')}px;">
+      <table border="0" cellpadding="0" cellspacing="0"><tr><td style="width:${parseInt($(this).data('width'))}px;">
       <![endif]-->`)
     })
 
     $(".mj-section-outlook-line").each(function() {
       $(this).replaceWith(`<!--[if mso]>
-      </td><td style="width:${$(this).data('width')}px;">
+      </td><td style="width:${parseInt($(this).data('width'))}px;">
       <![endif]-->`)
     })
 

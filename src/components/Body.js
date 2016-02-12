@@ -34,7 +34,10 @@ class Body extends Component {
     this.styles = this.getStyles()
 
     return (
-      <div className="mj-body" style={this.styles.div} data-background-color={mjAttribute('background-color')} data-width={width}>
+      <div className="mj-body"
+           style={this.styles.div}
+           data-background-color={mjAttribute('background-color')}
+           data-width={width}>
         {renderWrappedOutlookChildren()}
       </div>
     )

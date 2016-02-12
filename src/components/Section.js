@@ -68,7 +68,12 @@ class Section extends Component {
     const { mjAttribute } = this.props
 
     return (
-      <table data-legacy-background={mjAttribute('background-url')}border="0" cellPadding="0" cellSpacing="0" style={_.merge({}, this.styles.tableFullwidth, this.styles.table)}>
+      <table data-legacy-background={mjAttribute('background-url')}
+             border="0"
+             cellPadding="0"
+             cellSpacing="0"
+             data-width={mjAttribute('parentWidth')}
+             style={_.merge({}, this.styles.tableFullwidth, this.styles.table)}>
         <tbody>
           <tr>
             <td>
@@ -86,7 +91,15 @@ class Section extends Component {
 
     return (
       <div style={this.styles.div}>
-        <table className="outlook-background-fix-open" data-url={mjAttribute('background-url') || ''} data-legacy-background={fullWidth ? undefined : mjAttribute('background-url')} border="0" cellPadding="0" cellSpacing="0" data-legacy-align="center" style={this.styles.table}>
+        <table className="outlook-background-fix-open"
+               data-url={mjAttribute('background-url') || ''}
+               data-legacy-background={fullWidth ? undefined : mjAttribute('background-url')}
+               border="0"
+               cellPadding="0"
+               cellSpacing="0"
+               data-legacy-align="center"
+               data-width={mjAttribute('parentWidth')}
+               style={this.styles.table}>
           <tbody>
             <tr>
               <td style={this.styles.td}>

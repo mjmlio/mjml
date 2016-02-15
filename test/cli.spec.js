@@ -25,7 +25,7 @@ describe('MJML Command Line Interface', () => {
         expect(data).to.equal(
 `
 import React, { Component } from 'react'
-import _ from 'loadash'
+import _ from 'lodash'
 import {
   MJMLColumnElement,
   elements,

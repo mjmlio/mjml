@@ -9,10 +9,7 @@ import _ from 'lodash'
   tagName: 'mj-image',
   attributes: {
     'height': 'auto',
-    'padding-bottom': '10px',
-    'padding-left': '25px',
-    'padding-right': '25px',
-    'padding-top': '10px',
+    'padding': '10 25',
     'align': 'center',
     'alt': '',
     'border': 'none',

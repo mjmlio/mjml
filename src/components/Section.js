@@ -9,8 +9,7 @@ import _ from 'lodash'
   tagName: 'mj-section',
   attributes: {
     'background-repeat': 'repeat',
-    'padding-top': '20px',
-    'padding-bottom': '20px',
+    'padding': '20 0'
     'background-size': 'auto'
   }
 })

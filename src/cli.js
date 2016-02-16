@@ -66,7 +66,7 @@ const createComponent = (name, ending) => {
 
   return `
 import React, { Component } from 'react'
-import _ from 'loadash'
+import _ from 'lodash'
 import {
   MJMLColumnElement,
   elements,

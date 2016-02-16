@@ -21,7 +21,7 @@ import _ from 'lodash'
     'linkedin-content': 'Share',
     'linkedin-href': '[[SHORT_PERMALINK]]',
     'linkedin-icon-color' : '#0077b5',
-    'padding': '10 25',
+    'padding': '10px 25px',
     'mode': 'horizontal',
     'pinterest-content': 'Pin it',
     'pinterest-href': '[[SHORT_PERMALINK]]',

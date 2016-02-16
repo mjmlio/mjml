@@ -12,7 +12,7 @@ import _ from 'lodash'
     'border-style': 'solid',
     'border-width': '4px',
     'horizontal-spacing': '10px',
-    'padding': '10 25',
+    'padding': '10px 25px',
     'vertical-spacing': '30px',
     'width': '150px'
   }

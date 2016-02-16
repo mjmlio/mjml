@@ -14,7 +14,7 @@ import _ from 'lodash'
     'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
     'font-size': '13px',
     'line-height': '22px',
-    'padding': '10 25'
+    'padding': '10px 25px'
   }
 })
 class List extends Component {

@@ -33,12 +33,12 @@ import _ from 'lodash'
     'twitter-icon-color': '#55acee',
     'align': 'center',
     'color': '#333333',
-    'facebook': true,
-    'google': true,
-    'instagram': true,
-    'linkedin': true,
-    'pinterest': true,
-    'twitter': true,
+    'facebook': false,
+    'google': false,
+    'instagram': false,
+    'linkedin': false,
+    'pinterest': false,
+    'twitter': false,
     'base-url': 'https://www.mailjet.com/images/theme/v1/icons/ico-social/'
   }
 })
@@ -124,11 +124,11 @@ class Social extends Component {
         textDecoration: mjAttribute('text-decoration')
       },
       td1: {
-        padding: "0 8px"
+        padding: "8px 0"
       },
       td2: {
         width: mjAttribute('icon-size'),
-        height: mjAttribute('height')
+        height: mjAttribute('icon-size')
       }
     })
   }
@@ -170,8 +170,8 @@ class Social extends Component {
                 <td style={this.styles.td2}>
                   <a href={href}>
                     <img src={mjAttribute('base-url') + definition.icon}
-                        width={mjAttribute('icon-size')}
-                        height={mjAttribute('icon-size')}
+                        width={parseInt(mjAttribute('icon-size'))}
+                        height={parseInt(mjAttribute('icon-size'))}
                         alt={platform}
                         border="0"
                         style={this.styles.img} />

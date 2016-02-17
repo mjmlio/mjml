@@ -8,90 +8,61 @@
  *
  */
 import fs from 'fs'
-import assert from 'assert'
+import path from 'path'
+import fsp from 'fs-promise'
 import { expect } from 'chai'
-
 import mjmlCLI from '../src/cli'
 
-describe('MJML Command Line Interface', () => {
-  it('should generate a component code', (done) => {
-    const name = 'Mock'
-
-    mjmlCLI.initComponent(name, false, false).then(() => {
-      fs.readFile(`./${name}.js`, 'utf-8', (err, data) => {
-        if(err) {
-          assert.fail()
-        }
-        expect(data).to.equal(
-`
-import React, { Component } from 'react'
-import _ from 'lodash'
-import {
-  MJMLColumnElement,
-  elements,
-  registerElement,
-} from 'mjml'
-
-/*
- * Wrap your dependencies here.
+/**
+ * Simple formatting: isolate the '<' and '>' characters and change space and tabs to new lines
+ * TODO:
+ *  - This format function is the same as input-output.spec.js, maybe we can put them in the same place?
  */
-const {
-  text: MjText,
-} = elements;
-
-const NAME = 'mock'
-
-@MJMLColumnElement({
-  tagName: 'mj-mock',
-  content: ' ',
-
-  /*
-   * These are your default css attributes
-   */
-  attributes: {
-    'color': '#424242',
-    'font-family': 'Helvetica',
-    'margin-top': '10px'
-  }
-})
-class Mock extends Component {
-
-  /*
-   * Build your styling here
-   */
-  getStyles() {
-    const { mjAttribute, color } = this.props
-
-    return _.merge({}, this.constructor.baseStyles, {
-      text: {
-      /*
-       * Get the color attribute
-       * Example: <mj-mock color="blue">content</mj-mock>
-       */
-        color: mjAttribute('color')
-      }
-    })
+const format = (input) => {
+  if (input) {
+    return input.toLowerCase().replace(/>/g, ' > ').replace(/</g, ' < ').match(/\S+/g).join('\n')
   }
 
-  render() {
-
-    const css = this.getStyles(),
-          content = 'Hello World!'
-
-    return (
-      <MjText style={ css }>
-        { content }
-      </MjText>
-    )
-  }
+  return null
 }
 
-registerElement('mock', Mock)
-export default Mock
-`
-)
-        fs.unlink(`./${name}.js`)
-        done()
+/**
+ * Compare two given files, returns a Promise.
+ * Starts by reading the files using the promise version of fs, then formats it for an easy comparison
+ */
+const compareFiles = (fileToCompare, expectedFile) => {
+  const files = [fileToCompare, expectedFile]
+
+  return Promise.all(files.map(file => {
+    return fsp.readFile(file, {encoding:'utf8'})
+      .then(fileContent => format(fileContent))
+  }))
+    .then(filesContentFormatted => {
+      expect(filesContentFormatted[0]).to.equal(filesContentFormatted[1])
+    })
+}
+
+describe('MJML Command Line Interface', () => {
+  const componentName = 'Mock'
+
+  describe('init-component', () => {
+    afterEach(function () {
+      fs.unlink(`./${componentName}.js`)
+    })
+
+    it('should generate a component code', (done) => {
+      mjmlCLI.initComponent(componentName, false, false).then(() => {
+        compareFiles(`./${componentName}.js`, path.join(__dirname, 'assets/generatedComponent.js'))
+          .then(done)
+          .catch(done)
+      })
+    })
+
+    it('should generate a component with ending tag', (done) => {
+      mjmlCLI.initComponent(componentName, true, false).then(() => {
+        compareFiles(`./${componentName}.js`, path.join(__dirname, 'assets/generatedComponentEndingTag.js'))
+          .then(done)
+          .catch(done)
       })
     })
   })

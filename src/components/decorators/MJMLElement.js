@@ -2,7 +2,7 @@ import Immutable from 'immutable'
 import MJMLElementsCollection from '../../MJMLElementsCollection'
 import React, { Component } from 'react'
 import _ from 'lodash'
-import { widthParser } from "../../helpers/mjAttribute"
+import { widthParser, paddingParser } from "../../helpers/mjAttribute"
 import { UnknownMJMLElement } from '../../Error'
 
 const getElementWidth = ({element, siblings, parentWidth}) => {
@@ -182,6 +182,7 @@ function createComponent(ComposedComponent, defaultAttributes) {
           mjContent={::this.mjContent}
           mjElementName={::this.mjElementName}
           renderChildren={::this.renderChildren}
+          getPadding={paddingParser.bind(this)}
           renderWrappedOutlookChildren={::this.renderWrappedOutlookChildren} />
       )
     }

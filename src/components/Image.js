@@ -9,10 +9,7 @@ import _ from 'lodash'
   tagName: 'mj-image',
   attributes: {
     'height': 'auto',
-    'padding-bottom': '10px',
-    'padding-left': '25px',
-    'padding-right': '25px',
-    'padding-top': '10px',
+    'padding': '10px 25px',
     'align': 'center',
     'alt': '',
     'border': 'none',
@@ -37,10 +34,11 @@ class Image extends Component {
   };
 
   getContentWidth() {
-    const { mjAttribute } = this.props
+    const { mjAttribute, getPadding } = this.props
     const width = _.min([parseInt(mjAttribute('width')), parseInt(mjAttribute('parentWidth'))])
-    const paddingRight = parseInt(mjAttribute('padding-left')) || 0
-    const paddingLeft = parseInt(mjAttribute('padding-right')) || 0
+
+    const paddingRight = getPadding('right')
+    const paddingLeft = getPadding('left')
     const widthOverflow = paddingLeft + paddingRight + width - parseInt(mjAttribute('parentWidth'))
 
     return widthOverflow > 0 ? width - widthOverflow : width

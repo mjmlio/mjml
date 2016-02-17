@@ -15,10 +15,7 @@ import _ from 'lodash'
     'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
     'font-size': '13px',
     'line-height': '22px',
-    'padding-bottom': '10px',
-    'padding-left': '25px',
-    'padding-right': '25px',
-    'padding-top': '10px'
+    'padding': '10px 25px'
   }
 })
 class Text extends Component {

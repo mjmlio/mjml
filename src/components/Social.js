@@ -38,53 +38,74 @@ import _ from 'lodash'
     'instagram': true,
     'linkedin': true,
     'pinterest': true,
-    'twitter': true
+    'twitter': true,
+    'base-url': 'https://www.mailjet.com/images/theme/v1/icons/ico-social/'
   }
 })
 class Social extends Component {
 
   static baseStyles = {
-    a: {
-      textDecoration: 'none'
+    div: {
+      textAlign: "center"
+    },
+    tableHorizontal: {
+      float: "none",
+      display: "inline-table"
+    },
+    tableVertical: {
+      margin: "0 auto"
     },
     td1: {
-      paddingRight: '16px',
-      paddingBottom: '16px'
+      verticalAlign: "middle"
     },
-    td2: {
-      paddingLeft: '8px'
+    td2:  {
+      textAlign: "center",
+      verticalAlign: "middle"
+    },
+    tdText: {
+      padding: "0 8px",
+      verticalAlign: "middle"
+    },
+    a: {
+      textDecoration: 'none',
+      display: "block",
+      borderRadius: 3
+    },
+    img: {
+      display: 'block',
+      borderRadius: '3px'
     }
   };
 
   static buttonDefinitions = {
     facebook: {
       linkAttribute: 'https://www.facebook.com/sharer/sharer.php?u=[[URL]]',
-      icon: 'https://www.mailjet.com/images/theme/v1/icons/ico-social/facebook.png',
+      icon: 'facebook.png',
       textModeContent: 'Share'
     },
     twitter: {
       linkAttribute: 'https://twitter.com/home?status=[[URL]]',
-      icon: 'https://www.mailjet.com/images/theme/v1/icons/ico-social/twitter.png',
+      icon: 'twitter.png',
       textModeContent: 'Tweet'
     },
     google: {
       linkAttribute: 'https://plus.google.com/share?url=[[URL]]',
-      icon: 'https://www.mailjet.com/images/theme/v1/icons/ico-social/google-plus.png',
+      icon: 'google-plus.png',
       textModeContent: '+1'
     },
     pinterest: {
       linkAttribute: 'https://pinterest.com/pin/create/button/?url=[[URL]]&ampmedia=&ampdescription=',
-      icon: 'https://www.mailjet.com/images/theme/v1/icons/ico-social/pinterest.png',
+      icon: 'pinterest.png',
       textModeContent: 'Pin it'
     },
     linkedin: {
       linkAttribute: 'https://www.linkedin.com/shareArticle?mini=true&ampurl=[[URL]]&amptitle=&ampsummary=&ampsource=',
-      icon: 'https://www.mailjet.com/images/theme/v1/icons/ico-social/linkedin.png',
+      icon: 'linkedin.png',
       textModeContent: 'Share'
     },
     instagram: {
       linkAttribute: '[[URL]]',
-      icon: 'https://www.mailjet.com/images/theme/v1/icons/ico-social/instagram.png',
+      icon: 'instagram.png',
       textModeContent: 'Share'
     }
   };
@@ -103,9 +124,19 @@ class Social extends Component {
         textDecoration: mjAttribute('text-decoration')
       },
       td1: {
-        paddingRight: !this.isInTextMode() ? '8px' : null
+        padding: "0 8px"
+      },
+      td2: {
+        width: mjAttribute('icon-size'),
+        height: mjAttribute('height')
       }
     })
+  }
+
+  isHorizontal() {
+    const { mjAttribute } = this.props
+
+    return mjAttribute('mode') == 'horizontal'
   }
 
   isButtonVisible(platform) {
@@ -120,100 +151,89 @@ class Social extends Component {
     return mjAttribute('text-mode') == true || mjAttribute('text-mode') == 'true'
   }
 
-  renderSocialButtons() {
+  renderSocialButton(platform) {
     const { mjAttribute } = this.props
+    const definition = this.constructor.buttonDefinitions[platform]
+    const href = definition.linkAttribute.replace('[[URL]]', mjAttribute(`${platform}-href`))
+    const iconStyle = {
+      background: mjAttribute(`${platform}-icon-color`),
+      width: mjAttribute('icon-size'),
+      borderRadius: 3
+    }
 
-    const renderedButtons = []
+    return (
+      <tr key={platform}>
+        <td style={this.styles.td1}>
+          <table border="0" cellPadding="0" cellSpacing="0" style={iconStyle}>
+            <tbody>
+              <tr>
+                <td style={this.styles.td2}>
+                  <a href={href}>
+                    <img src={mjAttribute('base-url') + definition.icon}
+                        width={mjAttribute('icon-size')}
+                        height={mjAttribute('icon-size')}
+                        alt={platform}
+                        border="0"
+                        style={this.styles.img} />
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+        { this.isInTextMode() &&
+        <td style={this.styles.tdText}>
+          <a style={this.styles.a}
+             dangerouslySetInnerHTML={{ __html: mjAttribute(`${platform}-content`) }}
+             href={href}/>
+         </td> }
+      </tr>
+    )
+  }
 
+  renderSocialButtons() {
+    const socialButtons = []
     for (const platform in this.constructor.buttonDefinitions) {
       if (!this.isButtonVisible(platform)) {
         continue
       }
 
-      const definition = this.constructor.buttonDefinitions[platform]
-      const iconStyle = {
-        backgroundColor: mjAttribute(`${platform}-icon-color`),
-        width: mjAttribute('icon-size'),
-        borderRadius: 3
-      }
+      socialButtons.push(this.renderSocialButton(platform))
+    }
 
-      const renderedButton = (
-        <table
-          border="0"
-          cellPadding="0"
-          cellSpacing="0"
-          data-legacy-align="left"
-          key={platform}>
+    return socialButtons
+  }
+
+  renderHorizontal() {
+    return this.renderSocialButtons().map((socialButton) => {
+      return (
+        <table border="0" cellPadding="0" cellSpacing="0" data-legacy-align="left" style={this.styles.tableHorizontal}>
           <tbody>
-            <tr>
-              <td style={this.styles.td1}>
-                <table
-                  border="0"
-                  cellPadding="0"
-                  cellSpacing="0">
-                  <tbody>
-                    <tr>
-                      <td data-legacy-valign="middle">
-                        <a
-                          href={definition.linkAttribute.replace('[[URL]]', mjAttribute(`${platform}-href`))}
-                          style={this.styles.a}>
-                          <img
-                            alt={mjAttribute(`${platform}-content`)}
-                            src={definition.icon}
-                            style={iconStyle} />
-                        </a>
-                      </td>
-                      { this.isInTextMode() &&
-                        <td
-                          data-legacy-valign="middle"
-                          style={this.styles.td2}>
-                          <a
-                            dangerouslySetInnerHTML={{ __html: mjAttribute(`${platform}-content`) }}
-                            href={definition.linkAttribute.replace('[[URL]]', mjAttribute(`${platform}-href`))}
-                            style={this.styles.a} />
-                        </td> }
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
+            {socialButton}
           </tbody>
         </table>
       )
-
-      if (mjAttribute('mode') == 'vertical') {
-        renderedButtons.push(<div key={`${platform}-container`}>{renderedButton}</div>)
-      }
-      else {
-        renderedButtons.push(renderedButton)
-      }
-    }
-
-    return renderedButtons
+    })
   }
 
-  render() {
-    const { mjAttribute } = this.props
-
-    this.styles = this.getStyles()
-
+  renderVertical() {
     return (
-      <table
-        border="0"
-        cellPadding="0"
-        cellSpacing="0"
-        data-legacy-align={mjAttribute('align')}>
+      <table border="0" cellPadding="0" cellSpacing="0" align="center" style={this.styles.tableVertical}>
         <tbody>
-          <tr>
-            <td
-              data-legacy-align={mjAttribute('align')}
-              data-legacy-valign="middle">
-              {this.renderSocialButtons()}
-            </td>
-          </tr>
+          {this.renderSocialButtons()}
         </tbody>
       </table>
     )
+  }
+
+  render() {
+    this.styles = this.getStyles()
+
+    return (
+      <div style={this.styles.div}>
+       { this.isHorizontal() ? this.renderHorizontal() : this.renderVertical() }
+     </div>
+   )
   }
 
 }

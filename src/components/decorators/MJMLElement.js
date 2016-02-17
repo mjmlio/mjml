@@ -56,7 +56,7 @@ function createComponent(ComposedComponent, defaultAttributes) {
     }
 
     mjContent() {
-      return _.trim(this.state.getIn(['elem', 'content'])) || React.renderToStaticMarkup(this.props.children)
+      return _.trim(this.state.getIn(['elem', 'content'])) || (this.props.children && React.renderToStaticMarkup(this.props.children))
     }
 
     mjElementName() {

@@ -63,7 +63,7 @@ class Social extends Component {
     a: {
       textDecoration: 'none',
       display: "block",
-      borderRadius: 3
+      borderRadius: "3px"
     },
     img: {
       display: 'block',

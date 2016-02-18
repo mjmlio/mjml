@@ -33,12 +33,6 @@ import _ from 'lodash'
     'twitter-icon-color': '#55acee',
     'align': 'center',
     'color': '#333333',
-    'facebook': false,
-    'google': false,
-    'instagram': false,
-    'linkedin': false,
-    'pinterest': false,
-    'twitter': false,
     'base-url': 'https://www.mailjet.com/images/theme/v1/icons/ico-social/'
   }
 })
@@ -139,12 +133,6 @@ class Social extends Component {
     return mjAttribute('mode') == 'horizontal'
   }
 
-  isButtonVisible(platform) {
-    const { mjAttribute } = this.props
-
-    return mjAttribute(platform) == true || mjAttribute(platform) == 'true'
-  }
-
   isInTextMode() {
     const { mjAttribute } = this.props
 
@@ -192,16 +180,22 @@ class Social extends Component {
   }
 
   renderSocialButtons() {
-    const socialButtons = []
-    for (const platform in this.constructor.buttonDefinitions) {
-      if (!this.isButtonVisible(platform)) {
-        continue
-      }
+    const { mjAttribute } = this.props
+    const platforms = mjAttribute('display')
 
-      socialButtons.push(this.renderSocialButton(platform))
+    if (!platforms) {
+      return;
     }
 
-    return socialButtons
+    return platforms.split(' ').map( (platform) => {
+      console.log(platform, this.constructor.buttonDefinitions[platform] )
+
+      if (!this.constructor.buttonDefinitions[platform]) {
+        return;
+      }
+
+      return this.renderSocialButton(platform)
+    })
   }
 
   renderHorizontal() {

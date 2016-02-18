@@ -56,7 +56,7 @@ function createComponent(ComposedComponent, defaultAttributes) {
     }
 
     mjContent() {
-      return _.trim(this.state.getIn(['elem', 'content'])) || React.renderToStaticMarkup(this.props.children)
+      return _.trim(this.state.getIn(['elem', 'content'])) || (this.props.children && React.renderToStaticMarkup(this.props.children))
     }
 
     mjElementName() {
@@ -103,7 +103,6 @@ function createComponent(ComposedComponent, defaultAttributes) {
         elements = elements.toArray()
       }
 
-      const wrappedElements = []
       const prefix          = `mj-${this.mjElementName()}-outlook`
       const parentWidth     = this.getWidth()
       const siblings        = elements.length
@@ -119,20 +118,19 @@ function createComponent(ComposedComponent, defaultAttributes) {
         return []
       }
 
-      elements.forEach((element, n) => {
-        const width = elementsWidth[n]
-
-        wrappedElements.push(React.cloneElement(element, _.merge({rawPxWidth: width}, this.inheritedAttributes())))
+      const wrappedElements = elements.reduce((result, element, n) => {
+        result.push(React.cloneElement(element, _.merge({rawPxWidth: elementsWidth[n]}, this.inheritedAttributes())))
 
         if ( n < elements.length - 1 ) {
-          wrappedElements.push(<div key={`outlook-${n}`}className={`${prefix}-line`} data-width={elementsWidth[n+1]}/>)
+          result.push(<div key={`outlook-${n}`}className={`${prefix}-line`} data-width={elementsWidth[n+1]}/>)
         }
-      })
 
-      const outlookOpenTag  = <div key="outlook-open" className={`${prefix}-open`} data-width={elementsWidth[0]} />
-      const outlookCloseTag = <div key="outlook-close" className={`${prefix}-close`} />
+        return result
+      }, [<div key="outlook-open" className={`${prefix}-open`} data-width={elementsWidth[0]} />])
 
-      return [outlookOpenTag].concat(wrappedElements, [outlookCloseTag])
+      wrappedElements.push(<div key="outlook-close" className={`${prefix}-close`} />)
+
+      return wrappedElements
     }
 
     upgradeReactChildren(children) {

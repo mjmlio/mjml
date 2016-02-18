@@ -157,6 +157,24 @@ const internals = {
       <![endif]-->`)
     })
 
+    $(".mj-social-outlook-open").each(function() {
+      $(this).replaceWith(`<!--[if mso]>
+      <table border="0" cellpadding="0" cellspacing="0" align="center"><tr><td>
+      <![endif]-->`)
+    })
+
+    $(".mj-social-outlook-line").each(function() {
+      $(this).replaceWith(`<!--[if mso]>
+        </td><td>
+        <![endif]-->`)
+    })
+
+    $(".mj-social-outlook-close").each(function() {
+      $(this).replaceWith(`<!--[if mso]>
+      	</td></tr></table>
+      	<![endif]-->`)
+    })
+
     $(".outlook-divider-fix").each(function() {
       const $insertNode = $('<table></table>').css($(this).css())
 

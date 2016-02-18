@@ -188,8 +188,6 @@ class Social extends Component {
     }
 
     return platforms.split(' ').map( (platform) => {
-      console.log(platform, this.constructor.buttonDefinitions[platform] )
-
       if (!this.constructor.buttonDefinitions[platform]) {
         return;
       }
@@ -199,15 +197,24 @@ class Social extends Component {
   }
 
   renderHorizontal() {
-    return this.renderSocialButtons().map((socialButton) => {
+    const socialButtons = this.renderSocialButtons().map((socialButton, index) => {
       return (
-        <table border="0" cellPadding="0" cellSpacing="0" data-legacy-align="left" style={this.styles.tableHorizontal}>
+        <table border="0" cellPadding="0" cellSpacing="0" data-legacy-align="left" style={this.styles.tableHorizontal} key={`wrapped-social-button-${index}`}>
           <tbody>
             {socialButton}
           </tbody>
         </table>
       )
-    })
+    }).reduce((result, socialButton, index) => {
+      result.push(socialButton)
+      result.push(<div className="mj-social-outlook-line" key={`outlook-line-${index}`} />)
+
+      return result
+    }, [<div className="mj-social-outlook-open" key="outlook-open"/>])
+
+    socialButtons[socialButtons.length - 1] = <div className="mj-social-outlook-close" key="outlook-close"/>
+
+    return socialButtons
   }
 
   renderVertical() {

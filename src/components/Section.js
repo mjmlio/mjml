@@ -47,6 +47,7 @@ class Section extends Component {
     return _.merge({}, this.constructor.baseStyles, {
       td: {
         fontSize: 0,
+        textAlign: mjAttribute('text-align'),
         verticalAlign: mjAttribute('vertical-align'),
         padding: mjAttribute('padding'),
         paddingTop: mjAttribute('padding-top'),

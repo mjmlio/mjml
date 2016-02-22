@@ -33,7 +33,7 @@ import _ from 'lodash'
     'twitter-icon-color': '#55acee',
     'align': 'center',
     'color': '#333333',
-    'display': 'facebook twitter google'
+    'display': 'facebook twitter google',
     'base-url': 'https://www.mailjet.com/images/theme/v1/icons/ico-social/'
   }
 })

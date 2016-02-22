@@ -1,6 +1,6 @@
 {
   "name": "mjml",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "MJML: the only framework that makes responsive-email easy",
   "main": "./lib/mjml",
   "scripts": {

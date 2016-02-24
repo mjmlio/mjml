@@ -11,8 +11,8 @@
  *
  */
 import { expect } from 'chai'
-import { loadHTML, getHTML } from '../src/dom'
 import { mjml2html, registerElement } from '../src'
+import dom from '../src/helpers/dom'
 import fs from 'fs'
 import path from 'path'
 
@@ -36,8 +36,8 @@ const format = input => {
  *   - use a good formatting instead of the cheerio parsing
  */
 const compare = (input, output, file) => {
-  const $input  = format(getHTML(loadHTML(input)('body')))
-  const $output = format(getHTML(loadHTML(output)('body')))
+  const $input  = format(dom.parseHTML(input)('body').html())
+  const $output = format(dom.parseHTML(output)('body').html())
   // console.log($input)
   // console.log($output)
   return it(`should be strictly equal for file ${file}`, () => {

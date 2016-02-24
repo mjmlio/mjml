@@ -12,10 +12,10 @@ const MJMLStandardElements = {
   'text': require('./components/Text').default
 }
 
-export const endingTags = ["mj-text", "mj-html", "mj-button", "mj-list", "mj-raw"]
-export const unsafeTags = ["mj-raw"]
+export const endingTags = ['mj-text', 'mj-html', 'mj-button', 'mj-list', 'mj-raw']
+export const unsafeTags = ['mj-raw']
 
-export function registerElement(tagName, element, options = {}) {
+export function registerElement (tagName, element, options = {}) {
   MJMLStandardElements[tagName] = element
 
   if (options.endingTag) {
@@ -29,4 +29,4 @@ export function registerElement(tagName, element, options = {}) {
   return true
 }
 
-export default MJMLStandardElements;
+export default MJMLStandardElements

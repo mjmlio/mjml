@@ -1,9 +1,9 @@
+import _ from 'lodash'
+import { UnknownMJMLElement } from '../../Error'
+import { widthParser, paddingParser } from '../../helpers/mjAttribute'
 import Immutable from 'immutable'
 import MJMLElementsCollection from '../../MJMLElementsCollection'
 import React, { Component } from 'react'
-import _ from 'lodash'
-import { widthParser, paddingParser } from "../../helpers/mjAttribute"
-import { UnknownMJMLElement } from '../../Error'
 
 const getElementWidth = ({element, siblings, parentWidth}) => {
   const { elem } = element.props

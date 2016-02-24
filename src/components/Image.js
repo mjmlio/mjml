@@ -1,6 +1,6 @@
+import _ from 'lodash'
 import MJMLColumnElement from './decorators/MJMLColumnElement'
 import React, { Component } from 'react'
-import _ from 'lodash'
 
 /**
  * Displays an image to your email. It is mostly similar to the HTML img tag
@@ -33,7 +33,7 @@ class Image extends Component {
     }
   };
 
-  getContentWidth() {
+  getContentWidth () {
     const { mjAttribute, getPadding } = this.props
     const width = _.min([parseInt(mjAttribute('width')), parseInt(mjAttribute('parentWidth'))])
 
@@ -44,7 +44,7 @@ class Image extends Component {
     return widthOverflow > 0 ? width - widthOverflow : width
   }
 
-  getStyles() {
+  getStyles () {
     const { mjAttribute } = this.props
 
     return _.merge({}, this.constructor.baseStyles, {
@@ -56,7 +56,7 @@ class Image extends Component {
     })
   }
 
-  renderImage() {
+  renderImage () {
     const { mjAttribute } = this.props
 
     const img = (
@@ -81,7 +81,7 @@ class Image extends Component {
     }
   }
 
-  render() {
+  render () {
     const { mjAttribute } = this.props
 
     this.styles = this.getStyles()

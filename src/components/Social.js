@@ -1,6 +1,6 @@
+import _ from 'lodash'
 import MJMLColumnElement from './decorators/MJMLColumnElement'
 import React, { Component } from 'react'
-import _ from 'lodash'
 
 @MJMLColumnElement({
   tagName: 'mj-social',
@@ -105,7 +105,7 @@ class Social extends Component {
     }
   };
 
-  getStyles() {
+  getStyles () {
     const { mjAttribute } = this.props
 
     return _.merge({}, this.constructor.baseStyles, {
@@ -128,19 +128,19 @@ class Social extends Component {
     })
   }
 
-  isHorizontal() {
+  isHorizontal () {
     const { mjAttribute } = this.props
 
     return mjAttribute('mode') == 'horizontal'
   }
 
-  isInTextMode() {
+  isInTextMode () {
     const { mjAttribute } = this.props
 
     return mjAttribute('text-mode') == true || mjAttribute('text-mode') == 'true'
   }
 
-  renderSocialButton(platform) {
+  renderSocialButton (platform) {
     const { mjAttribute } = this.props
     const definition = this.constructor.buttonDefinitions[platform]
     const href = definition.linkAttribute.replace('[[URL]]', mjAttribute(`${platform}-href`))
@@ -180,7 +180,7 @@ class Social extends Component {
     )
   }
 
-  renderSocialButtons() {
+  renderSocialButtons () {
     const { mjAttribute } = this.props
     const platforms = mjAttribute('display')
 
@@ -197,7 +197,7 @@ class Social extends Component {
     })
   }
 
-  renderHorizontal() {
+  renderHorizontal () {
     const socialButtons = this.renderSocialButtons().map((socialButton, index) => {
       return (
         <table border="0" cellPadding="0" cellSpacing="0" data-legacy-align="left" style={this.styles.tableHorizontal} key={`wrapped-social-button-${index}`}>
@@ -218,7 +218,7 @@ class Social extends Component {
     return socialButtons
   }
 
-  renderVertical() {
+  renderVertical () {
     return (
       <table border="0" cellPadding="0" cellSpacing="0" align="center" style={this.styles.tableVertical}>
         <tbody>
@@ -228,14 +228,14 @@ class Social extends Component {
     )
   }
 
-  render() {
+  render () {
     this.styles = this.getStyles()
 
     return (
       <div style={this.styles.div}>
-       { this.isHorizontal() ? this.renderHorizontal() : this.renderVertical() }
-     </div>
-   )
+        { this.isHorizontal() ? this.renderHorizontal() : this.renderVertical() }
+      </div>
+    )
   }
 
 }

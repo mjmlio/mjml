@@ -1,6 +1,6 @@
+import _ from 'lodash'
 import MJMLColumnElement from './decorators/MJMLColumnElement'
 import React, { Component } from 'react'
-import _ from 'lodash'
 
 /**
  * Displays a customizable divider
@@ -26,7 +26,7 @@ class Divider extends Component {
     }
   };
 
-  getStyles() {
+  getStyles () {
     const { mjAttribute } = this.props
 
     return _.merge({}, this.constructor.baseStyles, {
@@ -37,7 +37,7 @@ class Divider extends Component {
     })
   }
 
-  render() {
+  render () {
     this.styles = this.getStyles()
 
     return <p className="outlook-divider-fix" style={this.styles.p} />

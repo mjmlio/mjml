@@ -10,18 +10,17 @@
  *    npm test
  *
  */
-import path from 'path'
-import fs from 'fs'
-import cheerio from 'cheerio'
 import { expect } from 'chai'
-
-import engine from '../src'
+import { loadHTML, getHTML } from '../src/dom'
+import { mjml2html, registerElement } from '../src'
+import fs from 'fs'
+import path from 'path'
 
 /*
   Simple formatting:
     isolate the '<' and '>' characters and change space and tabs to new lines
 */
-const format = (input) => {
+const format = input => {
   if (input) {
     return input.toLowerCase().replace(/>/g, ' > ').replace(/</g, ' < ').match(/\S+/g).join('\n')
   }
@@ -37,9 +36,10 @@ const format = (input) => {
  *   - use a good formatting instead of the cheerio parsing
  */
 const compare = (input, output, file) => {
-  const $input  = format(cheerio.load(input)('body').html())
-  const $output = format(cheerio.load(output)('body').html())
-
+  const $input  = format(getHTML(loadHTML(input)('body')))
+  const $output = format(getHTML(loadHTML(output)('body')))
+  // console.log($input)
+  // console.log($output)
   return it(`should be strictly equal for file ${file}`, () => {
     expect($input).to.equal($output)
   })
@@ -50,8 +50,7 @@ const compare = (input, output, file) => {
  * Returns an array of functions that take an engine and return the comparaison
  * of the expected results and the actual results
  */
-const testCases = (directory) => {
-
+const testCases = directory => {
   const assets = (file) => path.join(__dirname, `${directory}/${file}`)
   const files = fs.readdirSync(path.join(__dirname, directory))
 
@@ -74,18 +73,18 @@ const testCases = (directory) => {
 /**
  * Main mocha process
  */
-describe('MJML engine.mjml2html test', () => {
+describe('MJML mjml2html test', () => {
 
   // Compares mjml/html files in the assets folder
   describe('raw translation', () => {
-    testCases('./assets').map(compare => compare(engine.mjml2html))
+    testCases('./assets').map(compare => compare(mjml2html))
   })
 
   // Test invalid MJML files
   describe('Invalid MJML', () => {
 
     it('should throw if no mj-body specified', () => {
-      const failingFn = () => engine.mjml2html('<mj-text>Hello</mj-text>')
+      const failingFn = () => mjml2html('<mj-text>Hello</mj-text>')
       expect(failingFn).to.throw()
     })
 
@@ -93,7 +92,7 @@ describe('MJML engine.mjml2html test', () => {
 
   describe('Register a component', () => {
     it('should return true when registering a new component', () => {
-      expect(engine.registerElement('mock', {})).to.be.true
+      expect(registerElement('mock', {})).to.be.true
     })
   })
 

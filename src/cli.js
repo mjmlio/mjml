@@ -1,15 +1,12 @@
-import fs                      from 'fs'
-import minify                  from 'html-minify'
-import mjmlEngine              from './index'
-import { version as VERSION }  from '../package.json'
-
-const engine = mjmlEngine.mjml2html
+import fs from 'fs'
+import minify from 'html-minify'
+import { mjml2html, version as VERSION } from './index'
 
 /*
  * The version number is the NPM
  * version number. It should be the same as the MJML engine
  */
-const version = () => VERSION
+export const version = VERSION
 
 /*
  * Turns a callback style to a Promise style one
@@ -23,27 +20,25 @@ const promisify = fn =>
 /*
  * Minimal Error Handling
  */
-const error   = (e) => {
-  console.log(e.stack ? e.stack : e)
-}
+const error = e => console.log(e.stack ? e.stack : e)
 
 /*
  * Utility functions
  * write: write to a file
  * read: read a fileexists: ensure the file exists
  */
-const write   = promisify(fs.writeFile)
-const read    = promisify(fs.readFile)
-const exists  = promisify((file, cb) => fs.access(file, fs.R_OK | fs.W_OK, cb))
+const write  = promisify(fs.writeFile)
+const read   = promisify(fs.readFile)
+const exists = promisify((file, cb) => fs.access(file, fs.R_OK | fs.W_OK, cb))
 
 /*
  * Turns an MJML input file into a pretty HTML file
  * min: boolean that specify the output format (pretty/minified)
  */
-const render = (input, { min, output }) => {
+export const render = (input, { min, output }) => {
   exists(input)
     .then(()      => read(input))
-    .then(mjml    => engine(mjml.toString()))
+    .then(mjml    => mjml2html(mjml.toString()))
     .then(html    => min ? minify(html) : html)
     .then(result  => write(output, result))
     .catch(error)
@@ -52,7 +47,7 @@ const render = (input, { min, output }) => {
 /*
  * Watch changes on a specific input file by calling render on each change
  */
-const watch = (input, options) =>
+export const watch = (input, options) =>
   fs.watch(input, () =>
     render(input, options))
 
@@ -135,13 +130,6 @@ export default ${name}
 /*
  * Create a new component based on the default template
  */
-const initComponent = (name, ending) =>
+export const initComponent = (name, ending) =>
   write(`./${capitalize(name)}.js`, createComponent(capitalize(name), ending))
     .then(() => console.log(`Component created: ${capitalize(name)}`))
-
-module.exports = {
-  initComponent: initComponent,
-  render: render,
-  watch: watch,
-  version: version
-}

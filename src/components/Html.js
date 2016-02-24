@@ -17,7 +17,7 @@ import React, { Component } from 'react'
 })
 class Html extends Component {
 
-  render() {
+  render () {
     const { mjContent } = this.props
 
     return (

@@ -1,6 +1,6 @@
+import _ from 'lodash'
 import MJMLElement from './decorators/MJMLElement'
 import React, { Component } from 'react'
-import _ from 'lodash'
 
 /**
  * Sections are intended to be used as rows within your email. They will be used to structure the layout.
@@ -29,13 +29,13 @@ class Section extends Component {
     }
   };
 
-  isFullWidth() {
+  isFullWidth () {
     const { mjAttribute } = this.props
 
     return mjAttribute('full-width') == 'full-width'
   }
 
-  getStyles() {
+  getStyles () {
     const { mjAttribute } = this.props
 
     const background = mjAttribute('background-url') ? {
@@ -65,7 +65,7 @@ class Section extends Component {
     })
   }
 
-  renderFullWidthSection() {
+  renderFullWidthSection () {
     const { mjAttribute } = this.props
 
     return (
@@ -86,7 +86,7 @@ class Section extends Component {
     )
   }
 
-  renderSection() {
+  renderSection () {
     const { renderWrappedOutlookChildren, mjAttribute } = this.props
     const fullWidth = this.isFullWidth()
 
@@ -113,11 +113,12 @@ class Section extends Component {
     )
   }
 
-  render() {
+  render () {
     this.styles = this.getStyles()
 
     return this.isFullWidth() ? this.renderFullWidthSection() : this.renderSection()
   }
+
 }
 
 export default Section

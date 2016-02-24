@@ -1,6 +1,6 @@
+import _ from 'lodash'
 import MJMLColumnElement from './decorators/MJMLColumnElement'
 import React, { Component } from 'react'
-import _ from 'lodash'
 
 /**
  * Displays a customizable button
@@ -32,7 +32,7 @@ class Button extends Component {
     }
   };
 
-  getStyles() {
+  getStyles () {
     const { mjAttribute } = this.props
 
     return _.merge({}, this.constructor.baseStyles, {
@@ -63,7 +63,7 @@ class Button extends Component {
     })
   }
 
-  renderButton() {
+  renderButton () {
     const { mjContent, mjAttribute } = this.props
 
     return (
@@ -76,7 +76,7 @@ class Button extends Component {
     )
   }
 
-  render() {
+  render () {
     const { mjAttribute } = this.props
 
     this.styles = this.getStyles()

@@ -1,35 +1,34 @@
-import cheerio from "cheerio";
-import defaultStyle from "./defaultStyle"
-import documentParser from "./documentParser";
-import MJMLElementsCollection from "./MJMLElementsCollection";
-import { EmptyMJMLError } from './Error';
+import _ from 'lodash'
+import { EmptyMJMLError } from './Error'
+import { loadXML, getHTML } from './dom'
+import defaultStyle from './defaultStyle'
+import documentParser from './documentParser'
+import MJMLElementsCollection from './MJMLElementsCollection'
+import React from 'react'
+import ReactDOMServer from 'react-dom/server'
 
-import React from "react";
-import ReactDOMServer from "react-dom/server";
-import _ from "lodash";
-
-const debug = require("debug")("mjml-engine/mjml2html");
+const debug = require('debug')('mjml-engine/mjml2html')
 
 const internals = {
-  mjml2html(content, options = {}) {
+  mjml2html (content, options = {}) {
     let parsedContent = content
 
-    if (typeof content == "string") {
-      debug("Start parsing content")
+    if (typeof content == 'string') {
+      debug('Start parsing content')
       parsedContent = documentParser(content)
-      debug("Content parsed.")
+      debug('Content parsed.')
     }
 
-    debug("Start rendering")
-    const render = internals.render({mjml: parsedContent, options})
-    debug("Done rendering")
+    debug('Start rendering')
+    const render = internals.render({ mjml: parsedContent, options })
+    debug('Done rendering')
 
     return render
   },
 
-  render({ mjml, options }) {
+  render ({ mjml, options }) {
     const elem  = mjml
-    let content = ""
+    let content = ''
 
     if (elem) {
       const propsElement = {
@@ -37,21 +36,20 @@ const internals = {
         elem: elem
       }
 
-      debug("Create root React element")
+      debug('Create root React element')
       const rootElemComponent = React.createElement(MJMLElementsCollection[elem.tagName.substr(3)], propsElement)
 
-      debug("Render to static markup")
+      debug('Render to static markup')
       content = ReactDOMServer.renderToStaticMarkup(rootElemComponent)
     } else {
-      throw (new EmptyMJMLError('.render: No MJML to render in options ' + options.toString()))
+      throw (new EmptyMJMLError(`.render: No MJML to render in options ${options.toString()}`))
     }
 
-    debug("React rendering done. Continue with special overrides.")
+    debug('React rendering done. Continue with special overrides.')
+    const $ = loadXML(internals.container(options.title), { decodeEntities: false })
 
-    const $ = cheerio.load(internals.container(options.title), {decodeEntities: false})
-
-    $("#YIELD_MJML").html(content)
-    $(".mj-raw").each(function() {
+    $('#YIELD_MJML').html(content)
+    $('.mj-raw').each(function () {
       $(this).replaceWith($(this).html())
     })
 
@@ -59,22 +57,22 @@ const internals = {
     internals.fixLegacyAttrs($)
     internals.fixOutlookLayout($)
 
-    return internals.removeCDATA($.html())
+    return internals.removeCDATA(getHTML($))
   },
 
-  removeCDATA(content) {
-    return content.replace(/<!--\[CDATA\[(.*?)\]\]-->/g, `$1`);
+  removeCDATA (content) {
+    return content.replace(/<!--\[CDATA\[(.*?)\]\]-->/g, '$1')
   },
 
-  insertColumnMediaQuery($) {
-    const mediaQuery = $(`<style type="text/css">
+  insertColumnMediaQuery ($) {
+    const mediaQuery = $(`<style type='text/css'>
     @media only screen and (min-width:480px) {
     </style>`)
 
-    _.each({"mj-column-per": "%", "mj-column-px": "px"}, (unit, className) => {
+    _.each({'mj-column-per': '%', 'mj-column-px': 'px'}, (unit, className) => {
       const columnWidths = []
 
-      $(`[class*='${className}']`).each(function() {
+      $(`[class*='${className}']`).each(function () {
         columnWidths.push($(this).data('column-width'))
         $(this).removeAttr('data-column-width')
       })
@@ -82,7 +80,7 @@ const internals = {
       _.uniq(columnWidths).forEach((width) => {
         const mediaQueryClass = `${className}-${width}`
 
-        mediaQuery.append(`.${mediaQueryClass}, * [aria-labelledby="${mediaQueryClass}"] { width:${width}${unit}!important; }\n`)
+        mediaQuery.append(`.${mediaQueryClass}, * [aria-labelledby='${mediaQueryClass}'] { width:${width}${unit}!important }\n`)
       })
     })
 
@@ -91,11 +89,11 @@ const internals = {
     $('head').append(mediaQuery)
   },
 
-  fixOutlookLayout($) {
+  fixOutlookLayout ($) {
     const bodyWidth = $('.mj-body').data('width')
     $('.mj-body').removeAttr('data-width')
 
-    $(".outlook-background-fix-open").each(function() {
+    $('.outlook-background-fix-open').each(function () {
       const url = $(this).data('url')
       const width = $(this).data('width')
 
@@ -104,14 +102,14 @@ const internals = {
              .removeAttr('data-width')
 
       if (!url) {
-        return;
+        return
       }
 
       $(this).before(`
           <!--[if gte mso 9]>
-          <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:${width}px;">
-            <v:fill origin="0.5, 0" position="0.5,0" type="tile" src="${url}" />
-            <v:textbox style="mso-fit-shape-to-text:true" inset="0,0,0,0">
+          <v:rect xmlns:v='urn:schemas-microsoft-com:vml' fill='true' stroke='false' style='width:${width}px'>
+            <v:fill origin='0.5, 0' position='0.5,0' type='tile' src='${url}' />
+            <v:textbox style='mso-fit-shape-to-text:true' inset='0,0,0,0'>
           <![endif]-->`)
 
       $(this).after(`
@@ -122,76 +120,76 @@ const internals = {
       `)
     })
 
-    $(".mj-body-outlook-open").each(function() {
+    $('.mj-body-outlook-open').each(function () {
       $(this).replaceWith(`<!--[if mso]>
-  		<table border="0" cellpadding="0" cellspacing="0" width="${bodyWidth}" align="center" style="width:${bodyWidth}px;"><tr><td>
+  		<table border='0' cellpadding='0' cellspacing='0' width='${bodyWidth}' align='center' style='width:${bodyWidth}px'><tr><td>
   		<![endif]-->`)
     })
 
-    $(".mj-body-outlook-line").each(function() {
+    $('.mj-body-outlook-line').each(function () {
       $(this).replaceWith(`<!--[if mso]>
       </td></tr></table>
   		<![endif]-->
   		<!--[if mso]>
-  		<table border="0" cellpadding="0" cellspacing="0" width="${bodyWidth}" align="center" style="width:${bodyWidth}px;"><tr><td>
+  		<table border='0' cellpadding='0' cellspacing='0' width='${bodyWidth}' align='center' style='width:${bodyWidth}px'><tr><td>
   		<![endif]-->`)
     })
 
-    $(".mj-body-outlook-close").each(function() {
+    $('.mj-body-outlook-close').each(function () {
       $(this).replaceWith(`<!--[if mso]>
   		</td></tr></table>
   		<![endif]-->`)
     })
 
-    $(".mj-section-outlook-open").each(function() {
+    $('.mj-section-outlook-open').each(function () {
       $(this).replaceWith(`<!--[if mso]>
-      <table border="0" cellpadding="0" cellspacing="0"><tr><td style="width:${parseInt($(this).data('width'))}px;">
+      <table border='0' cellpadding='0' cellspacing='0'><tr><td style='width:${parseInt($(this).data('width'))}px'>
       <![endif]-->`)
     })
 
-    $(".mj-section-outlook-line").each(function() {
+    $('.mj-section-outlook-line').each(function () {
       $(this).replaceWith(`<!--[if mso]>
-      </td><td style="width:${parseInt($(this).data('width'))}px;">
+      </td><td style='width:${parseInt($(this).data('width'))}px'>
       <![endif]-->`)
     })
 
-    $(".mj-section-outlook-close").each(function() {
+    $('.mj-section-outlook-close').each(function () {
       $(this).replaceWith(`<!--[if mso]>
       </td></tr></table>
       <![endif]-->`)
     })
 
-    $(".mj-social-outlook-open").each(function() {
+    $('.mj-social-outlook-open').each(function () {
       $(this).replaceWith(`<!--[if mso]>
-      <table border="0" cellpadding="0" cellspacing="0" align="center"><tr><td>
+      <table border='0' cellpadding='0' cellspacing='0' align='center'><tr><td>
       <![endif]-->`)
     })
 
-    $(".mj-social-outlook-line").each(function() {
+    $('.mj-social-outlook-line').each(function () {
       $(this).replaceWith(`<!--[if mso]>
         </td><td>
         <![endif]-->`)
     })
 
-    $(".mj-social-outlook-close").each(function() {
+    $('.mj-social-outlook-close').each(function () {
       $(this).replaceWith(`<!--[if mso]>
       	</td></tr></table>
       	<![endif]-->`)
     })
 
-    $(".outlook-divider-fix").each(function() {
+    $('.outlook-divider-fix').each(function () {
       const $insertNode = $('<table></table>').css($(this).css())
 
-      $(this).removeClass("outlook-divider-fix")
+      $(this).removeClass('outlook-divider-fix')
              .after(`<!--[if mso]>${$insertNode}<![endif]-->`)
     })
   },
 
-  fixLegacyAttrs($) {
-    const legacyAttrs = ["align", "valign", "bgcolor", "border", "background"]
+  fixLegacyAttrs ($) {
+    const legacyAttrs = ['align', 'valign', 'bgcolor', 'border', 'background']
 
-    $("#YIELD_MJML").css({background: $(".mj-body").data('background-color')})
-    $(".mj-body").removeAttr('data-background-color')
+    $('#YIELD_MJML').css({background: $('.mj-body').data('background-color')})
+    $('.mj-body').removeAttr('data-background-color')
 
     // https://github.com/facebook/react/issues/140 ...
     // server side workaround to allow custom tags.
@@ -201,37 +199,37 @@ const internals = {
       $(`[${dataAttr}]`).each(function() {
         $(this).attr(attr, $(this).attr(dataAttr))
         $(this).removeAttr(dataAttr)
-      });
+      })
     })
   },
 
-  container(title = '') {
+  container (title = '') {
     return `<!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns='http://www.w3.org/1999/xhtml'>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv='Content-Type' content='text/html charset=UTF-8'/>
   <title>${title}</title>
-  <style type="text/css">
+  <style type='text/css'>
     ${defaultStyle}
   </style>
   <!--[if !mso]><!-->
-  <style type="text/css">
-    @import url(https://fonts.googleapis.com/css?family=Ubuntu:400,500,700,300);
+  <style type='text/css'>
+    @import url(https://fonts.googleapis.com/css?family=Ubuntu:400,500,700,300)
   </style>
-  <style type="text/css">
+  <style type='text/css'>
     @media only screen and (max-width:480px) {
-      @-ms-viewport { width:320px; }
-      @viewport { width:320px; }
+      @-ms-viewport { width:320px }
+      @viewport { width:320px }
     }
   </style>
-  <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,500,700,300" rel="stylesheet" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,500,700,300' rel='stylesheet' type='text/css'>
   <!--<![endif]-->
 </head>
-<body id="YIELD_MJML">
+<body id='YIELD_MJML'>
 </body>
 </html>
-`;
+`
   }
 }
 
-export default internals.mjml2html;
+export default internals.mjml2html

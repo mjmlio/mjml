@@ -1,7 +1,7 @@
+import { widthParser } from '../helpers/mjAttribute'
+import _ from 'lodash'
 import MJMLElement from './decorators/MJMLElement'
 import React, { Component } from 'react'
-import _ from 'lodash'
-import  { widthParser } from '../helpers/mjAttribute'
 
 /**
  * Columns are the basic containers for your content. They must be located under mj-section tags in order to be considered by the engine
@@ -21,7 +21,7 @@ class Column extends Component {
     }
   };
 
-  getStyles() {
+  getStyles () {
     const { mjAttribute } = this.props
 
     return _.merge({}, this.constructor.baseStyles, {
@@ -39,7 +39,7 @@ class Column extends Component {
     })
   }
 
-  getColumnClass() {
+  getColumnClass () {
     const { mjAttribute, sibling } = this.props
     const width = mjAttribute('width')
 
@@ -59,7 +59,7 @@ class Column extends Component {
     }
   }
 
-  render() {
+  render () {
     const { mjAttribute, renderChildren, sibling } = this.props
     const width = mjAttribute('width') || (100 / sibling)
     const mjColumnClass = this.getColumnClass()

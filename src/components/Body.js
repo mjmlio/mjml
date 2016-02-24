@@ -1,6 +1,6 @@
+import { widthParser } from '../helpers/mjAttribute'
 import MJMLElement from './decorators/MJMLElement'
 import React, { Component } from 'react'
-import { widthParser } from '../helpers/mjAttribute'
 
 /**
  * This is the starting point of your email. It is a unique and mandatory component. It corresponds to the HTML <body> tag.
@@ -16,7 +16,7 @@ import { widthParser } from '../helpers/mjAttribute'
 })
 class Body extends Component {
 
-  getStyles() {
+  getStyles () {
     const { mjAttribute } = this.props
 
     return {
@@ -27,7 +27,7 @@ class Body extends Component {
     }
   }
 
-  render() {
+  render () {
     const { renderWrappedOutlookChildren, mjAttribute } = this.props
     const { width } = widthParser(mjAttribute('width'))
 

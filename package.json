@@ -4,10 +4,10 @@
   "description": "MJML: the only framework that makes responsive-email easy",
   "main": "lib/index",
   "scripts": {
-    "test": "mocha --compilers js:babel-register",
     "build": "gulp build",
+    "lint": "eslint src test",
     "prepublish": "npm run build",
-    "lint": "eslint src test"
+    "test": "mocha --compilers js:babel-register"
   },
   "engine": {
     "node": ">= 4.2.0"
@@ -59,11 +59,7 @@
     "url": "https://github.com/mjmlio/mjml/issues"
   },
   "homepage": "https://github.com/mjmlio/mjml",
-  "browser": {
-    "cheerio": false
-  },
   "devDependencies": {
-    "babel-core": "^6.5.2",
     "babel-eslint": "^5.0.0",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-preset-es2015": "^6.5.0",
@@ -91,9 +87,13 @@
     "debug": "^2.2.0",
     "html-minify": "^0.3.1",
     "immutable": "^3.7.6",
+    "jquery": "^2.2.1",
     "lodash": "^4.5.1",
     "react": "^0.14.7",
     "react-addons-perf": "^0.14.7",
     "react-dom": "^0.14.7"
+  },
+  "browser": {
+    "cheerio": false
   }
 }

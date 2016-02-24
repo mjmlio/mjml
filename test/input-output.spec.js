@@ -61,8 +61,6 @@ const testCases = directory => {
 
     // For each of them find the corresponding html and trigger compare
     .map(file => engine => {
-      console.log('file', file)
-
       const input = fs.readFileSync(assets(file)).toString()
       const output = fs.readFileSync(assets(file.replace('.mjml', '.html'))).toString()
 

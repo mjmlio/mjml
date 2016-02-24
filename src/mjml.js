@@ -11,8 +11,10 @@ binary
 
 binary
   .option('-r, --render <file>', 'Compiles an MJML file')
+  .option('-i, --stdin', 'Compiles an MJML file from input stream')
   .option('-w, --watch <file>', 'Watch and render an MJML file')
   .option('-o, --output <file>', 'Redirect the HTML to a file', 'a.html')
+  .option('-s, --stdout', 'Redirect the HTML to stdout')
   .option('-m, --min', 'Minify the final output file', 'false')
   .option('-e, --ending', 'Specifies that the newly created component is an ending tag')
   .option('--register <name>', 'Initialize a self-registering MJML component (deprecated)')
@@ -36,4 +38,3 @@ switch (true) {
     break
   default :
     console.log(version)
-}

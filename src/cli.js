@@ -23,25 +23,53 @@ const promisify = fn =>
 const error = e => console.log(e.stack ? e.stack : e)
 
 /*
+ * Stdin to string buffer
+ */
+const stdinToBuffer = (stream, callback) => {
+  let buffer = "";
+  stream.on('data', (chunck) => {
+    buffer += chunck;
+  });
+
+  stream.on('end', () => {
+    callback(null, buffer);
+  });
+}
+
+/*
  * Utility functions
  * write: write to a file
  * read: read a fileexists: ensure the file exists
  */
-const write  = promisify(fs.writeFile)
-const read   = promisify(fs.readFile)
-const exists = promisify((file, cb) => fs.access(file, fs.R_OK | fs.W_OK, cb))
+const write     = promisify(fs.writeFile)
+const read      = promisify(fs.readFile)
+const exists    = promisify((file, cb) => fs.access(file, fs.R_OK | fs.W_OK, cb))
+const readStdin = promisify(stdinToBuffer)
+
+/*
+ * Render an input promise
+ */
+const render = (bufferPromise, { min, output, stdout }) => {
+  bufferPromise
+    .then(mjml    => mjml2html(mjml.toString()))
+    .then(html    => min ? minify(html) : html)
+    .then(result  => stdout ? process.stdout.write(result) : write(output, result))
+    .catch(error)
+}
 
 /*
  * Turns an MJML input file into a pretty HTML file
  * min: boolean that specify the output format (pretty/minified)
  */
-export const render = (input, { min, output }) => {
-  exists(input)
-    .then(()      => read(input))
-    .then(mjml    => mjml2html(mjml.toString()))
-    .then(html    => min ? minify(html) : html)
-    .then(result  => write(output, result))
-    .catch(error)
+const renderFile = (input, options) => {
+  render(exists(input).then(() => read(input)), options)
+}
+
+/**
+ * Render based on input stream
+ */
+export const renderStream = options => {
+  render(readStdin(process.stdin), options)
 }
 
 /*

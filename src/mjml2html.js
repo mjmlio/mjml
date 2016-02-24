@@ -207,14 +207,14 @@ const internals = {
     return `<!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <meta http-equiv="Content-Type" content="text/html charset=UTF-8"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <title>${title}</title>
   <style type="text/css">
     ${defaultStyle}
   </style>
   <!--[if !mso]><!-->
   <style type="text/css">
-    @import url(https://fonts.googleapis.com/css?family=Ubuntu:400,500,700,300)
+    @import url(https://fonts.googleapis.com/css?family=Ubuntu:400,500,700,300);
   </style>
   <style type="text/css">
     @media only screen and (max-width:480px) {

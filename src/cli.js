@@ -61,7 +61,7 @@ const render = (bufferPromise, { min, output, stdout }) => {
  * Turns an MJML input file into a pretty HTML file
  * min: boolean that specify the output format (pretty/minified)
  */
-const renderFile = (input, options) => {
+export const renderFile = (input, options) => {
   render(exists(input).then(() => read(input)), options)
 }
 

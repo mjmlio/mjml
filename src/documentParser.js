@@ -44,11 +44,10 @@ const internals = {
    *   - mjml: a json representation of the mjml
    */
   documentParser (content) {
-    let $
     let body
 
     try {
-      $ = loadXML(internals.safeEndingTags(content), { decodeEntities: true })
+      const $ = loadXML(internals.safeEndingTags(content), { decodeEntities: true })
       body = $('mj-body')
     } catch (e) {
       throw new ParseError('Error while parsing the file')

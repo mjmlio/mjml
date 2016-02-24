@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { version, watch, render, initComponent } from './cli'
+import { version, watch, renderFile, renderStream, initComponent } from './cli'
 import binary from 'commander'
 
 /*
@@ -27,7 +27,10 @@ switch (true) {
     watch(binary.watch, binary)
     break
   case (!!binary.render) :
-    render(binary.render, binary)
+    renderFile(binary.render, binary)
+    break
+  case (!!binary.stdin) :
+    renderStream(binary)
     break
   case (!!binary.register) :
     console.error('--register option is deprecated, please now use --init-component')

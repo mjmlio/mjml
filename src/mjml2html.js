@@ -65,14 +65,14 @@ const internals = {
   },
 
   insertColumnMediaQuery ($) {
-    const mediaQuery = $(`<style type='text/css'>
+    const mediaQuery = $(`<style type="text/css">
     @media only screen and (min-width:480px) {
     </style>`)
 
     _.each({'mj-column-per': '%', 'mj-column-px': 'px'}, (unit, className) => {
       const columnWidths = []
 
-      $(`[class*='${className}']`).each(function () {
+      $(`[class*="${className}"]`).each(function () {
         columnWidths.push($(this).data('column-width'))
         $(this).removeAttr('data-column-width')
       })
@@ -80,7 +80,7 @@ const internals = {
       _.uniq(columnWidths).forEach((width) => {
         const mediaQueryClass = `${className}-${width}`
 
-        mediaQuery.append(`.${mediaQueryClass}, * [aria-labelledby='${mediaQueryClass}'] { width:${width}${unit}!important }\n`)
+        mediaQuery.append(`.${mediaQueryClass}, * [aria-labelledby="${mediaQueryClass}"] { width:${width}${unit}!important }\n`)
       })
     })
 
@@ -107,9 +107,9 @@ const internals = {
 
       $(this).before(`
           <!--[if gte mso 9]>
-          <v:rect xmlns:v='urn:schemas-microsoft-com:vml' fill='true' stroke='false' style='width:${width}px'>
-            <v:fill origin='0.5, 0' position='0.5,0' type='tile' src='${url}' />
-            <v:textbox style='mso-fit-shape-to-text:true' inset='0,0,0,0'>
+          <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:${width}px">
+            <v:fill origin="0.5, 0" position="0.5,0" type="tile" src="${url}" />
+            <v:textbox style="mso-fit-shape-to-text:true" inset="0,0,0,0">
           <![endif]-->`)
 
       $(this).after(`
@@ -122,7 +122,7 @@ const internals = {
 
     $('.mj-body-outlook-open').each(function () {
       $(this).replaceWith(`<!--[if mso]>
-  		<table border='0' cellpadding='0' cellspacing='0' width='${bodyWidth}' align='center' style='width:${bodyWidth}px'><tr><td>
+  		<table border="0" cellpadding="0" cellspacing="0" width="${bodyWidth}" align="center" style="width:${bodyWidth}px"><tr><td>
   		<![endif]-->`)
     })
 
@@ -131,7 +131,7 @@ const internals = {
       </td></tr></table>
   		<![endif]-->
   		<!--[if mso]>
-  		<table border='0' cellpadding='0' cellspacing='0' width='${bodyWidth}' align='center' style='width:${bodyWidth}px'><tr><td>
+  		<table border="0" cellpadding="0" cellspacing="0" width="${bodyWidth}" align="center" style="width:${bodyWidth}px"><tr><td>
   		<![endif]-->`)
     })
 
@@ -143,13 +143,13 @@ const internals = {
 
     $('.mj-section-outlook-open').each(function () {
       $(this).replaceWith(`<!--[if mso]>
-      <table border='0' cellpadding='0' cellspacing='0'><tr><td style='width:${parseInt($(this).data('width'))}px'>
+      <table border="0" cellpadding="0" cellspacing="0"><tr><td style="width:${parseInt($(this).data('width'))}px">
       <![endif]-->`)
     })
 
     $('.mj-section-outlook-line').each(function () {
       $(this).replaceWith(`<!--[if mso]>
-      </td><td style='width:${parseInt($(this).data('width'))}px'>
+      </td><td style="width:${parseInt($(this).data('width'))}px">
       <![endif]-->`)
     })
 
@@ -161,7 +161,7 @@ const internals = {
 
     $('.mj-social-outlook-open').each(function () {
       $(this).replaceWith(`<!--[if mso]>
-      <table border='0' cellpadding='0' cellspacing='0' align='center'><tr><td>
+      <table border="0" cellpadding="0" cellspacing="0" align="center"><tr><td>
       <![endif]-->`)
     })
 
@@ -205,27 +205,27 @@ const internals = {
 
   container (title = '') {
     return `<!doctype html>
-<html xmlns='http://www.w3.org/1999/xhtml'>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <meta http-equiv='Content-Type' content='text/html charset=UTF-8'/>
+  <meta http-equiv="Content-Type" content="text/html charset=UTF-8"/>
   <title>${title}</title>
-  <style type='text/css'>
+  <style type="text/css">
     ${defaultStyle}
   </style>
   <!--[if !mso]><!-->
-  <style type='text/css'>
+  <style type="text/css">
     @import url(https://fonts.googleapis.com/css?family=Ubuntu:400,500,700,300)
   </style>
-  <style type='text/css'>
+  <style type="text/css">
     @media only screen and (max-width:480px) {
       @-ms-viewport { width:320px }
       @viewport { width:320px }
     }
   </style>
-  <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,500,700,300' rel='stylesheet' type='text/css'>
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,500,700,300" rel="stylesheet" type="text/css">
   <!--<![endif]-->
 </head>
-<body id='YIELD_MJML'>
+<body id="YIELD_MJML">
 </body>
 </html>
 `

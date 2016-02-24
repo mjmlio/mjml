@@ -8,7 +8,7 @@ class Raw extends Component {
     const { mjContent } = this.props
 
     return (
-      <div
+      <tr
         className="mj-raw"
         dangerouslySetInnerHTML={{ __html: mjContent() }} />
     )

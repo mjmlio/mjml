@@ -59,7 +59,11 @@ const internals = {
     internals.fixLegacyAttrs($)
     internals.fixOutlookLayout($)
 
-    return $.html()
+    return internals.removeCDATA($.html())
+  },
+
+  removeCDATA(content) {
+    return content.replace(/<!--\[CDATA\[(.*?)\]\]-->/g, `$1`);
   },
 
   insertColumnMediaQuery($) {

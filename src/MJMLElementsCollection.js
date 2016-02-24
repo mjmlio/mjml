@@ -13,12 +13,17 @@ const MJMLStandardElements = {
 }
 
 export const endingTags = ["mj-text", "mj-html", "mj-button", "mj-list", "mj-raw"]
+export const unsafeTags = ["mj-raw"]
 
 export function registerElement(tagName, element, options = {}) {
   MJMLStandardElements[tagName] = element
 
   if (options.endingTag) {
     endingTags.push(`mj-${tagName}`)
+  }
+
+  if (options.unsafeTags) {
+    unsafeTags.push(`mj-${tagName}`)
   }
 
   return true

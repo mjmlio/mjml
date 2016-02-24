@@ -1,8 +1,20 @@
 import cheerio from "cheerio"
-import { endingTags } from './MJMLElementsCollection'
+import _ from "lodash"
+import { endingTags, unsafeTags } from './MJMLElementsCollection'
 import { ParseError, EmptyMJMLError, NullElementError } from './Error'
 
 const internals = {
+  /**
+   * Avoid htmlparser to parse ending tags
+   */
+  safeEndingTags(content) {
+    _.each(unsafeTags, (tag) => {
+      const tagRegexp = new RegExp(`<${tag}>(.*?)<\/${tag}>`, 'g')
+      content = content.replace(tagRegexp, `<${tag}><![CDATA[$1]]></${tag}>`);
+    })
+
+    return content
+  },
   /**
    * converts MJML body into a JSON representation
    */
@@ -35,8 +47,9 @@ const internals = {
    */
   documentParser(content) {
     let $, body;
+
     try {
-      $ = cheerio.load(content, { xmlMode: true })
+      $ = cheerio.load(internals.safeEndingTags(content), { xmlMode: true })
       body = $('mj-body')
     } catch (e) {
       throw new ParseError('Error while parsing the file')

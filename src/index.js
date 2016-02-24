@@ -1,11 +1,7 @@
-import MJMLElementsCollection, {registerElement} from './MJMLElementsCollection'
-
-module.exports = {
-  elements: MJMLElementsCollection,
-  documentParser: require('./documentParser'),
-  MJMLElement: require('./components/decorators/MJMLElement').default,
-  MJMLColumnElement: require('./components/decorators/MJMLColumnElement').default,
-  mjml2html: require('./mjml2html').default,
-  registerElement: registerElement,
-  version: require('../package.json').version
-}
+export documentParser from './documentParser'
+export mjml2html from './mjml2html'
+export MJMLColumnElement from './components/decorators/MJMLColumnElement'
+export MJMLElement from './components/decorators/MJMLElement'
+export const elements = require('./MJMLElementsCollection').default
+export const registerElement = require('./MJMLElementsCollection').registerElement
+export const version = '__MJML_VERSION__'

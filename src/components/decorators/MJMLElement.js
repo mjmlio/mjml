@@ -37,22 +37,24 @@ function createComponent(ComposedComponent, defaultAttributes) {
       super(props)
 
       this.state = Immutable.fromJS({
-        elem: _.merge({
+        elem: {
           children: [],
           attributes: {},
+          defaultAttributes: defaultAttributes ? defaultAttributes.attributes : {},
           inheritedAttributes: []
-        }, defaultAttributes)
-      })
-
-      this.state = this.state.mergeDeep(props)
+        }
+      }).mergeDeep(props)
     }
 
-    mjAttribute(name) {
+    mjAttribute(name, defaultValue) {
       if (this.props[name] != undefined) {
         return this.props[name]
       }
-
-      return this.state.getIn(['elem', 'attributes']).get(name)
+      return _.filter([
+        this.state.getIn(['elem', 'attributes', name]),
+        defaultValue,
+        this.state.getIn(['elem', 'defaultAttributes', name])
+      ])[0]
     }
 
     mjContent() {
@@ -88,7 +90,7 @@ function createComponent(ComposedComponent, defaultAttributes) {
       return {
         id,
         key: id,
-        color: this.mjAttribute('color'),
+        parentColor: this.mjAttribute('color') || this.props.parentColor,
         parentWidth: this.getWidth(),
         verticalAlign: this.mjAttribute('vertical-align'),
         sibling: this.siblingsCount()

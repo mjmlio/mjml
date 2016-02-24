@@ -61,7 +61,7 @@ const internals = {
   },
 
   removeCDATA (content) {
-    return content.replace(/<!--\[CDATA\[(.*?)\]\]-->/g, '$1')
+    return content.replace(/<!--\[CDATA\[(.*?)\]\]-->/g, `$1`)
   },
 
   insertColumnMediaQuery ($) {
@@ -80,7 +80,7 @@ const internals = {
       _.uniq(columnWidths).forEach((width) => {
         const mediaQueryClass = `${className}-${width}`
 
-        mediaQuery.append(`.${mediaQueryClass}, * [aria-labelledby="${mediaQueryClass}"] { width:${width}${unit}!important }\n`)
+        mediaQuery.append(`.${mediaQueryClass}, * [aria-labelledby="${mediaQueryClass}"] { width:${width}${unit}!important; }\n`)
       })
     })
 
@@ -107,7 +107,7 @@ const internals = {
 
       $(this).before(`
           <!--[if gte mso 9]>
-          <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:${width}px">
+          <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:${width}px;">
             <v:fill origin="0.5, 0" position="0.5,0" type="tile" src="${url}" />
             <v:textbox style="mso-fit-shape-to-text:true" inset="0,0,0,0">
           <![endif]-->`)
@@ -122,7 +122,7 @@ const internals = {
 
     $('.mj-body-outlook-open').each(function () {
       $(this).replaceWith(`<!--[if mso]>
-  		<table border="0" cellpadding="0" cellspacing="0" width="${bodyWidth}" align="center" style="width:${bodyWidth}px"><tr><td>
+  		<table border="0" cellpadding="0" cellspacing="0" width="${bodyWidth}" align="center" style="width:${bodyWidth}px;"><tr><td>
   		<![endif]-->`)
     })
 
@@ -131,7 +131,7 @@ const internals = {
       </td></tr></table>
   		<![endif]-->
   		<!--[if mso]>
-  		<table border="0" cellpadding="0" cellspacing="0" width="${bodyWidth}" align="center" style="width:${bodyWidth}px"><tr><td>
+  		<table border="0" cellpadding="0" cellspacing="0" width="${bodyWidth}" align="center" style="width:${bodyWidth}px;"><tr><td>
   		<![endif]-->`)
     })
 
@@ -143,13 +143,13 @@ const internals = {
 
     $('.mj-section-outlook-open').each(function () {
       $(this).replaceWith(`<!--[if mso]>
-      <table border="0" cellpadding="0" cellspacing="0"><tr><td style="width:${parseInt($(this).data('width'))}px">
+      <table border="0" cellpadding="0" cellspacing="0"><tr><td style="width:${parseInt($(this).data('width'))}px;">
       <![endif]-->`)
     })
 
     $('.mj-section-outlook-line').each(function () {
       $(this).replaceWith(`<!--[if mso]>
-      </td><td style="width:${parseInt($(this).data('width'))}px">
+      </td><td style="width:${parseInt($(this).data('width'))}px;">
       <![endif]-->`)
     })
 
@@ -218,8 +218,8 @@ const internals = {
   </style>
   <style type="text/css">
     @media only screen and (max-width:480px) {
-      @-ms-viewport { width:320px }
-      @viewport { width:320px }
+      @-ms-viewport { width:320px; }
+      @viewport { width:320px; }
     }
   </style>
   <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,500,700,300" rel="stylesheet" type="text/css">

@@ -1,5 +1,5 @@
-import { widthParser } from '../helpers/mjAttribute'
 import _ from 'lodash'
+import { widthParser } from '../helpers/mjAttribute'
 import MJMLElement from './decorators/MJMLElement'
 import React, { Component } from 'react'
 
@@ -17,7 +17,7 @@ class Column extends Component {
       borderSpacing: '0'
     },
     div: {
-      verticalAlign: "top"
+      verticalAlign: 'top'
     }
   };
 
@@ -26,11 +26,11 @@ class Column extends Component {
 
     return _.merge({}, this.constructor.baseStyles, {
       div: {
-        display: "inline-block",
+        display: 'inline-block',
         verticalAlign: mjAttribute('vertical-align'),
-        fontSize: "13",
-        textAlign: "left",
-        width: "100%",
+        fontSize: '13',
+        textAlign: 'left',
+        width: '100%',
         minWidth: mjAttribute('width')
       },
       table: {

@@ -14,6 +14,7 @@ import _ from 'lodash'
     'border-radius': '3px',
     'border': 'none',
     'color': '#ffffff',
+    'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
     'font-size': '13px',
     'font-weight': 'bold',
     'href': '',

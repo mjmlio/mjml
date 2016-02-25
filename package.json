@@ -7,8 +7,7 @@
     "build": "gulp build",
     "lint": "eslint src test",
     "prepublish": "npm run build",
-    "test": "mocha --compilers js:babel-register",
-    "gagagou": "node test.js"
+    "test": "mocha --compilers js:babel-register"
   },
   "engine": {
     "node": ">= 4.2.0"

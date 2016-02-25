@@ -34,12 +34,12 @@ class Image extends Component {
   };
 
   getContentWidth () {
-    const { mjAttribute, getPadding } = this.props
-    const width = _.min([parseInt(mjAttribute('width')), parseInt(mjAttribute('parentWidth'))])
+    const { mjAttribute, getPadding, parentWidth } = this.props
+    const width = _.min([parseInt(mjAttribute('width')), parseInt(parentWidth)])
 
     const paddingRight = getPadding('right')
     const paddingLeft = getPadding('left')
-    const widthOverflow = paddingLeft + paddingRight + width - parseInt(mjAttribute('parentWidth'))
+    const widthOverflow = paddingLeft + paddingRight + width - parseInt(parentWidth)
 
     return widthOverflow > 0 ? width - widthOverflow : width
   }

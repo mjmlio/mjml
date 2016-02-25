@@ -24,13 +24,15 @@ const mjmlElementParser = elem => {
 
   const tagName = elem.tagName
   const attributes = elem.attribs
+
   let content
+  let children
 
-  const children = elem.childNodes ? elem.childNodes.filter(child => child.tagName).map(mjmlElementParser) : []
-
-  if (endingTags.indexOf(tagName) != -1) {
+  if (endingTags.indexOf(tagName) !== -1) {
     const $ = dom.parseXML(elem)
     content = $(tagName).html().trim()
+  } else {
+    children = elem.childNodes ? elem.childNodes.filter(child => child.tagName).map(mjmlElementParser) : []
   }
 
   return { tagName, attributes, children, content }

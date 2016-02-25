@@ -44,12 +44,12 @@ class Column extends Component {
     const width = mjAttribute('width')
 
     if (width == undefined) {
-      return `mj-column-per-${parseInt(100/sibling)}`
+      return `mj-column-per-${parseInt(100 / sibling)}`
     }
 
     const { width: parsedWidth, unit } = widthParser(width)
 
-    switch(unit) {
+    switch (unit) {
       case '%':
         return `mj-column-per-${parsedWidth}`
 
@@ -60,17 +60,24 @@ class Column extends Component {
   }
 
   render () {
-    const { mjAttribute, renderChildren, sibling } = this.props
+    const { mjAttribute, children, sibling } = this.props
     const width = mjAttribute('width') || (100 / sibling)
     const mjColumnClass = this.getColumnClass()
-
+    
     this.styles = this.getStyles()
 
     return (
-      <div style={this.styles.div} className={mjColumnClass} aria-labelledby={mjColumnClass} data-column-width={parseInt(width)}>
-        <table style={this.styles.table} data-legacy-background={mjAttribute('background')} width="100%">
+      <div
+        aria-labelledby={mjColumnClass}
+        className={mjColumnClass}
+        data-column-width={parseInt(width)}
+        style={this.styles.div}>
+        <table
+          data-legacy-background={mjAttribute('background')}
+          style={this.styles.table}
+          width="100%">
           <tbody>
-            {renderChildren()}
+            {children}
           </tbody>
         </table>
       </div>

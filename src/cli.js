@@ -83,20 +83,14 @@ const createComponent = (name, ending) => {
   const lowerName = name.toLowerCase()
 
   return `
-import React, { Component } from 'react'
+import { MJMLColumnElement, elements, registerElement } from 'mjml'
 import merge from 'lodash/merge'
-import {
-  MJMLColumnElement,
-  elements,
-  registerElement,
-} from 'mjml'
+import React, { Component } from 'react'
 
 /*
  * Wrap your dependencies here.
  */
-const {
-  text: MjText,
-} = elements;
+const { text: MjText } = elements
 
 const NAME = '${lowerName}'
 

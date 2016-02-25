@@ -28,17 +28,18 @@ class Body extends Component {
   }
 
   render () {
-    const { renderWrappedOutlookChildren, mjAttribute } = this.props
+    const { renderWrappedOutlookChildren, mjAttribute, children } = this.props
     const { width } = widthParser(mjAttribute('width'))
-
+    
     this.styles = this.getStyles()
 
     return (
-      <div className="mj-body"
-           style={this.styles.div}
-           data-background-color={mjAttribute('background-color')}
-           data-width={width}>
-        {renderWrappedOutlookChildren()}
+      <div
+        className="mj-body"
+        data-background-color={mjAttribute('background-color')}
+        data-width={width}
+        style={this.styles.div}>
+        {renderWrappedOutlookChildren(children)}
       </div>
     )
   }

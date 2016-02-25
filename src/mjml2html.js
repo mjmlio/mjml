@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import { EmptyMJMLError } from './Error'
+import { parseInstance } from './helpers/mjml'
 import defaultStyle from './defaultStyle'
 import documentParser from './documentParser'
 import dom from './helpers/dom'
@@ -56,11 +57,11 @@ const fixOutlookLayout = $ => {
   const bodyWidth = $('.mj-body').data('width')
   $('.mj-body').removeAttr('data-width')
 
-  $('.outlook-background-fix-open').each(function () {
+  $('.mj-section-outlook-background').each(function () {
     const url = $(this).data('url')
     const width = $(this).data('width')
 
-    $(this).removeClass('outlook-background-fix-open')
+    $(this).removeAttr('class')
            .removeAttr('data-url')
            .removeAttr('data-width')
 
@@ -137,10 +138,10 @@ const fixOutlookLayout = $ => {
       <![endif]-->`)
   })
 
-  $('.outlook-divider-fix').each(function () {
+  $('.mj-divider-outlook').each(function () {
     const $insertNode = $('<table></table>').css($(this).css())
 
-    $(this).removeClass('outlook-divider-fix')
+    $(this).removeClass('mj-divider-outlook')
            .after(`<!--[if mso]>${$insertNode}<![endif]-->`)
   })
 }
@@ -169,9 +170,7 @@ const container = (title = '') => (
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <title>${title}</title>
-<style type="text/css">
-  ${defaultStyle}
-</style>
+<style type="text/css">${defaultStyle}</style>
 <!--[if !mso]><!-->
 <style type="text/css">
   @import url(https://fonts.googleapis.com/css?family=Ubuntu:400,500,700,300);
@@ -191,17 +190,11 @@ const container = (title = '') => (
 )
 
 const render = ({ mjml, options }) => {
-  const elem  = mjml
   let content = ''
 
-  if (elem) {
-    const propsElement = {
-      key: 0,
-      elem: elem
-    }
-
+  if (mjml) {
     debug('Create root React element')
-    const rootElemComponent = React.createElement(MJMLElementsCollection[elem.tagName.substr(3)], propsElement)
+    const rootElemComponent = React.createElement(MJMLElementsCollection[mjml.tagName.substr(3)], { mjml: parseInstance(mjml) })
 
     debug('Render to static markup')
     content = ReactDOMServer.renderToStaticMarkup(rootElemComponent)
@@ -210,7 +203,7 @@ const render = ({ mjml, options }) => {
   }
 
   debug('React rendering done. Continue with special overrides.')
-  const $ = dom.parseXML(container(options.title))
+  const $ = dom.parseHTML(container(options.title))
 
   $('#YIELD_MJML').html(content)
   $('.mj-raw').each(function () {

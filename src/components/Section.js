@@ -17,11 +17,11 @@ class Section extends Component {
 
   static baseStyles = {
     div: {
-      margin: "0 auto"
+      margin: '0 auto'
     },
     table: {
-      width: "100%",
-      fontSize: "0"
+      width: '100%',
+      fontSize: '0'
     },
     td: {
       textAlign: 'center',
@@ -36,7 +36,7 @@ class Section extends Component {
   }
 
   getStyles () {
-    const { mjAttribute } = this.props
+    const { mjAttribute, parentWidth } = this.props
 
     const background = mjAttribute('background-url') ? {
       background: `url(${mjAttribute('background-url')}) top center / ${mjAttribute('background-size') || ''} ${mjAttribute('background-repeat') || ''}`
@@ -56,7 +56,7 @@ class Section extends Component {
         paddingLeft: mjAttribute('padding-left')
       },
       div: {
-        maxWidth: mjAttribute('parentWidth')
+        maxWidth: parentWidth
       }
     }, {
       div: this.isFullWidth() ? {} : _.cloneDeep(background),
@@ -69,12 +69,12 @@ class Section extends Component {
     const { mjAttribute } = this.props
 
     return (
-      <table data-legacy-background={mjAttribute('background-url')}
-             border="0"
-             cellPadding="0"
-             cellSpacing="0"
-             data-width={mjAttribute('parentWidth')}
-             style={_.merge({}, this.styles.tableFullwidth, this.styles.table)}>
+      <table
+        border="0"
+        cellPadding="0"
+        cellSpacing="0"
+        data-legacy-background={mjAttribute('background-url')}
+        style={_.merge({}, this.styles.tableFullwidth, this.styles.table)}>
         <tbody>
           <tr>
             <td>
@@ -87,24 +87,25 @@ class Section extends Component {
   }
 
   renderSection () {
-    const { renderWrappedOutlookChildren, mjAttribute } = this.props
+    const { renderWrappedOutlookChildren, mjAttribute, children, mjml, parentWidth } = this.props
     const fullWidth = this.isFullWidth()
-
+    
     return (
       <div style={this.styles.div}>
-        <table className="outlook-background-fix-open"
-               data-url={mjAttribute('background-url') || ''}
-               data-legacy-background={fullWidth ? undefined : mjAttribute('background-url')}
-               border="0"
-               cellPadding="0"
-               cellSpacing="0"
-               data-legacy-align="center"
-               data-width={mjAttribute('parentWidth')}
-               style={this.styles.table}>
+        <table
+          border="0"
+          cellPadding="0"
+          cellSpacing="0"
+          className="mj-section-outlook-background"
+          data-legacy-align="center"
+          data-legacy-background={fullWidth ? undefined : mjAttribute('background-url')}
+          data-url={mjAttribute('background-url') || ''}
+          data-width={parentWidth}
+          style={this.styles.table}>
           <tbody>
             <tr>
               <td style={this.styles.td}>
-                {renderWrappedOutlookChildren()}
+                {renderWrappedOutlookChildren(children)}
               </td>
             </tr>
           </tbody>

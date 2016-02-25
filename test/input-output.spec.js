@@ -11,7 +11,7 @@
  *
  */
 import { expect } from 'chai'
-import { mjml2html, registerElement } from '../src'
+import { mjml2html, registerElement } from '../src/index'
 import dom from '../src/helpers/dom'
 import fs from 'fs'
 import path from 'path'
@@ -20,13 +20,7 @@ import path from 'path'
   Simple formatting:
     isolate the '<' and '>' characters and change space and tabs to new lines
 */
-const format = input => {
-  if (input) {
-    return input.toLowerCase().replace(/>/g, ' > ').replace(/</g, ' < ').match(/\S+/g).join('\n')
-  }
-
-  return null
-}
+const format = input => input ? input.toLowerCase().replace(/>/g, ' > ').replace(/</g, ' < ').match(/\S+/g).join('\n') : null
 
 /**
  * Normalize the html contents with cheerio and compares the two html contents
@@ -38,11 +32,8 @@ const format = input => {
 const compare = (input, output, file) => {
   const $input  = format(dom.parseHTML(input)('body').html())
   const $output = format(dom.parseHTML(output)('body').html())
-  // console.log($input)
-  // console.log($output)
-  return it(`should be strictly equal for file ${file}`, () => {
-    expect($input).to.equal($output)
-  })
+
+  return it(`should be strictly equal for file ${file}`, () => expect($input).to.equal($output))
 }
 
 /**
@@ -51,7 +42,7 @@ const compare = (input, output, file) => {
  * of the expected results and the actual results
  */
 const testCases = directory => {
-  const assets = (file) => path.join(__dirname, `${directory}/${file}`)
+  const assets = file => path.join(__dirname, `${directory}/${file}`)
   const files = fs.readdirSync(path.join(__dirname, directory))
 
   return files
@@ -74,18 +65,14 @@ const testCases = directory => {
 describe('MJML mjml2html test', () => {
 
   // Compares mjml/html files in the assets folder
-  describe('raw translation', () => {
-    testCases('./assets').map(compare => compare(mjml2html))
-  })
+  describe('raw translation', () => testCases('./assets').map(compare => compare(mjml2html)))
 
   // Test invalid MJML files
   describe('Invalid MJML', () => {
-
     it('should throw if no mj-body specified', () => {
       const failingFn = () => mjml2html('<mj-text>Hello</mj-text>')
       expect(failingFn).to.throw()
     })
-
   })
 
   describe('Register a component', () => {

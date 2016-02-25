@@ -96,7 +96,7 @@ function createComponent(ComposedComponent, defaultAttributes) {
     }
 
     renderWrappedOutlookChildren() {
-      let elements          = this.renderChildren()
+      let elements = this.renderChildren()
 
       if (elements && elements.get) {
         // had to break immutable here :(

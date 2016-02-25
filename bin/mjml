@@ -1,15 +1,13 @@
 #!/usr/bin/env node
 
-import { version, watch, renderFile, renderStream, initComponent } from './cli'
-import binary from 'commander'
+var cli = require('../lib/cli')
+var binary = require('commander')
 
 /*
  * Parse the command line arguments
  */
 binary
-  .version(version)
-
-binary
+  .version(cli.version)
   .option('-r, --render <file>', 'Compiles an MJML file')
   .option('-i, --stdin', 'Compiles an MJML file from input stream')
   .option('-w, --watch <file>', 'Watch and render an MJML file')
@@ -23,22 +21,27 @@ binary
 binary.parse(process.argv)
 
 switch (true) {
-  case (!!binary.watch) :
+  case (!!binary.watch):
     watch(binary.watch, binary)
     break
-  case (!!binary.render) :
-    renderFile(binary.render, binary)
+
+  case (!!binary.render):
+    cli.renderFile(binary.render, binary)
     break
-  case (!!binary.stdin) :
-    renderStream(binary)
+
+  case (!!binary.stdin):
+    cli.renderStream(binary)
     break
-  case (!!binary.register) :
+
+  case (!!binary.register):
     console.error('--register option is deprecated, please now use --init-component')
     process.exit(1)
     break
-  case (!!binary.initComponent) :
-    initComponent(binary.initComponent, binary.ending, false)
+
+  case (!!binary.initComponent):
+    cli.initComponent(binary.initComponent, binary.ending, false)
     break
-  default :
-    console.log(version)
+
+  default:
+    console.log(cli.version)
 }

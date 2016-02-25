@@ -2,6 +2,8 @@ import fs from 'fs'
 import minify from 'html-minify'
 import { mjml2html, version as VERSION } from './index'
 
+const capitalize = name => name.charAt(0).toUpperCase() + name.slice(1).toLowerCase().replace(/-/g, '')
+
 /*
  * The version number is the NPM
  * version number. It should be the same as the MJML engine
@@ -26,14 +28,15 @@ const error = e => console.log(e.stack ? e.stack : e)
  * Stdin to string buffer
  */
 const stdinToBuffer = (stream, callback) => {
-  let buffer = "";
-  stream.on('data', (chunck) => {
-    buffer += chunck;
-  });
+  let buffer = ''
+
+  stream.on('data', chunck => {
+    buffer += chunck
+  })
 
   stream.on('end', () => {
-    callback(null, buffer);
-  });
+    callback(null, buffer)
+  })
 }
 
 /*
@@ -61,25 +64,17 @@ const render = (bufferPromise, { min, output, stdout }) => {
  * Turns an MJML input file into a pretty HTML file
  * min: boolean that specify the output format (pretty/minified)
  */
-export const renderFile = (input, options) => {
-  render(exists(input).then(() => read(input)), options)
-}
+export const renderFile = (input, options) => render(exists(input).then(() => read(input)), options)
 
 /**
  * Render based on input stream
  */
-export const renderStream = options => {
-  render(readStdin(process.stdin), options)
-}
+export const renderStream = options => render(readStdin(process.stdin), options)
 
 /*
  * Watch changes on a specific input file by calling render on each change
  */
-export const watch = (input, options) =>
-  fs.watch(input, () =>
-    render(input, options))
-
-const capitalize = name => name.charAt(0).toUpperCase() + name.slice(1).toLowerCase().replace(/-/g, '')
+export const watch = (input, options) => fs.watch(input, () => render(input, options))
 
 /*
 * Return the code of an MJML component for a given name
@@ -89,7 +84,7 @@ const createComponent = (name, ending) => {
 
   return `
 import React, { Component } from 'react'
-import _ from 'lodash'
+import merge from 'lodash/merge'
 import {
   MJMLColumnElement,
   elements,
@@ -123,10 +118,10 @@ class ${name} extends Component {
   /*
    * Build your styling here
    */
-  getStyles() {
+  getStyles () {
     const { mjAttribute, color } = this.props
 
-    return _.merge({}, this.constructor.baseStyles, {
+    return merge({}, this.constructor.baseStyles, {
       text: {
       /*
        * Get the color attribute
@@ -137,10 +132,9 @@ class ${name} extends Component {
     })
   }
 
-  render() {
-
-    const css = this.getStyles(),
-          content = 'Hello World!'
+  render () {
+    const css = this.getStyles()
+    const content = 'Hello World!'
 
     return (
       <MjText style={ css }>
@@ -148,9 +142,11 @@ class ${name} extends Component {
       </MjText>
     )
   }
+
 }
 
 registerElement('${lowerName}', ${name}${ending ? ', { endingTag: true }' : ''})
+
 export default ${name}
 `
 }

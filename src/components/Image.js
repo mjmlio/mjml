@@ -29,7 +29,7 @@ class Image extends Component {
       display: 'block',
       outline: 'none',
       textDecoration: 'none',
-      width: "100%"
+      width: '100%'
     }
   };
 

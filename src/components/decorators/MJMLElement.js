@@ -1,6 +1,7 @@
 import Immutable from 'immutable'
 import MJMLElementsCollection from '../../MJMLElementsCollection'
 import React, { Component } from 'react'
+import ReactDOMServer from 'react-dom/server'
 import _ from 'lodash'
 import { widthParser, paddingParser } from "../../helpers/mjAttribute"
 import { UnknownMJMLElement } from '../../Error'
@@ -56,7 +57,16 @@ function createComponent(ComposedComponent, defaultAttributes) {
     }
 
     mjContent() {
-      return _.trim(this.state.getIn(['elem', 'content'])) || (this.props.children && React.renderToStaticMarkup(this.props.children))
+      const content = this.state.getIn(['elem', 'content']);
+      if ( content ) {
+        return _.trim(content)
+      }
+      return React.Children.map(this.props.children, child => {
+        if (typeof child === 'string') {
+          return child;
+        }
+        return ReactDOMServer.renderToStaticMarkup(child)
+      })
     }
 
     mjElementName() {

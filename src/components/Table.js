@@ -19,7 +19,7 @@ class Table extends Component {
   static baseStyles = {}
 
   getStyles() {
-    const { mjAttribute, color } = this.props
+    const { mjAttribute } = this.props
 
     return _.merge({}, this.constructor.baseStyles, {
       table: {

@@ -36,11 +36,11 @@ const format = (input) => {
  *   - pretty diff when it doesn't match
  *   - use a good formatting instead of the cheerio parsing
  */
-const compare = (input, output) => {
+const compare = (input, output, file) => {
   const $input  = format(cheerio.load(input)('body').html())
   const $output = format(cheerio.load(output)('body').html())
 
-  return it('should be strictly equal', () => {
+  return it(`should be strictly equal for file ${file}`, () => {
     expect($input).to.equal($output)
   })
 }
@@ -62,11 +62,10 @@ const testCases = (directory) => {
 
     // For each of them find the corresponding html and trigger compare
     .map(file => engine => {
-
       const input = fs.readFileSync(assets(file)).toString()
       const output = fs.readFileSync(assets(file.replace('.mjml', '.html'))).toString()
 
-      return compare(engine(input), output)
+      return compare(engine(input), output, file)
     })
 }
 

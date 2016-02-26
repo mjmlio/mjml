@@ -59,7 +59,11 @@ const internals = {
     internals.fixLegacyAttrs($)
     internals.fixOutlookLayout($)
 
-    return $.html()
+    return internals.removeCDATA($.html())
+  },
+
+  removeCDATA(content) {
+    return content.replace(/<!--\[CDATA\[(.*?)\]\]-->/g, `$1`);
   },
 
   insertColumnMediaQuery($) {
@@ -155,6 +159,24 @@ const internals = {
       $(this).replaceWith(`<!--[if mso]>
       </td></tr></table>
       <![endif]-->`)
+    })
+
+    $(".mj-social-outlook-open").each(function() {
+      $(this).replaceWith(`<!--[if mso]>
+      <table border="0" cellpadding="0" cellspacing="0" align="center"><tr><td>
+      <![endif]-->`)
+    })
+
+    $(".mj-social-outlook-line").each(function() {
+      $(this).replaceWith(`<!--[if mso]>
+        </td><td>
+        <![endif]-->`)
+    })
+
+    $(".mj-social-outlook-close").each(function() {
+      $(this).replaceWith(`<!--[if mso]>
+      	</td></tr></table>
+      	<![endif]-->`)
     })
 
     $(".outlook-divider-fix").each(function() {

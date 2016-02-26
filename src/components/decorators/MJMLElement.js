@@ -1,6 +1,7 @@
 import Immutable from 'immutable'
 import MJMLElementsCollection from '../../MJMLElementsCollection'
 import React, { Component } from 'react'
+import ReactDOMServer from 'react-dom/server'
 import _ from 'lodash'
 import { widthParser, paddingParser } from "../../helpers/mjAttribute"
 import { UnknownMJMLElement } from '../../Error'
@@ -56,7 +57,16 @@ function createComponent(ComposedComponent, defaultAttributes) {
     }
 
     mjContent() {
-      return _.trim(this.state.getIn(['elem', 'content'])) || React.renderToStaticMarkup(this.props.children)
+      const content = this.state.getIn(['elem', 'content']);
+      if ( content ) {
+        return _.trim(content)
+      }
+      return React.Children.map(this.props.children, child => {
+        if (typeof child === 'string') {
+          return child;
+        }
+        return ReactDOMServer.renderToStaticMarkup(child)
+      })
     }
 
     mjElementName() {
@@ -103,7 +113,6 @@ function createComponent(ComposedComponent, defaultAttributes) {
         elements = elements.toArray()
       }
 
-      const wrappedElements = []
       const prefix          = `mj-${this.mjElementName()}-outlook`
       const parentWidth     = this.getWidth()
       const siblings        = elements.length
@@ -119,20 +128,19 @@ function createComponent(ComposedComponent, defaultAttributes) {
         return []
       }
 
-      elements.forEach((element, n) => {
-        const width = elementsWidth[n]
-
-        wrappedElements.push(React.cloneElement(element, _.merge({rawPxWidth: width}, this.inheritedAttributes())))
+      const wrappedElements = elements.reduce((result, element, n) => {
+        result.push(React.cloneElement(element, _.merge({rawPxWidth: elementsWidth[n]}, this.inheritedAttributes())))
 
         if ( n < elements.length - 1 ) {
-          wrappedElements.push(<div key={`outlook-${n}`}className={`${prefix}-line`} data-width={elementsWidth[n+1]}/>)
+          result.push(<div key={`outlook-${n}`}className={`${prefix}-line`} data-width={elementsWidth[n+1]}/>)
         }
-      })
 
-      const outlookOpenTag  = <div key="outlook-open" className={`${prefix}-open`} data-width={elementsWidth[0]} />
-      const outlookCloseTag = <div key="outlook-close" className={`${prefix}-close`} />
+        return result
+      }, [<div key="outlook-open" className={`${prefix}-open`} data-width={elementsWidth[0]} />])
 
-      return [outlookOpenTag].concat(wrappedElements, [outlookCloseTag])
+      wrappedElements.push(<div key="outlook-close" className={`${prefix}-close`} />)
+
+      return wrappedElements
     }
 
     upgradeReactChildren(children) {

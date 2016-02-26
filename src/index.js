@@ -4,4 +4,4 @@ export MJMLColumnElement from './components/decorators/MJMLColumnElement'
 export MJMLElement from './components/decorators/MJMLElement'
 export const elements = require('./MJMLElementsCollection').default
 export const registerElement = require('./MJMLElementsCollection').registerElement
-export const version = () => process.env.MJML_VERSION || require('../package.json').version
+export const version = () => process.env.MJML_VERSION

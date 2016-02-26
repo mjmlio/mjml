@@ -12,8 +12,6 @@ const safeEndingTags = content => {
     content = content.replace(tagRegexp, `<${tag}><!--[CDATA[$1]]--></${tag}>`)
   })
 
-  console.log('content', content)
-
   return content
 }
 

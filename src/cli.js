@@ -1,6 +1,5 @@
-import fs from 'fs'
-import minify from 'html-minify'
 import { mjml2html, version as V } from './index'
+import fs from 'fs'
 
 const capitalize = name => name.charAt(0).toUpperCase() + name.slice(1).toLowerCase().replace(/-/g, '')
 

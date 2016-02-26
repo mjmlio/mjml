@@ -236,7 +236,7 @@ const render = ({ mjml, options }) => {
 
   debug('React rendering done. Continue with special overrides.')
   let $ = dom.parseHTML(container(options.title, content))
-  
+
   $('.mj-raw').each(function () {
     $(this).replaceWith($(this).html())
   })
@@ -250,14 +250,14 @@ const render = ({ mjml, options }) => {
 
   html = removeCDATA(html)
 
-  if (options.beautify) {
+  if (options.beautify && beautify) {
     html = beautify(html, {
       indent_size: 2,
       wrap_attributes_indent_size: 2
     })
   }
 
-  if (options.minify) {
+  if (options.minify && minify) {
     html = minify(html, {
       collapseWhitespace: true,
       removeEmptyAttributes: true,

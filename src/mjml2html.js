@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import { EmptyMJMLError } from './Error'
 import { html as beautify } from 'js-beautify'
+import { minify } from 'html-minifier'
 import { parseInstance } from './helpers/mjml'
 import defaultStyle from './defaultStyle'
 import documentParser from './documentParser'
@@ -251,6 +252,14 @@ const render = ({ mjml, options }) => {
     html = beautify(html, {
       indent_size: 2,
       wrap_attributes_indent_size: 2
+    })
+  }
+
+  if (options.minify) {
+    html = minify(html, {
+      collapseWhitespace: true,
+      removeEmptyAttributes: true,
+      minifyCSS: true
     })
   }
 

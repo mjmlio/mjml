@@ -91,7 +91,7 @@
     "classnames": "^2.2.3",
     "commander": "^2.9.0",
     "debug": "^2.2.0",
-    "html-minify": "^0.3.1",
+    "html-minifier": "^1.2.0",
     "immutable": "^3.7.6",
     "jquery": "^2.2.1",
     "js-beautify": "^1.6.2",

@@ -54,9 +54,8 @@ const readStdin = promisify(stdinToBuffer)
  */
 const render = (bufferPromise, { min, output, stdout }) => {
   bufferPromise
-    .then(mjml    => mjml2html(mjml.toString()))
-    .then(html    => min ? minify(html) : html)
-    .then(result  => stdout ? process.stdout.write(result) : write(output, result))
+    .then(mjml => mjml2html(mjml.toString(), { minify: min }))
+    .then(result => stdout ? process.stdout.write(result) : write(output, result))
     .catch(error)
 }
 

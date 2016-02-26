@@ -94,6 +94,7 @@
     "html-minify": "^0.3.1",
     "immutable": "^3.7.6",
     "jquery": "^2.2.1",
+    "js-beautify": "^1.6.2",
     "lodash": "^4.5.1",
     "react": "^0.14.7",
     "react-addons-perf": "^0.14.7",

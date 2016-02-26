@@ -23,7 +23,7 @@ const mjmlElementParser = elem => {
     throw new NullElementError('Null element found in mjmlElementParser')
   }
 
-  const tagName = elem.tagName
+  const tagName = elem.tagName.toLowerCase()
   const attributes = dom.getAttributes(elem)
 
   const element = { tagName, attributes }
@@ -32,7 +32,8 @@ const mjmlElementParser = elem => {
     const $ = dom.parseXML(elem)
     element.content = $(tagName).html().trim()
   } else {
-    element.children = elem.childNodes ? _.filter(elem.childNodes, child => child.tagName).map(mjmlElementParser) : []
+    const children = dom.getChildren(elem)
+    element.children = children ? _.filter(children, child => child.tagName).map(mjmlElementParser) : []
   }
 
   return element

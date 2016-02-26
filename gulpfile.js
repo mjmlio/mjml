@@ -22,8 +22,17 @@ gulp.task('dist', ['build'], function (done) {
     output: {
       path: './dist',
       filename: 'mjml.js',
+      library: 'mjml',
       libraryTarget: 'umd'
-    }
+    },
+    plugins: [
+      new webpack.DefinePlugin({
+        'process.env': {
+          'BROWSER': JSON.stringify(true),
+          'MJML_VERSION': JSON.stringify(require('./package.json').version)
+        }
+      })
+    ]
   }, function (err, stats) {
     done()
   })

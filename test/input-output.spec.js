@@ -30,8 +30,8 @@ const format = input => input ? input.toLowerCase().replace(/>/g, ' > ').replace
  *   - use a good formatting instead of the cheerio parsing
  */
 const compare = (input, output, file) => {
-  const $input  = format(dom.parseHTML(input)('body').html())
-  const $output = format(dom.parseHTML(output)('body').html())
+  const $input  = format(dom.getHTML(dom.parseHTML(input)))
+  const $output = format(dom.getHTML(dom.parseHTML(output)))
 
   return it(`should be strictly equal for file ${file}`, () => expect($input).to.equal($output))
 }

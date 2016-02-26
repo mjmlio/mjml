@@ -1,6 +1,5 @@
 .DS_Store
 *.log
-compiled
 dist
 lib
 node_modules

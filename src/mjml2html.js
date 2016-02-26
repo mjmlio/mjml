@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import { EmptyMJMLError } from './Error'
+import { html as beautify } from 'js-beautify'
 import { parseInstance } from './helpers/mjml'
 import defaultStyle from './defaultStyle'
 import documentParser from './documentParser'
@@ -53,10 +54,13 @@ const insertColumnMediaQuery = $ => {
     </style>`
 
   $('head').append(mediaQuery)
+
+  return $
 }
 
 const fixOutlookLayout = $ => {
   const bodyWidth = $('.mj-body').data('width')
+
   $('.mj-body').removeAttr('data-width')
 
   $('.mj-section-outlook-background').each(function () {
@@ -146,6 +150,8 @@ const fixOutlookLayout = $ => {
     $(this).removeClass('mj-divider-outlook')
            .after(`<!--[if mso]>${$insertNode}<![endif]-->`)
   })
+
+  return $
 }
 
 const fixLegacyAttrs = $ => {
@@ -164,6 +170,8 @@ const fixLegacyAttrs = $ => {
       $(this).removeAttr(dataAttr)
     })
   })
+
+  return $
 }
 
 const container = (title = '', content = '') => (
@@ -194,7 +202,7 @@ const container = (title = '', content = '') => (
 
 const render = ({ mjml, options }) => {
   let content = ''
-  
+
   if (mjml) {
     debug('Create root React element')
     const rootElemComponent = React.createElement(MJMLElementsCollection[mjml.tagName.substr(3)], { mjml: parseInstance(mjml) })
@@ -206,17 +214,26 @@ const render = ({ mjml, options }) => {
   }
 
   debug('React rendering done. Continue with special overrides.')
-  const $ = dom.parseHTML(container(options.title, content))
+  let $ = dom.parseHTML(container(options.title, content))
 
   $('.mj-raw').each(function () {
     $(this).replaceWith($(this).html())
   })
 
-  insertColumnMediaQuery($)
-  fixLegacyAttrs($)
-  fixOutlookLayout($)
+  $ = insertColumnMediaQuery($)
+  $ = fixLegacyAttrs($)
+  $ = fixOutlookLayout($)
 
-  return removeCDATA(dom.getHTML($))
+  let html = removeCDATA(dom.getHTML($))
+
+  if (options.beautify) {
+    html = beautify(html, {
+      indent_size: 2,
+      wrap_attributes_indent_size: 2
+    })
+  }
+
+  return html
 }
 
 export default mjml2html

@@ -18,7 +18,7 @@ if (inBrowser) {
 
   dom.parseHTML = str => {
     const parser = new DOMParser()
-
+    
     return parseMarkup(parser.parseFromString(str, 'text/html'))
   }
 
@@ -29,7 +29,7 @@ if (inBrowser) {
 
     const parser = new DOMParser()
 
-    return parseMarkup(parser.parseFromString(`<root>${str}</root>`, 'text/xml'))
+    return parseMarkup(parser.parseFromString(`<root>${str}</root>`, 'text/html'))
   }
 
   dom.createElement = str => {
@@ -45,6 +45,8 @@ if (inBrowser) {
 
     return attributes
   }
+
+  dom.getChildren = element => element.children
 
   dom.getHTML = $ => {
     const markup = $()[0]
@@ -74,6 +76,8 @@ if (inBrowser) {
   dom.createElement = str => $.load(str)
 
   dom.getAttributes = element => element.attribs || {}
+
+  dom.getChildren = element => element.childNodes
 
   dom.getHTML = $ => $().html()
 }

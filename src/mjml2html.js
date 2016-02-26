@@ -48,13 +48,15 @@ const insertColumnMediaQuery = $ => {
     })
   })
 
-  const mediaQuery = `<style type="text/css">
-    @media only screen and (min-width:480px) {
-      ${mediaQueries.join('\n')}
-    }
-    </style>`
+  if (mediaQueries.length > 0) {
+    const mediaQuery = `<style type="text/css">
+      @media only screen and (min-width:480px) {
+        ${mediaQueries.join('\n')}
+      }
+      </style>`
 
-  $('head').append(mediaQuery)
+    $('head').append(mediaQuery)
+  }
 
   return $
 }

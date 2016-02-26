@@ -27,9 +27,7 @@ if (inBrowser) {
       str = str.outerHTML
     }
 
-    const parser = new DOMParser()
-
-    return parseMarkup(parser.parseFromString(`<root>${str}</root>`, 'text/html'))
+    return parseMarkup(jquery.parseXML(`<root>${str}</root>`))
   }
 
   dom.createElement = str => {

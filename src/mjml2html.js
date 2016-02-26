@@ -236,7 +236,7 @@ const render = ({ mjml, options }) => {
 
   debug('React rendering done. Continue with special overrides.')
   let $ = dom.parseHTML(container(options.title, content))
-
+  
   $('.mj-raw').each(function () {
     $(this).replaceWith($(this).html())
   })
@@ -246,7 +246,9 @@ const render = ({ mjml, options }) => {
   $ = fixOutlookLayout($)
   $ = clean($)
 
-  let html = removeCDATA(dom.getHTML($))
+  let html = dom.getHTML($)
+
+  html = removeCDATA(html)
 
   if (options.beautify) {
     html = beautify(html, {

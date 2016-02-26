@@ -9,8 +9,10 @@ import dom from './helpers/dom'
 const safeEndingTags = content => {
   unsafeTags.forEach(tag => {
     const tagRegexp = new RegExp(`<${tag}>(.*?)<\/${tag}>`, 'g')
-    content = content.replace(tagRegexp, `<${tag}><![CDATA[$1]]></${tag}>`)
+    content = content.replace(tagRegexp, `<${tag}><!--[CDATA[$1]]--></${tag}>`)
   })
+
+  console.log('content', content)
 
   return content
 }

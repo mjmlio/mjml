@@ -30,8 +30,8 @@ const format = input => input ? input.toLowerCase().replace(/>/g, ' > ').replace
  *   - use a good formatting instead of the cheerio parsing
  */
 const compare = (input, output, file) => {
-  const $input  = format(dom.getHTML(dom.parseHTML(input)))
-  const $output = format(dom.getHTML(dom.parseHTML(output)))
+  const $input  = format(input)
+  const $output = format(output)
 
   return it(`should be strictly equal for file ${file}`, () => expect($input).to.equal($output))
 }
@@ -55,7 +55,7 @@ const testCases = directory => {
       const input = fs.readFileSync(assets(file)).toString()
       const output = fs.readFileSync(assets(file.replace('.mjml', '.html'))).toString()
 
-      return compare(engine(input), output, file)
+      return compare(engine(input, { beautify: true }), output, file)
     })
 }
 

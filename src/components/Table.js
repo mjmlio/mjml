@@ -41,8 +41,7 @@ class Table extends Component {
         cellPadding="0"
         cellSpacing="0"
         dangerouslySetInnerHTML={{__html: mjContent() }}
-        style={style.table}
-			/>
+        style={style.table} />
     )
   }
 }

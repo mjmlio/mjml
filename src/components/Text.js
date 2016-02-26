@@ -10,8 +10,8 @@ import _ from 'lodash'
   tagName: 'mj-text',
   content: '',
   attributes: {
-    'align': 'left',
     'color': '#000000',
+    'align': 'left',
     'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
     'font-size': '13px',
     'line-height': '22px',
@@ -27,11 +27,11 @@ class Text extends Component {
   };
 
   getStyles() {
-    const { mjAttribute, color } = this.props
+    const { mjAttribute, parentColor } = this.props
 
     return _.merge({}, this.constructor.baseStyles, {
       div: {
-        color: mjAttribute('locked') ? color : mjAttribute('color'),
+        color: mjAttribute('locked') ? parentColor : mjAttribute('color', parentColor),
         fontFamily: mjAttribute('font-family'),
         fontSize: mjAttribute('font-size'),
         fontStyle: mjAttribute('font-style'),

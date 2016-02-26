@@ -34,7 +34,7 @@ class Mock extends Component {
    * Build your styling here
    */
   getStyles() {
-    const { mjAttribute, color } = this.props
+    const { mjAttribute, parentColor } = this.props
 
     return _.merge({}, this.constructor.baseStyles, {
       text: {

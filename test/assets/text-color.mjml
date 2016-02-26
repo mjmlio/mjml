@@ -1,0 +1,22 @@
+<mj-body color="red">
+  <mj-section>
+    <mj-column>
+      <mj-text color="green">
+        green text
+      </mj-text>
+      <mj-text>
+        red text
+      </mj-text>
+    </mj-column>
+  </mj-section>
+  <mj-section>
+    <mj-column color="blue">
+      <mj-text color="yellow">
+        yellow text
+      </mj-text>
+      <mj-text>
+        blue text
+      </mj-text>
+    </mj-column>
+  </mj-section>
+</mj-body>

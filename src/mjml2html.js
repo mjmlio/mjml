@@ -67,9 +67,10 @@ const fixOutlookLayout = $ => {
     const url = $(this).data('url')
     const width = $(this).data('width')
 
-    $(this).removeAttr('class')
-           .removeAttr('data-url')
-           .removeAttr('data-width')
+    $(this)
+      .removeAttr('class')
+      .removeAttr('data-url')
+      .removeAttr('data-width')
 
     if (!url) {
       return
@@ -147,8 +148,9 @@ const fixOutlookLayout = $ => {
   $('.mj-divider-outlook').each(function () {
     const $insertNode = dom.createElement('<table></table>').attr('style', $(this).attr('style'))
 
-    $(this).removeClass('mj-divider-outlook')
-           .after(`<!--[if mso]>${$insertNode}<![endif]-->`)
+    $(this)
+      .removeClass('mj-divider-outlook')
+      .after(`<!--[if mso]>${$insertNode}<![endif]-->`)
   })
 
   return $
@@ -170,6 +172,24 @@ const fixLegacyAttrs = $ => {
       $(this).removeAttr(dataAttr)
     })
   })
+
+  return $
+}
+
+const clean = $ => {
+  $('#YIELD_MJML').each(function () {
+    $(this).removeAttr('id')
+
+    if ($(this).attr('style') === '') {
+      $(this).removeAttr('style')
+    }
+  })
+
+  $('.mj-body')
+    .removeAttr('class')
+    .removeAttr('style')
+
+  $('.mj-content').removeAttr('class')
 
   return $
 }
@@ -223,6 +243,7 @@ const render = ({ mjml, options }) => {
   $ = insertColumnMediaQuery($)
   $ = fixLegacyAttrs($)
   $ = fixOutlookLayout($)
+  $ = clean($)
 
   let html = removeCDATA(dom.getHTML($))
 

@@ -1,16 +1,81 @@
 const inBrowser = typeof window !== 'undefined'
-let $
+const dom = {}
 
 if (inBrowser) {
-  $ = require('jquery')
+  const jquery = require('jquery')
+
+  const parseMarkup = str => {
+    const context = jquery(str)
+
+    return selector => {
+      if (!selector) {
+        return jquery(context)
+      }
+
+      return jquery(selector, context)
+    }
+  }
+
+  dom.parseHTML = str => {
+    const parser = new DOMParser()
+
+    return parseMarkup(parser.parseFromString(str, 'text/html'))
+  }
+
+  dom.parseXML = str => {
+    if (typeof str !== 'string') {
+      str = str.outerHTML
+    }
+
+    const parser = new DOMParser()
+
+    return parseMarkup(parser.parseFromString(`<root>${str}</root>`, 'text/xml'))
+  }
+
+  dom.createElement = str => {
+    const parser = new DOMParser()
+
+    return jquery(parser.parseFromString(str, 'text/html').body.innerHTML)
+  }
+
+  dom.getAttributes = element => {
+    const attributes = {}
+
+    Array.prototype.slice.call(element.attributes).forEach(attribute => attributes[attribute.name] = attribute.value)
+
+    return attributes
+  }
+
+  dom.getHTML = $ => {
+    const markup = $()[0]
+
+    return `<!doctype ${markup.doctype.name}>${markup.documentElement.outerHTML}`
+  }
 } else {
   const cheerio = require('cheerio')
-  $ = cheerio.load('', { decodeEntities: false })
+  let $ = cheerio.load('', { decodeEntities: false })
 
-  const parseMarkup = (str, options) => $.load(str, options)
+  const parseMarkup = (str, options) => {
+    $ = $.load(str, options)
 
-  $.parseHTML = str => parseMarkup(str, { xmlMode: false })
-  $.parseXML = str => parseMarkup(str, { xmlMode: true })
+    return selector => {
+      if (!selector) {
+        return $
+      }
+
+      return $(selector)
+    }
+  }
+
+  dom.parseHTML = str => parseMarkup(str, { xmlMode: false })
+
+  dom.parseXML = str => parseMarkup(str, { xmlMode: true })
+
+  dom.createElement = str => $.load(str)
+
+  dom.getAttributes = element => element.attribs || {}
+
+  dom.getHTML = $ => $().html()
 }
 
-export default $
+export default dom

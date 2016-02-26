@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import { endingTags, unsafeTags } from './MJMLElementsCollection'
 import { ParseError, EmptyMJMLError, NullElementError } from './Error'
 import dom from './helpers/dom'
@@ -23,19 +24,18 @@ const mjmlElementParser = elem => {
   }
 
   const tagName = elem.tagName
-  const attributes = elem.attribs
+  const attributes = dom.getAttributes(elem)
 
-  let content
-  let children
+  const element = { tagName, attributes }
 
   if (endingTags.indexOf(tagName) !== -1) {
     const $ = dom.parseXML(elem)
-    content = $(tagName).html().trim()
+    element.content = $(tagName).html().trim()
   } else {
-    children = elem.childNodes ? elem.childNodes.filter(child => child.tagName).map(mjmlElementParser) : []
+    element.children = elem.childNodes ? _.filter(elem.childNodes, child => child.tagName).map(mjmlElementParser) : []
   }
 
-  return { tagName, attributes, children, content }
+  return element
 }
 
 /**

@@ -1,6 +1,6 @@
 import fs from 'fs'
 import minify from 'html-minify'
-import { mjml2html, version as VERSION } from './index'
+import { mjml2html, version as V } from './index'
 
 const capitalize = name => name.charAt(0).toUpperCase() + name.slice(1).toLowerCase().replace(/-/g, '')
 
@@ -8,7 +8,7 @@ const capitalize = name => name.charAt(0).toUpperCase() + name.slice(1).toLowerC
  * The version number is the NPM
  * version number. It should be the same as the MJML engine
  */
-export const version = VERSION
+export const version = V
 
 /*
  * Turns a callback style to a Promise style one

@@ -7,7 +7,7 @@ var binary = require('commander')
  * Parse the command line arguments
  */
 binary
-  .version(cli.version)
+  .version(cli.version())
   .option('-r, --render <file>', 'Compiles an MJML file')
   .option('-i, --stdin', 'Compiles an MJML file from input stream')
   .option('-w, --watch <file>', 'Watch and render an MJML file')
@@ -43,5 +43,5 @@ switch (true) {
     break
 
   default:
-    console.log(cli.version)
+    console.log(cli.version())
 }

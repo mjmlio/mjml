@@ -29,9 +29,7 @@ const mjml2html = (content, options = {}) => {
 const removeCDATA = str => str.replace(/<!--\[CDATA\[(.*?)\]\]-->/g, '$1')
 
 const insertColumnMediaQuery = $ => {
-  const mediaQuery = $(`<style type="text/css">
-  @media only screen and (min-width:480px) {
-  </style>`)
+  const mediaQueries = []
 
   _.each({'mj-column-per': '%', 'mj-column-px': 'px'}, (unit, className) => {
     const columnWidths = []
@@ -44,11 +42,15 @@ const insertColumnMediaQuery = $ => {
     _.uniq(columnWidths).forEach((width) => {
       const mediaQueryClass = `${className}-${width}`
 
-      mediaQuery.append(`.${mediaQueryClass}, * [aria-labelledby="${mediaQueryClass}"] { width:${width}${unit}!important; }\n`)
+      mediaQueries.push(`.${mediaQueryClass}, * [aria-labelledby="${mediaQueryClass}"] { width:${width}${unit}!important; }`)
     })
   })
 
-  mediaQuery.append(`}`)
+  const mediaQuery = `<style type="text/css">
+    @media only screen and (min-width:480px) {
+      ${mediaQueries.join('\n')}
+    }
+    </style>`
 
   $('head').append(mediaQuery)
 }
@@ -139,7 +141,7 @@ const fixOutlookLayout = $ => {
   })
 
   $('.mj-divider-outlook').each(function () {
-    const $insertNode = $('<table></table>').css($(this).css())
+    const $insertNode = dom.createElement('<table></table>').attr('style', $(this).attr('style'))
 
     $(this).removeClass('mj-divider-outlook')
            .after(`<!--[if mso]>${$insertNode}<![endif]-->`)
@@ -164,7 +166,7 @@ const fixLegacyAttrs = $ => {
   })
 }
 
-const container = (title = '') => (
+const container = (title = '', content = '') => (
 `<!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -185,13 +187,14 @@ const container = (title = '') => (
 <!--<![endif]-->
 </head>
 <body id="YIELD_MJML">
+  ${content}
 </body>
 </html>`
 )
 
 const render = ({ mjml, options }) => {
   let content = ''
-
+  
   if (mjml) {
     debug('Create root React element')
     const rootElemComponent = React.createElement(MJMLElementsCollection[mjml.tagName.substr(3)], { mjml: parseInstance(mjml) })
@@ -203,9 +206,8 @@ const render = ({ mjml, options }) => {
   }
 
   debug('React rendering done. Continue with special overrides.')
-  const $ = dom.parseHTML(container(options.title))
+  const $ = dom.parseHTML(container(options.title, content))
 
-  $('#YIELD_MJML').html(content)
   $('.mj-raw').each(function () {
     $(this).replaceWith($(this).html())
   })
@@ -214,7 +216,7 @@ const render = ({ mjml, options }) => {
   fixLegacyAttrs($)
   fixOutlookLayout($)
 
-  return removeCDATA($.html())
+  return removeCDATA(dom.getHTML($))
 }
 
 export default mjml2html

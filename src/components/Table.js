@@ -11,7 +11,8 @@ import _ from 'lodash'
     'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
     'font-size': '13px',
     'line-height': '22px',
-    'padding': '10px 25px'
+    'padding': '10px 25px',
+    'width': '100%'
   }
 })
 class Table extends Component {
@@ -32,7 +33,7 @@ class Table extends Component {
   }
 
   render() {
-    const { mjContent } = this.props
+    const { mjAttribute, mjContent } = this.props
     const style = this.getStyles()
 
     return (
@@ -41,7 +42,8 @@ class Table extends Component {
         cellPadding="0"
         cellSpacing="0"
         dangerouslySetInnerHTML={{__html: mjContent() }}
-        style={style.table} />
+        style={style.table}
+        width={mjAttribute('width')} />
     )
   }
 }

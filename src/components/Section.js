@@ -45,6 +45,13 @@ class Section extends Component {
     }
 
     return _.merge({}, this.constructor.baseStyles, {
+      table: {
+        border: mjAttribute('border'),
+        borderTop: mjAttribute('border-top'),
+        borderBottom: mjAttribute('border-bottom'),
+        borderRight: mjAttribute('border-right'),
+        borderLeft: mjAttribute('border-left'),
+      },
       td: {
         fontSize: 0,
         textAlign: mjAttribute('text-align'),

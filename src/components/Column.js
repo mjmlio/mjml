@@ -31,7 +31,12 @@ class Column extends Component {
         fontSize: "13",
         textAlign: "left",
         width: "100%",
-        minWidth: mjAttribute('width')
+        minWidth: mjAttribute('width'),
+        border: mjAttribute('border'),
+        borderTop: mjAttribute('border-top'),
+        borderBottom: mjAttribute('border-bottom'),
+        borderRight: mjAttribute('border-right'),
+        borderLeft: mjAttribute('border-left')
       },
       table: {
         background: mjAttribute('background-color')

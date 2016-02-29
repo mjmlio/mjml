@@ -3,6 +3,7 @@ import { UnknownMJMLElement } from '../../Error'
 import { widthParser, paddingParser } from '../../helpers/mjAttribute'
 import MJMLElementsCollection from '../../MJMLElementsCollection'
 import React, { Component } from 'react'
+import ReactDOMServer from 'react-dom/server'
 
 const getElementWidth = ({ element, siblings, parentWidth }) => {
   const { elem } = element.props
@@ -39,9 +40,22 @@ function createComponent(ComposedComponent, defaultMJMLDefinition) {
 
     mjAttribute = name => this.props.mjml.getIn(['attributes', name])
 
-    mjContent = () => _.trim(this.props.mjml.get('content')) || (this.props.children && React.renderToStaticMarkup(this.props.children))
-
     mjName = () => this.props.mjml.get('tagName').substr(3)
+
+    mjContent = () => {
+      const content = this.props.mjml.get('content')
+
+      if (content) {
+        return _.trim(content)
+      }
+
+      return React.Children.map(this.props.children, child => {
+        if (typeof child === 'string') {
+          return child
+        }
+        return ReactDOMServer.renderToStaticMarkup(child)
+      })
+    }
 
     inheritedAttributes () {
       return this.props.mjml.get('inheritedAttributes').reduce((result, value) => {

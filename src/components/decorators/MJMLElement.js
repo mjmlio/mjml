@@ -73,6 +73,10 @@ function createComponent(ComposedComponent, defaultAttributes) {
       return this.state.getIn(['elem', 'tagName']).substr(3)
     }
 
+    mjChildren() {
+      return this.state.getIn(['elem', 'children'])
+    }
+
     inheritedAttributes() {
       return _.reduce(this.state.getIn(['elem', 'inheritedAttributes']).toJS(), (result, value) => {
         result[value] = this.mjAttribute(value)
@@ -188,6 +192,7 @@ function createComponent(ComposedComponent, defaultAttributes) {
           mjAttribute={::this.mjAttribute}
           mjContent={::this.mjContent}
           mjElementName={::this.mjElementName}
+          mjChildren={::this.mjChildren}
           renderChildren={::this.renderChildren}
           getPadding={paddingParser.bind(this)}
           renderWrappedOutlookChildren={::this.renderWrappedOutlookChildren} />

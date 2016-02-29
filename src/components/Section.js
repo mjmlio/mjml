@@ -50,7 +50,7 @@ class Section extends Component {
         borderTop: mjAttribute('border-top'),
         borderBottom: mjAttribute('border-bottom'),
         borderRight: mjAttribute('border-right'),
-        borderLeft: mjAttribute('border-left'),
+        borderLeft: mjAttribute('border-left')
       },
       td: {
         fontSize: 0,

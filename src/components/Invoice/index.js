@@ -23,7 +23,7 @@ class Invoice extends Component {
   constructor(props) {
     super(props)
 
-    const format     = this.props.mjAttribute('format')
+    const format     = props.mjAttribute('format')
     const currencies = format.match(/([^-\d.,])/g)
 
     this.items    = props.mjChildren().filter((child) => child.get('tagName') === 'mj-invoice-item')

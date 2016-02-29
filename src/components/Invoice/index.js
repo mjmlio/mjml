@@ -15,7 +15,7 @@ import MJTable from '../Table'
     'line-height': '22px',
     'border': '1px solid #ecedee',
 
-    'transl': 'name:Name;price:Price;quantity:Quantity'
+    'intl': 'name:Name;price:Price;quantity:Quantity'
   }
 })
 class Invoice extends Component {
@@ -29,7 +29,7 @@ class Invoice extends Component {
     }
   }
 
-  static transl = {
+  static intl = {
     name    : 'Name',
     price   : 'Price',
     quantity: 'Quantity',
@@ -96,19 +96,19 @@ class Invoice extends Component {
     }
   }
 
-  getTranslations() {
+  getIntl() {
     const { mjAttribute } = this.props
 
-    const transl = _.cloneDeep(this.constructor.transl)
+    const intl = _.cloneDeep(this.constructor.intl)
 
-    mjAttribute('transl').split(';').forEach((t) => {
+    mjAttribute('intl').split(';').forEach((t) => {
       if (t && t.indexOf(':') != -1) {
         t = t.split(':')
-        transl[t[0].trim()] = t[1].trim()
+        intl[t[0].trim()] = t[1].trim()
       }
     })
 
-    return transl
+    return intl
   }
 
   getTotal() {
@@ -127,9 +127,9 @@ class Invoice extends Component {
   render() {
     const { renderChildren } = this.props
 
-    const attrs  = this.getAttributes()
-    const transl = this.getTranslations()
+    const intl   = this.getIntl()
     const styles = this.getStyles()
+    const attrs  = this.getAttributes()
 
     const total  = this.getTotal()
 
@@ -137,15 +137,15 @@ class Invoice extends Component {
       <MJTable {...attrs.table}>
         <thead>
           <tr style={styles.thead}>
-            <th style={styles.th}>{transl['name']}</th>
-            <th style={styles.th}>{transl['price']}</th>
-            <th style={styles.thQuantity}>{transl['quantity']}</th>
+            <th style={styles.th}>{intl['name']}</th>
+            <th style={styles.th}>{intl['price']}</th>
+            <th style={styles.thQuantity}>{intl['quantity']}</th>
           </tr>
         </thead>
         {renderChildren()}
         <tfoot>
           <tr style={styles.tfoot}>
-            <th style={styles.th} colSpan="2">{transl['total']}</th>
+            <th style={styles.th} colSpan="2">{intl['total']}</th>
             <td style={styles.total}>{total}</td>
           </tr>
         </tfoot>

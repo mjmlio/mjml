@@ -22,7 +22,12 @@ class Body extends Component {
     return {
       div: {
         backgroundColor: mjAttribute('background-color'),
-        fontSize: mjAttribute('font-size')
+        fontSize: mjAttribute('font-size'),
+        border: mjAttribute('border'),
+        borderTop: mjAttribute('border-top'),
+        borderBottom: mjAttribute('border-bottom'),
+        borderRight: mjAttribute('border-right'),
+        borderLeft: mjAttribute('border-left')
       }
     }
   }

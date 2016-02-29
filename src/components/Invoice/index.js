@@ -13,7 +13,9 @@ import MJTable from '../Table'
     'font-family': 'Roboto, Ubuntu, Helvetica, Arial, sans-serif',
     'font-size': '13px',
     'line-height': '22px',
-    'border': '1px solid #ecedee'
+    'border': '1px solid #ecedee',
+
+    'transl': 'name:Name;price:Price;quantity:Quantity'
   }
 })
 class Invoice extends Component {
@@ -25,6 +27,13 @@ class Invoice extends Component {
       textTransform: 'uppercase',
       textAlign: 'left'
     }
+  }
+
+  static transl = {
+    name    : 'Name',
+    price   : 'Price',
+    quantity: 'Quantity',
+    total   : 'Total:'
   }
 
   constructor(props) {
@@ -87,7 +96,22 @@ class Invoice extends Component {
     }
   }
 
-  total() {
+  getTranslations() {
+    const { mjAttribute } = this.props
+
+    const transl = _.cloneDeep(this.constructor.transl)
+
+    mjAttribute('transl').split(';').forEach((t) => {
+      if (t && t.indexOf(':') != -1) {
+        t = t.split(':')
+        transl[t[0].trim()] = t[1].trim()
+      }
+    })
+
+    return transl
+  }
+
+  getTotal() {
     const format   = this.format
     const currency = this.currency
     const total    = this.items.reduce((prev, item) => {
@@ -101,24 +125,28 @@ class Invoice extends Component {
   }
 
   render() {
+    const { renderChildren } = this.props
+
     const attrs  = this.getAttributes()
+    const transl = this.getTranslations()
     const styles = this.getStyles()
-    const { renderChildren, mjAttribute } = this.props
+
+    const total  = this.getTotal()
 
     return (
       <MJTable {...attrs.table}>
         <thead>
           <tr style={styles.thead}>
-            <th style={styles.th}>Product</th>
-            <th style={styles.th}>Price</th>
-            <th style={styles.thQuantity}>Quantity</th>
+            <th style={styles.th}>{transl['name']}</th>
+            <th style={styles.th}>{transl['price']}</th>
+            <th style={styles.thQuantity}>{transl['quantity']}</th>
           </tr>
         </thead>
         {renderChildren()}
         <tfoot>
           <tr style={styles.tfoot}>
-            <th style={styles.th} colSpan="2">Total: </th>
-            <td style={styles.total}>{this.total()}</td>
+            <th style={styles.th} colSpan="2">{transl['total']}</th>
+            <td style={styles.total}>{total}</td>
           </tr>
         </tfoot>
       </MJTable>

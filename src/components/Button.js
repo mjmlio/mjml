@@ -44,7 +44,6 @@ class Button extends Component {
         cursor: "auto"
       },
       table: {
-        backgroundColor: mjAttribute('container-background-color'),
         border: mjAttribute('border'),
         borderRadius: mjAttribute('border-radius')
       },

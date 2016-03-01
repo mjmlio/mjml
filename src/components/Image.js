@@ -87,10 +87,10 @@ class Image extends Component {
 
     return (
       <table
-        border="0"
         cellPadding="0"
         cellSpacing="0"
         data-legacy-align={mjAttribute('align')}
+        data-legacy-border="0"
         style={this.styles.table}>
         <tbody>
           <tr>

@@ -153,7 +153,7 @@ class Social extends Component {
     return (
       <tr key={platform}>
         <td style={this.styles.td1}>
-          <table border="0" cellPadding="0" cellSpacing="0" style={iconStyle}>
+          <table data-legacy-border="0" cellPadding="0" cellSpacing="0" style={iconStyle}>
             <tbody>
               <tr>
                 <td style={this.styles.td2}>
@@ -200,7 +200,7 @@ class Social extends Component {
   renderHorizontal () {
     const socialButtons = this.renderSocialButtons().map((socialButton, index) => {
       return (
-        <table border="0" cellPadding="0" cellSpacing="0" data-legacy-align="left" style={this.styles.tableHorizontal} key={`wrapped-social-button-${index}`}>
+        <table data-legacy-border="0" cellPadding="0" cellSpacing="0" data-legacy-align="left" style={this.styles.tableHorizontal} key={`wrapped-social-button-${index}`}>
           <tbody>
             {socialButton}
           </tbody>
@@ -220,7 +220,7 @@ class Social extends Component {
 
   renderVertical () {
     return (
-      <table border="0" cellPadding="0" cellSpacing="0" align="center" style={this.styles.tableVertical}>
+      <table data-legacy-border="0" cellPadding="0" cellSpacing="0" align="center" style={this.styles.tableVertical}>
         <tbody>
           {this.renderSocialButtons()}
         </tbody>

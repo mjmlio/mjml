@@ -73,10 +73,10 @@ class Column extends Component {
         data-column-width={parseInt(width)}
         style={this.styles.div}>
         <table
-          border="0"
           cellPadding="0"
           cellSpacing="0"
           data-legacy-background={mjAttribute('background')}
+          data-legacy-border="0"
           style={this.styles.table}
           width="100%">
           <tbody>

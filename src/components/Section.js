@@ -70,10 +70,10 @@ class Section extends Component {
 
     return (
       <table
-        border="0"
         cellPadding="0"
         cellSpacing="0"
         data-legacy-background={mjAttribute('background-url')}
+        data-legacy-border="0"
         style={_.merge({}, this.styles.tableFullwidth, this.styles.table)}>
         <tbody>
           <tr>
@@ -89,16 +89,16 @@ class Section extends Component {
   renderSection () {
     const { renderWrappedOutlookChildren, mjAttribute, children, mjml, parentWidth } = this.props
     const fullWidth = this.isFullWidth()
-    
+
     return (
       <div style={this.styles.div}>
         <table
-          border="0"
           cellPadding="0"
           cellSpacing="0"
           className="mj-section-outlook-background"
           data-legacy-align="center"
           data-legacy-background={fullWidth ? undefined : mjAttribute('background-url')}
+          data-legacy-border="0"
           data-url={mjAttribute('background-url') || ''}
           data-width={parentWidth}
           style={this.styles.table}>

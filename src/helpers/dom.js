@@ -18,7 +18,7 @@ if (inBrowser) {
 
   dom.parseHTML = str => {
     const parser = new DOMParser()
-    
+
     return parseMarkup(parser.parseFromString(str, 'text/html'))
   }
 
@@ -28,12 +28,6 @@ if (inBrowser) {
     }
 
     return parseMarkup(jquery.parseXML(`<root>${str}</root>`))
-  }
-
-  dom.createElement = str => {
-    const parser = new DOMParser()
-
-    return jquery(parser.parseFromString(str, 'text/html').body.innerHTML)
   }
 
   dom.getAttributes = element => {
@@ -70,8 +64,6 @@ if (inBrowser) {
   dom.parseHTML = str => parseMarkup(str, { xmlMode: false })
 
   dom.parseXML = str => parseMarkup(str, { xmlMode: true })
-
-  dom.createElement = str => $.load(str)
 
   dom.getAttributes = element => element.attribs || {}
 

@@ -149,11 +149,11 @@ const fixOutlookLayout = $ => {
   })
 
   $('.mj-divider-outlook').each(function () {
-    const $insertNode = dom.createElement('<table></table>').attr('style', $(this).attr('style'))
+    const insertNode = `<table style="${$(this).attr('style')}"></table>`
 
     $(this)
       .removeClass('mj-divider-outlook')
-      .after(`<!--[if mso]>${$insertNode}<![endif]-->`)
+      .after(`<!--[if mso]>${insertNode}<![endif]-->`)
   })
 
   return $

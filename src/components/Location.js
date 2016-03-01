@@ -46,13 +46,13 @@ class Location extends Component {
   }
 
   render() {
+    this.styles = this.getStyles()
+
     const { mjAttribute } = this.props
     const attrs  = this.getAttributes()
 
     const address = `http://maps.google.com/maps?q=${encodeURIComponent(mjAttribute('address'))}`
     const text    = mjAttribute('text') || mjAttribute('address')
-
-    this.styles = this.getStyles()
 
     return (
       <table width="100%">

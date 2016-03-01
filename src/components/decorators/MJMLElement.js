@@ -69,8 +69,6 @@ function createComponent(ComposedComponent, defaultMJMLDefinition) {
 
     getWidth = () => this.mjAttribute('rawPxWidth') || this.mjAttribute('width')
 
-    getPadding = () => paddingParser.bind(this)
-
     renderWrappedOutlookChildren = children => {
       children = React.Children.toArray(children)
 
@@ -110,6 +108,38 @@ function createComponent(ComposedComponent, defaultMJMLDefinition) {
       return wrappedElements
     }
 
+    paddingParser = direction => {
+      const paddingDirection = this.mjAttribute(`padding-${direction}`)
+      const padding = this.mjAttribute('padding')
+
+      if (paddingDirection) {
+        return parseInt(paddingDirection)
+      }
+
+      if (!padding) {
+        return 0
+      }
+
+      const paddings = padding.split(' ')
+      let directions = {}
+
+      switch (paddings.length) {
+        case 1:
+          return parseInt(padding)
+        case 2:
+          directions = {top: 0, bottom: 0, left: 1, right: 1}
+          break;
+        case 3:
+          directions = {top: 0, left: 1, right: 1, bottom: 2}
+          break;
+        case 4:
+          directions = {top: 0, right: 1, bottom: 2, left: 3}
+          break;
+      }
+
+      return parseInt(paddings[directions[direction]] || 0 )
+    }
+
     generateChildren () {
       const { mjml } = this.props
 
@@ -136,8 +166,7 @@ function createComponent(ComposedComponent, defaultMJMLDefinition) {
       const childMethods = [
         'mjAttribute',
         'mjContent',
-        'renderWrappedOutlookChildren',
-        'getPadding'
+        'renderWrappedOutlookChildren'
       ]
 
       // assign sibling column count for element and children
@@ -162,6 +191,7 @@ function createComponent(ComposedComponent, defaultMJMLDefinition) {
         color: this.mjAttribute('color'),
         parentWidth: this.getWidth(),
         verticalAlign: this.mjAttribute('vertical-align'),
+        getPadding: this.paddingParser,
 
         // assign helpers methods
         ...childMethods.reduce((acc, method) => ({

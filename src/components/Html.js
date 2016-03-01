@@ -1,10 +1,10 @@
-import MJMLElement from './decorators/MJMLElement'
+import MJMLColumnElement from './decorators/MJMLColumnElement'
 import React, { Component } from 'react'
 
 /**
  * Displays raw html
  */
-@MJMLElement({
+@MJMLColumnElement({
   tagName: 'mj-html',
   content: ' ',
   attributes: {

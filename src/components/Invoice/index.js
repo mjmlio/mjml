@@ -20,17 +20,6 @@ import MJTable from '../Table'
 })
 class Invoice extends Component {
 
-  constructor(props) {
-    super(props)
-
-    const format     = props.mjAttribute('format')
-    const currencies = format.match(/([^-\d.,])/g)
-
-    this.items    = props.mjChildren().filter((child) => child.get('tagName') === 'mj-invoice-item')
-    this.format   = format.replace(/([^-\d.,])/g, '$')
-    this.currency = (currencies) ? currencies[0] : null
-  }
-
   static baseStyles = {
     th: {
       padding: '10px 20px',
@@ -45,6 +34,17 @@ class Invoice extends Component {
     price   : 'Price',
     quantity: 'Quantity',
     total   : 'Total:'
+  }
+
+  constructor(props) {
+    super(props)
+
+    const format     = props.mjAttribute('format')
+    const currencies = format.match(/([^-\d.,])/g)
+
+    this.items    = props.mjChildren().filter((child) => child.get('tagName') === 'mj-invoice-item')
+    this.format   = format.replace(/([^-\d.,])/g, '$')
+    this.currency = (currencies) ? currencies[0] : null
   }
 
   getStyles() {

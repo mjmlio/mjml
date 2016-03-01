@@ -12,7 +12,6 @@
  */
 import { expect } from 'chai'
 import { mjml2html, registerElement } from '../src/index'
-import dom from '../src/helpers/dom'
 import fs from 'fs'
 import path from 'path'
 

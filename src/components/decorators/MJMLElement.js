@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import { UnknownMJMLElement } from '../../Error'
-import { widthParser, paddingParser } from '../../helpers/mjAttribute'
+import { widthParser } from '../../helpers/mjAttribute'
 import MJMLElementsCollection from '../../MJMLElementsCollection'
 import React, { Component } from 'react'
 import ReactDOMServer from 'react-dom/server'
@@ -161,7 +161,7 @@ function createComponent(ComposedComponent, defaultMJMLDefinition) {
     }
 
     buildProps () {
-      const { mjml, parentMjml } = this.props
+      const { parentMjml } = this.props
 
       const childMethods = [
         'mjAttribute',

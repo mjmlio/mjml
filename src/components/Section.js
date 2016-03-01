@@ -87,7 +87,7 @@ class Section extends Component {
   }
 
   renderSection () {
-    const { renderWrappedOutlookChildren, mjAttribute, children, mjml, parentWidth } = this.props
+    const { renderWrappedOutlookChildren, mjAttribute, children, parentWidth } = this.props
     const fullWidth = this.isFullWidth()
 
     return (

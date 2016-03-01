@@ -49,14 +49,15 @@ class InvoiceItem extends Component {
   }
 
   render() {
-    const styles = this.getStyles()
     const { mjAttribute } = this.props
+
+    this.styles = this.getStyles()
 
     return (
       <tr>
-        <td style={styles.name}>{mjAttribute('name')}</td>
-        <td style={styles.td}>{mjAttribute('price')}</td>
-        <td style={styles.quantity}>{mjAttribute('quantity')}</td>
+        <td style={this.styles.name}>{mjAttribute('name')}</td>
+        <td style={this.styles.td}>{mjAttribute('price')}</td>
+        <td style={this.styles.quantity}>{mjAttribute('quantity')}</td>
       </tr>
     )
   }

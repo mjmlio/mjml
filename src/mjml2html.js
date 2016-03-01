@@ -149,7 +149,7 @@ const fixOutlookLayout = $ => {
   })
 
   $('.mj-divider-outlook').each(function () {
-    const insertNode = `<table style="${$(this).attr('style')}"></table>`
+    const insertNode = `<table border="0" cellpadding="0" cellspacing="0" style="${$(this).attr('style')}"></table>`
 
     $(this)
       .removeClass('mj-divider-outlook')

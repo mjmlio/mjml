@@ -63,7 +63,7 @@ class Column extends Component {
     const { mjAttribute, children, sibling } = this.props
     const width = mjAttribute('width') || (100 / sibling)
     const mjColumnClass = this.getColumnClass()
-    
+
     this.styles = this.getStyles()
 
     return (
@@ -73,6 +73,9 @@ class Column extends Component {
         data-column-width={parseInt(width)}
         style={this.styles.div}>
         <table
+          border="0"
+          cellPadding="0"
+          cellSpacing="0"
           data-legacy-background={mjAttribute('background')}
           style={this.styles.table}
           width="100%">

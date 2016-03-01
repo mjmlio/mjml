@@ -41,30 +41,30 @@ class Social extends Component {
 
   static baseStyles = {
     div: {
-      textAlign: "center"
+      textAlign: 'center'
     },
     tableHorizontal: {
-      float: "none",
-      display: "inline-table"
+      float: 'none',
+      display: 'inline-table'
     },
     tableVertical: {
-      margin: "0 auto"
+      margin: '0 auto'
     },
     td1: {
-      verticalAlign: "middle"
+      verticalAlign: 'middle'
     },
     td2:  {
-      textAlign: "center",
-      verticalAlign: "middle"
+      textAlign: 'center',
+      verticalAlign: 'middle'
     },
     tdText: {
-      padding: "0 8px",
-      verticalAlign: "middle"
+      padding: '8px 8px 8px 0',
+      verticalAlign: 'middle'
     },
     a: {
       textDecoration: 'none',
-      display: "block",
-      borderRadius: "3px"
+      display: 'block',
+      borderRadius: '3px'
     },
     img: {
       display: 'block',
@@ -119,7 +119,7 @@ class Social extends Component {
         textDecoration: mjAttribute('text-decoration')
       },
       td1: {
-        padding: "8px 0"
+        padding: '8px 4px'
       },
       td2: {
         width: mjAttribute('icon-size'),

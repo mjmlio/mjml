@@ -16,7 +16,7 @@ import React, { Component } from 'react'
     'color': '#ffffff',
     'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
     'font-size': '13px',
-    'font-weight': 'bold',
+    'font-weight': 'normal',
     'href': '',
     'padding': '15px 30px',
     'text-decoration': 'none',

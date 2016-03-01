@@ -1,7 +1,8 @@
-import { mjml2html } from './src/index'
+require('babel-register')
 
+var mjml = require('./src/index')
 
-console.log(mjml2html(`
+console.log(mjml.mjml2html(`
   <mj-body>
     <mj-section>
       <mj-column>

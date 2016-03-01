@@ -119,7 +119,7 @@ class Social extends Component {
         textDecoration: mjAttribute('text-decoration')
       },
       td1: {
-        padding: '0 4px'
+        padding: this.isHorizontal() ? '0 4px' : '4px 0'
       },
       td2: {
         width: mjAttribute('icon-size'),
@@ -200,7 +200,11 @@ class Social extends Component {
   renderHorizontal () {
     const socialButtons = this.renderSocialButtons().map((socialButton, index) => {
       return (
-        <table data-legacy-border="0" cellPadding="0" cellSpacing="0" data-legacy-align="left" style={this.styles.tableHorizontal} key={`wrapped-social-button-${index}`}>
+        <table data-legacy-border="0"
+              cellPadding="0"
+              cellSpacing="0"
+              data-legacy-align="left" style={this.styles.tableHorizontal}
+              key={`wrapped-social-button-${index}`}>
           <tbody>
             {socialButton}
           </tbody>
@@ -220,7 +224,11 @@ class Social extends Component {
 
   renderVertical () {
     return (
-      <table data-legacy-border="0" cellPadding="0" cellSpacing="0" align="center" style={this.styles.tableVertical}>
+      <table data-legacy-border="0"
+             cellPadding="0"
+             cellSpacing="0"
+             align="center"
+             style={this.styles.tableVertical}>
         <tbody>
           {this.renderSocialButtons()}
         </tbody>

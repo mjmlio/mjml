@@ -1,11 +1,11 @@
-import MJMLColumnElement from '../decorators/MJMLColumnElement'
+import MJMLElement from '../decorators/MJMLElement'
 import React, { Component } from 'react'
 import _ from 'lodash'
 import numeral from 'numeral'
 
 import MJTable from '../Table'
 
-@MJMLColumnElement({
+@MJMLElement({
   tagName: 'mj-invoice',
 
   attributes: {
@@ -142,7 +142,9 @@ class Invoice extends Component {
             <th style={styles.thQuantity}>{intl['quantity']}</th>
           </tr>
         </thead>
-        {renderChildren()}
+        <tbody>
+          {renderChildren()}
+        </tbody>
         <tfoot>
           <tr style={styles.tfoot}>
             <th style={styles.th} colSpan="2">{intl['total']}</th>

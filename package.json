@@ -95,6 +95,7 @@
     "jquery": "^2.2.1",
     "js-beautify": "^1.6.2",
     "lodash": "^4.5.1",
+    "numeral": "^1.5.3",
     "react": "^0.14.7",
     "react-addons-perf": "^0.14.7",
     "react-dom": "^0.14.7"

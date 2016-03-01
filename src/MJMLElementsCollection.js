@@ -4,6 +4,8 @@ import Column from './components/Column'
 import Divider from './components/Divider'
 import Html from './components/Html'
 import Image from './components/Image'
+import Invoice from './components/Invoice'
+import InvoiceItem from './components/Invoice/Item'
 import List from './components/List'
 import Raw from './components/Raw'
 import Section from './components/Section'
@@ -17,6 +19,8 @@ const MJMLStandardElements = {
   'divider': Divider,
   'html': Html,
   'image': Image,
+  'invoice-item': InvoiceItem,
+  'invoice': Invoice,
   'list': List,
   'raw': Raw,
   'section': Section,
@@ -24,7 +28,7 @@ const MJMLStandardElements = {
   'text': Text
 }
 
-export const endingTags = ['mj-text', 'mj-html', 'mj-button', 'mj-list', 'mj-raw']
+export const endingTags = ['mj-text', 'mj-html', 'mj-button', 'mj-list', 'mj-raw', 'mj-table', 'mj-invoice-item']
 export const unsafeTags = ['mj-raw']
 
 export const registerElement = (tagName, element, options = {}) => {

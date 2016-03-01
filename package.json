@@ -2,17 +2,19 @@
   "name": "mjml",
   "version": "1.2.1",
   "description": "MJML: the only framework that makes responsive-email easy",
-  "main": "./lib/mjml",
+  "main": "./lib/index",
   "scripts": {
-    "test": "mocha --compilers js:babel-register",
-    "compile": "babel src/ --out-dir lib/ --source-maps && mv lib/mjml.js lib/mjml",
-    "prepublish": "npm run compile",
-    "lint": "eslint src test"
+    "bench": "node bench",
+    "build": "gulp build",
+    "dist": "gulp dist && gulp dist:min",
+    "lint": "eslint src test",
+    "prepublish": "npm run build",
+    "test": "mocha --compilers js:babel-register"
   },
   "engine": {
     "node": ">= 4.2.0"
   },
-  "bin": "lib/mjml",
+  "bin": "./bin/mjml",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mjmlio/mjml.git"
@@ -60,29 +62,45 @@
   },
   "homepage": "https://github.com/mjmlio/mjml",
   "devDependencies": {
-    "babel-cli": "^6.4.3",
-    "babel-eslint": "^4.1.8",
+    "babel-eslint": "^5.0.0",
+    "babel-plugin-lodash": "^2.1.0",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "babel-preset-es2015": "^6.3.13",
-    "babel-preset-react": "^6.3.13",
-    "babel-preset-stage-0": "^6.3.13",
-    "babel-register": "^6.4.3",
-    "chai": "^3.4.1",
-    "eslint": "^1.10.3",
-    "eslint-plugin-react": "^3.15.0",
+    "babel-plugin-transform-inline-environment-variables": "^6.5.0",
+    "babel-polyfill": "^6.5.0",
+    "babel-preset-es2015": "^6.5.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "babel-register": "^6.5.2",
+    "benchmark": "^2.1.0",
+    "chai": "^3.5.0",
+    "eslint": "^2.2.0",
+    "eslint-plugin-react": "^4.1.0",
     "fs-promise": "^0.4.1",
-    "mocha": "^2.3.4"
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-env": "^0.4.0",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-util": "^3.0.7",
+    "gulp-webpack": "^1.5.0",
+    "mocha": "^2.4.5",
+    "webpack-stream": "^3.1.0"
   },
   "dependencies": {
+    "cheerio": "^0.20.0",
+    "classnames": "^2.2.3",
     "commander": "^2.9.0",
-    "html-minify": "^0.3.1",
-    "cheerio": "^0.19.0",
-    "classnames": "^2.2.0",
     "debug": "^2.2.0",
-    "immutable": "^3.7.5",
-    "lodash": "^4.0.1",
-    "react": "^0.14.3",
-    "react-addons-perf": "^0.14.3",
-    "react-dom": "0.14.2"
+    "html-minifier": "^1.2.0",
+    "immutable": "^3.7.6",
+    "jquery": "^2.2.1",
+    "js-beautify": "^1.6.2",
+    "lodash": "^4.5.1",
+    "react": "^0.14.7",
+    "react-addons-perf": "^0.14.7",
+    "react-dom": "^0.14.7"
+  },
+  "browser": {
+    "cheerio": false,
+    "html-minifier": false
   }
 }

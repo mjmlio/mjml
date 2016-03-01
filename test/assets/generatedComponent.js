@@ -1,17 +1,11 @@
+import { MJMLColumnElement, elements, registerElement } from 'mjml'
+import merge from 'lodash/merge'
 import React, { Component } from 'react'
-import _ from 'lodash'
-import {
-  MJMLColumnElement,
-  elements,
-  registerElement,
-} from 'mjml'
 
 /*
  * Wrap your dependencies here.
  */
-const {
-  text: MjText,
-} = elements;
+const { text: MjText } = elements
 
 const NAME = 'mock'
 
@@ -33,10 +27,10 @@ class Mock extends Component {
   /*
    * Build your styling here
    */
-  getStyles() {
+  getStyles () {
     const { mjAttribute, color } = this.props
 
-    return _.merge({}, this.constructor.baseStyles, {
+    return merge({}, this.constructor.baseStyles, {
       text: {
         /*
          * Get the color attribute
@@ -47,10 +41,9 @@ class Mock extends Component {
     })
   }
 
-  render() {
-
-    const css = this.getStyles(),
-      content = 'Hello World!'
+  render () {
+    const css = this.getStyles()
+    const content = 'Hello World!'
 
     return (
       <MjText style={ css }>
@@ -58,7 +51,9 @@ class Mock extends Component {
       </MjText>
     )
   }
+
 }
 
 registerElement('mock', Mock)
+
 export default Mock

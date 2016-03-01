@@ -13,6 +13,7 @@ The engine is composed of multiple parts:
  - [`MJMLElementsCollection`](https://github.com/mjmlio/mjml/blob/master/src/MJMLElementsCollection.js) : Contains the standard MJML elements exposed to the API
 
 ## Changelog
+
 Please refer to the [release](https://github.com/mjmlio/mjml/releases) section to get more details about the different improvements.
 
 ## Issues

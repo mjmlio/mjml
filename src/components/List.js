@@ -1,6 +1,6 @@
+import _ from 'lodash'
 import MJMLColumnElement from './decorators/MJMLColumnElement'
 import React, { Component } from 'react'
-import _ from 'lodash'
 
 /**
  * mj-list enable you to create an unordered or ordered list
@@ -27,7 +27,7 @@ class List extends Component {
     }
   };
 
-  getStyles() {
+  getStyles () {
     const { mjAttribute } = this.props
 
     return _.merge({}, this.constructor.baseStyles, {
@@ -40,7 +40,7 @@ class List extends Component {
     })
   }
 
-  render() {
+  render () {
     const { mjContent } = this.props
 
     this.styles = this.getStyles()

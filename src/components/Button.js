@@ -18,7 +18,7 @@ import React, { Component } from 'react'
     'font-size': '13px',
     'font-weight': 'normal',
     'href': '',
-    'padding': '15px 30px',
+    'padding': '10px 25px',
     'text-decoration': 'none',
     'vertical-align': 'middle'
   }

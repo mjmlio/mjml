@@ -33,8 +33,9 @@ class Table extends Component {
   }
 
   render() {
+    this.styles = this.getStyles()
+
     const { mjAttribute, mjContent } = this.props
-    const style = this.getStyles()
 
     return (
       <table
@@ -42,7 +43,7 @@ class Table extends Component {
         cellPadding="0"
         cellSpacing="0"
         dangerouslySetInnerHTML={{__html: mjContent() }}
-        style={style.table}
+        style={this.styles.table}
         width={mjAttribute('width')} />
     )
   }

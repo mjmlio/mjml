@@ -49,9 +49,9 @@ class InvoiceItem extends Component {
   }
 
   render() {
-    const { mjAttribute } = this.props
-
     this.styles = this.getStyles()
+
+    const { mjAttribute } = this.props
 
     return (
       <tr>

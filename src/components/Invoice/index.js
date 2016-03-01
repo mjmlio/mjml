@@ -125,10 +125,11 @@ class Invoice extends Component {
   }
 
   render() {
+    this.styles = this.getStyles()
+
     const { renderChildren } = this.props
 
     const intl   = this.getIntl()
-    const styles = this.getStyles()
     const attrs  = this.getAttributes()
 
     const total  = this.getTotal()
@@ -136,19 +137,19 @@ class Invoice extends Component {
     return (
       <MJTable {...attrs.table}>
         <thead>
-          <tr style={styles.thead}>
-            <th style={styles.th}>{intl['name']}</th>
-            <th style={styles.th}>{intl['price']}</th>
-            <th style={styles.thQuantity}>{intl['quantity']}</th>
+          <tr style={this.styles.thead}>
+            <th style={this.styles.th}>{intl['name']}</th>
+            <th style={this.styles.th}>{intl['price']}</th>
+            <th style={this.styles.thQuantity}>{intl['quantity']}</th>
           </tr>
         </thead>
         <tbody>
           {renderChildren()}
         </tbody>
         <tfoot>
-          <tr style={styles.tfoot}>
-            <th style={styles.th} colSpan="2">{intl['total']}</th>
-            <td style={styles.total}>{total}</td>
+          <tr style={this.styles.tfoot}>
+            <th style={this.styles.th} colSpan="2">{intl['total']}</th>
+            <td style={this.styles.total}>{total}</td>
           </tr>
         </tfoot>
       </MJTable>

@@ -119,7 +119,7 @@ class Social extends Component {
         textDecoration: mjAttribute('text-decoration')
       },
       td1: {
-        padding: '8px 4px'
+        padding: '0 4px'
       },
       td2: {
         width: mjAttribute('icon-size'),

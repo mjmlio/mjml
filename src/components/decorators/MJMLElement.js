@@ -102,7 +102,6 @@ function createComponent(ComposedComponent, defaultAttributes) {
       return {
         id,
         key: id,
-        color: this.mjAttribute('color'),
         parentWidth: this.getWidth(),
         verticalAlign: this.mjAttribute('vertical-align'),
         sibling: this.siblingsCount()

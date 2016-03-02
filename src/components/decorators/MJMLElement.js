@@ -30,7 +30,7 @@ const getElementWidth = ({ element, siblings, parentWidth }) => {
 }
 
 // used to pass column count to children
-let columnCount = 1
+let siblingCount = 1
 
 function createComponent(ComposedComponent, defaultMJMLDefinition) {
 
@@ -141,9 +141,10 @@ function createComponent(ComposedComponent, defaultMJMLDefinition) {
     }
 
     generateChildren () {
-      const { mjml } = this.props
+      const { mjml: parentMjml } = this.props
 
-      return mjml.get('children').map((childMjml, i) => {
+      return parentMjml.get('children').map((mjml, i) => {
+        const childMjml = mjml.setIn(['attributes', 'parentWidth'], this.mjAttribute('rawPxWidth'))
         const tag = childMjml.get('tagName').substr(3)
         const Element = MJMLElementsCollection[tag]
 
@@ -155,7 +156,7 @@ function createComponent(ComposedComponent, defaultMJMLDefinition) {
           <Element
             key={i}
             mjml={childMjml}
-            parentMjml={mjml} />
+            parentMjml={parentMjml} />
         )
       })
     }
@@ -169,9 +170,9 @@ function createComponent(ComposedComponent, defaultMJMLDefinition) {
         'renderWrappedOutlookChildren'
       ]
 
-      // assign sibling column count for element and children
+      // assign sibling count for element and children
       if (this.mjName() === 'column') {
-        columnCount = parentMjml.get('children').size
+        siblingCount = parentMjml.get('children').size
       }
 
       return {
@@ -185,12 +186,10 @@ function createComponent(ComposedComponent, defaultMJMLDefinition) {
         // generate children
         children: this.generateChildren(),
 
-        // column count, can change display
-        sibling: columnCount,
+        // siblings count, can change display
+        sibling: siblingCount,
 
-        color: this.mjAttribute('color'),
         parentWidth: this.getWidth(),
-        verticalAlign: this.mjAttribute('vertical-align'),
         getPadding: this.paddingParser,
 
         // assign helpers methods

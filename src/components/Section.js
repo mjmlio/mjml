@@ -64,18 +64,18 @@ class Section extends Component {
       tableFullwidth: this.isFullWidth() ? _.cloneDeep(background) : {}
     }, {
       table: this.isFullWidth() ? {} : {
-         border: mjAttribute('border'),
-         borderTop: mjAttribute('border-top'),
-         borderBottom: mjAttribute('border-bottom'),
-         borderRight: mjAttribute('border-right'),
-         borderLeft: mjAttribute('border-left')
+        border: mjAttribute('border'),
+        borderTop: mjAttribute('border-top'),
+        borderBottom: mjAttribute('border-bottom'),
+        borderRight: mjAttribute('border-right'),
+        borderLeft: mjAttribute('border-left')
       },
       tableFullwidth: this.isFullWidth() ? {
-         border: mjAttribute('border'),
-         borderTop: mjAttribute('border-top'),
-         borderBottom: mjAttribute('border-bottom'),
-         borderRight: mjAttribute('border-right'),
-         borderLeft: mjAttribute('border-left')
+        border: mjAttribute('border'),
+        borderTop: mjAttribute('border-top'),
+        borderBottom: mjAttribute('border-bottom'),
+        borderRight: mjAttribute('border-right'),
+        borderLeft: mjAttribute('border-left')
       } : {}
     })
   }

@@ -3,6 +3,7 @@ const MJMLStandardElements = {
   'button': require('./components/Button').default,
   'column': require('./components/Column').default,
   'divider': require('./components/Divider').default,
+  'group': require('./components/Group').default,
   'html': require('./components/Html').default,
   'image': require('./components/Image').default,
   'list': require('./components/List').default,

@@ -113,15 +113,23 @@ const fixOutlookLayout = $ => {
   })
 
   $('.mj-section-outlook-open').each(function () {
+    const $columnDiv = $(this).next()
+
     $(this).replaceWith(`<!--[if mso]>
-      <table border="0" cellpadding="0" cellspacing="0"><tr><td style="width:${parseInt($(this).data('width'))}px;">
+      <table border="0" cellpadding="0" cellspacing="0"><tr><td style="width:${parseInt($(this).data('width'))}px; vertical-align:${$columnDiv.data('vertical-align')};">
       <![endif]-->`)
+
+    $columnDiv.removeAttr('data-vertical-align')
   })
 
   $('.mj-section-outlook-line').each(function () {
+    const $columnDiv = $(this).next()
+
     $(this).replaceWith(`<!--[if mso]>
-      </td><td style="width:${parseInt($(this).data('width'))}px;">
+    </td><td style="width:${parseInt($(this).data('width'))}px; vertical-align:${$columnDiv.data('vertical-align')};">
       <![endif]-->`)
+
+    $columnDiv.removeAttr('data-vertical-align')
   })
 
   $('.mj-section-outlook-close').each(function () {

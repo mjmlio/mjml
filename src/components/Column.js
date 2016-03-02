@@ -34,6 +34,7 @@ class Column extends Component {
         minWidth: mjAttribute('width')
       },
       table: {
+        verticalAlign: mjAttribute('vertical-align'),
         background: mjAttribute('background-color')
       }
     })
@@ -71,6 +72,7 @@ class Column extends Component {
         aria-labelledby={mjColumnClass}
         className={mjColumnClass}
         data-column-width={parseInt(width)}
+        data-vertical-align={this.styles.div.verticalAlign}
         style={this.styles.div}>
         <table
           cellPadding="0"

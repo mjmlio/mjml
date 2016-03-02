@@ -1,10 +1,10 @@
-import MJMLElement from './decorators/MJMLElement'
+import MJMLColumnElement from './decorators/MJMLColumnElement'
 import React, { Component } from 'react'
 
 /**
  * Displays raw html
  */
-@MJMLElement({
+@MJMLColumnElement({
   tagName: 'mj-html',
   content: ' ',
   attributes: {
@@ -17,7 +17,7 @@ import React, { Component } from 'react'
 })
 class Html extends Component {
 
-  render() {
+  render () {
     const { mjContent } = this.props
 
     return (

@@ -1,6 +1,6 @@
+import _ from 'lodash'
 import MJMLColumnElement from './decorators/MJMLColumnElement'
 import React, { Component } from 'react'
-import _ from 'lodash'
 
 @MJMLColumnElement({
   tagName: 'mj-social',
@@ -41,30 +41,30 @@ class Social extends Component {
 
   static baseStyles = {
     div: {
-      textAlign: "center"
+      textAlign: 'center'
     },
     tableHorizontal: {
-      float: "none",
-      display: "inline-table"
+      float: 'none',
+      display: 'inline-table'
     },
     tableVertical: {
-      margin: "0 auto"
+      margin: '0 auto'
     },
     td1: {
-      verticalAlign: "middle"
+      verticalAlign: 'middle'
     },
     td2:  {
-      textAlign: "center",
-      verticalAlign: "middle"
+      textAlign: 'center',
+      verticalAlign: 'middle'
     },
     tdText: {
-      padding: "0 8px",
-      verticalAlign: "middle"
+      padding: '8px 8px 8px 0',
+      verticalAlign: 'middle'
     },
     a: {
       textDecoration: 'none',
-      display: "block",
-      borderRadius: "3px"
+      display: 'block',
+      borderRadius: '3px'
     },
     img: {
       display: 'block',
@@ -105,7 +105,7 @@ class Social extends Component {
     }
   };
 
-  getStyles() {
+  getStyles () {
     const { mjAttribute } = this.props
 
     return _.merge({}, this.constructor.baseStyles, {
@@ -119,7 +119,7 @@ class Social extends Component {
         textDecoration: mjAttribute('text-decoration')
       },
       td1: {
-        padding: "8px 0"
+        padding: this.isHorizontal() ? '0 4px' : '4px 0'
       },
       td2: {
         width: mjAttribute('icon-size'),
@@ -128,19 +128,19 @@ class Social extends Component {
     })
   }
 
-  isHorizontal() {
+  isHorizontal () {
     const { mjAttribute } = this.props
 
     return mjAttribute('mode') == 'horizontal'
   }
 
-  isInTextMode() {
+  isInTextMode () {
     const { mjAttribute } = this.props
 
     return mjAttribute('text-mode') == true || mjAttribute('text-mode') == 'true'
   }
 
-  renderSocialButton(platform) {
+  renderSocialButton (platform) {
     const { mjAttribute } = this.props
     const definition = this.constructor.buttonDefinitions[platform]
     const href = definition.linkAttribute.replace('[[URL]]', mjAttribute(`${platform}-href`))
@@ -153,7 +153,7 @@ class Social extends Component {
     return (
       <tr key={platform}>
         <td style={this.styles.td1}>
-          <table border="0" cellPadding="0" cellSpacing="0" style={iconStyle}>
+          <table data-legacy-border="0" cellPadding="0" cellSpacing="0" style={iconStyle}>
             <tbody>
               <tr>
                 <td style={this.styles.td2}>
@@ -180,7 +180,7 @@ class Social extends Component {
     )
   }
 
-  renderSocialButtons() {
+  renderSocialButtons () {
     const { mjAttribute } = this.props
     const platforms = mjAttribute('display')
 
@@ -197,10 +197,14 @@ class Social extends Component {
     })
   }
 
-  renderHorizontal() {
+  renderHorizontal () {
     const socialButtons = this.renderSocialButtons().map((socialButton, index) => {
       return (
-        <table border="0" cellPadding="0" cellSpacing="0" data-legacy-align="left" style={this.styles.tableHorizontal} key={`wrapped-social-button-${index}`}>
+        <table data-legacy-border="0"
+              cellPadding="0"
+              cellSpacing="0"
+              data-legacy-align="left" style={this.styles.tableHorizontal}
+              key={`wrapped-social-button-${index}`}>
           <tbody>
             {socialButton}
           </tbody>
@@ -218,9 +222,13 @@ class Social extends Component {
     return socialButtons
   }
 
-  renderVertical() {
+  renderVertical () {
     return (
-      <table border="0" cellPadding="0" cellSpacing="0" align="center" style={this.styles.tableVertical}>
+      <table data-legacy-border="0"
+             cellPadding="0"
+             cellSpacing="0"
+             align="center"
+             style={this.styles.tableVertical}>
         <tbody>
           {this.renderSocialButtons()}
         </tbody>
@@ -228,14 +236,14 @@ class Social extends Component {
     )
   }
 
-  render() {
+  render () {
     this.styles = this.getStyles()
 
     return (
       <div style={this.styles.div}>
-       { this.isHorizontal() ? this.renderHorizontal() : this.renderVertical() }
-     </div>
-   )
+        { this.isHorizontal() ? this.renderHorizontal() : this.renderVertical() }
+      </div>
+    )
   }
 
 }

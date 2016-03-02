@@ -1,6 +1,6 @@
+import _ from 'lodash'
 import MJMLColumnElement from './decorators/MJMLColumnElement'
 import React, { Component } from 'react'
-import _ from 'lodash'
 
 /**
  * Displays an image to your email. It is mostly similar to the HTML img tag
@@ -29,34 +29,33 @@ class Image extends Component {
       display: 'block',
       outline: 'none',
       textDecoration: 'none',
-      width: "100%"
+      width: '100%'
     }
   };
 
-  getContentWidth() {
-    const { mjAttribute, getPadding } = this.props
-    const width = _.min([parseInt(mjAttribute('width')), parseInt(mjAttribute('parentWidth'))])
+  getContentWidth () {
+    const { mjAttribute, getPadding, parentWidth } = this.props
+    const width = _.min([parseInt(mjAttribute('width')), parseInt(parentWidth)])
 
     const paddingRight = getPadding('right')
     const paddingLeft = getPadding('left')
-    const widthOverflow = paddingLeft + paddingRight + width - parseInt(mjAttribute('parentWidth'))
+    const widthOverflow = paddingLeft + paddingRight + width - parseInt(parentWidth)
 
     return widthOverflow > 0 ? width - widthOverflow : width
   }
 
-  getStyles() {
+  getStyles () {
     const { mjAttribute } = this.props
 
     return _.merge({}, this.constructor.baseStyles, {
       img: {
         border: mjAttribute('border'),
-        maxWidth: this.getContentWidth(),
         height: mjAttribute('height')
       }
     })
   }
 
-  renderImage() {
+  renderImage () {
     const { mjAttribute } = this.props
 
     const img = (
@@ -65,7 +64,7 @@ class Image extends Component {
         border="0"
         src={mjAttribute('src')}
         style={this.styles.img}
-        width={this.styles.img.maxWidth}
+        width={this.getContentWidth()}
         height={this.styles.img.height} />
     )
 
@@ -81,17 +80,17 @@ class Image extends Component {
     }
   }
 
-  render() {
+  render () {
     const { mjAttribute } = this.props
 
     this.styles = this.getStyles()
 
     return (
       <table
-        border="0"
         cellPadding="0"
         cellSpacing="0"
         data-legacy-align={mjAttribute('align')}
+        data-legacy-border="0"
         style={this.styles.table}>
         <tbody>
           <tr>

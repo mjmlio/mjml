@@ -14,10 +14,10 @@
     "prefer-const": 2,
     "space-before-blocks": 2,
     "no-console": 0,
-
     "react/jsx-no-duplicate-props": 2,
     "react/jsx-no-undef": 2,
     "react/jsx-uses-react": 2,
+    "react/jsx-uses-vars": 2,
     "react/no-danger": 0,
     "react/no-unknown-property": 2,
     "react/self-closing-comp": 2,
@@ -28,6 +28,7 @@
   "env": {
     "node": true,
     "browser": true,
-    "mocha": true
+    "mocha": true,
+    "es6": true
   }
 }

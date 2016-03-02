@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 @MJMLElement
 class Raw extends Component {
 
-  render() {
+  render () {
     const { mjContent } = this.props
 
     return (

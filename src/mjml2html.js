@@ -3,9 +3,10 @@ import { EmptyMJMLError } from './Error'
 import { html as beautify } from 'js-beautify'
 import { minify } from 'html-minifier'
 import { parseInstance } from './helpers/mjml'
-import defaultStyle from './defaultStyle'
+import defaultContainer from './configs/defaultContainer'
 import documentParser from './documentParser'
 import dom from './helpers/dom'
+import getFontsImports from './helpers/getFontsImports'
 import MJMLElementsCollection from './MJMLElementsCollection'
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
@@ -50,10 +51,10 @@ const insertColumnMediaQuery = $ => {
 
   if (mediaQueries.length > 0) {
     const mediaQuery = `<style type="text/css">
-      @media only screen and (min-width:480px) {
-        ${mediaQueries.join('\n')}
-      }
-      </style>`
+  @media only screen and (min-width:480px) {
+    ${mediaQueries.join('\n')}
+  }
+</style>\n`
 
     $('head').append(mediaQuery)
   }
@@ -162,7 +163,7 @@ const fixOutlookLayout = $ => {
 const fixLegacyAttrs = $ => {
   const legacyAttrs = ['align', 'valign', 'bgcolor', 'border', 'background']
 
-  $('#YIELD_MJML').css({ background: $('.mj-body').data('background-color') })
+  $('body').css({ background: $('.mj-body').data('background-color') })
   $('.mj-body').removeAttr('data-background-color')
 
   // https://github.com/facebook/react/issues/140 ...
@@ -180,9 +181,7 @@ const fixLegacyAttrs = $ => {
 }
 
 const clean = $ => {
-  $('#YIELD_MJML').each(function () {
-    $(this).removeAttr('id')
-
+  $('body').each(function () {
     if ($(this).attr('style') === '') {
       $(this).removeAttr('style')
     }
@@ -196,32 +195,6 @@ const clean = $ => {
 
   return $
 }
-
-const container = (title = '', content = '') => (
-`<!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-<title>${title}</title>
-<style type="text/css">${defaultStyle}</style>
-<!--[if !mso]><!-->
-<style type="text/css">
-  @import url(https://fonts.googleapis.com/css?family=Ubuntu:400,500,700,300);
-</style>
-<style type="text/css">
-  @media only screen and (max-width:480px) {
-    @-ms-viewport { width:320px; }
-    @viewport { width:320px; }
-  }
-</style>
-<link href="https://fonts.googleapis.com/css?family=Ubuntu:400,500,700,300" rel="stylesheet" type="text/css">
-<!--<![endif]-->
-</head>
-<body id="YIELD_MJML">
-  ${content}
-</body>
-</html>`
-)
 
 const render = ({ mjml, options }) => {
   let content = ''
@@ -237,7 +210,7 @@ const render = ({ mjml, options }) => {
   }
 
   debug('React rendering done. Continue with special overrides.')
-  let $ = dom.parseHTML(container(options.title, content))
+  let $ = dom.parseHTML(defaultContainer({ title: options.title, content, fonts: getFontsImports({ content }) }))
 
   $('.mj-raw').each(function () {
     $(this).replaceWith($(this).html())

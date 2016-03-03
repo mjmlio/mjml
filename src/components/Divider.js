@@ -11,10 +11,8 @@ import React, { Component } from 'react'
     'border-color': '#000000',
     'border-style': 'solid',
     'border-width': '4px',
-    'horizontal-spacing': '10px',
     'padding': '10px 25px',
-    'vertical-spacing': '30px',
-    'width': '150px'
+    'width': '100%'
   }
 })
 class Divider extends Component {
@@ -22,7 +20,7 @@ class Divider extends Component {
   static baseStyles = {
     p: {
       fontSize: '1px',
-      margin: '0'
+      margin: '0 auto'
     }
   };
 
@@ -34,7 +32,7 @@ class Divider extends Component {
     return _.merge({}, this.constructor.baseStyles, {
       p: {
         borderTop: `${mjAttribute('border-width')} ${mjAttribute('border-style')} ${mjAttribute('border-color')}`,
-        width: "100%"
+        width: mjAttribute('width')
       }
     })
   }

@@ -1,7 +1,9 @@
 <mj-body>
   <mj-section>
     <mj-column>
-      <mj-raw><% if (undefined) {} %></mj-raw>
+      <mj-raw>
+        <% if (undefined) {} %>
+      </mj-raw>
     </mj-column>
   </mj-section>
 </mj-body>

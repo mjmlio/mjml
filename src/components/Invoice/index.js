@@ -1,53 +1,52 @@
-import MJMLElement from '../decorators/MJMLElement'
-import React, { Component } from 'react'
 import _ from 'lodash'
-import numeral from 'numeral'
-
+import MJMLElement from '../decorators/MJMLElement'
 import MJTable from '../Table'
+import numeral from 'numeral'
+import React, { Component } from 'react'
 
 @MJMLElement({
   tagName: 'mj-invoice',
-
   attributes: {
+    'border': '1px solid #ecedee',
     'color': '#b9b9b9',
     'font-family': 'Roboto, Ubuntu, Helvetica, Arial, sans-serif',
     'font-size': '13px',
-    'line-height': '22px',
-    'border': '1px solid #ecedee',
-
-    'intl': 'name:Name;price:Price;quantity:Quantity'
+    'intl': 'name:Name;price:Price;quantity:Quantity',
+    'line-height': '22px'
   }
 })
 class Invoice extends Component {
 
   static baseStyles = {
     th: {
-      padding: '10px 20px',
       fontWeight: 700,
-      textTransform: 'uppercase',
-      textAlign: 'left'
+      padding: '10px 20px',
+      textAlign: 'left',
+      textTransform: 'uppercase'
     }
-  }
+  };
 
   static intl = {
-    name    : 'Name',
-    price   : 'Price',
+    name: 'Name',
+    price: 'Price',
     quantity: 'Quantity',
-    total   : 'Total:'
-  }
+    total: 'Total:'
+  };
 
-  constructor(props) {
+  constructor (props) {
     super(props)
 
-    const format     = props.mjAttribute('format')
+    const format = props.mjAttribute('format')
     const currencies = format.match(/([^-\d.,])/g)
 
-    this.items    = props.mjChildren().filter((child) => child.get('tagName') === 'mj-invoice-item')
-    this.format   = format.replace(/([^-\d.,])/g, '$')
+    this.items = props.mjChildren().filter(child => child.get('tagName') === 'mj-invoice-item')
+    this.format = format.replace(/([^-\d.,])/g, '$')
     this.currency = (currencies) ? currencies[0] : null
   }
 
-  getStyles() {
+  styles = this.getStyles()
+
+  getStyles () {
     const { mjAttribute } = this.props
 
     const styles = _.merge({}, this.constructor.baseStyles, {
@@ -69,11 +68,11 @@ class Invoice extends Component {
         borderTop: mjAttribute('border')
       },
       total: {
-        padding: '10px 20px',
         fontFamily: mjAttribute('font-family'),
         fontSize: mjAttribute('font-size'),
         fontWeight: 700,
         lineHeight: mjAttribute('line-height'),
+        padding: '10px 20px',
         textAlign: 'right'
       }
     })
@@ -83,7 +82,7 @@ class Invoice extends Component {
     return styles
   }
 
-  getAttributes() {
+  getAttributes () {
     const { mjAttribute } = this.props
 
     return {
@@ -96,12 +95,12 @@ class Invoice extends Component {
     }
   }
 
-  getIntl() {
+  getIntl () {
     const { mjAttribute } = this.props
 
     const intl = _.cloneDeep(this.constructor.intl)
 
-    mjAttribute('intl').split(';').forEach((t) => {
+    mjAttribute('intl').split(';').forEach(t => {
       if (t && t.indexOf(':') != -1) {
         t = t.split(':')
         intl[t[0].trim()] = t[1].trim()
@@ -111,12 +110,13 @@ class Invoice extends Component {
     return intl
   }
 
-  getTotal() {
-    const format   = this.format
+  getTotal () {
+    const format = this.format
     const currency = this.currency
-    const total    = this.items.reduce((prev, item) => {
+
+    const total = this.items.reduce((prev, item) => {
       const unitPrice = parseFloat(numeral().unformat(item.getIn(['attributes', 'price'])))
-      const quantity  = parseInt(item.getIn(['attributes', 'quantity']))
+      const quantity = parseInt(item.getIn(['attributes', 'quantity']))
 
       return prev + unitPrice * quantity
     }, 0)
@@ -124,15 +124,13 @@ class Invoice extends Component {
     return numeral(total).format(format).replace(/([^-\d.,])/g, currency)
   }
 
-  render() {
-    this.styles = this.getStyles()
-
+  render () {
     const { renderChildren } = this.props
 
-    const intl   = this.getIntl()
-    const attrs  = this.getAttributes()
+    const intl = this.getIntl()
+    const attrs = this.getAttributes()
 
-    const total  = this.getTotal()
+    const total = this.getTotal()
 
     return (
       <MJTable {...attrs.table}>
@@ -148,13 +146,16 @@ class Invoice extends Component {
         </tbody>
         <tfoot>
           <tr style={this.styles.tfoot}>
-            <th style={this.styles.th} colSpan="2">{intl['total']}</th>
+            <th
+               colSpan="2"
+              style={this.styles.th}>{intl['total']}</th>
             <td style={this.styles.total}>{total}</td>
           </tr>
         </tfoot>
       </MJTable>
     )
   }
+
 }
 
 export default Invoice

@@ -20,8 +20,8 @@ class Section extends Component {
       margin: '0 auto'
     },
     table: {
-      width: '100%',
-      fontSize: '0'
+      fontSize: 0,
+      width: '100%'
     },
     td: {
       textAlign: 'center',
@@ -48,7 +48,7 @@ class Section extends Component {
 
     return _.merge({}, this.constructor.baseStyles, {
       td: {
-        fontSize: '0',
+        fontSize: 0,
         padding: mjAttribute('padding'),
         paddingBottom: mjAttribute('padding-bottom'),
         paddingLeft: mjAttribute('padding-left'),

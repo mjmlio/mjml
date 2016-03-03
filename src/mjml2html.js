@@ -117,7 +117,7 @@ const fixOutlookLayout = $ => {
     const $columnDiv = $(this).next()
 
     $(this).replaceWith(`<!--[if mso]>
-      <table border="0" cellpadding="0" cellspacing="0"><tr><td style="width:${parseInt($(this).data('width'))}px; vertical-align:${$columnDiv.data('vertical-align')};">
+      <table border="0" cellpadding="0" cellspacing="0"><tr><td style="vertical-align:${$columnDiv.data('vertical-align')};width:${parseInt($(this).data('width'))}px;">
       <![endif]-->`)
 
     $columnDiv.removeAttr('data-vertical-align')
@@ -127,7 +127,7 @@ const fixOutlookLayout = $ => {
     const $columnDiv = $(this).next()
 
     $(this).replaceWith(`<!--[if mso]>
-    </td><td style="width:${parseInt($(this).data('width'))}px; vertical-align:${$columnDiv.data('vertical-align')};">
+    </td><td style="vertical-align:${$columnDiv.data('vertical-align')};width:${parseInt($(this).data('width'))}px;">
       <![endif]-->`)
 
     $columnDiv.removeAttr('data-vertical-align')
@@ -158,7 +158,7 @@ const fixOutlookLayout = $ => {
   })
 
   $('.mj-divider-outlook').each(function () {
-    const insertNode = `<table border="0" cellpadding="0" cellspacing="0" style="${$(this).attr('style')}"></table>`
+    const insertNode = `<table align="center" border="0" cellpadding="0" cellspacing="0" style="${$(this).attr('style')}"></table>`
 
     $(this)
       .removeAttr('class')

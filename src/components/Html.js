@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import MJMLColumnElement from './decorators/MJMLColumnElement'
 import React, { Component } from 'react'
 
@@ -6,24 +7,32 @@ import React, { Component } from 'react'
  */
 @MJMLColumnElement({
   tagName: 'mj-html',
-  content: ' ',
+  content: '',
   attributes: {
-    'html': true,
-    'padding-bottom': '10px',
-    'padding-left': '0',
-    'padding-right': '0',
-    'padding-top': '10px'
+    'padding': 0
   }
 })
 class Html extends Component {
+
+  static baseStyles = {
+    div: {
+      fontSize: '13px'
+    }
+  };
+
+  styles = this.getStyles()
+
+  getStyles () {
+    return _.merge({}, this.constructor.baseStyles, {})
+  }
 
   render () {
     const { mjContent } = this.props
 
     return (
       <div
-        className="mj-content"
-        dangerouslySetInnerHTML={{ __html: mjContent() }} />
+        dangerouslySetInnerHTML={{ __html: mjContent() }}
+        style={this.styles.div} />
     )
   }
 

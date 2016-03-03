@@ -69,7 +69,6 @@ class Button extends Component {
 
     return (
       <a
-        className="mj-content"
         dangerouslySetInnerHTML={{ __html: mjContent() }}
         href={mjAttribute('href')}
         style={this.styles.a}

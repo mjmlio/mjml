@@ -48,7 +48,6 @@ class Text extends Component {
 
     return (
       <div
-        className="mj-content"
         dangerouslySetInnerHTML={{ __html: mjContent() }}
         style={this.styles.div} />
     )

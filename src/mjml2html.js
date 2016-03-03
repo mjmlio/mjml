@@ -199,8 +199,6 @@ const clean = $ => {
     .removeAttr('class')
     .removeAttr('style')
 
-  $('.mj-content').removeAttr('class')
-
   return $
 }
 

@@ -47,7 +47,6 @@ class List extends Component {
 
     return (
       <ul
-        className="mj-content"
         dangerouslySetInnerHTML={{ __html: mjContent() }}
         style={this.styles.ul} />
     )

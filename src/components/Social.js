@@ -209,8 +209,8 @@ class Social extends Component {
           cellSpacing="0"
           data-legacy-align="left"
           data-legacy-border="0"
-          key={`wrapped-social-button-${index}`}>
-          style={this.styles.tableHorizontal}
+          key={`wrapped-social-button-${index}`}
+          style={this.styles.tableHorizontal}>
           <tbody>
             {socialButton}
           </tbody>

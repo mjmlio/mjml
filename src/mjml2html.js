@@ -29,7 +29,7 @@ const mjml2html = (content, options = {}) => {
   return html
 }
 
-const removeCDATA = str => str.replace(/<!--\[CDATA\[(.*?)\]\]-->/g, '$1')
+const removeCDATA = str => str.replace(/<!--\[CDATA\[([^]*?)\]\]-->/gm, '$1')
 
 const insertColumnMediaQuery = $ => {
   const mediaQueries = []
@@ -161,7 +161,7 @@ const fixOutlookLayout = $ => {
     const insertNode = `<table border="0" cellpadding="0" cellspacing="0" style="${$(this).attr('style')}"></table>`
 
     $(this)
-      .removeClass('mj-divider-outlook')
+      .removeAttr('class')
       .after(`<!--[if mso]>${insertNode}<![endif]-->`)
   })
 

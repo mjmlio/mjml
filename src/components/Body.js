@@ -16,6 +16,8 @@ import React, { Component } from 'react'
 })
 class Body extends Component {
 
+  styles = this.getStyles()
+
   getStyles () {
     const { mjAttribute } = this.props
 
@@ -30,8 +32,6 @@ class Body extends Component {
   render () {
     const { renderWrappedOutlookChildren, mjAttribute, children } = this.props
     const { width } = widthParser(mjAttribute('width'))
-    
-    this.styles = this.getStyles()
 
     return (
       <div

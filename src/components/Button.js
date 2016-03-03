@@ -7,7 +7,7 @@ import React, { Component } from 'react'
  */
 @MJMLColumnElement({
   tagName: 'mj-button',
-  content: ' ',
+  content: '',
   attributes: {
     'align': 'center',
     'background-color': '#414141',
@@ -32,6 +32,8 @@ class Button extends Component {
     }
   };
 
+  styles = this.getStyles()
+
   getStyles () {
     const { mjAttribute } = this.props
 
@@ -40,8 +42,8 @@ class Button extends Component {
         background: mjAttribute('background-color'),
         borderRadius: mjAttribute('border-radius'),
         color: mjAttribute('color'),
-        fontStyle: mjAttribute('font-style'),
-        cursor: "auto"
+        cursor: 'auto',
+        fontStyle: mjAttribute('font-style')
       },
       table: {
         border: mjAttribute('border'),
@@ -77,8 +79,6 @@ class Button extends Component {
 
   render () {
     const { mjAttribute } = this.props
-
-    this.styles = this.getStyles()
 
     return (
       <table

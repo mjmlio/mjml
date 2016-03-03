@@ -27,6 +27,8 @@ class List extends Component {
     }
   };
 
+  styles = this.getStyles()
+
   getStyles () {
     const { mjAttribute } = this.props
 
@@ -42,8 +44,6 @@ class List extends Component {
 
   render () {
     const { mjContent } = this.props
-
-    this.styles = this.getStyles()
 
     return (
       <ul

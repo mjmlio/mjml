@@ -8,8 +8,8 @@ import dom from './helpers/dom'
  */
 const safeEndingTags = content => {
   unsafeTags.forEach(tag => {
-    const tagRegexp = new RegExp(`<${tag}>(.*?)<\/${tag}>`, 'g')
-    content = content.replace(tagRegexp, `<${tag}><!--[CDATA[$1]]--></${tag}>`)
+    const regex = new RegExp(`<${tag}[^>]*>([^]*?)<\/${tag}>`, 'gm')
+    content = content.replace(regex, `<${tag}><!--[CDATA[$1]]--></${tag}>`)
   })
 
   return content
@@ -47,7 +47,7 @@ const mjmlElementParser = elem => {
  */
 const documentParser = content => {
   let body
-
+  
   try {
     const $ = dom.parseXML(safeEndingTags(content))
     body = $('mj-body')

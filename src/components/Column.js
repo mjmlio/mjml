@@ -12,14 +12,12 @@ import React, { Component } from 'react'
 class Column extends Component {
 
   static baseStyles = {
-    td: {
-      border: 'none',
-      borderSpacing: '0'
-    },
     div: {
       verticalAlign: 'top'
     }
   };
+
+  styles = this.getStyles()
 
   getStyles () {
     const { mjAttribute } = this.props
@@ -64,8 +62,6 @@ class Column extends Component {
     const { mjAttribute, children, sibling } = this.props
     const width = mjAttribute('width') || (100 / sibling)
     const mjColumnClass = this.getColumnClass()
-
-    this.styles = this.getStyles()
 
     return (
       <div

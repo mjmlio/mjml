@@ -33,6 +33,8 @@ class Image extends Component {
     }
   };
 
+  styles = this.getStyles()
+
   getContentWidth () {
     const { mjAttribute, getPadding } = this.props
     const parentWidth = mjAttribute('parentWidth')
@@ -84,8 +86,6 @@ class Image extends Component {
 
   render () {
     const { mjAttribute } = this.props
-
-    this.styles = this.getStyles()
 
     return (
       <table

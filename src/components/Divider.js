@@ -26,6 +26,8 @@ class Divider extends Component {
     }
   };
 
+  styles = this.getStyles()
+
   getStyles () {
     const { mjAttribute } = this.props
 
@@ -38,9 +40,11 @@ class Divider extends Component {
   }
 
   render () {
-    this.styles = this.getStyles()
-
-    return <p className="mj-divider-outlook" style={this.styles.p} />
+    return (
+      <p
+        className="mj-divider-outlook"
+        style={this.styles.p} />
+    )
   }
 
 }

@@ -25,6 +25,8 @@ class Text extends Component {
     }
   };
 
+  styles = this.getStyles()
+
   getStyles () {
     const { mjAttribute, color } = this.props
 
@@ -43,8 +45,6 @@ class Text extends Component {
 
   render () {
     const { mjContent } = this.props
-
-    this.styles = this.getStyles()
 
     return (
       <div

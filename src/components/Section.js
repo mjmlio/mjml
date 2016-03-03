@@ -29,6 +29,8 @@ class Section extends Component {
     }
   };
 
+  styles = this.getStyles()
+
   isFullWidth () {
     const { mjAttribute } = this.props
 
@@ -46,14 +48,14 @@ class Section extends Component {
 
     return _.merge({}, this.constructor.baseStyles, {
       td: {
-        fontSize: 0,
-        textAlign: mjAttribute('text-align'),
-        verticalAlign: mjAttribute('vertical-align'),
+        fontSize: '0',
         padding: mjAttribute('padding'),
-        paddingTop: mjAttribute('padding-top'),
         paddingBottom: mjAttribute('padding-bottom'),
+        paddingLeft: mjAttribute('padding-left'),
         paddingRight: mjAttribute('padding-right'),
-        paddingLeft: mjAttribute('padding-left')
+        paddingTop: mjAttribute('padding-top'),
+        textAlign: mjAttribute('text-align'),
+        verticalAlign: mjAttribute('vertical-align')
       },
       div: {
         maxWidth: parentWidth
@@ -115,8 +117,6 @@ class Section extends Component {
   }
 
   render () {
-    this.styles = this.getStyles()
-
     return this.isFullWidth() ? this.renderFullWidthSection() : this.renderSection()
   }
 

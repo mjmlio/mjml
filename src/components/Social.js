@@ -105,6 +105,8 @@ class Social extends Component {
     }
   };
 
+  styles = this.getStyles()
+
   getStyles () {
     const { mjAttribute } = this.props
 
@@ -146,24 +148,29 @@ class Social extends Component {
     const href = definition.linkAttribute.replace('[[URL]]', mjAttribute(`${platform}-href`))
     const iconStyle = {
       background: mjAttribute(`${platform}-icon-color`),
-      width: mjAttribute('icon-size'),
-      borderRadius: 3
+      borderRadius: this.styles.img.borderRadius,
+      width: mjAttribute('icon-size')
     }
 
     return (
       <tr key={platform}>
         <td style={this.styles.td1}>
-          <table data-legacy-border="0" cellPadding="0" cellSpacing="0" style={iconStyle}>
+          <table
+            cellPadding="0"
+            cellSpacing="0"
+            data-legacy-border="0"
+            style={iconStyle}>
             <tbody>
               <tr>
                 <td style={this.styles.td2}>
                   <a href={href}>
-                    <img src={mjAttribute('base-url') + definition.icon}
-                        width={parseInt(mjAttribute('icon-size'))}
-                        height={parseInt(mjAttribute('icon-size'))}
-                        alt={platform}
-                        border="0"
-                        style={this.styles.img} />
+                    <img
+                      alt={platform}
+                      border="0"
+                      height={parseInt(mjAttribute('icon-size'))}
+                      src={mjAttribute('base-url') + definition.icon}
+                      style={this.styles.img}
+                      width={parseInt(mjAttribute('icon-size'))} />
                   </a>
                 </td>
               </tr>
@@ -172,9 +179,10 @@ class Social extends Component {
         </td>
         { this.isInTextMode() &&
         <td style={this.styles.tdText}>
-          <a style={this.styles.a}
-             dangerouslySetInnerHTML={{ __html: mjAttribute(`${platform}-content`) }}
-             href={href}/>
+          <a
+            dangerouslySetInnerHTML={{ __html: mjAttribute(`${platform}-content`) }}
+            href={href}
+            style={this.styles.a} />
          </td> }
       </tr>
     )
@@ -184,14 +192,10 @@ class Social extends Component {
     const { mjAttribute } = this.props
     const platforms = mjAttribute('display')
 
-    if (!platforms) {
-      return;
-    }
+    if (!platforms) return
 
-    return platforms.split(' ').map( (platform) => {
-      if (!this.constructor.buttonDefinitions[platform]) {
-        return;
-      }
+    return platforms.split(' ').map(platform => {
+      if (!this.constructor.buttonDefinitions[platform]) return
 
       return this.renderSocialButton(platform)
     })
@@ -200,11 +204,13 @@ class Social extends Component {
   renderHorizontal () {
     const socialButtons = this.renderSocialButtons().map((socialButton, index) => {
       return (
-        <table data-legacy-border="0"
-              cellPadding="0"
-              cellSpacing="0"
-              data-legacy-align="left" style={this.styles.tableHorizontal}
-              key={`wrapped-social-button-${index}`}>
+        <table
+          cellPadding="0"
+          cellSpacing="0"
+          data-legacy-align="left"
+          data-legacy-border="0"
+          key={`wrapped-social-button-${index}`}>
+          style={this.styles.tableHorizontal}
           <tbody>
             {socialButton}
           </tbody>
@@ -217,18 +223,19 @@ class Social extends Component {
       return result
     }, [<div className="mj-social-outlook-open" key="outlook-open"/>])
 
-    socialButtons[socialButtons.length - 1] = <div className="mj-social-outlook-close" key="outlook-close"/>
+    socialButtons[socialButtons.length - 1] = <div className="mj-social-outlook-close" key="outlook-close" />
 
     return socialButtons
   }
 
   renderVertical () {
     return (
-      <table data-legacy-border="0"
-             cellPadding="0"
-             cellSpacing="0"
-             align="center"
-             style={this.styles.tableVertical}>
+      <table
+        cellPadding="0"
+        cellSpacing="0"
+        data-legacy-align="center"
+        data-legacy-border="0"
+        style={this.styles.tableVertical}>
         <tbody>
           {this.renderSocialButtons()}
         </tbody>
@@ -237,8 +244,6 @@ class Social extends Component {
   }
 
   render () {
-    this.styles = this.getStyles()
-
     return (
       <div style={this.styles.div}>
         { this.isHorizontal() ? this.renderHorizontal() : this.renderVertical() }

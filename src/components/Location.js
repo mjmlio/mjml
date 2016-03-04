@@ -12,7 +12,9 @@ import MJText  from './Text'
     'font-family': 'Roboto, sans-serif',
     'font-size': '18px',
     'font-weight': 500,
-    'padding': '10px 25px'
+    'padding': '10px 25px',
+
+    'img-src': 'http://i.imgur.com/DPCJHhy.png'
   }
 })
 class Location extends Component {
@@ -40,7 +42,8 @@ class Location extends Component {
         'padding': 0
       },
       img: {
-        'padding': 0
+        'padding': 0,
+        'src': mjAttribute('img-src')
       }
     }
   }
@@ -59,7 +62,6 @@ class Location extends Component {
         <tbody>
           <MJImage
             {...attrs.img}
-            src="http://i.imgur.com/DPCJHhy.png"
             href={address} />
           <MJText
             {...attrs.text}

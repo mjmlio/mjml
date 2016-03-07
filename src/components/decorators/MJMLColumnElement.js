@@ -11,6 +11,7 @@ function createComponent(ComposedComponent, defaultAttributes) {
 
       return {
         td: {
+          background: mjAttribute('container-background-color'),
           fontSize: 0,
           padding: mjAttribute('padding'),
           paddingTop: mjAttribute('padding-top'),
@@ -28,7 +29,9 @@ function createComponent(ComposedComponent, defaultAttributes) {
 
       return (
         <tr>
-          <td style={this.styles.td} data-legacy-align={mjAttribute('align')}>
+          <td style={this.styles.td}
+              data-legacy-align={mjAttribute('align')}
+              data-legacy-background={mjAttribute('container-background-color')}>
             <ComposedComponent {...this.props} />
           </td>
         </tr>

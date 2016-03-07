@@ -1,20 +1,17 @@
+import _ from 'lodash'
 import MJMLElement from '../decorators/MJMLElement'
 import React, { Component } from 'react'
-import _ from 'lodash'
 
 @MJMLElement({
   tagName: 'mj-invoice-item',
-  content: ' ',
-
   attributes: {
-    'name': '',
-    'price': 0,
-    'quantity': 0,
-
     'color': '#747474',
     'font-family': 'Roboto, Ubuntu, Helvetica, Arial, sans-serif',
-    'padding': '10px 20px',
     'font-size': '14px',
+    'name': '',
+    'padding': '10px 20px',
+    'price': 0,
+    'quantity': 0,
     'text-align': 'left'
   }
 })
@@ -25,9 +22,15 @@ class InvoiceItem extends Component {
       fontWeight: 500,
       lineHeight: 1
     },
-    name: { wordBreak: 'break-all' },
-    quantity: { textAlign: 'right' }
-  }
+    name: {
+      wordBreak: 'break-all'
+    },
+    quantity: {
+      textAlign: 'right'
+    }
+  };
+
+  styles = this.getStyles()
 
   getStyles() {
     const { mjAttribute } = this.props
@@ -36,21 +39,19 @@ class InvoiceItem extends Component {
       td: {
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
-        padding: mjAttribute('padding'),
         fontSize: mjAttribute('font-size'),
+        padding: mjAttribute('padding'),
         textAlign: mjAttribute('text-align')
       }
     })
 
-    styles.name     = _.merge({}, styles.td, styles.name)
+    styles.name = _.merge({}, styles.td, styles.name)
     styles.quantity = _.merge({}, styles.td, styles.quantity)
 
     return styles
   }
 
   render() {
-    this.styles = this.getStyles()
-
     const { mjAttribute } = this.props
 
     return (

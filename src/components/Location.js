@@ -13,7 +13,6 @@ import MJText  from './Text'
     'font-size': '18px',
     'font-weight': 500,
     'padding': '10px 25px',
-
     'img-src': 'http://i.imgur.com/DPCJHhy.png'
   }
 })

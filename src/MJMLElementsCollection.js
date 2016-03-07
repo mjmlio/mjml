@@ -12,10 +12,11 @@ const MJMLStandardElements = {
   'text': require('./components/Text').default,
   'table': require('./components/Table').default,
   'invoice': require('./components/Invoice').default,
-  'invoice-item': require('./components/Invoice/Item').default
+  'invoice-item': require('./components/Invoice/Item').default,
+  'location': require('./components/Location').default
 }
 
-export const endingTags = ["mj-text", "mj-html", "mj-button", "mj-list", "mj-raw", "mj-table", "mj-invoice-item"]
+export const endingTags = ["mj-text", "mj-html", "mj-button", "mj-list", "mj-raw", "mj-table", "mj-invoice-item", "mj-location"]
 export const unsafeTags = ["mj-raw"]
 
 export function registerElement(tagName, element, options = {}) {

@@ -1,13 +1,13 @@
+import _ from 'lodash'
 import MJMLColumnElement from './decorators/MJMLColumnElement'
 import React, { Component } from 'react'
-import _ from 'lodash'
 
 /**
  * Displays a customizable button
  */
 @MJMLColumnElement({
   tagName: 'mj-button',
-  content: ' ',
+  content: '',
   attributes: {
     'align': 'center',
     'background-color': '#414141',
@@ -16,9 +16,9 @@ import _ from 'lodash'
     'color': '#ffffff',
     'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
     'font-size': '13px',
-    'font-weight': 'bold',
+    'font-weight': 'normal',
     'href': '',
-    'padding': '15px 30px',
+    'padding': '10px 25px',
     'text-decoration': 'none',
     'vertical-align': 'middle'
   }
@@ -32,7 +32,9 @@ class Button extends Component {
     }
   };
 
-  getStyles() {
+  styles = this.getStyles()
+
+  getStyles () {
     const { mjAttribute } = this.props
 
     return _.merge({}, this.constructor.baseStyles, {
@@ -40,11 +42,10 @@ class Button extends Component {
         background: mjAttribute('background-color'),
         borderRadius: mjAttribute('border-radius'),
         color: mjAttribute('color'),
-        fontStyle: mjAttribute('font-style'),
-        cursor: "auto"
+        cursor: 'auto',
+        fontStyle: mjAttribute('font-style')
       },
       table: {
-        backgroundColor: mjAttribute('container-background-color'),
         border: mjAttribute('border'),
         borderRadius: mjAttribute('border-radius')
       },
@@ -63,12 +64,11 @@ class Button extends Component {
     })
   }
 
-  renderButton() {
+  renderButton () {
     const { mjContent, mjAttribute } = this.props
 
     return (
       <a
-        className="mj-content"
         dangerouslySetInnerHTML={{ __html: mjContent() }}
         href={mjAttribute('href')}
         style={this.styles.a}
@@ -76,17 +76,15 @@ class Button extends Component {
     )
   }
 
-  render() {
+  render () {
     const { mjAttribute } = this.props
-
-    this.styles = this.getStyles()
 
     return (
       <table
-        border="0"
         cellPadding="0"
         cellSpacing="0"
         data-legacy-align={mjAttribute('align')}
+        data-legacy-border="0"
         style={this.styles.table}>
         <tbody>
           <tr>

@@ -1,7 +1,6 @@
+import _ from 'lodash'
 import MJMLColumnElement from './decorators/MJMLColumnElement'
 import React, { Component } from 'react'
-import _ from 'lodash'
-
 
 /**
  * This tag allows you to display the most basic kind of text in your email
@@ -26,7 +25,9 @@ class Text extends Component {
     }
   };
 
-  getStyles() {
+  styles = this.getStyles()
+
+  getStyles () {
     const { mjAttribute, color } = this.props
 
     return _.merge({}, this.constructor.baseStyles, {
@@ -42,14 +43,11 @@ class Text extends Component {
     })
   }
 
-  render() {
+  render () {
     const { mjContent } = this.props
-
-    this.styles = this.getStyles()
 
     return (
       <div
-        className="mj-content"
         dangerouslySetInnerHTML={{ __html: mjContent() }}
         style={this.styles.div} />
     )

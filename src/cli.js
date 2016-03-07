@@ -1,15 +1,13 @@
-import fs                      from 'fs'
-import minify                  from 'html-minify'
-import mjmlEngine              from './index'
-import { version as VERSION }  from '../package.json'
+import { mjml2html, version as V } from './index'
+import fs from 'fs'
 
-const engine = mjmlEngine.mjml2html
+const capitalize = name => name.charAt(0).toUpperCase() + name.slice(1).toLowerCase().replace(/-/g, '')
 
 /*
  * The version number is the NPM
  * version number. It should be the same as the MJML engine
  */
-const version = () => VERSION
+export const version = V
 
 /*
  * Turns a callback style to a Promise style one
@@ -23,22 +21,21 @@ const promisify = fn =>
 /*
  * Minimal Error Handling
  */
-const error   = (e) => {
-  console.log(e.stack ? e.stack : e)
-}
+const error = e => console.log(e.stack ? e.stack : e)
 
 /*
  * Stdin to string buffer
  */
 const stdinToBuffer = (stream, callback) => {
-  let buffer = "";
-  stream.on('data', (chunck) => {
-    buffer += chunck;
-  });
-  
+  let buffer = ''
+
+  stream.on('data', chunck => {
+    buffer += chunck
+  })
+
   stream.on('end', () => {
-    callback(null, buffer);
-  });
+    callback(null, buffer)
+  })
 }
 
 /*
@@ -56,9 +53,8 @@ const readStdin = promisify(stdinToBuffer)
  */
 const render = (bufferPromise, { min, output, stdout }) => {
   bufferPromise
-    .then(mjml    => engine(mjml.toString()))
-    .then(html    => min ? minify(html) : html)
-    .then(result  => stdout ? process.stdout.write(result) : write(output, result))
+    .then(mjml => mjml2html(mjml.toString(), { minify: min }))
+    .then(result => stdout ? process.stdout.write(result) : write(output, result))
     .catch(error)
 }
 
@@ -66,25 +62,17 @@ const render = (bufferPromise, { min, output, stdout }) => {
  * Turns an MJML input file into a pretty HTML file
  * min: boolean that specify the output format (pretty/minified)
  */
-const renderFile = (input, options) => {
-  render(exists(input).then(() => read(input)), options)
-}
+export const renderFile = (input, options) => render(exists(input).then(() => read(input)), options)
 
 /**
  * Render based on input stream
  */
-const renderStream = (options) => {
-  render(readStdin(process.stdin), options)
-}
+export const renderStream = options => render(readStdin(process.stdin), options)
 
 /*
  * Watch changes on a specific input file by calling render on each change
  */
-const watch = (input, options) =>
-  fs.watch(input, () =>
-    render(input, options))
-
-const capitalize = name => name.charAt(0).toUpperCase() + name.slice(1).toLowerCase().replace(/-/g, '')
+export const watch = (input, options) => fs.watch(input, () => render(input, options))
 
 /*
 * Return the code of an MJML component for a given name
@@ -93,20 +81,14 @@ const createComponent = (name, ending) => {
   const lowerName = name.toLowerCase()
 
   return `
+import { MJMLColumnElement, elements, registerElement } from 'mjml'
+import merge from 'lodash/merge'
 import React, { Component } from 'react'
-import _ from 'lodash'
-import {
-  MJMLColumnElement,
-  elements,
-  registerElement,
-} from 'mjml'
 
 /*
  * Wrap your dependencies here.
  */
-const {
-  text: MjText,
-} = elements;
+const { text: MjText } = elements
 
 const NAME = '${lowerName}'
 
@@ -128,10 +110,10 @@ class ${name} extends Component {
   /*
    * Build your styling here
    */
-  getStyles() {
+  getStyles () {
     const { mjAttribute, color } = this.props
 
-    return _.merge({}, this.constructor.baseStyles, {
+    return merge({}, this.constructor.baseStyles, {
       text: {
       /*
        * Get the color attribute
@@ -142,10 +124,9 @@ class ${name} extends Component {
     })
   }
 
-  render() {
-
-    const css = this.getStyles(),
-          content = 'Hello World!'
+  render () {
+    const css = this.getStyles()
+    const content = 'Hello World!'
 
     return (
       <MjText style={ css }>
@@ -153,9 +134,11 @@ class ${name} extends Component {
       </MjText>
     )
   }
+
 }
 
 registerElement('${lowerName}', ${name}${ending ? ', { endingTag: true }' : ''})
+
 export default ${name}
 `
 }
@@ -163,14 +146,6 @@ export default ${name}
 /*
  * Create a new component based on the default template
  */
-const initComponent = (name, ending) =>
+export const initComponent = (name, ending) =>
   write(`./${capitalize(name)}.js`, createComponent(capitalize(name), ending))
     .then(() => console.log(`Component created: ${capitalize(name)}`))
-
-module.exports = {
-  initComponent,
-  renderFile,
-  renderStream,
-  watch,
-  version
-}

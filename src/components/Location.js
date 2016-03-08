@@ -18,7 +18,9 @@ import MJText  from './Text'
 })
 class Location extends Component {
 
-  getStyles() {
+  styles = this.getStyles()
+
+  getStyles () {
     const { mjAttribute } = this.props
 
     return _.merge({}, this.constructor.baseStyles, {
@@ -29,13 +31,13 @@ class Location extends Component {
     })
   }
 
-  getAttributes() {
+  getAttributes () {
     const { mjAttribute } = this.props
 
     return {
       text: {
         'font-family': mjAttribute('font-family'),
-        'font-size':   mjAttribute('font-size'),
+        'font-size': mjAttribute('font-size'),
         'font-weight': mjAttribute('font-weight'),
         'text-decoration': mjAttribute('text-decoration'),
         'padding': 0
@@ -47,9 +49,7 @@ class Location extends Component {
     }
   }
 
-  render() {
-    this.styles = this.getStyles()
-
+  render () {
     const { mjAttribute } = this.props
     const attrs  = this.getAttributes()
 

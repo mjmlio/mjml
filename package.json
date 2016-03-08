@@ -54,6 +54,11 @@
       "name": "Rémi Parmentier",
       "email": "rparmentier@tilt-studio.fr",
       "url": "github.com/rparmentier"
+    },
+    {
+      "name": "Matthieu Pinte",
+      "email": "matthieu@derniercri.io",
+      "url": "github.com/swibge"
     }
   ],
   "license": "MIT",

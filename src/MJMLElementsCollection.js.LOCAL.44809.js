@@ -7,7 +7,6 @@ import Image from './components/Image'
 import Invoice from './components/Invoice'
 import InvoiceItem from './components/Invoice/Item'
 import List from './components/List'
-import Location from './components/Location'
 import Raw from './components/Raw'
 import Section from './components/Section'
 import Social from './components/Social'
@@ -23,14 +22,13 @@ const MJMLStandardElements = {
   'invoice-item': InvoiceItem,
   'invoice': Invoice,
   'list': List,
-  'location': Location,
   'raw': Raw,
   'section': Section,
   'social': Social,
   'text': Text
 }
 
-export const endingTags = ['mj-text', 'mj-html', 'mj-button', 'mj-list', 'mj-raw', 'mj-table', 'mj-invoice-item', 'mj-location']
+export const endingTags = ['mj-text', 'mj-html', 'mj-button', 'mj-list', 'mj-raw', 'mj-table', 'mj-invoice-item']
 export const unsafeTags = ['mj-raw']
 
 export const registerElement = (tagName, element, options = {}) => {

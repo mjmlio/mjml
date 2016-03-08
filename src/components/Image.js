@@ -14,7 +14,8 @@ import React, { Component } from 'react'
     'alt': '',
     'border': 'none',
     'href': '',
-    'src': ''
+    'src': '',
+    'target': '_blank'
   }
 })
 class Image extends Component {
@@ -74,7 +75,7 @@ class Image extends Component {
 
     if (mjAttribute('href') != '') {
       return (
-        <a href={mjAttribute('href')}>
+        <a href={mjAttribute('href')} target={mjAttribute('target')}>
           {img}
         </a>
       )

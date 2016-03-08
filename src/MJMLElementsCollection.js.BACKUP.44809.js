@@ -7,13 +7,13 @@ import Image from './components/Image'
 import Invoice from './components/Invoice'
 import InvoiceItem from './components/Invoice/Item'
 import List from './components/List'
-import Location from './components/Location'
 import Raw from './components/Raw'
 import Section from './components/Section'
 import Social from './components/Social'
 import Text from './components/Text'
 
 const MJMLStandardElements = {
+<<<<<<< HEAD
   'body': Body,
   'button': Button,
   'column': Column,
@@ -23,15 +23,35 @@ const MJMLStandardElements = {
   'invoice-item': InvoiceItem,
   'invoice': Invoice,
   'list': List,
-  'location': Location,
   'raw': Raw,
   'section': Section,
   'social': Social,
   'text': Text
 }
 
-export const endingTags = ['mj-text', 'mj-html', 'mj-button', 'mj-list', 'mj-raw', 'mj-table', 'mj-invoice-item', 'mj-location']
+export const endingTags = ['mj-text', 'mj-html', 'mj-button', 'mj-list', 'mj-raw', 'mj-table', 'mj-invoice-item']
 export const unsafeTags = ['mj-raw']
+=======
+  'body': require('./components/Body').default,
+  'button': require('./components/Button').default,
+  'column': require('./components/Column').default,
+  'divider': require('./components/Divider').default,
+  'html': require('./components/Html').default,
+  'image': require('./components/Image').default,
+  'list': require('./components/List').default,
+  'raw': require('./components/Raw').default,
+  'section': require('./components/Section').default,
+  'social': require('./components/Social').default,
+  'text': require('./components/Text').default,
+  'table': require('./components/Table').default,
+  'invoice': require('./components/Invoice').default,
+  'invoice-item': require('./components/Invoice/Item').default,
+  'location': require('./components/Location').default
+}
+
+export const endingTags = ["mj-text", "mj-html", "mj-button", "mj-list", "mj-raw", "mj-table", "mj-invoice-item", "mj-location"]
+export const unsafeTags = ["mj-raw"]
+>>>>>>> master
 
 export const registerElement = (tagName, element, options = {}) => {
   MJMLStandardElements[tagName] = element

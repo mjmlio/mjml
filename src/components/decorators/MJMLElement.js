@@ -96,7 +96,7 @@ function createComponent(ComposedComponent, defaultMJMLDefinition) {
 
         result.push(React.cloneElement(element, { mjml: mjml }))
 
-        if (n < children.length - 1) {
+        if (n < children.length - 1 && mjml.getIn(['tagName']) != "mj-raw") {
           result.push(<div key={`outlook-${n}`} className={`${prefix}-line`} data-width={elementsWidth[n + 1]} />)
         }
 

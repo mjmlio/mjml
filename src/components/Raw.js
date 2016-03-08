@@ -1,7 +1,9 @@
 import MJMLElement from './decorators/MJMLElement'
 import React, { Component } from 'react'
 
-@MJMLElement
+@MJMLElement({
+  tagName: 'mj-raw'
+})
 class Raw extends Component {
 
   render () {

@@ -7,7 +7,7 @@ import dom from './helpers/dom'
  * Avoid htmlparser to parse ending tags
  */
 const safeEndingTags = content => {
-  unsafeTags.forEach(tag => {
+  endingTags.forEach(tag => {
     const regex = new RegExp(`<${tag}[^>]*>([^]*?)<\/${tag}>`, 'gm')
     content = content.replace(regex, `<${tag}><!--[CDATA[$1]]--></${tag}>`)
   })
@@ -47,7 +47,7 @@ const mjmlElementParser = elem => {
  */
 const documentParser = content => {
   let body
-  
+
   try {
     const $ = dom.parseXML(safeEndingTags(content))
     body = $('mj-body')

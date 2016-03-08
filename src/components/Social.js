@@ -34,6 +34,7 @@ import _ from 'lodash'
     'align': 'center',
     'color': '#333333',
     'display': 'facebook twitter google',
+    'type': 'share',
     'base-url': 'https://www.mailjet.com/images/theme/v1/icons/ico-social/'
   }
 })
@@ -143,7 +144,7 @@ class Social extends Component {
   renderSocialButton(platform) {
     const { mjAttribute } = this.props
     const definition = this.constructor.buttonDefinitions[platform]
-    const href = definition.linkAttribute.replace('[[URL]]', mjAttribute(`${platform}-href`))
+    const href = mjAttribute(`type`)=='share' ? definition.linkAttribute.replace('[[URL]]', mjAttribute(`${platform}-href`)) : mjAttribute(`${platform}-href`)
     const iconStyle = {
       background: mjAttribute(`${platform}-icon-color`),
       width: mjAttribute('icon-size'),

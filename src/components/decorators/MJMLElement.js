@@ -71,11 +71,12 @@ function createComponent(ComposedComponent, defaultMJMLDefinition) {
 
     renderWrappedOutlookChildren = children => {
       children = React.Children.toArray(children)
+      const realChildren = children.filter(child => child.props.mjml.get('tagName') !== 'mj-raw')
 
-      const prefix        = `mj-${this.mjName()}-outlook`
-      const parentWidth   = this.getWidth()
-      const siblings      = children.length
-      const elementsWidth = children.map(element => {
+      const prefix = `mj-${this.mjName()}-outlook`
+      const parentWidth = this.getWidth()
+      const siblings = realChildren.length
+      const elementsWidth = realChildren.map(element => {
         if (this.isInheritedAttributes('width')) {
           return parentWidth
         }
@@ -83,25 +84,37 @@ function createComponent(ComposedComponent, defaultMJMLDefinition) {
         return getElementWidth({ element, siblings, parentWidth })
       })
 
+      const wrappedElements = []
+
       if (siblings == 0) {
-        return []
+        return wrappedElements
       }
 
-      const wrappedElements = children.reduce((result, element, n) => {
-        let mjml = element.props.mjml.setIn(['attributes', 'rawPxWidth'], elementsWidth[n])
+      wrappedElements.push(<div key="outlook-open" className={`${prefix}-open`} data-width={elementsWidth[0]} />)
 
-        if (this.props.mjml.get('inheritedAttributes')) {
-          mjml = mjml.mergeIn(['attributes', this.inheritedAttributes()])
+      let i = 0
+
+      children.forEach(child => {
+        let mjml = child.props.mjml
+
+        if (mjml.get('tagName') !== 'mj-raw') {
+          mjml = child.props.mjml.setIn(['attributes', 'rawPxWidth'], elementsWidth[i])
+
+          if (this.props.mjml.get('inheritedAttributes')) {
+            mjml = mjml.mergeIn(['attributes', this.inheritedAttributes()])
+          }
+
+          wrappedElements.push(React.cloneElement(child, { mjml: mjml }))
+
+          if (i < realChildren.length - 1) {
+            wrappedElements.push(<div key={`outlook-${i}`} className={`${prefix}-line`} data-width={elementsWidth[i + 1]} />)
+          }
+
+          i++
+        } else {
+          wrappedElements.push(React.cloneElement(child, { mjml: mjml }))
         }
-
-        result.push(React.cloneElement(element, { mjml: mjml }))
-
-        if (n < children.length - 1 && mjml.getIn(['tagName']) != "mj-raw") {
-          result.push(<div key={`outlook-${n}`} className={`${prefix}-line`} data-width={elementsWidth[n + 1]} />)
-        }
-
-        return result
-      }, [<div key="outlook-open" className={`${prefix}-open`} data-width={elementsWidth[0]} />])
+      })
 
       wrappedElements.push(<div key="outlook-close" className={`${prefix}-close`} />)
 

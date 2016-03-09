@@ -192,10 +192,14 @@ class Social extends Component {
     const { mjAttribute } = this.props
     const platforms = mjAttribute('display')
 
-    if (!platforms) return
+    if (!platforms) {
+      return
+    }
 
     return platforms.split(' ').map(platform => {
-      if (!this.constructor.buttonDefinitions[platform]) return
+      if (!this.constructor.buttonDefinitions[platform]) {
+        return
+      }
 
       return this.renderSocialButton(platform)
     })

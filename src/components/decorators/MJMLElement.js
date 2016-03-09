@@ -37,13 +37,13 @@ function createComponent(ComposedComponent, defaultMJMLDefinition) {
 
   class MJMLElement extends Component {
 
+    static defaultMJMLDefinition = defaultMJMLDefinition;
+
     constructor(props) {
       super(props)
 
       this.mjml = props.mjml || Immutable.fromJS(defaultMJMLDefinition).mergeIn(['attributes'], props)
     }
-
-    static defaultMJMLDefinition = defaultMJMLDefinition;
 
     mjAttribute = name => this.mjml.getIn(['attributes', name])
 

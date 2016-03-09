@@ -3,7 +3,9 @@ import listFontsImports from '../configs/listFontsImports'
 const buildTags = toImport => {
   const tags = {}
 
-  if (!toImport.length) return tags
+  if (!toImport.length) {
+    return tags
+  }
 
   tags.link = "\n" + toImport.map(url => `<link href="${url}" rel="stylesheet" type="text/css">`).join('\n')
   tags.import = `\n<style type="text/css">\n` +

@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { endingTags, unsafeTags } from './MJMLElementsCollection'
+import { endingTags } from './MJMLElementsCollection'
 import { ParseError, EmptyMJMLError, NullElementError } from './Error'
 import dom from './helpers/dom'
 

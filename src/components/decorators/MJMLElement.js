@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import Immutable from "immutable"
 import { UnknownMJMLElement } from '../../Error'
 import { widthParser } from '../../helpers/mjAttribute'
 import MJMLElementsCollection from '../../MJMLElementsCollection'
@@ -36,14 +37,22 @@ function createComponent(ComposedComponent, defaultMJMLDefinition) {
 
   class MJMLElement extends Component {
 
+    constructor(props) {
+      super(props)
+
+      this.mjml = props.mjml || Immutable.fromJS(defaultMJMLDefinition).mergeIn(['attributes', props])
+    }
+
     static defaultMJMLDefinition = defaultMJMLDefinition;
 
-    mjAttribute = name => this.props.mjml.getIn(['attributes', name])
+    mjAttribute = name => this.mjml.getIn(['attributes', name])
 
-    mjName = () => this.props.mjml.get('tagName').substr(3)
+    mjName = () =>  {
+      return this.mjml.get('tagName').substr(3)
+    }
 
     mjContent = () => {
-      const content = this.props.mjml.get('content')
+      const content = this.mjml.get('content')
 
       if (content) {
         return _.trim(content)
@@ -58,14 +67,14 @@ function createComponent(ComposedComponent, defaultMJMLDefinition) {
     }
 
     inheritedAttributes () {
-      return this.props.mjml.get('inheritedAttributes').reduce((result, value) => {
+      return this.mjml.get('inheritedAttributes').reduce((result, value) => {
         result[value] = this.mjAttribute(value)
 
         return result
       }, {})
     }
 
-    isInheritedAttributes = name => this.props.mjml.get('inheritedAttributes') && this.props.mjml.get('inheritedAttributes').includes(name)
+    isInheritedAttributes = name => this.mjml.get('inheritedAttributes') && this.mjml.get('inheritedAttributes').includes(name)
 
     getWidth = () => this.mjAttribute('rawPxWidth') || this.mjAttribute('width')
 
@@ -100,7 +109,7 @@ function createComponent(ComposedComponent, defaultMJMLDefinition) {
         if (mjml.get('tagName') !== 'mj-raw') {
           mjml = child.props.mjml.setIn(['attributes', 'rawPxWidth'], elementsWidth[i])
 
-          if (this.props.mjml.get('inheritedAttributes')) {
+          if (this.mjml.get('inheritedAttributes')) {
             mjml = mjml.mergeIn(['attributes', this.inheritedAttributes()])
           }
 
@@ -158,6 +167,7 @@ function createComponent(ComposedComponent, defaultMJMLDefinition) {
 
       return parentMjml.get('children').map((mjml, i) => {
         const childMjml = mjml.setIn(['attributes', 'parentWidth'], this.mjAttribute('rawPxWidth'))
+
         const tag = childMjml.get('tagName').substr(3)
         const Element = MJMLElementsCollection[tag]
 

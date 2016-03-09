@@ -40,7 +40,7 @@ function createComponent(ComposedComponent, defaultMJMLDefinition) {
     constructor(props) {
       super(props)
 
-      this.mjml = props.mjml || Immutable.fromJS(defaultMJMLDefinition).mergeIn(['attributes', props])
+      this.mjml = props.mjml || Immutable.fromJS(defaultMJMLDefinition).mergeIn(['attributes'], props)
     }
 
     static defaultMJMLDefinition = defaultMJMLDefinition;
@@ -165,6 +165,10 @@ function createComponent(ComposedComponent, defaultMJMLDefinition) {
     generateChildren () {
       const { mjml: parentMjml } = this.props
 
+      if (!parentMjml) {
+        return []
+      }
+
       return parentMjml.get('children').map((mjml, i) => {
         const childMjml = mjml.setIn(['attributes', 'parentWidth'], this.mjAttribute('rawPxWidth'))
 
@@ -194,7 +198,7 @@ function createComponent(ComposedComponent, defaultMJMLDefinition) {
       ]
 
       // assign sibling count for element and children
-      if (this.mjName() === 'column') {
+      if (parentMjml && this.mjName() === 'column') {
         siblingCount = parentMjml.get('children').size
       }
 

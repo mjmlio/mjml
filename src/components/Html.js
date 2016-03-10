@@ -14,6 +14,12 @@ import React, { Component } from 'react'
 })
 class Html extends Component {
 
+  static baseStyles = {
+    div: {
+      fontSize: '13px'
+    }
+  }
+
   styles = this.getStyles()
 
   getStyles () {
@@ -30,12 +36,6 @@ class Html extends Component {
     )
   }
 
-}
-
-Html.baseStyles = {
-  div: {
-    fontSize: '13px'
-  }
 }
 
 export default Html

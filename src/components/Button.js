@@ -25,6 +25,13 @@ import React, { Component } from 'react'
 })
 class Button extends Component {
 
+  static baseStyles = {
+    a: {
+      display: 'inline-block',
+      textDecoration: 'none'
+    }
+  }
+
   styles = this.getStyles()
 
   getStyles () {
@@ -94,13 +101,6 @@ class Button extends Component {
     )
   }
 
-}
-
-Button.baseStyles = {
-  a: {
-    display: 'inline-block',
-    textDecoration: 'none'
-  }
 }
 
 export default Button

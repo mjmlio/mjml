@@ -19,6 +19,12 @@ import React, { Component } from 'react'
 })
 class Text extends Component {
 
+  static baseStyles = {
+    div: {
+      cursor: 'auto'
+    }
+  }
+
   styles = this.getStyles()
 
   getStyles () {
@@ -47,12 +53,6 @@ class Text extends Component {
     )
   }
 
-}
-
-Text.baseStyles = {
-  div: {
-    cursor: 'auto'
-  }
 }
 
 export default Text

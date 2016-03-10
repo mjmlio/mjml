@@ -17,6 +17,13 @@ import React, { Component } from 'react'
 })
 class Divider extends Component {
 
+  static baseStyles = {
+    p: {
+      fontSize: '1px',
+      margin: '0 auto'
+    }
+  }
+
   styles = this.getStyles()
 
   getStyles () {
@@ -38,13 +45,6 @@ class Divider extends Component {
     )
   }
 
-}
-
-Divider.baseStyles = {
-  p: {
-    fontSize: '1px',
-    margin: '0 auto'
-  }
 }
 
 export default Divider

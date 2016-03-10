@@ -1,3 +1,4 @@
+import hoistNonReactStatic from 'hoist-non-react-statics'
 import MJMLElement from './MJMLElement'
 import React, { Component } from 'react'
 
@@ -40,6 +41,8 @@ function createComponent(ComposedComponent, defaultMJMLDefinition) {
     }
 
   }
+
+  hoistNonReactStatic(MJMLColumnElement, ComposedComponent)
 
   return MJMLColumnElement
 

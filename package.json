@@ -1,6 +1,6 @@
 {
   "name": "mjml",
-  "version": "1.3.0-beta6",
+  "version": "1.3.0-beta7",
   "description": "MJML: the only framework that makes responsive-email easy",
   "main": "./lib/index",
   "scripts": {
@@ -97,6 +97,7 @@
     "debug": "^2.2.0",
     "estraverse": "^4.1.1",
     "estraverse-fb": "^1.3.1",
+    "hoist-non-react-statics": "^1.0.5",
     "html-minifier": "^1.2.0",
     "immutable": "^3.7.6",
     "jquery": "^2.2.1",

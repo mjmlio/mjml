@@ -11,6 +11,12 @@ import React, { Component } from 'react'
 })
 class Column extends Component {
 
+  static baseStyles = {
+    div: {
+      verticalAlign: 'top'
+    }
+  }
+
   styles = this.getStyles()
 
   getStyles () {
@@ -79,12 +85,6 @@ class Column extends Component {
     )
   }
 
-}
-
-Column.baseStyles = {
-  div: {
-    verticalAlign: 'top'
-  }
 }
 
 export default Column

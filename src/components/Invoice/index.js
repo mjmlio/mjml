@@ -17,6 +17,22 @@ import React, { Component } from 'react'
 })
 class Invoice extends Component {
 
+  static baseStyles = {
+    th: {
+      fontWeight: 700,
+      padding: '10px 20px',
+      textAlign: 'left',
+      textTransform: 'uppercase'
+    }
+  }
+
+  static intl = {
+    name: 'Name',
+    price: 'Price',
+    quantity: 'Quantity',
+    total: 'Total:'
+  }
+
   constructor (props) {
     super(props)
 
@@ -140,22 +156,6 @@ class Invoice extends Component {
     )
   }
 
-}
-
-Invoice.baseStyles = {
-  th: {
-    fontWeight: 700,
-    padding: '10px 20px',
-    textAlign: 'left',
-    textTransform: 'uppercase'
-  }
-}
-
-Invoice.intl = {
-  name: 'Name',
-  price: 'Price',
-  quantity: 'Quantity',
-  total: 'Total:'
 }
 
 export default Invoice

@@ -1,7 +1,8 @@
 import _ from 'lodash'
-import Immutable from "immutable"
 import { UnknownMJMLElement } from '../../Error'
 import { widthParser } from '../../helpers/mjAttribute'
+import hoistNonReactStatic from 'hoist-non-react-statics'
+import Immutable from "immutable"
 import MJMLElementsCollection from '../../MJMLElementsCollection'
 import React, { Component } from 'react'
 import ReactDOMServer from 'react-dom/server'
@@ -235,6 +236,8 @@ function createComponent(ComposedComponent, defaultMJMLDefinition) {
     }
 
   }
+
+  hoistNonReactStatic(MJMLElement, ComposedComponent)
 
   return MJMLElement
 

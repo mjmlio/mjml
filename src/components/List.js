@@ -19,6 +19,14 @@ import React, { Component } from 'react'
 })
 class List extends Component {
 
+  static baseStyles = {
+    ul: {
+      display: 'inline-block',
+      paddingLeft: '20px',
+      textAlign: 'left'
+    }
+  }
+
   styles = this.getStyles()
 
   getStyles () {
@@ -44,14 +52,6 @@ class List extends Component {
     )
   }
 
-}
-
-List.baseStyles = {
-  ul: {
-    display: 'inline-block',
-    paddingLeft: '20px',
-    textAlign: 'left'
-  }
 }
 
 export default List

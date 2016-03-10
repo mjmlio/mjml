@@ -15,6 +15,20 @@ import React, { Component } from 'react'
 })
 class Section extends Component {
 
+  static baseStyles = {
+    div: {
+      margin: '0 auto'
+    },
+    table: {
+      fontSize: 0,
+      width: '100%'
+    },
+    td: {
+      textAlign: 'center',
+      verticalAlign: 'top'
+    }
+  }
+
   styles = this.getStyles()
 
   isFullWidth () {
@@ -106,20 +120,6 @@ class Section extends Component {
     return this.isFullWidth() ? this.renderFullWidthSection() : this.renderSection()
   }
 
-}
-
-Section.baseStyles = {
-  div: {
-    margin: '0 auto'
-  },
-  table: {
-    fontSize: 0,
-    width: '100%'
-  },
-  td: {
-    textAlign: 'center',
-    verticalAlign: 'top'
-  }
 }
 
 export default Section

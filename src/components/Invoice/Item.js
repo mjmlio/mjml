@@ -17,6 +17,19 @@ import React, { Component } from 'react'
 })
 class InvoiceItem extends Component {
 
+  static baseStyles = {
+    td: {
+      fontWeight: 500,
+      lineHeight: 1
+    },
+    name: {
+      wordBreak: 'break-all'
+    },
+    quantity: {
+      textAlign: 'right'
+    }
+  }
+
   styles = this.getStyles()
 
   getStyles () {
@@ -48,19 +61,6 @@ class InvoiceItem extends Component {
         <td style={this.styles.quantity}>{mjAttribute('quantity')}</td>
       </tr>
     )
-  }
-}
-
-InvoiceItem.baseStyles = {
-  td: {
-    fontWeight: 500,
-    lineHeight: 1
-  },
-  name: {
-    wordBreak: 'break-all'
-  },
-  quantity: {
-    textAlign: 'right'
   }
 }
 

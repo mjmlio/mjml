@@ -39,6 +39,72 @@ import React, { Component } from 'react'
 })
 class Social extends Component {
 
+  static baseStyles = {
+    div: {
+      textAlign: 'center'
+    },
+    tableHorizontal: {
+      float: 'none',
+      display: 'inline-table'
+    },
+    tableVertical: {
+      margin: '0 auto'
+    },
+    td1: {
+      verticalAlign: 'middle'
+    },
+    td2:  {
+      textAlign: 'center',
+      verticalAlign: 'middle'
+    },
+    tdText: {
+      padding: '8px 8px 8px 0',
+      verticalAlign: 'middle'
+    },
+    a: {
+      textDecoration: 'none',
+      display: 'block',
+      borderRadius: '3px'
+    },
+    img: {
+      display: 'block',
+      borderRadius: '3px'
+    }
+  }
+
+  static buttonDefinitions = {
+    facebook: {
+      linkAttribute: 'https://www.facebook.com/sharer/sharer.php?u=[[URL]]',
+      icon: 'facebook.png',
+      textModeContent: 'Share'
+    },
+    twitter: {
+      linkAttribute: 'https://twitter.com/home?status=[[URL]]',
+      icon: 'twitter.png',
+      textModeContent: 'Tweet'
+    },
+    google: {
+      linkAttribute: 'https://plus.google.com/share?url=[[URL]]',
+      icon: 'google-plus.png',
+      textModeContent: '+1'
+    },
+    pinterest: {
+      linkAttribute: 'https://pinterest.com/pin/create/button/?url=[[URL]]&ampmedia=&ampdescription=',
+      icon: 'pinterest.png',
+      textModeContent: 'Pin it'
+    },
+    linkedin: {
+      linkAttribute: 'https://www.linkedin.com/shareArticle?mini=true&ampurl=[[URL]]&amptitle=&ampsummary=&ampsource=',
+      icon: 'linkedin.png',
+      textModeContent: 'Share'
+    },
+    instagram: {
+      linkAttribute: '[[URL]]',
+      icon: 'instagram.png',
+      textModeContent: 'Share'
+    }
+  }
+
   styles = this.getStyles()
 
   getStyles () {
@@ -191,70 +257,6 @@ class Social extends Component {
 
 }
 
-Social.baseStyles = {
-  div: {
-    textAlign: 'center'
-  },
-  tableHorizontal: {
-    float: 'none',
-    display: 'inline-table'
-  },
-  tableVertical: {
-    margin: '0 auto'
-  },
-  td1: {
-    verticalAlign: 'middle'
-  },
-  td2:  {
-    textAlign: 'center',
-    verticalAlign: 'middle'
-  },
-  tdText: {
-    padding: '8px 8px 8px 0',
-    verticalAlign: 'middle'
-  },
-  a: {
-    textDecoration: 'none',
-    display: 'block',
-    borderRadius: '3px'
-  },
-  img: {
-    display: 'block',
-    borderRadius: '3px'
-  }
-}
-
-Social.buttonDefinitions = {
-  facebook: {
-    linkAttribute: 'https://www.facebook.com/sharer/sharer.php?u=[[URL]]',
-    icon: 'facebook.png',
-    textModeContent: 'Share'
-  },
-  twitter: {
-    linkAttribute: 'https://twitter.com/home?status=[[URL]]',
-    icon: 'twitter.png',
-    textModeContent: 'Tweet'
-  },
-  google: {
-    linkAttribute: 'https://plus.google.com/share?url=[[URL]]',
-    icon: 'google-plus.png',
-    textModeContent: '+1'
-  },
-  pinterest: {
-    linkAttribute: 'https://pinterest.com/pin/create/button/?url=[[URL]]&ampmedia=&ampdescription=',
-    icon: 'pinterest.png',
-    textModeContent: 'Pin it'
-  },
-  linkedin: {
-    linkAttribute: 'https://www.linkedin.com/shareArticle?mini=true&ampurl=[[URL]]&amptitle=&ampsummary=&ampsource=',
-    icon: 'linkedin.png',
-    textModeContent: 'Share'
-  },
-  instagram: {
-    linkAttribute: '[[URL]]',
-    icon: 'instagram.png',
-    textModeContent: 'Share'
-  }
-}
+console.log('Social', Social.buttonDefinitions)
 
 export default Social

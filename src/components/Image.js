@@ -20,20 +20,6 @@ import React, { Component } from 'react'
 })
 class Image extends Component {
 
-  static baseStyles = {
-    table: {
-      borderCollapse: 'collapse',
-      borderSpacing: '0'
-    },
-    img: {
-      border: 'none',
-      display: 'block',
-      outline: 'none',
-      textDecoration: 'none',
-      width: '100%'
-    }
-  };
-
   styles = this.getStyles()
 
   getContentWidth () {
@@ -106,6 +92,20 @@ class Image extends Component {
     )
   }
 
+}
+
+Image.baseStyles = {
+  table: {
+    borderCollapse: 'collapse',
+    borderSpacing: '0'
+  },
+  img: {
+    border: 'none',
+    display: 'block',
+    outline: 'none',
+    textDecoration: 'none',
+    width: '100%'
+  }
 }
 
 export default Image

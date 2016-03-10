@@ -1,12 +1,14 @@
 import MJMLElement from './MJMLElement'
 import React, { Component } from 'react'
 
-function createComponent(ComposedComponent, defaultAttributes) {
+function createComponent(ComposedComponent, defaultMJMLDefinition) {
 
-  @MJMLElement(defaultAttributes)
+  @MJMLElement(defaultMJMLDefinition)
   class MJMLColumnElement extends Component {
 
-    getStyles() {
+    styles = this.getStyles()
+
+    getStyles () {
       const { mjAttribute } = this.props
 
       return {
@@ -22,16 +24,15 @@ function createComponent(ComposedComponent, defaultAttributes) {
       }
     }
 
-    render() {
+    render () {
       const { mjAttribute } = this.props
-
-      this.styles = this.getStyles()
 
       return (
         <tr>
-          <td style={this.styles.td}
-              data-legacy-align={mjAttribute('align')}
-              data-legacy-background={mjAttribute('container-background-color')}>
+          <td
+            data-legacy-align={mjAttribute('align')}
+            data-legacy-background={mjAttribute('container-background-color')}
+            style={this.styles.td}>
             <ComposedComponent {...this.props} />
           </td>
         </tr>
@@ -44,10 +45,10 @@ function createComponent(ComposedComponent, defaultAttributes) {
 
 }
 
-export default (defaultAttributes) => {
-  if (typeof defaultAttributes == 'function') {
-    return createComponent(defaultAttributes)
+export default (defaultMJMLDefinition) => {
+  if (typeof defaultMJMLDefinition == 'function') {
+    return createComponent(defaultMJMLDefinition)
   }
 
-  return ComposedComponent => createComponent(ComposedComponent, defaultAttributes)
+  return ComposedComponent => createComponent(ComposedComponent, defaultMJMLDefinition)
 }

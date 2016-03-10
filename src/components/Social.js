@@ -257,6 +257,4 @@ class Social extends Component {
 
 }
 
-console.log('Social', Social.buttonDefinitions)
-
 export default Social

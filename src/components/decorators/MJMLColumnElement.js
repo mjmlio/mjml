@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import hoistNonReactStatic from 'hoist-non-react-statics'
 import MJMLElement from './MJMLElement'
 import React, { Component } from 'react'
@@ -7,12 +8,18 @@ function createComponent(ComposedComponent, defaultMJMLDefinition) {
   @MJMLElement(defaultMJMLDefinition)
   class MJMLColumnElement extends Component {
 
+    static baseStyles = {
+      td: {
+        wordBreak: 'break-word'
+      }
+    }
+
     styles = this.getStyles()
 
     getStyles () {
       const { mjAttribute } = this.props
 
-      return {
+      return _.merge({}, this.constructor.baseStyles, {
         td: {
           background: mjAttribute('container-background-color'),
           fontSize: 0,
@@ -22,7 +29,7 @@ function createComponent(ComposedComponent, defaultMJMLDefinition) {
           paddingRight: mjAttribute('padding-right'),
           paddingLeft: mjAttribute('padding-left')
         }
-      }
+      })
     }
 
     render () {

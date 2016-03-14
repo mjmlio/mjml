@@ -33,7 +33,7 @@ import React, { Component } from 'react'
     'twitter-icon-color': '#55acee',
     'align': 'center',
     'color': '#333333',
-    'display': 'facebook twitter google',
+    'display': 'facebook:share twitter:share google:share',
     'base-url': 'https://www.mailjet.com/images/theme/v1/icons/ico-social/'
   }
 })
@@ -142,10 +142,10 @@ class Social extends Component {
     return mjAttribute('text-mode') == true || mjAttribute('text-mode') == 'true'
   }
 
-  renderSocialButton (platform) {
+  renderSocialButton (platform, share) {
     const { mjAttribute } = this.props
     const definition = this.constructor.buttonDefinitions[platform]
-    const href = definition.linkAttribute.replace('[[URL]]', mjAttribute(`${platform}-href`))
+    const href = share ? definition.linkAttribute.replace('[[URL]]', mjAttribute(`${platform}-href`)) : mjAttribute(`${platform}-href`)
     const iconStyle = {
       background: mjAttribute(`${platform}-icon-color`),
       borderRadius: this.styles.img.borderRadius,
@@ -196,12 +196,14 @@ class Social extends Component {
       return
     }
 
-    return platforms.split(' ').map(platform => {
+    return platforms.split(' ').map(label => {
+      const platform = label.split(':')[0]
+      const share = label.split(':')[1]
       if (!this.constructor.buttonDefinitions[platform]) {
         return
       }
 
-      return this.renderSocialButton(platform)
+      return this.renderSocialButton(platform, share != "url")
     })
   }
 

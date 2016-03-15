@@ -88,7 +88,7 @@ function createComponent(ComposedComponent, defaultMJMLDefinition) {
       const siblings = realChildren.length
       const elementsWidth = realChildren.map(element => {
         if (this.isInheritedAttributes('width')) {
-          return parentWidth
+          return parseInt(parentWidth)
         }
 
         return getElementWidth({ element, siblings, parentWidth })

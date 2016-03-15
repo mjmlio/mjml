@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import MJMLColumnElement from './decorators/MJMLColumnElement'
 import React, { Component } from 'react'
+import { widthParser } from '../helpers/mjAttribute'
 
 /**
  * Displays a customizable divider
@@ -26,7 +27,7 @@ class Divider extends Component {
 
   styles = this.getStyles()
 
-  getStyles () {
+  getStyles() {
     const { mjAttribute } = this.props
 
     return _.merge({}, this.constructor.baseStyles, {
@@ -37,10 +38,26 @@ class Divider extends Component {
     })
   }
 
-  render () {
+  outlookWidth() {
+    const { mjAttribute } = this.props
+    const parentWidth = parseInt(mjAttribute('parentWidth'))
+    const {width, unit} = widthParser(mjAttribute('width'))
+
+    switch(unit) {
+      case '%': {
+        return parentWidth * width / 100
+      }
+      default: {
+        return width
+      }
+    }
+  }
+
+  render() {
     return (
       <p
         className="mj-divider-outlook"
+        data-divider-width={this.outlookWidth()}
         style={this.styles.p} />
     )
   }

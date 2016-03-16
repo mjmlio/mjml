@@ -8,11 +8,11 @@ import React, { Component } from 'react'
 import ReactDOMServer from 'react-dom/server'
 
 const getElementWidth = ({ element, siblings, parentWidth }) => {
-  const { elem } = element.props
+  const { mjml } = element.props
   let { width } = element.props
 
-  if (!width && elem && elem.attributes && elem.attributes.width) {
-    width = elem.attributes.width
+  if (!width && mjml) {
+    width = mjml.getIn(['attributes', 'width'])
   }
 
   if (width == undefined) {

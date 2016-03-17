@@ -82,19 +82,6 @@ class Invoice extends Component {
     return styles
   }
 
-  getAttributes () {
-    const { mjAttribute } = this.props
-
-    return {
-      table: {
-        color: mjAttribute('color'),
-        fontFamily: mjAttribute('font-family'),
-        fontSize: mjAttribute('font-size'),
-        lineHeight: mjAttribute('line-height')
-      }
-    }
-  }
-
   getIntl () {
     const { mjAttribute } = this.props
 
@@ -126,14 +113,11 @@ class Invoice extends Component {
 
   render () {
     const { renderChildren } = this.props
-
     const intl = this.getIntl()
-    const attrs = this.getAttributes()
-
     const total = this.getTotal()
 
     return (
-      <MJTable {...attrs.table}>
+      <MJTable {...this.props}>
         <thead>
           <tr style={this.styles.thead}>
             <th style={this.styles.th}>{intl['name']}</th>

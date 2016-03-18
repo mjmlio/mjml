@@ -1,37 +1,8 @@
 import _ from 'lodash'
-import { EmptyMJMLError } from './Error'
-import { html as beautify } from 'js-beautify'
-import { minify } from 'html-minifier'
-import { parseInstance } from './helpers/mjml'
-import defaultContainer from './configs/defaultContainer'
-import documentParser from './documentParser'
-import dom from './helpers/dom'
-import getFontsImports from './helpers/getFontsImports'
-import MJMLElementsCollection from './MJMLElementsCollection'
-import React from 'react'
-import ReactDOMServer from 'react-dom/server'
 
-const debug = require('debug')('mjml-engine/mjml2html')
+export const removeCDATA = str => str.replace(/<!--\[CDATA\[([^]*?)\]\]-->/gm, '$1')
 
-const mjml2html = (content, options = {}) => {
-  let parsedContent = content
-
-  if (typeof content == 'string') {
-    debug('Start parsing content')
-    parsedContent = documentParser(content)
-    debug('Content parsed.')
-  }
-
-  debug('Start rendering')
-  const html = render({ mjml: parsedContent, options })
-  debug('Done rendering')
-
-  return html
-}
-
-const removeCDATA = str => str.replace(/<!--\[CDATA\[([^]*?)\]\]-->/gm, '$1')
-
-const insertColumnMediaQuery = $ => {
+export const insertColumnMediaQuery = $ => {
   const mediaQueries = []
 
   _.each({'mj-column-per': '%', 'mj-column-px': 'px'}, (unit, className) => {
@@ -62,7 +33,7 @@ const insertColumnMediaQuery = $ => {
   return $
 }
 
-const fixOutlookLayout = $ => {
+export const fixOutlookLayout = $ => {
   const bodyWidth = $('.mj-body').data('width')
 
   $('.mj-body').removeAttr('data-width')
@@ -170,7 +141,7 @@ const fixOutlookLayout = $ => {
   return $
 }
 
-const fixLegacyAttrs = $ => {
+export const fixLegacyAttrs = $ => {
   const legacyAttrs = ['align', 'valign', 'bgcolor', 'border', 'background']
 
   $('body').css({ background: $('.mj-body').data('background-color') })
@@ -190,7 +161,7 @@ const fixLegacyAttrs = $ => {
   return $
 }
 
-const clean = $ => {
+export const clean = $ => {
   $('body').each(function () {
     if ($(this).attr('style') === '') {
       $(this).removeAttr('style')
@@ -201,54 +172,9 @@ const clean = $ => {
     .removeAttr('class')
     .removeAttr('style')
 
-  return $
-}
-
-const render = ({ mjml, options }) => {
-  let content = ''
-
-  if (mjml) {
-    debug('Create root React element')
-    const rootElemComponent = React.createElement(MJMLElementsCollection[mjml.tagName.substr(3)], { mjml: parseInstance(mjml) })
-
-    debug('Render to static markup')
-    content = ReactDOMServer.renderToStaticMarkup(rootElemComponent)
-  } else {
-    throw (new EmptyMJMLError(`.render: No MJML to render in options ${options.toString()}`))
-  }
-
-  debug('React rendering done. Continue with special overrides.')
-  let $ = dom.parseHTML(defaultContainer({ title: options.title, content, fonts: getFontsImports({ content }) }))
-
   $('.mj-raw').each(function () {
     $(this).replaceWith($(this).html())
   })
 
-  $ = insertColumnMediaQuery($)
-  $ = fixLegacyAttrs($)
-  $ = fixOutlookLayout($)
-  $ = clean($)
-
-  let html = dom.getHTML($)
-
-  html = removeCDATA(html)
-
-  if (options.beautify && beautify) {
-    html = beautify(html, {
-      indent_size: 2,
-      wrap_attributes_indent_size: 2
-    })
-  }
-
-  if (options.minify && minify) {
-    html = minify(html, {
-      collapseWhitespace: true,
-      removeEmptyAttributes: true,
-      minifyCSS: true
-    })
-  }
-
-  return html
+  return $
 }
-
-export default mjml2html

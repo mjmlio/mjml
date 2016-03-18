@@ -1,4 +1,4 @@
-import { mjml2html, version as V } from './index'
+import { MJMLRenderer, version as V } from './index'
 import fs from 'fs'
 
 const capitalize = name => name.charAt(0).toUpperCase() + name.slice(1).toLowerCase().replace(/-/g, '')
@@ -53,7 +53,7 @@ const readStdin = promisify(stdinToBuffer)
  */
 const render = (bufferPromise, { min, output, stdout }) => {
   bufferPromise
-    .then(mjml => mjml2html(mjml.toString(), { minify: min }))
+    .then(mjml => new MJMLRenderer(mjml.toString(), { minify: min }))
     .then(result => stdout ? process.stdout.write(result) : write(output, result))
     .catch(error)
 }

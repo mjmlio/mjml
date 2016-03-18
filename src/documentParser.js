@@ -1,5 +1,6 @@
 import _ from 'lodash'
-import { endingTags } from './MJMLElementsCollection'
+import warning from 'warning'
+import MJMLElements, { endingTags } from './MJMLElementsCollection'
 import { ParseError, EmptyMJMLError, NullElementError } from './Error'
 import dom from './helpers/dom'
 
@@ -28,6 +29,11 @@ const mjmlElementParser = elem => {
 
   const element = { tagName, attributes }
 
+  if (!MJMLElements[tagName]) {
+    warning(false, `Unregistered element: ${tagName}, skipping it`)
+    return
+  }
+
   if (endingTags.indexOf(tagName) !== -1) {
     const $ = dom.parseXML(elem)
     element.content = $(tagName).html().trim()
@@ -46,20 +52,25 @@ const mjmlElementParser = elem => {
  *   - mjml: a json representation of the mjml
  */
 const documentParser = content => {
-  let body
+  let root
 
   try {
     const $ = dom.parseXML(safeEndingTags(content))
-    body = $('mj-body')
+    root = $('mjml')
+
+    if(root.length < 1) {
+      root = $('mj-body')
+      warning(false, 'Please upgrade your MJML markup to add a <mjml> root tag, <mj-body> as root will no longer be supported soon')
+    }
   } catch (e) {
     throw new ParseError('Error while parsing the file')
   }
 
-  if (!body) {
-    throw new EmptyMJMLError('No mj-body found in the file')
+  if (root.length < 1) {
+    throw new EmptyMJMLError('No root "<mjml>" found in the file')
   }
 
-  return mjmlElementParser(body.get(0))
+  return mjmlElementParser(root.get(0))
 }
 
 export default documentParser

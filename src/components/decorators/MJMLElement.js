@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { UnknownMJMLElement } from '../../Error'
+import warning from 'warning'
 import { widthParser } from '../../helpers/mjAttribute'
 import hoistNonReactStatic from 'hoist-non-react-statics'
 import Immutable from "immutable"
@@ -177,7 +177,8 @@ function createComponent(ComposedComponent, defaultMJMLDefinition) {
         const Element = MJMLElementsCollection[tag]
 
         if (!Element) {
-          throw new UnknownMJMLElement(`Could not find element for : ${tag}`)
+          warning(false, `Could not find element for : ${tag}`)
+          return
         }
 
         return (

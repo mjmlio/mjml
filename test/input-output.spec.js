@@ -11,7 +11,7 @@
  *
  */
 import { expect } from 'chai'
-import { mjml2html, registerElement } from '../src/index'
+import { MJMLRenderer, registerElement } from '../src/index'
 import fs from 'fs'
 import path from 'path'
 
@@ -50,11 +50,11 @@ const testCases = directory => {
     .filter(file => file.indexOf('.mjml') > -1)
 
     // For each of them find the corresponding html and trigger compare
-    .map(file => engine => {
-      const input = fs.readFileSync(assets(file)).toString()
+    .map(file => () => {
+      const input = new MJMLRenderer(fs.readFileSync(assets(file)).toString(), { beautify: true })
       const output = fs.readFileSync(assets(file.replace('.mjml', '.html'))).toString()
 
-      return compare(engine(input, { beautify: true }), output, file)
+      return compare(input, output, file)
     })
 }
 
@@ -64,12 +64,12 @@ const testCases = directory => {
 describe('MJML mjml2html test', () => {
 
   // Compares mjml/html files in the assets folder
-  describe('raw translation', () => testCases('./assets').map(compare => compare(mjml2html)))
+  describe('raw translation', () => testCases('./assets').map(compare => compare()))
 
   // Test invalid MJML files
   describe('Invalid MJML', () => {
-    it('should throw if no mj-body specified', () => {
-      const failingFn = () => mjml2html('<mj-text>Hello</mj-text>')
+    it('should throw if no mjml specified', () => {
+      const failingFn = () => new MJMLRenderer('<mj-text>Hello</mj-text>').render()
       expect(failingFn).to.throw()
     })
   })

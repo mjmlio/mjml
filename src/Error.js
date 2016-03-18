@@ -39,10 +39,6 @@ export const EmptyMJMLError = error('EmptyMJMLError', 2)
  */
 export const NullElementError = error('EmptyMJMLError', 3)
 
-/*
- * When encounter an unknown MJML Element while transpiling
- */
-export const UnknownMJMLElement = error('UnknownMJMLElement', 5)
 
 /*
  * TODO: Warnings

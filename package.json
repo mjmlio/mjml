@@ -105,7 +105,8 @@
     "lodash": "^4.6.1",
     "numeral": "^1.5.3",
     "react": "^0.14.7",
-    "react-dom": "^0.14.7"
+    "react-dom": "^0.14.7",
+    "warning": "^2.1.0"
   },
   "browser": {
     "cheerio": false,

@@ -62,6 +62,7 @@ class InvoiceItem extends Component {
       </tr>
     )
   }
+
 }
 
 export default InvoiceItem

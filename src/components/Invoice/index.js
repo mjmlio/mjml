@@ -39,9 +39,9 @@ class Invoice extends Component {
     const format = props.mjAttribute('format')
     const currencies = format.match(/([^-\d.,])/g)
 
-    this.items = props.mjChildren().filter(child => child.get('tagName') === 'mj-invoice-item')
+    this.items = props.mjml.get('children').filter(child => child.get('tagName') === 'mj-invoice-item')
     this.format = format.replace(/([^-\d.,])/g, '$')
-    this.currency = (currencies) ? currencies[0] : null
+    this.currency = currencies[0] || null
   }
 
   styles = this.getStyles()
@@ -112,7 +112,7 @@ class Invoice extends Component {
   }
 
   render () {
-    const { renderChildren } = this.props
+    const { children } = this.props
     const intl = this.getIntl()
     const total = this.getTotal()
 
@@ -126,7 +126,7 @@ class Invoice extends Component {
           </tr>
         </thead>
         <tbody>
-          {renderChildren()}
+          {children}
         </tbody>
         <tfoot>
           <tr style={this.styles.tfoot}>

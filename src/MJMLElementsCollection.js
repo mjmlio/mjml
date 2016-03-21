@@ -11,6 +11,7 @@ import Location from './components/Location'
 import Raw from './components/Raw'
 import Section from './components/Section'
 import Social from './components/Social'
+import Table from './components/Table'
 import Text from './components/Text'
 
 const MJMLStandardElements = {
@@ -27,6 +28,7 @@ const MJMLStandardElements = {
   'raw': Raw,
   'section': Section,
   'social': Social,
+  'table': Table,
   'text': Text
 }
 

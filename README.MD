@@ -1,20 +1,29 @@
 <br>
-<p align="center"><a href="http://mjml.io" target="_blank"><img width="250"src="https://cloud.githubusercontent.com/assets/6558790/12672296/7b66d8cc-c675-11e5-805d-c6d196320537.png"></a></p>
 
 <p align="center">
-  <a href="https://travis-ci.org/mjmlio/mjml"><img src="https://travis-ci.org/mjmlio/mjml.svg?branch=master" alt="travis"></a>
-  <a href="https://www.codacy.com/app/gbadi/mjml"><img src="https://api.codacy.com/project/badge/grade/575339cb861f4ff4b0dbb3f9e1759c35"/></a>
+  <a href="http://mjml.io" target="_blank">
+    <img width="250"src="https://cloud.githubusercontent.com/assets/6558790/12672296/7b66d8cc-c675-11e5-805d-c6d196320537.png">
+  </a>
 </p>
 
 <p align="center">
+  <a href="https://travis-ci.org/mjmlio/mjml">
+    <img src="https://travis-ci.org/mjmlio/mjml.svg?branch=master" alt="travis">
+  </a>
+  <a href="https://www.codacy.com/app/gbadi/mjml">
+    <img src="https://api.codacy.com/project/badge/grade/575339cb861f4ff4b0dbb3f9e1759c35"/>
+  </a>
+</p>
+
 <br>
-|
-<b><a href="#introduction"> Introduction </a></b>|
-<b><a href="#installation"> Installation </a></b>|
-<b><a href="#show-me-the-code"> Usage </a></b>|
-<b><a href="#contribute"> Contribute </a></b>|
 
+<p align="center">
+  | <b><a href="#introduction">Introduction</a></b>
+  | <b><a href="#installation">Installation</a></b>
+  | <b><a href="#show-me-the-code">Usage</a></b>
+  | <b><a href="#contribute">Contribute</a></b> |
 </p>
+
 <br>
 
 ---
@@ -24,6 +33,7 @@
 MJML is a markup language designed to reduce the pain of coding a responsive email. Its semantic syntax makes it easy and straightforward while its rich standard components library fastens your development time and lightens your email codebase. MJML’s open-source engine takes care of translating the MJML you wrote into responsive HTML.
 
 <br>
+
 <p align="center">
   <a href="http://mjml.io" target="_blank">
     <img width="75%" src="https://cloud.githubusercontent.com/assets/6558790/12450760/ee034178-bf85-11e5-9dda-98d0c8f9f8d6.png">
@@ -34,7 +44,7 @@ MJML is a markup language designed to reduce the pain of coding a responsive ema
 
 # Installation
 
-## Requirements:
+### Requirements
  - Node >= 4.2.x
 
 <p>
@@ -45,10 +55,8 @@ MJML is a markup language designed to reduce the pain of coding a responsive ema
 </p>
 
 
-```
-
+```bash
 npm install -g mjml
-
 ```
 
 <a href="https://github.com/mjmlio/mjml/releases" target="_blank">
@@ -61,46 +69,37 @@ npm install -g mjml
   </a>
 </p>
 
-
 # Show me the code!
 
 ### Command line
 
 > Compile the file and output the result in `a.html`
 
-``` bash
-
+```bash
 $> mjml -r input.mjml
-
 ```
 
 > Redirect the result to a file
 
-``` bash
-
+```bash
 $> mjml -r input.mjml -o output.html
-
 ```
 
 > Watch a file and compile every time the file changes
 
-``` bash
-
+```bash
 $> mjml -w input.mjml -o output.html
-
 ```
 
-<br>
-### Inside NodeJs
+### Inside Node.js
 
-``` javascript
-
-import mjml from 'mjml'
+```javascript
+import { mjml2html } from 'mjml'
 
 /*
   Compile an mjml string
 */
-const htmlOutput = mjml.mjml2html(`<mj-body>
+const htmlOutput = mjml2html(`<mj-body>
   <mj-section>
     <mj-column>
       <mj-text>
@@ -108,21 +107,51 @@ const htmlOutput = mjml.mjml2html(`<mj-body>
       </mj-text>
     </mj-column>
   </mj-section>
-</mj-body>
-`)
+</mj-body>`)
 
 /*
   Print the responsive HTML generated
 */
-console.log(htmlOutput);
+console.log(htmlOutput)
+```
+
+### In your browser
+
+```html
+<html>
+  <head>
+    <script src="dist/mjml.js"></script>
+    <script>
+      /*
+        Compile an mjml string
+      */
+      var htmlOutput = mjml.mjml2html('<mj-body>' +
+        '<mj-section>' +
+          '<mj-column>' +
+            '<mj-text>' +
+              'Hello World!' +
+            '</mj-text>' +
+          '</mj-column>' +
+        '</mj-section>' +
+      '</mj-body>')
+
+      /*
+        Print the responsive HTML generated
+      */
+      console.log(htmlOutput)
+    </script>
+  </head>
+  <body>
+
+  </body>
+</html>
 ```
 
 ### Create your component
 
 > Issue the following in your terminal
 
-``` bash
-
+```bash
 $> mjml --init-component <name of your component>
 
 # If your component cannot contain anything else than text:
@@ -134,8 +163,6 @@ $> mjml --init-component <name of you component> -e
 
 It will create a basic component template in a `.js` file. Follow the instructions provided in the file
 and read more about custom components in the documentation
-
-<br>
 
 # Try it live
 

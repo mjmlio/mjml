@@ -1,6 +1,6 @@
+import _ from 'lodash'
 import MJMLElement from './decorators/MJMLElement'
 import React, { Component } from 'react'
-import _ from 'lodash'
 
 /**
  * Sections are intended to be used as rows within your email. They will be used to structure the layout.
@@ -17,26 +17,28 @@ class Section extends Component {
 
   static baseStyles = {
     div: {
-      margin: "0 auto"
+      margin: '0 auto'
     },
     table: {
-      width: "100%",
-      fontSize: "0"
+      fontSize: 0,
+      width: '100%'
     },
     td: {
       textAlign: 'center',
       verticalAlign: 'top'
     }
-  };
+  }
 
-  isFullWidth() {
+  styles = this.getStyles()
+
+  isFullWidth () {
     const { mjAttribute } = this.props
 
     return mjAttribute('full-width') == 'full-width'
   }
 
-  getStyles() {
-    const { mjAttribute } = this.props
+  getStyles () {
+    const { mjAttribute, parentWidth } = this.props
 
     const background = mjAttribute('background-url') ? {
       background: `url(${mjAttribute('background-url')}) top center / ${mjAttribute('background-size') || ''} ${mjAttribute('background-repeat') || ''}`
@@ -47,16 +49,16 @@ class Section extends Component {
     return _.merge({}, this.constructor.baseStyles, {
       td: {
         fontSize: 0,
-        textAlign: mjAttribute('text-align'),
-        verticalAlign: mjAttribute('vertical-align'),
         padding: mjAttribute('padding'),
-        paddingTop: mjAttribute('padding-top'),
         paddingBottom: mjAttribute('padding-bottom'),
+        paddingLeft: mjAttribute('padding-left'),
         paddingRight: mjAttribute('padding-right'),
-        paddingLeft: mjAttribute('padding-left')
+        paddingTop: mjAttribute('padding-top'),
+        textAlign: mjAttribute('text-align'),
+        verticalAlign: mjAttribute('vertical-align')
       },
       div: {
-        maxWidth: mjAttribute('parentWidth')
+        maxWidth: parentWidth
       }
     }, {
       div: this.isFullWidth() ? {} : _.cloneDeep(background),
@@ -65,16 +67,16 @@ class Section extends Component {
     })
   }
 
-  renderFullWidthSection() {
+  renderFullWidthSection () {
     const { mjAttribute } = this.props
 
     return (
-      <table data-legacy-background={mjAttribute('background-url')}
-             border="0"
-             cellPadding="0"
-             cellSpacing="0"
-             data-width={mjAttribute('parentWidth')}
-             style={_.merge({}, this.styles.tableFullwidth, this.styles.table)}>
+      <table
+        cellPadding="0"
+        cellSpacing="0"
+        data-legacy-background={mjAttribute('background-url')}
+        data-legacy-border="0"
+        style={_.merge({}, this.styles.tableFullwidth, this.styles.table)}>
         <tbody>
           <tr>
             <td>
@@ -86,25 +88,26 @@ class Section extends Component {
     )
   }
 
-  renderSection() {
-    const { renderWrappedOutlookChildren, mjAttribute } = this.props
+  renderSection () {
+    const { renderWrappedOutlookChildren, mjAttribute, children, parentWidth } = this.props
     const fullWidth = this.isFullWidth()
 
     return (
       <div style={this.styles.div}>
-        <table className="outlook-background-fix-open"
-               data-url={mjAttribute('background-url') || ''}
-               data-legacy-background={fullWidth ? undefined : mjAttribute('background-url')}
-               border="0"
-               cellPadding="0"
-               cellSpacing="0"
-               data-legacy-align="center"
-               data-width={mjAttribute('parentWidth')}
-               style={this.styles.table}>
+        <table
+          cellPadding="0"
+          cellSpacing="0"
+          className="mj-section-outlook-background"
+          data-legacy-align="center"
+          data-legacy-background={fullWidth ? undefined : mjAttribute('background-url')}
+          data-legacy-border="0"
+          data-url={mjAttribute('background-url') || ''}
+          data-width={parentWidth}
+          style={this.styles.table}>
           <tbody>
             <tr>
               <td style={this.styles.td}>
-                {renderWrappedOutlookChildren()}
+                {renderWrappedOutlookChildren(children)}
               </td>
             </tr>
           </tbody>
@@ -113,11 +116,10 @@ class Section extends Component {
     )
   }
 
-  render() {
-    this.styles = this.getStyles()
-
+  render () {
     return this.isFullWidth() ? this.renderFullWidthSection() : this.renderSection()
   }
+
 }
 
 export default Section

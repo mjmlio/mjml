@@ -1,17 +1,18 @@
-import Immutable from 'immutable'
+import _ from 'lodash'
+import { UnknownMJMLElement } from '../../Error'
+import { widthParser } from '../../helpers/mjAttribute'
+import hoistNonReactStatic from 'hoist-non-react-statics'
+import Immutable from "immutable"
 import MJMLElementsCollection from '../../MJMLElementsCollection'
 import React, { Component } from 'react'
 import ReactDOMServer from 'react-dom/server'
-import _ from 'lodash'
-import { widthParser, paddingParser } from "../../helpers/mjAttribute"
-import { UnknownMJMLElement } from '../../Error'
 
-const getElementWidth = ({element, siblings, parentWidth}) => {
-  const { elem } = element.props
+const getElementWidth = ({ element, siblings, parentWidth }) => {
+  const { mjml } = element.props
   let { width } = element.props
 
-  if (!width && elem && elem.attributes && elem.attributes.width) {
-    width = elem.attributes.width
+  if (!width && mjml) {
+    width = mjml.getIn(['attributes', 'width'])
   }
 
   if (width == undefined) {
@@ -20,7 +21,7 @@ const getElementWidth = ({element, siblings, parentWidth}) => {
 
   const { width: parsedWidth, unit } = widthParser(width)
 
-  switch(unit) {
+  switch (unit) {
     case '%':
       return parsedWidth * parentWidth / 100
 
@@ -30,185 +31,222 @@ const getElementWidth = ({element, siblings, parentWidth}) => {
   }
 }
 
-function createComponent(ComposedComponent, defaultAttributes) {
+// used to pass column count to children
+let siblingCount = 1
+
+function createComponent(ComposedComponent, defaultMJMLDefinition) {
 
   class MJMLElement extends Component {
+
+    static defaultMJMLDefinition = defaultMJMLDefinition;
 
     constructor(props) {
       super(props)
 
-      this.state = Immutable.fromJS({
-        elem: _.merge({
-          children: [],
-          attributes: {},
-          inheritedAttributes: []
-        }, defaultAttributes)
-      })
-
-      this.state = this.state.mergeDeep(props)
+      this.mjml = props.mjml || Immutable.fromJS(defaultMJMLDefinition).mergeIn(['attributes'], props)
     }
 
-    mjAttribute(name) {
-      if (this.props[name] != undefined) {
-        return this.props[name]
-      }
+    mjAttribute = name => this.mjml.getIn(['attributes', name])
 
-      return this.state.getIn(['elem', 'attributes']).get(name)
+    mjName = () =>  {
+      return this.mjml.get('tagName').substr(3)
     }
 
-    mjContent() {
-      const content = this.state.getIn(['elem', 'content']);
-      if ( content ) {
+    mjContent = () => {
+      const content = this.mjml.get('content')
+
+      if (content) {
         return _.trim(content)
       }
+
       return React.Children.map(this.props.children, child => {
         if (typeof child === 'string') {
-          return child;
+          return child
         }
         return ReactDOMServer.renderToStaticMarkup(child)
       })
     }
 
-    mjElementName() {
-      return this.state.getIn(['elem', 'tagName']).substr(3)
-    }
-
-    mjChildren() {
-      return this.state.getIn(['elem', 'children'])
-    }
-
-    inheritedAttributes() {
-      return _.reduce(this.state.getIn(['elem', 'inheritedAttributes']).toJS(), (result, value) => {
+    inheritedAttributes () {
+      return this.mjml.get('inheritedAttributes').reduce((result, value) => {
         result[value] = this.mjAttribute(value)
+
         return result
       }, {})
     }
 
-    isInheritedAttributes(name) {
-      return _.indexOf(this.state.getIn(['elem', 'inheritedAttributes']).toJS(), name) != -1
-    }
+    isInheritedAttributes = name => this.mjml.get('inheritedAttributes') && this.mjml.get('inheritedAttributes').includes(name)
 
-    siblingsCount() {
-      const children = this.state.getIn(['elem', 'children'])
+    getWidth = () => this.mjAttribute('rawPxWidth') || this.mjAttribute('width')
 
-      return this.hasReactChildren() ?  React.Children.count(children) : this.state.getIn(['elem', 'children']).size
-    }
+    renderWrappedOutlookChildren = children => {
+      children = React.Children.toArray(children)
+      const realChildren = children.filter(child => child.props.mjml.get('tagName') !== 'mj-raw')
 
-    getWidth() {
-      return this.mjAttribute('rawPxWidth') || this.mjAttribute('width')
-    }
-
-    childDefaultProps(id) {
-      return {
-        id,
-        key: id,
-        parentWidth: this.getWidth(),
-        verticalAlign: this.mjAttribute('vertical-align'),
-        sibling: this.siblingsCount()
-      }
-    }
-
-    renderWrappedOutlookChildren() {
-      let elements          = this.renderChildren()
-
-      if (elements && elements.get) {
-        // had to break immutable here :(
-        elements = elements.toArray()
-      }
-
-      const prefix          = `mj-${this.mjElementName()}-outlook`
-      const parentWidth     = this.getWidth()
-      const siblings        = elements.length
-      const elementsWidth   = elements.map((element) => {
+      const prefix = `mj-${this.mjName()}-outlook`
+      const parentWidth = this.getWidth()
+      const siblings = realChildren.length
+      const elementsWidth = realChildren.map(element => {
         if (this.isInheritedAttributes('width')) {
-          return parentWidth
+          return parseInt(parentWidth)
         }
 
-        return getElementWidth({element, siblings, parentWidth})
+        return getElementWidth({ element, siblings, parentWidth })
       })
 
+      const wrappedElements = []
+
       if (siblings == 0) {
-        return []
+        return wrappedElements
       }
 
-      const wrappedElements = elements.reduce((result, element, n) => {
-        result.push(React.cloneElement(element, _.merge({rawPxWidth: elementsWidth[n]}, this.inheritedAttributes())))
+      wrappedElements.push(<div key="outlook-open" className={`${prefix}-open`} data-width={elementsWidth[0]} />)
 
-        if ( n < elements.length - 1 ) {
-          result.push(<div key={`outlook-${n}`}className={`${prefix}-line`} data-width={elementsWidth[n+1]}/>)
+      let i = 0
+
+      children.forEach(child => {
+        let mjml = child.props.mjml
+
+        if (mjml.get('tagName') !== 'mj-raw') {
+          mjml = child.props.mjml.setIn(['attributes', 'rawPxWidth'], elementsWidth[i])
+
+          if (this.mjml.get('inheritedAttributes')) {
+            mjml = mjml.mergeIn(['attributes', this.inheritedAttributes()])
+          }
+
+          wrappedElements.push(React.cloneElement(child, { mjml: mjml }))
+
+          if (i < realChildren.length - 1) {
+            wrappedElements.push(<div key={`outlook-${i}`} className={`${prefix}-line`} data-width={elementsWidth[i + 1]} />)
+          }
+
+          i++
+        } else {
+          wrappedElements.push(React.cloneElement(child, { mjml: mjml }))
         }
-
-        return result
-      }, [<div key="outlook-open" className={`${prefix}-open`} data-width={elementsWidth[0]} />])
+      })
 
       wrappedElements.push(<div key="outlook-close" className={`${prefix}-close`} />)
 
       return wrappedElements
     }
 
-    upgradeReactChildren(children) {
-      return children.map((child, i) => {
-        return React.cloneElement(child, this.childDefaultProps(i))
-      })
-    }
+    paddingParser = direction => {
+      const paddingDirection = this.mjAttribute(`padding-${direction}`)
+      const padding = this.mjAttribute('padding')
 
-    hasReactChildren() {
-      const children = this.state.getIn(['elem', 'children'])
-
-      return !children || children.count() === 0 && React.Children.count(this.props.children) >= 1
-    }
-
-    renderChildren() {
-      if (this.hasReactChildren()) {
-        return this.upgradeReactChildren(React.Children.toArray(this.props.children));
+      if (paddingDirection) {
+        return parseInt(paddingDirection)
       }
 
-      const children = this.state.getIn(['elem', 'children'])
-      let i = 0
+      if (!padding) {
+        return 0
+      }
 
-      return children.map((elem) => {
-        if (elem.get('tagName') && elem.get('tagName').indexOf('mj-') != -1) {
-          i++
+      const paddings = padding.split(' ')
+      let directions = {}
 
-          const Element = MJMLElementsCollection[elem.get('tagName').substr(3)]
+      switch (paddings.length) {
+        case 1:
+          return parseInt(padding)
+        case 2:
+          directions = {top: 0, bottom: 0, left: 1, right: 1}
+          break;
+        case 3:
+          directions = {top: 0, left: 1, right: 1, bottom: 2}
+          break;
+        case 4:
+          directions = {top: 0, right: 1, bottom: 2, left: 3}
+          break;
+      }
 
-          if (!Element) {
-            throw new UnknownMJMLElement(`Could not find element for : ${elem.get('tagName')}`)
-          }
+      return parseInt(paddings[directions[direction]] || 0 )
+    }
 
-          const props = _.merge(this.childDefaultProps(i), {
-            elem: elem.toJS()
-          })
+    generateChildren () {
+      const { mjml: parentMjml } = this.props
 
-          return React.createElement(Element, props)
+      if (!parentMjml) {
+        return []
+      }
+
+      return parentMjml.get('children').map((mjml, i) => {
+        const childMjml = mjml.setIn(['attributes', 'parentWidth'], this.mjAttribute('rawPxWidth'))
+
+        const tag = childMjml.get('tagName').substr(3)
+        const Element = MJMLElementsCollection[tag]
+
+        if (!Element) {
+          throw new UnknownMJMLElement(`Could not find element for : ${tag}`)
         }
+
+        return (
+          <Element
+            key={i}
+            mjml={childMjml}
+            parentMjml={parentMjml} />
+        )
       })
     }
 
-    render() {
+    buildProps () {
+      const { parentMjml } = this.props
+
+      const childMethods = [
+        'mjAttribute',
+        'mjContent',
+        'renderWrappedOutlookChildren'
+      ]
+
+      // assign sibling count for element and children
+      if (parentMjml && this.mjName() === 'column') {
+        siblingCount = parentMjml.get('children').size
+      }
+
+      return {
+
+        // pass all props from decorator
+        ...this.props,
+
+        // set mjName
+        mjName: this.mjName(),
+
+        // generate children
+        children: this.generateChildren(),
+
+        // siblings count, can change display
+        sibling: siblingCount,
+
+        parentWidth: this.getWidth(),
+        getPadding: this.paddingParser,
+
+        // assign helpers methods
+        ...childMethods.reduce((acc, method) => ({
+          ...acc,
+          [method]: this[method]
+        }), {})
+
+      }
+    }
+
+    render () {
       return (
-        <ComposedComponent
-          {...this.props}
-          mjAttribute={::this.mjAttribute}
-          mjContent={::this.mjContent}
-          mjElementName={::this.mjElementName}
-          mjChildren={::this.mjChildren}
-          renderChildren={::this.renderChildren}
-          getPadding={paddingParser.bind(this)}
-          renderWrappedOutlookChildren={::this.renderWrappedOutlookChildren} />
+        <ComposedComponent {...this.buildProps()} />
       )
     }
 
   }
 
+  hoistNonReactStatic(MJMLElement, ComposedComponent)
+
   return MJMLElement
 
 }
 
-export default (defaultAttributes) => {
-  if (typeof defaultAttributes == 'function') {
-    return createComponent(defaultAttributes)
+export default (defaultMJMLDefinition) => {
+  if (typeof defaultMJMLDefinition == 'function') {
+    return createComponent(defaultMJMLDefinition)
   }
 
-  return ComposedComponent => createComponent(ComposedComponent, defaultAttributes)
+  return ComposedComponent => createComponent(ComposedComponent, defaultMJMLDefinition)
 }

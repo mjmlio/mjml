@@ -7,18 +7,18 @@
  *    npm test
  *
  */
-import fs from 'fs'
-import path from 'path'
-import fsp from 'fs-promise'
 import { expect } from 'chai'
-import mjmlCLI from '../src/cli'
+import { initComponent } from '../src/cli'
+import fs from 'fs'
+import fsp from 'fs-promise'
+import path from 'path'
 
 /**
  * Simple formatting: isolate the '<' and '>' characters and change space and tabs to new lines
  * TODO:
  *  - This format function is the same as input-output.spec.js, maybe we can put them in the same place?
  */
-const format = (input) => {
+const format = input => {
   if (input) {
     return input.toLowerCase().replace(/>/g, ' > ').replace(/</g, ' < ').match(/\S+/g).join('\n')
   }
@@ -34,7 +34,7 @@ const compareFiles = (fileToCompare, expectedFile) => {
   const files = [fileToCompare, expectedFile]
 
   return Promise.all(files.map(file => {
-    return fsp.readFile(file, {encoding:'utf8'})
+    return fsp.readFile(file, { encoding:'utf8' })
       .then(fileContent => format(fileContent))
   }))
     .then(filesContentFormatted => {
@@ -46,20 +46,18 @@ describe('MJML Command Line Interface', () => {
   const componentName = 'Mock'
 
   describe('init-component', () => {
-    afterEach(function () {
-      fs.unlink(`./${componentName}.js`)
-    })
+    afterEach(() => fs.unlink(`./${componentName}.js`))
 
-    it('should generate a component code', (done) => {
-      mjmlCLI.initComponent(componentName, false, false).then(() => {
+    it('should generate a component code', done => {
+      initComponent(componentName, false, false).then(() => {
         compareFiles(`./${componentName}.js`, path.join(__dirname, 'assets/generatedComponent.js'))
           .then(done)
           .catch(done)
       })
     })
 
-    it('should generate a component with ending tag', (done) => {
-      mjmlCLI.initComponent(componentName, true, false).then(() => {
+    it('should generate a component with ending tag', done => {
+      initComponent(componentName, true, false).then(() => {
         compareFiles(`./${componentName}.js`, path.join(__dirname, 'assets/generatedComponentEndingTag.js'))
           .then(done)
           .catch(done)

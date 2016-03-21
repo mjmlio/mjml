@@ -1,6 +1,5 @@
 import MJMLColumnElement from './decorators/MJMLColumnElement'
 import React, { Component } from 'react'
-import _ from 'lodash'
 
 @MJMLColumnElement({
   tagName: 'mj-table',
@@ -17,36 +16,35 @@ import _ from 'lodash'
 })
 class Table extends Component {
 
-  static baseStyles = {}
+  styles = this.getStyles()
 
-  getStyles() {
+  getStyles () {
     const { mjAttribute } = this.props
 
-    return _.merge({}, this.constructor.baseStyles, {
+    return {
       table: {
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
         fontSize: mjAttribute('font-size'),
         lineHeight: mjAttribute('line-height')
       }
-    })
+    }
   }
 
-  render() {
-    this.styles = this.getStyles()
-
+  render () {
     const { mjAttribute, mjContent } = this.props
 
     return (
       <table
-        border="0"
         cellPadding="0"
         cellSpacing="0"
         dangerouslySetInnerHTML={{__html: mjContent() }}
+        data-legacy-border="0"
         style={this.styles.table}
         width={mjAttribute('width')} />
     )
   }
+
 }
 
 export default Table

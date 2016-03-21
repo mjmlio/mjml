@@ -17,8 +17,8 @@ const error = (name, code) => {
  * Warnings are printed to stderr
  */
 /* eslint-disable no-unused-vars */
-const warning = (name) => {
-  return (message) => {
+const warning = name => {
+  return message => {
     console.error(`[MJMLWarning] ${name}: ${message}`)
   }
 }

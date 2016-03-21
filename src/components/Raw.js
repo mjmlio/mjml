@@ -1,17 +1,34 @@
 import MJMLElement from './decorators/MJMLElement'
 import React, { Component } from 'react'
 
-@MJMLElement
+@MJMLElement({
+  tagName: 'mj-raw'
+})
 class Raw extends Component {
 
-  render() {
+  getTagName () {
+    const { parentMjml } = this.props
+    let tagName
+
+    switch (parentMjml.get('tagName')) {
+      case 'mj-column' :
+        tagName = 'tr'
+        break
+
+      default:
+        tagName = 'noscript'
+    }
+
+    return tagName
+  }
+
+  render () {
     const { mjContent } = this.props
 
-    return (
-      <tr
-        className="mj-raw"
-        dangerouslySetInnerHTML={{ __html: mjContent() }} />
-    )
+    return React.createElement(this.getTagName(), {
+      className: 'mj-raw',
+      dangerouslySetInnerHTML: { __html: mjContent() }
+    })
   }
 
 }

@@ -5,21 +5,46 @@ import { parseInstance } from './helpers/mjml'
 import defaultContainer from './configs/defaultContainer'
 import documentParser from './documentParser'
 import dom from './helpers/dom'
-import {insertColumnMediaQuery, fixLegacyAttrs, fixOutlookLayout, clean, removeCDATA } from './helpers/post_render'
+import { insertColumnMediaQuery, fixLegacyAttrs, fixOutlookLayout, clean, removeCDATA } from './helpers/post_render'
 import getFontsImports from './helpers/getFontsImports'
 import MJMLElementsCollection from './MJMLElementsCollection'
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
+import warning from 'warning'
+import fs from "fs"
 
 const debug = require('debug')('mjml-engine/mjml2html')
 
 export default class MJMLRenderer {
   constructor(content, options) {
+    this.registerDotfile()
+
     this.content = content
     this.options = options
 
     if (typeof this.content == 'string') {
       this.parseDocument()
+    }
+  }
+
+  registerDotfile() {
+    try {
+      const path = process.cwd()
+      const MJMLElements = fs.readFileSync(`${path}/.mjml`).toString().split('\n')
+
+      MJMLElements.map((file) => {
+        if (!file) {
+          return
+        }
+
+        try {
+          require.main.require(file)
+        } catch(e) {
+          warning(false, `.mjml file ${file} has an error : ${e}`)
+        }
+      })
+    } catch(e) {
+      warning(false, 'No .mjml found in path, please consider to add one')
     }
   }
 

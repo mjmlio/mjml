@@ -40,6 +40,12 @@ function createComponent(ComposedComponent, defaultMJMLDefinition) {
 
     static defaultMJMLDefinition = defaultMJMLDefinition;
 
+    static baseStyles = {
+      td: {
+        wordBreak: 'break-word'
+      }
+    }
+
     constructor(props) {
       super(props)
 
@@ -47,6 +53,22 @@ function createComponent(ComposedComponent, defaultMJMLDefinition) {
     }
 
     mjAttribute = name => this.mjml.getIn(['attributes', name])
+
+    styles = this.getStyles()
+
+    getStyles () {
+      return _.merge({}, this.constructor.baseStyles, {
+        td: {
+          background: this.mjAttribute('container-background-color'),
+          fontSize: 0,
+          padding: this.mjAttribute('padding'),
+          paddingTop: this.mjAttribute('padding-top'),
+          paddingBottom: this.mjAttribute('padding-bottom'),
+          paddingRight: this.mjAttribute('padding-right'),
+          paddingLeft: this.mjAttribute('padding-left')
+        }
+      })
+    }
 
     mjName = () =>  {
       return this.mjml.get('tagName').substr(3)
@@ -231,11 +253,23 @@ function createComponent(ComposedComponent, defaultMJMLDefinition) {
     }
 
     render () {
+      if (ComposedComponent.columnElement) {
+        return(
+          <tr>
+            <td
+              data-legacy-align={this.mjAttribute('align')}
+              data-legacy-background={this.mjAttribute('container-background-color')}
+              style={this.styles.td}>
+              <ComposedComponent {...this.props} />
+            </td>
+          </tr>
+        )
+      }
+
       return (
         <ComposedComponent {...this.buildProps()} />
       )
     }
-
   }
 
   hoistNonReactStatic(MJMLElement, ComposedComponent)

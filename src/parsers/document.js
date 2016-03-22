@@ -39,7 +39,7 @@ const mjmlElementParser = elem => {
     element.content = $(tagName).html().trim()
   } else {
     const children = dom.getChildren(elem)
-    element.children = children ? _.filter(children, child => child.tagName).map(mjmlElementParser) : []
+    element.children = children ? _.compact(_.filter(children, child => child.tagName).map(mjmlElementParser)) : []
   }
 
   return element

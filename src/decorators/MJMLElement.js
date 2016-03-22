@@ -54,7 +54,7 @@ function createComponent(ComposedComponent, defaultMJMLDefinition) {
 
     mjAttribute = name => this.mjml.getIn(['attributes', name])
 
-    styles = this.getStyles()
+    //styles = this.getStyles()
 
     getStyles () {
       return _.merge({}, this.constructor.baseStyles, {
@@ -71,7 +71,7 @@ function createComponent(ComposedComponent, defaultMJMLDefinition) {
     }
 
     mjName = () =>  {
-      return this.mjml.get('tagName').substr(3)
+      return this.constructor.tagName
     }
 
     mjContent = () => {
@@ -195,7 +195,7 @@ function createComponent(ComposedComponent, defaultMJMLDefinition) {
       return parentMjml.get('children').map((mjml, i) => {
         const childMjml = mjml.setIn(['attributes', 'parentWidth'], this.mjAttribute('rawPxWidth'))
 
-        const tag = childMjml.get('tagName').substr(3)
+        const tag = childMjml.get('tagName')
         const Element = MJMLElementsCollection[tag]
 
         if (!Element) {

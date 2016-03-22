@@ -6,7 +6,7 @@ export const postRenders = []
 export function registerMJElement(Component) {
   const { endingTag, postRender, tagName } = Component
 
-  if (tagName) {
+  if (!tagName) {
     return warning(false, 'Component has no TagName')
   }
 

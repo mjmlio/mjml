@@ -38,7 +38,8 @@ export default class MJMLRenderer {
         }
 
         try {
-          registerMJElement(require.main.require(file))
+          const Component = require.main.require(file)
+          registerMJElement(Component.default || Component)
         } catch(e) {
           warning(false, `.mjml file ${file} has an error : ${e}`)
         }
@@ -59,14 +60,16 @@ export default class MJMLRenderer {
       throw new EmptyMJMLError(`.render: No MJML to render in options ${this.options.toString()}`)
     }
 
-    const rootElemComponent = React.createElement(MJMLElementsCollection[this.content.tagName.substr(3)], { mjml: parseInstance(this.content) })
+    const rootElemComponent = React.createElement(MJMLElementsCollection[this.content.tagName], { mjml: parseInstance(this.content) })
 
     debug('Render to static markup')
     const renderedMJML = ReactDOMServer.renderToStaticMarkup(rootElemComponent)
 
     debug('React rendering done. Continue with special overrides.')
 
-    const MJMLDocument = defaultContainer({ title: this.options.title, content: renderedMJML, fonts: getFontsImports({ content: renderedMJML }) })
+    const MJMLDocument = defaultContainer({ title: this.options.title,
+                                            content: renderedMJML,
+                                            fonts: getFontsImports({ content: renderedMJML }) })
 
     return this._postRender(MJMLDocument)
   }
@@ -74,10 +77,10 @@ export default class MJMLRenderer {
   _postRender(MJMLDocument) {
     let $ = dom.parseHTML(MJMLDocument)
 
-    $ = insertColumnMediaQuery(this.$)
-    $ = fixLegacyAttrs(this.$)
-    $ = fixOutlookLayout(this.$)
-    $ = clean(this.$)
+    $ = insertColumnMediaQuery($)
+    $ = fixLegacyAttrs($)
+    $ = fixOutlookLayout($)
+    $ = clean($)
 
     let finalMJMLDocument = dom.getHTML($)
     finalMJMLDocument     = removeCDATA(MJMLDocument)

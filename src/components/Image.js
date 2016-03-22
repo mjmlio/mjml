@@ -53,6 +53,9 @@ class Image extends Component {
     const { mjAttribute } = this.props
 
     return _.merge({}, this.constructor.baseStyles, {
+      td: {
+        width: this.getContentWidth()
+      },
       img: {
         border: mjAttribute('border'),
         height: mjAttribute('height')
@@ -97,7 +100,7 @@ class Image extends Component {
         style={this.styles.table}>
         <tbody>
           <tr>
-            <td>
+            <td style={this.styles.td}>
               {this.renderImage()}
             </td>
           </tr>

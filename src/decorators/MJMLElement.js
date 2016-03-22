@@ -1,9 +1,9 @@
 import _ from 'lodash'
 import warning from 'warning'
-import { widthParser } from '../../helpers/mjAttribute'
+import { widthParser } from '../helpers/mjAttribute'
 import hoistNonReactStatic from 'hoist-non-react-statics'
 import Immutable from "immutable"
-import MJMLElementsCollection from '../../MJMLElementsCollection'
+import MJMLElementsCollection from '../MJMLElementsCollection'
 import React, { Component } from 'react'
 import ReactDOMServer from 'react-dom/server'
 

@@ -1,8 +1,8 @@
 import _ from 'lodash'
 import warning from 'warning'
-import MJMLElements, { endingTags } from './MJMLElementsCollection'
-import { ParseError, EmptyMJMLError, NullElementError } from './Error'
-import dom from './helpers/dom'
+import MJMLElements, { endingTags } from '../MJMLElementsCollection'
+import { ParseError, EmptyMJMLError, NullElementError } from '../Error'
+import dom from '../helpers/dom'
 
 /**
  * Avoid htmlparser to parse ending tags

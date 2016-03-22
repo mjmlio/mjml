@@ -7,7 +7,7 @@ import documentParser from './parsers/document'
 import dom from './helpers/dom'
 import { insertColumnMediaQuery, fixLegacyAttrs, fixOutlookLayout, clean, removeCDATA } from './helpers/postRender'
 import getFontsImports from './helpers/getFontsImports'
-import MJMLElementsCollection from './MJMLElementsCollection'
+import MJMLElementsCollection, {registerMJElement} from './MJMLElementsCollection'
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import warning from 'warning'
@@ -38,7 +38,7 @@ export default class MJMLRenderer {
         }
 
         try {
-          require.main.require(file)
+          registerMJElement(require.main.require(file))
         } catch(e) {
           warning(false, `.mjml file ${file} has an error : ${e}`)
         }

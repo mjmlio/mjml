@@ -100,7 +100,7 @@ class Image extends Component {
         style={this.styles.table}>
         <tbody>
           <tr>
-            <td>
+            <td style={this.styles.td}>
               {this.renderImage()}
             </td>
           </tr>

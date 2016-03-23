@@ -1,12 +1,9 @@
-import _ from 'lodash'
-import MJMLElement from 'mjml-core'
+import { MJMLElement } from 'mjml-core'
+import merge from 'lodash/merge'
 import React, { Component } from 'react'
 
-/**
- * Displays a customizable button
- */
-@MJMLElement({
-  tagName: 'mj-button',
+const tagName = 'mj-button'
+const defaultMJMLDefinition = {
   content: '',
   attributes: {
     'align': 'center',
@@ -22,26 +19,25 @@ import React, { Component } from 'react'
     'text-decoration': 'none',
     'vertical-align': 'middle'
   }
-})
-class Button extends Component {
-
-  static tagName = "mj-button"
-  static endingTag = true
-  static columnElement = true
-
-  static baseStyles = {
-    a: {
-      display: 'inline-block',
-      textDecoration: 'none'
-    }
+}
+const endingTag = true
+const columnElement = true
+const baseStyles = {
+  a: {
+    display: 'inline-block',
+    textDecoration: 'none'
   }
+}
+
+@MJMLElement
+class Button extends Component {
 
   styles = this.getStyles()
 
   getStyles () {
     const { mjAttribute } = this.props
 
-    return _.merge({}, this.constructor.baseStyles, {
+    return merge({}, this.constructor.baseStyles, {
       td: {
         background: mjAttribute('background-color'),
         borderRadius: mjAttribute('border-radius'),
@@ -106,5 +102,11 @@ class Button extends Component {
   }
 
 }
+
+Button.tagName = tagName
+Button.defaultMJMLDefinition = defaultMJMLDefinition
+Button.endingTag = endingTag
+Button.columnElement = columnElement
+Button.baseStyles = baseStyles
 
 export default Button

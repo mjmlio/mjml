@@ -1,12 +1,9 @@
-import _ from 'lodash'
-import MJMLElement from 'mjml-core'
+import { MJMLElement } from 'mjml-core'
+import merge from 'lodash/merge'
 import React, { Component } from 'react'
 
-/**
- * mj-list enable you to create an unordered or ordered list
- */
-@MJMLElement({
-  tagName: 'mj-list',
+const tagName = 'mj-list'
+const defaultMJMLDefinition = {
   content: '',
   attributes: {
     'align': 'left',
@@ -16,27 +13,26 @@ import React, { Component } from 'react'
     'line-height': '22px',
     'padding': '10px 25px'
   }
-})
-class List extends Component {
-
-  static tagName = "mj-list"
-  static endingTag = true
-  static columnElement = true
-
-  static baseStyles = {
-    ul: {
-      display: 'inline-block',
-      paddingLeft: '20px',
-      textAlign: 'left'
-    }
+}
+const endingTag = true
+const columnElement = true
+const baseStyles = {
+  ul: {
+    display: 'inline-block',
+    paddingLeft: '20px',
+    textAlign: 'left'
   }
+}
+
+@MJMLElement
+class List extends Component {
 
   styles = this.getStyles()
 
   getStyles () {
     const { mjAttribute } = this.props
 
-    return _.merge({}, this.constructor.baseStyles, {
+    return merge({}, this.constructor.baseStyles, {
       ul: {
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
@@ -57,5 +53,11 @@ class List extends Component {
   }
 
 }
+
+List.tagName = tagName
+List.defaultMJMLDefinition = defaultMJMLDefinition
+List.endingTag = endingTag
+List.columnElement = columnElement
+List.baseStyles = baseStyles
 
 export default List

@@ -1,12 +1,9 @@
-import _ from 'lodash'
-import {MJMLElement} from '../mjml/src/index'
+import { MJMLElement } from 'mjml-core'
+import merge from 'lodash/merge'
 import React, { Component } from 'react'
 
-/**
- * This tag allows you to display the most basic kind of text in your email
- */
-@MJMLElement({
-  tagName: 'mj-text',
+const tagName = 'mj-text'
+const defaultMJMLDefinition = {
   content: '',
   attributes: {
     'align': 'left',
@@ -16,25 +13,24 @@ import React, { Component } from 'react'
     'line-height': '22px',
     'padding': '10px 25px'
   }
-})
-class Text extends Component {
-
-  static tagName = "mj-text"
-  static endingTag = true
-  static columnElement = true
-
-  static baseStyles = {
-    div: {
-      cursor: 'auto'
-    }
+}
+const endingTag = true
+const columnElement = true
+const baseStyles = {
+  div: {
+    cursor: 'auto'
   }
+}
+
+@MJMLElement
+class Text extends Component {
 
   styles = this.getStyles()
 
   getStyles () {
     const { mjAttribute, color } = this.props
 
-    return _.merge({}, this.constructor.baseStyles, {
+    return merge({}, this.constructor.baseStyles, {
       div: {
         color: mjAttribute('locked') ? color : mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
@@ -58,5 +54,11 @@ class Text extends Component {
   }
 
 }
+
+Text.tagName = tagName
+Text.defaultMJMLDefinition = defaultMJMLDefinition
+Text.endingTag = endingTag
+Text.columnElement = columnElement
+Text.baseStyles = baseStyles
 
 export default Text

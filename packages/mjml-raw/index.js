@@ -1,13 +1,11 @@
-import MJMLElement from 'mjml-core'
+import { MJMLElement } from 'mjml-core'
 import React, { Component } from 'react'
 
-@MJMLElement({
-  tagName: 'mj-raw'
-})
+const tagName = 'mj-raw'
+const endingTag = true
+
+@MJMLElement
 class Raw extends Component {
-  
-  static tagName = "mj-raw"
-  static endingTag = true
 
   getTagName () {
     const { parentMjml } = this.props
@@ -35,5 +33,8 @@ class Raw extends Component {
   }
 
 }
+
+Raw.tagName = tagName
+Raw.endingTag = endingTag
 
 export default Raw

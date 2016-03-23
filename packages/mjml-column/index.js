@@ -1,30 +1,24 @@
-import _ from 'lodash'
-import { widthParser } from '../mjml/src/helpers/mjAttribute'
-import {MJMLElement} from '../mjml/src/index'
+import { MJMLElement } from 'mjml-core'
+import { widthParser } from 'mjml-core/helpers'
+import merge from 'lodash/merge'
 import React, { Component } from 'react'
 
-/**
- * Columns are the basic containers for your content. They must be located under mj-section tags in order to be considered by the engine
- */
-@MJMLElement({
-  tagName: 'mj-column'
-})
-class Column extends Component {
-
-  static tagName = "mj-column"
-
-  static baseStyles = {
-    div: {
-      verticalAlign: 'top'
-    }
+const tagName = 'mj-column'
+const baseStyles = {
+  div: {
+    verticalAlign: 'top'
   }
+}
+
+@MJMLElement
+class Column extends Component {
 
   styles = this.getStyles()
 
   getStyles () {
     const { mjAttribute } = this.props
 
-    return _.merge({}, this.constructor.baseStyles, {
+    return merge({}, this.constructor.baseStyles, {
       div: {
         display: 'inline-block',
         verticalAlign: mjAttribute('vertical-align'),
@@ -88,5 +82,8 @@ class Column extends Component {
   }
 
 }
+
+Column.tagName = tagName
+Column.baseStyles = baseStyles
 
 export default Column

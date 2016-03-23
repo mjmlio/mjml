@@ -1,12 +1,10 @@
-import _ from 'lodash'
-import MJMLElement from 'mjml-core'
+import { MJMLElement } from 'mjml-core'
+import merge from 'lodash/merge'
+import min from 'lodash/min'
 import React, { Component } from 'react'
 
-/**
- * Displays an image to your email. It is mostly similar to the HTML img tag
- */
-@MJMLElement({
-  tagName: 'mj-image',
+const tagName = 'mj-image'
+const defaultMJMLDefinition = {
   attributes: {
     'height': 'auto',
     'padding': '10px 25px',
@@ -17,26 +15,25 @@ import React, { Component } from 'react'
     'src': '',
     'target': '_blank'
   }
-})
-class Image extends Component {
-
-  static tagName = "mj-image"
-  static endingTag = true
-  static columnElement = true
-
-  static baseStyles = {
-    table: {
-      borderCollapse: 'collapse',
-      borderSpacing: '0'
-    },
-    img: {
-      border: 'none',
-      display: 'block',
-      outline: 'none',
-      textDecoration: 'none',
-      width: '100%'
-    }
+}
+const endingTag = true
+const columnElement = true
+const baseStyles = {
+  table: {
+    borderCollapse: 'collapse',
+    borderSpacing: '0'
+  },
+  img: {
+    border: 'none',
+    display: 'block',
+    outline: 'none',
+    textDecoration: 'none',
+    width: '100%'
   }
+}
+
+@MJMLElement
+class Image extends Component {
 
   styles = this.getStyles()
 
@@ -44,7 +41,7 @@ class Image extends Component {
     const { mjAttribute, getPadding } = this.props
     const parentWidth = mjAttribute('parentWidth')
 
-    const width = _.min([parseInt(mjAttribute('width')), parseInt(parentWidth)])
+    const width = min([parseInt(mjAttribute('width')), parseInt(parentWidth)])
 
     const paddingRight = getPadding('right')
     const paddingLeft = getPadding('left')
@@ -56,7 +53,7 @@ class Image extends Component {
   getStyles () {
     const { mjAttribute } = this.props
 
-    return _.merge({}, this.constructor.baseStyles, {
+    return merge({}, this.constructor.baseStyles, {
       img: {
         border: mjAttribute('border'),
         height: mjAttribute('height')
@@ -83,8 +80,7 @@ class Image extends Component {
           {img}
         </a>
       )
-    }
-    else {
+    } else {
       return img
     }
   }
@@ -111,5 +107,11 @@ class Image extends Component {
   }
 
 }
+
+Image.tagName = tagName
+Image.defaultMJMLDefinition = defaultMJMLDefinition
+Image.endingTag = endingTag
+Image.columnElement = columnElement
+Image.baseStyles = baseStyles
 
 export default Image

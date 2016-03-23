@@ -1,13 +1,10 @@
-import _ from 'lodash'
-import MJMLElement from 'mjml-core'
+import { MJMLElement } from 'mjml-core'
+import { widthParser } from 'mjml-core/helpers'
+import merge from 'lodash/merge'
 import React, { Component } from 'react'
-import { widthParser } from '../helpers/mjAttribute'
 
-/**
- * Displays a customizable divider
- */
-@MJMLElement({
-  tagName: 'mj-divider',
+const tagName = 'mj-divider'
+const defaultMJMLDefinition = {
   attributes: {
     'border-color': '#000000',
     'border-style': 'solid',
@@ -15,22 +12,24 @@ import { widthParser } from '../helpers/mjAttribute'
     'padding': '10px 25px',
     'width': '100%'
   }
-})
-class Divider extends Component {
-
-  static baseStyles = {
-    p: {
-      fontSize: '1px',
-      margin: '0 auto'
-    }
+}
+const columnElement = true
+const baseStyles = {
+  p: {
+    fontSize: '1px',
+    margin: '0 auto'
   }
+}
+
+@MJMLElement
+class Divider extends Component {
 
   styles = this.getStyles()
 
-  getStyles() {
+  getStyles () {
     const { mjAttribute } = this.props
 
-    return _.merge({}, this.constructor.baseStyles, {
+    return merge({}, this.constructor.baseStyles, {
       p: {
         borderTop: `${mjAttribute('border-width')} ${mjAttribute('border-style')} ${mjAttribute('border-color')}`,
         width: mjAttribute('width')
@@ -38,12 +37,12 @@ class Divider extends Component {
     })
   }
 
-  outlookWidth() {
+  outlookWidth () {
     const { mjAttribute } = this.props
     const parentWidth = parseInt(mjAttribute('parentWidth'))
     const {width, unit} = widthParser(mjAttribute('width'))
 
-    switch(unit) {
+    switch (unit) {
       case '%': {
         return parentWidth * width / 100
       }
@@ -53,7 +52,7 @@ class Divider extends Component {
     }
   }
 
-  render() {
+  render () {
     return (
       <p
         className="mj-divider-outlook"
@@ -63,5 +62,10 @@ class Divider extends Component {
   }
 
 }
+
+Divider.tagName = tagName
+Divider.defaultMJMLDefinition = defaultMJMLDefinition
+Divider.columnElement = columnElement
+Divider.baseStyles = baseStyles
 
 export default Divider

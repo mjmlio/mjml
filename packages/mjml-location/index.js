@@ -1,12 +1,11 @@
-import MJMLElement from 'mjml-core'
+import { MJMLElement } from 'mjml-core'
+import merge from 'lodash/merge'
+import MJMLImage from 'mjml-image'
+import MJMLText from 'mjml-text'
 import React, { Component } from 'react'
-import _ from 'lodash'
 
-import MJImage from './Image'
-import MJText  from './Text'
-
-@MJMLElement({
-  tagName: 'mj-location',
+const tagName = 'mj-location'
+const defaultMJMLDefinition = {
   attributes: {
     'color': '#3aa7ed',
     'font-family': 'Roboto, sans-serif',
@@ -15,18 +14,19 @@ import MJText  from './Text'
     'padding': '10px 25px',
     'img-src': 'http://i.imgur.com/DPCJHhy.png'
   }
-})
+}
+const endingTag = true
+const columnElement = true
+
+@MJMLElement
 class Location extends Component {
-  static tagName = "mj-location"
-  static endingTag = true
-  static columnElement = true
 
   styles = this.getStyles()
 
   getStyles () {
     const { mjAttribute } = this.props
 
-    return _.merge({}, this.constructor.baseStyles, {
+    return merge({}, this.constructor.baseStyles, {
       text: {
         color: mjAttribute('color'),
         textDecoration: 'none'
@@ -54,26 +54,37 @@ class Location extends Component {
 
   render () {
     const { mjAttribute } = this.props
-    const attrs  = this.getAttributes()
+    const attrs = this.getAttributes()
 
     const address = `http://maps.google.com/maps?q=${encodeURIComponent(mjAttribute('address'))}`
-    const text    = mjAttribute('text') || mjAttribute('address')
+    const text = mjAttribute('text') || mjAttribute('address')
 
     return (
       <table width="100%">
         <tbody>
-          <MJImage
+          <MJMLImage
             {...attrs.img}
             href={address} />
-          <MJText
+          <MJMLText
             {...attrs.text}
             align="center">
-            <a style={this.styles.text} href={address} target="_blank">{text}</a>
-          </MJText>
+            <a
+              href={address}
+              style={this.styles.text}
+              target="_blank">
+              {text}
+            </a>
+          </MJMLText>
         </tbody>
       </table>
     )
   }
 }
+
+Location.tagName = tagName
+Location.defaultMJMLDefinition = defaultMJMLDefinition
+Location.endingTag = endingTag
+Location.columnElement = columnElement
+Location.baseStyles = baseStyles
 
 export default Location

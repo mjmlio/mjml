@@ -1,8 +1,8 @@
-import MJMLElement from 'mjml-core'
+import { MJMLElement } from 'mjml-core'
 import React, { Component } from 'react'
 
-@MJMLElement({
-  tagName: 'mj-table',
+const tagName = 'mj-table'
+const defaultMJMLDefinition = {
   content: '',
   attributes: {
     'align': 'left',
@@ -13,12 +13,12 @@ import React, { Component } from 'react'
     'padding': '10px 25px',
     'width': '100%'
   }
-})
-class Table extends Component {
+}
+const endingTag = true
+const columnElement = true
 
-  static tagName = "mj-table"
-  static endingTag = true
-  static columnElement = true
+@MJMLElement
+class Table extends Component {
 
   styles = this.getStyles()
 
@@ -50,5 +50,10 @@ class Table extends Component {
   }
 
 }
+
+Table.tagName = tagName
+Table.defaultMJMLDefinition = defaultMJMLDefinition
+Table.endingTag = endingTag
+Table.columnElement = columnElement
 
 export default Table

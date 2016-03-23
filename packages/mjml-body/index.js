@@ -1,22 +1,19 @@
-import { widthParser } from '../mjml/src/helpers/mjAttribute'
-import {MJMLElement} from '../mjml/src/index'
+import { MJMLElement } from 'mjml-core'
+import { widthParser } from 'mjml-core/helpers'
 import React, { Component } from 'react'
 
-/**
- * This is the starting point of your email. It is a unique and mandatory component. It corresponds to the HTML <body> tag.
- */
-@MJMLElement({
-  tagName: 'mj-body',
+const tagName = 'mj-body'
+const defaultMJMLDefinition = {
   attributes: {
     'width': '600'
   },
   inheritedAttributes: [
     'width'
   ]
-})
-class Body extends Component {
+}
 
-  static tagName = "mj-body"
+@MJMLElement
+class Body extends Component {
 
   styles = this.getStyles()
 
@@ -47,5 +44,8 @@ class Body extends Component {
   }
 
 }
+
+Body.tagName = tagName
+Body.defaultMJMLDefinition = defaultMJMLDefinition
 
 export default Body

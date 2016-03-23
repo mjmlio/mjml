@@ -1,9 +1,9 @@
-import _ from 'lodash'
-import MJMLElement from 'mjml-core'
+import { MJMLElement } from 'mjml-core'
+import merge from 'lodash/merge'
 import React, { Component } from 'react'
 
-@MJMLElement({
-  tagName: 'mj-social',
+const tagName = 'mj-social'
+const defaultMJMLDefinition = {
   attributes: {
     'facebook-content': 'Share',
     'facebook-href': '[[SHORT_PERMALINK]]',
@@ -36,85 +36,83 @@ import React, { Component } from 'react'
     'display': 'facebook:share twitter:share google:share',
     'base-url': 'https://www.mailjet.com/images/theme/v1/icons/ico-social/'
   }
-})
+}
+const endingTag = true
+const columnElement = true
+const baseStyles = {
+  div: {
+    textAlign: 'center'
+  },
+  tableHorizontal: {
+    float: 'none',
+    display: 'inline-table'
+  },
+  tableVertical: {
+    margin: '0 auto'
+  },
+  td1: {
+    verticalAlign: 'middle'
+  },
+  td2:  {
+    textAlign: 'center',
+    verticalAlign: 'middle'
+  },
+  tdText: {
+    padding: '8px 8px 8px 0',
+    verticalAlign: 'middle'
+  },
+  a: {
+    textDecoration: 'none',
+    display: 'block',
+    borderRadius: '3px'
+  },
+  img: {
+    display: 'block',
+    borderRadius: '3px'
+  }
+}
+const buttonDefinitions = {
+  facebook: {
+    linkAttribute: 'https://www.facebook.com/sharer/sharer.php?u=[[URL]]',
+    icon: 'facebook.png',
+    textModeContent: 'Share'
+  },
+  twitter: {
+    linkAttribute: 'https://twitter.com/home?status=[[URL]]',
+    icon: 'twitter.png',
+    textModeContent: 'Tweet'
+  },
+  google: {
+    linkAttribute: 'https://plus.google.com/share?url=[[URL]]',
+    icon: 'google-plus.png',
+    textModeContent: '+1'
+  },
+  pinterest: {
+    linkAttribute: 'https://pinterest.com/pin/create/button/?url=[[URL]]&ampmedia=&ampdescription=',
+    icon: 'pinterest.png',
+    textModeContent: 'Pin it'
+  },
+  linkedin: {
+    linkAttribute: 'https://www.linkedin.com/shareArticle?mini=true&ampurl=[[URL]]&amptitle=&ampsummary=&ampsource=',
+    icon: 'linkedin.png',
+    textModeContent: 'Share'
+  },
+  instagram: {
+    linkAttribute: '[[URL]]',
+    icon: 'instagram.png',
+    textModeContent: 'Share'
+  }
+}
+
+@MJMLElement
 class Social extends Component {
-
-  static tagName = "mj-social"
-  static endingTag = true
-  static columnElement = true
-
-  static baseStyles = {
-    div: {
-      textAlign: 'center'
-    },
-    tableHorizontal: {
-      float: 'none',
-      display: 'inline-table'
-    },
-    tableVertical: {
-      margin: '0 auto'
-    },
-    td1: {
-      verticalAlign: 'middle'
-    },
-    td2:  {
-      textAlign: 'center',
-      verticalAlign: 'middle'
-    },
-    tdText: {
-      padding: '8px 8px 8px 0',
-      verticalAlign: 'middle'
-    },
-    a: {
-      textDecoration: 'none',
-      display: 'block',
-      borderRadius: '3px'
-    },
-    img: {
-      display: 'block',
-      borderRadius: '3px'
-    }
-  }
-
-  static buttonDefinitions = {
-    facebook: {
-      linkAttribute: 'https://www.facebook.com/sharer/sharer.php?u=[[URL]]',
-      icon: 'facebook.png',
-      textModeContent: 'Share'
-    },
-    twitter: {
-      linkAttribute: 'https://twitter.com/home?status=[[URL]]',
-      icon: 'twitter.png',
-      textModeContent: 'Tweet'
-    },
-    google: {
-      linkAttribute: 'https://plus.google.com/share?url=[[URL]]',
-      icon: 'google-plus.png',
-      textModeContent: '+1'
-    },
-    pinterest: {
-      linkAttribute: 'https://pinterest.com/pin/create/button/?url=[[URL]]&ampmedia=&ampdescription=',
-      icon: 'pinterest.png',
-      textModeContent: 'Pin it'
-    },
-    linkedin: {
-      linkAttribute: 'https://www.linkedin.com/shareArticle?mini=true&ampurl=[[URL]]&amptitle=&ampsummary=&ampsource=',
-      icon: 'linkedin.png',
-      textModeContent: 'Share'
-    },
-    instagram: {
-      linkAttribute: '[[URL]]',
-      icon: 'instagram.png',
-      textModeContent: 'Share'
-    }
-  }
 
   styles = this.getStyles()
 
   getStyles () {
     const { mjAttribute } = this.props
 
-    return _.merge({}, this.constructor.baseStyles, {
+    return merge({}, this.constructor.baseStyles, {
       a: {
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
@@ -262,5 +260,12 @@ class Social extends Component {
   }
 
 }
+
+Social.tagName = tagName
+Social.defaultMJMLDefinition = defaultMJMLDefinition
+Social.endingTag = endingTag
+Social.columnElement = columnElement
+Social.baseStyles = baseStyles
+Social.buttonDefinitions = buttonDefinitions
 
 export default Social

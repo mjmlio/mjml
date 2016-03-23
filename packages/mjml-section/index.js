@@ -1,35 +1,31 @@
-import _ from 'lodash'
-import {MJMLElement} from '../mjml/src/index'
+import { MJMLElement } from '../mjml/src/index'
+import merge from 'lodash/merge'
 import React, { Component } from 'react'
 
-/**
- * Sections are intended to be used as rows within your email. They will be used to structure the layout.
- */
-@MJMLElement({
-  tagName: 'mj-section',
+const tagName = 'mj-section'
+const defaultMJMLDefinition ={
   attributes: {
     'background-repeat': 'repeat',
     'padding': '20px 0',
     'background-size': 'auto'
   }
-})
-class Section extends Component {
-
-  static tagName = "mj-section"
-
-  static baseStyles = {
-    div: {
-      margin: '0 auto'
-    },
-    table: {
-      fontSize: 0,
-      width: '100%'
-    },
-    td: {
-      textAlign: 'center',
-      verticalAlign: 'top'
-    }
+}
+const baseStyles = {
+  div: {
+    margin: '0 auto'
+  },
+  table: {
+    fontSize: 0,
+    width: '100%'
+  },
+  td: {
+    textAlign: 'center',
+    verticalAlign: 'top'
   }
+}
+
+@MJMLElement
+class Section extends Component {
 
   styles = this.getStyles()
 
@@ -48,7 +44,7 @@ class Section extends Component {
       background: mjAttribute('background-color')
     }
 
-    return _.merge({}, this.constructor.baseStyles, {
+    return merge({}, this.constructor.baseStyles, {
       td: {
         fontSize: 0,
         padding: mjAttribute('padding'),
@@ -78,7 +74,7 @@ class Section extends Component {
         cellSpacing="0"
         data-legacy-background={mjAttribute('background-url')}
         data-legacy-border="0"
-        style={_.merge({}, this.styles.tableFullwidth, this.styles.table)}>
+        style={merge({}, this.styles.tableFullwidth, this.styles.table)}>
         <tbody>
           <tr>
             <td>
@@ -123,5 +119,9 @@ class Section extends Component {
   }
 
 }
+
+Section.tagName = tagName
+Section.defaultMJMLDefinition = defaultMJMLDefinition
+Section.baseStyles = baseStyles
 
 export default Section

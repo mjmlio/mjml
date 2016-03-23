@@ -1,5 +1,5 @@
 {
-  "name": "mjml-repo",
+  "name": "mjml",
   "version": "2.0.0",
   "description": "MJML: mono repo",
   "main": "./packages/mjml-core/lib/index",

@@ -1,1 +1,13 @@
-../mjml-components/Body.js
+../packages/mjml-body/Body.js
+../packages/mjml-column/Column.js
+../packages/mjml-html/Html.js
+../packages/mjml-list/List.js
+../packages/mjml-raw/Raw.js
+../packages/mjml-social/Social.js
+../packages/mjml-text/Text.js
+../packages/mjml-button/Button.js
+../packages/mjml-divider/Divider.js
+../packages/mjml-image/Image.js
+../packages/mjml-location/Location.js
+../packages/mjml-section/Section.js
+../packages/mjml-table/Table.js

@@ -83,7 +83,7 @@ export default class MJMLRenderer {
     $ = clean($)
 
     let finalMJMLDocument = dom.getHTML($)
-    finalMJMLDocument     = removeCDATA(MJMLDocument)
+    finalMJMLDocument     = removeCDATA(finalMJMLDocument)
 
     if (this.options.beautify && beautify) {
       finalMJMLDocument = beautify(finalMJMLDocument, {

@@ -54,8 +54,6 @@ function createComponent(ComposedComponent, defaultMJMLDefinition) {
 
     mjAttribute = name => this.mjml.getIn(['attributes', name])
 
-    //styles = this.getStyles()
-
     getStyles () {
       return _.merge({}, this.constructor.baseStyles, {
         td: {
@@ -105,7 +103,7 @@ function createComponent(ComposedComponent, defaultMJMLDefinition) {
       children = React.Children.toArray(children)
       const realChildren = children.filter(child => child.props.mjml.get('tagName') !== 'mj-raw')
 
-      const prefix = `mj-${this.mjName()}-outlook`
+      const prefix = `${this.mjName()}-outlook`
       const parentWidth = this.getWidth()
       const siblings = realChildren.length
       const elementsWidth = realChildren.map(element => {
@@ -254,13 +252,15 @@ function createComponent(ComposedComponent, defaultMJMLDefinition) {
 
     render () {
       if (ComposedComponent.columnElement) {
+        this.styles = this.getStyles()
+
         return(
           <tr>
             <td
               data-legacy-align={this.mjAttribute('align')}
               data-legacy-background={this.mjAttribute('container-background-color')}
               style={this.styles.td}>
-              <ComposedComponent {...this.props} />
+              <ComposedComponent {...this.buildProps()} />
             </td>
           </tr>
         )

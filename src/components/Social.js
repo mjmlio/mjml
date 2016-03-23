@@ -111,6 +111,9 @@ class Social extends Component {
     const { mjAttribute } = this.props
 
     return _.merge({}, this.constructor.baseStyles, {
+      div: {
+        textAlign: mjAttribute('align')
+      },
       a: {
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),

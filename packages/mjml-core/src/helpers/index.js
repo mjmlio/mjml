@@ -1,0 +1,1 @@
+export { widthParser } from './mjAttribute'

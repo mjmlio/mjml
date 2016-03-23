@@ -1,4 +1,4 @@
-import { MJMLElement } from '../mjml/src/index'
+import { MJMLElement } from 'mjml-core'
 import merge from 'lodash/merge'
 import React, { Component } from 'react'
 

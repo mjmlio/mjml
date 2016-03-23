@@ -1,6 +1,6 @@
 {
-  "name": "mjml",
-  "version": "1.3.0-beta7",
+  "name": "mjml-core",
+  "version": "2.0.0",
   "description": "MJML: the only framework that makes responsive-email easy",
   "main": "./lib/index",
   "scripts": {
@@ -14,53 +14,10 @@
   "engine": {
     "node": ">= 4.2.0"
   },
-  "bin": "./bin/mjml",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mjmlio/mjml.git"
   },
-  "author": {
-    "name": "Mailjet SAS",
-    "email": "dev@mailjet.com",
-    "url": "https://www.mailjet.com/"
-  },
-  "contributors": [
-    {
-      "name": "Robin Komiwes",
-      "email": "robin.komiwes@gmail.com",
-      "url": "github.com/robink"
-    },
-    {
-      "name": "Guillaume Badi",
-      "email": "gbadi@mailjet.com",
-      "url": "github.com/GuillaumeBadi"
-    },
-    {
-      "name": "Maxime Brazeilles",
-      "email": "Maxime@derniercri.io",
-      "url": "github.com/iryusa"
-    },
-    {
-      "name": "Arnaud Breton",
-      "email": "abreton@mailjet.com",
-      "url": "github.com/arnaudbreton"
-    },
-    {
-      "name": "Loëck Vézien",
-      "email": "loeck@mailjet.com",
-      "url": "github.com/lohek"
-    },
-    {
-      "name": "Rémi Parmentier",
-      "email": "rparmentier@tilt-studio.fr",
-      "url": "github.com/rparmentier"
-    },
-    {
-      "name": "Matthieu Pinte",
-      "email": "matthieu@derniercri.io",
-      "url": "github.com/swibge"
-    }
-  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/mjmlio/mjml/issues"

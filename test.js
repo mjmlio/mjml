@@ -1,8 +1,8 @@
 require('babel-register')
 
-var mjml = require('./src/index')
+var mjml = require('./packages/mjml-core/lib/index')
 
-console.log(mjml.mjml2html(`
+console.log(new mjml.MJMLRenderer(`
   <mj-body>
     <mj-section>
       <mj-column>
@@ -12,4 +12,4 @@ console.log(mjml.mjml2html(`
       </mj-column>
     </mj-section>
   </mj-body>
-`, { beautify: true }))
+`, { beautify: true }).render())

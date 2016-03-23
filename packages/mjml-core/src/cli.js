@@ -81,7 +81,7 @@ const createComponent = (name, ending) => {
   const lowerName = name.toLowerCase()
 
   return `
-import { MJMLColumnElement, elements, registerElement } from 'mjml'
+import { MJMLElement, elements, registerElement } from 'mjml'
 import merge from 'lodash/merge'
 import React, { Component } from 'react'
 
@@ -92,7 +92,7 @@ const { text: MjText } = elements
 
 const NAME = '${lowerName}'
 
-@MJMLColumnElement({
+@MJMLElement({
   tagName: 'mj-${lowerName}',
   content: ' ',
 

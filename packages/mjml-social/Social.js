@@ -1,8 +1,8 @@
 import _ from 'lodash'
-import MJMLColumnElement from './decorators/MJMLColumnElement'
+import MJMLElement from 'mjml-core'
 import React, { Component } from 'react'
 
-@MJMLColumnElement({
+@MJMLElement({
   tagName: 'mj-social',
   attributes: {
     'facebook-content': 'Share',
@@ -38,6 +38,10 @@ import React, { Component } from 'react'
   }
 })
 class Social extends Component {
+
+  static tagName = "mj-social"
+  static endingTag = true
+  static columnElement = true
 
   static baseStyles = {
     div: {

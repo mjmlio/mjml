@@ -1,12 +1,12 @@
 import _ from 'lodash'
-import MJMLColumnElement from './decorators/MJMLColumnElement'
+import MJMLElement from 'mjml-core'
 import React, { Component } from 'react'
 import { widthParser } from '../helpers/mjAttribute'
 
 /**
  * Displays a customizable divider
  */
-@MJMLColumnElement({
+@MJMLElement({
   tagName: 'mj-divider',
   attributes: {
     'border-color': '#000000',

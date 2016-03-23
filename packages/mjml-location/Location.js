@@ -1,11 +1,11 @@
-import MJMLColumnElement from './decorators/MJMLColumnElement'
+import MJMLElement from 'mjml-core'
 import React, { Component } from 'react'
 import _ from 'lodash'
 
 import MJImage from './Image'
 import MJText  from './Text'
 
-@MJMLColumnElement({
+@MJMLElement({
   tagName: 'mj-location',
   attributes: {
     'color': '#3aa7ed',
@@ -17,6 +17,9 @@ import MJText  from './Text'
   }
 })
 class Location extends Component {
+  static tagName = "mj-location"
+  static endingTag = true
+  static columnElement = true
 
   styles = this.getStyles()
 

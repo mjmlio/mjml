@@ -1,11 +1,11 @@
 import _ from 'lodash'
-import MJMLColumnElement from './decorators/MJMLColumnElement'
+import MJMLElement from 'mjml-core'
 import React, { Component } from 'react'
 
 /**
  * mj-list enable you to create an unordered or ordered list
  */
-@MJMLColumnElement({
+@MJMLElement({
   tagName: 'mj-list',
   content: '',
   attributes: {
@@ -18,6 +18,10 @@ import React, { Component } from 'react'
   }
 })
 class List extends Component {
+
+  static tagName = "mj-list"
+  static endingTag = true
+  static columnElement = true
 
   static baseStyles = {
     ul: {

@@ -1,11 +1,11 @@
 import _ from 'lodash'
-import MJMLColumnElement from './decorators/MJMLColumnElement'
+import MJMLElement from 'mjml-core'
 import React, { Component } from 'react'
 
 /**
  * Displays a customizable button
  */
-@MJMLColumnElement({
+@MJMLElement({
   tagName: 'mj-button',
   content: '',
   attributes: {
@@ -24,6 +24,10 @@ import React, { Component } from 'react'
   }
 })
 class Button extends Component {
+
+  static tagName = "mj-button"
+  static endingTag = true
+  static columnElement = true
 
   static baseStyles = {
     a: {

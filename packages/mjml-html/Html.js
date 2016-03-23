@@ -1,11 +1,11 @@
 import _ from 'lodash'
-import MJMLColumnElement from './decorators/MJMLColumnElement'
+import MJMLElement from 'mjml-core'
 import React, { Component } from 'react'
 
 /**
  * Displays raw html
  */
-@MJMLColumnElement({
+@MJMLElement({
   tagName: 'mj-html',
   content: '',
   attributes: {
@@ -13,6 +13,10 @@ import React, { Component } from 'react'
   }
 })
 class Html extends Component {
+
+  static tagName = "mj-html"
+  static endingTag = true
+  static columnElement = true
 
   static baseStyles = {
     div: {

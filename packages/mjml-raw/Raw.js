@@ -1,10 +1,13 @@
-import MJMLElement from './decorators/MJMLElement'
+import MJMLElement from 'mjml-core'
 import React, { Component } from 'react'
 
 @MJMLElement({
   tagName: 'mj-raw'
 })
 class Raw extends Component {
+  
+  static tagName = "mj-raw"
+  static endingTag = true
 
   getTagName () {
     const { parentMjml } = this.props

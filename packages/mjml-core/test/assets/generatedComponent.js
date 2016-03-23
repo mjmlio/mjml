@@ -1,4 +1,4 @@
-import { MJMLColumnElement, elements, registerElement } from 'mjml'
+import { MJMLElement, elements, registerElement } from 'mjml'
 import merge from 'lodash/merge'
 import React, { Component } from 'react'
 
@@ -9,7 +9,7 @@ const { text: MjText } = elements
 
 const NAME = 'mock'
 
-@MJMLColumnElement({
+@MJMLElement({
   tagName: 'mj-mock',
   content: ' ',
 

@@ -1,11 +1,11 @@
 import _ from 'lodash'
-import MJMLColumnElement from './decorators/MJMLColumnElement'
+import MJMLElement from 'mjml-core'
 import React, { Component } from 'react'
 
 /**
  * Displays an image to your email. It is mostly similar to the HTML img tag
  */
-@MJMLColumnElement({
+@MJMLElement({
   tagName: 'mj-image',
   attributes: {
     'height': 'auto',
@@ -19,6 +19,10 @@ import React, { Component } from 'react'
   }
 })
 class Image extends Component {
+
+  static tagName = "mj-image"
+  static endingTag = true
+  static columnElement = true
 
   static baseStyles = {
     table: {

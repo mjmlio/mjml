@@ -1,7 +1,7 @@
-import MJMLColumnElement from './decorators/MJMLColumnElement'
+import MJMLElement from 'mjml-core'
 import React, { Component } from 'react'
 
-@MJMLColumnElement({
+@MJMLElement({
   tagName: 'mj-table',
   content: '',
   attributes: {
@@ -15,6 +15,10 @@ import React, { Component } from 'react'
   }
 })
 class Table extends Component {
+
+  static tagName = "mj-table"
+  static endingTag = true
+  static columnElement = true
 
   styles = this.getStyles()
 

@@ -1,5 +1,5 @@
 {
-  "name": "mjml-body",
+  "name": "mjml-text",
   "version": "2.0.0",
   "main": "lib/index.js",
   "scripts": {

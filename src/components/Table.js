@@ -11,7 +11,8 @@ import React, { Component } from 'react'
     'font-size': '13px',
     'line-height': '22px',
     'padding': '10px 25px',
-    'width': '100%'
+    'width': '100%',
+    'table-layout': 'auto',
   }
 })
 class Table extends Component {
@@ -26,7 +27,8 @@ class Table extends Component {
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
         fontSize: mjAttribute('font-size'),
-        lineHeight: mjAttribute('line-height')
+        lineHeight: mjAttribute('line-height'),
+        tableLayout: mjAttribute('table-layout')
       }
     }
   }

@@ -39,9 +39,6 @@ gulp.task('build', () => {
     .pipe(gulp.dest(PACKAGES_PATH))
 })
 
-const sharedDeps = [
-  'react'
-]
 gulp.task('install', () => {
   return Promise.all(
     // Link all packages to the root
@@ -54,22 +51,7 @@ gulp.task('install', () => {
         resolve()
       })
     })
-  ).then(() => {
-    // Remove duplicated packages and shared dependencies so they are loaded
-    // from the top
-    return Promise.all(
-      Object.keys(packages).map(packageName => {
-        return Promise.all(
-          Object.keys(packages).concat(sharedDeps).map(dependencyName => {
-            return new Promise(resolve => {
-              rm('-rf', path.resolve(packages[packageName], 'node_modules', dependencyName))
-              resolve()
-            })
-          })
-        )
-      })
-    )
-  })
+  )
 })
 
 gulp.task('clean', () => {

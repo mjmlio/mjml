@@ -14,6 +14,8 @@
   "dependencies": {
     "lodash": "^4.6.1",
     "mjml-core": "^2.0.0",
+    "mjml-image": "^2.0.0",
+    "mjml-text": "^2.0.0",
     "react": "^0.14.7"
   }
 }

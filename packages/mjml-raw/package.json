@@ -11,7 +11,7 @@
     "url": "https://github.com/mjmlio/mjml/issues"
   },
   "homepage": "https://github.com/mjmlio/mjml",
-  "peerDependencies": {
+  "dependencies": {
     "mjml-core": "^2.0.0",
     "react": "^0.14.7"
   }

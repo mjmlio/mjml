@@ -1,4 +1,4 @@
-var mjml = require('./index')
+var mjml = require('./lib/index')
 
 // console.log(new mjml.MJMLRenderer(`
 //   <mj-body>

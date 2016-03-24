@@ -1,8 +1,11 @@
 import { argv } from 'yargs'
 import { cd, exec, rm } from 'shelljs'
+import babel from 'gulp-babel'
 import fs from 'fs'
 import gulp from 'gulp'
+import newer from 'gulp-newer'
 import path from 'path'
+import through from 'through2'
 
 const ROOT_PATH = path.resolve(__dirname)
 const PACKAGES_PATH = path.resolve(__dirname, './packages')
@@ -12,6 +15,29 @@ const packages = fs.readdirSync(PACKAGES_PATH).filter(file => {
   ...acc,
   [file]: path.resolve(PACKAGES_PATH, file)
 }), {})
+
+let srcEx
+let libFragment
+
+if (path.win32 === path) {
+  srcEx = /(packages\\[^\\]+)\\src\\/
+  libFragment = '$1\\lib\\'
+} else {
+  srcEx = /(packages\/[^\/]+)\/src\//
+  libFragment = '$1/lib/'
+}
+
+gulp.task('build', () => {
+  return gulp.src(`${PACKAGES_PATH}/*/src/**/*.js`)
+    .pipe(through.obj((file, enc, callback) => {
+      file._path = file.path
+      file.path = file.path.replace(srcEx, libFragment)
+      callback(null, file)
+    }))
+    .pipe(newer(PACKAGES_PATH))
+    .pipe(babel())
+    .pipe(gulp.dest(PACKAGES_PATH))
+})
 
 const sharedDeps = [
   'react'

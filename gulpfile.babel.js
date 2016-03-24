@@ -45,9 +45,7 @@ gulp.task('install', () => {
     Object.keys(packages).map(packageName => {
       return new Promise(resolve => {
         cd(packages[packageName])
-        exec('npm link')
-        cd(ROOT_PATH)
-        exec(`npm link ${packageName}`)
+        exec('npm install')
         resolve()
       })
     })

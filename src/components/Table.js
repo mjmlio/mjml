@@ -12,7 +12,7 @@ import React, { Component } from 'react'
     'line-height': '22px',
     'padding': '10px 25px',
     'width': '100%',
-    'table-layout': 'auto',
+    'table-layout': 'auto'
   }
 })
 class Table extends Component {

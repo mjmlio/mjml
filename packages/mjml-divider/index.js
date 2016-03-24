@@ -1,5 +1,5 @@
 import { MJMLElement } from 'mjml-core'
-import { widthParser } from 'mjml-core/helpers'
+import { widthParser } from 'mjml-core/lib/helpers'
 import merge from 'lodash/merge'
 import React, { Component } from 'react'
 

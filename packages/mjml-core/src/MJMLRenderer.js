@@ -31,9 +31,10 @@ export default class MJMLRenderer {
   registerDotfile () {
     try {
       const path = process.cwd()
-      const MJMLElements = fs.readFileSync(`${path}/.mjml`).toString().split('\n')
+      const mjmlConfig = JSON.parse(fs.readFileSync(`${path}/.mjmlconfig`).toString())
+      const { packages } = mjmlConfig
 
-      MJMLElements.map((file) => {
+      packages.map(file => {
         if (!file) {
           return
         }
@@ -41,12 +42,12 @@ export default class MJMLRenderer {
         try {
           const Component = require.main.require(file)
           registerMJElement(Component.default || Component)
-        } catch(e) {
-          warning(false, `.mjml file ${file} has an error : ${e}`)
+        } catch (e) {
+          warning(false, `.mjmlconfig file ${file} has an error : ${e}`)
         }
       })
-    } catch(e) {
-      warning(false, 'No .mjml found in path, please consider to add one')
+    } catch (e) {
+      warning(false, 'No .mjmlconfig found in path, please consider to add one')
     }
   }
 

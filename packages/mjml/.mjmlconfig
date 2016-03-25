@@ -1,3 +1,16 @@
 {
-  "packages": ["mjml-body"]
+  "packages": [
+    "mjml-body",
+    "mjml-button",
+    "mjml-column",
+    "mjml-divider",
+    "mjml-html",
+    "mjml-image",
+    "mjml-list",
+    "mjml-location",
+    "mjml-raw",
+    "mjml-section",
+    "mjml-social",
+    "mjml-table"
+  ]
 }

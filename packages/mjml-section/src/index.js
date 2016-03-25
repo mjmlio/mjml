@@ -1,4 +1,5 @@
 import { MJMLElement } from 'mjml-core'
+import cloneDeep from 'lodash/cloneDeep'
 import merge from 'lodash/merge'
 import React, { Component } from 'react'
 
@@ -59,9 +60,9 @@ class Section extends Component {
         maxWidth: parentWidth
       }
     }, {
-      div: this.isFullWidth() ? {} : _.cloneDeep(background),
-      table: this.isFullWidth() ? {} : _.cloneDeep(background),
-      tableFullwidth: this.isFullWidth() ? _.cloneDeep(background) : {}
+      div: this.isFullWidth() ? {} : cloneDeep(background),
+      table: this.isFullWidth() ? {} : cloneDeep(background),
+      tableFullwidth: this.isFullWidth() ? cloneDeep(background) : {}
     })
   }
 

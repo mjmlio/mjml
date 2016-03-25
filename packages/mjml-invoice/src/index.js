@@ -50,7 +50,7 @@ class Invoice extends Component {
   getStyles () {
     const { mjAttribute } = this.props
 
-    const styles = merge({}, this.constructor.baseStyles, {
+    const styles = merge({}, baseStyles, {
       table: {
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
@@ -83,19 +83,19 @@ class Invoice extends Component {
     return styles
   }
 
-  getIntl () {
+  getIntlValue () {
     const { mjAttribute } = this.props
 
-    const intl = cloneDeep(this.constructor.intl)
+    const intlValue = cloneDeep(intl)
 
     mjAttribute('intl').split(';').forEach(t => {
       if (t && t.indexOf(':') != -1) {
         t = t.split(':')
-        intl[t[0].trim()] = t[1].trim()
+        intlValue[t[0].trim()] = t[1].trim()
       }
     })
 
-    return intl
+    return intlValue
   }
 
   getTotal () {
@@ -114,16 +114,22 @@ class Invoice extends Component {
 
   render () {
     const { children } = this.props
-    const intl = this.getIntl()
+    const intlValue = this.getIntlValue()
     const total = this.getTotal()
 
     return (
       <MJMLTable {...this.props}>
         <thead>
           <tr style={this.styles.thead}>
-            <th style={this.styles.th}>{intl['name']}</th>
-            <th style={this.styles.th}>{intl['price']}</th>
-            <th style={this.styles.thQuantity}>{intl['quantity']}</th>
+            <th style={this.styles.th}>
+              {intlValue['name']}
+            </th>
+            <th style={this.styles.th}>
+              {intlValue['price']}
+            </th>
+            <th style={this.styles.thQuantity}>
+              {intlValue['quantity']}
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -134,9 +140,11 @@ class Invoice extends Component {
             <th
               colSpan="2"
               style={this.styles.th}>
-              {intl['total']}
+              {intlValue['total']}
             </th>
-            <td style={this.styles.total}>{total}</td>
+            <td style={this.styles.total}>
+              {total}
+            </td>
           </tr>
         </tfoot>
       </MJMLTable>

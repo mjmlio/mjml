@@ -1,13 +1,45 @@
 import { MJMLElement } from 'mjml-core'
 import { widthParser } from 'mjml-core/lib/helpers'
+import each from 'lodash/each'
 import merge from 'lodash/merge'
 import React, { Component } from 'react'
+import uniq from 'lodash/uniq'
 
 const tagName = 'mj-column'
 const baseStyles = {
   div: {
     verticalAlign: 'top'
   }
+}
+const postRender = $ => {
+  const mediaQueries = []
+
+  each({ 'mj-column-per': '%', 'mj-column-px': 'px' }, (unit, className) => {
+    const columnWidths = []
+
+    $(`[class*="${className}"]`).each(function () {
+      columnWidths.push($(this).data('column-width'))
+      $(this).removeAttr('data-column-width')
+    })
+
+    uniq(columnWidths).forEach((width) => {
+      const mediaQueryClass = `${className}-${width}`
+
+      mediaQueries.push(`.${mediaQueryClass}, * [aria-labelledby="${mediaQueryClass}"] { width:${width}${unit}!important; }`)
+    })
+  })
+
+  if (mediaQueries.length > 0) {
+    const mediaQuery = `<style type="text/css">
+  @media only screen and (min-width:480px) {
+    ${mediaQueries.join('\n')}
+  }
+</style>\n`
+
+    $('head').append(mediaQuery)
+  }
+
+  return $
 }
 
 @MJMLElement
@@ -18,7 +50,7 @@ class Column extends Component {
   getStyles () {
     const { mjAttribute } = this.props
 
-    return merge({}, this.constructor.baseStyles, {
+    return merge({}, baseStyles, {
       div: {
         display: 'inline-block',
         verticalAlign: mjAttribute('vertical-align'),
@@ -85,5 +117,6 @@ class Column extends Component {
 
 Column.tagName = tagName
 Column.baseStyles = baseStyles
+Column.postRender = postRender
 
 export default Column

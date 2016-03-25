@@ -1,6 +1,6 @@
 import { EmptyMJMLError } from './Error'
 import { html as beautify } from 'js-beautify'
-import { insertColumnMediaQuery, fixLegacyAttrs, fixOutlookLayout, clean, removeCDATA } from './helpers/postRender'
+import { fixLegacyAttrs, removeCDATA } from './helpers/postRender'
 import { minify } from 'html-minifier'
 import { parseInstance } from './helpers/mjml'
 import defaultContainer from './configs/defaultContainer'
@@ -8,7 +8,7 @@ import documentParser from './parsers/document'
 import dom from './helpers/dom'
 import fs from 'fs'
 import getFontsImports from './helpers/getFontsImports'
-import MJMLElementsCollection, { registerMJElement } from './MJMLElementsCollection'
+import MJMLElementsCollection, { postRenders, registerMJElement } from './MJMLElementsCollection'
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import warning from 'warning'
@@ -81,10 +81,13 @@ export default class MJMLRenderer {
   _postRender (MJMLDocument) {
     let $ = dom.parseHTML(MJMLDocument)
 
-    $ = insertColumnMediaQuery($)
     $ = fixLegacyAttrs($)
-    $ = fixOutlookLayout($)
-    $ = clean($)
+
+    postRenders.forEach(postRender => {
+      if (typeof postRender === 'function') {
+        $ = postRender($)
+      }
+    })
 
     let finalMJMLDocument = dom.getHTML($)
     finalMJMLDocument     = removeCDATA(finalMJMLDocument)

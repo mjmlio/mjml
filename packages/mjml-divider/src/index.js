@@ -20,6 +20,18 @@ const baseStyles = {
     margin: '0 auto'
   }
 }
+const postRender = $ => {
+  $('.mj-divider-outlook').each(function () {
+    const insertNode = `<table align="center" border="0" cellpadding="0" cellspacing="0" style="${$(this).attr('style')}" width="${$(this).data('divider-width')}"><tr><td>&nbsp;</td></tr></table>`
+
+    $(this)
+      .removeAttr('data-divider-width')
+      .removeAttr('class')
+      .after(`<!--[if mso]>${insertNode}<![endif]-->`)
+  })
+
+  return $
+}
 
 @MJMLElement
 class Divider extends Component {
@@ -29,7 +41,7 @@ class Divider extends Component {
   getStyles () {
     const { mjAttribute } = this.props
 
-    return merge({}, this.constructor.baseStyles, {
+    return merge({}, baseStyles, {
       p: {
         borderTop: `${mjAttribute('border-width')} ${mjAttribute('border-style')} ${mjAttribute('border-color')}`,
         width: mjAttribute('width')
@@ -67,5 +79,6 @@ Divider.tagName = tagName
 Divider.defaultMJMLDefinition = defaultMJMLDefinition
 Divider.columnElement = columnElement
 Divider.baseStyles = baseStyles
+Divider.postRender = postRender
 
 export default Divider

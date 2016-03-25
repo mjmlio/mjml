@@ -30,7 +30,7 @@ class Text extends Component {
   getStyles () {
     const { mjAttribute, color } = this.props
 
-    return merge({}, this.constructor.baseStyles, {
+    return merge({}, baseStyles, {
       div: {
         color: mjAttribute('locked') ? color : mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),

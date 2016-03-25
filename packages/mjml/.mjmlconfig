@@ -6,11 +6,14 @@
     "mjml-divider",
     "mjml-html",
     "mjml-image",
+    "mjml-invoice-item",
+    "mjml-invoice",
     "mjml-list",
     "mjml-location",
     "mjml-raw",
     "mjml-section",
     "mjml-social",
-    "mjml-table"
+    "mjml-table",
+    "mjml-text"
   ]
 }

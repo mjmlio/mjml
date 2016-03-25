@@ -37,7 +37,6 @@ const defaultMJMLDefinition = {
     'base-url': 'https://www.mailjet.com/images/theme/v1/icons/ico-social/'
   }
 }
-const endingTag = true
 const columnElement = true
 const baseStyles = {
   div: {
@@ -103,6 +102,27 @@ const buttonDefinitions = {
     textModeContent: 'Share'
   }
 }
+const postRender = $ => {
+  $('.mj-social-outlook-open').each(function () {
+    $(this).replaceWith(`<!--[if mso]>
+      <table border="0" cellpadding="0" cellspacing="0" align="center"><tr><td>
+      <![endif]-->`)
+  })
+
+  $('.mj-social-outlook-line').each(function () {
+    $(this).replaceWith(`<!--[if mso]>
+      </td><td>
+      <![endif]-->`)
+  })
+
+  $('.mj-social-outlook-close').each(function () {
+    $(this).replaceWith(`<!--[if mso]>
+      </td></tr></table>
+      <![endif]-->`)
+  })
+
+  return $
+}
 
 @MJMLElement
 class Social extends Component {
@@ -112,7 +132,7 @@ class Social extends Component {
   getStyles () {
     const { mjAttribute } = this.props
 
-    return merge({}, this.constructor.baseStyles, {
+    return merge({}, baseStyles, {
       a: {
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
@@ -146,7 +166,7 @@ class Social extends Component {
 
   renderSocialButton (platform, share) {
     const { mjAttribute } = this.props
-    const definition = this.constructor.buttonDefinitions[platform]
+    const definition = buttonDefinitions[platform]
     const href = share ? definition.linkAttribute.replace('[[URL]]', mjAttribute(`${platform}-href`)) : mjAttribute(`${platform}-href`)
     const iconStyle = {
       background: mjAttribute(`${platform}-icon-color`),
@@ -201,7 +221,7 @@ class Social extends Component {
     return platforms.split(' ').map(label => {
       const platform = label.split(':')[0]
       const share = label.split(':')[1]
-      if (!this.constructor.buttonDefinitions[platform]) {
+      if (!buttonDefinitions[platform]) {
         return
       }
 
@@ -229,7 +249,7 @@ class Social extends Component {
       result.push(<div className="mj-social-outlook-line" key={`outlook-line-${index}`} />)
 
       return result
-    }, [<div className="mj-social-outlook-open" key="outlook-open"/>])
+    }, [<div className="mj-social-outlook-open" key="outlook-open" />])
 
     socialButtons[socialButtons.length - 1] = <div className="mj-social-outlook-close" key="outlook-close" />
 
@@ -263,9 +283,9 @@ class Social extends Component {
 
 Social.tagName = tagName
 Social.defaultMJMLDefinition = defaultMJMLDefinition
-Social.endingTag = endingTag
 Social.columnElement = columnElement
 Social.baseStyles = baseStyles
 Social.buttonDefinitions = buttonDefinitions
+Social.postRender = postRender
 
 export default Social

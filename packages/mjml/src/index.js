@@ -1,1 +1,1 @@
-export default from 'mjml-core'
+export * from 'mjml-core'

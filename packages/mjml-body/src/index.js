@@ -11,6 +11,45 @@ const defaultMJMLDefinition = {
     'width'
   ]
 }
+const postRender = $ => {
+  const bodyWidth = $('.mj-body').data('width')
+
+  $('.mj-body-outlook-open').each(function () {
+    $(this).replaceWith(`<!--[if mso]>
+      <table border="0" cellpadding="0" cellspacing="0" width="${bodyWidth}" align="center" style="width:${bodyWidth}px;"><tr><td>
+      <![endif]-->`)
+  })
+
+  $('.mj-body-outlook-line').each(function () {
+    $(this).replaceWith(`<!--[if mso]>
+      </td></tr></table>
+      <![endif]-->
+      <!--[if mso]>
+      <table border="0" cellpadding="0" cellspacing="0" width="${bodyWidth}" align="center" style="width:${bodyWidth}px;"><tr><td>
+      <![endif]-->`)
+  })
+
+  $('.mj-body-outlook-close').each(function () {
+    $(this).replaceWith(`<!--[if mso]>
+      </td></tr></table>
+      <![endif]-->`)
+  })
+
+  $('body')
+    .css({ background: $('.mj-body').data('background-color') })
+    .each(function () {
+      if ($(this).attr('style') === '') {
+        $(this).removeAttr('style')
+      }
+    })
+
+  $('.mj-body')
+    .removeAttr('data-background-color')
+    .removeAttr('data-width')
+    .removeAttr('class')
+
+  return $
+}
 
 @MJMLElement
 class Body extends Component {
@@ -47,5 +86,6 @@ class Body extends Component {
 
 Body.tagName = tagName
 Body.defaultMJMLDefinition = defaultMJMLDefinition
+Body.postRender = postRender
 
 export default Body

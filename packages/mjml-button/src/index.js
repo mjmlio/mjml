@@ -37,7 +37,7 @@ class Button extends Component {
   getStyles () {
     const { mjAttribute } = this.props
 
-    return merge({}, this.constructor.baseStyles, {
+    return merge({}, baseStyles, {
       td: {
         background: mjAttribute('background-color'),
         borderRadius: mjAttribute('border-radius'),

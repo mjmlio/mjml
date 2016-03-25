@@ -32,6 +32,7 @@ import React, { Component } from 'react'
     'twitter-href': '[[SHORT_PERMALINK]]',
     'twitter-icon-color': '#55acee',
     'align': 'center',
+    'text-align': 'center',
     'color': '#333333',
     'display': 'facebook:share twitter:share google:share',
     'base-url': 'https://www.mailjet.com/images/theme/v1/icons/ico-social/'
@@ -111,6 +112,9 @@ class Social extends Component {
     const { mjAttribute } = this.props
 
     return _.merge({}, this.constructor.baseStyles, {
+      div: {
+        textAlign: mjAttribute('text-align')
+      },
       a: {
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),

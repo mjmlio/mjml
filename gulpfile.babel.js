@@ -90,7 +90,7 @@ gulp.task('version', () => {
   exec(`git tag ${tagName}`)
 })
 
-gulp.task('publish', () => {
+gulp.task('publish', ['build'], () => {
   // Try to derive package name from directory where this was run from
   const pwd = process.env.PWD
   const pwdPackageName = Object.keys(packages).reduce((prev, name) => {
@@ -100,10 +100,11 @@ gulp.task('publish', () => {
   // Check params
   const packageName = argv.pkg || argv.p || pwdPackageName
   if (!packageName) {
-    throw new Error('Usage: gulp publish -p <package>')
+    throw new Error('Usage: gulp publish -p <package> -t <tag>')
   }
 
   // Publish
   cd(packages[packageName])
-  exec('npm publish')
+  
+  exec(`npm publish${argv.t ? ` --tag ${argv.t}` : ''}`)
 })

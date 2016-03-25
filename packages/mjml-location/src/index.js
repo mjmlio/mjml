@@ -1,5 +1,4 @@
 import { MJMLElement } from 'mjml-core'
-import merge from 'lodash/merge'
 import MJMLImage from 'mjml-image'
 import MJMLText from 'mjml-text'
 import React, { Component } from 'react'
@@ -26,12 +25,12 @@ class Location extends Component {
   getStyles () {
     const { mjAttribute } = this.props
 
-    return merge({}, this.constructor.baseStyles, {
+    return {
       text: {
         color: mjAttribute('color'),
         textDecoration: 'none'
       }
-    })
+    }
   }
 
   getAttributes () {
@@ -85,6 +84,5 @@ Location.tagName = tagName
 Location.defaultMJMLDefinition = defaultMJMLDefinition
 Location.endingTag = endingTag
 Location.columnElement = columnElement
-Location.baseStyles = baseStyles
 
 export default Location

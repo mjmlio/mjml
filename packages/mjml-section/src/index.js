@@ -24,6 +24,60 @@ const baseStyles = {
     verticalAlign: 'top'
   }
 }
+const postRender = $ => {
+  $('.mj-section-outlook-background').each(function () {
+    const url = $(this).data('url')
+    const width = $(this).data('width')
+
+    $(this)
+      .removeAttr('class')
+      .removeAttr('data-url')
+      .removeAttr('data-width')
+
+    if (!url) {
+      return
+    }
+
+    $(this).before(`<!--[if gte mso 9]>
+      <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:${width}px;">
+        <v:fill origin="0.5, 0" position="0.5,0" type="tile" src="${url}" />
+        <v:textbox style="mso-fit-shape-to-text:true" inset="0,0,0,0">
+      <![endif]-->`)
+
+    $(this).after(`<!--[if gte mso 9]>
+        </v:textbox>
+      </v:rect>
+      <![endif]-->`)
+  })
+
+  $('.mj-section-outlook-open').each(function () {
+    const $columnDiv = $(this).next()
+
+    $(this).replaceWith(`<!--[if mso]>
+      <table border="0" cellpadding="0" cellspacing="0"><tr><td style="vertical-align:${$columnDiv.data('vertical-align')};width:${parseInt($(this).data('width'))}px;">
+      <![endif]-->`)
+
+    $columnDiv.removeAttr('data-vertical-align')
+  })
+
+  $('.mj-section-outlook-line').each(function () {
+    const $columnDiv = $(this).next()
+
+    $(this).replaceWith(`<!--[if mso]>
+    </td><td style="vertical-align:${$columnDiv.data('vertical-align')};width:${parseInt($(this).data('width'))}px;">
+      <![endif]-->`)
+
+    $columnDiv.removeAttr('data-vertical-align')
+  })
+
+  $('.mj-section-outlook-close').each(function () {
+    $(this).replaceWith(`<!--[if mso]>
+      </td></tr></table>
+      <![endif]-->`)
+  })
+
+  return $
+}
 
 @MJMLElement
 class Section extends Component {
@@ -124,5 +178,6 @@ class Section extends Component {
 Section.tagName = tagName
 Section.defaultMJMLDefinition = defaultMJMLDefinition
 Section.baseStyles = baseStyles
+Section.postRender = postRender
 
 export default Section

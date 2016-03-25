@@ -102,6 +102,27 @@ const buttonDefinitions = {
     textModeContent: 'Share'
   }
 }
+const postRender = $ => {
+  $('.mj-social-outlook-open').each(function () {
+    $(this).replaceWith(`<!--[if mso]>
+      <table border="0" cellpadding="0" cellspacing="0" align="center"><tr><td>
+      <![endif]-->`)
+  })
+
+  $('.mj-social-outlook-line').each(function () {
+    $(this).replaceWith(`<!--[if mso]>
+      </td><td>
+      <![endif]-->`)
+  })
+
+  $('.mj-social-outlook-close').each(function () {
+    $(this).replaceWith(`<!--[if mso]>
+      </td></tr></table>
+      <![endif]-->`)
+  })
+
+  return $
+}
 
 @MJMLElement
 class Social extends Component {
@@ -110,7 +131,7 @@ class Social extends Component {
 
   getStyles () {
     const { mjAttribute } = this.props
-    
+
     return merge({}, baseStyles, {
       a: {
         color: mjAttribute('color'),
@@ -265,5 +286,6 @@ Social.defaultMJMLDefinition = defaultMJMLDefinition
 Social.columnElement = columnElement
 Social.baseStyles = baseStyles
 Social.buttonDefinitions = buttonDefinitions
+Social.postRender = postRender
 
 export default Social

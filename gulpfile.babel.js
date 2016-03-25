@@ -7,7 +7,6 @@ import newer from 'gulp-newer'
 import path from 'path'
 import through from 'through2'
 
-const ROOT_PATH = path.resolve(__dirname)
 const PACKAGES_PATH = path.resolve(__dirname, './packages')
 const packages = fs.readdirSync(PACKAGES_PATH).filter(file => {
   return fs.statSync(path.resolve(PACKAGES_PATH, file)).isDirectory()
@@ -105,6 +104,6 @@ gulp.task('publish', ['build'], () => {
 
   // Publish
   cd(packages[packageName])
-  
+
   exec(`npm publish${argv.t ? ` --tag ${argv.t}` : ''}`)
 })

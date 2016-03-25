@@ -1,11 +1,12 @@
-import _ from 'lodash'
+import each from 'lodash/each'
+import uniq from 'lodash/uniq'
 
 export const removeCDATA = str => str.replace(/<!--\[CDATA\[([^]*?)\]\]-->/gm, '$1')
 
 export const insertColumnMediaQuery = $ => {
   const mediaQueries = []
 
-  _.each({'mj-column-per': '%', 'mj-column-px': 'px'}, (unit, className) => {
+  each({'mj-column-per': '%', 'mj-column-px': 'px'}, (unit, className) => {
     const columnWidths = []
 
     $(`[class*="${className}"]`).each(function () {
@@ -13,7 +14,7 @@ export const insertColumnMediaQuery = $ => {
       $(this).removeAttr('data-column-width')
     })
 
-    _.uniq(columnWidths).forEach((width) => {
+    uniq(columnWidths).forEach((width) => {
       const mediaQueryClass = `${className}-${width}`
 
       mediaQueries.push(`.${mediaQueryClass}, * [aria-labelledby="${mediaQueryClass}"] { width:${width}${unit}!important; }`)

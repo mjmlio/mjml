@@ -1,8 +1,9 @@
-import _ from 'lodash'
-import warning from 'warning'
-import MJMLElements, { endingTags } from '../MJMLElementsCollection'
 import { ParseError, EmptyMJMLError, NullElementError } from '../Error'
+import compact from 'lodash/compact'
 import dom from '../helpers/dom'
+import filter from 'lodash/filter'
+import MJMLElements, { endingTags } from '../MJMLElementsCollection'
+import warning from 'warning'
 
 /**
  * Avoid htmlparser to parse ending tags
@@ -39,7 +40,7 @@ const mjmlElementParser = elem => {
     element.content = $(tagName).html().trim()
   } else {
     const children = dom.getChildren(elem)
-    element.children = children ? _.compact(_.filter(children, child => child.tagName).map(mjmlElementParser)) : []
+    element.children = children ? compact(filter(children, child => child.tagName).map(mjmlElementParser)) : []
   }
 
   return element

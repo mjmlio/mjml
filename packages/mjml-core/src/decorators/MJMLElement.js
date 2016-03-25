@@ -1,11 +1,11 @@
-import _ from 'lodash'
-import warning from 'warning'
 import { widthParser } from '../helpers/mjAttribute'
-import hoistNonReactStatic from 'hoist-non-react-statics'
-import Immutable from "immutable"
+import Immutable from 'immutable'
+import merge from 'lodash/merge'
 import MJMLElementsCollection from '../MJMLElementsCollection'
 import React, { Component } from 'react'
 import ReactDOMServer from 'react-dom/server'
+import trim from 'lodash/trim'
+import warning from 'warning'
 
 const getElementWidth = ({ element, siblings, parentWidth }) => {
   const { mjml } = element.props
@@ -34,28 +34,26 @@ const getElementWidth = ({ element, siblings, parentWidth }) => {
 // used to pass column count to children
 let siblingCount = 1
 
-function createComponent(ComposedComponent, defaultMJMLDefinition) {
+function createComponent (ComposedComponent) {
+
+  const baseStyles = {
+    td: {
+      wordBreak: 'break-word'
+    }
+  }
 
   class MJMLElement extends Component {
 
-    static defaultMJMLDefinition = defaultMJMLDefinition;
-
-    static baseStyles = {
-      td: {
-        wordBreak: 'break-word'
-      }
-    }
-
-    constructor(props) {
+    constructor (props) {
       super(props)
 
-      this.mjml = props.mjml || Immutable.fromJS(defaultMJMLDefinition).mergeIn(['attributes'], props)
+      this.mjml = props.mjml || Immutable.fromJS(ComposedComponent.defaultMJMLDefinition).mergeIn(['attributes'], props)
     }
 
     mjAttribute = name => this.mjml.getIn(['attributes', name])
 
     getStyles () {
-      return _.merge({}, this.constructor.baseStyles, {
+      return merge({}, this.constructor.baseStyles, {
         td: {
           background: this.mjAttribute('container-background-color'),
           fontSize: 0,
@@ -76,7 +74,7 @@ function createComponent(ComposedComponent, defaultMJMLDefinition) {
       const content = this.mjml.get('content')
 
       if (content) {
-        return _.trim(content)
+        return trim(content)
       }
 
       return React.Children.map(this.props.children, child => {
@@ -272,16 +270,10 @@ function createComponent(ComposedComponent, defaultMJMLDefinition) {
     }
   }
 
-  hoistNonReactStatic(MJMLElement, ComposedComponent)
+  MJMLElement.baseStyles = baseStyles
 
   return MJMLElement
 
 }
 
-export default (defaultMJMLDefinition) => {
-  if (typeof defaultMJMLDefinition == 'function') {
-    return createComponent(defaultMJMLDefinition)
-  }
-
-  return ComposedComponent => createComponent(ComposedComponent, defaultMJMLDefinition)
-}
+export default createComponent

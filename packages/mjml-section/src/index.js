@@ -45,7 +45,7 @@ class Section extends Component {
       background: mjAttribute('background-color')
     }
 
-    return merge({}, this.constructor.baseStyles, {
+    return merge({}, baseStyles, {
       td: {
         fontSize: 0,
         padding: mjAttribute('padding'),

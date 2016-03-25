@@ -9,18 +9,14 @@ class Raw extends Component {
 
   getTagName () {
     const { parentMjml } = this.props
-    let tagName
 
     switch (parentMjml.get('tagName')) {
-      case 'mj-column' :
-        tagName = 'tr'
-        break
+      case 'mj-column':
+        return 'tr'
 
       default:
-        tagName = 'noscript'
+        return 'noscript'
     }
-
-    return tagName
   }
 
   render () {

@@ -47,13 +47,13 @@ function createComponent (ComposedComponent) {
     constructor (props) {
       super(props)
 
-      this.mjml = props.mjml || Immutable.fromJS(ComposedComponent.defaultMJMLDefinition).mergeIn(['attributes'], props)
+      this.mjml = props.mjml || Immutable.fromJS(this.constructor.defaultMJMLDefinition).mergeIn(['attributes'], props)
     }
 
     mjAttribute = name => this.mjml.getIn(['attributes', name])
 
     getStyles () {
-      return merge({}, this.constructor.baseStyles, {
+      return merge({}, baseStyles, {
         td: {
           background: this.mjAttribute('container-background-color'),
           fontSize: 0,
@@ -249,7 +249,7 @@ function createComponent (ComposedComponent) {
     }
 
     render () {
-      if (ComposedComponent.columnElement) {
+      if (this.constructor.columnElement) {
         this.styles = this.getStyles()
 
         return(
@@ -269,8 +269,6 @@ function createComponent (ComposedComponent) {
       )
     }
   }
-
-  MJMLElement.baseStyles = baseStyles
 
   return MJMLElement
 

@@ -23,7 +23,7 @@ class Html extends Component {
   styles = this.getStyles()
 
   getStyles () {
-    return merge({}, this.constructor.baseStyles, {})
+    return merge({}, baseStyles, {})
   }
 
   render () {

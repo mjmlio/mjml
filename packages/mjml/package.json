@@ -12,19 +12,19 @@
   },
   "homepage": "https://github.com/mjmlio/mjml",
   "dependencies": {
-    "mjml-body": "^2.0.0-beta.1",
-    "mjml-button": "^2.0.0-beta.1",
-    "mjml-column": "^2.0.0-beta.1",
-    "mjml-core": "^2.0.0-beta.1",
-    "mjml-divider": "^2.0.0-beta.1",
-    "mjml-html": "^2.0.0-beta.1",
-    "mjml-image": "^2.0.0-beta.1",
-    "mjml-list": "^2.0.0-beta.1",
-    "mjml-location": "^2.0.0-beta.2",
-    "mjml-raw": "^2.0.0-beta.1",
-    "mjml-section": "^2.0.0-beta.3",
-    "mjml-social": "^2.0.0-beta.1",
-    "mjml-table": "^2.0.0-beta.1",
-    "mjml-text": "^2.0.0-beta.1"
+    "mjml-body": "^2.0.0-beta.2",
+    "mjml-button": "^2.0.0-beta.2",
+    "mjml-column": "^2.0.0-beta.2",
+    "mjml-core": "^2.0.0-beta.2",
+    "mjml-divider": "^2.0.0-beta.2",
+    "mjml-html": "^2.0.0-beta.2",
+    "mjml-image": "^2.0.0-beta.2",
+    "mjml-list": "^2.0.0-beta.2",
+    "mjml-location": "^2.0.0-beta.3",
+    "mjml-raw": "^2.0.0-beta.2",
+    "mjml-section": "^2.0.0-beta.4",
+    "mjml-social": "^2.0.0-beta.2",
+    "mjml-table": "^2.0.0-beta.2",
+    "mjml-text": "^2.0.0-beta.2"
   }
 }

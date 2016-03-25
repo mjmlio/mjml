@@ -53,7 +53,7 @@ class Image extends Component {
   getStyles () {
     const { mjAttribute } = this.props
 
-    return merge({}, this.constructor.baseStyles, {
+    return merge({}, baseStyles, {
       img: {
         border: mjAttribute('border'),
         height: mjAttribute('height')

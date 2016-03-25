@@ -29,7 +29,7 @@ class Divider extends Component {
   getStyles () {
     const { mjAttribute } = this.props
 
-    return merge({}, this.constructor.baseStyles, {
+    return merge({}, baseStyles, {
       p: {
         borderTop: `${mjAttribute('border-width')} ${mjAttribute('border-style')} ${mjAttribute('border-color')}`,
         width: mjAttribute('width')

@@ -32,23 +32,12 @@ const baseStyles = {
 @MJMLElement
 class InvoiceItem extends Component {
 
-  constructor (props) {
-    super(props)
-
-    const format = props.mjAttribute('format')
-    const currencies = format.match(/([^-\d.,])/g)
-
-    this.items = props.mjml.get('children').filter(child => child.get('tagName') === 'mj-invoice-item')
-    this.format = format.replace(/([^-\d.,])/g, '$')
-    this.currency = currencies[0] || null
-  }
-
   styles = this.getStyles()
 
   getStyles () {
     const { mjAttribute } = this.props
 
-    const styles = merge({}, this.constructor.baseStyles, {
+    const styles = merge({}, baseStyles, {
       td: {
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),

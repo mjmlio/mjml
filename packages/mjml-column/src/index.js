@@ -18,7 +18,7 @@ class Column extends Component {
   getStyles () {
     const { mjAttribute } = this.props
 
-    return merge({}, this.constructor.baseStyles, {
+    return merge({}, baseStyles, {
       div: {
         display: 'inline-block',
         verticalAlign: mjAttribute('vertical-align'),

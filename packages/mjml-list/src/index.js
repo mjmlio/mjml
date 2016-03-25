@@ -32,7 +32,7 @@ class List extends Component {
   getStyles () {
     const { mjAttribute } = this.props
 
-    return merge({}, this.constructor.baseStyles, {
+    return merge({}, baseStyles, {
       ul: {
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),

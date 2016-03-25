@@ -218,7 +218,7 @@ function createComponent (ComposedComponent) {
       ]
 
       // assign sibling count for element and children
-      if (parentMjml && this.mjName() === 'column') {
+      if (parentMjml && this.mjName() === 'mj-column') {
         siblingCount = parentMjml.get('children').size
       }
 

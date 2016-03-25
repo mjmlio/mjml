@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var cli = require('../lib/cli')
+var cli = require('../lib/client')
 var binary = require('commander')
 
 /*
@@ -15,7 +15,8 @@ binary
   .option('-s, --stdout', 'Redirect the HTML to stdout')
   .option('-m, --min', 'Minify the final output file', 'false')
   .option('-e, --ending', 'Specifies that the newly created component is an ending tag')
-  .option('--register <name>', 'Initialize a self-registering MJML component (deprecated)')
+  .option('-c, --column', 'Specifies that the newly created component is an column element')
+  .option('--register <name>', 'Register a config file')
   .option('--init-component <name>', 'Initialize an MJML component')
 
 binary.parse(process.argv)
@@ -39,7 +40,7 @@ switch (true) {
     break
 
   case (!!binary.initComponent):
-    cli.initComponent(binary.initComponent, binary.ending, false)
+    cli.initComponent(binary.initComponent, binary.ending, binary.column)
     break
 
   default:

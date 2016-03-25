@@ -27,5 +27,9 @@
   "devEngines": {
     "node": "4.x || 5.x",
     "npm": "2.x || 3.x"
+  },
+  "dependencies": {
+    "babel-core": "^6.7.4",
+    "babel-register": "^6.7.2"
   }
 }

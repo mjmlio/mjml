@@ -1,4 +1,5 @@
-import { MJMLRenderer, version as V } from './index'
+import { MJMLRenderer, version as V } from 'mjml-core'
+import createComponent from './createComponent'
 import fs from 'fs'
 
 const capitalize = name => name.charAt(0).toUpperCase() + name.slice(1).toLowerCase().replace(/-/g, '')
@@ -53,7 +54,7 @@ const readStdin = promisify(stdinToBuffer)
  */
 const render = (bufferPromise, { min, output, stdout }) => {
   bufferPromise
-    .then(mjml => new MJMLRenderer(mjml.toString(), { minify: min }))
+    .then(mjml => new MJMLRenderer(mjml.toString(), { minify: min }).render())
     .then(result => stdout ? process.stdout.write(result) : write(output, result))
     .catch(error)
 }
@@ -72,80 +73,11 @@ export const renderStream = options => render(readStdin(process.stdin), options)
 /*
  * Watch changes on a specific input file by calling render on each change
  */
-export const watch = (input, options) => fs.watch(input, () => render(input, options))
-
-/*
-* Return the code of an MJML component for a given name
-*/
-const createComponent = (name, ending) => {
-  const lowerName = name.toLowerCase()
-
-  return `
-import { MJMLElement, elements, registerElement } from 'mjml'
-import merge from 'lodash/merge'
-import React, { Component } from 'react'
-
-/*
- * Wrap your dependencies here.
- */
-const { text: MjText } = elements
-
-const NAME = '${lowerName}'
-
-@MJMLElement({
-  tagName: 'mj-${lowerName}',
-  content: ' ',
-
-  /*
-   * These are your default css attributes
-   */
-  attributes: {
-    'color': '#424242',
-    'font-family': 'Helvetica',
-    'margin-top': '10px'
-  }
-})
-class ${name} extends Component {
-
-  /*
-   * Build your styling here
-   */
-  getStyles () {
-    const { mjAttribute, color } = this.props
-
-    return merge({}, this.constructor.baseStyles, {
-      text: {
-      /*
-       * Get the color attribute
-       * Example: <mj-${lowerName} color="blue">content</mj-${lowerName}>
-       */
-        color: mjAttribute('color')
-      }
-    })
-  }
-
-  render () {
-    const css = this.getStyles()
-    const content = 'Hello World!'
-
-    return (
-      <MjText style={ css }>
-        { content }
-      </MjText>
-    )
-  }
-
-}
-
-registerElement('${lowerName}', ${name}${ending ? ', { endingTag: true }' : ''})
-
-export default ${name}
-`
-}
+export const watch = (input, options) => fs.watchFile(input, () => render(input, options))
 
 /*
  * Create a new component based on the default template
  */
-export const initComponent = (name, ending) =>
-  write(`./${capitalize(name)}.js`, createComponent(capitalize(name), ending))
+export const initComponent = (name, ending, columnElement) =>
+  write(`./${capitalize(name)}.js`, createComponent(capitalize(name), ending, columnElement))
     .then(() => console.log(`Component created: ${capitalize(name)}`))

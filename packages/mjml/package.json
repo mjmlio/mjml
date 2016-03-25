@@ -15,7 +15,7 @@
     "mjml-body": "^2.0.0",
     "mjml-button": "^2.0.0",
     "mjml-column": "^2.0.0",
-    "mjml-core": "^2.0.0",
+    "mjml-core": "^2.0.0-beta.1",
     "mjml-divider": "^2.0.0",
     "mjml-html": "^2.0.0",
     "mjml-image": "^2.0.0",

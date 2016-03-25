@@ -41,7 +41,6 @@ gulp.task('build', () => {
 
 gulp.task('install', () => {
   return Promise.all(
-    // Link all packages to the root
     Object.keys(packages).map(packageName => {
       return new Promise(resolve => {
         cd(packages[packageName])

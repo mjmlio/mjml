@@ -1,6 +1,6 @@
 {
   "name": "mjml-invoice",
-  "version": "2.0.0-beta.4",
+  "version": "2.0.0-beta.5",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -14,7 +14,7 @@
   "dependencies": {
     "lodash": "^4.6.1",
     "mjml-core": "^2.0.0-beta.4",
-    "mjml-table": "^2.0.0-beta.2",
+    "mjml-table": "^2.0.0-beta.4",
     "numeral": "^1.5.3",
     "react": "^0.14.7"
   }

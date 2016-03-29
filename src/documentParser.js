@@ -8,8 +8,8 @@ import dom from './helpers/dom'
  */
 const safeEndingTags = content => {
   endingTags.forEach(tag => {
-    const regex = new RegExp(`<${tag}([^>]*)>([^]*?)<\/${tag}>`, 'gm')
-    content = content.replace(regex, `<${tag} $1><!--[CDATA[$2]]--></${tag}>`)
+    const regex = new RegExp(`<${tag}([^>]*)>([^]*?)</${tag}>`, 'gmi')
+    content = content.replace(regex, `<${tag}$1><![CDATA[$2]]></${tag}>`)
   })
 
   return content

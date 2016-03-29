@@ -61,9 +61,9 @@ if (inBrowser) {
     }
   }
 
-  dom.parseHTML = str => parseMarkup(str, { xmlMode: false })
+  dom.parseHTML = str => parseMarkup(str, { xmlMode: false, decodeEntities: false })
 
-  dom.parseXML = str => parseMarkup(str, { xmlMode: true })
+  dom.parseXML = str => parseMarkup(str, { xmlMode: true, decodeEntities: false })
 
   dom.getAttributes = element => element.attribs || {}
 

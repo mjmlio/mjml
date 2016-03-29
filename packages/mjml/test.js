@@ -1,6 +1,6 @@
 var mjml = require('./lib/index')
 
-console.log(new mjml.MJMLRenderer(`
+console.log(mjml.mjml2html(`
   <mj-body>
     <mj-section>
       <mj-column>
@@ -10,4 +10,4 @@ console.log(new mjml.MJMLRenderer(`
       </mj-column>
     </mj-section>
   </mj-body>
-`, { beautify: true }).render())
+`, { beautify: true }))

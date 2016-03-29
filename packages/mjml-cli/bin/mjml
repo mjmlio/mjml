@@ -23,7 +23,7 @@ binary.parse(process.argv)
 
 switch (true) {
   case (!!binary.watch):
-    watch(binary.watch, binary)
+    cli.watch(binary.watch, binary)
     break
 
   case (!!binary.render):

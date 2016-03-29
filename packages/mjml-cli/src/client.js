@@ -1,8 +1,8 @@
 import { MJMLRenderer, version as V } from 'mjml-core'
+import camelCase from 'lodash/camelCase'
 import createComponent from './createComponent'
 import fs from 'fs'
-
-const capitalize = name => name.charAt(0).toUpperCase() + name.slice(1).toLowerCase().replace(/-/g, '')
+import upperFirst from 'lodash/upperFirst'
 
 /*
  * The version number is the NPM
@@ -45,6 +45,7 @@ const stdinToBuffer = (stream, callback) => {
  * read: read a fileexists: ensure the file exists
  */
 const write     = promisify(fs.writeFile)
+const mkdir     = promisify(fs.mkdir)
 const read      = promisify(fs.readFile)
 const exists    = promisify((file, cb) => fs.access(file, fs.R_OK | fs.W_OK, cb))
 const readStdin = promisify(stdinToBuffer)
@@ -78,6 +79,11 @@ export const watch = (input, options) => fs.watchFile(input, () => render(input,
 /*
  * Create a new component based on the default template
  */
-export const initComponent = (name, ending, columnElement) =>
-  write(`./${capitalize(name)}.js`, createComponent(capitalize(name), ending, columnElement))
-    .then(() => console.log(`Component created: ${capitalize(name)}`))
+export const initComponent = (name, ending, columnElement) => {
+  console.log(upperFirst(camelCase(name)))
+
+  mkdir(`./${name}`)
+  .then(() => mkdir(`./${name}/src`))
+  .then(() => write(`./${name}/src/index.js`, createComponent(upperFirst(camelCase(name)), ending, columnElement)))
+  .then(() => console.log(`Component created: ${name}`))
+}

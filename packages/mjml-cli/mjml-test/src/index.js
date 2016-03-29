@@ -1,14 +1,11 @@
-export default (name, endingTag = 'false', columnElement = 'false') => {
-  const lowerName = name.toLowerCase()
-
-  return `import { MJMLElement } from 'mjml-core'
+import { MJMLElement } from 'mjml-core'
 import merge from 'lodash/merge'
 import MJMLText from 'mjml-text'
 import React, { Component } from 'react'
 
-const tagName = '${lowerName}'
-const endingTag = ${endingTag}
-const columnElement = ${columnElement}
+const tagName = 'mjmltest'
+const endingTag = false
+const columnElement = false
 
 /*
  * Add your default mjml-attributes here
@@ -31,7 +28,7 @@ const baseStyles = {
 }
 
 @MJMLElement
-class ${name} extends Component {
+class MjmlTest extends Component {
 
   /*
    * Build your styling here
@@ -43,7 +40,7 @@ class ${name} extends Component {
       text: {
       /*
        * Get the color attribute
-       * Example: <mj-${lowerName} color="blue">content</mj-${lowerName}>
+       * Example: <mj-mjmltest color="blue">content</mj-mjmltest>
        */
         color: mjAttribute('color')
       }
@@ -63,13 +60,11 @@ class ${name} extends Component {
 
 }
 
-${name}.tagName = tagName
-${name}.defaultMJMLDefinition = defaultMJMLDefinition
-${name}.endingTag = endingTag
-${name}.columnElement = columnElement
-${name}.baseStyles = baseStyles
+MjmlTest.tagName = tagName
+MjmlTest.defaultMJMLDefinition = defaultMJMLDefinition
+MjmlTest.endingTag = endingTag
+MjmlTest.columnElement = columnElement
+MjmlTest.baseStyles = baseStyles
 
-export default ${name}
+export default MjmlTest
 
-`
-}

@@ -12,8 +12,9 @@
   },
   "homepage": "https://github.com/mjmlio/mjml",
   "dependencies": {
-    "mjml-core": "^2.0.0-beta.1",
     "commander": "^2.9.0",
-    "js-beautify": "^1.6.2"
+    "js-beautify": "^1.6.2",
+    "lodash": "^4.6.1",
+    "mjml-core": "^2.0.0-beta.1"
   }
 }

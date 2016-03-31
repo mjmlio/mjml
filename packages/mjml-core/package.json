@@ -19,6 +19,7 @@
   "homepage": "https://github.com/mjmlio/mjml",
   "devDependencies": {
     "babel-polyfill": "^6.6.1",
+    "chai": "^3.5.0",
     "fs-promise": "^0.5.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",

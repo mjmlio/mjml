@@ -199,7 +199,11 @@ const clean = $ => {
 
   $('.mj-body')
     .removeAttr('class')
-    .removeAttr('style')
+    .each(function () {
+      if ($(this).attr('style') === '') {
+        $(this).removeAttr('style')
+      }
+    })
 
   return $
 }

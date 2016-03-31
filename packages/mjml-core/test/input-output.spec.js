@@ -11,7 +11,7 @@
  *
  */
 import { expect } from 'chai'
-import { MJMLRenderer, registerElement, elements } from '../src/index'
+import { MJMLRenderer, registerMJElement, elements } from '../src/index'
 import MockComponent from './MockComponent'
 
 describe('MJML Renderer', () => {
@@ -37,7 +37,7 @@ describe('MJML Renderer', () => {
 
   describe('Register a component', () => {
     it('should return true when registering a new component', () => {
-      registerElement(MockComponent)
+      registerMJElement(MockComponent)
       expect(elements).to.have.property('mj-mock')
     })
   })

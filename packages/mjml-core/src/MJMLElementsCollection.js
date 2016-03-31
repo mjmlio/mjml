@@ -3,7 +3,7 @@ import warning from 'warning'
 export const endingTags = []
 export const postRenders = []
 
-export function registerMJElement (Component) {
+export const registerMJElement = (Component) => {
   const { endingTag, postRender, tagName } = Component
 
   if (!tagName) {
@@ -12,7 +12,7 @@ export function registerMJElement (Component) {
 
   endingTag  && endingTags.push(tagName)
   postRender && postRenders.push(postRender)
-  
+
   MJMLElementsCollection[tagName] = Component
 }
 

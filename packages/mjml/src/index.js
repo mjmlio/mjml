@@ -1,4 +1,4 @@
-import { registerElement } from 'mjml-core'
+import { registerMJElement } from 'mjml-core'
 import Body from 'mjml-body'
 import Button from 'mjml-button'
 import Column from 'mjml-column'
@@ -29,6 +29,6 @@ import Text from 'mjml-text'
   Section,
   Social,
   Table,
-  Text ].map((element) => registerElement(element))
+  Text ].map((element) => registerMJElement(element))
 
 export * from 'mjml-core'

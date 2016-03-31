@@ -55,7 +55,7 @@ class Location extends Component {
     const attrs  = this.getAttributes()
 
     const text    = mjAttribute('text') || mjAttribute('address')
-    var address = `http://maps.google.com/maps?q=${encodeURIComponent(mjAttribute('address'))}`
+    let address = `http://maps.google.com/maps?q=${encodeURIComponent(mjAttribute('address'))}`
 
     if (mjAttribute('href')) {
        address = mjAttribute('href')

@@ -135,7 +135,7 @@ function createComponent(ComposedComponent, defaultMJMLDefinition) {
       const paddingDirection = this.mjAttribute(`padding-${direction}`)
       const padding = this.mjAttribute('padding')
 
-      if (paddingDirection) {
+      if (typeof paddingDirection !== 'undefined') {
         return parseInt(paddingDirection)
       }
 

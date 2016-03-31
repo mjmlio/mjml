@@ -6,6 +6,7 @@
   "scripts": {
     "lint": "eslint ."
   },
+  "bin": "./bin/mjml",
   "devDependencies": {
     "babel": "^6.5.2",
     "babel-eslint": "next",

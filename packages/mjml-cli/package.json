@@ -1,6 +1,8 @@
 {
   "name": "mjml-cli",
   "version": "2.0.0-beta.3",
+  "main": "bin/mjml.js",
+  "bin": { "mjml-cli": "./bin/mjml" },
   "description": "MJML: the only framework that makes responsive-email easy",
   "repository": {
     "type": "git",

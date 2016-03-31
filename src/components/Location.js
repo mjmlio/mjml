@@ -58,7 +58,7 @@ class Location extends Component {
     let address = `http://maps.google.com/maps?q=${encodeURIComponent(mjAttribute('address'))}`
 
     if (mjAttribute('href')) {
-       address = mjAttribute('href')
+      address = mjAttribute('href')
     } 
 
     return (

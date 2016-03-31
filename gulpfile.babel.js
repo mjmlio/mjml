@@ -50,6 +50,19 @@ gulp.task('install', () => {
   )
 })
 
+gulp.task('test', () => {
+  return Promise.all(
+    Object.keys(packages).map(packageName => {
+      return new Promise(resolve => {
+        cd(packages[packageName])
+        // test if there's a test directory
+        exec('mocha --compilers js:babel-register')
+        resolve()
+      })
+    })
+  )
+})
+
 gulp.task('clean', () => {
   // Remove package node_modules
   return Promise.all(

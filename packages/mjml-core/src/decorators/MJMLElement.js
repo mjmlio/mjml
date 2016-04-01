@@ -61,7 +61,8 @@ function createComponent (ComposedComponent) {
           paddingTop: this.mjAttribute('padding-top'),
           paddingBottom: this.mjAttribute('padding-bottom'),
           paddingRight: this.mjAttribute('padding-right'),
-          paddingLeft: this.mjAttribute('padding-left')
+          paddingLeft: this.mjAttribute('padding-left'),
+          textAlign: this.mjAttribute('align')
         }
       })
     }
@@ -255,7 +256,6 @@ function createComponent (ComposedComponent) {
         return(
           <tr>
             <td
-              data-legacy-align={this.mjAttribute('align')}
               data-legacy-background={this.mjAttribute('container-background-color')}
               style={this.styles.td}>
               <ComposedComponent {...this.buildProps()} />

@@ -105,7 +105,7 @@ const buttonDefinitions = {
 const postRender = $ => {
   $('.mj-social-outlook-open').each(function () {
     $(this).replaceWith(`<!--[if mso]>
-      <table border="0" cellpadding="0" cellspacing="0" align="center"><tr><td>
+      <table border="0" cellpadding="0" cellspacing="0" align="${$(this).data('align')}"><tr><td>
       <![endif]-->`)
   })
 
@@ -133,6 +133,9 @@ class Social extends Component {
     const { mjAttribute } = this.props
 
     return merge({}, baseStyles, {
+      div: {
+        textAlign: mjAttribute('align')
+      },
       a: {
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
@@ -230,6 +233,7 @@ class Social extends Component {
   }
 
   renderHorizontal () {
+    const { mjAttribute } = this.props
     const socialButtons = this.renderSocialButtons().map((socialButton, index) => {
       return (
         <table
@@ -249,7 +253,7 @@ class Social extends Component {
       result.push(<div className="mj-social-outlook-line" key={`outlook-line-${index}`} />)
 
       return result
-    }, [<div className="mj-social-outlook-open" key="outlook-open" />])
+    }, [<div className="mj-social-outlook-open" key="outlook-open" data-align={mjAttribute('align')} />])
 
     socialButtons[socialButtons.length - 1] = <div className="mj-social-outlook-close" key="outlook-close" />
 

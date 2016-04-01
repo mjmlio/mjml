@@ -45,6 +45,8 @@ if (inBrowser) {
 
     return `<!doctype ${markup.doctype.name}>${markup.documentElement.outerHTML}`
   }
+
+  dom.replaceContentByCdata = tag => `<${tag}$1><!--[CDATA[$2]]--></${tag}>`
 } else {
   const cheerio = require('cheerio')
   let $ = cheerio.load('', { decodeEntities: false })
@@ -68,6 +70,8 @@ if (inBrowser) {
   dom.getAttributes = element => element.attribs || {}
 
   dom.getChildren = element => element.childNodes
+
+  dom.replaceContentByCdata = tag => `<${tag}$1><![CDATA[$2]]></${tag}>`
 
   dom.getHTML = $ => $().html()
 }

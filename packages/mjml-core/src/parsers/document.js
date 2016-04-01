@@ -11,6 +11,7 @@ import warning from 'warning'
 const safeEndingTags = content => {
   endingTags.forEach(tag => {
     const regex = new RegExp(`<${tag}([^>]*)>([^]*?)<\/${tag}>`, 'gm')
+    content = content.replace(regex, dom.replaceContentByCdata(tag))
   })
 
   return content

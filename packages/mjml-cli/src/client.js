@@ -80,10 +80,8 @@ export const watch = (input, options) => fs.watchFile(input, () => render(input,
  * Create a new component based on the default template
  */
 export const initComponent = (name, ending, columnElement) => {
-  console.log(upperFirst(camelCase(name)))
-
   mkdir(`./${name}`)
-  .then(() => mkdir(`./${name}/src`))
-  .then(() => write(`./${name}/src/index.js`, createComponent(upperFirst(camelCase(name)), ending, columnElement)))
-  .then(() => console.log(`Component created: ${name}`))
+    .then(() => mkdir(`./${name}/src`))
+    .then(() => write(`./${name}/src/index.js`, createComponent(upperFirst(camelCase(name)), ending, columnElement)))
+    .then(() => console.log(`Component created: ${name}`))
 }

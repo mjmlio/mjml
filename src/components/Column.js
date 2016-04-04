@@ -28,8 +28,7 @@ class Column extends Component {
         verticalAlign: mjAttribute('vertical-align'),
         fontSize: '13',
         textAlign: 'left',
-        width: '100%',
-        minWidth: mjAttribute('width')
+        width: '100%'
       },
       table: {
         verticalAlign: mjAttribute('vertical-align'),

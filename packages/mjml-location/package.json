@@ -12,10 +12,10 @@
   },
   "homepage": "https://github.com/mjmlio/mjml",
   "dependencies": {
-    "lodash": "^4.6.1",
+    "lodash": "^4.7.0",
     "mjml-core": "^2.0.0-beta.4",
     "mjml-image": "^2.0.0-beta.4",
     "mjml-text": "^2.0.0-beta.4",
-    "react": "^0.14.7"
+    "react": "^0.14.8"
   }
 }

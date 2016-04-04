@@ -59,7 +59,7 @@ const documentParser = content => {
     const $ = dom.parseXML(safeEndingTags(content))
     root = $('mjml')
 
-    if(root.length < 1) {
+    if (root.length < 1) {
       root = $('mj-body')
       warning(false, 'Please upgrade your MJML markup to add a <mjml> root tag, <mj-body> as root will no longer be supported soon')
     }

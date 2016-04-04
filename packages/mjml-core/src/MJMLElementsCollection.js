@@ -3,7 +3,7 @@ import warning from 'warning'
 export const endingTags = []
 export const postRenders = []
 
-export const registerMJElement = (Component) => {
+export const registerMJElement = Component => {
   const { endingTag, postRender, tagName } = Component
 
   if (!tagName) {

@@ -47,6 +47,11 @@ const postRender = $ => {
     .removeAttr('data-background-color')
     .removeAttr('data-width')
     .removeAttr('class')
+    .each(function () {
+      if ($(this).attr('style') === '') {
+        $(this).removeAttr('style')
+      }
+    })
 
   return $
 }

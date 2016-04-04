@@ -28,11 +28,11 @@ class Text extends Component {
   styles = this.getStyles()
 
   getStyles () {
-    const { mjAttribute, color } = this.props
+    const { mjAttribute } = this.props
 
     return merge({}, baseStyles, {
       div: {
-        color: mjAttribute('locked') ? color : mjAttribute('color'),
+        color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
         fontSize: mjAttribute('font-size'),
         fontStyle: mjAttribute('font-style'),

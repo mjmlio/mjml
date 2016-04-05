@@ -57,11 +57,13 @@ const documentParser = content => {
 
   try {
     const $ = dom.parseXML(safeEndingTags(content))
-    root = $('mjml')
+    root = $('mjml content')
 
     if(root.length < 1) {
-      root = $('mj-body')
+      root = $('mj-body').get(0)
       warning(false, 'Please upgrade your MJML markup to add a <mjml> root tag, <mj-body> as root will no longer be supported soon')
+    } else {
+      root = root.children().get(0)
     }
   } catch (e) {
     throw new ParseError('Error while parsing the file')
@@ -71,7 +73,7 @@ const documentParser = content => {
     throw new EmptyMJMLError('No root "<mjml>" found in the file')
   }
 
-  return mjmlElementParser(root.get(0))
+  return mjmlElementParser(root)
 }
 
 export default documentParser

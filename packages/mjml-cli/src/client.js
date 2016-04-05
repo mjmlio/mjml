@@ -1,14 +1,16 @@
-import { MJMLRenderer, version as V } from 'mjml-core'
+import { MJMLRenderer, version } from 'mjml-core'
 import camelCase from 'lodash/camelCase'
 import createComponent from './createComponent'
 import fs from 'fs'
+import glob from 'glob'
+import path from 'path'
 import upperFirst from 'lodash/upperFirst'
 
 /*
  * The version number is the NPM
  * version number. It should be the same as the MJML engine
  */
-export const version = V
+export { version }
 
 /*
  * Turns a callback style to a Promise style one
@@ -64,7 +66,37 @@ const render = (bufferPromise, { min, output, stdout }) => {
  * Turns an MJML input file into a pretty HTML file
  * min: boolean that specify the output format (pretty/minified)
  */
-export const renderFile = (input, options) => render(exists(input).then(() => read(input)), options)
+export const renderFile = (input, options) => {
+  const renderFiles = files => {
+    files.forEach((file, index) => {
+      const inFile = path.basename(file, '.mjml')
+      const mjmlFile = `${inFile}.mjml`
+      let output
+
+      if (options.output) {
+        const outFile = path.basename(options.output, '.html')
+
+        if (files.length > 1) {
+          output = `${outFile}-${index + 1}.html`
+        } else {
+          output = `${outFile}.html`
+        }
+      } else {
+        output = `${inFile}.html`
+      }
+
+      const filePath = path.resolve(process.cwd(), file)
+
+      render(read(filePath), { min: options.min, stdout: options.stdout, output })
+    })
+  }
+
+  if (typeof input === 'string') {
+    glob(input, (err, files) => renderFiles(files))
+  } else {
+    renderFiles(input)
+  }
+}
 
 /**
  * Render based on input stream

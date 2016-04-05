@@ -1,7 +1,7 @@
 {
   "name": "mjml-cli",
   "version": "2.0.0-beta.4",
-  "main": "bin/mjml",
+  "main": "./bin/mjml.js",
   "bin": {
     "mjml-cli": "./bin/mjml"
   },
@@ -17,7 +17,7 @@
   "homepage": "https://github.com/mjmlio/mjml",
   "dependencies": {
     "commander": "^2.9.0",
-    "js-beautify": "^1.6.2",
+    "glob": "^7.0.3",
     "lodash": "^4.7.0",
     "mjml-core": "^2.0.0-beta.1"
   }

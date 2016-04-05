@@ -48,7 +48,7 @@ class Button extends Component {
       table: {
         border: mjAttribute('border'),
         borderRadius: mjAttribute('border-radius'),
-				width: mjAttribute('width')
+        width: mjAttribute('width')
       },
       a: {
         background: mjAttribute('background-color'),

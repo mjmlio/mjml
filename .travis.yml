@@ -5,5 +5,6 @@ node_js:
  - 5
 script:
  - cd packages/mjml-core
+ - npm install
  - npm run lint
  - npm test

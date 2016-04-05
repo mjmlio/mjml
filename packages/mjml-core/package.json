@@ -6,7 +6,9 @@
   "scripts": {
     "build": "gulp build",
     "dist": "gulp dist && gulp dist:min",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "lint": "eslint src test",
+    "test": "mocha --compilers js:babel-register"
   },
   "repository": {
     "type": "git",

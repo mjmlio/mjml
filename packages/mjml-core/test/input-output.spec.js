@@ -13,33 +13,58 @@
 import { expect } from 'chai'
 import { MJMLRenderer, registerMJElement, elements } from '../src/index'
 import MockComponent from './MockComponent'
+import MockListComponent from './MockListComponent'
 
 describe('MJML Renderer', () => {
-
+  describe('Register a component', () => {
+    it('should return true when registering a new component', () => {
+      registerMJElement(MockListComponent)
+      expect(elements).to.have.property('mj-mock-list')
+    })
+  })
   // Test invalid MJML files
   describe('Invalid MJML', () => {
     it('should throw if no elements registered', () => {
-      //pending
+      expect(() =>  new MJMLRenderer(`
+        <mjml>
+          <content>
+            <mj-body>
+              <mj-column />
+            </mj-body>
+          </content>
+        </mjml>`).render()).to.throw(/EmptyMJMLError/)
     })
   })
 
   describe('Partial MJML registered', () => {
     it('should warn user that document will not be entirely parsed', () => {
-      //pending
+      expect(new MJMLRenderer(`
+         <mjml>
+           <content>
+             <mj-mock-list>
+               <mj-mock />
+             </mj-body>
+           </content>
+         </mjml>`).render()
+      ).to.not.contain('Mocked Component!')
     })
   })
 
   describe('Full MJML registered', () => {
     it('should render a MJML document', () => {
-      //pending
+      registerMJElement(MockComponent)
+      expect(new MJMLRenderer(`
+         <mjml>
+       <content>
+         <mj-mock-list>
+           <mj-mock />
+           </mj-body>
+         </content>
+       </mjml>`).render()
+      ).to.contain('Mocked Component!')
     })
   })
 
-  describe('Register a component', () => {
-    it('should return true when registering a new component', () => {
-      registerMJElement(MockComponent)
-      expect(elements).to.have.property('mj-mock')
-    })
-  })
+
 
 })

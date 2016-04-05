@@ -7,6 +7,7 @@ import defaultContainer from './configs/defaultContainer'
 import documentParser from './parsers/document'
 import dom from './helpers/dom'
 import fs from 'fs'
+import _ from 'lodash'
 import getFontsImports from './helpers/getFontsImports'
 import MJMLElementsCollection, { postRenders, registerMJElement } from './MJMLElementsCollection'
 import React from 'react'
@@ -17,7 +18,7 @@ const debug = require('debug')('mjml-engine/mjml2html')
 
 export default class MJMLRenderer {
 
-  constructor (content, options) {
+  constructor (content, options = {}) {
     this.registerDotfile()
 
     this.content = content
@@ -47,7 +48,7 @@ export default class MJMLRenderer {
         }
       })
     } catch (e) {
-      warning(false, 'No .mjmlconfig found in path, please consider to add one')
+      warning(!_.isEmpty(MJMLElementsCollection), 'No .mjmlconfig found in path, please consider to add one')
     }
   }
 

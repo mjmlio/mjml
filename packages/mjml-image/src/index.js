@@ -54,6 +54,9 @@ class Image extends Component {
     const { mjAttribute } = this.props
 
     return merge({}, baseStyles, {
+      td: {
+        width: this.getContentWidth()
+      },
       img: {
         border: mjAttribute('border'),
         height: mjAttribute('height')
@@ -68,15 +71,17 @@ class Image extends Component {
       <img
         alt={mjAttribute('alt')}
         border="0"
+        height={mjAttribute('height')}
         src={mjAttribute('src')}
         style={this.styles.img}
-        width={this.getContentWidth()}
-        height={this.styles.img.height} />
+        width={this.getContentWidth()} />
     )
 
     if (mjAttribute('href') != '') {
       return (
-        <a href={mjAttribute('href')} target={mjAttribute('target')}>
+        <a
+          href={mjAttribute('href')}
+          target={mjAttribute('target')}>
           {img}
         </a>
       )
@@ -97,7 +102,7 @@ class Image extends Component {
         style={this.styles.table}>
         <tbody>
           <tr>
-            <td>
+            <td style={this.styles.td}>
               {this.renderImage()}
             </td>
           </tr>

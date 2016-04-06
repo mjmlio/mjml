@@ -1,7 +1,6 @@
 import { EmptyMJMLError } from './Error'
 import { html as beautify } from 'js-beautify'
 import { fixLegacyAttrs, removeCDATA } from './helpers/postRender'
-import { minify } from 'html-minifier'
 import { parseInstance } from './helpers/mjml'
 import defaultContainer from './configs/defaultContainer'
 import documentParser from './parsers/document'
@@ -100,7 +99,10 @@ export default class MJMLRenderer {
       })
     }
 
-    if (this.options.minify && minify) {
+    if (this.options.minify) {
+
+      const minify = require('html-minifier')
+
       finalMJMLDocument = minify(finalMJMLDocument, {
         collapseWhitespace: true,
         removeEmptyAttributes: true,

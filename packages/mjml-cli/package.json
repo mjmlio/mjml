@@ -1,6 +1,6 @@
 {
   "name": "mjml-cli",
-  "version": "2.0.0-beta.4",
+  "version": "2.0.0-beta.5",
   "main": "./bin/mjml.js",
   "bin": {
     "mjml-cli": "./bin/mjml"
@@ -19,6 +19,6 @@
     "commander": "^2.9.0",
     "glob": "^7.0.3",
     "lodash": "^4.7.0",
-    "mjml-core": "^2.0.0-beta.1"
+    "mjml-core": "^2.0.0-beta.5"
   }
 }

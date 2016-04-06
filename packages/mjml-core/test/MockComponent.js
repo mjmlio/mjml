@@ -2,6 +2,7 @@ import { MJMLElement } from '../src/index'
 import React, { Component } from 'react'
 
 const tagName = 'mj-mock'
+const endingTag = true
 const defaultMJMLDefinition = {
 }
 
@@ -17,6 +18,7 @@ class MockComponent extends Component {
 }
 
 MockComponent.tagName = tagName
+MockComponent.endingTag = endingTag
 MockComponent.defaultMJMLDefinition = defaultMJMLDefinition
 
 export default MockComponent

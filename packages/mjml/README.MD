@@ -99,52 +99,26 @@ import { mjml2html } from 'mjml'
 /*
   Compile an mjml string
 */
-const htmlOutput = mjml2html(`<mj-body>
-  <mj-section>
-    <mj-column>
-      <mj-text>
-        Hello World!
-      </mj-text>
-    </mj-column>
-  </mj-section>
-</mj-body>`)
+const htmlOutput = mjml2html(`
+  <mjml>
+    <content>
+      <mj-body>
+        <mj-section>
+          <mj-column>
+            <mj-text>
+              Hello World!
+            </mj-text>
+          </mj-column>
+        </mj-section>
+      </mj-body>
+    </content>
+  </mjml>
+`)
 
 /*
   Print the responsive HTML generated
 */
 console.log(htmlOutput)
-```
-
-### In your browser
-
-```html
-<html>
-  <head>
-    <script src="dist/mjml.js"></script>
-    <script>
-      /*
-        Compile an mjml string
-      */
-      var htmlOutput = mjml.mjml2html('<mj-body>' +
-        '<mj-section>' +
-          '<mj-column>' +
-            '<mj-text>' +
-              'Hello World!' +
-            '</mj-text>' +
-          '</mj-column>' +
-        '</mj-section>' +
-      '</mj-body>')
-
-      /*
-        Print the responsive HTML generated
-      */
-      console.log(htmlOutput)
-    </script>
-  </head>
-  <body>
-
-  </body>
-</html>
 ```
 
 ### Create your component

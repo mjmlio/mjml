@@ -101,7 +101,7 @@ export default class MJMLRenderer {
 
     if (this.options.minify) {
 
-      const minify = require('html-minifier')
+      const minify = require('html-minifier').minify
 
       finalMJMLDocument = minify(finalMJMLDocument, {
         collapseWhitespace: true,

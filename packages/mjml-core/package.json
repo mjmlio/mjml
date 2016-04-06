@@ -1,13 +1,8 @@
 {
   "name": "mjml-core",
   "version": "2.0.0-beta.5",
-  "description": "MJML: the only framework that makes responsive-email easy",
-  "main": "./lib/index",
+  "main": "lib/index.js",
   "scripts": {
-    "build": "gulp build",
-    "dist": "gulp dist && gulp dist:min",
-    "prepublish": "npm run build",
-    "lint": "eslint src test",
     "test": "mocha --compilers js:babel-register"
   },
   "repository": {
@@ -19,36 +14,21 @@
     "url": "https://github.com/mjmlio/mjml/issues"
   },
   "homepage": "https://github.com/mjmlio/mjml",
-  "devDependencies": {
-    "babel-polyfill": "^6.7.4",
-    "chai": "^3.5.0",
-    "eslint": "^2.7.0",
-    "fs-promise": "^0.5.0",
-    "gulp": "^3.9.1",
-    "gulp-babel": "^6.1.2",
-    "gulp-env": "^0.4.0",
-    "gulp-sourcemaps": "^1.6.0",
-    "gulp-util": "^3.0.7",
-    "gulp-webpack": "^1.5.0",
-    "mocha": "^2.4.5",
-    "webpack-stream": "^3.1.0"
-  },
   "dependencies": {
     "cheerio": "^0.20.0",
     "classnames": "^2.2.3",
-    "commander": "^2.9.0",
     "debug": "^2.2.0",
     "html-minifier": "^1.4.0",
     "immutable": "^3.7.6",
     "jquery": "^2.2.2",
     "js-beautify": "^1.6.2",
     "lodash": "^4.7.0",
-    "react": "^0.14.8",
     "react-dom": "^0.14.8",
+    "react": "^0.14.8",
     "warning": "^2.1.0"
   },
-  "browser": {
-    "cheerio": false,
-    "html-minifier": false
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5"
   }
 }

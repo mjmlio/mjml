@@ -22,30 +22,32 @@ describe('MJML Renderer', () => {
       expect(elements).to.have.property('mj-mock-list')
     })
   })
+
   // Test invalid MJML files
   describe('Invalid MJML', () => {
     it('should throw if no elements registered', () => {
-      expect(() =>  new MJMLRenderer(`
+      expect(() => new MJMLRenderer(`
         <mjml>
           <content>
             <mj-body>
               <mj-column />
             </mj-body>
           </content>
-        </mjml>`).render()).to.throw(/EmptyMJMLError/)
+        </mjml>`).render()
+      ).to.throw(/EmptyMJMLError/)
     })
   })
 
   describe('Partial MJML registered', () => {
     it('should warn user that document will not be entirely parsed', () => {
       expect(new MJMLRenderer(`
-         <mjml>
-           <content>
-             <mj-mock-list>
-               <mj-mock />
-             </mj-body>
-           </content>
-         </mjml>`).render()
+        <mjml>
+          <content>
+            <mj-mock-list>
+              <mj-mock />
+            </mj-mock-list>
+          </content>
+        </mjml>`).render()
       ).to.not.contain('Mocked Component!')
     })
   })
@@ -54,17 +56,14 @@ describe('MJML Renderer', () => {
     it('should render a MJML document', () => {
       registerMJElement(MockComponent)
       expect(new MJMLRenderer(`
-         <mjml>
-       <content>
-         <mj-mock-list>
-           <mj-mock />
-           </mj-body>
-         </content>
-       </mjml>`).render()
+        <mjml>
+          <content>
+            <mj-mock-list>
+              <mj-mock />
+            </mj-mock-list>
+          </content>
+        </mjml>`).render()
       ).to.contain('Mocked Component!')
     })
   })
-
-
-
 })

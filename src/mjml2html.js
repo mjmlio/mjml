@@ -1,7 +1,6 @@
 import _ from 'lodash'
 import { EmptyMJMLError } from './Error'
 import { html as beautify } from 'js-beautify'
-import { minify } from 'html-minifier'
 import { parseInstance } from './helpers/mjml'
 import defaultContainer from './configs/defaultContainer'
 import documentParser from './documentParser'
@@ -244,7 +243,9 @@ const render = ({ mjml, options }) => {
     })
   }
 
-  if (options.minify && minify) {
+  if (options.minify) {
+    const { minify } = require('html-minifier')
+
     html = minify(html, {
       collapseWhitespace: true,
       removeEmptyAttributes: true,

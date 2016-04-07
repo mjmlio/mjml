@@ -34,7 +34,10 @@ import React, { Component } from 'react'
     'align': 'center',
     'color': '#333333',
     'display': 'facebook:share twitter:share google:share',
-    'base-url': 'https://www.mailjet.com/images/theme/v1/icons/ico-social/'
+    'base-url': 'https://www.mailjet.com/images/theme/v1/icons/ico-social/',
+    'weibo-content': 'Share',
+    'weibo-href': '[[SHORT_PERMALINK]]',
+    'weibo-icon-color' : '#e6162d'
   }
 })
 class Social extends Component {
@@ -101,6 +104,11 @@ class Social extends Component {
     instagram: {
       linkAttribute: '[[URL]]',
       icon: 'instagram.png',
+      textModeContent: 'Share'
+    },
+    weibo: {
+      linkAttribute: 'http://service.weibo.com/share/share.php?title=&ampurl=[[URL]]',
+      icon: 'weibo.png',
       textModeContent: 'Share'
     }
   }

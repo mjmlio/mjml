@@ -2,7 +2,6 @@ import { MJMLElement } from 'mjml-core'
 import { widthParser } from 'mjml-core/lib/helpers'
 import merge from 'lodash/merge'
 import MJMLSection from 'mjml-section'
-import MJMLColumn from 'mjml-column'
 import React, { Component } from 'react'
 
 const tagName = 'mj-navbar'

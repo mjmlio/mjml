@@ -1,9 +1,9 @@
 import { MJMLElement } from 'mjml-core'
 import { widthParser } from 'mjml-core/lib/helpers'
 import merge from 'lodash/merge'
-import React, { Component } from 'react'
-
 import MJMLSection from 'mjml-section'
+import MJMLColumn from 'mjml-column'
+import React, { Component } from 'react'
 
 const tagName = 'mj-navbar'
 const defaultMJMLDefinition = {
@@ -39,10 +39,11 @@ class Navbar extends Component {
   }
 
   render () {
-    const { mjContent } = this.props
+    const { children } = this.props
 
     return (
       <MJMLSection full-width="full-width" {...this.props}>
+        {children}
       </MJMLSection>
     )
   }

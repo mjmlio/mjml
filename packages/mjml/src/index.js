@@ -14,6 +14,7 @@ import Section from 'mjml-section'
 import Social from 'mjml-social'
 import Table from 'mjml-table'
 import Text from 'mjml-text'
+import Navbar from 'mjml-navbar'
 
 [ Body,
   Button,
@@ -29,6 +30,7 @@ import Text from 'mjml-text'
   Section,
   Social,
   Table,
-  Text ].map((element) => registerMJElement(element))
+  Text,
+  Navbar ].map((element) => registerMJElement(element))
 
 export * from 'mjml-core'

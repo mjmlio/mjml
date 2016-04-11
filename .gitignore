@@ -3,3 +3,6 @@
 dist
 lib
 node_modules
+
+input.mjml
+output.html

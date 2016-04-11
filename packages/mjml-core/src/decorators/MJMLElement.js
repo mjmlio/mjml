@@ -47,7 +47,7 @@ function createComponent (ComposedComponent) {
     constructor (props) {
       super(props)
 
-      this.mjml = props.mjml || Immutable.fromJS(this.constructor.defaultMJMLDefinition).mergeIn(['attributes'], props)
+      this.mjml = props.mjml || Immutable.fromJS(this.constructor.defaultMJMLDefinition || {}).mergeIn(['attributes'], props)
     }
 
     mjAttribute = name => this.mjml.getIn(['attributes', name])
@@ -210,7 +210,7 @@ function createComponent (ComposedComponent) {
     }
 
     buildProps () {
-      const { parentMjml } = this.props
+      const { parentMjml, children } = this.props
 
       const childMethods = [
         'mjAttribute',
@@ -232,7 +232,7 @@ function createComponent (ComposedComponent) {
         mjName: this.mjName(),
 
         // generate children
-        children: this.generateChildren(),
+        children: children || this.generateChildren(),
 
         // siblings count, can change display
         sibling: siblingCount,

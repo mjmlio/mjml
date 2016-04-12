@@ -6,11 +6,11 @@ console.log(
     <content>
       <mj-body>
         <mj-navbar base-url="http://google.com/">
-          <mj-column width="70%">
+          <mj-navbar-column width="70%" text-align="center">
             <mj-navbar-link href="#1">Un lien</mj-navbar-link>
             <mj-navbar-link href="#2">Deux liens</mj-navbar-link>
             <mj-navbar-link href="#3">Trois liens</mj-navbar-link>
-          </mj-column>
+          </mj-navbar-column>
         </mj-navbar>
       </mj-body>
     </content>

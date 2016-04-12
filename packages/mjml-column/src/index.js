@@ -40,6 +40,11 @@ const postRender = $ => {
 
   return $
 }
+const defaultMJMLDefinition = {
+  attributes: {
+    'text-align': 'left'
+  }
+}
 
 @MJMLElement
 class Column extends Component {
@@ -54,7 +59,7 @@ class Column extends Component {
         display: 'inline-block',
         verticalAlign: mjAttribute('vertical-align'),
         fontSize: '13px',
-        textAlign: 'left',
+        textAlign: mjAttribute('text-align'),
         width: '100%'
       },
       table: {
@@ -116,5 +121,6 @@ class Column extends Component {
 Column.tagName = tagName
 Column.baseStyles = baseStyles
 Column.postRender = postRender
+Column.defaultMJMLDefinition = defaultMJMLDefinition
 
 export default Column

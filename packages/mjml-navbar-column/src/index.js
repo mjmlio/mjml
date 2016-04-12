@@ -1,9 +1,10 @@
 import { MJMLElement } from 'mjml-core'
 import { widthParser } from 'mjml-core/lib/helpers'
+import MJMLColumn from 'mjml-column'
 import merge from 'lodash/merge'
 import React, { Component } from 'react'
 
-const tagName = 'mj-navbar-link'
+const tagName = 'mj-navbar-column'
 const defaultMJMLDefinition = {
   attributes: {
     'padding': '10px 25px',
@@ -16,10 +17,9 @@ const baseStyles = {
 const postRender = $ => {
   return $
 }
-const endingTag = true
 
 @MJMLElement
-class NavbarLink extends Component {
+class NavbarColumn extends Component {
 
   styles = this.getStyles()
 
@@ -30,21 +30,22 @@ class NavbarLink extends Component {
   }
 
   render () {
-    const { mjAttribute, mjContent } = this.props
-
-    console.log(this.props.parentMjml)
+    const { children } = this.props
 
     return (
-      <a href={mjAttribute('href')} dangerouslySetInnerHTML={{ __html: mjContent() }} />
+      <MJMLColumn {...this.props}>
+        <tr><td>
+          {children}
+        </td></tr>
+      </MJMLColumn>
     )
   }
 
 }
 
-NavbarLink.tagName = tagName
-NavbarLink.defaultMJMLDefinition = defaultMJMLDefinition
-NavbarLink.baseStyles = baseStyles
-NavbarLink.postRender = postRender
-NavbarLink.endingTag = endingTag
+NavbarColumn.tagName = tagName
+NavbarColumn.defaultMJMLDefinition = defaultMJMLDefinition
+NavbarColumn.baseStyles = baseStyles
+NavbarColumn.postRender = postRender
 
-export default NavbarLink
+export default NavbarColumn

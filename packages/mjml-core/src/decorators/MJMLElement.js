@@ -102,7 +102,7 @@ function createComponent (ComposedComponent) {
       children = React.Children.toArray(children)
 
       const realChildren = children.filter(child => !child.props.mjml || child.props.mjml.get('tagName') !== 'mj-raw')
-      
+
       const prefix = `${this.mjName()}-outlook`
       const parentWidth = this.getWidth()
       const siblings = realChildren.length

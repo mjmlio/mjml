@@ -18,7 +18,6 @@ const defaultMJMLDefinition = {
 }
 const baseStyles = {
   bar: {
-    textAlign: 'center',
     padding: '10px'
   }
 }

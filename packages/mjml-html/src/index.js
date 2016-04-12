@@ -6,7 +6,7 @@ const tagName = 'mj-html'
 const defaultMJMLDefinition = {
   content: '',
   attributes: {
-    'padding': 0
+    'padding': '0px'
   }
 }
 const endingTag = true

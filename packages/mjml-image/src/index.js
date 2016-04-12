@@ -21,7 +21,7 @@ const columnElement = true
 const baseStyles = {
   table: {
     borderCollapse: 'collapse',
-    borderSpacing: '0'
+    borderSpacing: '0px'
   },
   img: {
     border: 'none',
@@ -85,9 +85,9 @@ class Image extends Component {
           {img}
         </a>
       )
-    } else {
-      return img
     }
+
+    return img
   }
 
   render () {

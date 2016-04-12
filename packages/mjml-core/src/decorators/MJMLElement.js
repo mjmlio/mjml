@@ -56,7 +56,7 @@ function createComponent (ComposedComponent) {
       return merge({}, baseStyles, {
         td: {
           background: this.mjAttribute('container-background-color'),
-          fontSize: 0,
+          fontSize: '0px',
           padding: this.mjAttribute('padding'),
           paddingTop: this.mjAttribute('padding-top'),
           paddingBottom: this.mjAttribute('padding-bottom'),
@@ -197,7 +197,7 @@ function createComponent (ComposedComponent) {
 
         if (!Element) {
           warning(false, `Could not find element for : ${tag}`)
-          return
+          return null
         }
 
         return (
@@ -253,7 +253,7 @@ function createComponent (ComposedComponent) {
       if (this.constructor.columnElement) {
         this.styles = this.getStyles()
 
-        return(
+        return (
           <tr>
             <td
               data-legacy-background={this.mjAttribute('container-background-color')}

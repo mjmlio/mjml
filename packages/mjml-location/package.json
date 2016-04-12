@@ -16,6 +16,6 @@
     "mjml-core": "^2.0.0-beta.5",
     "mjml-image": "^2.0.0-beta.5",
     "mjml-text": "^2.0.0-beta.5",
-    "react": "^0.14.8"
+    "react": "^15.0.1"
   }
 }

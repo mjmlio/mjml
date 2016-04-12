@@ -10,6 +10,7 @@ const error = (name, code) => {
       super(`[MJMLError] ${name}: ${message}`)
       this.status = code
     }
+
   }
 }
 
@@ -19,7 +20,7 @@ const error = (name, code) => {
 /* eslint-disable no-unused-vars */
 const warning = name => {
   return message => {
-    console.error(`[MJMLWarning] ${name}: ${message}`)
+    console.error(`[MJMLWarning] ${name}: ${message}`) // eslint-disable-line no-console
   }
 }
 /* eslint-enable no-unused-vars */

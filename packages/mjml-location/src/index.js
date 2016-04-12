@@ -9,7 +9,7 @@ const defaultMJMLDefinition = {
     'color': '#3aa7ed',
     'font-family': 'Roboto, sans-serif',
     'font-size': '18px',
-    'font-weight': 500,
+    'font-weight': '500',
     'padding': '10px 25px',
     'img-src': 'http://i.imgur.com/DPCJHhy.png'
   }
@@ -41,11 +41,11 @@ class Location extends Component {
         'font-family': mjAttribute('font-family'),
         'font-size': mjAttribute('font-size'),
         'font-weight': mjAttribute('font-weight'),
-        'text-decoration': mjAttribute('text-decoration'),
-        'padding': 0
+        'padding': '0px',
+        'text-decoration': mjAttribute('text-decoration')
       },
       img: {
-        'padding': 0,
+        'padding': '0px',
         'src': mjAttribute('img-src')
       }
     }
@@ -59,7 +59,11 @@ class Location extends Component {
     const text = mjAttribute('text') || mjAttribute('address')
 
     return (
-      <table width="100%">
+      <table
+        cellPadding="0"
+        cellSpacing="0"
+        data-legacy-border="0"
+        width="100%">
         <tbody>
           <MJMLImage
             {...attrs.img}

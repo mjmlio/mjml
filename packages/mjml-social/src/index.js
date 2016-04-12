@@ -224,8 +224,9 @@ class Social extends Component {
     return platforms.split(' ').map(label => {
       const platform = label.split(':')[0]
       const share = label.split(':')[1]
+
       if (!buttonDefinitions[platform]) {
-        return
+        return null
       }
 
       return this.renderSocialButton(platform, share != "url")

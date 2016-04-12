@@ -1,5 +1,4 @@
-import { MJMLElement } from 'mjml-core'
-import { widthParser } from 'mjml-core/lib/helpers'
+import { MJMLElement, helpers } from 'mjml-core'
 import merge from 'lodash/merge'
 import React, { Component } from 'react'
 
@@ -52,7 +51,7 @@ class Divider extends Component {
   outlookWidth () {
     const { mjAttribute } = this.props
     const parentWidth = parseInt(mjAttribute('parentWidth'))
-    const {width, unit} = widthParser(mjAttribute('width'))
+    const { width, unit } = helpers.widthParser(mjAttribute('width'))
 
     switch (unit) {
       case '%': {

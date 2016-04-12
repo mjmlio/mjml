@@ -1,5 +1,4 @@
-import { MJMLElement } from 'mjml-core'
-import { widthParser } from 'mjml-core/lib/helpers'
+import { MJMLElement, helpers } from 'mjml-core'
 import React, { Component } from 'react'
 
 const tagName = 'mj-body'
@@ -74,7 +73,7 @@ class Body extends Component {
 
   render () {
     const { renderWrappedOutlookChildren, mjAttribute, children } = this.props
-    const { width } = widthParser(mjAttribute('width'))
+    const { width } = helpers.widthParser(mjAttribute('width'))
 
     return (
       <div

@@ -4,7 +4,7 @@ import merge from 'lodash/merge'
 import React, { Component } from 'react'
 
 const tagName = 'mj-section'
-const defaultMJMLDefinition ={
+const defaultMJMLDefinition = {
   attributes: {
     'background-repeat': 'repeat',
     'padding': '20px 0',
@@ -16,7 +16,7 @@ const baseStyles = {
     margin: '0 auto'
   },
   table: {
-    fontSize: 0,
+    fontSize: '0px',
     width: '100%'
   },
   td: {
@@ -101,7 +101,7 @@ class Section extends Component {
 
     return merge({}, baseStyles, {
       td: {
-        fontSize: 0,
+        fontSize: '0px',
         padding: mjAttribute('padding'),
         paddingBottom: mjAttribute('padding-bottom'),
         paddingLeft: mjAttribute('padding-left'),

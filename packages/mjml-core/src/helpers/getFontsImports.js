@@ -7,10 +7,10 @@ const buildTags = toImport => {
     return tags
   }
 
-  tags.link = "\n" + toImport.map(url => `<link href="${url}" rel="stylesheet" type="text/css">`).join('\n')
-  tags.import = `\n<style type="text/css">\n` +
-    toImport.map(url => `  @import url(${url});`).join('\n') + "\n" +
-  '</style>'
+  tags.link = `\n${toImport.map(url => `<link href="${url}" rel="stylesheet" type="text/css">`).join('\n')}`
+  tags.import = `\n<style type="text/css">\n
+    ${toImport.map(url => `  @import url(${url});`).join('\n')}\n
+  </style>`
 
   return tags
 }

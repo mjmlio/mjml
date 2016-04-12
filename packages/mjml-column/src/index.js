@@ -53,7 +53,7 @@ class Column extends Component {
       div: {
         display: 'inline-block',
         verticalAlign: mjAttribute('vertical-align'),
-        fontSize: '13',
+        fontSize: '13px',
         textAlign: 'left',
         width: '100%'
       },

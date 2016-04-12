@@ -10,16 +10,16 @@ const defaultMJMLDefinition = {
     'font-size': '14px',
     'name': '',
     'padding': '10px 20px',
-    'price': 0,
-    'quantity': 0,
+    'price': '0',
+    'quantity': '0',
     'text-align': 'left'
   }
 }
 const endingTag = true
 const baseStyles = {
   td: {
-    fontWeight: 500,
-    lineHeight: 1
+    fontWeight: '500',
+    lineHeight: '1'
   },
   name: {
     wordBreak: 'break-all'

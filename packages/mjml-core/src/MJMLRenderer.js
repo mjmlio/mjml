@@ -34,7 +34,7 @@ export default class MJMLRenderer {
       const mjmlConfig = JSON.parse(fs.readFileSync(`${path}/.mjmlconfig`).toString())
       const { packages } = mjmlConfig
 
-      packages.map(file => {
+      packages.forEach(file => {
         if (!file) {
           return
         }

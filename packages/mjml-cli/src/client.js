@@ -24,7 +24,7 @@ const promisify = fn =>
 /*
  * Minimal Error Handling
  */
-const error = e => console.log(e.stack ? e.stack : e)
+const error = e => console.log(e.stack || e) // eslint-disable-line no-console
 
 /*
  * Stdin to string buffer
@@ -49,7 +49,6 @@ const stdinToBuffer = (stream, callback) => {
 const write     = promisify(fs.writeFile)
 const mkdir     = promisify(fs.mkdir)
 const read      = promisify(fs.readFile)
-const exists    = promisify((file, cb) => fs.access(file, fs.R_OK | fs.W_OK, cb))
 const readStdin = promisify(stdinToBuffer)
 
 /*
@@ -70,7 +69,6 @@ export const renderFile = (input, options) => {
   const renderFiles = files => {
     files.forEach((file, index) => {
       const inFile = path.basename(file, '.mjml')
-      const mjmlFile = `${inFile}.mjml`
       let output
 
       if (options.output) {
@@ -115,5 +113,5 @@ export const initComponent = (name, ending, columnElement) => {
   mkdir(`./${name}`)
     .then(() => mkdir(`./${name}/src`))
     .then(() => write(`./${name}/src/index.js`, createComponent(upperFirst(camelCase(name)), ending, columnElement)))
-    .then(() => console.log(`Component created: ${name}`))
+    .then(() => console.log(`Component created: ${name}`)) // eslint-disable-line no-console
 }

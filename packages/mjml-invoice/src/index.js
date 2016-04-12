@@ -18,7 +18,7 @@ const defaultMJMLDefinition = {
 }
 const baseStyles = {
   th: {
-    fontWeight: 700,
+    fontWeight: '700',
     padding: '10px 20px',
     textAlign: 'left',
     textTransform: 'uppercase'
@@ -71,7 +71,7 @@ class Invoice extends Component {
       total: {
         fontFamily: mjAttribute('font-family'),
         fontSize: mjAttribute('font-size'),
-        fontWeight: 700,
+        fontWeight: '700',
         lineHeight: mjAttribute('line-height'),
         padding: '10px 20px',
         textAlign: 'right'

@@ -6,12 +6,18 @@ import React, { Component } from 'react'
 const tagName = 'mj-navbar-link'
 const defaultMJMLDefinition = {
   attributes: {
-    'padding': '10px 25px',
-    'width': '100%'
+    'padding': '15px 10px',
+    'color': '#000000',
+    'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
+    'font-size': '13px',
+    'line-height': '22px'
   }
 }
 const baseStyles = {
-  bar: {}
+  a: {
+    textDecoration: 'none',
+    textTransform: 'uppercase'
+  }
 }
 const postRender = $ => {
   return $
@@ -26,16 +32,27 @@ class NavbarLink extends Component {
   getStyles () {
     const { mjAttribute } = this.props
 
-    return merge({}, baseStyles, {})
+    return merge({}, baseStyles, {
+      a: {
+        display: 'inline-block',
+        padding: mjAttribute('padding'),
+        color: mjAttribute('color'),
+        fontFamily: mjAttribute('font-family'),
+        fontSize: mjAttribute('font-size'),
+        lineHeight: mjAttribute('line-height')
+      }
+    })
   }
 
   render () {
     const { mjAttribute, mjContent } = this.props
 
-    console.log(this.props.parentMjml)
-
     return (
-      <a href={mjAttribute('href')} dangerouslySetInnerHTML={{ __html: mjContent() }} />
+      <a
+        href={mjAttribute('href')}
+        dangerouslySetInnerHTML={{ __html: mjContent() }}
+        style={this.styles.a}
+      />
     )
   }
 

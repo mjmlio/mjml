@@ -64,9 +64,7 @@ class Navbar extends Component {
 
     return (
       <MJMLSection full-width="full-width" {...this.props}>
-        <div style={this.styles.bar}>
-          {this.renderChildren()}
-        </div>
+        {this.renderChildren()}
       </MJMLSection>
     )
   }

@@ -8,7 +8,8 @@ const defaultMJMLDefinition = {
   attributes: {
     'background-repeat': 'repeat',
     'padding': '20px 0',
-    'background-size': 'auto'
+    'background-size': 'auto',
+    'border': 'none'
   }
 }
 const baseStyles = {
@@ -108,7 +109,12 @@ class Section extends Component {
         paddingRight: mjAttribute('padding-right'),
         paddingTop: mjAttribute('padding-top'),
         textAlign: mjAttribute('text-align'),
-        verticalAlign: mjAttribute('vertical-align')
+        verticalAlign: mjAttribute('vertical-align'),
+        border: mjAttribute('border'),
+        borderTop: mjAttribute('border-top'),
+        borderBottom: mjAttribute('border-bottom'),
+        borderLeft: mjAttribute('border-left'),
+        borderRight: mjAttribute('border-right')
       },
       div: {
         maxWidth: parentWidth

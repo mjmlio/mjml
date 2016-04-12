@@ -56,7 +56,7 @@ function createComponent (ComposedComponent) {
       return merge({}, baseStyles, {
         td: {
           background: this.mjAttribute('container-background-color'),
-          fontSize: 0,
+          fontSize: '0px',
           padding: this.mjAttribute('padding'),
           paddingTop: this.mjAttribute('padding-top'),
           paddingBottom: this.mjAttribute('padding-bottom'),

@@ -17,6 +17,7 @@
     "mjml-core": "^2.0.0-beta.5",
     "mjml-section": "^2.0.0-beta.5",
     "mjml-text": "^2.0.0-beta.5",
-    "react": "^0.14.8"
+    "react": "^0.14.8",
+    "url": "^0.11.0"
   }
 }

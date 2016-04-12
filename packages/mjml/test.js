@@ -5,13 +5,11 @@ console.log(
   <mjml>
     <content>
       <mj-body>
-        <mj-navbar>
+        <mj-navbar base-url="http://google.com/">
           <mj-column width="70%">
-            <mj-navbar-link href="#">Un lien</mj-navbar-link>
-            <mj-navbar-link href="#">Deux liens</mj-navbar-link>
-            <mj-navbar-link href="#">Trois liens</mj-navbar-link>
-          </mj-column>
-          <mj-column width="30%">
+            <mj-navbar-link href="#1">Un lien</mj-navbar-link>
+            <mj-navbar-link href="#2">Deux liens</mj-navbar-link>
+            <mj-navbar-link href="#3">Trois liens</mj-navbar-link>
           </mj-column>
         </mj-navbar>
       </mj-body>

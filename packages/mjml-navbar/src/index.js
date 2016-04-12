@@ -40,12 +40,12 @@ class Navbar extends Component {
   }
 
   render () {
-    const { mjContent } = this.props
+    const { mjContent, children } = this.props
 
     return (
       <MJMLSection full-width="full-width" {...this.props}>
         <div style={this.styles.bar}>
-          {mjContent()}
+          {children}
         </div>
       </MJMLSection>
     )

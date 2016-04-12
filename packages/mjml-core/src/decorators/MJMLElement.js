@@ -100,8 +100,9 @@ function createComponent (ComposedComponent) {
 
     renderWrappedOutlookChildren = children => {
       children = React.Children.toArray(children)
-      const realChildren = children.filter(child => child.props.mjml.get('tagName') !== 'mj-raw')
 
+      const realChildren = children.filter(child => !child.props.mjml || child.props.mjml.get('tagName') !== 'mj-raw')
+      
       const prefix = `${this.mjName()}-outlook`
       const parentWidth = this.getWidth()
       const siblings = realChildren.length
@@ -126,22 +127,24 @@ function createComponent (ComposedComponent) {
       children.forEach(child => {
         let mjml = child.props.mjml
 
-        if (mjml.get('tagName') !== 'mj-raw') {
+        if (mjml && mjml.get('tagName') !== 'mj-raw') {
           mjml = child.props.mjml.setIn(['attributes', 'rawPxWidth'], elementsWidth[i])
 
           if (this.mjml.get('inheritedAttributes')) {
             mjml = mjml.mergeIn(['attributes', this.inheritedAttributes()])
           }
 
-          wrappedElements.push(React.cloneElement(child, { mjml: mjml }))
+          wrappedElements.push(React.cloneElement(child, { mjml }))
 
           if (i < realChildren.length - 1) {
             wrappedElements.push(<div key={`outlook-${i}`} className={`${prefix}-line`} data-width={elementsWidth[i + 1]} />)
           }
 
           i++
+        } else if (mjml) {
+          wrappedElements.push(React.cloneElement(child, { mjml }))
         } else {
-          wrappedElements.push(React.cloneElement(child, { mjml: mjml }))
+          wrappedElements.push(child)
         }
       })
 

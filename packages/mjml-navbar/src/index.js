@@ -15,7 +15,6 @@ const defaultMJMLDefinition = {
     'border-bottom': '5px solid #42adea'
   }
 }
-const endingTag = true
 const baseStyles = {
   bar: {}
 }
@@ -45,11 +44,7 @@ class Navbar extends Component {
 
     return (
       <MJMLSection full-width="full-width" {...this.props}>
-        <MJMLColumn>
-          <MJMLText>
-            {mjContent()}
-          </MJMLText>
-        </MJMLColumn>
+        {mjContent()}
       </MJMLSection>
     )
   }
@@ -58,7 +53,6 @@ class Navbar extends Component {
 
 Navbar.tagName = tagName
 Navbar.defaultMJMLDefinition = defaultMJMLDefinition
-Navbar.endingTag = endingTag
 Navbar.baseStyles = baseStyles
 Navbar.postRender = postRender
 

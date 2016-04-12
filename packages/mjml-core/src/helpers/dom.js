@@ -40,13 +40,13 @@ if (inBrowser) {
 
   dom.getChildren = element => element.children
 
+  dom.replaceContentByCdata = tag => `<${tag}$1><!--[CDATA[$2]]--></${tag}>`
+
   dom.getHTML = $ => {
     const markup = $()[0]
 
     return `<!doctype ${markup.doctype.name}>${markup.documentElement.outerHTML}`
   }
-
-  dom.replaceContentByCdata = tag => `<${tag}$1><!--[CDATA[$2]]--></${tag}>`
 } else {
   const cheerio = require('cheerio')
   let $ = cheerio.load('', { decodeEntities: false })
@@ -63,9 +63,9 @@ if (inBrowser) {
     }
   }
 
-  dom.parseHTML = str => parseMarkup(str, { xmlMode: false })
+  dom.parseHTML = str => parseMarkup(str, { xmlMode: false, decodeEntities: false })
 
-  dom.parseXML = str => parseMarkup(str, { xmlMode: true })
+  dom.parseXML = str => parseMarkup(str, { xmlMode: true, decodeEntities: false })
 
   dom.getAttributes = element => element.attribs || {}
 

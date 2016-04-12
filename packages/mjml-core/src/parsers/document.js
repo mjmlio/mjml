@@ -10,7 +10,7 @@ import warning from 'warning'
  */
 const safeEndingTags = content => {
   endingTags.forEach(tag => {
-    const regex = new RegExp(`<${tag}([^>]*)>([^]*?)<\/${tag}>`, 'gm')
+    const regex = new RegExp(`<${tag}([^>]*)>([^]*?)</${tag}>`, 'gmi')
     content = content.replace(regex, dom.replaceContentByCdata(tag))
   })
 

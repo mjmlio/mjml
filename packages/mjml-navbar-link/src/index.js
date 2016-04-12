@@ -33,7 +33,7 @@ class NavbarLink extends Component {
     const { mjAttribute, mjContent } = this.props
 
     return (
-      <a href={mjAttribute('href')}>{mjContent()}</a>
+      <a href={mjAttribute('href')} dangerouslySetInnerHTML={{ __html: mjContent() }} />
     )
   }
 

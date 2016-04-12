@@ -13,7 +13,8 @@ import MJText  from './Text'
     'font-size': '18px',
     'font-weight': 500,
     'padding': '10px 25px',
-    'img-src': 'http://i.imgur.com/DPCJHhy.png'
+    'img-src': 'http://i.imgur.com/DPCJHhy.png',
+    'href': ''
   }
 })
 class Location extends Component {
@@ -53,8 +54,12 @@ class Location extends Component {
     const { mjAttribute } = this.props
     const attrs  = this.getAttributes()
 
-    const address = `http://maps.google.com/maps?q=${encodeURIComponent(mjAttribute('address'))}`
     const text    = mjAttribute('text') || mjAttribute('address')
+    let address = `http://maps.google.com/maps?q=${encodeURIComponent(mjAttribute('address'))}`
+
+    if (mjAttribute('href')) {
+      address = mjAttribute('href')
+    } 
 
     return (
       <table width="100%">

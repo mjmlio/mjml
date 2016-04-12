@@ -81,7 +81,7 @@ const fixOutlookLayout = $ => {
 
     $(this).before(`<!--[if gte mso 9]>
       <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:${width}px;">
-        <v:fill origin="0.5, 0" position="0.5,0" type="tile" src="${url}" />
+        <v:fill origin="0.5, 0" position="0.5,0" type="frame" src="${url}" />
         <v:textbox style="mso-fit-shape-to-text:true" inset="0,0,0,0">
       <![endif]-->`)
 

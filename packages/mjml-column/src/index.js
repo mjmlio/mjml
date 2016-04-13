@@ -42,7 +42,7 @@ const postRender = $ => {
 }
 const defaultMJMLDefinition = {
   attributes: {
-    'text-align': 'left'
+    'align': 'left'
   }
 }
 
@@ -59,7 +59,7 @@ class Column extends Component {
         display: 'inline-block',
         verticalAlign: mjAttribute('vertical-align'),
         fontSize: '13px',
-        textAlign: mjAttribute('text-align'),
+        textAlign: mjAttribute('align'),
         width: '100%'
       },
       table: {

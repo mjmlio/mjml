@@ -7,22 +7,26 @@ import React, { Component } from 'react'
 const tagName = 'mj-inline-links'
 const defaultMJMLDefinition = {
   attributes: {
-    'width': '100%'
+    'width': '100%',
+    'align': 'center'
   }
 }
 const baseStyles = {
-  bar: {}
+  div: {}
 }
 const columnElement = true
 const postRender = $ => {
   $('.mj-inline-links').each(function () {
     $(this)
       .prepend(`<!--[if gte mso 9]>
-			  <table border="0" cellpadding="0" cellspacing="0" align="center"><tr>
+			  <table border="0" cellpadding="0" cellspacing="0" align="${$(this).data('align')}">
+          <tr>
 		  <![endif]-->`)
       .append(`<!--[if gte mso 9]>
-        </tr></table>
+          </tr>
+        </table>
       <![endif]-->`)
+      .removeAttr('data-align')
   })
 
   return $
@@ -36,7 +40,11 @@ class InlineLinks extends Component {
   getStyles () {
     const { mjAttribute } = this.props
 
-    return merge({}, baseStyles, {})
+    return merge({}, baseStyles, {
+      div: {
+        textAlign: mjAttribute('align')
+      }
+    })
   }
 
   renderChildren () {
@@ -53,8 +61,14 @@ class InlineLinks extends Component {
   }
 
   render () {
+    const { mjAttribute } = this.props
+
     return (
-      <div className="mj-inline-links">
+      <div
+        className="mj-inline-links"
+        style={this.styles.div}
+        data-align={mjAttribute('align')}
+      >
         {this.renderChildren()}
       </div>
     )

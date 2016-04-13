@@ -5,9 +5,9 @@ console.log(
   <mjml>
     <content>
       <mj-body>
-        <mj-navbar background-color="#f0f0f0">
+        <mj-navbar background-color="#f0f0f0" border-top="5px solid #42adea" border-bottom="5px solid #42adea">
           <mj-column width="100%">
-            <mj-inline-links base-url="http://google.com/">
+            <mj-inline-links base-url="http://google.com/" align="center">
               <mj-link href="#3" color="#42adea">Order now</mj-link>
               <mj-link href="#1" color="#42adea">Address</mj-link>
               <mj-link href="#2" color="#42adea">Menu</mj-link>
@@ -16,8 +16,8 @@ console.log(
         </mj-navbar>
 
         <mj-navbar background-color="#f0f0f0">
-          <mj-column width="70%" text-align="left">
-            <mj-inline-links base-url="http://google.com/">
+          <mj-column width="70%">
+            <mj-inline-links base-url="http://google.com/" align="left">
               <mj-link href="#1" color="#42adea">Order now</mj-link>
               <mj-link href="#2" color="#42adea">Address</mj-link>
               <mj-link href="#3" color="#42adea">Menu</mj-link>

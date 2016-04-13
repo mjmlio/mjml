@@ -33,6 +33,7 @@
     "mjml-table": "^2.0.0-beta.5",
     "mjml-text": "^2.0.0-beta.5",
     "mjml-navbar": "^2.0.0-beta.5",
-    "mjml-navbar-link": "^2.0.0-beta.5"
+    "mjml-inline-links": "^2.0.0-beta.5",
+    "mjml-link": "^2.0.0-beta.5"
   }
 }

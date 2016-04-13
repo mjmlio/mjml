@@ -3,7 +3,7 @@ import { widthParser } from 'mjml-core/lib/helpers'
 import merge from 'lodash/merge'
 import React, { Component } from 'react'
 
-const tagName = 'mj-navbar-link'
+const tagName = 'mj-link'
 const defaultMJMLDefinition = {
   attributes: {
     'padding': '15px 10px',
@@ -15,19 +15,29 @@ const defaultMJMLDefinition = {
 }
 const baseStyles = {
   a: {
-    display: 'block',
+    display: 'inline-block',
     textDecoration: 'none',
     textTransform: 'uppercase'
   }
 }
 const endingTag = true
-
 const postRender = $ => {
+  $('.mj-link').each(function () {
+    $(this)
+      .before(`<!--[if gte mso 9]>
+        <td style="padding: ${$(this).data('padding')}">
+      <![endif]-->`)
+      .after(`<!--[if gte mso 9]>
+        </td>
+      <![endif]-->`)
+      .removeAttr('data-padding')
+  })
+
   return $
 }
 
 @MJMLElement
-class NavbarLink extends Component {
+class Link extends Component {
 
   styles = this.getStyles()
 
@@ -35,10 +45,8 @@ class NavbarLink extends Component {
     const { mjAttribute } = this.props
 
     return merge({}, baseStyles, {
-      td: {
-        padding: mjAttribute('padding')
-      },
       a: {
+        padding: mjAttribute('padding'),
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
         fontSize: mjAttribute('font-size'),
@@ -51,23 +59,22 @@ class NavbarLink extends Component {
     const { mjAttribute, mjContent } = this.props
 
     return (
-      <tr style={{display: 'inline', float: 'left'}}>
-        <td style={this.styles.td}>
-          <a
-            href={mjAttribute('href')}
-            dangerouslySetInnerHTML={{ __html: mjContent() }}
-            style={this.styles.a}
-          />
-        </td>
-      </tr>
+      <a
+        className="mj-link"
+        href={mjAttribute('href')}
+        dangerouslySetInnerHTML={{ __html: mjContent() }}
+        style={this.styles.a}
+        data-padding={this.styles.a.padding}
+      />
     )
   }
 
 }
 
-NavbarLink.tagName = tagName
-NavbarLink.defaultMJMLDefinition = defaultMJMLDefinition
-NavbarLink.baseStyles = baseStyles
-NavbarLink.endingTag = endingTag
+Link.tagName = tagName
+Link.defaultMJMLDefinition = defaultMJMLDefinition
+Link.baseStyles = baseStyles
+Link.endingTag = endingTag
+Link.postRender = postRender
 
-export default NavbarLink
+export default Link

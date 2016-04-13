@@ -5,21 +5,23 @@ console.log(
   <mjml>
     <content>
       <mj-body>
-        <mj-navbar base-url="http://google.com/" background-color="#f0f0f0">
+        <mj-navbar background-color="#f0f0f0">
           <mj-column width="100%">
-            <mj-navbar-link href="#3" color="#42adea">Order now</mj-navbar-link>
-            <mj-navbar-link href="#1" color="#42adea">Address</mj-navbar-link>
-            <mj-navbar-link href="#2" color="#42adea">Menu</mj-navbar-link>
-            <mj-navbar-link href="#3" color="#42adea">About us</mj-navbar-link>
-            <mj-navbar-link href="#3" color="#42adea">Contact</mj-navbar-link>
+            <mj-inline-links base-url="http://google.com/">
+              <mj-link href="#3" color="#42adea">Order now</mj-link>
+              <mj-link href="#1" color="#42adea">Address</mj-link>
+              <mj-link href="#2" color="#42adea">Menu</mj-link>
+            </mj-inline-links>
           </mj-column>
         </mj-navbar>
 
-        <mj-navbar base-url="http://google.com/" background-color="#f0f0f0">
+        <mj-navbar background-color="#f0f0f0">
           <mj-column width="70%" text-align="left">
-            <mj-navbar-link href="#1" color="#42adea">Order now</mj-navbar-link>
-            <mj-navbar-link href="#2" color="#42adea">Address</mj-navbar-link>
-            <mj-navbar-link href="#3" color="#42adea">Menu</mj-navbar-link>
+            <mj-inline-links base-url="http://google.com/">
+              <mj-link href="#1" color="#42adea">Order now</mj-link>
+              <mj-link href="#2" color="#42adea">Address</mj-link>
+              <mj-link href="#3" color="#42adea">Menu</mj-link>
+            </mj-inline-links>
           </mj-column>
           <mj-column width="30%">
             <mj-button href="#4" color="#42adea">About us</mj-button>

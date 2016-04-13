@@ -1,11 +1,8 @@
 import { MJMLElement } from 'mjml-core'
 import { widthParser } from 'mjml-core/lib/helpers'
 import merge from 'lodash/merge'
-import MJMLColumn from 'mjml-column'
 import MJMLSection from 'mjml-section'
-import MJMLText from 'mjml-text'
 import React, { Component } from 'react'
-import url from 'url'
 
 const tagName = 'mj-navbar'
 const defaultMJMLDefinition = {
@@ -45,26 +42,12 @@ class Navbar extends Component {
     })
   }
 
-  renderChildren () {
-    const baseUrl = this.props.mjAttribute('base-url')
-    const perform = (mjml) => {
-      if (mjml && mjml.get('tagName') === 'mj-navbar-link') {
-        mjml = mjml.setIn(['attributes', 'href'], url.resolve(baseUrl, mjml.getIn(['attributes', 'href'])))
-      } else if (mjml.has('children')) {
-        mjml = mjml.set('children', mjml.get('children').map(perform))
-      }
-      return mjml
-    }
-
-    return this.props.children.map(child => React.cloneElement(child, { mjml: perform(child.props.mjml) }))
-  }
-
   render () {
     const { mjContent, children } = this.props
 
     return (
       <MJMLSection full-width="full-width" {...this.props}>
-        {this.renderChildren()}
+        {children}
       </MJMLSection>
     )
   }

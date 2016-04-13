@@ -15,8 +15,8 @@ import Social from 'mjml-social'
 import Table from 'mjml-table'
 import Text from 'mjml-text'
 import Navbar from 'mjml-navbar'
-import NavbarColumn from 'mjml-navbar-column'
-import NavbarLink from 'mjml-navbar-link'
+import InlineLinks from 'mjml-inline-links'
+import Link from 'mjml-link'
 
 [ Body,
   Button,
@@ -34,7 +34,7 @@ import NavbarLink from 'mjml-navbar-link'
   Table,
   Text,
   Navbar,
-  NavbarColumn,
-  NavbarLink ].map((element) => registerMJElement(element))
+  InlineLinks,
+  Link ].map((element) => registerMJElement(element))
 
 export * from 'mjml-core'

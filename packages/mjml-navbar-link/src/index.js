@@ -15,12 +15,10 @@ const defaultMJMLDefinition = {
 }
 const baseStyles = {
   a: {
+    display: 'inline-block',
     textDecoration: 'none',
     textTransform: 'uppercase'
   }
-}
-const postRender = $ => {
-  return $
 }
 const endingTag = true
 
@@ -34,7 +32,6 @@ class NavbarLink extends Component {
 
     return merge({}, baseStyles, {
       a: {
-        display: 'inline-block',
         padding: mjAttribute('padding'),
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
@@ -48,11 +45,15 @@ class NavbarLink extends Component {
     const { mjAttribute, mjContent } = this.props
 
     return (
-      <a
-        href={mjAttribute('href')}
-        dangerouslySetInnerHTML={{ __html: mjContent() }}
-        style={this.styles.a}
-      />
+      <tr style={{display: 'inline', float: 'left'}}>
+        <td>
+          <a
+            href={mjAttribute('href')}
+            dangerouslySetInnerHTML={{ __html: mjContent() }}
+            style={this.styles.a}
+          />
+        </td>
+      </tr>
     )
   }
 
@@ -61,7 +62,6 @@ class NavbarLink extends Component {
 NavbarLink.tagName = tagName
 NavbarLink.defaultMJMLDefinition = defaultMJMLDefinition
 NavbarLink.baseStyles = baseStyles
-NavbarLink.postRender = postRender
 NavbarLink.endingTag = endingTag
 
 export default NavbarLink

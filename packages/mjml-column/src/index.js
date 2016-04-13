@@ -89,6 +89,20 @@ class Column extends Component {
     }
   }
 
+  renderChildren() {
+    const { mjAttribute, children } = this.props
+
+    if (mjAttribute('inline-elements')) {
+      return (
+        <tr><td>
+          {children}
+        </td></tr>
+      )
+    }
+
+    return children
+  }
+
   render () {
     const { mjAttribute, children, sibling } = this.props
     const width = mjAttribute('width') || (100 / sibling)
@@ -109,7 +123,7 @@ class Column extends Component {
           style={this.styles.table}
           width="100%">
           <tbody>
-            {children}
+            {this.renderChildren()}
           </tbody>
         </table>
       </div>

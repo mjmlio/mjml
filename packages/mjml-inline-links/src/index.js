@@ -7,12 +7,13 @@ import React, { Component } from 'react'
 const tagName = 'mj-inline-links'
 const defaultMJMLDefinition = {
   attributes: {
-    'width': '100%',
     'align': 'center'
   }
 }
 const baseStyles = {
-  div: {}
+  div: {
+    'width': '100%'
+  }
 }
 const columnElement = true
 const postRender = $ => {

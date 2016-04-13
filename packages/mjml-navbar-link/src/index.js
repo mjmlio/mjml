@@ -15,12 +15,16 @@ const defaultMJMLDefinition = {
 }
 const baseStyles = {
   a: {
-    display: 'inline-block',
+    display: 'block',
     textDecoration: 'none',
     textTransform: 'uppercase'
   }
 }
 const endingTag = true
+
+const postRender = $ => {
+  return $
+}
 
 @MJMLElement
 class NavbarLink extends Component {
@@ -31,8 +35,10 @@ class NavbarLink extends Component {
     const { mjAttribute } = this.props
 
     return merge({}, baseStyles, {
+      td: {
+        padding: mjAttribute('padding')
+      },
       a: {
-        padding: mjAttribute('padding'),
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
         fontSize: mjAttribute('font-size'),
@@ -46,7 +52,7 @@ class NavbarLink extends Component {
 
     return (
       <tr style={{display: 'inline', float: 'left'}}>
-        <td>
+        <td style={this.styles.td}>
           <a
             href={mjAttribute('href')}
             dangerouslySetInnerHTML={{ __html: mjContent() }}

@@ -2,6 +2,7 @@ import _ from 'lodash'
 import { endingTags } from './MJMLElementsCollection'
 import { ParseError, EmptyMJMLError, NullElementError } from './Error'
 import dom from './helpers/dom'
+import { speedyTagToMJM, presenceOfSpeedyTag } from './helpers/speedyTag'
 
 /**
  * Avoid htmlparser to parse ending tags
@@ -47,7 +48,7 @@ const mjmlElementParser = elem => {
  */
 const documentParser = content => {
   let body
-
+  if (presenceOfSpeedyTag(content)) { content = speedyTagToMJM(content) }
   try {
     const $ = dom.parseXML(safeEndingTags(content))
     body = $('mj-body')

@@ -1,0 +1,42 @@
+= mj-body
+  = mj-section
+    = mj-column
+      = mj-table
+        = tr style="border-bottom:1px solid #ecedee;text-align:left;padding:15px 0;"
+          = th style="padding: 0 15px 0 0;"
+            Year
+          = th style="padding: 0 15px;"
+            Language
+          = th style="padding: 0 0 0 15px;"
+            Inspired from
+        = tr
+          = td style="padding: 0 15px 0 0;"
+            1995
+          = td style="padding: 0 15px;"
+            PHP
+          = td style="padding: 0 0 0 15px;"
+            C, Shell Unix
+        = tr
+          = td style="padding: 0 15px 0 0;"
+            1995
+          = td style="padding: 0 15px;"
+            JavaScript
+          = td style="padding: 0 0 0 15px;"
+            Scheme, Self
+      = mj-invoice format="0,00.00€" intl="name:Product Name"
+        = mj-invoice-item name="TV" price="549€" quantity="1"
+        = mj-invoice-item name="DVD - Iron Man II" price="22.99€" quantity="2"
+      = mj-social
+      = mj-button
+        My button
+      = mj-text
+        My text
+      = mj-image src="https://mjml.io/assets/img/logo-picto-small.png"
+      = mj-html
+        = table
+          = tr
+            = td
+              My Html
+      = mj-divider
+      = mj-raw
+        <% if (undefined) {} %>

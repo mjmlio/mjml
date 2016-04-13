@@ -10,6 +10,7 @@ const defaultMJMLDefinition = {
     'color': '#000000',
     'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
     'font-size': '13px',
+    'font-weight': 'normal',
     'line-height': '22px'
   }
 }
@@ -46,11 +47,17 @@ class Link extends Component {
 
     return merge({}, baseStyles, {
       a: {
-        padding: mjAttribute('padding'),
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
         fontSize: mjAttribute('font-size'),
-        lineHeight: mjAttribute('line-height')
+        fontWeight: mjAttribute('font-weight'),
+        lineHeight: mjAttribute('line-height'),
+        textDecoration: mjAttribute('text-decoration'),
+        padding: mjAttribute('padding'),
+        paddingTop: mjAttribute('padding-top'),
+        paddingLeft: mjAttribute('padding-left'),
+        paddingRight: mjAttribute('padding-right'),
+        paddingBottom: mjAttribute('padding-bottom')
       }
     })
   }

@@ -35,10 +35,12 @@ MJML is a markup language designed to reduce the pain of coding a responsive ema
 
 MJML-Core contains the engine of MJML. You need to register component via interal API or a `.mjmlconfig` in order to render them. Take a look at [MJML-core's readme](https://github.com/mjmlio/mjml/tree/master/packages/mjml-core/README.MD)
 
-# Contribute
-
 ## Installation
 
 Launch `npm install` after cloning the repository, then `gulp install`.
 
 From now you have to do `npm link` in each package, `npm link mjml-core` in each package that depends on `mjml-core`.
+
+## Upcomming Features
+
+Discuss and suggest MJML upcomming features in the [issue section](https://github.com/mjmlio/mjml/labels/RFC)

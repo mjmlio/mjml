@@ -125,26 +125,26 @@ function createComponent (ComposedComponent) {
       let i = 0
 
       children.forEach(child => {
-        let mjml = child.props.mjml
+        const childProps = Object.assign({}, child.props)
 
-        if (mjml && mjml.get('tagName') !== 'mj-raw') {
-          mjml = child.props.mjml.setIn(['attributes', 'rawPxWidth'], elementsWidth[i])
+        if (childProps.mjml) {
+          childProps.mjml = childProps.mjml.setIn(['attributes', 'rawPxWidth'], elementsWidth[i])
 
           if (this.mjml.get('inheritedAttributes')) {
-            mjml = mjml.mergeIn(['attributes', this.inheritedAttributes()])
+            childProps.mjml =  childProps.mjml.mergeIn(['attributes', this.inheritedAttributes()])
           }
-
-          wrappedElements.push(React.cloneElement(child, { mjml }))
-
-          if (i < realChildren.length - 1) {
-            wrappedElements.push(<div key={`outlook-${i}`} className={`${prefix}-line`} data-width={elementsWidth[i + 1]} />)
-          }
-
-          i++
-        } else if (mjml) {
-          wrappedElements.push(React.cloneElement(child, { mjml }))
         } else {
-          wrappedElements.push(child)
+          Object.assign(childProps, {rawPxWidth: elementsWidth[i]})
+
+          if (this.mjml.get('inheritedAttributes')) {
+            Object.assign(childProps, this.inheritedAttributes())
+          }
+        }
+        const childWithProps = React.cloneElement(child, childProps)
+
+        wrappedElements.push(childWithProps)
+        if (childWithProps.type.tagName !== 'mj-raw' && i < realChildren.length - 1) {
+          wrappedElements.push(<div key={`outlook-${i}`} className={`${prefix}-line`} data-width={elementsWidth[++i]} />)
         }
       })
 

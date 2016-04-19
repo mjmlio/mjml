@@ -37,9 +37,7 @@ MJML-Core contains the engine of MJML. You need to register component via intera
 
 ## Installation
 
-Launch `npm install` after cloning the repository, then `gulp install`.
-
-From now you have to do `npm link` in each package, `npm link mjml-core` in each package that depends on `mjml-core`.
+Use `install.sh` to install all dependencies and link all packages of the MJML Mono-Repo
 
 ## Upcomming Features
 

@@ -82,13 +82,13 @@ npm install -g mjml
 > Compile the file and output the result in `a.html`
 
 ```bash
-$> mjml -r input.mjml
+$> mjml input.mjml
 ```
 
 > Redirect the result to a file
 
 ```bash
-$> mjml -r input.mjml -o output.html
+$> mjml input.mjml -o output.html
 ```
 
 > Watch a file and compile every time the file changes

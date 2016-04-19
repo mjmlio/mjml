@@ -1,52 +1,35 @@
 var mjml = require('./lib/index')
 
-console.log(mjml.mjml2html(`
+console.log(
+  mjml.mjml2html(`
+  <mjml>
+    <content>
       <mj-body>
-        <mj-section>
-          <mj-column>
-            <mj-table>
-              <tr style="border-bottom:1px solid #ecedee;text-align:left;padding:15px 0;">
-                <th style="padding: 0 15px 0 0;">Year</th>
-                <th style="padding: 0 15px;">Language</th>
-                <th style="padding: 0 0 0 15px;">Inspired from</th>
-              </tr>
-              <tr>
-                <td style="padding: 0 15px 0 0;">1995</td>
-                <td style="padding: 0 15px;">PHP</td>
-                <td style="padding: 0 0 0 15px;">C, Shell Unix</td>
-              </tr>
-              <tr>
-                <td style="padding: 0 15px 0 0;">1995</td>
-                <td style="padding: 0 15px;">JavaScript</td>
-                <td style="padding: 0 0 0 15px;">Scheme, Self</td>
-              </tr>
-            </mj-table>
-            <mj-invoice format="0,00.00€" intl="name:Product Name">
-              <mj-invoice-item name="TV" price="549€" quantity="1" />
-              <mj-invoice-item name="DVD - Iron Man II" price="22.99€" quantity="2" />
-            </mj-invoice>
-            <mj-social />
-            <mj-button>
-              My button
-            </mj-button>
-            <mj-text>
-              My text
-            </mj-text>
-            <mj-image src="https://mjml.io/assets/img/logo-picto-small.png" />
-            <mj-html>
-              <table>
-                <tr>
-                  <td>
-                    My Html
-                  </td>
-                </tr>
-              </table>
-            </mj-html>
-            <mj-divider />
-            <mj-raw>
-              <% if (undefined) {} %>
-            </mj-raw>
+        <mj-navbar background-color="#f0f0f0" border-top="5px solid #42adea" border-bottom="5px solid #42adea">
+          <mj-column width="100%">
+            <mj-inline-links base-url="http://google.com/" align="center">
+              <mj-link href="#3" color="#42adea">Order now</mj-link>
+              <mj-link href="#1" color="#42adea">Address</mj-link>
+              <mj-link href="#2" color="#42adea">Menu</mj-link>
+            </mj-inline-links>
           </mj-column>
-        </mj-section>
+        </mj-navbar>
+
+        <mj-navbar background-color="#f0f0f0">
+          <mj-column width="70%">
+            <mj-inline-links base-url="http://google.com/" align="left">
+              <mj-link href="#1" color="#42adea">Order now</mj-link>
+              <mj-link href="#2" color="#42adea">Address</mj-link>
+              <mj-link href="#3" color="#42adea">Menu</mj-link>
+            </mj-inline-links>
+          </mj-column>
+          <mj-column width="30%">
+            <mj-button href="#4" color="#42adea">About us</mj-button>
+          </mj-column>
+        </mj-navbar>
+
       </mj-body>
-`, { beautify: true }))
+    </content>
+  </mjml>
+`, { beautify: true })
+)

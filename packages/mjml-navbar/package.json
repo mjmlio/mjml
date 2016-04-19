@@ -1,0 +1,20 @@
+{
+  "name": "mjml-navbar",
+  "version": "2.0.0-beta.1",
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mjmlio/mjml.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mjmlio/mjml/issues"
+  },
+  "homepage": "https://github.com/mjmlio/mjml",
+  "dependencies": {
+    "lodash": "^4.7.0",
+    "mjml-core": "^2.0.0-beta.5",
+    "mjml-section": "^2.0.0-beta.5",
+    "react": "^0.14.8"
+  }
+}

@@ -71,6 +71,10 @@ npm install -g mjml
 
 # Show me the code!
 
+1) Clone the repository.
+
+3) Use `install.sh` to install all dependencies and link all packages of the MJML Mono-Repo
+
 ### Command line
 
 > Compile the file and output the result in `a.html`
@@ -177,7 +181,6 @@ Get your hands dirty by trying the MJML online editor! Write awesome code on the
 # Read more about what's comming next in MJML
 
 Go [here](https://github.com/mjmlio/mjml/labels/RFC) and submit your feature request or comment the existing ones
-
 
 # Contribute
 

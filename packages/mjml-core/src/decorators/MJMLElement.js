@@ -1,4 +1,4 @@
-import { widthParser } from '../helpers/mjAttribute'
+import { widthParser, defaultUnit } from '../helpers/mjAttribute'
 import Immutable from 'immutable'
 import merge from 'lodash/merge'
 import MJMLElementsCollection from '../MJMLElementsCollection'
@@ -57,11 +57,11 @@ function createComponent (ComposedComponent) {
         td: {
           background: this.mjAttribute('container-background-color'),
           fontSize: '0px',
-          padding: this.mjAttribute('padding'),
-          paddingTop: this.mjAttribute('padding-top'),
-          paddingBottom: this.mjAttribute('padding-bottom'),
-          paddingRight: this.mjAttribute('padding-right'),
-          paddingLeft: this.mjAttribute('padding-left'),
+          padding: defaultUnit(this.mjAttribute('padding'), "px"),
+          paddingTop: defaultUnit(this.mjAttribute('padding-top'), "px"),
+          paddingBottom: defaultUnit(this.mjAttribute('padding-bottom'), "px"),
+          paddingRight: defaultUnit(this.mjAttribute('padding-right'), "px"),
+          paddingLeft: defaultUnit(this.mjAttribute('padding-left'), "px"),
           textAlign: this.mjAttribute('align')
         }
       })
@@ -242,6 +242,7 @@ function createComponent (ComposedComponent) {
 
         parentWidth: this.getWidth(),
         getPadding: this.paddingParser,
+        defaultUnit,
 
         // assign helpers methods
         ...childMethods.reduce((acc, method) => ({

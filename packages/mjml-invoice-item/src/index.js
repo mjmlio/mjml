@@ -35,14 +35,14 @@ class InvoiceItem extends Component {
   styles = this.getStyles()
 
   getStyles () {
-    const { mjAttribute } = this.props
+    const { mjAttribute, defaultUnit } = this.props
 
     const styles = merge({}, baseStyles, {
       td: {
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
-        fontSize: mjAttribute('font-size'),
-        padding: mjAttribute('padding'),
+        fontSize: defaultUnit(mjAttribute('font-size'), "px"),
+        padding: defaultUnit(mjAttribute('padding'), "px"),
         textAlign: mjAttribute('text-align')
       }
     })

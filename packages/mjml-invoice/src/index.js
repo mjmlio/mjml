@@ -48,19 +48,19 @@ class Invoice extends Component {
   styles = this.getStyles()
 
   getStyles () {
-    const { mjAttribute } = this.props
+    const { mjAttribute, defaultUnit } = this.props
 
     const styles = merge({}, baseStyles, {
       table: {
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
-        fontSize: mjAttribute('font-size'),
-        lineHeight: mjAttribute('line-height')
+        fontSize: defaultUnit(mjAttribute('font-size'), "px"),
+        lineHeight: defaultUnit(mjAttribute('line-height'), "px")
       },
       th: {
         fontFamily: mjAttribute('font-family'),
-        fontSize: mjAttribute('font-size'),
-        lineHeight: mjAttribute('line-height')
+        fontSize: defaultUnit(mjAttribute('font-size'), "px"),
+        lineHeight: defaultUnit(mjAttribute('line-height'), "px")
       },
       thead: {
         borderBottom: mjAttribute('border')
@@ -70,9 +70,9 @@ class Invoice extends Component {
       },
       total: {
         fontFamily: mjAttribute('font-family'),
-        fontSize: mjAttribute('font-size'),
+        fontSize: defaultUnit(mjAttribute('font-size'), "px"),
         fontWeight: '700',
-        lineHeight: mjAttribute('line-height'),
+        lineHeight: defaultUnit(mjAttribute('line-height'), "px"),
         padding: '10px 20px',
         textAlign: 'right'
       }

@@ -24,14 +24,14 @@ class Table extends Component {
   styles = this.getStyles()
 
   getStyles () {
-    const { mjAttribute } = this.props
+    const { mjAttribute, defaultUnit } = this.props
 
     return {
       table: {
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
-        fontSize: mjAttribute('font-size'),
-        lineHeight: mjAttribute('line-height'),
+        fontSize: defaultUnit(mjAttribute('font-size'), "px"),
+        lineHeight: defaultUnit(mjAttribute('line-height'), "px"),
         tableLayout: mjAttribute('table-layout')
       }
     }

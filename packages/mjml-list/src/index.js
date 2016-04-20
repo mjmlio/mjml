@@ -30,13 +30,13 @@ class List extends Component {
   styles = this.getStyles()
 
   getStyles () {
-    const { mjAttribute } = this.props
+    const { mjAttribute, defaultUnit } = this.props
 
     return merge({}, baseStyles, {
       ul: {
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
-        fontSize: mjAttribute('font-size'),
+        fontSize: defaultUnit(mjAttribute('font-size'), "px"),
         lineHeight: mjAttribute('line-height')
       }
     })

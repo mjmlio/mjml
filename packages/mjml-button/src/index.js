@@ -35,30 +35,30 @@ class Button extends Component {
   styles = this.getStyles()
 
   getStyles () {
-    const { mjAttribute } = this.props
+    const { mjAttribute, defaultUnit } = this.props
 
     return merge({}, baseStyles, {
       td: {
         background: mjAttribute('background-color'),
-        borderRadius: mjAttribute('border-radius'),
+        borderRadius: defaultUnit(mjAttribute('border-radius'), "px"),
         color: mjAttribute('color'),
         cursor: 'auto',
         fontStyle: mjAttribute('font-style')
       },
       table: {
         border: mjAttribute('border'),
-        borderRadius: mjAttribute('border-radius')
+        borderRadius: defaultUnit(mjAttribute('border-radius'), "px")
       },
       a: {
         background: mjAttribute('background-color'),
         border: `1px solid ${mjAttribute('background-color')}`,
-        borderRadius: mjAttribute('border-radius'),
+        borderRadius: defaultUnit(mjAttribute('border-radius'), "px"),
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
-        fontSize: mjAttribute('font-size'),
+        fontSize: defaultUnit(mjAttribute('font-size'), "px"),
         fontStyle: mjAttribute('font-style'),
         fontWeight: mjAttribute('font-weight'),
-        padding: mjAttribute('padding'),
+        padding: defaultUnit(mjAttribute('padding'), "px"),
         textDecoration: mjAttribute('text-decoration')
       }
     })

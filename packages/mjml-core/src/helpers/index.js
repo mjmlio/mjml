@@ -1,1 +1,1 @@
-export { widthParser } from './mjAttribute'
+export { widthParser, defaultUnit } from './mjAttribute'

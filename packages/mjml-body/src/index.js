@@ -61,12 +61,12 @@ class Body extends Component {
   styles = this.getStyles()
 
   getStyles () {
-    const { mjAttribute } = this.props
+    const { mjAttribute, defaultUnit } = this.props
 
     return {
       div: {
         backgroundColor: mjAttribute('background-color'),
-        fontSize: mjAttribute('font-size')
+        fontSize: defaultUnit(mjAttribute('font-size'), "px")
       }
     }
   }

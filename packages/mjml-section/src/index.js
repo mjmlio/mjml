@@ -91,7 +91,7 @@ class Section extends Component {
   }
 
   getStyles () {
-    const { mjAttribute, parentWidth } = this.props
+    const { mjAttribute, parentWidth, defaultUnit } = this.props
 
     const background = mjAttribute('background-url') ? {
       background: `url(${mjAttribute('background-url')}) top center / ${mjAttribute('background-size') || ''} ${mjAttribute('background-repeat') || ''}`
@@ -102,11 +102,11 @@ class Section extends Component {
     return merge({}, baseStyles, {
       td: {
         fontSize: '0px',
-        padding: mjAttribute('padding'),
-        paddingBottom: mjAttribute('padding-bottom'),
-        paddingLeft: mjAttribute('padding-left'),
-        paddingRight: mjAttribute('padding-right'),
-        paddingTop: mjAttribute('padding-top'),
+        padding: defaultUnit(mjAttribute('padding'), "px"),
+        paddingBottom: defaultUnit(mjAttribute('padding-bottom'), "px"),
+        paddingLeft: defaultUnit(mjAttribute('padding-left'), "px"),
+        paddingRight: defaultUnit(mjAttribute('padding-right'), "px"),
+        paddingTop: defaultUnit(mjAttribute('padding-top'), "px"),
         textAlign: mjAttribute('text-align'),
         verticalAlign: mjAttribute('vertical-align')
       },

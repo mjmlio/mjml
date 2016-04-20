@@ -1,20 +1,26 @@
 ## MJ-LIST
 
 ``` html
-<mj-section>
-  <mj-column>
 
-    <mj-text>What can I do today?</mj-text>
+<mjml>
+  <content>
+    <mj-section>
+      <mj-column>
+        
+        <mj-text>What can I do today?</mj-text>
 
-    <mj-list>
-      <li>Go to the store</li>
-      <li>sleep</li>
-      <li>eat</li>
-      <li>sleep again</li>
-    </mj-list>
+        <mj-list>
+          <li>Go to the store</li>
+          <li>sleep</li>
+          <li>eat</li>
+          <li>sleep again</li>
+        </mj-list>
 
-  </mj-column>
-</mj-section>
+      </mj-column>
+    </mj-section>
+  </content>
+</mjml>
+
 ```
 
 `mj-list` enables you to create unordered lists and enables you to wrap `li`s tag.

@@ -1,15 +1,13 @@
 ## MJ-IMAGE
 
 ``` html
-<mj-body>
-<mj-section>
-  <mj-column>
 
+<mjml>
+  <content>
     <mj-image width="300" src="http://www.online-image-editor.com//styles/2014/images/example_image.png"></mj-image>
+  </content>
+</mjml>
 
-  </mj-column>
-</mj-section>
-</mj-body>
 ```
 
 Displays a responsive image in your email. It is similar to the HTML `<img />` tag.

@@ -2,15 +2,11 @@
 
 ``` html
 
-<mj-body>
-  <mj-section>
-      <mj-column width="600px">
-
-            <mj-divider border-width="1px" border-style="dashed" border-color="lightgrey"></mj-divider>
-
-        </mj-column>
-    </mj-section>
-</mj-body>
+<mjml>
+  <content>
+    <mj-divider border-width="1px" border-style="dashed" border-color="lightgrey"></mj-divider>
+  </content>
+</mjml>
 
 ```
 

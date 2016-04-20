@@ -2,26 +2,30 @@
 
  ``` html
 
-<mj-section>
-  <mj-column>
+<mjml>
+  <content>
 
-    <mj-text>
-      <h1>Hey Title!</h1>
-    </mj-text>
+    <mj-section>
+      <mj-column>
 
-  </mj-column>
-</mj-section>
+        <mj-text>
+          <h1>Hey Title!</h1>
+        </mj-text>
 
-<mj-section>
-  <mj-column>
+      </mj-column>
+    </mj-section>
 
-    <mj-text>
-      Hey There!
-    </mj-text>
+    <mj-section>
+      <mj-column>
 
-  </mj-column>
-</mj-section>
+        <mj-text>
+          Hey There!
+        </mj-text>
 
+      </mj-column>
+    </mj-section>  
+  </content>
+</mjml>
  ```
 
 This tag allows you to display text in your email.

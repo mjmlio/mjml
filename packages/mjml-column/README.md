@@ -3,17 +3,22 @@
 ``` html
 
 
-<mj-section>
+<mjml>
+  <content>
+    <mj-section>
 
-  <mj-column>
-    <!-- You content -->
-  </mj-column>
+      <mj-column>
+        <!-- Your first column -->
+      </mj-column>
 
-  <mj-column>
-    <!-- Your content -->
-  </mj-column>
+      <mj-column>
+        <!-- Your second column -->
+      </mj-column>
 
-</mj-section>
+    </mj-section>
+  </content>
+</mjml>
+
 
 
 ```
@@ -36,4 +41,3 @@ attribute           | unit        | description                    | default att
 width               | percent/px  | column width                   | (100 / number of columns in section)%
 vertical-align      | string      | middle/top/bottom              | top
 background-color    | string      | background color for a column  | n/a
-

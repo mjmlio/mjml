@@ -6,18 +6,14 @@
 
 ``` html
 
-<mj-body>
-  <mj-section>
-    <mj-column width="100%">
-
-      <mj-invoice format="0,00.00â‚¬" intl="name:Product Name">
-        <mj-invoice-item name="TV" price="549â‚¬" quantity="1" />
-        <mj-invoice-item name="DVD - Iron Man II" price="22.99â‚¬" quantity="2" />
-      </mj-invoice>
-
-    </mj-column>
-  </mj-section>
-</mj-body>
+<mjml>
+  <content>
+    <mj-invoice format="0,00.00â‚¬" intl="name:Product Name">
+      <mj-invoice-item name="TV" price="549â‚¬" quantity="1" />
+      <mj-invoice-item name="DVD - Iron Man II" price="22.99â‚¬" quantity="2" />
+    </mj-invoice>    
+  </content>
+</mjml>
 
 ```
 Display a table of items with calculated total price.

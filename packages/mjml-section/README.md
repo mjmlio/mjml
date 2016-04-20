@@ -2,13 +2,15 @@
 
 ``` html
 
-<mj-body>
-  <mj-section full-width="full-width" background-color="red">
+<mjml>
+  <content>
+    <mj-section full-width="full-width" background-color="red">
 
-    <!-- Your columns go here -->
+      <!-- Your columns go here -->
 
-  </mj-section>
-</mj-body>
+    </mj-section>    
+  </content>
+</mjml>
 
 ```
 

@@ -6,15 +6,11 @@
 
 ``` html
 
-<mj-body>
-  <mj-section>
-    <mj-column width="50%">
-
+<mjml>
+  <content>
       <mj-location address="37 bis, rue du Sentier â€“ 75002 Paris" />
-
-    </mj-column>
-  </mj-section>
-</mj-body>
+  </content>
+</mjml>
 
 ```
 

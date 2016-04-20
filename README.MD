@@ -69,24 +69,26 @@ npm install -g mjml
   </a>
 </p>
 
+<a href="https://github.com/mjmlio/mjml/releases" target="_blank">
+  <strong align="left">From source: </strong>
+</a>
+ - Clone the repository.
+ - Use `install.sh` to install all dependencies and link all packages of the MJML Mono-Repo
+
 # Show me the code!
-
-1) Clone the repository.
-
-3) Use `install.sh` to install all dependencies and link all packages of the MJML Mono-Repo
 
 ### Command line
 
 > Compile the file and output the result in `a.html`
 
 ```bash
-$> mjml -r input.mjml
+$> mjml input.mjml
 ```
 
 > Redirect the result to a file
 
 ```bash
-$> mjml -r input.mjml -o output.html
+$> mjml input.mjml -o output.html
 ```
 
 > Watch a file and compile every time the file changes

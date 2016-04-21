@@ -4,7 +4,7 @@ node_js:
  - 4
  - 5
 script:
+ - npm run lint
  - cd packages/mjml-core
  - npm install
- - npm run lint
  - npm test

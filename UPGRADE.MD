@@ -36,7 +36,7 @@ Note that `mj-body` becomes `mj-container` prior to 2.0 every attributes such as
 </mjml>
 ```  
 
-## Register an new Component
+## Register a new Component
 
 ### Before
 

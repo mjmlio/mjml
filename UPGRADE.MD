@@ -2,12 +2,16 @@
 
 ## MJML tag
 
-Before `mj-body` was the root tag of an MJML document. Now you should wrap it in a `mjml` tag and a `content` tag :
+Before `mj-body` was the root tag of an MJML document. Now you should wrap it in a `mjml` tag
 
-### Before
+### Mj-Body
+
+Note that `mj-body` becomes `mj-container` prior to 2.0 every attributes such as `width` on `mj-body` is now on `mj-container`
+
+### MJML 1.X (before)
 
 ```xml
-<mj-body>
+<mj-body width="550">
   <mj-section>
     <mj-column>
       <mj-text>Hello World !</mj-text>
@@ -16,18 +20,18 @@ Before `mj-body` was the root tag of an MJML document. Now you should wrap it in
 </mj-body>
 ```
 
-### Now
+### MJML 2.X (now)
 
 ```xml
 <mjml>
-  <content>
-    <mj-body>
+  <mj-body>
+    <mj-container width="550">
       <mj-section>
         <mj-column>
           <mj-text>Hello World !</mj-text>
         </mj-column>
       </mj-section>
-    </mj-body>
+    </mj-container>
   </content>
 </mjml>
 ```  

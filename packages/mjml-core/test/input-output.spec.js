@@ -29,9 +29,9 @@ describe('MJML Renderer', () => {
       expect(() => new MJMLRenderer(`
         <mjml>
           <content>
-            <mj-body>
+            <mj-container>
               <mj-column />
-            </mj-body>
+            </mj-container>
           </content>
         </mjml>`).render()
       ).to.throw(/EmptyMJMLError/)

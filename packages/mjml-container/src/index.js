@@ -1,7 +1,7 @@
-import { MJMLElement, helpers } from 'mjml-core'
+import { MJMLElement, helpers, elements } from 'mjml-core'
 import React, { Component } from 'react'
 
-const tagName = 'mj-body'
+const tagName = 'mj-container'
 const defaultMJMLDefinition = {
   attributes: {
     'width': '600'
@@ -11,38 +11,38 @@ const defaultMJMLDefinition = {
   ]
 }
 const postRender = $ => {
-  const bodyWidth = $('.mj-body').data('width')
+  const containerWidth = $('.mj-container').data('width')
 
-  $('.mj-body-outlook-open').each(function () {
+  $('.mj-container-outlook-open').each(function () {
     $(this).replaceWith(`<!--[if mso]>
-      <table border="0" cellpadding="0" cellspacing="0" width="${bodyWidth}" align="center" style="width:${bodyWidth}px;"><tr><td>
+      <table border="0" cellpadding="0" cellspacing="0" width="${containerWidth}" align="center" style="width:${containerWidth}px;"><tr><td>
       <![endif]-->`)
   })
 
-  $('.mj-body-outlook-line').each(function () {
+  $('.mj-container-outlook-line').each(function () {
     $(this).replaceWith(`<!--[if mso]>
       </td></tr></table>
       <![endif]-->
       <!--[if mso]>
-      <table border="0" cellpadding="0" cellspacing="0" width="${bodyWidth}" align="center" style="width:${bodyWidth}px;"><tr><td>
+      <table border="0" cellpadding="0" cellspacing="0" width="${containerWidth}" align="center" style="width:${containerWidth}px;"><tr><td>
       <![endif]-->`)
   })
 
-  $('.mj-body-outlook-close').each(function () {
+  $('.mj-container-outlook-close').each(function () {
     $(this).replaceWith(`<!--[if mso]>
       </td></tr></table>
       <![endif]-->`)
   })
 
-  $('body')
-    .css({ background: $('.mj-body').data('background-color') })
+  $('container')
+    .css({ background: $('.mj-container').data('background-color') })
     .each(function () {
       if ($(this).attr('style') === '') {
         $(this).removeAttr('style')
       }
     })
 
-  $('.mj-body')
+  $('.mj-container')
     .removeAttr('data-background-color')
     .removeAttr('data-width')
     .removeAttr('class')
@@ -56,7 +56,7 @@ const postRender = $ => {
 }
 
 @MJMLElement
-class Body extends Component {
+class Container extends Component {
 
   styles = this.getStyles()
 
@@ -77,7 +77,7 @@ class Body extends Component {
 
     return (
       <div
-        className="mj-body"
+        className="mj-container"
         data-background-color={mjAttribute('background-color')}
         data-width={width}
         style={this.styles.div}>
@@ -88,8 +88,11 @@ class Body extends Component {
 
 }
 
-Body.tagName = tagName
-Body.defaultMJMLDefinition = defaultMJMLDefinition
-Body.postRender = postRender
+Container.tagName = tagName
+Container.defaultMJMLDefinition = defaultMJMLDefinition
+Container.postRender = postRender
 
-export default Body
+// Support V1.X MJML mj-body
+elements["mj-body"] = Container
+
+export default Container

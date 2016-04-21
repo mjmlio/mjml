@@ -57,11 +57,11 @@ const documentParser = content => {
 
   try {
     const $ = dom.parseXML(safeEndingTags(content))
-    root = $('mjml content')
+    root = $('mjml mj-body')
 
     if (root.length < 1) {
       root = $('mj-body').get(0)
-      warning(false, 'Please upgrade your MJML markup to add a <mjml> root tag, <mj-body> as root will no longer be supported soon')
+      warning(false, 'Please upgrade your MJML markup to add a <mjml> root tag, <mj-body> as root will no longer be supported soon, see https://github.com/mjmlio/mjml/UPGRADE.MD')
     } else {
       root = root.children().get(0)
     }

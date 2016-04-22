@@ -7,9 +7,9 @@
 ``` html
 
 <mjml>
-  <content>
+  <mj-body>
       <mj-location address="37 bis, rue du Sentier â€“ 75002 Paris" />
-  </content>
+  </mj-body>
 </mjml>
 
 ```

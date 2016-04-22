@@ -7,12 +7,12 @@
 ``` html
 
 <mjml>
-  <content>
+  <mj-body>
     <mj-invoice format="0,00.00â‚¬" intl="name:Product Name">
       <mj-invoice-item name="TV" price="549â‚¬" quantity="1" />
       <mj-invoice-item name="DVD - Iron Man II" price="22.99â‚¬" quantity="2" />
     </mj-invoice>    
-  </content>
+  </mj-body>
 </mjml>
 
 ```

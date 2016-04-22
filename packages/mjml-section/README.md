@@ -3,13 +3,13 @@
 ``` html
 
 <mjml>
-  <content>
+  <mj-body>
     <mj-section full-width="full-width" background-color="red">
 
       <!-- Your columns go here -->
 
     </mj-section>    
-  </content>
+  </mj-body>
 </mjml>
 
 ```

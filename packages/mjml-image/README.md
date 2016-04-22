@@ -3,9 +3,9 @@
 ``` html
 
 <mjml>
-  <content>
+  <mj-body>
     <mj-image width="300" src="http://www.online-image-editor.com//styles/2014/images/example_image.png"></mj-image>
-  </content>
+  </mj-body>
 </mjml>
 
 ```

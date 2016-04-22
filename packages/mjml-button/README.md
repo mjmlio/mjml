@@ -3,11 +3,11 @@
 ``` html
 
   <mjml>
-    <content>
+    <mj-body>
       <mj-button font-family="Helvetica" background-color="#F45E43" color="white">
         Don't click me!
       </mj-button>
-    </content>
+    </mj-body>
   </mjml>
 ```
 

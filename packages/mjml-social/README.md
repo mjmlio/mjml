@@ -3,7 +3,7 @@
 ``` html
 
   <mjml>
-    <content>
+    <mj-body>
       <mj-social
         mode="vertical"
         display="google facebook"
@@ -11,9 +11,9 @@
         facebook-icon-color="#424242"
         facebook-href="my facebook page"
         google-href="my google+ page"/>   
-    </content>
+    </mj-body>
   </mjml>
-  
+
 ```
 
 Displays calls-to-action for various social networks with their associated logo.

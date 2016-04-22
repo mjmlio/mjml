@@ -4,19 +4,21 @@
 
 
 <mjml>
-  <content>
-    <mj-section>
+  <mj-body>
+    <mj-container>
+      <mj-section>
 
-      <mj-column>
-        <!-- Your first column -->
-      </mj-column>
+        <mj-column>
+          <!-- Your first column -->
+        </mj-column>
 
-      <mj-column>
-        <!-- Your second column -->
-      </mj-column>
+        <mj-column>
+          <!-- Your second column -->
+        </mj-column>
 
-    </mj-section>
-  </content>
+      </mj-section>
+    </mj-container>
+  </mj-body>
 </mjml>
 
 

@@ -101,7 +101,7 @@ import { mjml2html } from 'mjml'
 */
 const htmlOutput = mjml2html(`
   <mjml>
-    <content>
+    <mj-body>
       <mj-container>
         <mj-section>
           <mj-column>
@@ -111,7 +111,7 @@ const htmlOutput = mjml2html(`
           </mj-column>
         </mj-section>
       </mj-container>
-    </content>
+    </mj-body>
   </mjml>
 `)
 

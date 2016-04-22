@@ -3,9 +3,9 @@
 ``` html
 
 <mjml>
-  <content>
+  <mj-body>
     <mj-divider border-width="1px" border-style="dashed" border-color="lightgrey"></mj-divider>
-  </content>
+  </mj-body>
 </mjml>
 
 ```

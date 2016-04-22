@@ -3,7 +3,7 @@
 ``` html
 
 <mjml>
-  <content>
+  <mj-body>
     <mj-table>
       <tr style="border-bottom:1px solid #ecedee;text-align:left;padding:15px 0;">
         <th style="padding: 0 15px 0 0;">Year</th>
@@ -21,7 +21,7 @@
         <td style="padding: 0 0 0 15px;">Scheme, Self</td>
       </tr>
     </mj-table>  
-  </content>
+  </mj-body>
 </mjml>
 ```
 

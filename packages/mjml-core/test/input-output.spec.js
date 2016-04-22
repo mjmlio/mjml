@@ -28,11 +28,11 @@ describe('MJML Renderer', () => {
     it('should throw if no elements registered', () => {
       expect(() => new MJMLRenderer(`
         <mjml>
-          <content>
+          <mj-body>
             <mj-container>
               <mj-column />
             </mj-container>
-          </content>
+          </mj-body>
         </mjml>`).render()
       ).to.throw(/EmptyMJMLError/)
     })
@@ -42,11 +42,11 @@ describe('MJML Renderer', () => {
     it('should warn user that document will not be entirely parsed', () => {
       expect(new MJMLRenderer(`
         <mjml>
-          <content>
+          <mj-body>
             <mj-mock-list>
               <mj-mock />
             </mj-mock-list>
-          </content>
+          </mj-body>
         </mjml>`).render()
       ).to.not.contain('Mocked Component!')
     })
@@ -57,11 +57,11 @@ describe('MJML Renderer', () => {
       registerMJElement(MockComponent)
       expect(new MJMLRenderer(`
         <mjml>
-          <content>
+          <mj-body>
             <mj-mock-list>
               <mj-mock />
             </mj-mock-list>
-          </content>
+          </mj-body>
         </mjml>`).render()
       ).to.contain('Mocked Component!')
     })

@@ -3,22 +3,24 @@
 ``` html
 
 <mjml>
-  <content>
-    <mj-section>
-      <mj-column>
-        
-        <mj-text>What can I do today?</mj-text>
+  <mj-body>
+    <mj-container>
+      <mj-section>
+        <mj-column>
 
-        <mj-list>
-          <li>Go to the store</li>
-          <li>sleep</li>
-          <li>eat</li>
-          <li>sleep again</li>
-        </mj-list>
+          <mj-text>What can I do today?</mj-text>
 
-      </mj-column>
-    </mj-section>
-  </content>
+          <mj-list>
+            <li>Go to the store</li>
+            <li>sleep</li>
+            <li>eat</li>
+            <li>sleep again</li>
+          </mj-list>
+
+        </mj-column>
+      </mj-section>
+    </mj-container>
+  </mj-body>
 </mjml>
 
 ```

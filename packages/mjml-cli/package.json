@@ -1,6 +1,6 @@
 {
   "name": "mjml-cli",
-  "version": "2.0.0-beta.5",
+  "version": "2.0.0-beta.6",
   "main": "bin/mjml",
   "bin": {
     "mjml-cli": "bin/mjml"
@@ -20,7 +20,7 @@
     "fs-promise": "^0.5.0",
     "glob": "^7.0.3",
     "lodash": "^4.7.0",
-    "mjml-core": "^2.0.0-beta.5"
+    "mjml-core": "^2.0.0-beta.6"
   },
   "devDependencies": {
     "chai": "^3.5.0",

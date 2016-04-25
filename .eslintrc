@@ -27,6 +27,7 @@
     "dot-notation": 0,
     "eqeqeq": 0,
     "func-names": 0,
+    "global-require": 0,
     "indent": [2, 2, {"SwitchCase": 1}],
     "key-spacing": 0,
     "max-len": 0,
@@ -39,6 +40,7 @@
     "no-return-assign": 0,
     "no-shadow": 0,
     "no-throw-literal": 0,
+    "no-underscore-dangle": 0,
     "no-use-before-define": 0,
     "object-curly-spacing": 0,
     "object-shorthand": 0,
@@ -51,8 +53,11 @@
     "space-in-parens": 0,
     "vars-on-top": 0,
 
+    "import/no-unresolved": 0,
+
     "react/jsx-boolean-value": 0,
     "react/jsx-closing-bracket-location": 0,
+    "react/jsx-curly-spacing": 0,
     "react/jsx-indent-props": 0,
     "react/jsx-no-bind": 0,
     "react/no-did-mount-set-state": 0,

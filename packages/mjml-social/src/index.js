@@ -203,12 +203,12 @@ class Social extends Component {
           </table>
         </td>
         { this.isInTextMode() &&
-        <td style={this.styles.tdText}>
-          <a
-            dangerouslySetInnerHTML={{ __html: mjAttribute(`${platform}-content`) }}
-            href={href}
-            style={this.styles.a} />
-         </td> }
+          <td style={this.styles.tdText}>
+            <a
+              dangerouslySetInnerHTML={{ __html: mjAttribute(`${platform}-content`) }}
+              href={href}
+              style={this.styles.a} />
+          </td> }
       </tr>
     )
   }

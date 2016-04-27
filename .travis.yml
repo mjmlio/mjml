@@ -1,7 +1,10 @@
+sudo: false
 language: node_js
 node_js:
- - "5.0"
- - "4.2"
+ - 4
+ - 5
 script:
  - npm run lint
+ - cd packages/mjml-core
+ - npm install
  - npm test

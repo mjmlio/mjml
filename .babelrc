@@ -1,4 +1,4 @@
 {
   "presets": ["es2015", "react", "stage-0"],
-  "plugins": ["lodash", "transform-decorators-legacy", "babel-plugin-transform-inline-environment-variables"]
+  "plugins": ["transform-decorators-legacy"]
 }

@@ -1,2 +1,3 @@
-node_modules/**
-test/assets/**
+lib
+node_modules
+packages/mjml/test.js

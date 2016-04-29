@@ -11,11 +11,11 @@ binary
   .arguments('[files...]', 'Compiles an MJML file')
   .action(function (files) {
     var options = {
-      min: process.argv.indexOf('-m') !== 1 || process.argv.indexOf('--min') !== 1,
-      stdout: process.argv.indexOf('-s') !== 1 || process.argv.indexOf('--stdout') !== 1,
+      min: process.argv.indexOf('-m') !== -1 || process.argv.indexOf('--min') !== -1,
+      stdout: process.argv.indexOf('-s') !== -1 || process.argv.indexOf('--stdout') !== -1,
       output: binary.output
     }
-
+    
     cli.renderFile(files, options)
   })
   .option('-r, --render <file>', 'Compiles an MJML file')

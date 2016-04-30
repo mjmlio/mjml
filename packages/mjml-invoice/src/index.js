@@ -103,8 +103,8 @@ class Invoice extends Component {
     const currency = this.currency
 
     const total = this.items.reduce((prev, item) => {
-      const unitPrice = parseFloat(numeral().unformat(item.getIn(['attributes', 'price'])))
-      const quantity = parseInt(item.getIn(['attributes', 'quantity']))
+      const unitPrice = parseFloat(numeral().unformat(item.getIn(['attributes', 'price']))) || 0
+      const quantity = parseInt(item.getIn(['attributes', 'quantity'])) || 1
 
       return prev + unitPrice * quantity
     }, 0)

@@ -56,7 +56,7 @@ const readStdin = promisify(stdinToBuffer)
  */
 const render = (bufferPromise, { min, output, stdout }) => {
   bufferPromise
-    .then((mjml) => new MJMLRenderer(mjml.toString(), { minify: min }).render())
+    .then(mjml => new MJMLRenderer(mjml.toString(), { minify: min }).render())
     .then(result => stdout ? process.stdout.write(result) : write(output, result))
     .catch(error)
 }

@@ -69,8 +69,8 @@ const documentParser = content => {
     throw new ParseError('Error while parsing the file')
   }
 
-  if (root.length < 1) {
-    throw new EmptyMJMLError('No root "<mjml>" found in the file')
+  if (!root || root.length < 1) {
+    throw new EmptyMJMLError('No root "<mjml>" or "<mj-body>" found in the file')
   }
 
   return mjmlElementParser(root)

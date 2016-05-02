@@ -104,7 +104,10 @@ export const renderStream = options => render(readStdin(process.stdin), options)
 /*
  * Watch changes on a specific input file by calling render on each change
  */
-export const watch = (input, options) => fs.watchFile(input, () => render(Promise.resolve(input), options))
+export const watch = (input, options) => {
+  renderFile(input, options)
+  fs.watchFile(input, () => renderFile(input, options))
+}
 
 /*
  * Create a new component based on the default template

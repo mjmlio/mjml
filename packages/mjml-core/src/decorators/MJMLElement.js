@@ -131,7 +131,7 @@ function createComponent (ComposedComponent) {
           childProps.mjml = childProps.mjml.setIn(['attributes', 'rawPxWidth'], elementsWidth[i])
 
           if (this.mjml.get('inheritedAttributes')) {
-            childProps.mjml =  childProps.mjml.mergeIn(['attributes', this.inheritedAttributes()])
+            childProps.mjml = childProps.mjml.mergeIn(['attributes', this.inheritedAttributes()])
           }
         } else {
           Object.assign(childProps, {rawPxWidth: elementsWidth[i]})
@@ -140,6 +140,7 @@ function createComponent (ComposedComponent) {
             Object.assign(childProps, this.inheritedAttributes())
           }
         }
+
         const childWithProps = React.cloneElement(child, childProps)
 
         wrappedElements.push(childWithProps)

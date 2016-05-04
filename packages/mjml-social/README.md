@@ -32,7 +32,7 @@ If you want to add an unsupported network on <code class="prettyprint">mj-social
     awesome-network-icon-color="#FF00FF"
     awesome-network-icon="http://myicon.png" /&gt;
   </code>
-Note that <code class="prettyprint">content</code> is mandatory if <code class="prettyprint">text-mode</code> is set to <code class="prettyprint">false</code>
+Note that <code class="prettyprint">content</code> is mandatory if <code class="prettyprint">text-mode</code> is set to <code class="prettyprint">true</code>
 </aside>
 
 

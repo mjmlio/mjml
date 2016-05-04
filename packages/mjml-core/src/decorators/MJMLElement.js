@@ -56,12 +56,12 @@ function createComponent (ComposedComponent) {
       return merge({}, baseStyles, {
         td: {
           background: this.mjAttribute('container-background-color'),
-          fontSize: '0px',
-          padding: defaultUnit(this.mjAttribute('padding'), "px"),
-          paddingTop: defaultUnit(this.mjAttribute('padding-top'), "px"),
-          paddingBottom: defaultUnit(this.mjAttribute('padding-bottom'), "px"),
-          paddingRight: defaultUnit(this.mjAttribute('padding-right'), "px"),
-          paddingLeft: defaultUnit(this.mjAttribute('padding-left'), "px"),
+          fontSize: '1px',
+          padding: defaultUnit(this.mjAttribute('padding'), 'px'),
+          paddingTop: defaultUnit(this.mjAttribute('padding-top'), 'px'),
+          paddingBottom: defaultUnit(this.mjAttribute('padding-bottom'), 'px'),
+          paddingRight: defaultUnit(this.mjAttribute('padding-right'), 'px'),
+          paddingLeft: defaultUnit(this.mjAttribute('padding-left'), 'px'),
           textAlign: this.mjAttribute('align')
         }
       })

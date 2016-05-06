@@ -1,14 +1,13 @@
+## mjml-container
 
-## mj-container
-
-``` html
-
-<mj-container>
-
-  <!-- You email goes here -->
-
-</mj-container>
-
+```xml
+<mjml>
+  <mj-body>
+    <mj-container>
+      <!-- Your email goes here -->
+    </mj-container>
+  </mj-body>
+</mjml>
 ```
 
 This is the starting point of your email. It is a unique and mandatory component.

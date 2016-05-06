@@ -1,27 +1,23 @@
-## MJ-TEXT
+## mjml-text
 
- ``` html
-
+ ```xml
 <mjml>
   <mj-body>
     <mj-container>
       <mj-section>
         <mj-column>
-
           <mj-text>
-            <h1>Hey Title!</h1>
+            <h1>
+              Hey Title!
+            </h1>
           </mj-text>
-
         </mj-column>
       </mj-section>
-
       <mj-section>
         <mj-column>
-
           <mj-text>
             Hey There!
           </mj-text>
-
         </mj-column>
       </mj-section>
     </mj-container>

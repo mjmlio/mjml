@@ -1,4 +1,21 @@
-### MJ-INVOICE-ITEM
+## mjml-invoice-item
+
+```xml
+<mjml>
+  <mj-body>
+    <mj-container>
+      <mj-section>
+        <mj-column>
+          <mj-invoice format="0,00.00€" intl="name:Product Name">
+            <mj-invoice-item name="TV" price="549€" quantity="1" />
+            <mj-invoice-item name="DVD - Iron Man II" price="22.99€" quantity="2" />
+          </mj-invoice>
+        </mj-column>
+      </mj-section>
+    </mj-container>
+  </mj-body>
+</mjml>
+```
 
 Display a row in an `mj-invoice` component
 

@@ -1,18 +1,22 @@
-## MJ-LOCATION
+## mjml-location
 
-<p align="center">
-<img src="https://cloud.githubusercontent.com/assets/2217014/13528219/d574b84c-e214-11e5-8504-f9cd250b65fa.png" style="width: 250px; padding: 25px;" />
-</p>
-
-``` html
-
+```xml
 <mjml>
   <mj-body>
-      <mj-location address="37 bis, rue du Sentier â€“ 75002 Paris" />
+    <mj-container>
+      <mj-section>
+        <mj-column>
+          <mj-location address="37 bis, rue du Sentier 75002 Paris" />
+        </mj-column>
+      </mj-section>
+    </mj-container>
   </mj-body>
 </mjml>
-
 ```
+
+<p align="center">
+  <img src="https://cloud.githubusercontent.com/assets/2217014/13528219/d574b84c-e214-11e5-8504-f9cd250b65fa.png" />
+</p>
 
 Display a Google Maps location link
 

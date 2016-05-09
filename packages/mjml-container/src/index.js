@@ -34,7 +34,7 @@ const postRender = $ => {
       <![endif]-->`)
   })
 
-  $('container')
+  $('body')
     .css({ background: $('.mj-container').data('background-color') })
     .each(function () {
       if ($(this).attr('style') === '') {

@@ -1,14 +1,15 @@
+import _ from 'lodash'
 import { EmptyMJMLError } from './Error'
-import { html as beautify } from 'js-beautify'
 import { fixLegacyAttrs, removeCDATA } from './helpers/postRender'
+import { html as beautify } from 'js-beautify'
 import { parseInstance } from './helpers/mjml'
 import defaultContainer from './configs/defaultContainer'
+import defaultXsd from './configs/defaultXsd'
 import documentParser from './parsers/document'
 import dom from './helpers/dom'
 import fs from 'fs'
-import _ from 'lodash'
 import getFontsImports from './helpers/getFontsImports'
-import MJMLElementsCollection, { postRenders, registerMJElement } from './MJMLElementsCollection'
+import MJMLElementsCollection, { schemaXsds, postRenders, registerMJElement } from './MJMLElementsCollection'
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import warning from 'warning'
@@ -54,7 +55,9 @@ export default class MJMLRenderer {
   parseDocument () {
     debug('Start parsing document')
     this.content = documentParser(this.content)
+    this.schemaXsd = defaultXsd(schemaXsds.map(schemaXsd => schemaXsd(MJMLElementsCollection)))
     debug('Content parsed')
+    console.log('this.schemaXsd', this.schemaXsd)
   }
 
   render () {
@@ -75,10 +78,12 @@ export default class MJMLRenderer {
       fonts: getFontsImports({ content: renderedMJML })
     })
 
-    return this._postRender(MJMLDocument)
+    return this.postRender(MJMLDocument)
   }
 
-  _postRender (MJMLDocument) {
+
+
+  postRender (MJMLDocument) {
     let $ = dom.parseHTML(MJMLDocument)
 
     $ = fixLegacyAttrs($)

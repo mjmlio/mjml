@@ -54,6 +54,13 @@ const postRender = $ => {
 
   return $
 }
+const schemaXsd = () =>  (
+  `<xs:complexType name="body">
+    <xs:sequence>
+      <xs:element name="mj-container" type="container" minOccurs="1" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>`
+)
 
 @MJMLElement
 class Container extends Component {
@@ -91,6 +98,7 @@ class Container extends Component {
 Container.tagName = tagName
 Container.defaultMJMLDefinition = defaultMJMLDefinition
 Container.postRender = postRender
+Container.schemaXsd = schemaXsd
 
 // Support V1.X MJML mj-body
 elements["mj-body"] = Container

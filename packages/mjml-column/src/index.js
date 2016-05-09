@@ -40,6 +40,15 @@ const postRender = $ => {
 
   return $
 }
+const schemaXsd = elements => {
+  const columnElements = Object.keys(elements).map(element => elements[element].columnElement ? elements[element].tagName : null).filter(Boolean)
+
+  return `<xs:complexType name="column">
+    <xs:choice maxOccurs="unbounded" minOccurs="1">
+      ${(columnElements.map(element => `<xs:element name="${element}" type="${element}" minOccurs="0" maxOccurs="unbounded" />`).join(''))}
+    </xs:choice>
+  </xs:complexType>`
+}
 
 @MJMLElement
 class Column extends Component {
@@ -116,5 +125,6 @@ class Column extends Component {
 Column.tagName = tagName
 Column.baseStyles = baseStyles
 Column.postRender = postRender
+Column.schemaXsd = schemaXsd
 
 export default Column

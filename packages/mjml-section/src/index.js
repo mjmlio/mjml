@@ -78,6 +78,13 @@ const postRender = $ => {
 
   return $
 }
+const schemaXsd = () => (
+  `<xs:complexType name="section">
+    <xs:sequence>
+      <xs:element name="mj-column" type="column" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>`
+)
 
 @MJMLElement
 class Section extends Component {
@@ -179,5 +186,6 @@ Section.tagName = tagName
 Section.defaultMJMLDefinition = defaultMJMLDefinition
 Section.baseStyles = baseStyles
 Section.postRender = postRender
+Section.schemaXsd = schemaXsd
 
 export default Section

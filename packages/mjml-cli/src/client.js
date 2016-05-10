@@ -72,7 +72,7 @@ export const renderFile = (input, options) => {
       let output
 
       if (options.output) {
-        const outFile = path.basename(options.output, '.html')
+        const outFile = path.join(path.dirname(options.output), path.basename(options.output, '.html'))
 
         if (files.length > 1) {
           output = `${outFile}-${index + 1}.html`

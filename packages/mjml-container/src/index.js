@@ -66,7 +66,12 @@ class Container extends Component {
     return {
       div: {
         backgroundColor: mjAttribute('background-color'),
-        fontSize: defaultUnit(mjAttribute('font-size'), "px")
+        fontSize: defaultUnit(mjAttribute('font-size'), "px"),
+        padding: defaultUnit(mjAttribute('padding'), "px"),
+        paddingBottom: defaultUnit(mjAttribute('padding-bottom'), "px"),
+        paddingLeft: defaultUnit(mjAttribute('padding-left'), "px"),
+        paddingRight: defaultUnit(mjAttribute('padding-right'), "px"),
+        paddingTop: defaultUnit(mjAttribute('padding-top'), "px")
       }
     }
   }

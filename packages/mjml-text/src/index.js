@@ -12,6 +12,7 @@ const defaultMJMLDefinition = {
     'font-size': '13px',
     'line-height': '22px',
     'padding': '10px 25px'
+    'text-transform': 'none'
   }
 }
 const endingTag = true
@@ -38,7 +39,8 @@ class Text extends Component {
         fontStyle: mjAttribute('font-style'),
         fontWeight: mjAttribute('font-weight'),
         lineHeight: defaultUnit(mjAttribute('line-height'), "px"),
-        textDecoration: mjAttribute('text-decoration')
+        textDecoration: mjAttribute('text-decoration'),
+        textTransform: mjAttribute('text-transform')
       }
     })
   }

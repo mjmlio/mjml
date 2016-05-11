@@ -1,20 +1,20 @@
+## mjml-container
 
-## mj-container
-
-``` html
-
-<mj-container>
-
-  <!-- You email goes here -->
-
-</mj-container>
-
+```xml
+<mjml>
+  <mj-body>
+    <mj-container>
+      <!-- Your email goes here -->
+    </mj-container>
+  </mj-body>
+</mjml>
 ```
 
-This is the starting point of your email. It is a unique and mandatory component.
-It corresponds to the HTML `<body>` tag.
+<aside class="notice">
+  MJ-Container was MJ-Body in 1.X
+</aside>
 
-Everything outside the `<mj-container>` will not be parsed by the engine.
+This is the starting point of your email.
 
 <p align="center">
   <a href="/try-it-live/body"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>

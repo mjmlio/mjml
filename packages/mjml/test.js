@@ -2,8 +2,8 @@ var mjml = require('./lib/index')
 
 mjml.mjml2html(`
 <mjml>
- <mj-body>
-   <mj-container>
+  <mj-body>
+    <mj-container>
       <mj-section>
         <mj-column>
           <mj-table>

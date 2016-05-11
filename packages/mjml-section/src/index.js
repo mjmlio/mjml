@@ -16,7 +16,7 @@ const baseStyles = {
     margin: '0 auto'
   },
   table: {
-    fontSize: '0px',
+    fontSize: '1px',
     width: '100%'
   },
   td: {
@@ -108,7 +108,7 @@ class Section extends Component {
 
     return merge({}, baseStyles, {
       td: {
-        fontSize: '0px',
+        fontSize: '1px',
         padding: defaultUnit(mjAttribute('padding'), "px"),
         paddingBottom: defaultUnit(mjAttribute('padding-bottom'), "px"),
         paddingLeft: defaultUnit(mjAttribute('padding-left'), "px"),

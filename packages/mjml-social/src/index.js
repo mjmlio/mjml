@@ -1,5 +1,7 @@
 import { MJMLElement } from 'mjml-core'
 import merge from 'lodash/merge'
+import tap from 'lodash/tap'
+import clone from 'lodash/clone'
 import React, { Component } from 'react'
 
 const tagName = 'mj-social'
@@ -73,33 +75,27 @@ const baseStyles = {
 const buttonDefinitions = {
   facebook: {
     linkAttribute: 'https://www.facebook.com/sharer/sharer.php?u=[[URL]]',
-    icon: 'facebook.png',
-    textModeContent: 'Share'
+    icon: 'facebook.png'
   },
   twitter: {
     linkAttribute: 'https://twitter.com/home?status=[[URL]]',
-    icon: 'twitter.png',
-    textModeContent: 'Tweet'
+    icon: 'twitter.png'
   },
   google: {
     linkAttribute: 'https://plus.google.com/share?url=[[URL]]',
-    icon: 'google-plus.png',
-    textModeContent: '+1'
+    icon: 'google-plus.png'
   },
   pinterest: {
     linkAttribute: 'https://pinterest.com/pin/create/button/?url=[[URL]]&ampmedia=&ampdescription=',
-    icon: 'pinterest.png',
-    textModeContent: 'Pin it'
+    icon: 'pinterest.png'
   },
   linkedin: {
     linkAttribute: 'https://www.linkedin.com/shareArticle?mini=true&ampurl=[[URL]]&amptitle=&ampsummary=&ampsource=',
-    icon: 'linkedin.png',
-    textModeContent: 'Share'
+    icon: 'linkedin.png'
   },
   instagram: {
     linkAttribute: '[[URL]]',
-    icon: 'instagram.png',
-    textModeContent: 'Share'
+    icon: 'instagram.png'
   }
 }
 const postRender = $ => {
@@ -169,7 +165,8 @@ class Social extends Component {
 
   renderSocialButton (platform, share) {
     const { mjAttribute } = this.props
-    const definition = buttonDefinitions[platform]
+    const definition = this.getDefinitionForPlatform(platform)
+
     const href = share ? definition.linkAttribute.replace('[[URL]]', mjAttribute(`${platform}-href`)) : mjAttribute(`${platform}-href`)
     const iconStyle = {
       background: mjAttribute(`${platform}-icon-color`),
@@ -193,7 +190,7 @@ class Social extends Component {
                       alt={platform}
                       border="0"
                       height={parseInt(mjAttribute('icon-size'))}
-                      src={mjAttribute('base-url') + definition.icon}
+                      src={definition.icon}
                       style={this.styles.img}
                       width={parseInt(mjAttribute('icon-size'))} />
                   </a>
@@ -213,6 +210,23 @@ class Social extends Component {
     )
   }
 
+  getDefinitionForPlatform(platform) {
+    const { mjAttribute } = this.props
+
+    if (buttonDefinitions[platform]) {
+      return tap(clone(buttonDefinitions[platform]), buttonDefinition => buttonDefinition.icon = mjAttribute('base-url') + buttonDefinition.icon)
+    }
+
+    if (!mjAttribute(`${platform}-icon-color`) || !mjAttribute(`${platform}-icon`) || !mjAttribute(`${platform}-href`) || (this.isInTextMode() && !mjAttribute(`${platform}-content`)) ) {
+      return
+    }
+
+    return {
+      linkAttribute: "[[URL]]",
+      icon: mjAttribute(`${platform}-icon`)
+    }
+  }
+
   renderSocialButtons () {
     const { mjAttribute } = this.props
     const platforms = mjAttribute('display')
@@ -225,7 +239,7 @@ class Social extends Component {
       const platform = label.split(':')[0]
       const share = label.split(':')[1]
 
-      if (!buttonDefinitions[platform]) {
+      if (!this.getDefinitionForPlatform(platform)) {
         return null
       }
 

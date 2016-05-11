@@ -1,17 +1,23 @@
-## MJ-SOCIAL
+## mjml-social
 
-``` html
-
-  <mj-column>
-    <mj-social
-      mode="vertical"
-      display="google facebook"
-      google-icon-color="#424242"
-      facebook-icon-color="#424242"
-      facebook-href="my facebook page"
-      google-href="my google+ page"/>
-  </mj-column>
-
+```xml
+<mjml>
+  <mj-body>
+    <mj-container>
+      <mj-section>
+        <mj-column>
+          <mj-social
+            mode="vertical"
+            display="google facebook"
+            google-icon-color="#424242"
+            facebook-icon-color="#424242"
+            facebook-href="My facebook page"
+            google-href="My google+ page" />
+        </mj-column>
+      </mj-section>
+    </mj-container>
+  </mj-body>
+</mjml>
 ```
 
 Displays calls-to-action for various social networks with their associated logo.

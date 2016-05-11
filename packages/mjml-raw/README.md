@@ -1,5 +1,16 @@
+## mjml-raw
 
-## MJ-RAW
+```xml
+<mjml>
+  <mj-body>
+    <mj-container>
+      <mj-raw>
+        <!-- Your content goes here -->
+      </mj-raw>
+    </mj-container>
+  </mj-body>
+</mjml>
+```
 
 Displays raw HTML that is not going to be parsed by the MJML engine. Anything left inside this tag should be raw, responsive HTML.
 

@@ -1,22 +1,18 @@
-## MJ-CONTAINER
+## mjml-container
+
+```xml
+<mjml>
+  <mj-body>
+    <mj-container>
+      <!-- Your email goes here -->
+    </mj-container>
+  </mj-body>
+</mjml>
+```
 
 <aside class="notice">
   MJ-Container was MJ-Body in 1.X
 </aside>
-
-``` html
-
-<mjml>
-  <mj-body>
-    <mj-container>
-
-      <!-- You email goes here -->
-
-    </mj-container>
-  </mj-body>
-</mjml>
-
-```
 
 This is the starting point of your email.
 

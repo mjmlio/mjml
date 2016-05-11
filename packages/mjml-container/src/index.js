@@ -66,7 +66,7 @@ class Container extends Component {
     return {
       div: {
         backgroundColor: mjAttribute('background-color'),
-        fontSize: defaultUnit(mjAttribute('font-size'), "px")
+        fontSize: defaultUnit(mjAttribute('font-size'), 'px')
       }
     }
   }

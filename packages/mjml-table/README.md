@@ -1,13 +1,11 @@
-## MJ-TABLE
+## mjml-table
 
-``` html
-
+```xml
 <mjml>
   <mj-body>
     <mj-container>
       <mj-section>
-        <mj-column width="100%">
-
+        <mj-column>
           <mj-table>
             <tr style="border-bottom:1px solid #ecedee;text-align:left;padding:15px 0;">
               <th style="padding: 0 15px 0 0;">Year</th>
@@ -25,13 +23,11 @@
               <td style="padding: 0 0 0 15px;">Scheme, Self</td>
             </tr>
           </mj-table>
-
         </mj-column>
       </mj-section>
     </mj-container>
   </mj-body>
 </mjml>
-
 ```
 
 This tag allows you to display table and filled it with data.

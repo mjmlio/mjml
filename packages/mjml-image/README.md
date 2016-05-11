@@ -1,14 +1,12 @@
-## MJ-IMAGE
+## mjml-image
 
-``` html
+```xml
 <mjml>
   <mj-body>
     <mj-container>
       <mj-section>
         <mj-column>
-
-          <mj-image width="300" src="http://www.online-image-editor.com//styles/2014/images/example_image.png"></mj-image>
-
+          <mj-image width="300" src="http://www.online-image-editor.com//styles/2014/images/example_image.png" />
         </mj-column>
       </mj-section>
     </mj-container>

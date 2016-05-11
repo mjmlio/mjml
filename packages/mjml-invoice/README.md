@@ -1,29 +1,26 @@
-## MJ-INVOICE
+## mjml-invoice
 
-<p align="center">
-<img width="300px" src="https://cloud.githubusercontent.com/assets/2217014/13403338/c81697b8-df14-11e5-8cfb-6e5b3e6b7ade.png" style="width: 250px; padding: 25px;" />
-</p>
-
-``` html
-
+```xml
 <mjml>
   <mj-body>
     <mj-container>
       <mj-section>
         <mj-column width="100%">
-
           <mj-invoice format="0,00.00€" intl="name:Product Name">
             <mj-invoice-item name="TV" price="549€" quantity="1" />
             <mj-invoice-item name="DVD - Iron Man II" price="22.99€" quantity="2" />
           </mj-invoice>
-
         </mj-column>
       </mj-section>
     </mj-container>
   </mj-body>
 </mjml>
-
 ```
+
+<p align="center">
+  <img width="300px" src="https://cloud.githubusercontent.com/assets/2217014/13403338/c81697b8-df14-11e5-8cfb-6e5b3e6b7ade.png" />
+</p>
+
 Display a table of items with calculated total price.
 
 <p align="center">

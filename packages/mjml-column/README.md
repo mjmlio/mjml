@@ -1,21 +1,20 @@
-## MJ-COLUMN
+## mjml-column
 
-``` html
-
-
-<mj-section>
-
-  <mj-column>
-    <!-- You content -->
-  </mj-column>
-
-  <mj-column>
-    <!-- Your content -->
-  </mj-column>
-
-</mj-section>
-
-
+```xml
+<mjml>
+  <mj-body>
+    <mj-container>
+      <mj-section>
+        <mj-column>
+          <!-- Your first column -->
+        </mj-column>
+        <mj-column>
+          <!-- Your second column -->
+        </mj-column>
+      </mj-section>
+    </mj-container>
+  </mj-body>
+</mjml>
 ```
 
 Columns enable you to horizontally organize the content within your sections. They must be located under `mj-section` tags in order to be considered by the engine.

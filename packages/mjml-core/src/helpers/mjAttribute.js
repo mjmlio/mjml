@@ -6,12 +6,12 @@ export const widthParser = width => {
   return { unit: widthUnit || 'px', width: parseInt(width) }
 }
 
-export const defaultUnit = (units, defaultUnit) => {
-  if (!units) {
+export const defaultUnit = (units, defaultUnit = 'px') => {
+  if (!units || units === '') {
     return units
   }
 
-  return units.split(' ').map((unit) => {
+  return units.toString().split(' ').map(unit => {
     const parsedUnit = unitRegex.exec(unit.toString())[1]
     return parsedUnit ? unit : unit.toString() + defaultUnit
   }).join(' ')

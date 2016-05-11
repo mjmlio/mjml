@@ -30,8 +30,8 @@ class Table extends Component {
       table: {
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
-        fontSize: defaultUnit(mjAttribute('font-size'), "px"),
-        lineHeight: defaultUnit(mjAttribute('line-height'), "px"),
+        fontSize: defaultUnit(mjAttribute('font-size'), 'px'),
+        lineHeight: defaultUnit(mjAttribute('line-height'), 'px'),
         tableLayout: mjAttribute('table-layout')
       }
     }

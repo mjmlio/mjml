@@ -27,6 +27,10 @@
     "react": "^15.0.1",
     "warning": "^2.1.0"
   },
+  "browser": {
+    "cheerio": false,
+    "html-minifier": false
+  },
   "devDependencies": {
     "chai": "^3.5.0",
     "mocha": "^2.4.5"

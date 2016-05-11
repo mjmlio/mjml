@@ -1,7 +1,8 @@
-const inBrowser = typeof window !== 'undefined'
+import isBrowser from './isBrowser'
+
 const dom = {}
 
-if (inBrowser) {
+if (isBrowser) {
   const jquery = require('jquery')
 
   const parseMarkup = str => {

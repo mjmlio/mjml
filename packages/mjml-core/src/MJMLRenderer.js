@@ -7,9 +7,9 @@ import defaultContainer from './configs/defaultContainer'
 import defaultXsd from './configs/defaultXsd'
 import documentParser from './parsers/document'
 import dom from './helpers/dom'
-import fs from 'fs'
+import elements, { schemaXsds, postRenders, registerMJElement } from './MJMLElementsCollection'
 import getFontsImports from './helpers/getFontsImports'
-import MJMLElementsCollection, { schemaXsds, postRenders, registerMJElement } from './MJMLElementsCollection'
+import isBrowser from './helpers/isBrowser'
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import warning from 'warning'
@@ -19,7 +19,9 @@ const debug = require('debug')('mjml-engine/mjml2html')
 export default class MJMLRenderer {
 
   constructor (content, options = {}) {
-    this.registerDotfile()
+    if (!isBrowser) {
+      this.registerDotfile()
+    }
 
     this.content = content
     this.options = options
@@ -30,6 +32,8 @@ export default class MJMLRenderer {
   }
 
   registerDotfile () {
+    const fs = require('fs')
+
     try {
       const path = process.cwd()
       const mjmlConfig = JSON.parse(fs.readFileSync(`${path}/.mjmlconfig`).toString())
@@ -48,40 +52,17 @@ export default class MJMLRenderer {
         }
       })
     } catch (e) {
-      warning(!_.isEmpty(MJMLElementsCollection), 'No .mjmlconfig found in path, please consider to add one')
+      warning(!_.isEmpty(elements), 'No .mjmlconfig found in path, please consider to add one')
     }
   }
 
   parseDocument () {
     debug('Start parsing document')
     this.content = documentParser(this.content)
-    this.schemaXsd = defaultXsd(schemaXsds.map(schemaXsd => schemaXsd(MJMLElementsCollection)))
+    this.schemaXsd = defaultXsd(schemaXsds.map(schemaXsd => schemaXsd(elements)).join(`\n`))
     debug('Content parsed')
     console.log('this.schemaXsd', this.schemaXsd)
   }
-
-  render () {
-    if (!this.content) {
-      throw new EmptyMJMLError(`.render: No MJML to render in options ${this.options.toString()}`)
-    }
-
-    const rootElemComponent = React.createElement(MJMLElementsCollection[this.content.tagName], { mjml: parseInstance(this.content) })
-
-    debug('Render to static markup')
-    const renderedMJML = ReactDOMServer.renderToStaticMarkup(rootElemComponent)
-
-    debug('React rendering done. Continue with special overrides.')
-
-    const MJMLDocument = defaultContainer({
-      title: this.options.title,
-      content: renderedMJML,
-      fonts: getFontsImports({ content: renderedMJML })
-    })
-
-    return this.postRender(MJMLDocument)
-  }
-
-
 
   postRender (MJMLDocument) {
     let $ = dom.parseHTML(MJMLDocument)
@@ -105,7 +86,6 @@ export default class MJMLRenderer {
     }
 
     if (this.options.minify) {
-
       const minify = require('html-minifier').minify
 
       finalMJMLDocument = minify(finalMJMLDocument, {
@@ -117,5 +97,27 @@ export default class MJMLRenderer {
 
     return finalMJMLDocument
   }
+
+  render () {
+    if (!this.content) {
+      throw new EmptyMJMLError(`.render: No MJML to render in options ${this.options.toString()}`)
+    }
+
+    const rootElemComponent = React.createElement(elements[this.content.tagName], { mjml: parseInstance(this.content) })
+
+    debug('Render to static markup')
+    const renderedMJML = ReactDOMServer.renderToStaticMarkup(rootElemComponent)
+
+    debug('React rendering done. Continue with special overrides.')
+
+    const MJMLDocument = defaultContainer({
+      title: this.options.title,
+      content: renderedMJML,
+      fonts: getFontsImports({ content: renderedMJML })
+    })
+
+    return this.postRender(MJMLDocument)
+  }
+
 
 }

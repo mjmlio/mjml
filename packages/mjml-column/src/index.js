@@ -21,7 +21,7 @@ const postRender = $ => {
       $(this).removeAttr('data-column-width')
     })
 
-    uniq(columnWidths).forEach((width) => {
+    uniq(columnWidths).forEach(width => {
       const mediaQueryClass = `${className}-${width}`
 
       mediaQueries.push(`.${mediaQueryClass}, * [aria-labelledby="${mediaQueryClass}"] { width:${width}${unit}!important; }`)
@@ -43,9 +43,9 @@ const postRender = $ => {
 const schemaXsd = elements => {
   const columnElements = Object.keys(elements).map(element => elements[element].columnElement ? elements[element].tagName : null).filter(Boolean)
 
-  return `<xs:complexType name="column">
+  return `<xs:complexType name="${tagName}">
     <xs:choice maxOccurs="unbounded" minOccurs="1">
-      ${(columnElements.map(element => `<xs:element name="${element}" type="${element}" minOccurs="0" maxOccurs="unbounded" />`).join(''))}
+      ${(columnElements.map(element => `<xs:element name="${element}" type="${element}" minOccurs="0" maxOccurs="unbounded" />`).join(`\n`))}
     </xs:choice>
   </xs:complexType>`
 }

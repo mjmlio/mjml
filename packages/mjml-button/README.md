@@ -43,7 +43,7 @@ text-decoration             | string      | underline/overline/none             
 align                       | string      | horizontal alignment                             | center
 vertical-align              | string      | vertical alignment                               | middle
 href                        | link        | link to be triggered when the button is clicked  | n/a
-padding                     | px          | supports up to 4 parameters                      | 15px 30px
+padding                     | px          | supports up to 4 parameters                      | 15px 25px
 padding-top                 | px          | top offset                                       | n/a
 padding-bottom              | px          | bottom offset                                    | n/a
 padding-left                | px          | left offset                                      | n/a

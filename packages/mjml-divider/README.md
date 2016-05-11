@@ -27,6 +27,7 @@ border-color                | color       | divider color                  | #00
 border-style                | string      | dashed/dotted/solid            | solid
 border-width                | px          | divider's border width         | 4px
 width                       | px/percent  | divider width                  | 100%
+container-background-color  | color       | inner element background color | n/a
 padding                     | px          | supports up to 4 parameters    | 10px 25px
 padding-top                 | px          | top offset                     | n/a
 padding-bottom              | px          | bottom offset                  | n/a

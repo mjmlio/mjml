@@ -8,7 +8,6 @@
         <mj-column>
           <!-- Your first column -->
         </mj-column>
-
         <mj-column>
           <!-- Your second column -->
         </mj-column>

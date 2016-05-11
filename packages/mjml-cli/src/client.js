@@ -106,7 +106,7 @@ export const renderStream = options => render(readStdin(process.stdin), options)
  */
 export const watch = (input, options) => {
   renderFile(input, options)
-  fs.watchFile(input, () => renderFile(input, options))
+  fs.watchFile(input, () => console.log('Reloading MJML') || renderFile(input, options)) // eslint-disable-line no-console
 }
 
 /*

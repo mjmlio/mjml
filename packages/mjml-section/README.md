@@ -4,11 +4,13 @@
 
 <mjml>
   <mj-body>
-    <mj-section full-width="full-width" background-color="red">
+    <mj-container>
+      <mj-section full-width="full-width" background-color="red">
 
-      <!-- Your columns go here -->
+        <!-- Your columns go here -->
 
-    </mj-section>    
+      </mj-section>
+    </mj-container>
   </mj-body>
 </mjml>
 

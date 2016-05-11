@@ -3,24 +3,17 @@
 ``` html
 
 
-<mjml>
-  <mj-body>
-    <mj-container>
-      <mj-section>
+<mj-section>
 
-        <mj-column>
-          <!-- Your first column -->
-        </mj-column>
+  <mj-column>
+    <!-- You content -->
+  </mj-column>
 
-        <mj-column>
-          <!-- Your second column -->
-        </mj-column>
+  <mj-column>
+    <!-- Your content -->
+  </mj-column>
 
-      </mj-section>
-    </mj-container>
-  </mj-body>
-</mjml>
-
+</mj-section>
 
 
 ```

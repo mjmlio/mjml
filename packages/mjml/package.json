@@ -24,7 +24,7 @@
     "mjml-html": "^2.0.1",
     "mjml-image": "^2.0.1",
     "mjml-invoice-item": "^2.0.1",
-    "mjml-invoice": "^2.0.1",
+    "mjml-invoice": "^2.0.2",
     "mjml-list": "^2.0.1",
     "mjml-location": "^2.0.1",
     "mjml-raw": "^2.0.1",

@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 const tagName = 'mj-container'
 const defaultMJMLDefinition = {
   attributes: {
-    'width': '600'
+    'width': '600px'
   },
   inheritedAttributes: [
     'width'
@@ -54,10 +54,10 @@ const postRender = $ => {
 
   return $
 }
-const schemaXsd = () =>  (
-  `<xs:complexType name="body">
+const schemaXsd = () => (
+  `<xs:complexType name="mj-body">
     <xs:sequence>
-      <xs:element name="mj-container" type="container" minOccurs="1" maxOccurs="1" />
+      <xs:element name="mj-container" type="mj-container" minOccurs="1" maxOccurs="1" />
     </xs:sequence>
   </xs:complexType>`
 )
@@ -73,14 +73,14 @@ class Container extends Component {
     return {
       div: {
         backgroundColor: mjAttribute('background-color'),
-        fontSize: defaultUnit(mjAttribute('font-size'), "px")
+        fontSize: defaultUnit(mjAttribute('font-size'), 'px')
       }
     }
   }
 
   render () {
-    const { renderWrappedOutlookChildren, mjAttribute, children } = this.props
-    const { width } = helpers.widthParser(mjAttribute('width'))
+    const { renderWrappedOutlookChildren, defaultUnit, mjAttribute, children } = this.props
+    const { width } = helpers.widthParser(defaultUnit(mjAttribute('width'), 'px'))
 
     return (
       <div
@@ -101,6 +101,6 @@ Container.postRender = postRender
 Container.schemaXsd = schemaXsd
 
 // Support V1.X MJML mj-body
-elements["mj-body"] = Container
+elements['mj-body'] = Container
 
 export default Container

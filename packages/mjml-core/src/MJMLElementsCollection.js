@@ -1,17 +1,20 @@
 import warning from 'warning'
 
+export const closingTags = []
 export const endingTags = []
 export const postRenders = []
 export const schemaXsds = []
 
 export const registerMJElement = Component => {
-  const { endingTag, postRender, tagName, schemaXsd } = Component
+  const { closingTag, endingTag, postRender, tagName, schemaXsd } = Component
 
   if (!tagName) {
-    return warning(false, 'Component has no TagName')
+    return warning(false, 'Component has no tagName')
   }
 
-  endingTag  && endingTags.push(tagName)
+  closingTag === false && closingTags.push(tagName)
+  endingTag  === true  && endingTags.push(tagName)
+
   postRender && postRenders.push(postRender)
   schemaXsd  && schemaXsds.push(schemaXsd)
 

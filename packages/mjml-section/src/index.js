@@ -4,16 +4,17 @@ import merge from 'lodash/merge'
 import React, { Component } from 'react'
 
 const tagName = 'mj-section'
+const parentTag = 'mj-container'
 const defaultMJMLDefinition = {
   attributes: {
     'background-repeat': 'repeat',
-    'padding': '20px 0',
+    'padding': '20px 0px',
     'background-size': 'auto'
   }
 }
 const baseStyles = {
   div: {
-    margin: '0 auto'
+    margin: '0px auto'
   },
   table: {
     fontSize: '1px',
@@ -78,13 +79,15 @@ const postRender = $ => {
 
   return $
 }
-const schemaXsd = () => (
-  `<xs:complexType name="section">
-    <xs:sequence>
-      <xs:element name="mj-column" type="column" minOccurs="0" maxOccurs="unbounded" />
-    </xs:sequence>
+const schemaXsd = elements => {
+  const sectionElements = Object.keys(elements).map(element => elements[element].parentTag === tagName ? elements[element].tagName : null).filter(Boolean)
+
+  return `<xs:complexType name="${tagName}">
+    <xs:choice maxOccurs="unbounded" minOccurs="1">
+      ${(sectionElements.map(element => `<xs:element name="${element}" type="${element}" minOccurs="0" maxOccurs="unbounded" />`).join(`\n`))}
+    </xs:choice>
   </xs:complexType>`
-)
+}
 
 @MJMLElement
 class Section extends Component {
@@ -109,11 +112,11 @@ class Section extends Component {
     return merge({}, baseStyles, {
       td: {
         fontSize: '1px',
-        padding: defaultUnit(mjAttribute('padding'), "px"),
-        paddingBottom: defaultUnit(mjAttribute('padding-bottom'), "px"),
-        paddingLeft: defaultUnit(mjAttribute('padding-left'), "px"),
-        paddingRight: defaultUnit(mjAttribute('padding-right'), "px"),
-        paddingTop: defaultUnit(mjAttribute('padding-top'), "px"),
+        padding: defaultUnit(mjAttribute('padding')),
+        paddingBottom: defaultUnit(mjAttribute('padding-bottom')),
+        paddingLeft: defaultUnit(mjAttribute('padding-left')),
+        paddingRight: defaultUnit(mjAttribute('padding-right')),
+        paddingTop: defaultUnit(mjAttribute('padding-top')),
         textAlign: mjAttribute('text-align'),
         verticalAlign: mjAttribute('vertical-align')
       },
@@ -183,6 +186,7 @@ class Section extends Component {
 }
 
 Section.tagName = tagName
+Section.parentTag = parentTag
 Section.defaultMJMLDefinition = defaultMJMLDefinition
 Section.baseStyles = baseStyles
 Section.postRender = postRender

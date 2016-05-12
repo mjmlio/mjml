@@ -54,13 +54,13 @@ class Invoice extends Component {
       table: {
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
-        fontSize: defaultUnit(mjAttribute('font-size'), "px"),
-        lineHeight: defaultUnit(mjAttribute('line-height'), "px")
+        fontSize: defaultUnit(mjAttribute('font-size')),
+        lineHeight: defaultUnit(mjAttribute('line-height'))
       },
       th: {
         fontFamily: mjAttribute('font-family'),
-        fontSize: defaultUnit(mjAttribute('font-size'), "px"),
-        lineHeight: defaultUnit(mjAttribute('line-height'), "px")
+        fontSize: defaultUnit(mjAttribute('font-size')),
+        lineHeight: defaultUnit(mjAttribute('line-height'))
       },
       thead: {
         borderBottom: mjAttribute('border')
@@ -70,9 +70,9 @@ class Invoice extends Component {
       },
       total: {
         fontFamily: mjAttribute('font-family'),
-        fontSize: defaultUnit(mjAttribute('font-size'), "px"),
+        fontSize: defaultUnit(mjAttribute('font-size')),
         fontWeight: '700',
-        lineHeight: defaultUnit(mjAttribute('line-height'), "px"),
+        lineHeight: defaultUnit(mjAttribute('line-height')),
         padding: '10px 20px',
         textAlign: 'right'
       }

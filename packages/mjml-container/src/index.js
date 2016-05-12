@@ -2,6 +2,7 @@ import { MJMLElement, helpers, elements } from 'mjml-core'
 import React, { Component } from 'react'
 
 const tagName = 'mj-container'
+const parentTag = 'mj-body'
 const defaultMJMLDefinition = {
   attributes: {
     'width': '600px'
@@ -54,13 +55,15 @@ const postRender = $ => {
 
   return $
 }
-const schemaXsd = () => (
-  `<xs:complexType name="mj-body">
-    <xs:sequence>
-      <xs:element name="mj-container" type="mj-container" minOccurs="1" maxOccurs="1" />
-    </xs:sequence>
+const schemaXsd = elements => {
+  const containerElements = Object.keys(elements).map(element => elements[element].parentTag === tagName ? elements[element].tagName : null).filter(Boolean)
+
+  return `<xs:complexType name="${tagName}">
+    <xs:choice maxOccurs="unbounded" minOccurs="1">
+      ${(containerElements.map(element => `<xs:element name="${element}" type="${element}" minOccurs="0" maxOccurs="unbounded" />`).join(`\n`))}
+    </xs:choice>
   </xs:complexType>`
-)
+}
 
 @MJMLElement
 class Container extends Component {
@@ -73,14 +76,14 @@ class Container extends Component {
     return {
       div: {
         backgroundColor: mjAttribute('background-color'),
-        fontSize: defaultUnit(mjAttribute('font-size'), 'px')
+        fontSize: defaultUnit(mjAttribute('font-size'))
       }
     }
   }
 
   render () {
     const { renderWrappedOutlookChildren, defaultUnit, mjAttribute, children } = this.props
-    const { width } = helpers.widthParser(defaultUnit(mjAttribute('width'), 'px'))
+    const { width } = helpers.widthParser(defaultUnit(mjAttribute('width')))
 
     return (
       <div
@@ -96,6 +99,7 @@ class Container extends Component {
 }
 
 Container.tagName = tagName
+Container.parentTag = parentTag
 Container.defaultMJMLDefinition = defaultMJMLDefinition
 Container.postRender = postRender
 Container.schemaXsd = schemaXsd

@@ -3,6 +3,8 @@ import merge from 'lodash/merge'
 import React, { Component } from 'react'
 
 const tagName = 'mj-invoice-item'
+const parentTag = 'mj-invoice'
+const endingTag = true
 const defaultMJMLDefinition = {
   attributes: {
     'color': '#747474',
@@ -15,7 +17,6 @@ const defaultMJMLDefinition = {
     'text-align': 'left'
   }
 }
-const endingTag = true
 const baseStyles = {
   td: {
     fontWeight: '500',
@@ -41,8 +42,8 @@ class InvoiceItem extends Component {
       td: {
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
-        fontSize: defaultUnit(mjAttribute('font-size'), "px"),
-        padding: defaultUnit(mjAttribute('padding'), "px"),
+        fontSize: defaultUnit(mjAttribute('font-size')),
+        padding: defaultUnit(mjAttribute('padding')),
         textAlign: mjAttribute('text-align')
       }
     })
@@ -68,8 +69,9 @@ class InvoiceItem extends Component {
 }
 
 InvoiceItem.tagName = tagName
-InvoiceItem.defaultMJMLDefinition = defaultMJMLDefinition
+InvoiceItem.parentTag = parentTag
 InvoiceItem.endingTag = endingTag
+InvoiceItem.defaultMJMLDefinition = defaultMJMLDefinition
 InvoiceItem.baseStyles = baseStyles
 
 export default InvoiceItem

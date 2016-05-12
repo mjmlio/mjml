@@ -3,20 +3,28 @@ import merge from 'lodash/merge'
 import React, { Component } from 'react'
 
 const tagName = 'mj-divider'
+const parentTag = 'mj-column'
+const closingTag = false
 const defaultMJMLDefinition = {
   attributes: {
+    'align': null,
     'border-color': '#000000',
     'border-style': 'solid',
     'border-width': '4px',
+    'container-background-color': null,
+    'padding-bottom': null,
+    'padding-left': null,
+    'padding-right': null,
+    'padding-top': null,
     'padding': '10px 25px',
+    'vertical-align': null,
     'width': '100%'
   }
 }
-const columnElement = true
 const baseStyles = {
   p: {
     fontSize: '1px',
-    margin: '0 auto'
+    margin: '0px auto'
   }
 }
 const postRender = $ => {
@@ -31,6 +39,11 @@ const postRender = $ => {
 
   return $
 }
+const schemaXsd = () => (
+  `<xs:complexType name="${tagName}">
+    ${Object.keys(defaultMJMLDefinition.attributes).map(attribute => `<xs:attribute type="xs:string" name="${attribute}" />`).join(`\n`)}
+  </xs:complexType>`
+)
 
 @MJMLElement
 class Divider extends Component {
@@ -38,12 +51,12 @@ class Divider extends Component {
   styles = this.getStyles()
 
   getStyles () {
-    const { mjAttribute } = this.props
+    const { mjAttribute, defaultUnit } = this.props
 
     return merge({}, baseStyles, {
       p: {
-        borderTop: `${mjAttribute('border-width')} ${mjAttribute('border-style')} ${mjAttribute('border-color')}`,
-        width: mjAttribute('width')
+        borderTop: `${defaultUnit(mjAttribute('border-width'))} ${mjAttribute('border-style')} ${mjAttribute('border-color')}`,
+        width: defaultUnit(mjAttribute('width'))
       }
     })
   }
@@ -54,12 +67,11 @@ class Divider extends Component {
     const { width, unit } = helpers.widthParser(mjAttribute('width'))
 
     switch (unit) {
-      case '%': {
+      case '%':
         return parentWidth * width / 100
-      }
-      default: {
+
+      default:
         return width
-      }
     }
   }
 
@@ -75,9 +87,11 @@ class Divider extends Component {
 }
 
 Divider.tagName = tagName
+Divider.parentTag = parentTag
+Divider.closingTag = closingTag
 Divider.defaultMJMLDefinition = defaultMJMLDefinition
-Divider.columnElement = columnElement
 Divider.baseStyles = baseStyles
 Divider.postRender = postRender
+Divider.schemaXsd = schemaXsd
 
 export default Divider

@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 
 const tagName = 'mj-raw'
 const endingTag = true
+const rawElement = true
 const postRender = $ => {
   $('.mj-raw').each(function () {
     $(this).replaceWith($(this).html())
@@ -39,6 +40,7 @@ class Raw extends Component {
 
 Raw.tagName = tagName
 Raw.endingTag = endingTag
+Raw.rawElement = rawElement
 Raw.postRender = postRender
 
 export default Raw

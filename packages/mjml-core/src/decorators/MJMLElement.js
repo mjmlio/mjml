@@ -1,6 +1,5 @@
 import { widthParser, defaultUnit } from '../helpers/mjAttribute'
 import Immutable from 'immutable'
-import merge from 'lodash/merge'
 import MJMLElementsCollection from '../MJMLElementsCollection'
 import React, { Component } from 'react'
 import ReactDOMServer from 'react-dom/server'
@@ -36,12 +35,6 @@ let siblingCount = 1
 
 function createComponent (ComposedComponent) {
 
-  const baseStyles = {
-    td: {
-      wordBreak: 'break-word'
-    }
-  }
-
   class MJMLElement extends Component {
 
     constructor (props) {
@@ -52,24 +45,7 @@ function createComponent (ComposedComponent) {
 
     mjAttribute = name => this.mjml.getIn(['attributes', name])
 
-    getStyles () {
-      return merge({}, baseStyles, {
-        td: {
-          background: this.mjAttribute('container-background-color'),
-          fontSize: '1px',
-          padding: defaultUnit(this.mjAttribute('padding'), 'px'),
-          paddingTop: defaultUnit(this.mjAttribute('padding-top'), 'px'),
-          paddingBottom: defaultUnit(this.mjAttribute('padding-bottom'), 'px'),
-          paddingRight: defaultUnit(this.mjAttribute('padding-right'), 'px'),
-          paddingLeft: defaultUnit(this.mjAttribute('padding-left'), 'px'),
-          textAlign: this.mjAttribute('align')
-        }
-      })
-    }
-
-    mjName = () =>  {
-      return this.constructor.tagName
-    }
+    mjName = () => this.constructor.tagName
 
     mjContent = () => {
       const content = this.mjml.get('content')
@@ -134,7 +110,7 @@ function createComponent (ComposedComponent) {
             childProps.mjml = childProps.mjml.mergeIn(['attributes', this.inheritedAttributes()])
           }
         } else {
-          Object.assign(childProps, {rawPxWidth: elementsWidth[i]})
+          Object.assign(childProps, { rawPxWidth: elementsWidth[i] })
 
           if (this.mjml.get('inheritedAttributes')) {
             Object.assign(childProps, this.inheritedAttributes())
@@ -144,7 +120,7 @@ function createComponent (ComposedComponent) {
         const childWithProps = React.cloneElement(child, childProps)
 
         wrappedElements.push(childWithProps)
-        if (childWithProps.type.tagName !== 'mj-raw' && i < realChildren.length - 1) {
+        if (!childWithProps.type.rawElement && i < realChildren.length - 1) {
           wrappedElements.push(<div key={`outlook-${i}`} className={`${prefix}-line`} data-width={elementsWidth[++i]} />)
         }
       })
@@ -254,24 +230,43 @@ function createComponent (ComposedComponent) {
       }
     }
 
-    render () {
-      if (this.constructor.columnElement) {
-        this.styles = this.getStyles()
+    isColumnElement = () => this.constructor.parentTag === 'mj-column'
 
-        return (
-          <tr>
-            <td
-              data-legacy-background={this.mjAttribute('container-background-color')}
-              style={this.styles.td}>
-              <ComposedComponent {...this.buildProps()} />
-            </td>
-          </tr>
-        )
+    renderColumnContainer () {
+      const styles = {
+        td: {
+          background: this.mjAttribute('container-background-color'),
+          fontSize: '1px',
+          padding: defaultUnit(this.mjAttribute('padding')),
+          paddingBottom: defaultUnit(this.mjAttribute('padding-bottom')),
+          paddingLeft: defaultUnit(this.mjAttribute('padding-left')),
+          paddingRight: defaultUnit(this.mjAttribute('padding-right')),
+          paddingTop: defaultUnit(this.mjAttribute('padding-top')),
+          textAlign: this.mjAttribute('align'),
+          verticalAlign: this.mjAttribute('vertical-align'),
+          wordBreak: 'break-word'
+        }
       }
 
       return (
+        <tr>
+          <td
+            data-legacy-background={this.mjAttribute('container-background-color')}
+            style={styles.td}>
+            <ComposedComponent {...this.buildProps()} />
+          </td>
+        </tr>
+      )
+    }
+
+    renderDefaultContainer () {
+      return (
         <ComposedComponent {...this.buildProps()} />
       )
+    }
+
+    render () {
+      return this.isColumnElement() ? this.renderColumnContainer() : this.renderDefaultContainer()
     }
   }
 

@@ -3,6 +3,8 @@ import merge from 'lodash/merge'
 import React, { Component } from 'react'
 
 const tagName = 'mj-button'
+const parentTag = 'mj-column'
+const endingTag = true
 const defaultMJMLDefinition = {
   content: '',
   attributes: {
@@ -11,23 +13,35 @@ const defaultMJMLDefinition = {
     'border-radius': '3px',
     'border': 'none',
     'color': '#ffffff',
+    'container-background-color': null,
     'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
     'font-size': '13px',
     'font-weight': 'normal',
     'href': '',
+    'padding-bottom': null,
+    'padding-left': null,
+    'padding-right': null,
+    'padding-top': null,
     'padding': '10px 25px',
     'text-decoration': 'none',
     'vertical-align': 'middle'
   }
 }
-const endingTag = true
-const columnElement = true
 const baseStyles = {
   a: {
     display: 'inline-block',
     textDecoration: 'none'
   }
 }
+const schemaXsd = () => (
+  `<xs:complexType name="${tagName}">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        ${Object.keys(defaultMJMLDefinition.attributes).map(attribute => `<xs:attribute type="xs:string" name="${attribute}" />`).join(`\n`)}
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>`
+)
 
 @MJMLElement
 class Button extends Component {
@@ -40,25 +54,25 @@ class Button extends Component {
     return merge({}, baseStyles, {
       td: {
         background: mjAttribute('background-color'),
-        borderRadius: defaultUnit(mjAttribute('border-radius'), "px"),
+        borderRadius: defaultUnit(mjAttribute('border-radius')),
         color: mjAttribute('color'),
         cursor: 'auto',
         fontStyle: mjAttribute('font-style')
       },
       table: {
         border: mjAttribute('border'),
-        borderRadius: defaultUnit(mjAttribute('border-radius'), "px")
+        borderRadius: defaultUnit(mjAttribute('border-radius'))
       },
       a: {
         background: mjAttribute('background-color'),
         border: `1px solid ${mjAttribute('background-color')}`,
-        borderRadius: defaultUnit(mjAttribute('border-radius'), "px"),
+        borderRadius: defaultUnit(mjAttribute('border-radius')),
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
-        fontSize: defaultUnit(mjAttribute('font-size'), "px"),
+        fontSize: defaultUnit(mjAttribute('font-size')),
         fontStyle: mjAttribute('font-style'),
         fontWeight: mjAttribute('font-weight'),
-        padding: defaultUnit(mjAttribute('padding'), "px"),
+        padding: defaultUnit(mjAttribute('padding')),
         textDecoration: mjAttribute('text-decoration')
       }
     })
@@ -104,9 +118,10 @@ class Button extends Component {
 }
 
 Button.tagName = tagName
-Button.defaultMJMLDefinition = defaultMJMLDefinition
+Button.parentTag = parentTag
 Button.endingTag = endingTag
-Button.columnElement = columnElement
+Button.defaultMJMLDefinition = defaultMJMLDefinition
 Button.baseStyles = baseStyles
+Button.schemaXsd = schemaXsd
 
 export default Button

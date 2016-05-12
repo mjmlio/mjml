@@ -1,6 +1,6 @@
 var mjml = require('./lib/index')
 
-mjml.mjml2html(`
+console.log(mjml.mjml2html(`
 <mjml>
   <mj-body>
     <mj-container>
@@ -23,10 +23,6 @@ mjml.mjml2html(`
               <td style="padding: 0 0 0 15px;">Scheme, Self</td>
             </tr>
           </mj-table>
-          <mj-invoice format="0,00.00€" intl="name:Product Name">
-            <mj-invoice-item name="TV" price="549€" quantity="1" />
-            <mj-invoice-item name="DVD - Iron Man II" price="22.99€" quantity="2" />
-          </mj-invoice>
           <mj-social />
           <mj-button>
             My button
@@ -53,4 +49,4 @@ mjml.mjml2html(`
     </mj-container>
   </mj-body>
 </mjml>
-`, { beautify: true })
+`, { beautify: true }))

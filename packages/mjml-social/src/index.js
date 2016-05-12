@@ -5,8 +5,15 @@ import clone from 'lodash/clone'
 import React, { Component } from 'react'
 
 const tagName = 'mj-social'
+const parentTag = 'mj-column'
+const closingTag = false
 const defaultMJMLDefinition = {
   attributes: {
+    'align': 'center',
+    'base-url': 'https://www.mailjet.com/images/theme/v1/icons/ico-social/',
+    'color': '#333333',
+    'container-background-color': null,
+    'display': 'facebook:share twitter:share google:share',
     'facebook-content': 'Share',
     'facebook-href': '[[SHORT_PERMALINK]]',
     'facebook-icon-color' : '#3b5998',
@@ -23,8 +30,12 @@ const defaultMJMLDefinition = {
     'linkedin-content': 'Share',
     'linkedin-href': '[[SHORT_PERMALINK]]',
     'linkedin-icon-color' : '#0077b5',
-    'padding': '10px 25px',
     'mode': 'horizontal',
+    'padding-bottom': null,
+    'padding-left': null,
+    'padding-right': null,
+    'padding-top': null,
+    'padding': '10px 25px',
     'pinterest-content': 'Pin it',
     'pinterest-href': '[[SHORT_PERMALINK]]',
     'pinterest-icon-color': '#bd081c',
@@ -33,13 +44,9 @@ const defaultMJMLDefinition = {
     'twitter-content': 'Tweet',
     'twitter-href': '[[SHORT_PERMALINK]]',
     'twitter-icon-color': '#55acee',
-    'align': 'center',
-    'color': '#333333',
-    'display': 'facebook:share twitter:share google:share',
-    'base-url': 'https://www.mailjet.com/images/theme/v1/icons/ico-social/'
+    'vertical-align': null
   }
 }
-const columnElement = true
 const baseStyles = {
   div: {
     textAlign: 'center'
@@ -119,6 +126,11 @@ const postRender = $ => {
 
   return $
 }
+const schemaXsd = () => (
+  `<xs:complexType name="${tagName}">
+    ${Object.keys(defaultMJMLDefinition.attributes).map(attribute => `<xs:attribute type="xs:string" name="${attribute}" />`).join(`\n`)}
+  </xs:complexType>`
+)
 
 @MJMLElement
 class Social extends Component {
@@ -135,18 +147,18 @@ class Social extends Component {
       a: {
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
-        fontSize: defaultUnit(mjAttribute('font-size'), "px"),
+        fontSize: defaultUnit(mjAttribute('font-size')),
         fontStyle: mjAttribute('font-style'),
         fontWeight: mjAttribute('font-weight'),
-        lineHeight: defaultUnit(mjAttribute('line-height'), "px"),
+        lineHeight: defaultUnit(mjAttribute('line-height')),
         textDecoration: mjAttribute('text-decoration')
       },
       td1: {
         padding: this.isHorizontal() ? '0 4px' : '4px 0'
       },
       td2: {
-        width: defaultUnit(mjAttribute('icon-size'), "px"),
-        height: defaultUnit(mjAttribute('icon-size'), "px")
+        width: defaultUnit(mjAttribute('icon-size')),
+        height: defaultUnit(mjAttribute('icon-size'))
       }
     })
   }
@@ -160,7 +172,7 @@ class Social extends Component {
   isInTextMode () {
     const { mjAttribute } = this.props
 
-    return mjAttribute('text-mode') == true || mjAttribute('text-mode') == 'true'
+    return mjAttribute('text-mode') === true || mjAttribute('text-mode') === 'true'
   }
 
   renderSocialButton (platform, share) {
@@ -243,7 +255,7 @@ class Social extends Component {
         return null
       }
 
-      return this.renderSocialButton(platform, share != "url")
+      return this.renderSocialButton(platform, share !== 'url')
     })
   }
 
@@ -301,10 +313,12 @@ class Social extends Component {
 }
 
 Social.tagName = tagName
+Social.parentTag = parentTag
+Social.closingTag = closingTag
 Social.defaultMJMLDefinition = defaultMJMLDefinition
-Social.columnElement = columnElement
 Social.baseStyles = baseStyles
 Social.buttonDefinitions = buttonDefinitions
 Social.postRender = postRender
+Social.schemaXsd = schemaXsd
 
 export default Social

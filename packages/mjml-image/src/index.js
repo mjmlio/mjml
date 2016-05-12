@@ -4,20 +4,27 @@ import min from 'lodash/min'
 import React, { Component } from 'react'
 
 const tagName = 'mj-image'
+const parentTag = 'mj-column'
+const endingTag = true
+const closingTag = false
 const defaultMJMLDefinition = {
   attributes: {
-    'height': 'auto',
-    'padding': '10px 25px',
     'align': 'center',
     'alt': '',
     'border': 'none',
+    'container-background-color': null,
+    'height': 'auto',
     'href': '',
+    'padding-bottom': null,
+    'padding-left': null,
+    'padding-right': null,
+    'padding-top': null,
+    'padding': '10px 25px',
     'src': '',
-    'target': '_blank'
+    'target': '_blank',
+    'vertical-align': null
   }
 }
-const endingTag = true
-const columnElement = true
 const baseStyles = {
   table: {
     borderCollapse: 'collapse',
@@ -31,6 +38,11 @@ const baseStyles = {
     width: '100%'
   }
 }
+const schemaXsd = () => (
+  `<xs:complexType name="${tagName}">
+    ${Object.keys(defaultMJMLDefinition.attributes).map(attribute => `<xs:attribute type="xs:string" name="${attribute}" />`).join(`\n`)}
+  </xs:complexType>`
+)
 
 @MJMLElement
 class Image extends Component {
@@ -51,27 +63,27 @@ class Image extends Component {
   }
 
   getStyles () {
-    const { mjAttribute } = this.props
+    const { mjAttribute, defaultUnit } = this.props
 
     return merge({}, baseStyles, {
       td: {
-        width: this.getContentWidth()
+        width: defaultUnit(this.getContentWidth())
       },
       img: {
         border: mjAttribute('border'),
-        height: mjAttribute('height')
+        height: defaultUnit(mjAttribute('height'))
       }
     })
   }
 
   renderImage () {
-    const { mjAttribute } = this.props
+    const { mjAttribute, defaultUnit } = this.props
 
     const img = (
       <img
         alt={mjAttribute('alt')}
         border="0"
-        height={mjAttribute('height')}
+        height={defaultUnit(mjAttribute('height'))}
         src={mjAttribute('src')}
         style={this.styles.img}
         width={this.getContentWidth()} />
@@ -114,9 +126,11 @@ class Image extends Component {
 }
 
 Image.tagName = tagName
-Image.defaultMJMLDefinition = defaultMJMLDefinition
+Image.parentTag = parentTag
 Image.endingTag = endingTag
-Image.columnElement = columnElement
+Image.closingTag = closingTag
+Image.defaultMJMLDefinition = defaultMJMLDefinition
 Image.baseStyles = baseStyles
+Image.schemaXsd = schemaXsd
 
 export default Image

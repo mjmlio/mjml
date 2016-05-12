@@ -2,21 +2,36 @@ import { MJMLElement } from 'mjml-core'
 import React, { Component } from 'react'
 
 const tagName = 'mj-table'
+const parentTag = 'mj-column'
+const endingTag = true
 const defaultMJMLDefinition = {
   content: '',
   attributes: {
     'align': 'left',
     'color': '#000',
+    'container-background-color': null,
     'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
     'font-size': '13px',
     'line-height': '22px',
+    'padding-bottom': null,
+    'padding-left': null,
+    'padding-right': null,
+    'padding-top': null,
     'padding': '10px 25px',
     'table-layout': 'auto',
+    'vertical-align': null,
     'width': '100%'
   }
 }
-const endingTag = true
-const columnElement = true
+const schemaXsd = () => (
+  `<xs:complexType name="${tagName}">
+    <xs:complexContent>
+      <xs:extension base="xs:any">
+        ${Object.keys(defaultMJMLDefinition.attributes).map(attribute => `<xs:attribute type="xs:string" name="${attribute}" />`).join(`\n`)}
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>`
+)
 
 @MJMLElement
 class Table extends Component {
@@ -30,8 +45,8 @@ class Table extends Component {
       table: {
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
-        fontSize: defaultUnit(mjAttribute('font-size'), 'px'),
-        lineHeight: defaultUnit(mjAttribute('line-height'), 'px'),
+        fontSize: defaultUnit(mjAttribute('font-size')),
+        lineHeight: defaultUnit(mjAttribute('line-height')),
         tableLayout: mjAttribute('table-layout')
       }
     }
@@ -54,8 +69,9 @@ class Table extends Component {
 }
 
 Table.tagName = tagName
-Table.defaultMJMLDefinition = defaultMJMLDefinition
+Table.parentTag = parentTag
 Table.endingTag = endingTag
-Table.columnElement = columnElement
+Table.defaultMJMLDefinition = defaultMJMLDefinition
+Table.schemaXsd = schemaXsd
 
 export default Table

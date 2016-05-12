@@ -5,6 +5,7 @@ import React, { Component } from 'react'
 import uniq from 'lodash/uniq'
 
 const tagName = 'mj-column'
+const parentTag = 'mj-section'
 const baseStyles = {
   div: {
     verticalAlign: 'top'
@@ -41,7 +42,7 @@ const postRender = $ => {
   return $
 }
 const schemaXsd = elements => {
-  const columnElements = Object.keys(elements).map(element => elements[element].columnElement ? elements[element].tagName : null).filter(Boolean)
+  const columnElements = Object.keys(elements).map(element => elements[element].parentTag === tagName ? elements[element].tagName : null).filter(Boolean)
 
   return `<xs:complexType name="${tagName}">
     <xs:choice maxOccurs="unbounded" minOccurs="1">
@@ -61,14 +62,14 @@ class Column extends Component {
     return merge({}, baseStyles, {
       div: {
         display: 'inline-block',
-        verticalAlign: mjAttribute('vertical-align'),
         fontSize: '13px',
         textAlign: 'left',
+        verticalAlign: mjAttribute('vertical-align'),
         width: '100%'
       },
       table: {
-        verticalAlign: mjAttribute('vertical-align'),
-        background: mjAttribute('background-color')
+        background: mjAttribute('background-color'),
+        verticalAlign: mjAttribute('vertical-align')
       }
     })
   }
@@ -123,6 +124,7 @@ class Column extends Component {
 }
 
 Column.tagName = tagName
+Column.parentTag = parentTag
 Column.baseStyles = baseStyles
 Column.postRender = postRender
 Column.schemaXsd = schemaXsd

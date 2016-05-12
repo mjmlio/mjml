@@ -49,6 +49,7 @@ cd mjml-location  && npm link && npm link mjml-core && npm link mjml-text && cd 
 cd mjml-raw  && npm link && npm link mjml-core && cd ..
 cd mjml-section  && npm link && npm link mjml-core && cd ..
 cd mjml-social  && npm link && npm link mjml-core && cd ..
+cd mjml-head-attributes && npm link && npm link mjml-core && cd ..
 
 printf "${BGreen}Done.${Color_Off} \n"
 printf "${Yellow}Linking dependencies for MJML package.${Color_Off} \n"
@@ -71,6 +72,7 @@ npm link mjml-section
 npm link mjml-social
 npm link mjml-table
 npm link mjml-text
+npm link mjml-head-attributes
 
 cd ../..
 

@@ -31,6 +31,7 @@
     "mjml-section": "^2.0.0",
     "mjml-social": "^2.0.0",
     "mjml-table": "^2.0.0",
-    "mjml-text": "^2.0.0"
+    "mjml-text": "^2.0.0",
+    "mjml-head-attributes": "^2.0.0"
   }
 }

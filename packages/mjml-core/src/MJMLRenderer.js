@@ -8,7 +8,7 @@ import dom from './helpers/dom'
 import fs from 'fs'
 import _ from 'lodash'
 import getFontsImports from './helpers/getFontsImports'
-import MJMLElementsCollection, { postRenders, registerMJElement } from './MJMLElementsCollection'
+import MJMLElementsCollection, { postRenders, registerMJElement, resetCssClassesAndDefaultAttributes } from './MJMLElementsCollection'
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import warning from 'warning'
@@ -18,6 +18,7 @@ const debug = require('debug')('mjml-engine/mjml2html')
 export default class MJMLRenderer {
 
   constructor (content, options = {}) {
+    resetCssClassesAndDefaultAttributes()
     this.registerDotfile()
 
     this.content = content

@@ -1,4 +1,4 @@
-import { registerMJElement } from 'mjml-core'
+import { registerMJElement, registerMJHeadElement } from 'mjml-core'
 import Container from 'mjml-container'
 import Button from 'mjml-button'
 import Column from 'mjml-column'
@@ -14,6 +14,7 @@ import Section from 'mjml-section'
 import Social from 'mjml-social'
 import Table from 'mjml-table'
 import Text from 'mjml-text'
+import MJMLHeadAttributes from 'mjml-head-attributes' // eslint-disable-line no-unused-vars
 
 [ Container,
   Button,
@@ -30,5 +31,7 @@ import Text from 'mjml-text'
   Social,
   Table,
   Text ].map((element) => registerMJElement(element))
+
+registerMJHeadElement('mj-attributes', MJMLHeadAttributes)
 
 export * from 'mjml-core'

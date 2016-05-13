@@ -1,12 +1,11 @@
-const mjDefaultAttributes = {}
+let mjDefaultAttributes = {}
 
 export const setMjDefaultAttributes = (tagName, attributes) => {
   mjDefaultAttributes[tagName] = attributes
-  console.log('register', tagName, attributes, mjDefaultAttributes)
 }
 
 export const resetDefaultAttributes = () => {
-  //mjDefaultAttributes = {}
+  mjDefaultAttributes = {}
 }
 
 export default mjDefaultAttributes

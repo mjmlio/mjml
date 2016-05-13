@@ -9,7 +9,13 @@ console.log(mjml.mjml2html(`
     </mj-attributes>
   </mj-head>
   <mj-body>
-    <mj-text> Hello World! </mj-text>
+    <mj-container>
+      <mj-section>
+        <mj-column>
+          <mj-text> Hello World! </mj-text>
+        </mj-column>
+      </mj-section>
+    </mj-container>
   </mj-body>
 </mjml>
 `, { beautify: true }))

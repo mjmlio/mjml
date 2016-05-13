@@ -4,7 +4,8 @@ import dom from '../helpers/dom'
 import filter from 'lodash/filter'
 import each from 'lodash/each'
 import MJMLElements, { endingTags } from '../MJMLElementsCollection'
-import mjDefaultAttributes from '../mjDefaultAttributes'
+import mjDefaultAttributes, { setMjDefaultAttributes } from '../mjDefaultAttributes'
+import { setMjCssClasses } from '../mjCssClasses'
 import MJMLHeadElements from '../MJMLHead'
 import warning from 'warning'
 
@@ -52,14 +53,13 @@ const mjmlElementParser = elem => {
 const parseHead = head => {
   each(compact(filter(dom.getChildren(head), child => child.tagName)), (element) => {
     const handler = MJMLHeadElements[element.tagName.toLowerCase()]
+
     if (handler) {
-      handler(element)
+      handler(element, { setMjCssClasses, setMjDefaultAttributes })
     } else {
       warning(false, `No handler found for: ${element.tagName}, in mj-head, skipping it`)
     }
   })
-
-  console.log(mjDefaultAttributes)
 }
 
 /**

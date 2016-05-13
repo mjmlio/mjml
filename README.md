@@ -1,5 +1,3 @@
-<br>
-
 <p align="center">
   <a href="http://mjml.io" target="_blank">
     <img width="250"src="https://cloud.githubusercontent.com/assets/6558790/12672296/7b66d8cc-c675-11e5-805d-c6d196320537.png">
@@ -15,8 +13,6 @@
   </a>
 </p>
 
-<br>
-
 <p align="center">
   | <b><a href="#introduction">Introduction</a></b>
   | <b><a href="#installation">Installation</a></b>
@@ -24,23 +20,17 @@
   | <b><a href="#contribute">Contribute</a></b> |
 </p>
 
-<br>
-
 ---
 
 # Introduction
 
 MJML is a markup language designed to reduce the pain of coding a responsive email. Its semantic syntax makes it easy and straightforward while its rich standard components library fastens your development time and lightens your email codebase. MJML’s open-source engine takes care of translating the MJML you wrote into responsive HTML.
 
-<br>
-
 <p align="center">
   <a href="http://mjml.io" target="_blank">
     <img width="75%" src="https://cloud.githubusercontent.com/assets/6558790/12450760/ee034178-bf85-11e5-9dda-98d0c8f9f8d6.png">
   </a>
 </p>
-
-<br>
 
 # Installation
 
@@ -69,12 +59,6 @@ npm install -g mjml
   </a>
 </p>
 
-<a href="https://github.com/mjmlio/mjml/releases" target="_blank">
-  <strong align="left">From source: </strong>
-</a>
- - Clone the repository.
- - Use `install.sh` to install all dependencies and link all packages of the MJML Mono-Repo
-
 # Show me the code!
 
 ### Command line
@@ -82,13 +66,13 @@ npm install -g mjml
 > Compile the file and output the result in `a.html`
 
 ```bash
-$> mjml input.mjml
+$> mjml -r input.mjml
 ```
 
 > Redirect the result to a file
 
 ```bash
-$> mjml input.mjml -o output.html
+$> mjml -r input.mjml -o output.html
 ```
 
 > Watch a file and compile every time the file changes
@@ -179,10 +163,6 @@ Get your hands dirty by trying the MJML online editor! Write awesome code on the
     <td><a href="https://github.com/swibge">Matthieu</a></td>
   </tr>
 </table>
-
-# Read more about what's comming next in MJML
-
-Go [here](https://github.com/mjmlio/mjml/labels/RFC) and submit your feature request or comment the existing ones
 
 # Contribute
 

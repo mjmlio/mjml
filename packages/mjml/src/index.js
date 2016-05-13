@@ -5,16 +5,17 @@ import Column from 'mjml-column'
 import Divider from 'mjml-divider'
 import Html from 'mjml-html'
 import Image from 'mjml-image'
-import InvoiceItem from 'mjml-invoice-item'
 import Invoice from 'mjml-invoice'
+import InvoiceItem from 'mjml-invoice-item'
 import List from 'mjml-list'
 import Location from 'mjml-location'
 import Raw from 'mjml-raw'
 import Section from 'mjml-section'
 import Social from 'mjml-social'
+import Spacer from 'mjml-spacer'
 import Table from 'mjml-table'
 import Text from 'mjml-text'
-import MJMLHeadAttributes from 'mjml-head-attributes' // eslint-disable-line no-unused-vars
+import MJMLHeadAttributes from 'mjml-head-attributes'
 
 [ Container,
   Button,
@@ -22,15 +23,16 @@ import MJMLHeadAttributes from 'mjml-head-attributes' // eslint-disable-line no-
   Divider,
   Html,
   Image,
-  InvoiceItem,
   Invoice,
+  InvoiceItem,
   List,
   Location,
   Raw,
   Section,
   Social,
+  Spacer,
   Table,
-  Text ].map((element) => registerMJElement(element))
+  Text ].map(registerMJElement)
 
 registerMJHeadElement('mj-attributes', MJMLHeadAttributes)
 

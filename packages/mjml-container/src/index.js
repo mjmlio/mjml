@@ -34,7 +34,7 @@ const postRender = $ => {
       <![endif]-->`)
   })
 
-  $('container')
+  $('body')
     .css({ background: $('.mj-container').data('background-color') })
     .each(function () {
       if ($(this).attr('style') === '') {
@@ -66,7 +66,7 @@ class Container extends Component {
     return {
       div: {
         backgroundColor: mjAttribute('background-color'),
-        fontSize: defaultUnit(mjAttribute('font-size'), "px")
+        fontSize: defaultUnit(mjAttribute('font-size'), 'px')
       }
     }
   }

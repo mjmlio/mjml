@@ -1,6 +1,6 @@
 {
   "name": "mjml",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "main": "lib/index.js",
   "bin": {
     "mjml": "bin/mjml"
@@ -29,6 +29,7 @@
     "mjml-location": "^2.0.0",
     "mjml-raw": "^2.0.0",
     "mjml-section": "^2.0.0",
+    "mjml-spacer": "^2.0.0",
     "mjml-social": "^2.0.0",
     "mjml-table": "^2.0.0",
     "mjml-text": "^2.0.0",

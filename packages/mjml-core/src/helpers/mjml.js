@@ -7,7 +7,7 @@ import mjDefaultAttributes from '../mjDefaultAttributes'
 export const parseInstance = instance => {
   const parseNode = (node) => {
     const Component   = MJMLElementsCollection[node.tagName]
-    const nodeClasses = node['mj-class']
+    const nodeClasses = node['attributes']['mj-class']
 
     const classAttributes = !nodeClasses ? {} : defaultsDeep({}, ...nodeClasses.split(' ').map(nodeClass => {
       return { attributes: mjCssClasses[nodeClass] }
@@ -15,7 +15,7 @@ export const parseInstance = instance => {
 
     return !Component ? {} : {
       // copy all existing props, applying defaults
-      ...defaultsDeep(node, { attributes: mjDefaultAttributes[node.tagName] }, classAttributes, Component.defaultMJMLDefinition),
+      ...defaultsDeep(node, classAttributes, { attributes: mjDefaultAttributes[node.tagName] }, Component.defaultMJMLDefinition),
       // do same to children
       children: (node.children || []).map(parseNode)
     }

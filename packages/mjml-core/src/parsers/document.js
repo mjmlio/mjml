@@ -4,7 +4,7 @@ import dom from '../helpers/dom'
 import filter from 'lodash/filter'
 import each from 'lodash/each'
 import MJMLElements, { endingTags } from '../MJMLElementsCollection'
-import mjDefaultAttributes, { setMjDefaultAttributes } from '../mjDefaultAttributes'
+import { setMjDefaultAttributes } from '../mjDefaultAttributes'
 import { setMjCssClasses } from '../mjCssClasses'
 import MJMLHeadElements from '../MJMLHead'
 import warning from 'warning'
@@ -13,12 +13,21 @@ import warning from 'warning'
  * Avoid htmlparser to parse ending tags
  */
 const safeEndingTags = content => {
-  // endingTags.forEach(tag => {
-  //   const regex = new RegExp(`<${tag}([^>]*)>([^]*?)</${tag}>`, 'gmi')
-  //   content = content.replace(regex, dom.replaceContentByCdata(tag))
-  // })
+  const regexpBody = new RegExp(`<mj-body([^>]*)>([^]*?)</mj-body>`, 'gmi')
+  let bodyContent = content.match(regexpBody)
 
-  return content
+  if (!bodyContent) {
+    return content
+  }
+
+  bodyContent = bodyContent[0]
+
+  endingTags.forEach(tag => {
+    const regex = new RegExp(`<${tag}([^>]*)>([^]*?)</${tag}>`, 'gmi')
+    bodyContent = bodyContent.replace(regex, dom.replaceContentByCdata(tag))
+  })
+
+  return content.replace(regexpBody, bodyContent)
 }
 
 /**

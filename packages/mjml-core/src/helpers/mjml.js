@@ -1,6 +1,8 @@
 import { fromJS } from 'immutable'
 import defaultsDeep from 'lodash/defaultsDeep'
-import MJMLElementsCollection, { mjCssClasses, mjDefaultAttributes } from '../MJMLElementsCollection'
+import MJMLElementsCollection  from '../MJMLElementsCollection'
+import mjCssClasses from '../mjCssClasses'
+import mjDefaultAttributes from '../mjDefaultAttributes'
 
 export const parseInstance = instance => {
   const parseNode = (node) => {

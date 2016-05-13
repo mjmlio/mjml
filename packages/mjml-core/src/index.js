@@ -1,7 +1,9 @@
 import warning from 'warning'
 
 import MJMLRenderer from './MJMLRenderer'
-import elements, { registerMJElement, mjCssClasses, mjDefaultAttributes, setMjDefaultAttributes, setMjCssClasses } from './MJMLElementsCollection'
+import elements, { registerMJElement } from './MJMLElementsCollection'
+import mjCssClasses, { setMjCssClasses } from './mjCssClasses'
+import mjDefaultAttributes, { setMjDefaultAttributes } from './mjDefaultAttributes'
 import MJMLHeadElements, { registerMJHeadElement } from './MJMLHead'
 import * as helpers from './helpers'
 

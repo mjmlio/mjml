@@ -59,7 +59,8 @@ class Button extends Component {
         fontStyle: mjAttribute('font-style'),
         fontWeight: mjAttribute('font-weight'),
         padding: defaultUnit(mjAttribute('padding'), "px"),
-        textDecoration: mjAttribute('text-decoration')
+        textDecoration: mjAttribute('text-decoration'),
+        letterSpacing: mjAttribute('letter-spacing', "px")
       }
     })
   }

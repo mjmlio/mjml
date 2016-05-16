@@ -17,8 +17,7 @@ const defaultMJMLDefinition = {
     'ico-text-transform': 'uppercase',
     'ico-padding': '10px',
     'ico-text-decoration': 'none',
-    'ico-line-height': '30px',
-    'ico-letter-spacing': '3px'
+    'ico-line-height': '30px'
   }
 }
 

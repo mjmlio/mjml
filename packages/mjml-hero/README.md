@@ -39,7 +39,7 @@ The height attribute is required only for the fixed-height mode
 </aside>
 
 <aside class="notice">
-<span style="font-weight:bold;">The background position does not work in mode fluid-height and on outlook.com</span>
+<span style="font-weight:bold;">The background position does not work in fluid-height mode on outlook.com</span>
 </aside>
 
 <aside class="notice">

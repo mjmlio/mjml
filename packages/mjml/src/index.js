@@ -1,7 +1,7 @@
-import { registerMJElement } from 'mjml-core'
+import { registerMJElement, registerMJHeadElement } from 'mjml-core'
+import Container from 'mjml-container'
 import Button from 'mjml-button'
 import Column from 'mjml-column'
-import Container from 'mjml-container'
 import Divider from 'mjml-divider'
 import Html from 'mjml-html'
 import Image from 'mjml-image'
@@ -17,6 +17,7 @@ import Table from 'mjml-table'
 import Text from 'mjml-text'
 import Hero from 'mjml-hero'
 import HeroContent from 'mjml-hero-content'
+import MJMLHeadAttributes from 'mjml-head-attributes'
 
 [ Container,
   Button,
@@ -36,5 +37,7 @@ import HeroContent from 'mjml-hero-content'
   Text,
   Hero,
   HeroContent ].map(registerMJElement)
+
+registerMJHeadElement('mj-attributes', MJMLHeadAttributes)
 
 export * from 'mjml-core'

@@ -101,7 +101,7 @@ class Section extends Component {
 
     return merge({}, baseStyles, {
       td: {
-        fontSize: '1px',
+        fontSize: '0px',
         padding: defaultUnit(mjAttribute('padding'), "px"),
         paddingBottom: defaultUnit(mjAttribute('padding-bottom'), "px"),
         paddingLeft: defaultUnit(mjAttribute('padding-left'), "px"),

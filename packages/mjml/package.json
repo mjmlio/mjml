@@ -32,6 +32,9 @@
     "mjml-social": "^2.0.1",
     "mjml-spacer": "^2.0.0",
     "mjml-table": "^2.0.1",
-    "mjml-text": "^2.0.1"
+    "mjml-text": "^2.0.1",
+    "mjml-navbar": "^2.0.0",
+    "mjml-inline-links": "^2.0.0",
+    "mjml-link": "^2.0.0"
   }
 }

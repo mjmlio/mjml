@@ -15,6 +15,9 @@ import Social from 'mjml-social'
 import Spacer from 'mjml-spacer'
 import Table from 'mjml-table'
 import Text from 'mjml-text'
+import Navbar from 'mjml-navbar'
+import InlineLinks from 'mjml-inline-links'
+import Link from 'mjml-link'
 
 [ Container,
   Button,
@@ -31,6 +34,9 @@ import Text from 'mjml-text'
   Social,
   Spacer,
   Table,
-  Text ].map(registerMJElement)
+  Text,
+  Navbar,
+  InlineLinks,
+  Link ].map(registerMJElement)
 
 export * from 'mjml-core'

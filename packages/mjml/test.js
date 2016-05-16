@@ -26,8 +26,8 @@ console.log(mjml.mjml2html(`
       </mj-section>
 
       <mj-section>
-      	<mj-column>
-        	<mj-button background-color="#0C8094">Discover now</mj-button>
+        <mj-column>
+          <mj-button background-color="#0C8094">Discover now</mj-button>
         </mj-column>
       </mj-section>
     </mj-container>

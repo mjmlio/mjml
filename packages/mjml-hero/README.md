@@ -39,7 +39,7 @@ The height attribute is required only for the fixed-height mode
 </aside>
 
 <aside class="notice">
-The background position does not work in mode fluid-height and on outlook.com
+<span style="font-weight:bold;">The background position does not work in mode fluid-height and on outlook.com</span>
 </aside>
 
 <aside class="notice">
@@ -53,7 +53,7 @@ Please keep the hero container height below the image height. When the hero cont
 attribute           | unit                                | description                                                          | default value
 --------------------|-------------------------------------|----------------------------------------------------------------------|--------------
 mode                | fluid-height/fixed-height           | choose if the height is fixed based on the height attribute or fluid | fluid-height
-height              | px                                  | hero section height                                                  | 0px
+height              | px                                  | hero section height (required for fixed-height mode)                 | 0px
 background-width    | px                                  | width of the image used                                              | 0px
 background-height   | px                                  | height of the image used                                             | 0px
 background-url      | url                                 | absolute background url                                              | n/a

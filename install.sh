@@ -23,35 +23,37 @@ BPurple='\033[1;35m'      # Purple
 BCyan='\033[1;36m'        # Cyan
 BWhite='\033[1;37m'       # White
 
-printf "${Yellow}Installing npm depencies for each MJML packages ${Color_Off} \n"
+printf "${Yellow}Installing npm depencies for mono repo ${Color_Off} \n"
 npm install
-gulp install
+
 
 printf "${BGreen}Done.${Color_Off} \n"
 cd packages
 
 printf "${Yellow}Linking dependencies for every mjml packages.${Color_Off} \n"
 
-cd mjml-button && npm link && npm link mjml-core && cd ..
-cd mjml-cli && npm link && npm link mjml-core && cd ..
-cd mjml-column && npm link && npm link mjml-core && cd ..
-cd mjml-container && npm link && npm link mjml-core && cd ..
-cd mjml-core && npm link && npm link mjml-core && cd ..
-cd mjml-divider && npm link && npm link mjml-core && cd ..
-cd mjml-html && npm link && npm link mjml-core && cd ..
-cd mjml-image && npm link && npm link mjml-core && cd ..
-cd mjml-invoice && npm link && npm link mjml-core && npm link mjml-table && npm link mjml-invoice-item && cd ..
+cd mjml-cli  && npm link && npm link mjml-core && cd ..
+cd mjml-container  && npm link && npm link mjml-core && cd ..
+cd mjml-button  && npm link && npm link mjml-core && cd ..
+cd mjml-column  && npm link && npm link mjml-core && cd ..
+cd mjml-core  && npm link && npm link mjml-core && cd ..
+cd mjml-divider  && npm link && npm link mjml-core && cd ..
+cd mjml-text  && npm link && npm link mjml-core && cd ..
+cd mjml-html  && npm link && npm link mjml-core && cd ..
+cd mjml-image  && npm link && npm link mjml-core && cd ..
+cd mjml-table  && npm link && npm link mjml-core && cd ..
 cd mjml-invoice-item && npm link && npm link mjml-core && cd ..
-cd mjml-list && npm link && npm link mjml-core && cd ..
-cd mjml-location && npm link && npm link mjml-core && npm link mjml-text && cd ..
-cd mjml-raw && npm link && npm link mjml-core && cd ..
-cd mjml-section && npm link && npm link mjml-core && cd ..
-cd mjml-social && npm link && npm link mjml-core && cd ..
-cd mjml-spacer && npm link && npm link mjml-core && cd ..
-cd mjml-table && npm link && npm link mjml-core && cd ..
-cd mjml-text && npm link && npm link mjml-core && cd ..
+cd mjml-invoice  && npm link && npm link mjml-core && npm link mjml-table && npm link mjml-invoice-item && cd ..
+cd mjml-list  && npm link && npm link mjml-core && cd ..
+cd mjml-location  && npm link && npm link mjml-core && npm link mjml-text && cd ..
+cd mjml-raw  && npm link && npm link mjml-core && cd ..
+cd mjml-section  && npm link && npm link mjml-core && cd ..
+cd mjml-social  && npm link && npm link mjml-core && cd ..
+cd mjml-spacer  && npm link && npm link mjml-core && cd ..
+cd mjml-head-attributes && npm link && npm link mjml-core && cd ..
 
 printf "${BGreen}Done.${Color_Off} \n"
+
 printf "${Yellow}Linking dependencies for MJML package.${Color_Off} \n"
 
 cd mjml
@@ -64,7 +66,7 @@ npm link mjml-divider
 npm link mjml-html
 npm link mjml-image
 npm link mjml-invoice
-npm link mjml-invoice
+npm link mjml-invoice-item
 npm link mjml-list
 npm link mjml-location
 npm link mjml-raw
@@ -73,7 +75,12 @@ npm link mjml-social
 npm link mjml-spacer
 npm link mjml-table
 npm link mjml-text
+npm link mjml-head-attributes
 
+printf "${BGreen}Done.${Color_Off} \n"
+
+printf "${Yellow}Installing npm depencies for each MJML packages ${Color_Off} \n"
+gulp install
 cd ../..
 
 printf "${BGreen}Done.${Color_Off} Happy coding ! 🍺 \n"

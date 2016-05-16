@@ -12,6 +12,7 @@ const defaultMJMLDefinition = {
     'font-size': '13px',
     'line-height': '22px',
     'padding': '10px 25px'
+    'text-transform': 'none'
   }
 }
 const endingTag = true

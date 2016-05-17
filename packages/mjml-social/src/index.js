@@ -49,7 +49,8 @@ const baseStyles = {
     margin: 0
   },
   td1: {
-    verticalAlign: 'middle'
+    verticalAlign: 'middle',
+    padding: '4px'
   },
   td2:  {
     verticalAlign: 'middle'
@@ -134,9 +135,6 @@ class Social extends Component {
         fontWeight: mjAttribute('font-weight'),
         lineHeight: defaultUnit(mjAttribute('line-height'), "px"),
         textDecoration: mjAttribute('text-decoration')
-      },
-      td1: {
-        padding: '4px'
       },
       td2: {
         width: defaultUnit(mjAttribute('icon-size'), "px"),

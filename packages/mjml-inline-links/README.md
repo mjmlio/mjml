@@ -20,14 +20,14 @@ To display some links horizontally
   <a href="/try-it-live/"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>
 </p>
 
-There is a special mode called "hamburger", if activated the links are displayed on an interactive hamburger menu on mobile.
+There is a special mode called "hamburger", if activated the links are displayed on an interactive hamburger menu on mobile <code>hamburger="hamburger"</code>.
 
 <aside class="notice">
 The "hamburger" feature only work on mobile device with all iOS mail client, for others mail clients the render is performed on an normal way, the links are displayed inline and the hamburger is not visible.
 </aside>
 
 <aside class="notice">
-All the attributes prefixed with ico- help to customize the hamburger icon. They require to activate the hamburger mode <code>hamburger="hamburger"</code>
+All the attributes prefixed with <code>ico-</code> help to customize the hamburger icon. They only work with the hamburger mode enabled.
 </aside>
 
 attribute                   | unit               | description                                                                    | default value

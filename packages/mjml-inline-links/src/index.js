@@ -109,7 +109,6 @@ class InlineLinks extends Component {
         fontFamily: mjAttribute('ico-font-family'),
         textTransform: mjAttribute('ico-text-transform'),
         textDecoration: mjAttribute('ico-text-decoration'),
-        letterSpacing: defaultUnit(mjAttribute('ico-letter-spacing'), 'px'),
         lineHeight: defaultUnit(mjAttribute('ico-line-height'), 'px'),
         paddingTop: getPadding('top', 'ico-'),
         paddingLeft: getPadding('left', 'ico-'),

@@ -15,6 +15,8 @@ import Social from 'mjml-social'
 import Spacer from 'mjml-spacer'
 import Table from 'mjml-table'
 import Text from 'mjml-text'
+import Hero from 'mjml-hero'
+import HeroContent from 'mjml-hero-content'
 import MJMLHeadAttributes from 'mjml-head-attributes'
 
 [ Container,
@@ -32,7 +34,9 @@ import MJMLHeadAttributes from 'mjml-head-attributes'
   Social,
   Spacer,
   Table,
-  Text ].map(registerMJElement)
+  Text,
+  Hero,
+  HeroContent ].map(registerMJElement)
 
 registerMJHeadElement('mj-attributes', MJMLHeadAttributes)
 

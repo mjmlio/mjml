@@ -60,6 +60,7 @@ const baseStyles = {
   },
   a: {
     textDecoration: 'none',
+    textAlign: "left",
     display: 'block',
     borderRadius: '3px'
   },
@@ -132,8 +133,7 @@ class Social extends Component {
         fontStyle: mjAttribute('font-style'),
         fontWeight: mjAttribute('font-weight'),
         lineHeight: defaultUnit(mjAttribute('line-height'), "px"),
-        textDecoration: mjAttribute('text-decoration'),
-        textAlign: "left"
+        textDecoration: mjAttribute('text-decoration')
       },
       td1: {
         padding: '4px'

@@ -44,6 +44,7 @@ This tag allows you to display text in your email.
  font-weight                  | number        | text thickness                 | n/a
  line-height                  | px            | space between the lines        | 22px
  text-decoration              | string        | underline/overline/none        | n/a
+ text-transform               | string        | uppercase/lowercase/capitalize | n/a
  align                        | string        | left/right/center              | left
  container-background-color   | color         | inner element background color | n/a
  padding                      | px            | supports up to 4 parameters    | 10px 25px

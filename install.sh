@@ -23,9 +23,8 @@ BPurple='\033[1;35m'      # Purple
 BCyan='\033[1;36m'        # Cyan
 BWhite='\033[1;37m'       # White
 
-printf "${Yellow}Installing npm depencies for each MJML packages ${Color_Off} \n"
+printf "${Yellow}Installing npm depencies for mono repo ${Color_Off} \n"
 npm install
-gulp install
 
 printf "${BGreen}Done.${Color_Off} \n"
 cd packages
@@ -38,6 +37,9 @@ cd mjml-column && npm link && npm link mjml-core && cd ..
 cd mjml-container && npm link && npm link mjml-core && cd ..
 cd mjml-core && npm link && npm link mjml-core && cd ..
 cd mjml-divider && npm link && npm link mjml-core && cd ..
+cd mjml-head-attributes && npm link && npm link mjml-core && cd ..
+cd mjml-hero && npm link && npm link mjml-core && cd ..
+cd mjml-hero-content && npm link && npm link mjml-core && cd ..
 cd mjml-html && npm link && npm link mjml-core && cd ..
 cd mjml-image && npm link && npm link mjml-core && cd ..
 cd mjml-invoice && npm link && npm link mjml-core && npm link mjml-table && npm link mjml-invoice-item && cd ..
@@ -55,6 +57,7 @@ cd mjml-link && npm link && npm link mjml-core && cd ..
 cd mjml-inline-links && npm link && npm link mjml-core && cd ..
 
 printf "${BGreen}Done.${Color_Off} \n"
+
 printf "${Yellow}Linking dependencies for MJML package.${Color_Off} \n"
 
 cd mjml
@@ -64,6 +67,9 @@ npm link mjml-column
 npm link mjml-container
 npm link mjml-core
 npm link mjml-divider
+npm link mjml-head-attributes
+npm link mjml-hero
+npm link mjml-hero-content
 npm link mjml-html
 npm link mjml-image
 npm link mjml-invoice
@@ -80,6 +86,10 @@ npm link mjml-navbar
 npm link mjml-inline-links
 npm link mjml-link
 
+printf "${BGreen}Done.${Color_Off} \n"
+
+printf "${Yellow}Installing npm depencies for each MJML packages ${Color_Off} \n"
+gulp install
 cd ../..
 
 printf "${BGreen}Done.${Color_Off} Happy coding ! 🍺 \n"

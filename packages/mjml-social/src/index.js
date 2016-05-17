@@ -210,7 +210,7 @@ class Social extends Component {
     )
   }
 
-  getDefinitionForPlatform(platform) {
+  getDefinitionForPlatform (platform) {
     const { mjAttribute } = this.props
 
     if (buttonDefinitions[platform]) {

@@ -28,6 +28,7 @@
     "eqeqeq": 0,
     "func-names": 0,
     "global-require": 0,
+    "import/no-mutable-exports": 0,
     "indent": [2, 2, {"SwitchCase": 1}],
     "key-spacing": 0,
     "max-len": 0,
@@ -49,7 +50,7 @@
     "quote-props": 0,
     "quotes": 0,
     "radix": 0,
-    "space-before-function-paren": 0,
+    "space-before-function-paren": [2, "always"],
     "space-in-parens": 0,
     "vars-on-top": 0,
 

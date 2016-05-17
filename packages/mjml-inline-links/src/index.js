@@ -131,7 +131,7 @@ class InlineLinks extends Component {
     return children.map(child => React.cloneElement(child, { mjml: perform(child.props.mjml) }))
   }
 
-  renderHamburger() {
+  renderHamburger () {
     const { mjAttribute } = this.props
     const key = crypto.randomBytes(8).toString('hex')
 

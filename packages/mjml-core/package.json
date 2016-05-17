@@ -22,7 +22,7 @@
     "immutable": "^3.8.1",
     "jquery": "^2.2.3",
     "js-beautify": "^1.6.2",
-    "lodash": "^4.11.2",
+    "lodash": "^4.12.0",
     "react-dom": "^15.0.2",
     "react": "^15.0.2",
     "warning": "^2.1.0"

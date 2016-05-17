@@ -54,7 +54,7 @@ const postRender = $ => {
 class HeroContent extends Component {
   styles = this.getStyles()
 
-  getStyles() {
+  getStyles () {
     const { mjAttribute, defaultUnit, getPadding } = this.props
 
     return merge({}, baseStyles, {
@@ -73,7 +73,7 @@ class HeroContent extends Component {
     })
   }
 
-  render() {
+  render () {
     const { mjAttribute, children } = this.props
 
     return (

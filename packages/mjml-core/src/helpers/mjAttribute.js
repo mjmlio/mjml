@@ -11,8 +11,12 @@ export const defaultUnit = (units, defaultUnit = 'px') => {
     return units
   }
 
-  return units.toString().split(' ').map(unit => {
-    const parsedUnit = unitRegex.exec(unit.toString())[1]
-    return parsedUnit ? unit : unit.toString() + defaultUnit
-  }).join(' ')
+  return units
+    .toString()
+    .split(' ')
+    .map(unit => {
+      const parsedUnit = unitRegex.exec(unit.toString())[1]
+      return parsedUnit ? unit : unit.toString() + defaultUnit
+    })
+    .join(' ')
 }

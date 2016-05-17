@@ -90,7 +90,7 @@ class Hero extends Component {
   styles = this.getStyles()
   id = 'a'
 
-  getFixedHeight() {
+  getFixedHeight () {
     const { mjAttribute, getPadding } = this.props
     let height = 0
     let paddingTop = 0
@@ -107,7 +107,7 @@ class Hero extends Component {
     return height - paddingTop - paddingBottom
   }
 
-  getBackgroundCrop() {
+  getBackgroundCrop () {
     const { mjAttribute } = this.props
     const height = parseInt(mjAttribute('height').replace('px', ''))
     const backgroundHeight = parseInt(mjAttribute('background-height').replace('px', ''))
@@ -133,7 +133,7 @@ class Hero extends Component {
     return `croptop:${cropTop}, cropbottom:${cropBottom}`
   }
 
-  getBackgroundRatio() {
+  getBackgroundRatio () {
     const { mjAttribute } = this.props
     const backgroundWidth = parseInt(mjAttribute('background-width').replace('px', ''))
     const backgroundHeight = parseInt(mjAttribute('background-height').replace('px', ''))
@@ -141,7 +141,7 @@ class Hero extends Component {
     return Math.round((backgroundHeight / backgroundWidth * 100) * 10000) / 10000
   }
 
-  getBackgroundStyle() {
+  getBackgroundStyle () {
     const { mjAttribute } = this.props
     let background = ''
 
@@ -154,7 +154,7 @@ class Hero extends Component {
     return background
   }
 
-  getStyles() {
+  getStyles () {
     const { mjAttribute, getPadding } = this.props
     const backgroundRatio = this.getBackgroundRatio()
     const backgroundStyle = this.getBackgroundStyle()
@@ -174,13 +174,13 @@ class Hero extends Component {
     })
   }
 
-  isFixedHeight() {
+  isFixedHeight () {
     const { mjAttribute } = this.props
 
     return mjAttribute('mode') == 'fixed-height'
   }
 
-  renderFixedHeight() {
+  renderFixedHeight () {
     const { mjAttribute, children } = this.props
 
     return (
@@ -198,7 +198,7 @@ class Hero extends Component {
     )
   }
 
-  renderFluidHeight() {
+  renderFluidHeight () {
     const { mjAttribute, children } = this.props
 
     return (
@@ -214,7 +214,7 @@ class Hero extends Component {
     )
   }
 
-  render() {
+  render () {
     const { mjAttribute, defaultUnit } = this.props
 
     return (

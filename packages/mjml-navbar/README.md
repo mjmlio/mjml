@@ -14,7 +14,6 @@
 
 Displays a full width section for navigation
 
-
 <p align="center">
   <a href="/try-it-live/"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>
 </p>

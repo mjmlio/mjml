@@ -6,9 +6,11 @@
   <mj-section>
       <mj-column width="600px">
         <mj-inline-links base-url="https://mjml.io">
+
           <mj-link href="/getting-started-onboard">Getting started</mj-link>
           <mj-link href="/try-it-live">Try it live</mj-link>
           <mj-link href="/documentation">Documentation</mj-link>
+
         </mj-inline-links>
       </mj-column>
     </mj-section>
@@ -17,7 +19,6 @@
 ```
 
 Displays a horizontal navbar.
-
 
 <p align="center">
   <a href="/try-it-live/"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>

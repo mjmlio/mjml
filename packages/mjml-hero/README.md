@@ -1,4 +1,4 @@
-## MJ-HERO
+## mjml-hero
 
 Fixed height
 

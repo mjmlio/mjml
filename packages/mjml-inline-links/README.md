@@ -1,4 +1,4 @@
-## MJ-INLINE-LINKS
+## mjml-inline-links
 
 Standard Desktop:
 

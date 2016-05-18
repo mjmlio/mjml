@@ -2,20 +2,29 @@
 
 ``` html
 
-<mj-body>
-  <mj-section>
-      <mj-column width="600px">
-        <mj-inline-links base-url="https://mjml.io">
+<mjml>
+  <mj-body>
+    <mj-container>
 
-          <mj-link href="/getting-started-onboard">Getting started</mj-link>
-          <mj-link href="/try-it-live">Try it live</mj-link>
-          <mj-link href="/documentation">Documentation</mj-link>
+      <!-- Navbar (see component mj-navbar) -->
+      <mj-navbar>
+        <mj-column width="600px">
 
-        </mj-inline-links>
-      </mj-column>
-    </mj-section>
-</mj-body>
+          <!-- Wrapper (see component mj-inline-links) -->
+          <mj-inline-links base-url="https://mjml.io">
 
+            <mj-link href="/getting-started-onboard">Getting started</mj-link>
+            <mj-link href="/try-it-live">Try it live</mj-link>
+            <mj-link href="/documentation">Documentation</mj-link>
+
+          </mj-inline-links>
+
+        </mj-column>
+      </mj-navbar>
+
+    </mj-container>
+  </mj-body>
+</mjml>
 ```
 
 Displays a horizontal navbar.
@@ -23,6 +32,10 @@ Displays a horizontal navbar.
 <p align="center">
   <a href="/try-it-live/"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>
 </p>
+
+<aside class="notice">
+All the mj-link components must be wrapped in a component mj-inline-links
+</aside>
 
 attribute        | unit          | description                    | default value
 -----------------|---------------|--------------------------------|------------------------------

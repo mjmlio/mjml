@@ -2,6 +2,10 @@
 
 Display some content in an `mj-hero` component
 
+<aside class="notice">
+Use only one mj-hero-content component inside a mj-hero component
+</aside>
+
 attribute        | unit              | description                                    | default value
 -----------------|-------------------|------------------------------------------------|------------------------------
 width            | px/percent        | content width                                  | 100%

@@ -22,16 +22,18 @@ const baseStyles = {
 }
 const endingTag = true
 const postRender = $ => {
-  $('.mj-link').each(function () {
-    $(this)
-      .before(`<!--[if gte mso 9]>
-        <td style="padding: ${$(this).data('padding')}">
-      <![endif]-->`)
-      .after(`<!--[if gte mso 9]>
-        </td>
-      <![endif]-->`)
-      .removeAttr('data-padding')
-  })
+  $('.mj-link')
+    .each(function () {
+      $(this)
+        .before(`<!--[if gte mso 9]>
+          <td style="padding: ${$(this).data('padding')}">
+        <![endif]-->`)
+        .after(`<!--[if gte mso 9]>
+          </td>
+        <![endif]-->`)
+        .removeAttr('data-padding')
+        .removeAttr('class')
+    })
 
   return $
 }

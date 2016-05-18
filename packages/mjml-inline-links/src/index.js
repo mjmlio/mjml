@@ -49,40 +49,43 @@ const baseStyles = {
 }
 const columnElement = true
 const postRender = $ => {
-  $('.mj-inline-links').each(function () {
-    $(this)
-      .prepend(`<!--[if gte mso 9]>
-			  <table border="0" cellpadding="0" cellspacing="0" align="${$(this).data('align')}">
-          <tr>
-		  <![endif]-->`)
-      .append(`<!--[if gte mso 9]>
-          </tr>
-        </table>
-      <![endif]-->`)
-      .removeAttr('data-align')
-  })
+  $('.mj-inline-links')
+    .each(function () {
+      $(this)
+        .prepend(`<!--[if gte mso 9]>
+  			  <table border="0" cellpadding="0" cellspacing="0" align="${$(this).data('align')}">
+            <tr>
+  		  <![endif]-->`)
+        .append(`<!--[if gte mso 9]>
+            </tr>
+          </table>
+        <![endif]-->`)
+        .removeAttr('data-align')
+    })
 
-  $('.mj-menu-trigger').each(function () {
-    const id = $(this).children('label').attr('for')
+  $('.mj-menu-trigger')
+    .each(function () {
+      const id = $(this).children('label').attr('for')
 
-    $(this).before(`<!--[if !mso]><!-->
-      <input type="checkbox" id="${id}" class="mj-menu-checkbox" style="display:none !important; max-height:0; visibility:hidden;" />
-    <!--<![endif]-->`)
-  })
+      $(this)
+        .before(`<!--[if !mso]><!-->
+          <input type="checkbox" id="${id}" class="mj-menu-checkbox" style="display:none !important; max-height:0; visibility:hidden;" />
+        <!--<![endif]-->`)
+    })
 
   if ($('.mj-menu-trigger').length) {
     $('head').append(`
       <style type="text/css">
-          noinput.mj-menu-checkbox { display:block!important; max-height:none!important; visibility:visible!important; }
+        noinput.mj-menu-checkbox { display:block!important; max-height:none!important; visibility:visible!important; }
 
-          @media only screen and (max-width:480px) {
-            .mj-menu-checkbox[type="checkbox"] ~ .mj-inline-links { display:none!important; }
-            .mj-menu-checkbox[type="checkbox"]:checked ~ .mj-inline-links,
-            .mj-menu-checkbox[type="checkbox"] ~ .mj-menu-trigger { display:block!important; max-width:none!important; max-height:none!important; font-size:inherit!important; }
-            .mj-menu-checkbox[type="checkbox"] ~ .mj-inline-links > a { display:block!important; }
-            .mj-menu-checkbox[type="checkbox"]:checked ~ .mj-menu-trigger .mj-menu-icon-close { display:block!important; }
-            .mj-menu-checkbox[type="checkbox"]:checked ~ .mj-menu-trigger .mj-menu-icon-open { display:none!important; }
-          }
+        @media only screen and (max-width:480px) {
+          .mj-menu-checkbox[type="checkbox"] ~ .mj-inline-links { display:none!important; }
+          .mj-menu-checkbox[type="checkbox"]:checked ~ .mj-inline-links,
+          .mj-menu-checkbox[type="checkbox"] ~ .mj-menu-trigger { display:block!important; max-width:none!important; max-height:none!important; font-size:inherit!important; }
+          .mj-menu-checkbox[type="checkbox"] ~ .mj-inline-links > a { display:block!important; }
+          .mj-menu-checkbox[type="checkbox"]:checked ~ .mj-menu-trigger .mj-menu-icon-close { display:block!important; }
+          .mj-menu-checkbox[type="checkbox"]:checked ~ .mj-menu-trigger .mj-menu-icon-open { display:none!important; }
+        }
       </style>
     `)
   }
@@ -146,12 +149,12 @@ class InlineLinks extends Component {
           <span
             className="mj-menu-icon-open"
             style={this.styles.icoOpen}>
-            { String.fromCharCode(mjAttribute('ico-open')) }
+            {String.fromCharCode(mjAttribute('ico-open'))}
           </span>
           <span
             className="mj-menu-icon-close"
             style={this.styles.icoClose}>
-            { String.fromCharCode(mjAttribute('ico-close')) }
+            {String.fromCharCode(mjAttribute('ico-close'))}
           </span>
         </label>
       </div>
@@ -163,12 +166,13 @@ class InlineLinks extends Component {
 
     return (
       <div>
-        { mjAttribute('hamburger') === 'hamburger' ? this.renderHamburger() : null }
+        { mjAttribute('hamburger') === 'hamburger'
+          ? this.renderHamburger()
+          : null }
         <div
           className="mj-inline-links"
           style={this.styles.div}
-          data-align={mjAttribute('align')}
-        >
+          data-align={mjAttribute('align')}>
           {this.renderChildren()}
         </div>
       </div>

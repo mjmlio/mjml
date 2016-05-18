@@ -44,7 +44,7 @@ Fluid height
            font-weight="900">
            GO TO SPACE
          </mj-text>
-         <mj-button align="center">
+         <mj-button href="https://mjml.io/" align="center">
            ORDER YOUR TICKET NOW
          </mj-button>
        </mj-hero-content>
@@ -77,7 +77,7 @@ Fluid height
            font-weight="900">
            GO TO SPACE
          </mj-text>
-         <mj-button align="center">
+         <mj-button href="https://mjml.io/" align="center">
            ORDER YOUR TICKET NOW
          </mj-button>
        </mj-hero-content>
@@ -85,7 +85,6 @@ Fluid height
    </mj-container>
  </mj-body>
 </mjml>
-
 ```
 Display a section with a background image and some content inside (mj-text, mj-button, mj-image ...) wrapped in mj-hero-content component
 

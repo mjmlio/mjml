@@ -5,11 +5,23 @@ console.log(mjml.mjml2html(`
   <mj-head>
     <mj-attributes>
       <mj-text padding="0" color="#EEE" font-family="helvetica" />
-      <mj-class name="bg-blue" />
+      <mj-class name="bg-blue" background-color="#669cf6" />
     </mj-attributes>
   </mj-head>
   <mj-body>
     <mj-container mj-class="bg-blue">
+      <mj-section>
+        <mj-navbar>
+          <mj-column>
+            <mj-inline-links base-url="https://mjml.io" hamburger="hamburger">
+              <mj-link href="/getting-started-onboard">Getting started</mj-link>
+              <mj-link href="/try-it-live">Try it live</mj-link>
+              <mj-link href="/documentation">Documentation</mj-link>
+            </mj-inline-links>
+          </mj-column>
+        </mj-navbar>
+      </mj-section>
+
       <mj-section full-width="full-width">
         <mj-column>
           <mj-text text-decoration="underline" font-size="30px">Underwater</mj-text>

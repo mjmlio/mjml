@@ -1,38 +1,93 @@
 ## MJ-HERO
 
+Fixed height
+
 <p align="center">
-<img src="https://cloud.githubusercontent.com/assets/1830348/15150602/30ab6970-16ce-11e6-9132-ee4c65f34aa2.png" />
+<img src="https://cloud.githubusercontent.com/assets/1830348/15354833/bfe7faaa-1cef-11e6-8d38-15e8951b6636.png" />
+</p>
+
+Fluid height
+
+<p align="center">
+<img src="https://cloud.githubusercontent.com/assets/1830348/15354867/fc2f404a-1cef-11e6-92ac-92de9e438210.png" />
 </p>
 
 ``` html
-
 <mjml>
-  <mj-body>
-    <mj-container>
-      <mj-hero
-       mode="fixed-height"
-       height="265px"
-       background-width="600"
-       background-height="265px"
-       background-url="http://i.imgur.com/lHOvxs4.jpg"
-       background-position="center center"
-       background-color="#2a3448"
-       padding="20px">
-        <mj-hero-content
-           width="370px"
-           align="left"
-           background-color="#ffffff">
-           <mj-text font-family="Helvetica" align="left">
-             Hello World !
-           </mj-text>
-         </mj-hero-content>
-      </mj-hero>
-    </mj-container>
-  </mj-body>
+ <mj-body>
+   <mj-container>
+
+     <!--
+      Example mode fixed-height
+     -->
+
+     <!--mj-hero mode="fixed-height" -->
+     <mj-hero
+      mode="fixed-height"
+      height="469px"
+      background-width="600px"
+      background-height="469px"
+      background-url="https://cloud.githubusercontent.com/assets/1830348/15354890/1442159a-1cf0-11e6-92b1-b861dadf1750.jpg"
+      background-color="#2a3448"
+      padding="100px 0px"
+       >
+
+       <!-- To add content like mj-image, mj-text, mj-button ... use the mj-hero-content component -->
+       <mj-hero-content width="100%">
+         <mj-text
+           padding="20px"
+           color="#ffffff"
+           font-family="Helvetica"
+           align="center"
+           font-size="45"
+           line-height="45"
+           font-weight="900">
+           GO TO SPACE
+         </mj-text>
+         <mj-button align="center">
+           ORDER YOUR TICKET NOW
+         </mj-button>
+       </mj-hero-content>
+
+     </mj-hero>
+
+     <!--
+      Example mode fluid-height
+     -->
+
+     <!--mj-hero mode="fluid-height" -->
+     <mj-hero
+      mode="fluid-height"
+      background-width="600px"
+      background-height="469px"
+      background-url="https://cloud.githubusercontent.com/assets/1830348/15354890/1442159a-1cf0-11e6-92b1-b861dadf1750.jpg"
+      background-color="#2a3448"
+      padding="100px 0px"
+       >
+
+       <!-- To add content like mj-image, mj-text, mj-button ... use the mj-hero-content component -->
+       <mj-hero-content width="100%">
+         <mj-text
+           padding="20px"
+           color="#ffffff"
+           font-family="Helvetica"
+           align="center"
+           font-size="45"
+           line-height="45"
+           font-weight="900">
+           GO TO SPACE
+         </mj-text>
+         <mj-button align="center">
+           ORDER YOUR TICKET NOW
+         </mj-button>
+       </mj-hero-content>
+     </mj-hero>
+   </mj-container>
+ </mj-body>
 </mjml>
 
 ```
-Display a section with a background image and some content inside (mj-text, mj-button, mj-image ...)
+Display a section with a background image and some content inside (mj-text, mj-button, mj-image ...) wrapped in mj-hero-content component
 
 <aside class="notice">
 The height attribute is required only for the fixed-height mode

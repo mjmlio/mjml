@@ -154,9 +154,9 @@ function createComponent (ComposedComponent) {
       return wrappedElements
     }
 
-    paddingParser = direction => {
-      const paddingDirection = this.mjAttribute(`padding-${direction}`)
-      const padding = this.mjAttribute('padding')
+    paddingParser = (direction, prefix = '') => {
+      const paddingDirection = this.mjAttribute(`${prefix}padding-${direction}`)
+      const padding = this.mjAttribute(`${prefix}padding`)
 
       if (typeof paddingDirection !== 'undefined') {
         return parseInt(paddingDirection)

@@ -5,7 +5,6 @@ import merge from 'lodash/merge'
 const tagName = 'mj-hero'
 const defaultMJMLDefinition = {
   attributes: {
-    //'width': '600',
     'mode': 'fixed-height',
     'height': '0px',
     'background-width': '0px',
@@ -88,7 +87,6 @@ const postRender = $ => {
 @MJMLElement
 class Hero extends Component {
   styles = this.getStyles()
-  id = 'a'
 
   getFixedHeight () {
     const { mjAttribute, getPadding } = this.props
@@ -155,16 +153,21 @@ class Hero extends Component {
   }
 
   getStyles () {
-    const { mjAttribute, getPadding, defaultUnit } = this.props
+    const { mjAttribute, getPadding, defaultUnit, parentWidth } = this.props
     const backgroundRatio = this.getBackgroundRatio()
     const backgroundStyle = this.getBackgroundStyle()
+    let width = parentWidth
+
+    if (mjAttribute('width')) {
+      width = mjAttribute('width')
+    }
 
     return merge({}, baseStyles, {
       div: {
-        maxWidth: defaultUnit(mjAttribute('width'), 'px')
+        maxWidth: defaultUnit(width, 'px')
       },
       table: {
-        width: defaultUnit(mjAttribute('width'), 'px')
+        width: defaultUnit(width, 'px')
       },
       edge: {
         paddingBottom: `${backgroundRatio}%`

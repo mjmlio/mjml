@@ -1,6 +1,6 @@
 {
   "name": "mjml-core",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "main": "lib/index.js",
   "scripts": {
     "test": "mocha --compilers js:babel-register"
@@ -16,15 +16,15 @@
   "homepage": "https://github.com/mjmlio/mjml",
   "dependencies": {
     "cheerio": "^0.20.0",
-    "classnames": "^2.2.3",
+    "classnames": "^2.2.5",
     "debug": "^2.2.0",
-    "html-minifier": "^1.4.0",
-    "immutable": "^3.7.6",
-    "jquery": "^2.2.2",
+    "html-minifier": "^2.1.2",
+    "immutable": "^3.8.1",
+    "jquery": "^2.2.3",
     "js-beautify": "^1.6.2",
-    "lodash": "^4.7.0",
-    "react-dom": "^15.0.1",
-    "react": "^15.0.1",
+    "lodash": "^4.12.0",
+    "react-dom": "^15.0.2",
+    "react": "^15.0.2",
     "warning": "^2.1.0"
   },
   "devDependencies": {

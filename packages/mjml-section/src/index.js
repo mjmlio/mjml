@@ -16,7 +16,7 @@ const baseStyles = {
     margin: '0 auto'
   },
   table: {
-    fontSize: '0px',
+    fontSize: '1px',
     width: '100%'
   },
   td: {

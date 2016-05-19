@@ -1,5 +1,7 @@
 import { MJMLElement } from 'mjml-core'
 import merge from 'lodash/merge'
+import tap from 'lodash/tap'
+import clone from 'lodash/clone'
 import React, { Component } from 'react'
 
 const tagName = 'mj-social'
@@ -39,21 +41,18 @@ const defaultMJMLDefinition = {
 }
 const columnElement = true
 const baseStyles = {
-  div: {
-    textAlign: 'center'
-  },
   tableHorizontal: {
     float: 'none',
     display: 'inline-table'
   },
   tableVertical: {
-    margin: '0 auto'
+    margin: 0
   },
   td1: {
-    verticalAlign: 'middle'
+    verticalAlign: 'middle',
+    padding: '4px'
   },
   td2:  {
-    textAlign: 'center',
     verticalAlign: 'middle'
   },
   tdText: {
@@ -62,6 +61,7 @@ const baseStyles = {
   },
   a: {
     textDecoration: 'none',
+    textAlign: "left",
     display: 'block',
     borderRadius: '3px'
   },
@@ -73,33 +73,27 @@ const baseStyles = {
 const buttonDefinitions = {
   facebook: {
     linkAttribute: 'https://www.facebook.com/sharer/sharer.php?u=[[URL]]',
-    icon: 'facebook.png',
-    textModeContent: 'Share'
+    icon: 'facebook.png'
   },
   twitter: {
     linkAttribute: 'https://twitter.com/home?status=[[URL]]',
-    icon: 'twitter.png',
-    textModeContent: 'Tweet'
+    icon: 'twitter.png'
   },
   google: {
     linkAttribute: 'https://plus.google.com/share?url=[[URL]]',
-    icon: 'google-plus.png',
-    textModeContent: '+1'
+    icon: 'google-plus.png'
   },
   pinterest: {
     linkAttribute: 'https://pinterest.com/pin/create/button/?url=[[URL]]&ampmedia=&ampdescription=',
-    icon: 'pinterest.png',
-    textModeContent: 'Pin it'
+    icon: 'pinterest.png'
   },
   linkedin: {
     linkAttribute: 'https://www.linkedin.com/shareArticle?mini=true&ampurl=[[URL]]&amptitle=&ampsummary=&ampsource=',
-    icon: 'linkedin.png',
-    textModeContent: 'Share'
+    icon: 'linkedin.png'
   },
   instagram: {
     linkAttribute: '[[URL]]',
-    icon: 'instagram.png',
-    textModeContent: 'Share'
+    icon: 'instagram.png'
   }
 }
 const postRender = $ => {
@@ -133,9 +127,6 @@ class Social extends Component {
     const { mjAttribute, defaultUnit } = this.props
 
     return merge({}, baseStyles, {
-      div: {
-        textAlign: mjAttribute('align')
-      },
       a: {
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
@@ -144,9 +135,6 @@ class Social extends Component {
         fontWeight: mjAttribute('font-weight'),
         lineHeight: defaultUnit(mjAttribute('line-height'), "px"),
         textDecoration: mjAttribute('text-decoration')
-      },
-      td1: {
-        padding: this.isHorizontal() ? '0 4px' : '4px 0'
       },
       td2: {
         width: defaultUnit(mjAttribute('icon-size'), "px"),
@@ -169,7 +157,8 @@ class Social extends Component {
 
   renderSocialButton (platform, share) {
     const { mjAttribute } = this.props
-    const definition = buttonDefinitions[platform]
+    const definition = this.getDefinitionForPlatform(platform)
+
     const href = share ? definition.linkAttribute.replace('[[URL]]', mjAttribute(`${platform}-href`)) : mjAttribute(`${platform}-href`)
     const iconStyle = {
       background: mjAttribute(`${platform}-icon-color`),
@@ -187,13 +176,14 @@ class Social extends Component {
             style={iconStyle}>
             <tbody>
               <tr>
-                <td style={this.styles.td2}>
+                <td
+                  style={this.styles.td2}>
                   <a href={href}>
                     <img
                       alt={platform}
                       border="0"
                       height={parseInt(mjAttribute('icon-size'))}
-                      src={mjAttribute('base-url') + definition.icon}
+                      src={definition.icon}
                       style={this.styles.img}
                       width={parseInt(mjAttribute('icon-size'))} />
                   </a>
@@ -213,6 +203,23 @@ class Social extends Component {
     )
   }
 
+  getDefinitionForPlatform (platform) {
+    const { mjAttribute } = this.props
+
+    if (buttonDefinitions[platform]) {
+      return tap(clone(buttonDefinitions[platform]), buttonDefinition => buttonDefinition.icon = mjAttribute('base-url') + buttonDefinition.icon)
+    }
+
+    if (!mjAttribute(`${platform}-icon-color`) || !mjAttribute(`${platform}-icon`) || !mjAttribute(`${platform}-href`) || (this.isInTextMode() && !mjAttribute(`${platform}-content`)) ) {
+      return
+    }
+
+    return {
+      linkAttribute: "[[URL]]",
+      icon: mjAttribute(`${platform}-icon`)
+    }
+  }
+
   renderSocialButtons () {
     const { mjAttribute } = this.props
     const platforms = mjAttribute('display')
@@ -225,7 +232,7 @@ class Social extends Component {
       const platform = label.split(':')[0]
       const share = label.split(':')[1]
 
-      if (!buttonDefinitions[platform]) {
+      if (!this.getDefinitionForPlatform(platform)) {
         return null
       }
 
@@ -240,7 +247,7 @@ class Social extends Component {
         <table
           cellPadding="0"
           cellSpacing="0"
-          data-legacy-align="left"
+          data-legacy-align={mjAttribute('align')}
           data-legacy-border="0"
           key={`wrapped-social-button-${index}`}
           style={this.styles.tableHorizontal}>
@@ -254,7 +261,7 @@ class Social extends Component {
       result.push(<div className="mj-social-outlook-line" key={`outlook-line-${index}`} />)
 
       return result
-    }, [<div className="mj-social-outlook-open" key="outlook-open" data-align={mjAttribute('align')} />])
+    }, [<div className="mj-social-outlook-open" key="outlook-open" data-legacy-align={mjAttribute('align')} />])
 
     socialButtons[socialButtons.length - 1] = <div className="mj-social-outlook-close" key="outlook-close" />
 
@@ -262,12 +269,14 @@ class Social extends Component {
   }
 
   renderVertical () {
+    const { mjAttribute } = this.props
+
     return (
       <table
         cellPadding="0"
         cellSpacing="0"
-        data-legacy-align="center"
         data-legacy-border="0"
+        data-legacy-align={mjAttribute('align')}
         style={this.styles.tableVertical}>
         <tbody>
           {this.renderSocialButtons()}
@@ -278,7 +287,7 @@ class Social extends Component {
 
   render () {
     return (
-      <div style={this.styles.div}>
+      <div>
         { this.isHorizontal() ? this.renderHorizontal() : this.renderVertical() }
       </div>
     )

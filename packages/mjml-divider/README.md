@@ -1,13 +1,17 @@
-## MJ-DIVIDER
+## mjml-divider
 
-``` html
-
+```xml
 <mjml>
   <mj-body>
-    <mj-divider border-width="1px" border-style="dashed" border-color="lightgrey"></mj-divider>
+    <mj-container>
+      <mj-section>
+        <mj-column>
+          <mj-divider border-width="1px" border-style="dashed" border-color="lightgrey" />
+        </mj-column>
+      </mj-section>
+    </mj-container>
   </mj-body>
 </mjml>
-
 ```
 
 Displays a horizontal divider that can be customized like a HTML border.
@@ -23,6 +27,7 @@ border-color                | color       | divider color                  | #00
 border-style                | string      | dashed/dotted/solid            | solid
 border-width                | px          | divider's border width         | 4px
 width                       | px/percent  | divider width                  | 100%
+container-background-color  | color       | inner element background color | n/a
 padding                     | px          | supports up to 4 parameters    | 10px 25px
 padding-top                 | px          | top offset                     | n/a
 padding-bottom              | px          | bottom offset                  | n/a

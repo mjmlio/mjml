@@ -1,28 +1,46 @@
-## MJ-SOCIAL
+## mjml-social
 
-``` html
-
-  <mjml>
-    <mj-body>
-      <mj-social
-        mode="vertical"
-        display="google facebook"
-        google-icon-color="#424242"
-        facebook-icon-color="#424242"
-        facebook-href="my facebook page"
-        google-href="my google+ page"/>   
-    </mj-body>
-  </mjml>
-
+```xml
+<mjml>
+  <mj-body>
+    <mj-container>
+      <mj-section>
+        <mj-column>
+          <mj-social
+            mode="vertical"
+            display="google facebook"
+            google-icon-color="#424242"
+            facebook-icon-color="#424242"
+            facebook-href="My facebook page"
+            google-href="My google+ page" />
+        </mj-column>
+      </mj-section>
+    </mj-container>
+  </mj-body>
+</mjml>
 ```
 
 Displays calls-to-action for various social networks with their associated logo.
 You can activate/deactivate any icon, with `display` property.
 
 <aside class="notice">
-Note that you can disable default sharing option by adding `:url` on any social network.
-Example: `<mj-social display="facebook" />` will render `https://www.facebook.com/sharer/sharer.php?u=[[facebook-href]]` url, and `<mj-social display="facebook:url" />` will render `[[facebook-href]]` url
+Note that you can disable default sharing option by adding <code class="prettyprint">:url</code> on any social network.
+Example: <code class="prettyprint">&lt;mj-social display="facebook" /&gt;</code> will render <code class="prettyprint">https://www.facebook.com/sharer/sharer.php?u=[[facebook-href]]</code> url, and <code class="prettyprint">&lt;mj-social display="facebook:url" /&gt;</code> will render <code class="prettyprint">[[facebook-href]]</code> url
 </aside>
+
+
+<aside class="notice">
+If you want to add an unsupported network on <code class="prettyprint">mj-social</code> you have to write :
+  <code class="prettyprint">
+    &lt;mj-social display="facebook awesome-network"
+    awesome-network-content="Share on a awesome network"
+    awesome-network-href="http://awesome-network.com/my-company"
+    awesome-network-icon-color="#FF00FF"
+    awesome-network-icon="http://myicon.png" /&gt;
+  </code>
+Note that <code class="prettyprint">content</code> is mandatory if <code class="prettyprint">text-mode</code> is set to <code class="prettyprint">true</code>
+</aside>
+
 
 <p align="center">
 <img src="https://cloud.githubusercontent.com/assets/6558790/12751360/0c78ce48-c9bd-11e5-98ca-4a2ac9e6341b.png" alt="desktop" style="width: 250px;"/>
@@ -55,7 +73,7 @@ pinterest-content           | string      | button text content                 
 pinterest-href              | url         | button redirection url                                                   | [[SHORT_PERMALINK]]
 pinterest-icon-color        | color       | icon color                                                               | #bd081c
 text-decoration             | string      | underline/overline/none                                                  | none
-text-mode                   | string      | vertical/horizontal                                                      | true
+text-mode                   | string      | display social network name                                              | true
 twitter-content             | string      | button text content                                                      | Tweet
 twitter-href                | url         | button redirection url                                                   | [[SHORT_PERMALINK]]
 twitter-icon-color          | color       | icon color                                                               | #55acee
@@ -69,3 +87,4 @@ padding-top                 | px          | top offset                          
 padding-bottom              | px          | bottom offset                                                            | n/a
 padding-left                | px          | left offset                                                              | n/a
 padding-right               | px          | right offset                                                             | n/a
+container-background-color  | color       | inner element background color                                           | n/a

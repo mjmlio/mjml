@@ -1,17 +1,15 @@
-## MJ-SECTION
+## mjml-section
 
-``` html
-
+```xml
 <mjml>
   <mj-body>
-    <mj-section full-width="full-width" background-color="red">
-
-      <!-- Your columns go here -->
-
-    </mj-section>    
+    <mj-container>
+      <mj-section full-width="full-width" background-color="red">
+        <!-- Your columns go here -->
+      </mj-section>
+    </mj-container>   
   </mj-body>
 </mjml>
-
 ```
 
 Sections are intended to be used as rows within your email.

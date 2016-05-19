@@ -1,6 +1,6 @@
 {
   "name": "mjml-container",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -12,7 +12,7 @@
   },
   "homepage": "https://github.com/mjmlio/mjml",
   "dependencies": {
-    "mjml-core": "^2.0.0",
-    "react": "^15.0.1"
+    "mjml-core": "^2.0.2",
+    "react": "^15.0.2"
   }
 }

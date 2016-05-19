@@ -5,6 +5,7 @@ import merge from 'lodash/merge'
 const tagName = 'mj-hero'
 const defaultMJMLDefinition = {
   attributes: {
+    //'width': '600',
     'mode': 'fixed-height',
     'height': '0px',
     'background-width': '0px',
@@ -19,11 +20,7 @@ const endingTag = false
 
 const baseStyles = {
   div: {
-    margin: '0 auto',
-    maxWidth: '600px'
-  },
-  table: {
-    width: '100%'
+    margin: '0 auto'
   },
   tr: {
     verticalAlign: 'top'
@@ -41,40 +38,43 @@ const baseStyles = {
 }
 
 const postRender = $ => {
-  const backgroundWidth = $('.mj-hero-outlook').data('background-width')
-  const backgroundUrl = $('.mj-hero-outlook').data('background-url')
-  let backgroundHeight = $('.mj-hero-outlook').data('background-height')
   let backgroundCropTop = 0
   let backgroundCropBottom = 0
   let dataCrop = ''
-  let height = 0
   let $element
+  let backgroundWidth = 0
+  let backgroundHeight = 0
+  let backgroundUrl = ''
 
   $('.mj-hero-outlook').each(function () {
+    backgroundUrl = $(this).data('background-url')
+    backgroundWidth = $(this).data('background-width')
     backgroundHeight = $(this).data('background-height')
     backgroundCropTop = 0
     backgroundCropBottom = 0
     dataCrop = ''
-    height = 0
 
     $element = $(this).find('.mj-hero-fixed-height').first()
 
     if ($element.length) {
       dataCrop = $element.data('crop')
-      height = parseInt($element.attr('height'))
+      backgroundHeight = $element.data('background-height')
 
       backgroundCropTop = dataCrop.split(', ')[0].split(':')[1]
       backgroundCropBottom = dataCrop.split(', ')[1].split(':')[1]
-      backgroundHeight = `${height}px`
 
       $element
         .removeAttr('class')
+        .removeAttr('data-background-height')
         .removeAttr('data-crop')
     }
 
+    backgroundWidth = parseInt(backgroundWidth.replace('px', '')) * 0.75
+    backgroundHeight = parseInt(backgroundHeight.replace('px', '')) * 0.75
+
     $(this)
-      .before(`<!--[if mso]>
-          <v:image xmlns:v="urn:schemas-microsoft-com:vml" croptop="${backgroundCropTop}" cropbottom="${backgroundCropBottom}" style="width:${backgroundWidth}; height:${backgroundHeight}; position:absolute; top:0; left:0; border:0; z-index:-3;" src="${backgroundUrl}" />
+      .before(`<!--[if mso | IE]>
+          <v:image xmlns:v="urn:schemas-microsoft-com:vml" croptop="${backgroundCropTop}" cropbottom="${backgroundCropBottom}" style="width:${backgroundWidth}pt;height:${backgroundHeight}pt;position:absolute;top:0;mso-position-horizontal:center;border:0;z-index:-3;" src="${backgroundUrl}" />
         <![endif]-->`)
       .removeAttr('class')
       .removeAttr('data-background-width')
@@ -111,7 +111,7 @@ class Hero extends Component {
     const { mjAttribute } = this.props
     const height = parseInt(mjAttribute('height').replace('px', ''))
     const backgroundHeight = parseInt(mjAttribute('background-height').replace('px', ''))
-    const backgroundPositionTop = mjAttribute('background-position').split(' ')[0] || 'center'
+    const backgroundPositionTop = mjAttribute('background-position').trim().split(' ')[0] || 'center'
     let cropTop = 0
     let cropBottom = 0
 
@@ -155,11 +155,17 @@ class Hero extends Component {
   }
 
   getStyles () {
-    const { mjAttribute, getPadding } = this.props
+    const { mjAttribute, getPadding, defaultUnit } = this.props
     const backgroundRatio = this.getBackgroundRatio()
     const backgroundStyle = this.getBackgroundStyle()
 
     return merge({}, baseStyles, {
+      div: {
+        maxWidth: defaultUnit(mjAttribute('width'), 'px')
+      },
+      table: {
+        width: defaultUnit(mjAttribute('width'), 'px')
+      },
       edge: {
         paddingBottom: `${backgroundRatio}%`
       },
@@ -181,14 +187,14 @@ class Hero extends Component {
   }
 
   renderFixedHeight () {
-    const { mjAttribute, children } = this.props
+    const { mjAttribute, children, defaultUnit } = this.props
 
     return (
       <tr style={this.styles.tr}>
         <td
           className="mj-hero-fixed-height"
           height={this.getFixedHeight()}
-
+          data-background-height={defaultUnit(mjAttribute('height'), 'px')}
           data-legacy-background={mjAttribute('background-url')}
           data-crop={this.getBackgroundCrop()}
           style={this.styles.hero}>

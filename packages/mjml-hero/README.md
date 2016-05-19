@@ -1,4 +1,4 @@
-## MJ-HERO
+## mj-hero
 
 <p align="center">
 <img src="https://cloud.githubusercontent.com/assets/1830348/15150602/30ab6970-16ce-11e6-9132-ee4c65f34aa2.png" />
@@ -43,7 +43,7 @@ The height attribute is required only for the fixed-height mode
 </aside>
 
 <aside class="notice">
-For better result we encourage you to use a background image with a 600px width and always specify a fallback background color, in case the user email client does not support background images.
+For better result we encourage you to use a background image with a width equal to the width attribute and always specify a fallback background color, in case the user email client does not support background images.
 </aside>
 
 <aside class="notice">
@@ -52,6 +52,7 @@ Please keep the hero container height below the image height. When the hero cont
 
 attribute           | unit                                | description                                                          | default value
 --------------------|-------------------------------------|----------------------------------------------------------------------|--------------
+width               | px                                  | hero width                                                           | 600px
 mode                | fluid-height/fixed-height           | choose if the height is fixed based on the height attribute or fluid | fluid-height
 height              | px                                  | hero section height (required for fixed-height mode)                 | 0px
 background-width    | px                                  | width of the image used                                              | 0px

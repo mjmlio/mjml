@@ -15,7 +15,9 @@ const postRender = $ => {
 
   $('.mj-container-outlook-open').each(function () {
     $(this).replaceWith(`<!--[if mso]>
-      <table border="0" cellpadding="0" cellspacing="0" width="${containerWidth}" align="center"><tr><td style="font-size:0px; line-height:0px; mso-line-height-rule:exactly;">
+      <table border="0" cellpadding="0" cellspacing="0" width="${containerWidth}" align="center" style="width:${containerWidth}px;">
+        <tr>
+          <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
       <![endif]-->`)
   })
 
@@ -24,7 +26,9 @@ const postRender = $ => {
       </td></tr></table>
       <![endif]-->
       <!--[if mso]>
-      <table border="0" cellpadding="0" cellspacing="0" width="${containerWidth}" align="center" style="width:${containerWidth}px;"><tr><td>
+      <table border="0" cellpadding="0" cellspacing="0" width="${containerWidth}" align="center" style="width:${containerWidth}px;">
+        <tr>
+          <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
       <![endif]-->`)
   })
 

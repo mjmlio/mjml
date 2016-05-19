@@ -74,8 +74,8 @@ const postRender = $ => {
     })
 
   if ($('.mj-menu-trigger').length) {
-    $('head').append(`
-      <style type="text/css">
+    $('head')
+      .append(`<style type="text/css">
         noinput.mj-menu-checkbox { display:block!important; max-height:none!important; visibility:visible!important; }
 
         @media only screen and (max-width:480px) {
@@ -86,8 +86,7 @@ const postRender = $ => {
           .mj-menu-checkbox[type="checkbox"]:checked ~ .mj-menu-trigger .mj-menu-icon-close { display:block!important; }
           .mj-menu-checkbox[type="checkbox"]:checked ~ .mj-menu-trigger .mj-menu-icon-open { display:none!important; }
         }
-      </style>
-    `)
+      </style>`)
   }
 
   return $

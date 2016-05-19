@@ -1,15 +1,19 @@
-## MJ-NAVBAR
+## mjml-navbar
 
-``` html
+```xml
+<mjml>
+ <mj-body>
+   <mj-container>
+     <mj-section>
+       <mj-navbar>
+         <mj-column width="100%">
 
-<mj-body>
-  <mj-navbar>
-    <mj-column width="100%">
-
-    </mj-column>
-  </mj-navbar>
-</mj-body>
-
+         </mj-column>
+       </mj-navbar>
+     </mj-section>
+   </mj-container>
+ </mj-body>
+</mjml>
 ```
 
 Displays a full width section for navigation

@@ -1,4 +1,4 @@
-## MJ-INLINE-LINKS
+## mjml-inline-links
 
 Standard Desktop:
 
@@ -21,19 +21,34 @@ Mode hamburger enabled:
 ``` html
 <mjml>
   <mj-body>
-    <mj-section>
-      <mj-navbar>
-        <mj-column>
+    <mj-container>
 
+      <!-- Navbar (see component mj-navbar) -->
+      <mj-navbar full-width="full-width" background-color="#ef6451">
+        <mj-column width="20%">
+          <mj-image width="150px" src="https://mjml.io/assets/img/logo-white-small.png">
+        </mj-column>
+        <mj-column width="80%">
+
+          <!-- mj-inline-links standard mode -->
           <mj-inline-links base-url="https://mjml.io">
 
+          <!-- To enable the hamburger mode add the attribute hamburger, hamburger="hamburger" -->
+          <!-- <mj-inline-links base-url="https://mjml.io" hamburger="hamburger"> -->
+
             <!-- Your links go here (see component mj-link) -->
+            <mj-link href="gettings-started-onboard" color="#ffffff">Getting started</mj-link>
+            <mj-link href="try-it-live" color="#ffffff">Try it live</mj-link>
+            <mj-link href="templates" color="#ffffff">Templates</mj-link>
+            <mj-link href="components" color="#ffffff">Components</mj-link>
+            <mj-link href="documentation" color="#ffffff">Documentation</mj-link>
 
           </mj-inline-links>
 
         </mj-column>
       </mj-navbar>
-    </mj-section>
+
+    </mj-container>
   </mj-body>
 </mjml>
 ```

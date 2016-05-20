@@ -6,7 +6,9 @@
    <mj-container>
      <mj-section>
        <mj-navbar>
-         <mj-column width="100%">
+         <mj-column>
+
+           <!-- Your content (see mj-inline-links component) -->
 
          </mj-column>
        </mj-navbar>
@@ -19,7 +21,7 @@
 Displays a full width section for navigation
 
 <p align="center">
-  <a href="/try-it-live/"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>
+  <a href="/try-it-live/navbar"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>
 </p>
 
 attribute           | unit        | description                    | default value

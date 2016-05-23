@@ -3,6 +3,7 @@ import Container from 'mjml-container'
 import Button from 'mjml-button'
 import Column from 'mjml-column'
 import Divider from 'mjml-divider'
+import Group from 'mjml-group'
 import Html from 'mjml-html'
 import Image from 'mjml-image'
 import Invoice from 'mjml-invoice'
@@ -21,6 +22,7 @@ import MJMLHeadAttributes from 'mjml-head-attributes'
   Button,
   Column,
   Divider,
+  Group,
   Html,
   Image,
   Invoice,

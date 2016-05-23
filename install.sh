@@ -51,6 +51,7 @@ cd mjml-section  && npm link && npm link mjml-core && cd ..
 cd mjml-social  && npm link && npm link mjml-core && cd ..
 cd mjml-spacer  && npm link && npm link mjml-core && cd ..
 cd mjml-head-attributes && npm link && npm link mjml-core && cd ..
+cd mjml-group && npm link && npm link mjml-core && cd ..
 
 printf "${BGreen}Done.${Color_Off} \n"
 
@@ -76,6 +77,7 @@ npm link mjml-spacer
 npm link mjml-table
 npm link mjml-text
 npm link mjml-head-attributes
+npm link mjml-group
 
 printf "${BGreen}Done.${Color_Off} \n"
 

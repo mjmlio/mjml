@@ -2,32 +2,19 @@ var mjml = require('./lib/index')
 
 console.log(mjml.mjml2html(`
 <mjml>
-  <mj-head>
-    <mj-attributes>
-      <mj-text padding="0" color="#EEE" font-family="helvetica" />
-      <mj-class name="bg-blue" />
-    </mj-attributes>
-  </mj-head>
   <mj-body>
     <mj-container mj-class="bg-blue">
-      <mj-section full-width="full-width">
-        <mj-column>
-          <mj-text text-decoration="underline" font-size="30px">Underwater</mj-text>
-        </mj-column>
-      </mj-section>
-
       <mj-section>
+        <mj-group>
+          <mj-column>
+            <mj-image src="https://upload.wikimedia.org/wikipedia/en/5/5f/Original_Doge_meme.jpg" />
+          </mj-column>
+          <mj-column>
+            <mj-text>Hello column</mj-text>
+          </mj-column>
+        </mj-group>
         <mj-column>
-          <mj-text>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sit amet ipsum consequat, viverra libero in, vulputate nulla. Vivamus sit amet sapien non metus viverra ornare ut rutrum ligula. Etiam a odio ac ex pharetra gravida. Aenean sodales purus quis malesuada suscipit. Aenean ac euismod ligula, ac scelerisque nulla. Fusce lacinia libero sed velit sagittis, hendrerit posuere nisl blandit. Quisque mauris justo, mollis id malesuada a, euismod non neque. Sed finibus, leo nec rhoncus ultrices, odio metus imperdiet magna, id pulvinar ex ex ullamcorper ipsum.</mj-text>
-        </mj-column>
-        <mj-column>
-          <mj-text>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sit amet ipsum consequat, viverra libero in, vulputate nulla. Vivamus sit amet sapien non metus viverra ornare ut rutrum ligula. Etiam a odio ac ex pharetra gravida. Aenean sodales purus quis malesuada suscipit. Aenean ac euismod ligula, ac scelerisque nulla. Fusce lacinia libero sed velit sagittis, hendrerit posuere nisl blandit. Quisque mauris justo, mollis id malesuada a, euismod non neque. Sed finibus, leo nec rhoncus ultrices, odio metus imperdiet magna, id pulvinar ex ex ullamcorper ipsum</mj-text>
-        </mj-column>
-      </mj-section>
-
-      <mj-section>
-        <mj-column>
-          <mj-button background-color="#0C8094">Discover now</mj-button>
+          <mj-text>Hello column</mj-text>
         </mj-column>
       </mj-section>
     </mj-container>

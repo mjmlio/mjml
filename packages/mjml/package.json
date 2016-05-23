@@ -19,7 +19,7 @@
     "mjml-cli": "^2.0.4",
     "mjml-column": "^2.0.2",
     "mjml-container": "^2.0.2",
-    "mjml-core": "^2.0.2",
+    "mjml-core": "^2.0.3-beta.3",
     "mjml-divider": "^2.0.3",
     "mjml-head-attributes": "^2.0.0",
     "mjml-hero-content": "^2.0.0",

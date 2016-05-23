@@ -1,6 +1,6 @@
 {
   "name": "mjml-html",
-  "version": "2.0.2",
+  "version": "2.0.3-beta.3",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -13,7 +13,7 @@
   "homepage": "https://github.com/mjmlio/mjml",
   "dependencies": {
     "lodash": "^4.12.0",
-    "mjml-core": "^2.0.2",
-    "react": "^15.0.2"
+    "mjml-core": "^2.0.3-beta.3",
+    "react": "^15.1.0"
   }
 }

@@ -24,9 +24,9 @@ Mode hamburger enabled:
     <mj-container>
 
       <!-- Navbar (see component mj-navbar) -->
-      <mj-navbar full-width="full-width" background-color="#ef6451">
+      <mj-navbar background-color="#ef6451">
         <mj-column width="20%">
-          <mj-image width="150px" src="https://mjml.io/assets/img/logo-white-small.png">
+          <mj-image width="150px" src="https://mjml.io/assets/img/logo-white-small.png"></mj-image>
         </mj-column>
         <mj-column width="80%">
 
@@ -56,7 +56,7 @@ Mode hamburger enabled:
 To display some links horizontally
 
 <p align="center">
-  <a href="/try-it-live/"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>
+  <a href="/try-it-live/inline-links"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>
 </p>
 
 There is a special mode called "hamburger", if activated the links are displayed on an interactive hamburger menu on mobile <code>hamburger="hamburger"</code>.

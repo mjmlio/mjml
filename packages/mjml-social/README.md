@@ -32,7 +32,7 @@ Example: <code class="prettyprint">&lt;mj-social display="facebook" /&gt;</code>
 <aside class="notice">
 If you want to add an unsupported network on <code class="prettyprint">mj-social</code> you have to write :
   <code class="prettyprint">
-    &lt;mj-social display="facebook awesome-network"
+    &lt;mj-social display="awesome-network"
     awesome-network-content="Share on a awesome network"
     awesome-network-href="http://awesome-network.com/my-company"
     awesome-network-icon-color="#FF00FF"

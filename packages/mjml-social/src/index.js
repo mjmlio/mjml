@@ -98,19 +98,19 @@ const buttonDefinitions = {
 }
 const postRender = $ => {
   $('.mj-social-outlook-open').each(function () {
-    $(this).replaceWith(`<!--[if mso]>
+    $(this).replaceWith(`<!--[if mso | IE]>
       <table border="0" cellpadding="0" cellspacing="0" align="${$(this).data('align')}"><tr><td>
       <![endif]-->`)
   })
 
   $('.mj-social-outlook-line').each(function () {
-    $(this).replaceWith(`<!--[if mso]>
+    $(this).replaceWith(`<!--[if mso | IE]>
       </td><td>
       <![endif]-->`)
   })
 
   $('.mj-social-outlook-close').each(function () {
-    $(this).replaceWith(`<!--[if mso]>
+    $(this).replaceWith(`<!--[if mso | IE]>
       </td></tr></table>
       <![endif]-->`)
   })

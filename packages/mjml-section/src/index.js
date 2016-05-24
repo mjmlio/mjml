@@ -53,7 +53,7 @@ const postRender = $ => {
   $('.mj-section-outlook-open').each(function () {
     const $columnDiv = $(this).next()
 
-    $(this).replaceWith(`<!--[if mso]>
+    $(this).replaceWith(`<!--[if mso | IE]>
       <table border="0" cellpadding="0" cellspacing="0"><tr><td style="vertical-align:${$columnDiv.data('vertical-align')};width:${parseInt($(this).data('width'))}px;">
       <![endif]-->`)
 
@@ -63,7 +63,7 @@ const postRender = $ => {
   $('.mj-section-outlook-line').each(function () {
     const $columnDiv = $(this).next()
 
-    $(this).replaceWith(`<!--[if mso]>
+    $(this).replaceWith(`<!--[if mso | IE]>
     </td><td style="vertical-align:${$columnDiv.data('vertical-align')};width:${parseInt($(this).data('width'))}px;">
       <![endif]-->`)
 
@@ -71,7 +71,7 @@ const postRender = $ => {
   })
 
   $('.mj-section-outlook-close').each(function () {
-    $(this).replaceWith(`<!--[if mso]>
+    $(this).replaceWith(`<!--[if mso | IE]>
       </td></tr></table>
       <![endif]-->`)
   })

@@ -1,5 +1,6 @@
 {
   "name": "mjml-link",
+  "description": "mjml-link",
   "version": "2.0.0",
   "main": "lib/index.js",
   "repository": {

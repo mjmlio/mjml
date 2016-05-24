@@ -1,4 +1,4 @@
-## MJ-LINK
+## mj-link
 
 ``` html
 <mjml>

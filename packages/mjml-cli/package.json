@@ -2,6 +2,7 @@
   "name": "mjml-cli",
   "version": "2.0.4",
   "main": "bin/mjml",
+  "description": "mjml-cli",
   "bin": {
     "mjml-cli": "bin/mjml"
   },

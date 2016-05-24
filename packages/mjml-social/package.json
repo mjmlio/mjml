@@ -1,5 +1,6 @@
 {
   "name": "mjml-social",
+  "description": "mjml-social",
   "version": "2.0.2",
   "main": "lib/index.js",
   "repository": {

@@ -4,15 +4,10 @@
 <mjml>
  <mj-body>
    <mj-container>
-     <mj-section>
-       <mj-navbar>
-         <mj-column>
-
-           <!-- Your content (see mj-inline-links component) -->
-
-         </mj-column>
-       </mj-navbar>
-     </mj-section>
+     <mj-navbar>
+       <mj-column>
+       </mj-column>
+     </mj-navbar>
    </mj-container>
  </mj-body>
 </mjml>

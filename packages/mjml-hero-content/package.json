@@ -1,5 +1,6 @@
 {
   "name": "mjml-hero-content",
+  "description": "mjml-hero-content",
   "version": "2.0.0",
   "main": "lib/index.js",
   "repository": {

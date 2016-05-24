@@ -1,6 +1,6 @@
-## MJ-LINK
+## mjml-link
 
-``` html
+``` xml
 <mjml>
   <mj-body>
     <mj-container>

@@ -1,6 +1,7 @@
 {
   "name": "mjml-head-attributes",
   "version": "2.0.0",
+  "description": "mjml-head-attributes",
   "main": "lib/index.js",
   "repository": {
     "type": "git",

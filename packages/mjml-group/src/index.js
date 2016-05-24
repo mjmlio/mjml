@@ -11,59 +11,31 @@ const baseStyles = {
   }
 }
 const postRender = $ => {
-  const mediaQueries = []
+  $('.mj-group-outlook-open').each(function () {
+    const $columnDiv = $(this).next()
 
-  each({ 'mj-column-per': '%', 'mj-column-px': 'px' }, (unit, className) => {
-    const columnWidths = []
+    $(this).replaceWith(`<!--[if mso]>
+      <table border="0" cellpadding="0" cellspacing="0"><tr><td style="vertical-align:${$columnDiv.data('vertical-align')};width:${parseInt($(this).data('width'))}px;">
+      <![endif]-->`)
 
-    $(`[class*="${className}"]`).each(function () {
-      columnWidths.push($(this).data('column-width'))
-      $(this).removeAttr('data-column-width')
-    })
-
-    uniq(columnWidths).forEach((width) => {
-      const mediaQueryClass = `${className}-${width}`
-
-      mediaQueries.push(`.${mediaQueryClass}, * [aria-labelledby="${mediaQueryClass}"] { width:${width}${unit}!important; }`)
-    })
+    $columnDiv.removeAttr('data-vertical-align')
   })
 
-  if (mediaQueries.length > 0) {
-    const mediaQuery = `<style type="text/css">
-  @media only screen and (min-width:480px) {
-    ${mediaQueries.join('\n')}
-  }
-</style>\n`
+  $('.mj-group-outlook-line').each(function () {
+    const $columnDiv = $(this).next()
 
-    $('head').append(mediaQuery)
+    $(this).replaceWith(`<!--[if mso]>
+    </td><td style="vertical-align:${$columnDiv.data('vertical-align')};width:${parseInt($(this).data('width'))}px;">
+      <![endif]-->`)
 
-    $('.mj-group-outlook-open').each(function () {
-      const $columnDiv = $(this).next()
+    $columnDiv.removeAttr('data-vertical-align')
+  })
 
-      $(this).replaceWith(`<!--[if mso]>
-        <table border="0" cellpadding="0" cellspacing="0"><tr><td style="vertical-align:${$columnDiv.data('vertical-align')};width:${parseInt($(this).data('width'))}px;">
-        <![endif]-->`)
-
-      $columnDiv.removeAttr('data-vertical-align')
-    })
-
-    $('.mj-group-outlook-line').each(function () {
-      const $columnDiv = $(this).next()
-
-      $(this).replaceWith(`<!--[if mso]>
-      </td><td style="vertical-align:${$columnDiv.data('vertical-align')};width:${parseInt($(this).data('width'))}px;">
-        <![endif]-->`)
-
-      $columnDiv.removeAttr('data-vertical-align')
-    })
-
-    $('.mj-group-outlook-close').each(function () {
-      $(this).replaceWith(`<!--[if mso]>
-        </td></tr></table>
-        <![endif]-->`)
-    })
-
-  }
+  $('.mj-group-outlook-close').each(function () {
+    $(this).replaceWith(`<!--[if mso]>
+      </td></tr></table>
+      <![endif]-->`)
+  })
 
   return $
 }
@@ -95,6 +67,8 @@ class Group extends Component {
     const { mjAttribute, sibling } = this.props
     const width = mjAttribute('width')
     const parentWidth = this.props.parentWidth || mjAttribute('parentWidth')
+
+    console.log('siblings', sibling)
 
     if (width == undefined) {
       return `mj-column-per-${parseInt(100 / sibling)}`

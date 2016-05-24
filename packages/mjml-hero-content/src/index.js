@@ -1,4 +1,4 @@
-import { MJMLElement } from 'mjml-core'
+import { MJMLElement, helpers } from 'mjml-core'
 import React, { Component } from 'react'
 import merge from 'lodash/merge'
 
@@ -29,12 +29,12 @@ const postRender = $ => {
     const align = $(this).data('align')
     const backgroundColor = $(this).data('background-color')
 
-    $(this).before(`<!--[if mso]>
+    $(this).before(`${helpers.startConditionalTag}
       <table border="0" cellpadding="0" cellspacing="0" align="${align}" width="${width.replace('px', '')}" style="width:${width};"><tr><td style="padding:0;background-color:${backgroundColor};">
-      <![endif]-->`)
-    .after(`<!--[if mso]>
-    </td></tr></table>
-      <![endif]-->`)
+      ${helpers.endConditionalTag}`)
+    .after(`${helpers.startConditionalTag}
+      </td></tr></table>
+      ${helpers.endConditionalTag}`)
     .removeAttr('data-background-color')
     .removeAttr('data-align')
   })

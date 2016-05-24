@@ -14,40 +14,32 @@ Standard Mobile:
 
 Mode hamburger enabled:
 
+<aside class="notice">
+The "hamburger" feature only work on mobile device with all iOS mail client, for others mail clients the render is performed on an normal way, the links are displayed inline and the hamburger is not visible.
+</aside>
+
 <p align="center">
 <img src="https://cloud.githubusercontent.com/assets/1830348/15317922/f01c5c24-1c23-11e6-9b0c-95b0602da260.gif" width="309px" />
 </p>
 
-``` html
+``` xml
 <mjml>
   <mj-body>
     <mj-container>
-
-      <!-- Navbar (see component mj-navbar) -->
-      <mj-navbar full-width="full-width" background-color="#ef6451">
+      <mj-navbar background-color="#ef6451">
         <mj-column width="20%">
-          <mj-image width="150px" src="https://mjml.io/assets/img/logo-white-small.png">
+          <mj-image width="150px" src="https://mjml.io/assets/img/logo-white-small.png"></mj-image>
         </mj-column>
         <mj-column width="80%">
-
-          <!-- mj-inline-links standard mode -->
           <mj-inline-links base-url="https://mjml.io">
-
-          <!-- To enable the hamburger mode add the attribute hamburger, hamburger="hamburger" -->
-          <!-- <mj-inline-links base-url="https://mjml.io" hamburger="hamburger"> -->
-
-            <!-- Your links go here (see component mj-link) -->
             <mj-link href="gettings-started-onboard" color="#ffffff">Getting started</mj-link>
             <mj-link href="try-it-live" color="#ffffff">Try it live</mj-link>
             <mj-link href="templates" color="#ffffff">Templates</mj-link>
             <mj-link href="components" color="#ffffff">Components</mj-link>
             <mj-link href="documentation" color="#ffffff">Documentation</mj-link>
-
           </mj-inline-links>
-
         </mj-column>
       </mj-navbar>
-
     </mj-container>
   </mj-body>
 </mjml>
@@ -56,14 +48,8 @@ Mode hamburger enabled:
 To display some links horizontally
 
 <p align="center">
-  <a href="/try-it-live/"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>
+  <a href="/try-it-live/inline-links"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>
 </p>
-
-There is a special mode called "hamburger", if activated the links are displayed on an interactive hamburger menu on mobile <code>hamburger="hamburger"</code>.
-
-<aside class="notice">
-The "hamburger" feature only work on mobile device with all iOS mail client, for others mail clients the render is performed on an normal way, the links are displayed inline and the hamburger is not visible.
-</aside>
 
 <aside class="notice">
 All the attributes prefixed with <code>ico-</code> help to customize the hamburger icon. They only work with the hamburger mode enabled.

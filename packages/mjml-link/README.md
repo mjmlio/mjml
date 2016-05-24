@@ -1,14 +1,13 @@
-## MJ-LINK
+## mjml-link
 
-``` html
-
+``` xml
 <mjml>
   <mj-body>
     <mj-container>
 
       <!-- Navbar (see component mj-navbar) -->
       <mj-navbar>
-        <mj-column width="600px">
+        <mj-column>
 
           <!-- Wrapper (see component mj-inline-links) -->
           <mj-inline-links base-url="https://mjml.io">
@@ -30,7 +29,7 @@
 Displays a horizontal navbar.
 
 <p align="center">
-  <a href="/try-it-live/"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>
+  <a href="/try-it-live/link"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>
 </p>
 
 <aside class="notice">

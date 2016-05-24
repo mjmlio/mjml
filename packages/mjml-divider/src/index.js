@@ -15,7 +15,7 @@ const defaultMJMLDefinition = {
 const columnElement = true
 const baseStyles = {
   p: {
-    fontSize: '1px',
+    fontSize: '0px',
     margin: '0 auto'
   }
 }
@@ -26,7 +26,7 @@ const postRender = $ => {
     $(this)
       .removeAttr('data-divider-width')
       .removeAttr('class')
-      .after(`<!--[if mso]>${insertNode}<![endif]-->`)
+      .after(`${helpers.startConditionalTag}${insertNode}${helpers.endConditionalTag}`)
   })
 
   return $

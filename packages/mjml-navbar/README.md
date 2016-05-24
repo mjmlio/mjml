@@ -4,13 +4,10 @@
 <mjml>
  <mj-body>
    <mj-container>
-     <mj-section>
-       <mj-navbar>
-         <mj-column width="100%">
-
-         </mj-column>
-       </mj-navbar>
-     </mj-section>
+     <mj-navbar>
+       <mj-column>
+       </mj-column>
+     </mj-navbar>
    </mj-container>
  </mj-body>
 </mjml>
@@ -19,7 +16,7 @@
 Displays a full width section for navigation
 
 <p align="center">
-  <a href="/try-it-live/"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>
+  <a href="/try-it-live/navbar"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>
 </p>
 
 attribute           | unit        | description                    | default value

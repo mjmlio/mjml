@@ -194,7 +194,7 @@ function createComponent (ComposedComponent) {
       }
 
       return parentMjml.get('children').map((mjml, i) => {
-        const childMjml = mjml.setIn(['attributes', 'parentWidth'], this.mjAttribute('rawPxWidth'))
+        const childMjml = mjml.setIn(['attributes', 'parentWidth'], this.getWidth())
 
         const tag = childMjml.get('tagName')
         const Element = MJMLElementsCollection[tag]

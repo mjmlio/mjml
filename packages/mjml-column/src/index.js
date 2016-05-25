@@ -84,11 +84,9 @@ class Column extends Component {
     }
   }
 
-  getMobileWidth() {
+  getMobileWidth () {
     const { mjAttribute, sibling, parentWidth, mobileWidth } = this.props
     const width = mjAttribute('width')
-
-    console.log("mjAttribute('mobileWidth')", mobileWidth)
 
     if (mobileWidth != "mobileWidth" ) {
       return '100%'

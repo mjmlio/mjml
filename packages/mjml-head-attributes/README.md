@@ -1,6 +1,6 @@
-## MJ-HEAD-ATTRIBUTES
+## mjml-head-attributes
 
- ``` html
+ ```xml
  <mjml>
    <mj-head>
      <mj-attributes>
@@ -13,7 +13,9 @@
      <mj-container>
        <mj-section>
          <mj-column>
-           <mj-text mj-class="blue big"> Hello World! </mj-text>
+           <mj-text mj-class="blue big">
+             Hello World!
+           </mj-text>
          </mj-column>
        </mj-section>
      </mj-container>
@@ -23,12 +25,12 @@
 
 This tag allows you to modify default attributes on a `mj-tag` and add `mj-class` to them.
 
-
-
 <aside class="notice">
-Note that the apply order of attributes is: inline attributes, then classes, then default mj-attributes and then defaultMJMLDefinition
+  Note that the apply order of attributes is: inline attributes, then classes, then default mj-attributes and then defaultMJMLDefinition
 </aside>
 
 <p align="center">
-  <a href="/try-it-live/text"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>
+  <a href="https://mjml.io/try-it-live/component/head-attributes">
+    <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
+  </a>
 </p>

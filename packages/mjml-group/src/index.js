@@ -1,8 +1,6 @@
 import { MJMLElement, helpers } from 'mjml-core'
-import each from 'lodash/each'
 import merge from 'lodash/merge'
 import React, { Component } from 'react'
-import uniq from 'lodash/uniq'
 
 const tagName = 'mj-group'
 const baseStyles = {
@@ -85,7 +83,7 @@ class Group extends Component {
     }
   }
 
-  renderChildren() {
+  renderChildren () {
     const { children } = this.props
 
     return children.map(child => React.cloneElement(child, { mobileWidth: "mobileWidth" }))

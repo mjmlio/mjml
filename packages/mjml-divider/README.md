@@ -16,9 +16,10 @@
 
 Displays a horizontal divider that can be customized like a HTML border.
 
-
 <p align="center">
-  <a href="/try-it-live/divider"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>
+  <a href="https://mjml.io/try-it-live/component/divider">
+    <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
+  </a>
 </p>
 
 attribute                   | unit        | description                    | default value

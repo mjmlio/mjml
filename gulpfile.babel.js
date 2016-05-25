@@ -28,7 +28,11 @@ if (path.win32 === path) {
 
 gulp.task('build', () => {
   return gulp.src(`${PACKAGES_PATH}/*/src/**/*.js`)
-    .pipe(through.obj((file, enc, callback) => {
+    .pipe(through.obj((file, encoding, callback) => {
+      file.contents = new Buffer(String(file.contents).replace(/__MJML_VERSION__/g, require(path.resolve(PACKAGES_PATH, `${file.relative.split(path.sep)[0]}/package.json`)).version))
+      callback(null, file)
+    }))
+    .pipe(through.obj((file, encoding, callback) => {
       file._path = file.path
       file.path = file.path.replace(srcEx, libFragment)
       callback(null, file)
@@ -40,38 +44,32 @@ gulp.task('build', () => {
 
 gulp.task('install', () => {
   return Promise.all(
-    Object.keys(packages).map(packageName => {
-      return new Promise(resolve => {
-        cd(packages[packageName])
-        exec('npm install')
-        resolve()
-      })
-    })
+    Object.keys(packages).map(packageName => new Promise(resolve => {
+      cd(packages[packageName])
+      exec('npm install')
+      resolve()
+    }))
   )
 })
 
 gulp.task('test', () => {
   return Promise.all(
-    Object.keys(packages).map(packageName => {
-      return new Promise(resolve => {
-        cd(packages[packageName])
-        // test if there's a test directory
-        exec('mocha --compilers js:babel-register')
-        resolve()
-      })
-    })
+    Object.keys(packages).map(packageName => new Promise(resolve => {
+      cd(packages[packageName])
+      // test if there's a test directory
+      exec('mocha --compilers js:babel-register')
+      resolve()
+    }))
   )
 })
 
 gulp.task('clean', () => {
   // Remove package node_modules
   return Promise.all(
-    Object.keys(packages).map(packageName => {
-      return new Promise(resolve => {
-        rm('-rf', path.resolve(packages[packageName], 'node_modules'), path.resolve(packages[packageName], 'lib'), path.resolve(packages[packageName], 'dist'))
-        resolve()
-      })
-    })
+    Object.keys(packages).map(packageName => new Promise(resolve => {
+      rm('-rf', path.resolve(packages[packageName], 'node_modules'), path.resolve(packages[packageName], 'lib'), path.resolve(packages[packageName], 'dist'))
+      resolve()
+    }))
   )
 })
 
@@ -92,7 +90,7 @@ gulp.task('version', () => {
   // Bump the version
   cd(packages[packageName])
   const execResult = exec(`npm version ${version}`)
-  const bumpedVersion = execResult.output.replace('\n', '').replace('v', '')
+  const bumpedVersion = execResult.toString().replace('\n', '').replace('v', '')
 
   // Commit and tag
   exec(`git add ${packages[packageName]}/package.json`)

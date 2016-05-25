@@ -21,6 +21,9 @@ const baseStyles = {
   div: {
     margin: '0 auto'
   },
+  table: {
+    width: '100%'
+  },
   tr: {
     verticalAlign: 'top'
   },
@@ -166,9 +169,6 @@ class Hero extends Component {
     return merge({}, baseStyles, {
       div: {
         maxWidth: defaultUnit(width, 'px')
-      },
-      table: {
-        width: defaultUnit(width, 'px')
       },
       edge: {
         paddingBottom: `${backgroundRatio}%`

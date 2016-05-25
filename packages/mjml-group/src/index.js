@@ -93,9 +93,11 @@ class Group extends Component {
   }
 
   render () {
-    const { mjAttribute, sibling, renderWrappedOutlookChildren } = this.props
+    const { mjAttribute, sibling, renderWrappedOutlookChildren, parentWidth } = this.props
     const width = mjAttribute('width') || (100 / sibling)
     const mjGroupClass = this.getGroupClass()
+
+    console.log("--------------", sibling, parentWidth)
 
     return (
       <div

@@ -94,7 +94,7 @@ class Section extends Component {
     const { mjAttribute, parentWidth, defaultUnit } = this.props
 
     const background = mjAttribute('background-url') ? {
-      background: `url(${mjAttribute('background-url')}) top center / ${mjAttribute('background-size') || ''} ${mjAttribute('background-repeat') || ''}`
+      background: `${mjAttribute('background-color') || ''} url(${mjAttribute('background-url')}) top center / ${mjAttribute('background-size') || ''} ${mjAttribute('background-repeat') || ''}`.trim()
     } : {
       background: mjAttribute('background-color')
     }

@@ -1,37 +1,46 @@
-## mjml-column
+## mjml-group
 
 ```xml
 <mjml>
   <mj-body>
     <mj-container>
       <mj-section>
-        <mj-column>
-          <!-- Your first column -->
-        </mj-column>
-        <mj-column>
-          <!-- Your second column -->
-        </mj-column>
+        <mj-group>
+          <mj-column padding="5px">
+            <mj-text>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas placerat varius lacus quis ornare. Mauris elit est, finibus eget lectus a, semper dignissim tortor. Curabitur eget arcu lacinia metus.
+            </mj-text>
+            <mj-button href="http://mjml.io" background-color="#92F587" color="white">Subscribe</mj-button>
+          </mj-column>
+          <mj-column padding="5px">
+            <mj-text>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas placerat varius lacus quis ornare. Mauris elit est, finibus eget lectus a, semper dignissim tortor. Curabitur eget arcu lacinia metus.
+            </mj-text>
+            <mj-button href="http://mjml.io" background-color="#92F587" color="white">Subscribe</mj-button>
+          </mj-column>
+        </mj-group>
       </mj-section>
     </mj-container>
   </mj-body>
 </mjml>
 ```
 
-Columns enable you to horizontally organize the content within your sections. They must be located under `mj-section` tags in order to be considered by the engine.
-To be responsive, columns are expressed in terms of percentage.
-
-Every single column has to contain something because they are responsive containers, and will be vertically stacked on a mobile view.
+MJ-Group allows you to handle how the email will be displayed on mobile. Allowing 2 or more column in mobile.
 
 <aside class="notice">
-Columns are meant to be used as a container for your content. They must not be used as offset. Any mj-element included in a column will have a width equivalent to 100% of this column's width.
+  You can have both column and group in a Section
+</aside>
+
+<aside class="notice">
+  Column inside a group must have a width in percentage, not in pixel
 </aside>
 
 <p align="center">
-  <a href="/try-it-live/column"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>
+  <a href="/try-it-live/component/group"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>
 </p>
 
 attribute           | unit        | description                    | default attributes
 --------------------|-------------|--------------------------------|--------------------------------------
-width               | percent/px  | column width                   | (100 / number of columns in section)%
+width               | percent/px  | group width                    | (100 / number of sibling in section)%
 vertical-align      | string      | middle/top/bottom              | top
-background-color    | string      | background color for a column  | n/a
+background-color    | string      | background color for a group   | n/a

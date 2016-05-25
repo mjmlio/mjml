@@ -1,29 +1,25 @@
 var mjml = require('./lib/index')
 
 console.log(mjml.mjml2html(`
-<mjml>
-  <mj-head>
-    <mj-attributes>
-      <mj-text align="center" />
-      <mj-image align="center" />
-    </mj-attributes>
-  </mj-head>
-  <mj-body>
-    <mj-container background-color="red">
-      <mj-section background-color="yellow">
-        <mj-group background-color="green">
-          <mj-column>
-            <mj-image src="https://upload.wikimedia.org/wikipedia/en/5/5f/Original_Doge_meme.jpg" />
-          </mj-column>
-          <mj-column>
-            <mj-text>Hello column</mj-text>
-          </mj-column>
-        </mj-group>
-        <mj-column background-color="orange">
-          <mj-text>Hello column</mj-text>
-        </mj-column>
-      </mj-section>
-    </mj-container>
-  </mj-body>
-</mjml>
-`, { beautify: true }))
+  <mjml>
+    <mj-body>
+      <mj-container>
+        <mj-section>
+          <mj-group>
+            <mj-column padding="5px">
+              <mj-text>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas placerat varius lacus quis ornare. Mauris elit est, finibus eget lectus a, semper dignissim tortor. Curabitur eget arcu lacinia metus.
+              </mj-text>
+              <mj-button href="http://mjml.io" background-color="#92F587" color="white">Subscribe now!</mj-button>
+            </mj-column>
+            <mj-column padding="5px">
+              <mj-text>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas placerat varius lacus quis ornare. Mauris elit est, finibus eget lectus a, semper dignissim tortor. Curabitur eget arcu lacinia metus.
+              </mj-text>
+              <mj-button href="http://mjml.io" background-color="#92F587" color="white">Subscribe now!</mj-button>
+            </mj-column>
+          </mj-group>
+        </mj-section>
+      </mj-container>
+    </mj-body>
+  </mjml>`, { beautify: true }))

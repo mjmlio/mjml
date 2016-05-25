@@ -3,10 +3,10 @@
 Fixed height
 
 <p align="center">
-<img src="https://cloud.githubusercontent.com/assets/1830348/15354833/bfe7faaa-1cef-11e6-8d38-15e8951b6636.png" />
+  <img src="https://cloud.githubusercontent.com/assets/1830348/15354833/bfe7faaa-1cef-11e6-8d38-15e8951b6636.png" />
 </p>
 
-``` xml
+```xml
 <mjml>
   <mj-body>
     <mj-container>
@@ -40,14 +40,13 @@ Fixed height
 </mjml>
  ```
 
-
 Fluid height
 
 <p align="center">
-<img src="https://cloud.githubusercontent.com/assets/1830348/15354867/fc2f404a-1cef-11e6-92ac-92de9e438210.png" />
+  <img src="https://cloud.githubusercontent.com/assets/1830348/15354867/fc2f404a-1cef-11e6-92ac-92de9e438210.png" />
 </p>
 
-``` xml
+```xml
 <mjml>
   <mj-body>
     <mj-container>
@@ -79,6 +78,7 @@ Fluid height
   </mj-body>
 </mjml>
 ```
+
 Display a section with a background image and some content inside (mj-text, mj-button, mj-image ...) wrapped in mj-hero-content component
 
 <p align="center">
@@ -86,19 +86,19 @@ Display a section with a background image and some content inside (mj-text, mj-b
 </p>
 
 <aside class="notice">
-The height attribute is required only for the fixed-height mode
+  The height attribute is required only for the fixed-height mode
 </aside>
 
 <aside class="notice">
-<span style="font-weight:bold;">The background position does not work in fluid-height mode on outlook.com</span>
+  <span style="font-weight:bold;">The background position does not work in fluid-height mode on outlook.com</span>
 </aside>
 
 <aside class="notice">
-For better result we encourage you to use a background image with a 600px width and always specify a fallback background color, in case the user email client does not support background images.
+  For better result we encourage you to use a background image with a 600px width and always specify a fallback background color, in case the user email client does not support background images.
 </aside>
 
 <aside class="notice">
-Please keep the hero container height below the image height. When the hero container height - both in fixed or fluid modes - is greater than the background image height, we can’t guarantee a perfect rendering in all supported email clients
+  Please keep the hero container height below the image height. When the hero container height - both in fixed or fluid modes - is greater than the background image height, we can’t guarantee a perfect rendering in all supported email clients
 </aside>
 
 attribute           | unit                                | description                                                          | default value

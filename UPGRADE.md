@@ -119,7 +119,7 @@ const postRender = $ => {
     $(this)
       .removeAttr('data-divider-width')
       .removeAttr('class')
-      .after(`<!--[if mso | IE]>${insertNode}<![endif]-->`)
+      .after(`<!--[if mso]>${insertNode}<![endif]-->`)
   })
 
   return $

@@ -7,8 +7,8 @@ export const widthParser = width => {
 }
 
 export const defaultUnit = (units, defaultUnit = 'px') => {
-  if (!units || units === '') {
-    return units
+  if (units === undefined || units === '' || units === null) {
+    return undefined
   }
 
   return units

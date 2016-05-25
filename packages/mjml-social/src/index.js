@@ -1,4 +1,4 @@
-import { MJMLElement } from 'mjml-core'
+import { MJMLElement, helpers } from 'mjml-core'
 import merge from 'lodash/merge'
 import tap from 'lodash/tap'
 import clone from 'lodash/clone'
@@ -98,21 +98,21 @@ const buttonDefinitions = {
 }
 const postRender = $ => {
   $('.mj-social-outlook-open').each(function () {
-    $(this).replaceWith(`<!--[if mso | IE]>
+    $(this).replaceWith(`${helpers.startConditionalTag}
       <table border="0" cellpadding="0" cellspacing="0" align="${$(this).data('align')}"><tr><td>
-      <![endif]-->`)
+      ${helpers.endConditionalTag}`)
   })
 
   $('.mj-social-outlook-line').each(function () {
-    $(this).replaceWith(`<!--[if mso | IE]>
+    $(this).replaceWith(`${helpers.startConditionalTag}
       </td><td>
-      <![endif]-->`)
+      ${helpers.endConditionalTag}`)
   })
 
   $('.mj-social-outlook-close').each(function () {
-    $(this).replaceWith(`<!--[if mso | IE]>
+    $(this).replaceWith(`${helpers.startConditionalTag}
       </td></tr></table>
-      <![endif]-->`)
+      ${helpers.endConditionalTag}`)
   })
 
   return $

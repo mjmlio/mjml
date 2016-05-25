@@ -27,9 +27,9 @@ const baseStyles = {
   },
   trigger: {
     display: 'none',
-    maxHeight: 0,
-    maxWidth: 0,
-    fontSize: 0,
+    maxHeight: '0px',
+    maxWidth: '0px',
+    fontSize: '0px',
     overflow: 'hidden'
   },
   label: {

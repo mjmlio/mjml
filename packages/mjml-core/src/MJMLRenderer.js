@@ -1,12 +1,8 @@
+import _ from 'lodash'
 import { EmptyMJMLError } from './Error'
-import { html as beautify } from 'js-beautify'
 import { fixLegacyAttrs, removeCDATA } from './helpers/postRender'
 import { parseInstance } from './helpers/mjml'
 import defaultContainer from './configs/defaultContainer'
-import documentParser from './parsers/document'
-import dom from './helpers/dom'
-import fs from 'fs'
-import _ from 'lodash'
 import getFontsImports from './helpers/getFontsImports'
 import MJMLElementsCollection, { postRenders, registerMJElement } from './MJMLElementsCollection'
 import React from 'react'
@@ -29,6 +25,8 @@ export default class MJMLRenderer {
   }
 
   registerDotfile () {
+    const fs = require('fs')
+
     try {
       const path = process.cwd()
       const mjmlConfig = JSON.parse(fs.readFileSync(`${path}/.mjmlconfig`).toString())
@@ -52,9 +50,49 @@ export default class MJMLRenderer {
   }
 
   parseDocument () {
+    const documentParser = require('./parsers/document').default
+
     debug('Start parsing document')
     this.content = documentParser(this.content)
     debug('Content parsed')
+  }
+
+  postRender (MJMLDocument) {
+    const dom = require('./helpers/dom').default
+
+    let $ = dom.parseHTML(MJMLDocument)
+
+    $ = fixLegacyAttrs($)
+
+    postRenders.forEach(postRender => {
+      if (typeof postRender === 'function') {
+        $ = postRender($)
+      }
+    })
+
+    let finalMJMLDocument = dom.getHTML($)
+    finalMJMLDocument     = removeCDATA(finalMJMLDocument)
+
+    if (this.options.beautify) {
+      const beautify = require('js-beautify').html
+
+      finalMJMLDocument = beautify(finalMJMLDocument, {
+        indent_size: 2,
+        wrap_attributes_indent_size: 2
+      })
+    }
+
+    if (this.options.minify) {
+      const minify = require('html-minifier').minify
+
+      finalMJMLDocument = minify(finalMJMLDocument, {
+        collapseWhitespace: true,
+        removeEmptyAttributes: true,
+        minifyCSS: true
+      })
+    }
+
+    return finalMJMLDocument
   }
 
   render () {
@@ -75,42 +113,7 @@ export default class MJMLRenderer {
       fonts: getFontsImports({ content: renderedMJML })
     })
 
-    return this._postRender(MJMLDocument)
-  }
-
-  _postRender (MJMLDocument) {
-    let $ = dom.parseHTML(MJMLDocument)
-
-    $ = fixLegacyAttrs($)
-
-    postRenders.forEach(postRender => {
-      if (typeof postRender === 'function') {
-        $ = postRender($)
-      }
-    })
-
-    let finalMJMLDocument = dom.getHTML($)
-    finalMJMLDocument     = removeCDATA(finalMJMLDocument)
-
-    if (this.options.beautify && beautify) {
-      finalMJMLDocument = beautify(finalMJMLDocument, {
-        indent_size: 2,
-        wrap_attributes_indent_size: 2
-      })
-    }
-
-    if (this.options.minify) {
-
-      const minify = require('html-minifier').minify
-
-      finalMJMLDocument = minify(finalMJMLDocument, {
-        collapseWhitespace: true,
-        removeEmptyAttributes: true,
-        minifyCSS: true
-      })
-    }
-
-    return finalMJMLDocument
+    return this.postRender(MJMLDocument)
   }
 
 }

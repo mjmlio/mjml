@@ -1,6 +1,6 @@
 ## mjml-head-attributes
 
- ``` html
+ ```xml
  <mjml>
    <mj-head>
      <mj-attributes>
@@ -13,7 +13,9 @@
      <mj-container>
        <mj-section>
          <mj-column>
-           <mj-text mj-class="blue big"> Hello World! </mj-text>
+           <mj-text mj-class="blue big">
+             Hello World!
+           </mj-text>
          </mj-column>
        </mj-section>
      </mj-container>

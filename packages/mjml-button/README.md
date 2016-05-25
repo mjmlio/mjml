@@ -6,7 +6,7 @@
     <mj-container>
       <mj-section>
         <mj-column>
-          <mj-button font-family="Helvetica" background-color="#F45E43" color="white">
+          <mj-button font-family="Helvetica" background-color="#f45e43" color="white">
             Don't click me!
           </mj-button>
         </mj-column>

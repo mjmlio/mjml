@@ -15,7 +15,7 @@ const defaultMJMLDefinition = {
 const columnElement = true
 const baseStyles = {
   p: {
-    fontSize: '0px',
+    fontSize: '1px',
     margin: '0 auto'
   }
 }

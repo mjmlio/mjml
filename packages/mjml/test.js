@@ -2,6 +2,12 @@ var mjml = require('./lib/index')
 
 console.log(mjml.mjml2html(`
 <mjml>
+  <mj-head>
+    <mj-attributes>
+      <mj-text align="center" />
+      <mj-image align="center" />
+    </mj-attributes>
+  </mj-head>
   <mj-body>
     <mj-container background-color="red">
       <mj-section background-color="yellow">

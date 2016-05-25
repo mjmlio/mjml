@@ -52,7 +52,8 @@ class Group extends Component {
       div: {
         display: 'inline-block',
         verticalAlign: mjAttribute('vertical-align'),
-        fontSize: '13px',
+        fontSize: '0px',
+        lineHeight: '0px',
         textAlign: 'left',
         width: '100%'
       },
@@ -67,8 +68,6 @@ class Group extends Component {
     const { mjAttribute, sibling } = this.props
     const width = mjAttribute('width')
     const parentWidth = this.props.parentWidth || mjAttribute('parentWidth')
-
-    console.log('siblings', sibling)
 
     if (width == undefined) {
       return `mj-column-per-${parseInt(100 / sibling)}`
@@ -93,11 +92,9 @@ class Group extends Component {
   }
 
   render () {
-    const { mjAttribute, sibling, renderWrappedOutlookChildren, parentWidth } = this.props
+    const { mjAttribute, sibling, renderWrappedOutlookChildren } = this.props
     const width = mjAttribute('width') || (100 / sibling)
     const mjGroupClass = this.getGroupClass()
-
-    console.log("--------------", sibling, parentWidth)
 
     return (
       <div

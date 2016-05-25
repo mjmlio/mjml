@@ -190,8 +190,6 @@ function createComponent (ComposedComponent) {
     generateChildren () {
       const { mjml: parentMjml } = this.props
 
-      console.log(this.mjName(), this.getParentWidth(), this.getWidth())
-
       if (!parentMjml) {
         return []
       }
@@ -226,7 +224,7 @@ function createComponent (ComposedComponent) {
       ]
 
       // assign sibling count for element and children
-      if (parentMjml && this.mjName() === 'mj-column') {
+      if (parentMjml) {
         siblingCount = parentMjml.get('children').size
       }
 

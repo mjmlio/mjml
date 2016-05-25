@@ -3,9 +3,9 @@ var mjml = require('./lib/index')
 console.log(mjml.mjml2html(`
 <mjml>
   <mj-body>
-    <mj-container mj-class="bg-blue">
-      <mj-section>
-        <mj-group>
+    <mj-container background-color="red">
+      <mj-section background-color="yellow">
+        <mj-group background-color="green">
           <mj-column>
             <mj-image src="https://upload.wikimedia.org/wikipedia/en/5/5f/Original_Doge_meme.jpg" />
           </mj-column>
@@ -13,7 +13,7 @@ console.log(mjml.mjml2html(`
             <mj-text>Hello column</mj-text>
           </mj-column>
         </mj-group>
-        <mj-column>
+        <mj-column background-color="orange">
           <mj-text>Hello column</mj-text>
         </mj-column>
       </mj-section>

@@ -1,5 +1,6 @@
 {
   "name": "mjml-spacer",
+  "description": "mjml-spacer",
   "version": "2.0.2",
   "main": "lib/index.js",
   "repository": {

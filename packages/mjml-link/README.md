@@ -23,7 +23,9 @@
 Displays a horizontal navbar.
 
 <p align="center">
-  <a href="/try-it-live/link"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>
+  <a href="https://mjml.io/try-it-live/component/link">
+    <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
+  </a>
 </p>
 
 <aside class="notice">

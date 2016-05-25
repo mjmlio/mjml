@@ -23,7 +23,7 @@ Displays a customizable button.
 </p>
 
 <p align="center">
-  <a href="/try-it-live/button">
+  <a href="https://mjml.io/try-it-live/component/button">
     <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
   </a>
 </p>

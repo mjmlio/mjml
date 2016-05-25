@@ -19,7 +19,7 @@ Mode hamburger enabled:
 </aside>
 
 <p align="center">
-<img src="https://cloud.githubusercontent.com/assets/1830348/15317922/f01c5c24-1c23-11e6-9b0c-95b0602da260.gif" width="309px" />
+  <img src="https://cloud.githubusercontent.com/assets/1830348/15317922/f01c5c24-1c23-11e6-9b0c-95b0602da260.gif" width="309px" />
 </p>
 
 ```xml
@@ -32,11 +32,11 @@ Mode hamburger enabled:
         </mj-column>
         <mj-column width="80%">
           <mj-inline-links base-url="https://mjml.io">
-            <mj-link href="gettings-started-onboard" color="#ffffff">Getting started</mj-link>
-            <mj-link href="try-it-live" color="#ffffff">Try it live</mj-link>
-            <mj-link href="templates" color="#ffffff">Templates</mj-link>
-            <mj-link href="components" color="#ffffff">Components</mj-link>
-            <mj-link href="documentation" color="#ffffff">Documentation</mj-link>
+            <mj-link href="/gettings-started-onboard" color="#ffffff">Getting started</mj-link>
+            <mj-link href="/try-it-live" color="#ffffff">Try it live</mj-link>
+            <mj-link href="/templates" color="#ffffff">Templates</mj-link>
+            <mj-link href="/components" color="#ffffff">Components</mj-link>
+            <mj-link href="/documentation" color="#ffffff">Documentation</mj-link>
           </mj-inline-links>
         </mj-column>
       </mj-navbar>
@@ -48,7 +48,9 @@ Mode hamburger enabled:
 To display some links horizontally
 
 <p align="center">
-  <a href="/try-it-live/inline-links"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>
+  <a href="https://mjml.io/try-it-live/component/inline-links">
+    <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
+  </a>
 </p>
 
 <aside class="notice">

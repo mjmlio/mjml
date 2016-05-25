@@ -1,6 +1,6 @@
 ## mjml-hero
 
-Fixed height
+Fixed height  
 
 <p align="center">
   <img src="https://cloud.githubusercontent.com/assets/1830348/15354833/bfe7faaa-1cef-11e6-8d38-15e8951b6636.png" />
@@ -96,7 +96,7 @@ Display a section with a background image and some content inside (mj-text, mj-b
 </aside>
 
 <aside class="notice">
-  For better result we encourage you to use a background image with a 600px width and always specify a fallback background color, in case the user email client does not support background images.
+For better result we encourage you to use a background image width equal to the hero container width and always specify a fallback background color, in case the user email client does not support background images.
 </aside>
 
 <aside class="notice">
@@ -105,6 +105,7 @@ Display a section with a background image and some content inside (mj-text, mj-b
 
 attribute           | unit                                | description                                                          | default value
 --------------------|-------------------------------------|----------------------------------------------------------------------|--------------
+width               | px                                  | hero container width                                                 | parent element width
 mode                | fluid-height/fixed-height           | choose if the height is fixed based on the height attribute or fluid | fluid-height
 height              | px                                  | hero section height (required for fixed-height mode)                 | 0px
 background-width    | px                                  | width of the image used                                              | 0px

@@ -46,11 +46,10 @@ const baseStyles = {
     display: 'inline-table'
   },
   tableVertical: {
-    margin: 0
+    margin: '0px'
   },
   td1: {
-    verticalAlign: 'middle',
-    padding: '4px'
+    verticalAlign: 'middle'
   },
   td2:  {
     verticalAlign: 'middle'
@@ -61,7 +60,7 @@ const baseStyles = {
   },
   a: {
     textDecoration: 'none',
-    textAlign: "left",
+    textAlign: 'left',
     display: 'block',
     borderRadius: '3px'
   },
@@ -130,15 +129,18 @@ class Social extends Component {
       a: {
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
-        fontSize: defaultUnit(mjAttribute('font-size'), "px"),
+        fontSize: defaultUnit(mjAttribute('font-size'), 'px'),
         fontStyle: mjAttribute('font-style'),
         fontWeight: mjAttribute('font-weight'),
-        lineHeight: defaultUnit(mjAttribute('line-height'), "px"),
+        lineHeight: defaultUnit(mjAttribute('line-height'), 'px'),
         textDecoration: mjAttribute('text-decoration')
       },
+      td1: {
+        padding: this.isHorizontal() ? '0 4px' : '4px 0'
+      },
       td2: {
-        width: defaultUnit(mjAttribute('icon-size'), "px"),
-        height: defaultUnit(mjAttribute('icon-size'), "px")
+        width: defaultUnit(mjAttribute('icon-size'), 'px'),
+        height: defaultUnit(mjAttribute('icon-size'), 'px')
       }
     })
   }

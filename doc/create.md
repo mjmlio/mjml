@@ -72,7 +72,7 @@ Title.baseStyles = {
     color: "blue"
   }
 }
-Title.postRender = ($) =>Â {
+Title.postRender = ($) => {
   $('.title').removeAttr('data-title-color');
   return $
 }
@@ -102,13 +102,13 @@ It can contain any CSS property or component property, but please make sure it w
 In some case, you'll need to modify the rendered html, like replace some placeholder for outlook by conditional tag then you can define a postRender static function that take jQuery/[Cheerio](https://github.com/cheeriojs/cheerio) with the rendered document.
 
 ``` javascript
-Title.postRender = ($) =>Â {
-  $('.title').prepend(`<!--[if mso]>
-      <table border="0" cellpadding="0" cellspacing="0" width="600" align="center" style="width:600}px;"><tr><td>
-      <![endif]-->`);
-  $('.title').append(`<!--[if mso]>
-      </td></tr></table>
-      <![endif]-->`);
+Title.postRender = $ => {
+  $('.title').prepend(`<!--[if mso | IE]>
+    <table border="0" cellpadding="0" cellspacing="0" width="600" align="center" style="width:600}px;"><tr><td>
+    <![endif]-->`)
+  $('.title').append(`<!--[if mso | IE]>
+    </td></tr></table>
+    <![endif]-->`)
 
   return $
 }

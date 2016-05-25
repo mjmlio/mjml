@@ -1,4 +1,4 @@
-import { MJMLElement } from 'mjml-core'
+import { MJMLElement, helpers } from 'mjml-core'
 import React, { Component } from 'react'
 import merge from 'lodash/merge'
 
@@ -72,9 +72,9 @@ const postRender = $ => {
     backgroundHeight = parseInt(backgroundHeight.replace('px', '')) * 0.75
 
     $(this)
-      .before(`<!--[if mso | IE]>
+      .before(`${helpers.startConditionalTag}
           <v:image xmlns:v="urn:schemas-microsoft-com:vml" croptop="${backgroundCropTop}" cropbottom="${backgroundCropBottom}" style="width:${backgroundWidth}pt;height:${backgroundHeight}pt;position:absolute;top:0;mso-position-horizontal:center;border:0;z-index:-3;" src="${backgroundUrl}" />
-        <![endif]-->`)
+        ${helpers.endConditionalTag}`)
       .removeAttr('class')
       .removeAttr('data-background-width')
       .removeAttr('data-background-height')
@@ -86,6 +86,7 @@ const postRender = $ => {
 
 @MJMLElement
 class Hero extends Component {
+
   styles = this.getStyles()
 
   getFixedHeight () {
@@ -239,12 +240,13 @@ class Hero extends Component {
           cellSpacing="0"
           style={this.styles.table}>
           <tbody>
-            { this.isFixedHeight() ? this.renderFixedHeight() : this.renderFluidHeight() }
+            {this.isFixedHeight() ? this.renderFixedHeight() : this.renderFluidHeight()}
           </tbody>
         </table>
       </div>
     )
   }
+
 }
 
 Hero.tagName = tagName

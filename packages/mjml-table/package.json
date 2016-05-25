@@ -1,5 +1,6 @@
 {
   "name": "mjml-table",
+  "description": "mjml-table",
   "version": "2.0.2",
   "main": "lib/index.js",
   "repository": {
@@ -10,9 +11,9 @@
   "bugs": {
     "url": "https://github.com/mjmlio/mjml/issues"
   },
-  "homepage": "https://github.com/mjmlio/mjml",
+  "homepage": "https://mjml.io",
   "dependencies": {
-    "mjml-core": "^2.0.2",
-    "react": "^15.0.2"
+    "mjml-core": "^2.1.1",
+    "react": "^15.1.0"
   }
 }

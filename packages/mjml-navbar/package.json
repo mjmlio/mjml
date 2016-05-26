@@ -15,7 +15,7 @@
   "dependencies": {
     "lodash": "^4.12.0",
     "mjml-core": "^2.1.1",
-    "mjml-section": "^2.0.2",
+    "mjml-section": "^2.0.3",
     "react": "^15.1.0"
   }
 }

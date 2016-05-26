@@ -1,0 +1,19 @@
+{
+  "name": "mjml-container",
+  "version": "2.0.3",
+  "main": "lib/index.js",
+  "description": "mjml-container",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mjmlio/mjml.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mjmlio/mjml/issues"
+  },
+  "homepage": "https://mjml.io",
+  "dependencies": {
+    "mjml-core": "^2.1.1",
+    "react": "^15.1.0"
+  }
+}

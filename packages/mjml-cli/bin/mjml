@@ -1,0 +1,48 @@
+#!/usr/bin/env node
+
+var cli = require('../lib/client')
+var binary = require('commander')
+
+/*
+ * Parse the command line arguments
+ */
+binary
+  .version(cli.version())
+  .arguments('[files...]', 'Compiles an MJML file')
+  .action(function (files) {
+    var options = {
+      min: process.argv.indexOf('-m') !== -1 || process.argv.indexOf('--min') !== -1,
+      stdout: process.argv.indexOf('-s') !== -1 || process.argv.indexOf('--stdout') !== -1,
+      output: binary.output
+    }
+    
+    cli.renderFile(files, options)
+  })
+  .option('-r, --render <file>', 'Compiles an MJML file')
+  .option('-i, --stdin', 'Compiles an MJML file from input stream')
+  .option('-w, --watch <file>', 'Watch and render an MJML file')
+  .option('-o, --output <file>', 'Redirect the HTML to a file')
+  .option('-s, --stdout', 'Redirect the HTML to stdout')
+  .option('-m, --min', 'Minify the final output file', 'false')
+  .option('-e, --ending', 'Specifies that the newly created component is an ending tag')
+  .option('-c, --column', 'Specifies that the newly created component is an column element')
+  .option('--init-component <name>', 'Initialize an MJML component')
+  .parse(process.argv)
+
+switch (true) {
+  case (!!binary.watch):
+    cli.watch(binary.watch, binary)
+    break
+
+  case (!!binary.render):
+    cli.renderFile(binary.render, binary)
+    break
+
+  case (!!binary.stdin):
+    cli.renderStream(binary)
+    break
+
+  case (!!binary.initComponent):
+    cli.initComponent(binary.initComponent, binary.ending, binary.column)
+    break
+}

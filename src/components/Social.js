@@ -146,6 +146,7 @@ class Social extends Component {
     const { mjAttribute } = this.props
     const definition = this.constructor.buttonDefinitions[platform]
     const href = share ? definition.linkAttribute.replace('[[URL]]', mjAttribute(`${platform}-href`)) : mjAttribute(`${platform}-href`)
+    const alt = mjAttribute(`${platform}-alt`) || platform;
     const iconStyle = {
       background: mjAttribute(`${platform}-icon-color`),
       borderRadius: this.styles.img.borderRadius,
@@ -165,7 +166,7 @@ class Social extends Component {
                 <td style={this.styles.td2}>
                   <a href={href}>
                     <img
-                      alt={platform}
+                      alt={alt}
                       border="0"
                       height={parseInt(mjAttribute('icon-size'))}
                       src={mjAttribute('base-url') + definition.icon}

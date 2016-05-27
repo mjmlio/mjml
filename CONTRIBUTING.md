@@ -1,5 +1,3 @@
-**_We’re aiming at clear contributing guidelines that will help us streamline and resolve contributions._**
-
 # What should I know before I get started?
 
 ## Code of Conduct

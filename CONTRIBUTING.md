@@ -10,11 +10,11 @@ MJML is made up of different [packages](https://github.com/mjmlio/mjml/tree/mast
 
 There are 3 types of packages:
 
-* mjml-core: the engine that renders mjml components
+* `mjml-core`: the engine that renders mjml components
 
-* mjml-cli: the client, base on the mjml-core interface
+* `mjml-cli`: the client, base on the mjml-core interface
 
-* mjml: a standalone client including the standard library of components
+* `mjml`: a standalone client including the standard library of components
 
 * one standalone package for each component
 
@@ -42,7 +42,7 @@ Explain the problem you’re facing and include as many details as you can to he
 
     * **How you’re using MJML** (whether you’re using the [try it live](https://mjml.io/try-it-live), [running it locally](https://github.com/mjmlio/mjml/releases), [using the app](https://github.com/mjmlio/mjml-app), or any other way)
 
-    * The** version of MJML** you’re using
+    * The **version of MJML** you’re using
 
     * The **MJML code** you used to encounter this bug, as copy/pasteable snippets, using [Markdown Code Blocks](https://help.github.com/articles/creating-and-highlighting-code-blocks/)
 
@@ -50,7 +50,7 @@ Explain the problem you’re facing and include as many details as you can to he
 
     * **Screenshots** of the issue / behaviour before enhancement on the **given email clients**
 
-    * Explain why **what you encountered is a bug** / how your enhancement would** improve MJML**: what did you expect to see and why?
+    * Explain why **what you encountered is a bug** / how your enhancement would **improve MJML**: what did you expect to see and why?
 
 * If you want MJML to support a new styling attribute, **add screenshots **from Litmus or Email On Acid showing that this attribute is **supported for [email clients supported by MJML](https://mjml.io/faq#email-clients)**
 
@@ -74,7 +74,7 @@ Explain the problem you’re facing and include as many details as you can to he
 
       **Screenshots and GIFs**
 
-      \!\[Screenshots and GIFs which follow reproduction steps to demonstrate the problem](url)
+      ![Screenshots and GIFs which follow reproduction steps to demonstrate the problem](url)
 
       **MJML version:**
 
@@ -122,6 +122,8 @@ Type of issue and issue state
 
 #### Topic categories
 
+| Label name | Description |
+| --- | --- |
 | `Build error` | the engine won’t render a template without a valid reason |
 | `General rendering issue` | the HTML rendered is not responsive while respecting MJML’s best practices |
 | `Email client name` | The HTML rendered is not responsive for a specific email client |
@@ -130,6 +132,8 @@ Type of issue and issue state
 
 #### Pull Requests labels
 
+| Label name | Description |
+| --- | --- |
 | `Work in progress` | PR which are still being worked on, more changes will follow |
 | `Needs review `| Pull requests which need code review and approval |
 | `Under review` | PR being reviewed |

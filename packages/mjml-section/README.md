@@ -32,6 +32,7 @@ background-color    | color       | section color                  | n/a
 background-url      | url         | background url                 | n/a
 background-repeat   | string      | css background repeat          | repeat
 background-size     | percent/px  | css background size            | auto
+border-radius       | percent/px  | css border radius              | 0
 vertical-align      | string      | css vertical-align             | top
 text-align          | string      | css text-align                 | center
 padding             | px          | supports up to 4 parameters    | 20px 0

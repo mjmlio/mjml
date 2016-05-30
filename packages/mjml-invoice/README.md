@@ -1,5 +1,11 @@
 ## mjml-invoice
 
+<p align="center">
+  <img width="300px" src="https://cloud.githubusercontent.com/assets/2217014/13403338/c81697b8-df14-11e5-8cfb-6e5b3e6b7ade.png" />
+</p>
+
+Display a table of items with calculated total price.
+
 ```xml
 <mjml>
   <mj-body>
@@ -16,12 +22,6 @@
   </mj-body>
 </mjml>
 ```
-
-<p align="center">
-  <img width="300px" src="https://cloud.githubusercontent.com/assets/2217014/13403338/c81697b8-df14-11e5-8cfb-6e5b3e6b7ade.png" />
-</p>
-
-Display a table of items with calculated total price.
 
 <p align="center">
   <a href="https://mjml.io/try-it-live/component/invoice">
@@ -47,6 +47,8 @@ format   	                  | string      | how to format total price, based on 
 
 ## mjml-invoice-item
 
+Display a row in an `mj-invoice` component
+
 ```xml
 <mjml>
   <mj-body>
@@ -63,8 +65,6 @@ format   	                  | string      | how to format total price, based on 
   </mj-body>
 </mjml>
 ```
-
-Display a row in an `mj-invoice` component
 
 attribute       | unit          | description                                           | default value
 ----------------|---------------|-------------------------------------------------------|--------------

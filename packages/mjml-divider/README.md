@@ -1,5 +1,7 @@
 ## mjml-divider
 
+Displays a horizontal divider that can be customized like a HTML border.
+
 ```xml
 <mjml>
   <mj-body>
@@ -13,8 +15,6 @@
   </mj-body>
 </mjml>
 ```
-
-Displays a horizontal divider that can be customized like a HTML border.
 
 <p align="center">
   <a href="https://mjml.io/try-it-live/component/divider">

@@ -1,5 +1,7 @@
 ## mjml-hero
 
+Display a section with a background image and some content inside (mj-text, mj-button, mj-image ...) wrapped in mj-hero-content component
+
 Fixed height  
 
 <p align="center">
@@ -40,6 +42,12 @@ Fixed height
 </mjml>
  ```
 
+ <p align="center">
+   <a href="https://mjml.io/try-it-live/component/hero">
+     <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
+   </a>
+ </p>
+
 Fluid height
 
 <p align="center">
@@ -79,10 +87,8 @@ Fluid height
 </mjml>
 ```
 
-Display a section with a background image and some content inside (mj-text, mj-button, mj-image ...) wrapped in mj-hero-content component
-
 <p align="center">
-  <a href="https://mjml.io/try-it-live/component/hero">
+  <a href="https://mjml.io/try-it-live/component/hero/1">
     <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
   </a>
 </p>

@@ -1,5 +1,7 @@
 ## mjml-spacer
 
+Displays a blank space.
+
 ```xml
 <mjml>
   <mj-body>
@@ -13,8 +15,6 @@
   </mj-body>
 </mjml>
 ```
-
-Displays a blank space.
 
 attribute                   | unit        | description                    | default value
 ----------------------------|-------------|--------------------------------|------------------------------

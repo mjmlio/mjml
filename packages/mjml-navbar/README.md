@@ -1,5 +1,11 @@
 ## mjml-navbar
 
+<p align="center">
+  <img src="https://cloud.githubusercontent.com/assets/1830348/15317906/d6cef510-1c23-11e6-83d7-31e4e4f8ba2a.png" width="800px" />
+</p>
+
+Displays a full width section for navigation
+
 ```xml
 <mjml>
   <mj-body>
@@ -23,8 +29,6 @@
 </mjml>
 ```
 
-Displays a full width section for navigation
-
 <p align="center">
   <a href="https://mjml.io/try-it-live/component/navbar">
     <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
@@ -47,6 +51,8 @@ padding-right       | px          | section right offset           | n/a
 
 ## mjml-inline-links
 
+To display some links horizontally
+
 Standard Desktop:
 
 <p align="center">
@@ -60,10 +66,6 @@ Standard Mobile:
 </p>
 
 Mode hamburger enabled:
-
-<aside class="notice">
-  The "hamburger" feature only work on mobile device with all iOS mail client, for others mail clients the render is performed on an normal way, the links are displayed inline and the hamburger is not visible.
-</aside>
 
 <p align="center">
   <img src="https://cloud.githubusercontent.com/assets/1830348/15317922/f01c5c24-1c23-11e6-9b0c-95b0602da260.gif" width="309px" />
@@ -92,13 +94,15 @@ Mode hamburger enabled:
 </mjml>
 ```
 
-To display some links horizontally
-
 <p align="center">
-  <a href="https://mjml.io/try-it-live/component/inline-links">
+  <a href="https://mjml.io/try-it-live/component/navbar/1">
     <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
   </a>
 </p>
+
+<aside class="notice">
+  The "hamburger" feature only work on mobile device with all iOS mail client, for others mail clients the render is performed on an normal way, the links are displayed inline and the hamburger is not visible.
+</aside>
 
 <aside class="notice">
   All the attributes prefixed with <code>ico-</code> help to customize the hamburger icon. They only work with the hamburger mode enabled.

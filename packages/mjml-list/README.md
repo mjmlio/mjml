@@ -1,5 +1,7 @@
 ## mjml-list
 
+`mj-list` enables you to create unordered lists and enables you to wrap `li`s tag.
+
 ```xml
 <mjml>
   <mj-body>
@@ -18,8 +20,6 @@
   </mj-body>
 </mjml>
 ```
-
-`mj-list` enables you to create unordered lists and enables you to wrap `li`s tag.
 
 <p align="center">
   <a href="https://mjml.io/try-it-live/component/list">

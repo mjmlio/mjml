@@ -1,5 +1,7 @@
 ## mjml-text
 
+This tag allows you to display text in your email.
+
  ```xml
 <mjml>
   <mj-body>
@@ -13,29 +15,20 @@
           </mj-text>
         </mj-column>
       </mj-section>
-      <mj-section>
-        <mj-column>
-          <mj-text>
-            Hey There!
-          </mj-text>
-        </mj-column>
-      </mj-section>
     </mj-container>
   </mj-body>
 </mjml>
  ```
-
-This tag allows you to display text in your email.
-
-<aside class="notice">
-  `MjText` can contain any HTML tag with any attributes. Don't forget to encode special characters to avoid unexpected behaviour from MJML's parser
-</aside>
 
 <p align="center">
   <a href="https://mjml.io/try-it-live/component/text">
     <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
   </a>
 </p>
+
+<aside class="notice">
+  `MjText` can contain any HTML tag with any attributes. Don't forget to encode special characters to avoid unexpected behaviour from MJML's parser
+</aside>
 
  attribute                    | unit          | description                    | default value
 ------------------------------|---------------|--------------------------------|-------------------------------------

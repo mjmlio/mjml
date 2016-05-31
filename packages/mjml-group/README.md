@@ -1,5 +1,7 @@
 ## mjml-group
 
+MJ-Group allows you to handle how the email will be displayed on mobile. Allowing 2 or more column in mobile.
+
 ```xml
 <mjml>
   <mj-body>
@@ -25,14 +27,17 @@
 </mjml>
 ```
 
-MJ-Group allows you to handle how the email will be displayed on mobile. Allowing 2 or more column in mobile.
+<aside class="notice">
+  Column inside a group must have a width in percentage, not in pixel
+</aside>
+
 
 <aside class="notice">
-  You can have both column and group in a Section
+  You can have both column and group inside a Section
 </aside>
 
 <aside class="notice">
-  Column inside a group must have a width in percentage, not in pixel
+  <b>iOS 9 Issue:</b> If you use a HTML beautifier for MJML output, iOS9 render will render your column inside a mj-group as stacked. Fix is to remove the blank space between the two columns inside a mj-group.
 </aside>
 
 <p align="center">

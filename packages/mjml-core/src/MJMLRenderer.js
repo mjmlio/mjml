@@ -8,6 +8,7 @@ import MJMLElementsCollection, { postRenders, registerMJElement } from './MJMLEl
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import warning from 'warning'
+import includeExternal from './includeExternal'
 
 const debug = require('debug')('mjml-engine/mjml2html')
 
@@ -16,7 +17,7 @@ export default class MJMLRenderer {
   constructor (content, options = {}) {
     this.registerDotfile()
 
-    this.content = content
+    this.content = includeExternal(content)
     this.options = options
 
     if (typeof this.content === 'string') {

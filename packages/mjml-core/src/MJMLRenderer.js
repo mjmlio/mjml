@@ -5,6 +5,8 @@ import { parseInstance } from './helpers/mjml'
 import defaultContainer from './configs/defaultContainer'
 import getFontsImports from './helpers/getFontsImports'
 import MJMLElementsCollection, { postRenders, registerMJElement } from './MJMLElementsCollection'
+import { resetDefaultAttributes } from './MjDefaultAttributes'
+import { resetCssClasses } from './MjCssClasses'
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import warning from 'warning'
@@ -18,6 +20,9 @@ export default class MJMLRenderer {
 
     this.content = content
     this.options = options
+
+    resetDefaultAttributes()
+    resetCssClasses()
 
     if (typeof this.content === 'string') {
       this.parseDocument()

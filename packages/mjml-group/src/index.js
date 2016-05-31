@@ -12,9 +12,9 @@ const postRender = $ => {
   $('.mj-group-outlook-open').each(function () {
     const $columnDiv = $(this).next()
 
-    $(this).replaceWith(`<!--[if mso]>
+    $(this).replaceWith(`${helpers.startConditionalTag}
       <table border="0" cellpadding="0" cellspacing="0"><tr><td style="vertical-align:${$columnDiv.data('vertical-align')};width:${parseInt($(this).data('width'))}px;">
-      <![endif]-->`)
+      ${helpers.endConditionalTag}`)
 
     $columnDiv.removeAttr('data-vertical-align')
   })
@@ -22,17 +22,17 @@ const postRender = $ => {
   $('.mj-group-outlook-line').each(function () {
     const $columnDiv = $(this).next()
 
-    $(this).replaceWith(`<!--[if mso]>
+    $(this).replaceWith(`${helpers.startConditionalTag}
     </td><td style="vertical-align:${$columnDiv.data('vertical-align')};width:${parseInt($(this).data('width'))}px;">
-      <![endif]-->`)
+      ${helpers.endConditionalTag}`)
 
     $columnDiv.removeAttr('data-vertical-align')
   })
 
   $('.mj-group-outlook-close').each(function () {
-    $(this).replaceWith(`<!--[if mso]>
+    $(this).replaceWith(`${helpers.startConditionalTag}
       </td></tr></table>
-      <![endif]-->`)
+      ${helpers.endConditionalTag}`)
   })
 
   return $

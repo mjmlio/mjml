@@ -15,7 +15,7 @@ binary
       stdout: process.argv.indexOf('-s') !== -1 || process.argv.indexOf('--stdout') !== -1,
       output: binary.output
     }
-    
+
     cli.renderFile(files, options)
   })
   .option('-r, --render <file>', 'Compiles an MJML file')
@@ -24,6 +24,7 @@ binary
   .option('-o, --output <file>', 'Redirect the HTML to a file')
   .option('-s, --stdout', 'Redirect the HTML to stdout')
   .option('-m, --min', 'Minify the final output file', 'false')
+  .option('-t, --title', 'Title of the output document', '')
   .option('-e, --ending', 'Specifies that the newly created component is an ending tag')
   .option('-c, --column', 'Specifies that the newly created component is an column element')
   .option('--init-component <name>', 'Initialize an MJML component')

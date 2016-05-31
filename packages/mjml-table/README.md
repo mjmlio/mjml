@@ -1,5 +1,7 @@
 ## mjml-table
 
+This tag allows you to display table and filled it with data.
+
 ```xml
 <mjml>
   <mj-body>
@@ -29,8 +31,6 @@
   </mj-body>
 </mjml>
 ```
-
-This tag allows you to display table and filled it with data.
 
 <p align="center">
   <a href="https://mjml.io/try-it-live/component/table">

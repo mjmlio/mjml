@@ -1,5 +1,12 @@
 ## mjml-location
 
+<p align="center">
+  <img src="https://cloud.githubusercontent.com/assets/2217014/13528219/d574b84c-e214-11e5-8504-f9cd250b65fa.png" />
+</p>
+
+
+Display a Google Maps location link
+
 ```xml
 <mjml>
   <mj-body>
@@ -15,10 +22,10 @@
 ```
 
 <p align="center">
-  <img src="https://cloud.githubusercontent.com/assets/2217014/13528219/d574b84c-e214-11e5-8504-f9cd250b65fa.png" />
+  <a href="https://mjml.io/try-it-live/component/location">
+    <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
+  </a>
 </p>
-
-Display a Google Maps location link
 
 attribute       | unit          | description                   | default value
 ----------------|---------------|-------------------------------|--------------

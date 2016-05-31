@@ -1,5 +1,7 @@
 ## mjml-raw
 
+Displays raw HTML that is not going to be parsed by the MJML engine. Anything left inside this tag should be raw, responsive HTML.
+
 ```xml
 <mjml>
   <mj-body>
@@ -11,8 +13,6 @@
   </mj-body>
 </mjml>
 ```
-
-Displays raw HTML that is not going to be parsed by the MJML engine. Anything left inside this tag should be raw, responsive HTML.
 
 <p align="center">
   <a href="https://mjml.io/try-it-live/component/raw">

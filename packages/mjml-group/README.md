@@ -40,6 +40,10 @@ MJ-Group allows you to handle how columns are displayed on mobile. Allowing 2 or
 </mjml>
 ```
 
+<p align="center">
+  <a href="/try-it-live/component/group"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>
+</p>
+
 <aside class="notice">
   Column inside a group must have a width in percentage, not in pixel
 </aside>
@@ -53,9 +57,6 @@ MJ-Group allows you to handle how columns are displayed on mobile. Allowing 2 or
   <b>iOS 9 Issue:</b> If you use a HTML beautifier for MJML output, iOS9 will render your columns inside a mj-group as stacked. On the output HTML, remove the <b>blank space</b> between the two columns inside a mj-group.
 </aside>
 
-<p align="center">
-  <a href="/try-it-live/component/group"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>
-</p>
 
 attribute           | unit        | description                    | default attributes
 --------------------|-------------|--------------------------------|--------------------------------------

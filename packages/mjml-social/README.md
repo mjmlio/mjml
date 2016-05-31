@@ -1,5 +1,12 @@
 ## mjml-social
 
+<p align="center">
+  <img src="https://cloud.githubusercontent.com/assets/6558790/12751360/0c78ce48-c9bd-11e5-98ca-4a2ac9e6341b.png" alt="desktop" style="width: 250px;"/>
+</p>
+
+Displays calls-to-action for various social networks with their associated logo.
+You can activate/deactivate any icon, with `display` property.
+
 ```xml
 <mjml>
   <mj-body>
@@ -20,8 +27,11 @@
 </mjml>
 ```
 
-Displays calls-to-action for various social networks with their associated logo.
-You can activate/deactivate any icon, with `display` property.
+<p align="center">
+  <a href="https://mjml.io/try-it-live/component/social">
+    <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
+  </a>
+</p>
 
 <aside class="notice">
   Note that you can disable default sharing option by adding <code class="prettyprint">:url</code> on any social network.
@@ -41,16 +51,6 @@ You can activate/deactivate any icon, with `display` property.
   Note that <code class="prettyprint">content</code> is mandatory if <code class="prettyprint">text-mode</code> is set to <code class="prettyprint">true</code>
 </aside>
 
-
-<p align="center">
-  <img src="https://cloud.githubusercontent.com/assets/6558790/12751360/0c78ce48-c9bd-11e5-98ca-4a2ac9e6341b.png" alt="desktop" style="width: 250px;"/>
-</p>
-
-<p align="center">
-  <a href="https://mjml.io/try-it-live/component/social">
-    <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
-  </a>
-</p>
 
 attribute                   | unit        | description                                                              | default value
 ----------------------------|-------------|--------------------------------------------------------------------------|--------------------------------------------

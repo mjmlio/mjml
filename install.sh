@@ -39,13 +39,9 @@ cd mjml-core && npm link && npm link mjml-core && cd ..
 cd mjml-divider && npm link && npm link mjml-core && cd ..
 cd mjml-head-attributes && npm link && npm link mjml-core && cd ..
 cd mjml-hero && npm link && npm link mjml-core && cd ..
-cd mjml-hero-content && npm link && npm link mjml-core && cd ..
 cd mjml-html && npm link && npm link mjml-core && cd ..
 cd mjml-image && npm link && npm link mjml-core && cd ..
-cd mjml-inline-links && npm link && npm link mjml-core && cd ..
-cd mjml-invoice && npm link && npm link mjml-core && npm link mjml-table && npm link mjml-invoice-item && cd ..
-cd mjml-invoice-item && npm link && npm link mjml-core && cd ..
-cd mjml-link && npm link && npm link mjml-core && cd ..
+cd mjml-invoice && npm link && npm link mjml-core && npm link mjml-table && cd ..
 cd mjml-list && npm link && npm link mjml-core && cd ..
 cd mjml-location && npm link && npm link mjml-core && npm link mjml-text && cd ..
 cd mjml-navbar && npm link && npm link mjml-core && npm link mjml-section && cd ..
@@ -69,13 +65,9 @@ npm link mjml-core
 npm link mjml-divider
 npm link mjml-head-attributes
 npm link mjml-hero
-npm link mjml-hero-content
 npm link mjml-html
 npm link mjml-image
-npm link mjml-inline-links
 npm link mjml-invoice
-npm link mjml-invoice-item
-npm link mjml-link
 npm link mjml-list
 npm link mjml-location
 npm link mjml-navbar

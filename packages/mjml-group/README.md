@@ -1,14 +1,13 @@
 ## mjml-group
 
-Mobile :
 
 <p align="center">
+  Desktop<br />
   <img src="https://cloud.githubusercontent.com/assets/570317/15677458/a6ad2c1c-274a-11e6-8fdf-6853d748ef27.png" />
 </p>
 
-Desktop :
-
 <p align="center">
+  Mobile<br />
   <img src="https://cloud.githubusercontent.com/assets/570317/15677396/6bb62708-274a-11e6-8c59-0d8b3944a2ae.png" />
 </p>
 

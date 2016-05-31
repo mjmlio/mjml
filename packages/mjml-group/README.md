@@ -1,6 +1,18 @@
 ## mjml-group
 
-MJ-Group allows you to handle how the email will be displayed on mobile. Allowing 2 or more column in mobile.
+Mobile :
+
+<p align="center">
+  <img src="https://cloud.githubusercontent.com/assets/570317/15677458/a6ad2c1c-274a-11e6-8fdf-6853d748ef27.png" />
+</p>
+
+Desktop :
+
+<p align="center">
+  <img src="https://cloud.githubusercontent.com/assets/570317/15677396/6bb62708-274a-11e6-8c59-0d8b3944a2ae.png" />
+</p>
+
+MJ-Group allows you to handle how columns are displayed on mobile. Allowing 2 or more column in mobile.
 
 ```xml
 <mjml>
@@ -8,17 +20,19 @@ MJ-Group allows you to handle how the email will be displayed on mobile. Allowin
     <mj-container>
       <mj-section>
         <mj-group>
-          <mj-column padding="5px">
-            <mj-text>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas placerat varius lacus quis ornare. Mauris elit est, finibus eget lectus a, semper dignissim tortor. Curabitur eget arcu lacinia metus.
+          <mj-column>
+            <mj-image width="137px" height="185px" padding="0" src="https://mjml.io/assets/img/easy-and-quick.png" />
+            <mj-text align="center">
+              <h2>Easy and quick</h2>
+              <p>Write less code, save time and code more efficiently with MJML’s semantic syntax.</p>
             </mj-text>
-            <mj-button href="http://mjml.io" background-color="#92F587" color="white">Subscribe</mj-button>
           </mj-column>
-          <mj-column padding="5px">
-            <mj-text>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas placerat varius lacus quis ornare. Mauris elit est, finibus eget lectus a, semper dignissim tortor. Curabitur eget arcu lacinia metus.
+          <mj-column>
+            <mj-image width="166px" height="185px" padding="0" src="https://mjml.io/assets/img/responsive.png" />
+            <mj-text align="center">
+              <h2>Responsive</h2>
+              <p>MJML is responsive by design on most-popular email clients, even Outlook.</p>
             </mj-text>
-            <mj-button href="http://mjml.io" background-color="#92F587" color="white">Subscribe</mj-button>
           </mj-column>
         </mj-group>
       </mj-section>
@@ -37,7 +51,7 @@ MJ-Group allows you to handle how the email will be displayed on mobile. Allowin
 </aside>
 
 <aside class="notice">
-  <b>iOS 9 Issue:</b> If you use a HTML beautifier for MJML output, iOS9 render will render your column inside a mj-group as stacked. Fix is to remove the blank space between the two columns inside a mj-group.
+  <b>iOS 9 Issue:</b> If you use a HTML beautifier for MJML output, iOS9 will render your columns inside a mj-group as stacked. On the output HTML, remove the <b>blank space</b> between the two columns inside a mj-group.
 </aside>
 
 <p align="center">

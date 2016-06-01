@@ -1,6 +1,6 @@
 {
   "name": "mjml-column",
-  "version": "2.0.4",
+  "version": "2.0.5-beta.1",
   "main": "lib/index.js",
   "description": "mjml-column",
   "repository": {
@@ -14,7 +14,7 @@
   "homepage": "https://mjml.io",
   "dependencies": {
     "lodash": "^4.12.0",
-    "mjml-core": "^2.1.2",
+    "mjml-core": "^2.1.4-beta.1",
     "react": "^15.1.0"
   }
 }

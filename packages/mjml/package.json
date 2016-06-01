@@ -1,6 +1,6 @@
 {
   "name": "mjml",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "main": "lib/index.js",
   "description": "A responsive email framework",
   "bin": {

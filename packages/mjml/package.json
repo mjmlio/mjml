@@ -1,6 +1,6 @@
 {
   "name": "mjml",
-  "version": "2.1.4-beta.1",
+  "version": "2.1.4-beta.2",
   "main": "lib/index.js",
   "description": "A responsive email framework",
   "bin": {
@@ -24,8 +24,8 @@
     "mjml-divider": "^2.0.6-beta.1",
     "mjml-head-attributes": "^2.0.3-beta.1",
     "mjml-hero": "^2.0.5-beta.1",
-    "mjml-html": "^2.0.6-beta.1",
-    "mjml-image": "^2.0.6-beta.1",
+    "mjml-html": "^2.0.5-beta.1",
+    "mjml-image": "^2.0.5-beta.1",
     "mjml-invoice": "^2.0.7-beta.1",
     "mjml-list": "^2.0.5-beta.1",
     "mjml-location": "^2.0.5-beta.1",

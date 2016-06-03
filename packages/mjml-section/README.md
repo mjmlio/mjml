@@ -16,7 +16,9 @@ Sections are intended to be used as rows within your email.
 They will be used to structure the layout.
 
 <p align="center">
-  <a href="/try-it-live/section"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>
+  <a href="https://mjml.io/try-it-live/component/section">
+    <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
+  </a>
 </p>
 
 The `full-width` property will be used to manage the background width.
@@ -30,6 +32,7 @@ background-color    | color       | section color                  | n/a
 background-url      | url         | background url                 | n/a
 background-repeat   | string      | css background repeat          | repeat
 background-size     | percent/px  | css background size            | auto
+border-radius       | percent/px  | css border radius              | 0
 vertical-align      | string      | css vertical-align             | top
 text-align          | string      | css text-align                 | center
 padding             | px          | supports up to 4 parameters    | 20px 0

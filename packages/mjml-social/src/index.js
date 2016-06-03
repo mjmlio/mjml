@@ -1,4 +1,4 @@
-import { MJMLElement } from 'mjml-core'
+import { MJMLElement, helpers } from 'mjml-core'
 import merge from 'lodash/merge'
 import tap from 'lodash/tap'
 import clone from 'lodash/clone'
@@ -46,22 +46,22 @@ const baseStyles = {
     display: 'inline-table'
   },
   tableVertical: {
-    margin: 0
+    margin: '0px'
   },
   td1: {
-    verticalAlign: 'middle',
-    padding: '4px'
+    padding: '4px',
+    verticalAlign: 'middle'
   },
   td2:  {
     verticalAlign: 'middle'
   },
   tdText: {
-    padding: '8px 8px 8px 0',
+    padding: '4px 4px 4px 0',
     verticalAlign: 'middle'
   },
   a: {
     textDecoration: 'none',
-    textAlign: "left",
+    textAlign: 'left',
     display: 'block',
     borderRadius: '3px'
   },
@@ -98,21 +98,21 @@ const buttonDefinitions = {
 }
 const postRender = $ => {
   $('.mj-social-outlook-open').each(function () {
-    $(this).replaceWith(`<!--[if mso]>
+    $(this).replaceWith(`${helpers.startConditionalTag}
       <table border="0" cellpadding="0" cellspacing="0" align="${$(this).data('align')}"><tr><td>
-      <![endif]-->`)
+      ${helpers.endConditionalTag}`)
   })
 
   $('.mj-social-outlook-line').each(function () {
-    $(this).replaceWith(`<!--[if mso]>
+    $(this).replaceWith(`${helpers.startConditionalTag}
       </td><td>
-      <![endif]-->`)
+      ${helpers.endConditionalTag}`)
   })
 
   $('.mj-social-outlook-close').each(function () {
-    $(this).replaceWith(`<!--[if mso]>
+    $(this).replaceWith(`${helpers.startConditionalTag}
       </td></tr></table>
-      <![endif]-->`)
+      ${helpers.endConditionalTag}`)
   })
 
   return $
@@ -130,15 +130,15 @@ class Social extends Component {
       a: {
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
-        fontSize: defaultUnit(mjAttribute('font-size'), "px"),
+        fontSize: defaultUnit(mjAttribute('font-size'), 'px'),
         fontStyle: mjAttribute('font-style'),
         fontWeight: mjAttribute('font-weight'),
-        lineHeight: defaultUnit(mjAttribute('line-height'), "px"),
+        lineHeight: defaultUnit(mjAttribute('line-height'), 'px'),
         textDecoration: mjAttribute('text-decoration')
       },
       td2: {
-        width: defaultUnit(mjAttribute('icon-size'), "px"),
-        height: defaultUnit(mjAttribute('icon-size'), "px")
+        width: defaultUnit(mjAttribute('icon-size'), 'px'),
+        height: defaultUnit(mjAttribute('icon-size'), 'px')
       }
     })
   }

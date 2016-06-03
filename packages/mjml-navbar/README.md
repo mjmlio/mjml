@@ -2,26 +2,33 @@
 
 ```xml
 <mjml>
- <mj-body>
-   <mj-container>
-     <mj-section>
-       <mj-navbar>
-         <mj-column>
-
-           <!-- Your content (see mj-inline-links component) -->
-
-         </mj-column>
-       </mj-navbar>
-     </mj-section>
-   </mj-container>
- </mj-body>
+  <mj-body>
+    <mj-container>
+      <mj-navbar background-color="#ef6451">
+        <mj-column width="20%">
+          <mj-image width="150px" src="https://mjml.io/assets/img/logo-white-small.png"></mj-image>
+        </mj-column>
+        <mj-column width="80%">
+          <mj-inline-links base-url="https://mjml.io">
+            <mj-link href="/gettings-started-onboard" color="#ffffff">Getting started</mj-link>
+            <mj-link href="/try-it-live" color="#ffffff">Try it live</mj-link>
+            <mj-link href="/templates" color="#ffffff">Templates</mj-link>
+            <mj-link href="/components" color="#ffffff">Components</mj-link>
+            <mj-link href="/documentation" color="#ffffff">Documentation</mj-link>
+          </mj-inline-links>
+        </mj-column>
+      </mj-navbar>
+    </mj-container>
+  </mj-body>
 </mjml>
 ```
 
 Displays a full width section for navigation
 
 <p align="center">
-  <a href="/try-it-live/navbar"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>
+  <a href="https://mjml.io/try-it-live/component/navbar">
+    <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
+  </a>
 </p>
 
 attribute           | unit        | description                    | default value

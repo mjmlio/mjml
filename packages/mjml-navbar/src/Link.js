@@ -54,6 +54,7 @@ class Link extends Component {
         fontWeight: mjAttribute('font-weight'),
         lineHeight: mjAttribute('line-height'),
         textDecoration: mjAttribute('text-decoration'),
+        textTransform: mjAttribute('text-transform'),
         padding: mjAttribute('padding'),
         paddingTop: mjAttribute('padding-top'),
         paddingLeft: mjAttribute('padding-left'),

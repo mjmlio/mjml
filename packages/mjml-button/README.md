@@ -1,12 +1,18 @@
 ## mjml-button
 
+<p align="center">
+  <img src="https://cloud.githubusercontent.com/assets/6558790/12751346/fd993192-c9bc-11e5-8c91-37d616bf5874.png" alt="desktop" width="150px" />
+</p>
+
+Displays a customizable button.
+
 ```xml
 <mjml>
   <mj-body>
     <mj-container>
       <mj-section>
         <mj-column>
-          <mj-button font-family="Helvetica" background-color="#F45E43" color="white">
+          <mj-button font-family="Helvetica" background-color="#f45e43" color="white">
             Don't click me!
           </mj-button>
         </mj-column>
@@ -16,14 +22,8 @@
 </mjml>
 ```
 
-Displays a customizable button.
-
 <p align="center">
-  <img src="https://cloud.githubusercontent.com/assets/6558790/12751346/fd993192-c9bc-11e5-8c91-37d616bf5874.png" alt="desktop" width="150px" />
-</p>
-
-<p align="center">
-  <a href="/try-it-live/button">
+  <a href="https://mjml.io/try-it-live/component/button">
     <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
   </a>
 </p>

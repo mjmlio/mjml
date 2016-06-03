@@ -1,5 +1,7 @@
 ## mjml-text
 
+This tag allows you to display text in your email.
+
  ```xml
 <mjml>
   <mj-body>
@@ -13,27 +15,20 @@
           </mj-text>
         </mj-column>
       </mj-section>
-      <mj-section>
-        <mj-column>
-          <mj-text>
-            Hey There!
-          </mj-text>
-        </mj-column>
-      </mj-section>
     </mj-container>
   </mj-body>
 </mjml>
  ```
 
-This tag allows you to display text in your email.
+<p align="center">
+  <a href="https://mjml.io/try-it-live/component/text">
+    <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
+  </a>
+</p>
 
 <aside class="notice">
-`MjText` can contain any HTML tag with any attributes. Don't forget to encode special characters to avoid unexpected behaviour from MJML's parser
+  `MjText` can contain any HTML tag with any attributes. Don't forget to encode special characters to avoid unexpected behaviour from MJML's parser
 </aside>
-
-<p align="center">
-  <a href="/try-it-live/text"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>
-</p>
 
  attribute                    | unit          | description                    | default value
 ------------------------------|---------------|--------------------------------|-------------------------------------
@@ -45,6 +40,7 @@ This tag allows you to display text in your email.
  line-height                  | px            | space between the lines        | 22px
  letter-spacing               | px            | letter spacing                 | none
  text-decoration              | string        | underline/overline/none        | n/a
+ text-transform               | string        | uppercase/lowercase/capitalize | n/a
  align                        | string        | left/right/center              | left
  container-background-color   | color         | inner element background color | n/a
  padding                      | px            | supports up to 4 parameters    | 10px 25px

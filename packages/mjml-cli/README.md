@@ -2,7 +2,7 @@
 
 # Installation
 
-``` bash
+```bash
 # with npm
 npm i -g mjml
 ```

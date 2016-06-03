@@ -1,7 +1,8 @@
 {
   "name": "mjml-cli",
-  "version": "2.0.3",
+  "version": "2.1.1",
   "main": "bin/mjml",
+  "description": "mjml-cli",
   "bin": {
     "mjml-cli": "bin/mjml"
   },
@@ -14,13 +15,13 @@
   "bugs": {
     "url": "https://github.com/mjmlio/mjml/issues"
   },
-  "homepage": "https://github.com/mjmlio/mjml",
+  "homepage": "https://mjml.io",
   "dependencies": {
     "commander": "^2.9.0",
     "fs-promise": "^0.5.0",
     "glob": "^7.0.3",
-    "lodash": "^4.11.2",
-    "mjml-core": "^2.0.1"
+    "lodash": "^4.12.0",
+    "mjml-core": "^2.1.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",

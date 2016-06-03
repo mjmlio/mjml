@@ -1,4 +1,4 @@
-import { MJMLElement } from 'mjml-core'
+import { MJMLElement, helpers } from 'mjml-core'
 import cloneDeep from 'lodash/cloneDeep'
 import merge from 'lodash/merge'
 import React, { Component } from 'react'
@@ -16,7 +16,7 @@ const baseStyles = {
     margin: '0 auto'
   },
   table: {
-    fontSize: '1px',
+    fontSize: '0px',
     width: '100%'
   },
   td: {
@@ -38,24 +38,24 @@ const postRender = $ => {
       return
     }
 
-    $(this).before(`<!--[if gte mso 9]>
+    $(this).before(`${helpers.startConditionalTag}
       <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:${width}px;">
         <v:fill origin="0.5, 0" position="0.5,0" type="tile" src="${url}" />
         <v:textbox style="mso-fit-shape-to-text:true" inset="0,0,0,0">
-      <![endif]-->`)
+      ${helpers.endConditionalTag}`)
 
-    $(this).after(`<!--[if gte mso 9]>
+    $(this).after(`${helpers.startConditionalTag}
         </v:textbox>
       </v:rect>
-      <![endif]-->`)
+      ${helpers.endConditionalTag}`)
   })
 
   $('.mj-section-outlook-open').each(function () {
     const $columnDiv = $(this).next()
 
-    $(this).replaceWith(`<!--[if mso]>
+    $(this).replaceWith(`${helpers.startConditionalTag}
       <table border="0" cellpadding="0" cellspacing="0"><tr><td style="vertical-align:${$columnDiv.data('vertical-align')};width:${parseInt($(this).data('width'))}px;">
-      <![endif]-->`)
+      ${helpers.endConditionalTag}`)
 
     $columnDiv.removeAttr('data-vertical-align')
   })
@@ -63,17 +63,17 @@ const postRender = $ => {
   $('.mj-section-outlook-line').each(function () {
     const $columnDiv = $(this).next()
 
-    $(this).replaceWith(`<!--[if mso]>
-    </td><td style="vertical-align:${$columnDiv.data('vertical-align')};width:${parseInt($(this).data('width'))}px;">
-      <![endif]-->`)
+    $(this).replaceWith(`${helpers.startConditionalTag}
+      </td><td style="vertical-align:${$columnDiv.data('vertical-align')};width:${parseInt($(this).data('width'))}px;">
+      ${helpers.endConditionalTag}`)
 
     $columnDiv.removeAttr('data-vertical-align')
   })
 
   $('.mj-section-outlook-close').each(function () {
-    $(this).replaceWith(`<!--[if mso]>
+    $(this).replaceWith(`${helpers.startConditionalTag}
       </td></tr></table>
-      <![endif]-->`)
+      ${helpers.endConditionalTag}`)
   })
 
   return $
@@ -94,19 +94,19 @@ class Section extends Component {
     const { mjAttribute, parentWidth, defaultUnit } = this.props
 
     const background = mjAttribute('background-url') ? {
-      background: `url(${mjAttribute('background-url')}) top center / ${mjAttribute('background-size') || ''} ${mjAttribute('background-repeat') || ''}`
+      background: `${mjAttribute('background-color') || ''} url(${mjAttribute('background-url')}) top center / ${mjAttribute('background-size') || ''} ${mjAttribute('background-repeat') || ''}`.trim()
     } : {
       background: mjAttribute('background-color')
     }
 
     return merge({}, baseStyles, {
       td: {
-        fontSize: '1px',
-        padding: defaultUnit(mjAttribute('padding'), "px"),
-        paddingBottom: defaultUnit(mjAttribute('padding-bottom'), "px"),
-        paddingLeft: defaultUnit(mjAttribute('padding-left'), "px"),
-        paddingRight: defaultUnit(mjAttribute('padding-right'), "px"),
-        paddingTop: defaultUnit(mjAttribute('padding-top'), "px"),
+        fontSize: '0px',
+        padding: defaultUnit(mjAttribute('padding'), 'px'),
+        paddingBottom: defaultUnit(mjAttribute('padding-bottom'), 'px'),
+        paddingLeft: defaultUnit(mjAttribute('padding-left'), 'px'),
+        paddingRight: defaultUnit(mjAttribute('padding-right'), 'px'),
+        paddingTop: defaultUnit(mjAttribute('padding-top'), 'px'),
         textAlign: mjAttribute('text-align'),
         verticalAlign: mjAttribute('vertical-align')
       },

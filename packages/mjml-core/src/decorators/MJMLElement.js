@@ -56,13 +56,12 @@ function createComponent (ComposedComponent) {
       return merge({}, baseStyles, {
         td: {
           background: this.mjAttribute('container-background-color'),
-          fontSize: '1px',
+          fontSize: '0px',
           padding: defaultUnit(this.mjAttribute('padding'), 'px'),
           paddingTop: defaultUnit(this.mjAttribute('padding-top'), 'px'),
           paddingBottom: defaultUnit(this.mjAttribute('padding-bottom'), 'px'),
           paddingRight: defaultUnit(this.mjAttribute('padding-right'), 'px'),
-          paddingLeft: defaultUnit(this.mjAttribute('padding-left'), 'px'),
-          textAlign: this.mjAttribute('align')
+          paddingLeft: defaultUnit(this.mjAttribute('padding-left'), 'px')
         }
       })
     }
@@ -154,9 +153,9 @@ function createComponent (ComposedComponent) {
       return wrappedElements
     }
 
-    paddingParser = direction => {
-      const paddingDirection = this.mjAttribute(`padding-${direction}`)
-      const padding = this.mjAttribute('padding')
+    paddingParser = (direction, prefix = '') => {
+      const paddingDirection = this.mjAttribute(`${prefix}padding-${direction}`)
+      const padding = this.mjAttribute(`${prefix}padding`)
 
       if (typeof paddingDirection !== 'undefined') {
         return parseInt(paddingDirection)
@@ -261,6 +260,7 @@ function createComponent (ComposedComponent) {
         return (
           <tr>
             <td
+              data-legacy-align={this.mjAttribute('align')}
               data-legacy-background={this.mjAttribute('container-background-color')}
               style={this.styles.td}>
               <ComposedComponent {...this.buildProps()} />

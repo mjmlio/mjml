@@ -1,4 +1,4 @@
-import { MJMLElement } from 'mjml-core'
+import { MJMLElement, helpers } from 'mjml-core'
 import merge from 'lodash/merge'
 import tap from 'lodash/tap'
 import clone from 'lodash/clone'
@@ -41,29 +41,27 @@ const defaultMJMLDefinition = {
 }
 const columnElement = true
 const baseStyles = {
-  div: {
-    textAlign: 'center'
-  },
   tableHorizontal: {
     float: 'none',
     display: 'inline-table'
   },
   tableVertical: {
-    margin: '0 auto'
+    margin: '0px'
   },
   td1: {
+    padding: '4px',
     verticalAlign: 'middle'
   },
   td2:  {
-    textAlign: 'center',
     verticalAlign: 'middle'
   },
   tdText: {
-    padding: '8px 8px 8px 0',
+    padding: '4px 4px 4px 0',
     verticalAlign: 'middle'
   },
   a: {
     textDecoration: 'none',
+    textAlign: 'left',
     display: 'block',
     borderRadius: '3px'
   },
@@ -100,21 +98,21 @@ const buttonDefinitions = {
 }
 const postRender = $ => {
   $('.mj-social-outlook-open').each(function () {
-    $(this).replaceWith(`<!--[if mso]>
+    $(this).replaceWith(`${helpers.startConditionalTag}
       <table border="0" cellpadding="0" cellspacing="0" align="${$(this).data('align')}"><tr><td>
-      <![endif]-->`)
+      ${helpers.endConditionalTag}`)
   })
 
   $('.mj-social-outlook-line').each(function () {
-    $(this).replaceWith(`<!--[if mso]>
+    $(this).replaceWith(`${helpers.startConditionalTag}
       </td><td>
-      <![endif]-->`)
+      ${helpers.endConditionalTag}`)
   })
 
   $('.mj-social-outlook-close').each(function () {
-    $(this).replaceWith(`<!--[if mso]>
+    $(this).replaceWith(`${helpers.startConditionalTag}
       </td></tr></table>
-      <![endif]-->`)
+      ${helpers.endConditionalTag}`)
   })
 
   return $
@@ -129,24 +127,18 @@ class Social extends Component {
     const { mjAttribute, defaultUnit } = this.props
 
     return merge({}, baseStyles, {
-      div: {
-        textAlign: mjAttribute('align')
-      },
       a: {
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
-        fontSize: defaultUnit(mjAttribute('font-size'), "px"),
+        fontSize: defaultUnit(mjAttribute('font-size'), 'px'),
         fontStyle: mjAttribute('font-style'),
         fontWeight: mjAttribute('font-weight'),
-        lineHeight: defaultUnit(mjAttribute('line-height'), "px"),
+        lineHeight: defaultUnit(mjAttribute('line-height'), 'px'),
         textDecoration: mjAttribute('text-decoration')
       },
-      td1: {
-        padding: this.isHorizontal() ? '0 4px' : '4px 0'
-      },
       td2: {
-        width: defaultUnit(mjAttribute('icon-size'), "px"),
-        height: defaultUnit(mjAttribute('icon-size'), "px")
+        width: defaultUnit(mjAttribute('icon-size'), 'px'),
+        height: defaultUnit(mjAttribute('icon-size'), 'px')
       }
     })
   }
@@ -184,7 +176,8 @@ class Social extends Component {
             style={iconStyle}>
             <tbody>
               <tr>
-                <td style={this.styles.td2}>
+                <td
+                  style={this.styles.td2}>
                   <a href={href}>
                     <img
                       alt={platform}
@@ -210,7 +203,7 @@ class Social extends Component {
     )
   }
 
-  getDefinitionForPlatform(platform) {
+  getDefinitionForPlatform (platform) {
     const { mjAttribute } = this.props
 
     if (buttonDefinitions[platform]) {
@@ -254,7 +247,7 @@ class Social extends Component {
         <table
           cellPadding="0"
           cellSpacing="0"
-          data-legacy-align="left"
+          data-legacy-align={mjAttribute('align')}
           data-legacy-border="0"
           key={`wrapped-social-button-${index}`}
           style={this.styles.tableHorizontal}>
@@ -268,7 +261,7 @@ class Social extends Component {
       result.push(<div className="mj-social-outlook-line" key={`outlook-line-${index}`} />)
 
       return result
-    }, [<div className="mj-social-outlook-open" key="outlook-open" data-align={mjAttribute('align')} />])
+    }, [<div className="mj-social-outlook-open" key="outlook-open" data-legacy-align={mjAttribute('align')} />])
 
     socialButtons[socialButtons.length - 1] = <div className="mj-social-outlook-close" key="outlook-close" />
 
@@ -276,12 +269,14 @@ class Social extends Component {
   }
 
   renderVertical () {
+    const { mjAttribute } = this.props
+
     return (
       <table
         cellPadding="0"
         cellSpacing="0"
-        data-legacy-align="center"
         data-legacy-border="0"
+        data-legacy-align={mjAttribute('align')}
         style={this.styles.tableVertical}>
         <tbody>
           {this.renderSocialButtons()}
@@ -292,7 +287,7 @@ class Social extends Component {
 
   render () {
     return (
-      <div style={this.styles.div}>
+      <div>
         { this.isHorizontal() ? this.renderHorizontal() : this.renderVertical() }
       </div>
     )

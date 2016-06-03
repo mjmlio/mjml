@@ -17,7 +17,9 @@
 This is the starting point of your email.
 
 <p align="center">
-  <a href="/try-it-live/body"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>
+  <a href="https://mjml.io/try-it-live/component/container">
+    <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
+  </a>
 </p>
 
 attribute            | unit          | description                    | default value

@@ -7,12 +7,16 @@ export const widthParser = width => {
 }
 
 export const defaultUnit = (units, defaultUnit = 'px') => {
-  if (!units || units === '') {
-    return units
+  if (units === undefined || units === '' || units === null) {
+    return undefined
   }
 
-  return units.toString().split(' ').map(unit => {
-    const parsedUnit = unitRegex.exec(unit.toString())[1]
-    return parsedUnit ? unit : unit.toString() + defaultUnit
-  }).join(' ')
+  return units
+    .toString()
+    .split(' ')
+    .map(unit => {
+      const parsedUnit = unitRegex.exec(unit.toString())[1]
+      return parsedUnit ? unit : unit.toString() + defaultUnit
+    })
+    .join(' ')
 }

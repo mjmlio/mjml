@@ -26,7 +26,7 @@ const postRender = $ => {
     $(this)
       .removeAttr('data-divider-width')
       .removeAttr('class')
-      .after(`<!--[if mso]>${insertNode}<![endif]-->`)
+      .after(`${helpers.startConditionalTag}${insertNode}${helpers.endConditionalTag}`)
   })
 
   return $

@@ -24,7 +24,9 @@
 Display a table of items with calculated total price.
 
 <p align="center">
-  <a href="/try-it-live/invoice"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>
+  <a href="https://mjml.io/try-it-live/component/invoice">
+    <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
+  </a>
 </p>
 
 attribute                   | unit        | description                                           | default value

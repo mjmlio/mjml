@@ -20,7 +20,12 @@ import path from 'path'
  */
 const format = input => {
   if (input) {
-    return input.toLowerCase().replace(/>/g, ' > ').replace(/</g, ' < ').match(/\S+/g).join('\n')
+    return input
+      .toLowerCase()
+      .replace(/>/g, ' > ')
+      .replace(/</g, ' < ')
+      .match(/\S+/g)
+      .join('\n')
   }
 
   return null

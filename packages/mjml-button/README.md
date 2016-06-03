@@ -6,7 +6,7 @@
     <mj-container>
       <mj-section>
         <mj-column>
-          <mj-button font-family="Helvetica" background-color="#F45E43" color="white">
+          <mj-button font-family="Helvetica" background-color="#f45e43" color="white">
             Don't click me!
           </mj-button>
         </mj-column>
@@ -23,7 +23,7 @@ Displays a customizable button.
 </p>
 
 <p align="center">
-  <a href="/try-it-live/button">
+  <a href="https://mjml.io/try-it-live/component/button">
     <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
   </a>
 </p>
@@ -37,6 +37,7 @@ font-style                  | string      | normal/italic/oblique               
 font-size                   | px          | text size                                        | 13px
 font-weight                 | number      | text thickness                                   | bold
 font-family                 | string      | font name                                        | Ubuntu, Helvetica, Arial, sans-serif
+letter-spacing              | px          | letter spacing                                   | none
 color                       | color       | text color                                       | #ffffff
 border                      | string      | css border format                                | none
 text-decoration             | string      | underline/overline/none                          | none

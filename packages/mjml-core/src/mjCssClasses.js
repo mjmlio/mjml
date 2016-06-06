@@ -1,11 +1,13 @@
-let mjCssClasses = {}
+import _map from "lodash/map"
+
+const mjCssClasses = {}
 
 export const setMjCssClasses = (mjClass, attributes) => {
   mjCssClasses[mjClass] = attributes
 }
 
 export const resetCssClasses = () => {
-  mjCssClasses = {}
+  _map(mjCssClasses, (v, k) => delete mjCssClasses[k])
 }
 
 export default mjCssClasses

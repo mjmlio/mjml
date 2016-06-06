@@ -55,7 +55,7 @@ class Column extends Component {
         verticalAlign: mjAttribute('vertical-align'),
         fontSize: '13px',
         textAlign: 'left',
-        width: '100%'
+        width: this.getMobileWidth()
       },
       table: {
         verticalAlign: mjAttribute('vertical-align'),
@@ -81,6 +81,27 @@ class Column extends Component {
       case 'px':
       default:
         return `mj-column-px-${parsedWidth}`
+    }
+  }
+
+  getMobileWidth () {
+    const { mjAttribute, sibling, parentWidth, mobileWidth } = this.props
+    const width = mjAttribute('width')
+
+    if (mobileWidth != "mobileWidth" ) {
+      return '100%'
+    } else if (width == undefined) {
+      return `${parseInt(100 / sibling)}%`
+    }
+
+    const { width: parsedWidth, unit } = helpers.widthParser(width)
+
+    switch (unit) {
+      case '%':
+        return width
+      case 'px':
+      default:
+        return `${parsedWidth / parentWidth}%`
     }
   }
 

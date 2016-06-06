@@ -3,6 +3,7 @@ import Button from 'mjml-button'
 import Column from 'mjml-column'
 import Container from 'mjml-container'
 import Divider from 'mjml-divider'
+import Group from 'mjml-group'
 import Html from 'mjml-html'
 import Image from 'mjml-image'
 import List from 'mjml-list'
@@ -26,6 +27,7 @@ const { Navbar, InlineLinks, Link } = MjNavbar;
   Column,
   Container,
   Divider,
+  Group,
   Hero,
   HeroContent,
   Html,

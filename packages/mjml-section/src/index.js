@@ -111,7 +111,7 @@ class Section extends Component {
         verticalAlign: mjAttribute('vertical-align')
       },
       div: {
-        maxWidth: parentWidth
+        maxWidth: defaultUnit(parentWidth)
       }
     }, {
       div: this.isFullWidth() ? {} : cloneDeep(background),

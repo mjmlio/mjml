@@ -49,7 +49,7 @@ padding-bottom      | px          | section bottom offset          | n/a
 padding-left        | px          | section left offset            | n/a
 padding-right       | px          | section right offset           | n/a
 
-## mjml-inline-links
+### mjml-inline-links
 
 To display some links horizontally
 
@@ -128,7 +128,7 @@ ico-text-transform          | string             | hamburger icon text transform
 ico-text-decoration         | string             | hamburger icon text decoration none/underline/overline/line-through (hamburger mode required)    | none
 ico-line-height             | px                 | hamburger icon line height (hamburger mode required)                                             | 30px
 
-## mjml-link
+### mjml-link
 
 ```xml
 <mjml>

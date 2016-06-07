@@ -45,7 +45,7 @@ padding-right               | px          | right offset                        
 intl                        | string      | formatted string to set wording for header and footer | "name:Name;quantity:Quantity;price:Price"
 format   	                  | string      | how to format total price, based on [numeraljs](http://numeraljs.com/) | n/a
 
-## mjml-invoice-item
+### mjml-invoice-item
 
 Display a row in an `mj-invoice` component
 

@@ -25,7 +25,7 @@ tags to make it easier to preview outside the template
 <mjml>
   <mj-body>
     <mj-container>
-      <mj-include path='header'> <!-- or 'header.mjml' -->
+      <mj-include path='header' /> <!-- or 'header.mjml' -->
     </mj-container>
   </mj-body>
 </mjml>

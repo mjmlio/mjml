@@ -11,6 +11,7 @@ const defaultMJMLDefinition = {
     'align': 'center',
     'alt': '',
     'border': 'none',
+    'border-radius': '0px',
     'href': '',
     'src': '',
     'target': '_blank'
@@ -25,6 +26,7 @@ const baseStyles = {
   },
   img: {
     border: 'none',
+    borderRadius: '0px',
     display: 'block',
     outline: 'none',
     textDecoration: 'none',
@@ -51,7 +53,7 @@ class Image extends Component {
   }
 
   getStyles () {
-    const { mjAttribute } = this.props
+    const { mjAttribute, defaultUnit } = this.props
 
     return merge({}, baseStyles, {
       td: {
@@ -59,7 +61,8 @@ class Image extends Component {
       },
       img: {
         border: mjAttribute('border'),
-        height: mjAttribute('height')
+        height: mjAttribute('height'),
+        borderRadius: defaultUnit(mjAttribute('border-radius'), "px")
       }
     })
   }

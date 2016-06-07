@@ -41,7 +41,8 @@ class Button extends Component {
       td: {
         color: mjAttribute('color'),
         cursor: 'auto',
-        fontStyle: mjAttribute('font-style')
+        fontStyle: mjAttribute('font-style'),
+        width: mjAttribute('width')
       },
       a: {
         background: mjAttribute('background-color'),
@@ -52,6 +53,7 @@ class Button extends Component {
         fontSize: defaultUnit(mjAttribute('font-size'), "px"),
         fontStyle: mjAttribute('font-style'),
         fontWeight: mjAttribute('font-weight'),
+        lineHeight: mjAttribute('height'),
         padding: defaultUnit(mjAttribute('inner-padding'), "px"),
         textDecoration: mjAttribute('text-decoration'),
         margin: "0px"

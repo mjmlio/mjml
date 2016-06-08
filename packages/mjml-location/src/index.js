@@ -15,7 +15,6 @@ const defaultMJMLDefinition = {
   }
 }
 const endingTag = true
-const columnElement = true
 
 @MJMLElement
 class Location extends Component {
@@ -87,6 +86,5 @@ class Location extends Component {
 Location.tagName = tagName
 Location.defaultMJMLDefinition = defaultMJMLDefinition
 Location.endingTag = endingTag
-Location.columnElement = columnElement
 
 export default Location

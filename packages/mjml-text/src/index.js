@@ -15,7 +15,6 @@ const defaultMJMLDefinition = {
   }
 }
 const endingTag = true
-const columnElement = true
 const baseStyles = {
   div: {
     cursor: 'auto'
@@ -59,7 +58,6 @@ class Text extends Component {
 Text.tagName = tagName
 Text.defaultMJMLDefinition = defaultMJMLDefinition
 Text.endingTag = endingTag
-Text.columnElement = columnElement
 Text.baseStyles = baseStyles
 
 export default Text

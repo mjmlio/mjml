@@ -17,7 +17,6 @@ const defaultMJMLDefinition = {
   }
 }
 const endingTag = true
-const columnElement = true
 const baseStyles = {
   table: {
     borderCollapse: 'collapse',
@@ -116,7 +115,6 @@ class Image extends Component {
 Image.tagName = tagName
 Image.defaultMJMLDefinition = defaultMJMLDefinition
 Image.endingTag = endingTag
-Image.columnElement = columnElement
 Image.baseStyles = baseStyles
 
 export default Image

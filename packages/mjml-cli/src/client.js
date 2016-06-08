@@ -112,9 +112,9 @@ export const watch = (input, options) => {
 /*
  * Create a new component based on the default template
  */
-export const initComponent = (name, ending, columnElement) => {
+export const initComponent = (name, ending) => {
   mkdir(`./${name}`)
     .then(() => mkdir(`./${name}/src`))
-    .then(() => write(`./${name}/src/index.js`, createComponent(upperFirst(camelCase(name)), ending, columnElement)))
+    .then(() => write(`./${name}/src/index.js`, createComponent(upperFirst(camelCase(name)), ending)))
     .then(() => console.log(`Component created: ${name}`)) // eslint-disable-line no-console
 }

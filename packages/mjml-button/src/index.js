@@ -21,7 +21,6 @@ const defaultMJMLDefinition = {
   }
 }
 const endingTag = true
-const columnElement = true
 const baseStyles = {
   a: {
     display: 'inline-block',
@@ -41,8 +40,7 @@ class Button extends Component {
       td: {
         color: mjAttribute('color'),
         cursor: 'auto',
-        fontStyle: mjAttribute('font-style'),
-        width: mjAttribute('width')
+        fontStyle: mjAttribute('font-style')
       },
       a: {
         background: mjAttribute('background-color'),
@@ -56,6 +54,7 @@ class Button extends Component {
         lineHeight: mjAttribute('height'),
         padding: defaultUnit(mjAttribute('inner-padding'), "px"),
         textDecoration: mjAttribute('text-decoration'),
+        textTransform: mjAttribute('text-transform'),
         margin: "0px"
       }
     })
@@ -111,7 +110,6 @@ class Button extends Component {
 Button.tagName = tagName
 Button.defaultMJMLDefinition = defaultMJMLDefinition
 Button.endingTag = endingTag
-Button.columnElement = columnElement
 Button.baseStyles = baseStyles
 
 export default Button

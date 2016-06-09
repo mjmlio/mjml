@@ -13,7 +13,8 @@ const defaultMJMLDefinition = {
     'border': 'none',
     'href': '',
     'src': '',
-    'target': '_blank'
+    'target': '_blank',
+    'title': ''
   }
 }
 const endingTag = true
@@ -70,6 +71,7 @@ class Image extends Component {
     const img = (
       <img
         alt={mjAttribute('alt')}
+        title={mjAttribute('title')}
         border="0"
         height={mjAttribute('height')}
         src={mjAttribute('src')}

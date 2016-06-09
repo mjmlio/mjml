@@ -39,3 +39,4 @@ src                           | url           | image source                   |
 href                          | url           | link to redirect to on click   | n/a
 alt                           | string        | image description              | n/a
 align                         | position      | image alignment                | center
+title                         | string        | tooltip & accessibility        | n/a

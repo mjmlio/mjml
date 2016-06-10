@@ -70,7 +70,12 @@ class Container extends Component {
     return {
       div: {
         backgroundColor: mjAttribute('background-color'),
-        fontSize: defaultUnit(mjAttribute('font-size'), 'px')
+        fontSize: defaultUnit(mjAttribute('font-size'), 'px'),
+        border: mjAttribute('border'),
+        borderTop: mjAttribute('border-top'),
+        borderBottom: mjAttribute('border-bottom'),
+        borderRight: mjAttribute('border-right'),
+        borderLeft: mjAttribute('border-left')
       }
     }
   }

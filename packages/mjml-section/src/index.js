@@ -117,6 +117,21 @@ class Section extends Component {
       div: this.isFullWidth() ? {} : cloneDeep(background),
       table: this.isFullWidth() ? {} : cloneDeep(background),
       tableFullwidth: this.isFullWidth() ? cloneDeep(background) : {}
+    }, {
+    	table: this.isFullWidth() ? {} : {
+				border: mjAttribute('border'),
+ 				borderTop: mjAttribute('border-top'),
+ 				borderBottom: mjAttribute('border-bottom'),
+ 				borderRight: mjAttribute('border-right'),
+ 				borderLeft: mjAttribute('border-left')
+ 			},
+ 			tableFullwidth: this.isFullWidth() ? {
+ 				border: mjAttribute('border'),
+				borderTop: mjAttribute('border-top'),
+ 				borderBottom: mjAttribute('border-bottom'),
+ 				borderRight: mjAttribute('border-right'),
+ 				borderLeft: mjAttribute('border-left')
+ 			} : {}
     })
   }
 

@@ -59,16 +59,18 @@ const mjmlElementParser = elem => {
   return element
 }
 
-const parseHead = head => {
+const parseHead = (head, $container) => {
   each(compact(filter(dom.getChildren(head), child => child.tagName)), (element) => {
     const handler = MJMLHeadElements[element.tagName.toLowerCase()]
 
     if (handler) {
-      handler(element, { setMjCssClasses, setMjDefaultAttributes })
+      handler(element, { setMjCssClasses, setMjDefaultAttributes, $container })
     } else {
       warning(false, `No handler found for: ${element.tagName}, in mj-head, skipping it`)
     }
   })
+
+  return $container
 }
 
 /**
@@ -77,7 +79,7 @@ const parseHead = head => {
  *   - container: the mjml container
  *   - mjml: a json representation of the mjml
  */
-const documentParser = content => {
+const documentParser = (content, container) => {
   let root
   let head
 
@@ -100,11 +102,14 @@ const documentParser = content => {
     throw new EmptyMJMLError('No root "<mjml>" or "<mj-body>" found in the file')
   }
 
+  let $container = dom.parseHTML(container)
+
   if (head && head.length == 1) {
-    parseHead(head.get(0))
+    $container = parseHead(head.get(0), container)
   }
 
-  return mjmlElementParser(root)
+  return { container: dom.getHTML($container),
+           content: mjmlElementParser(root) }
 }
 
 export default documentParser

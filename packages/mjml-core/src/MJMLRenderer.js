@@ -3,7 +3,7 @@ import { EmptyMJMLError } from './Error'
 import { fixLegacyAttrs, removeCDATA } from './helpers/postRender'
 import { parseInstance } from './helpers/mjml'
 import defaultContainer from './configs/defaultContainer'
-import getFontsImports from './helpers/getFontsImports'
+// import tsImports from './helpers/getFontsImports'
 import MJMLElementsCollection, { postRenders, registerMJElement } from './MJMLElementsCollection'
 import { resetDefaultAttributes } from './mjDefaultAttributes'
 import { resetCssClasses } from './mjCssClasses'
@@ -16,6 +16,7 @@ const debug = require('debug')('mjml-engine/mjml2html')
 export default class MJMLRenderer {
 
   constructor (content, options = {}) {
+    this.container = defaultContainer()
     this.registerDotfile()
 
     this.content = content
@@ -58,7 +59,11 @@ export default class MJMLRenderer {
     const documentParser = require('./parsers/document').default
 
     debug('Start parsing document')
-    this.content = documentParser(this.content)
+    const { content, container} = documentParser(this.content, this.container)
+
+    this.content = content
+    this.container = container
+
     debug('Content parsed')
   }
 
@@ -112,11 +117,9 @@ export default class MJMLRenderer {
 
     debug('React rendering done. Continue with special overrides.')
 
-    const MJMLDocument = defaultContainer({
-      title: this.options.title,
-      content: renderedMJML,
-      fonts: getFontsImports({ content: renderedMJML })
-    })
+    const MJMLDocument = this.container.replace('__content__', renderedMJML)
+
+    // { fonts: tsImports({ content: renderedMJML }) }
 
     return this.postRender(MJMLDocument)
   }

@@ -11,7 +11,7 @@ const defaultMJMLDefinition = {
     'align': 'center',
     'alt': '',
     'border': 'none',
-    'border-radius': '0px',
+    'border-radius': '',
     'href': '',
     'src': '',
     'target': '_blank'
@@ -26,7 +26,7 @@ const baseStyles = {
   },
   img: {
     border: 'none',
-    borderRadius: '0px',
+    borderRadius: '',
     display: 'block',
     outline: 'none',
     textDecoration: 'none',

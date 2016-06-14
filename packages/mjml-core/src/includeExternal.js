@@ -1,7 +1,7 @@
 
 import fs from 'fs'
 
-const includes = /<mj-include\s+path='(.*\.mjml)'\s*(\/>|>\s*<\/mj-include>)/g
+const includes = /<mj-include\s+path=['"](.*\.mjml)['"]\s*(\/>|>\s*<\/mj-include>)/g
 
 const getContent = input =>
   input
@@ -9,7 +9,6 @@ const getContent = input =>
     .replace(/<\/mj-container>[\n\s\t]+<\/mj-body>[\n\s\t]+<\/mjml>/, '')
 
 export default mjml => mjml.replace(includes, (_, path) => {
-
   const mjmlExtension = file => file.trim().match(/.mjml$/) && file || `${file}.mjml`
 
   const template = fs.readFileSync(mjmlExtension(path), 'utf8')
@@ -19,18 +18,3 @@ export default mjml => mjml.replace(includes, (_, path) => {
 
   return content
 })
-
-/*
-const ret = translate(`
-  <mjml>
-    <mj-body>
-      <mj-container>
-        <mj-include path='hello.mjml' />
-        <mj-include path='test.mjml' />
-      </mj-container>
-    </mj-body>
-  </mjml>
-`)
-
-console.log(ret)
-*/

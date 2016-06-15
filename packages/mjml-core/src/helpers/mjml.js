@@ -6,6 +6,8 @@ import mjDefaultAttributes from '../mjDefaultAttributes'
 
 export const parseInstance = instance => {
   const parseNode = (node) => {
+    node['attributes'] = node['attributes'] || {}
+
     const Component   = MJMLElementsCollection[node.tagName]
     const nodeClasses = node['attributes']['mj-class']
 

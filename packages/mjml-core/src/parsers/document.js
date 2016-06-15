@@ -105,7 +105,7 @@ const documentParser = (content, container) => {
   let $container = dom.parseHTML(container)
 
   if (head && head.length == 1) {
-    $container = parseHead(head.get(0), container)
+    $container = parseHead(head.get(0), $container)
   }
 
   return { container: dom.getHTML($container),

@@ -125,7 +125,7 @@ padding-right       | px                                  | right offset        
 padding-left        | px                                  | left offset                                                          | 0px
 padding-bottom      | px                                  | bottom offset                                                        | 0px
 
-## mjml-hero-content
+### mjml-hero-content
 
 Display some content in an `mj-hero` component
 

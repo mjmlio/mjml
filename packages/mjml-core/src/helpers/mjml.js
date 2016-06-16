@@ -17,7 +17,7 @@ export const parseInstance = instance => {
 
     return !Component ? {} : {
       // copy all existing props, applying defaults
-      ...defaultsDeep(node, classAttributes, { attributes: mjDefaultAttributes[node.tagName] }, Component.defaultMJMLDefinition),
+      ...defaultsDeep(node, classAttributes, { attributes: mjDefaultAttributes[node.tagName] }, mjDefaultAttributes["mj-all"] || {}, Component.defaultMJMLDefinition),
       // do same to children
       children: (node.children || []).map(parseNode)
     }

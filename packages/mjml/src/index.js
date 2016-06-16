@@ -18,6 +18,7 @@ import Spacer from 'mjml-spacer'
 import Table from 'mjml-table'
 import Text from 'mjml-text'
 import MJMLHeadAttributes from 'mjml-head-attributes'
+import MJMLHeadTitle from 'mjml-head-title'
 
 const { Hero, HeroContent } = MjHero
 const { Invoice, InvoiceItem } = MjInvoice
@@ -47,5 +48,6 @@ const { Navbar, InlineLinks, Link } = MjNavbar;
   Text ].map(registerMJElement)
 
 registerMJHeadElement('mj-attributes', MJMLHeadAttributes)
+registerMJHeadElement('mj-title', MJMLHeadTitle)
 
 export * from 'mjml-core'

@@ -72,15 +72,17 @@ export const renderFile = (input, options) => {
       let output
 
       if (options.output) {
-        const outFile = path.join(path.dirname(options.output), path.basename(options.output, '.html'))
+        const extension = path.extname(options.output) || '.html'
+        const outFile = path.join(path.dirname(options.output), path.basename(options.output, extension))
 
         if (files.length > 1) {
-          output = `${outFile}-${index + 1}.html`
+          output = `${outFile}-${index + 1}${extension}`
         } else {
-          output = `${outFile}.html`
+          output = `${outFile}${extension}`
         }
       } else {
-        output = `${inFile}.html`
+        const extension = path.extname(inFile) || '.html'
+        output = `${inFile}${extension}`
       }
 
       const filePath = path.resolve(process.cwd(), file)

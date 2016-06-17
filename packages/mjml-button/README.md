@@ -37,6 +37,7 @@ font-style                  | string      | normal/italic/oblique               
 font-size                   | px          | text size                                        | 13px
 font-weight                 | number      | text thickness                                   | bold
 font-family                 | string      | font name                                        | Ubuntu, Helvetica, Arial, sans-serif
+letter-spacing              | px          | letter spacing                                   | none
 color                       | color       | text color                                       | #ffffff
 border                      | string      | css border format                                | none
 text-decoration             | string      | underline/overline/none                          | none

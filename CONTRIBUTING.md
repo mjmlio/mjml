@@ -91,11 +91,10 @@ If you’re not sure how you can contribute to MJML, start looking for the [begi
 ## How to Submit A Good Pull Request
 
 * Document your code
-
 * Update the documentation (example: table of a component’s supported attributes if you add an attribute to this component)
-
-* Test your pull request locally and include screenshots from Litmus or Email On Acid showing that your feature is supported for [email clients supported by MJML](https://mjml.io/faq#email-clients)
-
+* Test your pull request locally
+* Include screenshots from [Litmus](https://litmus.com/) or [Email On Acid](https://www.emailonacid.com/) showing that your feature is supported for [email clients supported by MJML](https://mjml.io/faq#email-clients)
+* Provide the MJML code you used to test locally and on the screenshots
 * We suggest following the [React Styleguide](https://github.com/airbnb/javascript/tree/master/react) by Airbnb
 
 # Additional Notes

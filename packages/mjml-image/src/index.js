@@ -11,9 +11,11 @@ const defaultMJMLDefinition = {
     'align': 'center',
     'alt': '',
     'border': 'none',
+    'border-radius': '',
     'href': '',
     'src': '',
-    'target': '_blank'
+    'target': '_blank',
+    'title': ''
   }
 }
 const endingTag = true
@@ -24,6 +26,7 @@ const baseStyles = {
   },
   img: {
     border: 'none',
+    borderRadius: '',
     display: 'block',
     outline: 'none',
     textDecoration: 'none',
@@ -50,7 +53,7 @@ class Image extends Component {
   }
 
   getStyles () {
-    const { mjAttribute } = this.props
+    const { mjAttribute, defaultUnit } = this.props
 
     return merge({}, baseStyles, {
       td: {
@@ -58,7 +61,8 @@ class Image extends Component {
       },
       img: {
         border: mjAttribute('border'),
-        height: mjAttribute('height')
+        height: mjAttribute('height'),
+        borderRadius: defaultUnit(mjAttribute('border-radius'), "px")
       }
     })
   }
@@ -69,6 +73,7 @@ class Image extends Component {
     const img = (
       <img
         alt={mjAttribute('alt')}
+        title={mjAttribute('title')}
         border="0"
         height={mjAttribute('height')}
         src={mjAttribute('src')}

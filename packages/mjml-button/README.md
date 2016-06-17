@@ -40,6 +40,7 @@ font-family                 | string      | font name                           
 color                       | color       | text color                                       | #ffffff
 border                      | string      | css border format                                | none
 text-decoration             | string      | underline/overline/none                          | none
+text-transform              | string      | capitalize/uppercase/lowercase                   | none
 align                       | string      | horizontal alignment                             | center
 vertical-align              | string      | vertical alignment                               | middle
 href                        | link        | link to be triggered when the button is clicked  | n/a

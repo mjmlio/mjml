@@ -33,9 +33,11 @@ padding-left                  | px            | left offset                    |
 padding-right                 | px            | right offset                   | n/a
 container-background-color    | color         | inner element background color | n/a
 border                        | string        | css border definition          | none
+border-radius                 | px            | border radius                  | n/a
 width                         | px            | image width                    | 100%
 height                        | px            | image height                   | auto
 src                           | url           | image source                   | n/a
 href                          | url           | link to redirect to on click   | n/a
 alt                           | string        | image description              | n/a
 align                         | position      | image alignment                | center
+title                         | string        | tooltip & accessibility        | n/a

@@ -1,6 +1,4 @@
 import { ParseError, EmptyMJMLError, NullElementError } from '../Error'
-import { setMjCssClasses } from '../mjCssClasses'
-import { setMjDefaultAttributes } from '../mjDefaultAttributes'
 import compact from 'lodash/compact'
 import dom from '../helpers/dom'
 import each from 'lodash/each'
@@ -59,12 +57,14 @@ const mjmlElementParser = elem => {
   return element
 }
 
-const parseHead = (head, $container) => {
+const parseHead = (head, attributes) => {
+  const $container = dom.parseHTML(attributes.container)
+
   each(compact(filter(dom.getChildren(head), child => child.tagName)), (element) => {
     const handler = MJMLHeadElements[element.tagName.toLowerCase()]
 
     if (handler) {
-      handler(element, { setMjCssClasses, setMjDefaultAttributes, $container })
+      handler(element, { $container, ...attributes })
     } else {
       warning(false, `No handler found for: ${element.tagName}, in mj-head, skipping it`)
     }
@@ -79,7 +79,7 @@ const parseHead = (head, $container) => {
  *   - container: the mjml container
  *   - mjml: a json representation of the mjml
  */
-const documentParser = (content, container) => {
+const documentParser = (content, attributes) => {
   let root
   let head
 
@@ -102,14 +102,11 @@ const documentParser = (content, container) => {
     throw new EmptyMJMLError('No root "<mjml>" or "<mj-body>" found in the file')
   }
 
-  let $container = dom.parseHTML(container)
-
   if (head && head.length == 1) {
-    $container = parseHead(head.get(0), $container)
+    parseHead(head.get(0), attributes)
   }
 
-  return { container: dom.getHTML($container),
-           content: mjmlElementParser(root) }
+  return mjmlElementParser(root)
 }
 
 export default documentParser

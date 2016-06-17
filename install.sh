@@ -39,6 +39,7 @@ cd mjml-core && npm link && npm link mjml-core && cd ..
 cd mjml-divider && npm link && npm link mjml-core && cd ..
 cd mjml-group && npm link && npm link mjml-core && cd ..
 cd mjml-head-attributes && npm link && npm link mjml-core && cd ..
+cd mjml-head-font && npm link && npm link mjml-core && cd ..
 cd mjml-head-title && npm link && npm link mjml-core && cd ..
 cd mjml-hero && npm link && npm link mjml-core && cd ..
 cd mjml-html && npm link && npm link mjml-core && cd ..
@@ -67,6 +68,7 @@ npm link mjml-core
 npm link mjml-divider
 npm link mjml-group
 npm link mjml-head-attributes
+npm link mjml-head-font
 npm link mjml-head-title
 npm link mjml-hero
 npm link mjml-html

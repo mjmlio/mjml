@@ -18,6 +18,7 @@ import Spacer from 'mjml-spacer'
 import Table from 'mjml-table'
 import Text from 'mjml-text'
 import MJMLHeadAttributes from 'mjml-head-attributes'
+import MJMLHeadFont from 'mjml-head-font'
 import MJMLHeadTitle from 'mjml-head-title'
 
 const { Hero, HeroContent } = MjHero
@@ -49,5 +50,6 @@ const { Navbar, InlineLinks, Link } = MjNavbar;
 
 registerMJHeadElement('mj-attributes', MJMLHeadAttributes)
 registerMJHeadElement('mj-title', MJMLHeadTitle)
+registerMJHeadElement('mj-font', MJMLHeadFont)
 
 export * from 'mjml-core'

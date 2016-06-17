@@ -1,12 +1,12 @@
-import _ from 'lodash'
+import isEmpty from 'lodash/isEmpty'
+import cloneDeep from 'lodash/cloneDeep'
 import { EmptyMJMLError } from './Error'
 import { fixLegacyAttrs, removeCDATA } from './helpers/postRender'
 import { parseInstance } from './helpers/mjml'
+import importFonts from './helpers/importFonts'
+import defaultFonts from './configs/listFontsImports'
 import defaultContainer from './configs/defaultContainer'
-// import tsImports from './helpers/getFontsImports'
 import MJMLElementsCollection, { postRenders, registerMJElement } from './MJMLElementsCollection'
-import { resetDefaultAttributes } from './mjDefaultAttributes'
-import { resetCssClasses } from './mjCssClasses'
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import warning from 'warning'
@@ -16,14 +16,17 @@ const debug = require('debug')('mjml-engine/mjml2html')
 export default class MJMLRenderer {
 
   constructor (content, options = {}) {
-    this.container = defaultContainer()
     this.registerDotfile()
+
+    this.attributes = {
+      container: defaultContainer(),
+      defaultAttributes: {},
+      cssClasses: {},
+      fonts: cloneDeep(defaultFonts)
+    }
 
     this.content = content
     this.options = options
-
-    resetDefaultAttributes()
-    resetCssClasses()
 
     if (typeof this.content === 'string') {
       this.parseDocument()
@@ -32,9 +35,15 @@ export default class MJMLRenderer {
 
   registerDotfile () {
     const fs = require('fs')
+    const path = process.cwd()
 
     try {
-      const path = process.cwd()
+      fs.statSync(`${path}/.mjmlconfig`)
+    } catch (e) {
+      return warning(!isEmpty(MJMLElementsCollection), `No .mjmlconfig found in path ${path}, consider to add one`)
+    }
+
+    try {
       const mjmlConfig = JSON.parse(fs.readFileSync(`${path}/.mjmlconfig`).toString())
       const { packages } = mjmlConfig
 
@@ -47,11 +56,11 @@ export default class MJMLRenderer {
           const Component = require.main.require(file)
           registerMJElement(Component.default || Component)
         } catch (e) {
-          warning(false, `.mjmlconfig file ${file} has an error : ${e}`)
+          warning(false, `.mjmlconfig file ${file} opened from ${path} has an error : ${e}`)
         }
       })
     } catch (e) {
-      warning(!_.isEmpty(MJMLElementsCollection), 'No .mjmlconfig found in path, please consider to add one')
+      warning(false, `.mjmlconfig has a ParseError: ${e}`)
     }
   }
 
@@ -59,12 +68,26 @@ export default class MJMLRenderer {
     const documentParser = require('./parsers/document').default
 
     debug('Start parsing document')
-    const { content, container} = documentParser(this.content, this.container)
-
-    this.content = content
-    this.container = container
-
+    this.content = documentParser(this.content, this.attributes)
     debug('Content parsed')
+  }
+
+  render () {
+    if (!this.content) {
+      throw new EmptyMJMLError(`.render: No MJML to render in options ${this.options.toString()}`)
+    }
+
+    const rootElemComponent = React.createElement(MJMLElementsCollection[this.content.tagName], { mjml: parseInstance(this.content, this.attributes ) })
+
+    debug('Render to static markup')
+    const renderedMJML = ReactDOMServer.renderToStaticMarkup(rootElemComponent)
+
+    debug('React rendering done. Continue with special overrides.')
+    const MJMLDocument = this.attributes.container.replace('__content__', renderedMJML)
+
+    // { fonts: tsImports({ content: renderedMJML }) }
+
+    return this.postRender(MJMLDocument)
   }
 
   postRender (MJMLDocument) {
@@ -72,6 +95,7 @@ export default class MJMLRenderer {
 
     let $ = dom.parseHTML(MJMLDocument)
 
+    importFonts({ $, fonts: this.attributes.fonts })
     $ = fixLegacyAttrs($)
 
     postRenders.forEach(postRender => {
@@ -103,25 +127,6 @@ export default class MJMLRenderer {
     }
 
     return finalMJMLDocument
-  }
-
-  render () {
-    if (!this.content) {
-      throw new EmptyMJMLError(`.render: No MJML to render in options ${this.options.toString()}`)
-    }
-
-    const rootElemComponent = React.createElement(MJMLElementsCollection[this.content.tagName], { mjml: parseInstance(this.content) })
-
-    debug('Render to static markup')
-    const renderedMJML = ReactDOMServer.renderToStaticMarkup(rootElemComponent)
-
-    debug('React rendering done. Continue with special overrides.')
-
-    const MJMLDocument = this.container.replace('__content__', renderedMJML)
-
-    // { fonts: tsImports({ content: renderedMJML }) }
-
-    return this.postRender(MJMLDocument)
   }
 
 }

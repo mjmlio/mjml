@@ -3,16 +3,15 @@ import each from 'lodash/each'
 import filter from 'lodash/filter'
 import omit from 'lodash/omit'
 
-export default ($, {setMjCssClasses, setMjDefaultAttributes}) => {
+export default ($, { defaultAttributes, cssClasses }) => {
   each(compact(filter($.children, child => child.tagName)), elem => {
     const tagName = elem.tagName.toLowerCase()
     const attributes = elem.attribs
 
     if (tagName == 'mj-class') {
-      setMjCssClasses(attributes.name, omit(attributes, ['name']))
-      return
+      return cssClasses[attributes.name] = omit(attributes, ['name'])
     }
 
-    setMjDefaultAttributes(tagName, attributes)
+    defaultAttributes[tagName] =  attributes
   })
 }

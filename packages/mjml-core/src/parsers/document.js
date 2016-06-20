@@ -71,7 +71,7 @@ const parseHead = (head, attributes) => {
     }
   })
 
-  return $container
+  attributes.container = dom.getHTML($container)
 }
 
 /**

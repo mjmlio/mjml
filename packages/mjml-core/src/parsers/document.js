@@ -60,7 +60,7 @@ const mjmlElementParser = elem => {
 const parseHead = (head, attributes) => {
   const $container = dom.parseHTML(attributes.container)
 
-  each(compact(filter(dom.getChildren(head), child => child.tagName)), (element) => {
+  each(compact(filter(dom.getChildren(head), child => child.tagName)), element => {
     const handler = MJMLHeadElements[element.tagName.toLowerCase()]
 
     if (handler) {
@@ -102,7 +102,7 @@ const documentParser = (content, attributes) => {
     throw new EmptyMJMLError('No root "<mjml>" or "<mj-body>" found in the file')
   }
 
-  if (head && head.length == 1) {
+  if (head && head.length === 1) {
     parseHead(head.get(0), attributes)
   }
 

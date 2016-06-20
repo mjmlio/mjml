@@ -1,3 +1,3 @@
-export default ($, { fonts }) => {
-  fonts.push({ name: $.attribs.name, url: $.attribs.href })
+export default (el, { fonts }) => {
+  fonts.push({ name: el.attribs.name, url: el.attribs.href })
 }

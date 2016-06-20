@@ -3,6 +3,7 @@ var mjml = require('./lib/index')
 console.log(mjml.mjml2html(`
 <mjml>
   <mj-head>
+    <mj-title>Hello MJML</mj-title>
     <mj-font name="Raleway" href="https://fonts.googleapis.com/css?family=Raleway" />
   </mj-head>
   <mj-body>

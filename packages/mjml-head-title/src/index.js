@@ -1,1 +1,1 @@
-export default ($, {$container}) => $container('title').append($.text())
+export default ($, { $container }) => $container('title').append($.text())

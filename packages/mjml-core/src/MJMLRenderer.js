@@ -1,16 +1,17 @@
-import isEmpty from 'lodash/isEmpty'
-import cloneDeep from 'lodash/cloneDeep'
 import { EmptyMJMLError } from './Error'
 import { fixLegacyAttrs, removeCDATA } from './helpers/postRender'
 import { parseInstance } from './helpers/mjml'
-import importFonts from './helpers/importFonts'
-import defaultFonts from './configs/listFontsImports'
+import cloneDeep from 'lodash/cloneDeep'
 import defaultContainer from './configs/defaultContainer'
+import defaultFonts from './configs/listFontsImports'
+import he from 'he'
+import importFonts from './helpers/importFonts'
+import includeExternal from './includeExternal'
+import isEmpty from 'lodash/isEmpty'
 import MJMLElementsCollection, { postRenders, registerMJElement } from './MJMLElementsCollection'
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import warning from 'warning'
-import includeExternal from './includeExternal'
 
 const debug = require('debug')('mjml-engine/mjml2html')
 
@@ -126,6 +127,8 @@ export default class MJMLRenderer {
         minifyCSS: true
       })
     }
+
+    finalMJMLDocument = he.decode(finalMJMLDocument)
 
     return finalMJMLDocument
   }

@@ -7,11 +7,13 @@ import MJMLElements, { endingTags } from '../MJMLElementsCollection'
 import MJMLHeadElements from '../MJMLHead'
 import warning from 'warning'
 
+const regexTag = tag => new RegExp(`<${tag}([^>]*)>([^]*?)</${tag}>`, 'gmi')
+
 /**
  * Avoid htmlparser to parse ending tags
  */
 const safeEndingTags = content => {
-  const regexpBody = new RegExp(`<mj-body([^>]*)>([^]*?)</mj-body>`, 'gmi')
+  const regexpBody = regexTag('mj-body')
   let bodyContent = content.match(regexpBody)
 
   if (!bodyContent) {
@@ -21,8 +23,7 @@ const safeEndingTags = content => {
   bodyContent = bodyContent[0]
 
   endingTags.forEach(tag => {
-    const regex = new RegExp(`<${tag}([^>]*)>([^]*?)</${tag}>`, 'gmi')
-    bodyContent = bodyContent.replace(regex, dom.replaceContentByCdata(tag))
+    bodyContent = bodyContent.replace(regexTag(tag), dom.replaceContentByCdata(tag))
   })
 
   return content.replace(regexpBody, bodyContent)

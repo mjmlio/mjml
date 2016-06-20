@@ -87,8 +87,6 @@ export default class MJMLRenderer {
     debug('React rendering done. Continue with special overrides.')
     const MJMLDocument = this.attributes.container.replace('__content__', renderedMJML)
 
-    // { fonts: tsImports({ content: renderedMJML }) }
-
     return this.postRender(MJMLDocument)
   }
 

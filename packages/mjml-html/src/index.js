@@ -10,7 +10,6 @@ const defaultMJMLDefinition = {
   }
 }
 const endingTag = true
-const columnElement = true
 const baseStyles = {
   div: {
     fontSize: '13px'
@@ -41,7 +40,6 @@ class Html extends Component {
 Html.tagName = tagName
 Html.defaultMJMLDefinition = defaultMJMLDefinition
 Html.endingTag = endingTag
-Html.columnElement = columnElement
 Html.baseStyles = baseStyles
 
 export default Html

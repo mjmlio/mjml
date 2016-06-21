@@ -33,6 +33,7 @@ padding-left                  | px            | left offset                    |
 padding-right                 | px            | right offset                   | n/a
 container-background-color    | color         | inner element background color | n/a
 border                        | string        | css border definition          | none
+border-radius                 | px            | border radius                  | n/a
 width                         | px            | image width                    | 100%
 height                        | px            | image height                   | auto
 src                           | url           | image source                   | n/a

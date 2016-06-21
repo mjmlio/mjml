@@ -39,7 +39,6 @@ const defaultMJMLDefinition = {
     'base-url': 'https://www.mailjet.com/images/theme/v1/icons/ico-social/'
   }
 }
-const columnElement = true
 const baseStyles = {
   tableHorizontal: {
     float: 'none',
@@ -297,7 +296,6 @@ class Social extends Component {
 
 Social.tagName = tagName
 Social.defaultMJMLDefinition = defaultMJMLDefinition
-Social.columnElement = columnElement
 Social.baseStyles = baseStyles
 Social.buttonDefinitions = buttonDefinitions
 Social.postRender = postRender

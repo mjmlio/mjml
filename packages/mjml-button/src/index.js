@@ -8,20 +8,19 @@ const defaultMJMLDefinition = {
   attributes: {
     'align': 'center',
     'background-color': '#414141',
-    'border-radius': '3px',
-    'border': 'none',
+    'border': '1px solid #414141',
     'color': '#ffffff',
     'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
     'font-size': '13px',
     'font-weight': 'normal',
     'href': '',
     'padding': '10px 25px',
+    'inner-padding': '10px',
     'text-decoration': 'none',
     'vertical-align': 'middle'
   }
 }
 const endingTag = true
-const columnElement = true
 const baseStyles = {
   a: {
     display: 'inline-block',
@@ -39,27 +38,24 @@ class Button extends Component {
 
     return merge({}, baseStyles, {
       td: {
-        background: mjAttribute('background-color'),
-        borderRadius: defaultUnit(mjAttribute('border-radius'), "px"),
         color: mjAttribute('color'),
         cursor: 'auto',
         fontStyle: mjAttribute('font-style')
       },
-      table: {
-        border: mjAttribute('border'),
-        borderRadius: defaultUnit(mjAttribute('border-radius'), "px")
-      },
       a: {
         background: mjAttribute('background-color'),
-        border: `1px solid ${mjAttribute('background-color')}`,
+        border: mjAttribute('border'),
         borderRadius: defaultUnit(mjAttribute('border-radius'), "px"),
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
         fontSize: defaultUnit(mjAttribute('font-size'), "px"),
         fontStyle: mjAttribute('font-style'),
         fontWeight: mjAttribute('font-weight'),
-        padding: defaultUnit(mjAttribute('padding'), "px"),
-        textDecoration: mjAttribute('text-decoration')
+        lineHeight: mjAttribute('height'),
+        padding: defaultUnit(mjAttribute('inner-padding'), "px"),
+        textDecoration: mjAttribute('text-decoration'),
+        textTransform: mjAttribute('text-transform'),
+        margin: "0px"
       }
     })
   }
@@ -67,12 +63,20 @@ class Button extends Component {
   renderButton () {
     const { mjContent, mjAttribute } = this.props
 
+    if (mjAttribute('href')) {
+      return (
+        <a
+          dangerouslySetInnerHTML={{ __html: mjContent() }}
+          href={mjAttribute('href')}
+          style={this.styles.a}
+          target="_blank" />
+      )
+    }
+
     return (
-      <a
+      <p
         dangerouslySetInnerHTML={{ __html: mjContent() }}
-        href={mjAttribute('href')}
-        style={this.styles.a}
-        target="_blank" />
+        style={this.styles.a} />
     )
   }
 
@@ -106,7 +110,6 @@ class Button extends Component {
 Button.tagName = tagName
 Button.defaultMJMLDefinition = defaultMJMLDefinition
 Button.endingTag = endingTag
-Button.columnElement = columnElement
 Button.baseStyles = baseStyles
 
 export default Button

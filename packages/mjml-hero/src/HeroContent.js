@@ -24,7 +24,9 @@ const baseStyles = {
 }
 
 const postRender = $ => {
-  $('.mj-hero-content').each(function () {
+  const $mjHeroContent = $('.mj-hero-content')
+
+  $mjHeroContent.each(function () {
     const width = $(this).css('width')
     const align = $(this).data('align')
     const backgroundColor = $(this).data('background-color')
@@ -39,13 +41,15 @@ const postRender = $ => {
     .removeAttr('data-align')
   })
 
-  $('head').append(`<style type="text/css">
-    @media only screen and (max-width:480px) {
-      .mj-hero-content {
-        width: 100% !important;
+  if ($mjHeroContent.length > 0 ) {
+    $('head').append(`<style type="text/css">
+      @media only screen and (max-width:480px) {
+        .mj-hero-content {
+          width: 100% !important;
+        }
       }
-    }
-  </style>`)
+    </style>`)
+  }
 
   return $
 }

@@ -16,7 +16,6 @@ const defaultMJMLDefinition = {
   }
 }
 const endingTag = true
-const columnElement = true
 
 @MJMLElement
 class Table extends Component {
@@ -28,6 +27,8 @@ class Table extends Component {
 
     return {
       table: {
+        cellpadding: mjAttribute('cellspadding'),
+        cellspacing: mjAttribute('cellspacing'),
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
         fontSize: defaultUnit(mjAttribute('font-size'), "px"),
@@ -56,6 +57,5 @@ class Table extends Component {
 Table.tagName = tagName
 Table.defaultMJMLDefinition = defaultMJMLDefinition
 Table.endingTag = endingTag
-Table.columnElement = columnElement
 
 export default Table

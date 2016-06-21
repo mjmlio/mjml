@@ -65,12 +65,11 @@ class Container extends Component {
   styles = this.getStyles()
 
   getStyles () {
-    const { mjAttribute, defaultUnit } = this.props
+    const { mjAttribute } = this.props
 
     return {
       div: {
         backgroundColor: mjAttribute('background-color'),
-        fontSize: defaultUnit(mjAttribute('font-size'), 'px'),
         border: mjAttribute('border'),
         borderTop: mjAttribute('border-top'),
         borderBottom: mjAttribute('border-bottom'),

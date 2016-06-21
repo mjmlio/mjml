@@ -7,7 +7,6 @@ const defaultMJMLDefinition = {
     'height': '20px'
   }
 }
-const columnElement = true
 
 @MJMLElement
 class Spacer extends Component {
@@ -37,6 +36,5 @@ class Spacer extends Component {
 
 Spacer.tagName = tagName
 Spacer.defaultMJMLDefinition = defaultMJMLDefinition
-Spacer.columnElement = columnElement
 
 export default Spacer

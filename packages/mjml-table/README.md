@@ -41,6 +41,8 @@ This tag allows you to display table and filled it with data.
 attribute                   | unit                        | description                    | default value
 ----------------------------|-----------------------------|------------------------------- |--------------
 color                       | color                       | text header & footer color     | #000
+cellpadding                 | pixels                      | space between cells            | n/a
+cellspacing                 | pixels                      | space between cell and border  | n/a
 font-family                 | string                      | font name                      | Ubuntu, Helvetica, Arial, sans-serif
 font-size                   | px/em                       | font size                      | 13px
 line-height                 | percent/px                  | space between lines            | 22px

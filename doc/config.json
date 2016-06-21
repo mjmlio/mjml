@@ -5,6 +5,7 @@
   "mjml/doc/basic.md",
   "mjml/doc/advanced.md",
   "mjml/doc/components.md",
+  "mjml/doc/document.md",
   "mjml/packages/mjml-button/README.md",
   "mjml/packages/mjml-column/README.md",
   "mjml/packages/mjml-group/README.md",

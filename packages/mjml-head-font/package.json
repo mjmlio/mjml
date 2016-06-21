@@ -1,7 +1,7 @@
 {
-  "name": "mjml-list",
-  "description": "mjml-list",
-  "version": "2.0.6",
+  "name": "mjml-head-font",
+  "version": "2.0.3",
+  "description": "mjml-head-font",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -13,8 +13,6 @@
   },
   "homepage": "https://mjml.io",
   "dependencies": {
-    "lodash": "^4.13.1",
-    "mjml-core": "^2.2.0",
-    "react": "^15.1.0"
+    "mjml-core": "^2.1.4"
   }
 }

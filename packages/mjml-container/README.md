@@ -26,4 +26,3 @@ attribute            | unit          | description                    | default 
 ---------------------|---------------|--------------------------------|---------------
 width                | px            | email's width                  | 600px
 background-color     | color formats | the general background color   | n/a
-font-size            | px            | the general text size          | n/a

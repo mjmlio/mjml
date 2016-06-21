@@ -15,7 +15,6 @@ const defaultMJMLDefinition = {
   }
 }
 const endingTag = true
-const columnElement = true
 const baseStyles = {
   ul: {
     display: 'inline-block',
@@ -57,7 +56,6 @@ class List extends Component {
 List.tagName = tagName
 List.defaultMJMLDefinition = defaultMJMLDefinition
 List.endingTag = endingTag
-List.columnElement = columnElement
 List.baseStyles = baseStyles
 
 export default List

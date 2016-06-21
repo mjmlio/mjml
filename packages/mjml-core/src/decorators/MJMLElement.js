@@ -255,7 +255,7 @@ function createComponent (ComposedComponent) {
     }
 
     render () {
-      if (this.constructor.columnElement) {
+      if (this.props.columnElement) {
         this.styles = this.getStyles()
 
         return (

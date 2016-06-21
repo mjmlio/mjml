@@ -66,7 +66,6 @@ Title.defaultMJMLDefinition = {
   }
 }
 Title.endingTag = true
-Title.columnElement = true
 Title.baseStyles = {
   div: {
     color: "blue"
@@ -80,7 +79,6 @@ Title.postRender = ($) => {
 
 - tagName: modify the tag name of your component, here it will be `<title>`
 - endingTag: set to false if your component can include some other MJML component (example: mj-body/mj-section/mj-column are not ending tags, and mj-text/mj-image are both ending tags)`
-- columnElement: if your component is included in a `mj-column` then it should be set to true. It will wrap everything in a `td` that supports `padding` for example
 
 ## Default and readonly attributes
 

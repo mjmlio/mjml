@@ -1,4 +1,4 @@
-export default (name, endingTag = 'false', columnElement = 'false') => {
+export default (name, endingTag = 'false') => {
   const lowerName = name.toLowerCase()
 
   return `import { MJMLElement } from 'mjml-core'
@@ -8,7 +8,6 @@ import React, { Component } from 'react'
 
 const tagName = '${lowerName}'
 const endingTag = ${endingTag}
-const columnElement = ${columnElement}
 
 /*
  * Add your default mjml-attributes here
@@ -66,7 +65,6 @@ class ${name} extends Component {
 ${name}.tagName = tagName
 ${name}.defaultMJMLDefinition = defaultMJMLDefinition
 ${name}.endingTag = endingTag
-${name}.columnElement = columnElement
 ${name}.baseStyles = baseStyles
 
 export default ${name}

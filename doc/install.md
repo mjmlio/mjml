@@ -54,3 +54,14 @@ If you like live-coding, you might want to use the `-w` option that enables you 
 It can be time-saving when you can just split you screen and see the HTML output modified when you modify your MJML.
 
 Of course, the `-w` option can be used with an `--output` option too.
+
+### Setting up document title
+
+```
+
+$> mjml -t My email
+
+
+```
+
+You can specify the html document `<title></title>` tag by using `-t` option.

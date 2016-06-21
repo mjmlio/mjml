@@ -87,7 +87,7 @@ export const renderFile = (input, options) => {
 
       const filePath = path.resolve(process.cwd(), file)
 
-      render(read(filePath), { min: options.min, stdout: options.stdout, output })
+      render(read(filePath), { min: options.min, title: options.title, stdout: options.stdout, output })
     })
   }
 

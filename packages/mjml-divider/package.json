@@ -1,8 +1,8 @@
 {
   "name": "mjml-divider",
-  "version": "2.0.7",
-  "main": "lib/index.js",
   "description": "mjml-divider",
+  "version": "2.0.8",
+  "main": "lib/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mjmlio/mjml.git"
@@ -14,7 +14,7 @@
   "homepage": "https://mjml.io",
   "dependencies": {
     "lodash": "^4.13.1",
-    "mjml-core": "^2.2.0",
+    "mjml-core": "^2.3.0",
     "react": "^15.1.0"
   }
 }

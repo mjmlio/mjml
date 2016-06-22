@@ -12,6 +12,8 @@
   "mjml/packages/mjml-container/README.md",
   "mjml/packages/mjml-divider/README.md",
   "mjml/packages/mjml-head-attributes/README.md",
+  "mjml/packages/mjml-head-font/README.md",
+  "mjml/packages/mjml-head-title/README.md",
   "mjml/packages/mjml-hero/README.md",
   "mjml/packages/mjml-html/README.md",
   "mjml/packages/mjml-image/README.md",

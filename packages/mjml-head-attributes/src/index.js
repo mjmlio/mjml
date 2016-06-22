@@ -8,7 +8,7 @@ export default ($, { defaultAttributes, cssClasses }) => {
     const tagName = elem.tagName.toLowerCase()
     const attributes = elem.attribs
 
-    if (tagName == 'mj-class') {
+    if (tagName === 'mj-class') {
       return cssClasses[attributes.name] = omit(attributes, ['name'])
     }
 

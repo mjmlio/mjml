@@ -7,7 +7,7 @@ An MJML Document starts with a `<mjml>` tag, it can contains only `mj-head` and 
 Mj-Head contains everything related to the document such as style and meta element. It supports custom head elements and can be registered through `registerMJHeadElement(<string> name, <function> handler)` api from `mjml-core`, it acts as a pre-render hook.
 
 
-## mj-ody
+## mj-body
 
 Mj-Body contains everything related to the content of your email. It supports custom elements too and can be registered either through `registerMJElement(<MJMLElement> class)` api from `mjml-core` or via a `.mjmlconfig` file. Non-known element from `mjml-core` are simply ignored. Note that `mj-body` should have only one root element due to how React work.
 

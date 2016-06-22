@@ -48,10 +48,10 @@ const { Navbar, InlineLinks, Link } = MJNavbar;
   Social,
   Spacer,
   Table,
-  Text ].map(registerMJElement)
+  Text ].map(registerMJElement);
 
-registerMJHeadElement('mj-attributes', MJHeadAttributes)
-registerMJHeadElement('mj-font', MJHeadFont)
-registerMJHeadElement('mj-title', MJHeadTitle)
+[ MJHeadAttributes,
+  MJHeadFont,
+  MJHeadTitle ].map( headElement => registerMJHeadElement(headElement.name, headElement.handler))
 
 export * from 'mjml-core'

@@ -15,7 +15,7 @@ const defaultMJMLDefinition = {
     'font-weight': 'normal',
     'href': '',
     'padding': '10px 25px',
-    'inner-padding': '10px',
+    'inner-padding': '10px 25px',
     'text-decoration': 'none',
     'vertical-align': 'middle'
   }

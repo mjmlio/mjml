@@ -38,4 +38,4 @@ padding-top     | px            | top offset                    | n/a
 padding-bottom  | px            | bottom offset                 | n/a
 padding-left    | px            | left offset                   | n/a
 padding-right   | px            | right offset                  | n/a
-src             | string        | image source                  | http://i.imgur.com/DPCJHhy.png
+img-src         | string        | image source                  | http://i.imgur.com/DPCJHhy.png

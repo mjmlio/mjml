@@ -1,7 +1,7 @@
 {
   "name": "mjml-head-font",
-  "version": "2.0.3",
   "description": "mjml-head-font",
+  "version": "2.0.0",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -11,8 +11,5 @@
   "bugs": {
     "url": "https://github.com/mjmlio/mjml/issues"
   },
-  "homepage": "https://mjml.io",
-  "dependencies": {
-    "mjml-core": "^2.1.4"
-  }
+  "homepage": "https://mjml.io"
 }

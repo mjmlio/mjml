@@ -1,7 +1,7 @@
 {
   "name": "mjml-head-attributes",
-  "version": "2.0.4",
   "description": "mjml-head-attributes",
+  "version": "2.0.5",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -13,7 +13,6 @@
   },
   "homepage": "https://mjml.io",
   "dependencies": {
-    "lodash": "^4.13.1",
-    "mjml-core": "^2.2.0"
+    "lodash": "^4.13.1"
   }
 }

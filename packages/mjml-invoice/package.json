@@ -1,7 +1,7 @@
 {
   "name": "mjml-invoice",
   "description": "mjml-invoice",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -14,8 +14,8 @@
   "homepage": "https://mjml.io",
   "dependencies": {
     "lodash": "^4.13.1",
-    "mjml-core": "^2.2.0",
-    "mjml-table": "^2.0.6",
+    "mjml-core": "^2.3.0",
+    "mjml-table": "^2.0.7",
     "numeral": "^1.5.3",
     "react": "^15.1.0"
   }

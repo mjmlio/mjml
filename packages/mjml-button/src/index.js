@@ -9,6 +9,7 @@ const defaultMJMLDefinition = {
     'align': 'center',
     'background-color': '#414141',
     'border': '1px solid #414141',
+    'border-radius': '3px',
     'color': '#ffffff',
     'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
     'font-size': '13px',

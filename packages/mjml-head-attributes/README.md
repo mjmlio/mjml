@@ -32,5 +32,9 @@ This tag allows you to modify default attributes on a `mj-tag` and add `mj-class
 </p>
 
 <aside class="notice">
+  You can use mj-all to set default attributes for every components inside your MJML document
+</aside>
+
+<aside class="notice">
   Note that the apply order of attributes is: inline attributes, then classes, then default mj-attributes and then defaultMJMLDefinition
 </aside>

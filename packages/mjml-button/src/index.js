@@ -39,6 +39,7 @@ class Button extends Component {
 
     return merge({}, baseStyles, {
       td: {
+        borderRadius: defaultUnit(mjAttribute('border-radius'), "px"),
         color: mjAttribute('color'),
         cursor: 'auto',
         fontStyle: mjAttribute('font-style')

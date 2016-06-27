@@ -14,7 +14,6 @@
   </a>
 </p>
 
-
 <p align="center">
   | <b><a href="#introduction">Introduction</a></b>
   | <b><a href="#installation">Installation</a></b>

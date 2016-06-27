@@ -34,6 +34,7 @@ MJML is a markup language designed to reduce the pain of coding a responsive ema
   </a>
 </p>
 
+
 # Installation
 
 ### Requirements

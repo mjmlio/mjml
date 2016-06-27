@@ -4,7 +4,6 @@
   </a>
 </p>
 
-
 <p align="center">
   <a href="https://travis-ci.org/mjmlio/mjml">
     <img src="https://travis-ci.org/mjmlio/mjml.svg?branch=master" alt="travis">

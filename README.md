@@ -130,6 +130,7 @@ $> mjml --init-component <name of you component> -e
 
 ```
 
+
 It will create a basic component template in a `.js` file. Follow the instructions provided in the file
 and read more about custom components in the documentation
 

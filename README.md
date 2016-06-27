@@ -63,19 +63,19 @@ npm install -g mjml
 
 ### Command line
 
-> Compile the file and output the result in `a.html`
+> Compiles the file and outputs the result in `a.html`
 
 ```bash
 $> mjml -r input.mjml
 ```
 
-> Redirect the result to a file
+> Redirects the result to a file
 
 ```bash
 $> mjml -r input.mjml -o output.html
 ```
 
-> Watch a file and compile every time the file changes
+> Watches a file and compiles every time the file changes
 
 ```bash
 $> mjml -w input.mjml -o output.html

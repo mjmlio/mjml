@@ -72,6 +72,7 @@ npm install -g mjml
 $> mjml -r input.mjml
 ```
 
+
 > Redirects the result to a file
 
 ```bash

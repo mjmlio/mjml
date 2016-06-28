@@ -1,4 +1,4 @@
-## mjml-head-font
+## mjml-font
 
 This tag allows you to import fonts if used in your MJML document
 
@@ -26,3 +26,9 @@ This tag allows you to import fonts if used in your MJML document
     <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
   </a>
 </p>
+
+
+attribute            | unit          | description                    | default value
+---------------------|---------------|--------------------------------|---------------
+href                 | string        | url of the font                | n/a
+name                 | string        | name of the font               | n/a

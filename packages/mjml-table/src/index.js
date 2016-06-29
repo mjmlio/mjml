@@ -43,8 +43,8 @@ class Table extends Component {
 
     return (
       <table
-        cellPadding={mjAttribute('cellPadding')}
-        cellSpacing={mjAttribute('cellSpacing')}
+        cellPadding={mjAttribute('cellpadding')}
+        cellSpacing={mjAttribute('cellspacing')}
         dangerouslySetInnerHTML={{__html: mjContent() }}
         data-legacy-border="0"
         style={this.styles.table}

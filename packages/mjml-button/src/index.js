@@ -8,7 +8,6 @@ const defaultMJMLDefinition = {
   attributes: {
     'align': 'center',
     'background-color': '#414141',
-    'border': '1px solid #414141',
     'border-radius': '3px',
     'color': '#ffffff',
     'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
@@ -96,7 +95,7 @@ class Button extends Component {
           <tr>
             <td
               data-legacy-align="center"
-              data-legacy-bgcolor={mjAttribute('background-color')}
+              data-legacy-bgcolor={mjAttribute('background-color') === "none" ? "" : mjAttribute('background-color')}
               data-legacy-valign={mjAttribute('vertical-align')}
               style={this.styles.td}>
               {this.renderButton()}

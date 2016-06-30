@@ -1,5 +1,7 @@
 ## mjml-list
 
+`mj-list` enables you to create unordered lists and enables you to wrap `li`s tag.
+
 ```xml
 <mjml>
   <mj-body>
@@ -19,10 +21,10 @@
 </mjml>
 ```
 
-`mj-list` enables you to create unordered lists and enables you to wrap `li`s tag.
-
 <p align="center">
-  <a href="/try-it-live/list"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>
+  <a href="https://mjml.io/try-it-live/component/list">
+    <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
+  </a>
 </p>
 
 attribute        | unit        | description                    | default value

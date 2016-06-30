@@ -1,6 +1,7 @@
 {
   "name": "mjml-core",
-  "version": "2.0.1",
+  "description": "mjml-core",
+  "version": "2.3.0",
   "main": "lib/index.js",
   "scripts": {
     "test": "mocha --compilers js:babel-register"
@@ -13,19 +14,25 @@
   "bugs": {
     "url": "https://github.com/mjmlio/mjml/issues"
   },
-  "homepage": "https://github.com/mjmlio/mjml",
+  "homepage": "https://mjml.io",
+  "browser": {
+    "cheerio": false,
+    "fs": false,
+    "html-minifier": false
+  },
   "dependencies": {
     "cheerio": "^0.20.0",
     "classnames": "^2.2.5",
     "debug": "^2.2.0",
-    "html-minifier": "^2.1.2",
+    "he": "^1.1.0",
+    "html-minifier": "^2.1.5",
     "immutable": "^3.8.1",
-    "jquery": "^2.2.3",
-    "js-beautify": "^1.6.2",
-    "lodash": "^4.11.2",
-    "react-dom": "^15.0.2",
-    "react": "^15.0.2",
-    "warning": "^2.1.0"
+    "jquery": "^3.0.0",
+    "js-beautify": "^1.6.3",
+    "lodash": "^4.13.1",
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0",
+    "warning": "^3.0.0"
   },
   "browser": {
     "cheerio": false,
@@ -33,6 +40,6 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "mocha": "^2.4.5"
+    "mocha": "^2.5.3"
   }
 }

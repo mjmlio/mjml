@@ -1,6 +1,7 @@
 {
   "name": "mjml",
-  "version": "2.0.3",
+  "description": "MJML: the only framework that makes responsive-email easy",
+  "version": "2.3.0",
   "main": "lib/index.js",
   "bin": {
     "mjml": "bin/mjml"
@@ -13,25 +14,30 @@
   "bugs": {
     "url": "https://github.com/mjmlio/mjml/issues"
   },
-  "homepage": "https://github.com/mjmlio/mjml",
+  "homepage": "https://mjml.io",
   "dependencies": {
-    "mjml-button": "^2.0.1",
-    "mjml-cli": "^2.0.3",
-    "mjml-column": "^2.0.1",
-    "mjml-container": "^2.0.1",
-    "mjml-core": "^2.0.1",
-    "mjml-divider": "^2.0.2",
-    "mjml-html": "^2.0.1",
-    "mjml-image": "^2.0.1",
-    "mjml-invoice-item": "^2.0.1",
-    "mjml-invoice": "^2.0.2",
-    "mjml-list": "^2.0.1",
-    "mjml-location": "^2.0.1",
-    "mjml-raw": "^2.0.1",
-    "mjml-section": "^2.0.1",
-    "mjml-social": "^2.0.1",
-    "mjml-spacer": "^2.0.0",
-    "mjml-table": "^2.0.1",
-    "mjml-text": "^2.0.1"
+    "mjml-button": "^2.0.7",
+    "mjml-cli": "^2.3.0",
+    "mjml-column": "^2.0.7",
+    "mjml-container": "^2.0.7",
+    "mjml-core": "^2.3.0",
+    "mjml-divider": "^2.0.8",
+    "mjml-group": "^2.0.1",
+    "mjml-head-attributes": "^2.0.5",
+    "mjml-head-font": "^2.0.0",
+    "mjml-head-title": "^2.0.0",
+    "mjml-hero": "^2.0.7",
+    "mjml-html": "^2.0.7",
+    "mjml-image": "^2.0.7",
+    "mjml-invoice": "^2.0.9",
+    "mjml-list": "^2.0.7",
+    "mjml-location": "^2.0.7",
+    "mjml-navbar": "^2.0.5",
+    "mjml-raw": "^2.0.7",
+    "mjml-section": "^2.0.7",
+    "mjml-social": "^2.0.7",
+    "mjml-spacer": "^2.0.6",
+    "mjml-table": "^2.0.7",
+    "mjml-text": "^2.0.7"
   }
 }

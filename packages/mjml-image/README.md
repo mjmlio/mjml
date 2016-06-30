@@ -1,5 +1,8 @@
 ## mjml-image
 
+Displays a responsive image in your email. It is similar to the HTML `<img />` tag.
+Note that if no width is provided, the image will use the parent column width.
+
 ```xml
 <mjml>
   <mj-body>
@@ -14,11 +17,10 @@
 </mjml>
 ```
 
-Displays a responsive image in your email. It is similar to the HTML `<img />` tag.
-Note that if no width is provided, the image will use the parent column width.
-
 <p align="center">
-  <a href="/try-it-live/image"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>
+  <a href="https://mjml.io/try-it-live/component/image">
+    <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
+  </a>
 </p>
 
 
@@ -31,9 +33,11 @@ padding-left                  | px            | left offset                    |
 padding-right                 | px            | right offset                   | n/a
 container-background-color    | color         | inner element background color | n/a
 border                        | string        | css border definition          | none
+border-radius                 | px            | border radius                  | n/a
 width                         | px            | image width                    | 100%
 height                        | px            | image height                   | auto
 src                           | url           | image source                   | n/a
 href                          | url           | link to redirect to on click   | n/a
 alt                           | string        | image description              | n/a
 align                         | position      | image alignment                | center
+title                         | string        | tooltip & accessibility        | n/a

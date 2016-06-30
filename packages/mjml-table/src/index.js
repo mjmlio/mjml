@@ -43,6 +43,8 @@ class Table extends Component {
 
     return {
       table: {
+        cellpadding: mjAttribute('cellspadding'),
+        cellspacing: mjAttribute('cellspacing'),
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
         fontSize: defaultUnit(mjAttribute('font-size')),

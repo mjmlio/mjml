@@ -1,0 +1,15 @@
+{
+  "name": "mjml-head-title",
+  "description": "mjml-head-title",
+  "version": "2.0.0",
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mjmlio/mjml.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mjmlio/mjml/issues"
+  },
+  "homepage": "https://mjml.io"
+}

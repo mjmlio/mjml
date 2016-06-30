@@ -12,6 +12,7 @@ const defaultMJMLDefinition = {
     'align': 'center',
     'alt': '',
     'border': 'none',
+    'border-radius': '',
     'container-background-color': null,
     'height': 'auto',
     'href': '',
@@ -22,6 +23,7 @@ const defaultMJMLDefinition = {
     'padding': '10px 25px',
     'src': '',
     'target': '_blank',
+    'title': '',
     'vertical-align': null
   }
 }
@@ -32,6 +34,7 @@ const baseStyles = {
   },
   img: {
     border: 'none',
+    borderRadius: '',
     display: 'block',
     outline: 'none',
     textDecoration: 'none',
@@ -71,7 +74,8 @@ class Image extends Component {
       },
       img: {
         border: mjAttribute('border'),
-        height: defaultUnit(mjAttribute('height'))
+        height: mjAttribute('height'),
+        borderRadius: defaultUnit(mjAttribute('border-radius'), "px")
       }
     })
   }
@@ -82,6 +86,7 @@ class Image extends Component {
     const img = (
       <img
         alt={mjAttribute('alt')}
+        title={mjAttribute('title')}
         border="0"
         height={defaultUnit(mjAttribute('height'))}
         src={mjAttribute('src')}

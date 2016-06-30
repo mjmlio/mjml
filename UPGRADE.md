@@ -105,7 +105,6 @@ const defaultMJMLDefinition = {
     'width': '100%'
   }
 }
-const columnElement = true
 const baseStyles = {
   p: {
     fontSize: '1px',
@@ -132,7 +131,6 @@ class Divider extends Component {
 
 Divider.tagName = tagName
 Divider.defaultMJMLDefinition = defaultMJMLDefinition
-Divider.columnElement = columnElement
 Divider.baseStyles = baseStyles
 Divider.postRender = postRender
 

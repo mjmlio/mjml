@@ -72,15 +72,17 @@ export const renderFile = (input, options) => {
       let output
 
       if (options.output) {
-        const outFile = path.join(path.dirname(options.output), path.basename(options.output, '.html'))
+        const extension = path.extname(options.output) || '.html'
+        const outFile = path.join(path.dirname(options.output), path.basename(options.output, extension))
 
         if (files.length > 1) {
-          output = `${outFile}-${index + 1}.html`
+          output = `${outFile}-${index + 1}${extension}`
         } else {
-          output = `${outFile}.html`
+          output = `${outFile}${extension}`
         }
       } else {
-        output = `${inFile}.html`
+        const extension = path.extname(inFile) || '.html'
+        output = `${inFile}${extension}`
       }
 
       const filePath = path.resolve(process.cwd(), file)
@@ -112,9 +114,9 @@ export const watch = (input, options) => {
 /*
  * Create a new component based on the default template
  */
-export const initComponent = (name, ending, columnElement) => {
+export const initComponent = (name, ending) => {
   mkdir(`./${name}`)
     .then(() => mkdir(`./${name}/src`))
-    .then(() => write(`./${name}/src/index.js`, createComponent(upperFirst(camelCase(name)), ending, columnElement)))
+    .then(() => write(`./${name}/src/index.js`, createComponent(upperFirst(camelCase(name)), ending)))
     .then(() => console.log(`Component created: ${name}`)) // eslint-disable-line no-console
 }

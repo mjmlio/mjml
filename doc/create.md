@@ -8,7 +8,7 @@ Let's create a simple `Title` component.
 
 ```
 
-$> mjml --register title
+$> mjml --init-component title
 
 ```
 run the following in your terminal. It will create a `Title.js` file in the current working directory.
@@ -66,21 +66,19 @@ Title.defaultMJMLDefinition = {
   }
 }
 Title.endingTag = true
-Title.columnElement = true
 Title.baseStyles = {
   div: {
     color: "blue"
   }
 }
-Title.postRender = ($) =>Â {
+Title.postRender = ($) => {
   $('.title').removeAttr('data-title-color');
   return $
 }
 ```
 
-- tagName: modify the tag name of your component, here it will be <title>
+- tagName: modify the tag name of your component, here it will be `<title>`
 - endingTag: set to false if your component can include some other MJML component (example: mj-body/mj-section/mj-column are not ending tags, and mj-text/mj-image are both ending tags)`
-- columnElement: if your component is included in a `mj-column` then it should be set to true. It will wrap everything in a `td` that supports `padding` for example
 
 ## Default and readonly attributes
 
@@ -102,13 +100,13 @@ It can contain any CSS property or component property, but please make sure it w
 In some case, you'll need to modify the rendered html, like replace some placeholder for outlook by conditional tag then you can define a postRender static function that take jQuery/[Cheerio](https://github.com/cheeriojs/cheerio) with the rendered document.
 
 ``` javascript
-Title.postRender = ($) =>Â {
-  $('.title').prepend(`<!--[if mso]>
-      <table border="0" cellpadding="0" cellspacing="0" width="600" align="center" style="width:600}px;"><tr><td>
-      <![endif]-->`);
-  $('.title').append(`<!--[if mso]>
-      </td></tr></table>
-      <![endif]-->`);
+Title.postRender = $ => {
+  $('.title').prepend(`<!--[if mso | IE]>
+    <table border="0" cellpadding="0" cellspacing="0" width="600" align="center" style="width:600}px;"><tr><td>
+    <![endif]-->`)
+  $('.title').append(`<!--[if mso | IE]>
+    </td></tr></table>
+    <![endif]-->`)
 
   return $
 }

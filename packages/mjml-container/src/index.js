@@ -15,24 +15,28 @@ const postRender = $ => {
   const containerWidth = $('.mj-container').data('width')
 
   $('.mj-container-outlook-open').each(function () {
-    $(this).replaceWith(`<!--[if mso]>
-      <table border="0" cellpadding="0" cellspacing="0" width="${containerWidth}" align="center" style="width:${containerWidth}px;"><tr><td>
-      <![endif]-->`)
+    $(this).replaceWith(`${helpers.startConditionalTag}
+      <table border="0" cellpadding="0" cellspacing="0" width="${containerWidth}" align="center" style="width:${containerWidth}px;">
+        <tr>
+          <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+      ${helpers.endConditionalTag}`)
   })
 
   $('.mj-container-outlook-line').each(function () {
-    $(this).replaceWith(`<!--[if mso]>
+    $(this).replaceWith(`${helpers.startConditionalTag}
       </td></tr></table>
-      <![endif]-->
-      <!--[if mso]>
-      <table border="0" cellpadding="0" cellspacing="0" width="${containerWidth}" align="center" style="width:${containerWidth}px;"><tr><td>
-      <![endif]-->`)
+      ${helpers.endConditionalTag}
+      ${helpers.startConditionalTag}
+      <table border="0" cellpadding="0" cellspacing="0" width="${containerWidth}" align="center" style="width:${containerWidth}px;">
+        <tr>
+          <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+      ${helpers.endConditionalTag}`)
   })
 
   $('.mj-container-outlook-close').each(function () {
-    $(this).replaceWith(`<!--[if mso]>
+    $(this).replaceWith(`${helpers.startConditionalTag}
       </td></tr></table>
-      <![endif]-->`)
+      ${helpers.endConditionalTag}`)
   })
 
   $('body')
@@ -71,18 +75,17 @@ class Container extends Component {
   styles = this.getStyles()
 
   getStyles () {
-    const { mjAttribute, defaultUnit } = this.props
+    const { mjAttribute } = this.props
 
     return {
       div: {
-        backgroundColor: mjAttribute('background-color'),
-        fontSize: defaultUnit(mjAttribute('font-size'))
+        backgroundColor: mjAttribute('background-color')
       }
     }
   }
 
   render () {
-    const { renderWrappedOutlookChildren, defaultUnit, mjAttribute, children } = this.props
+    const { defaultUnit, mjAttribute, children } = this.props
     const { width } = helpers.widthParser(defaultUnit(mjAttribute('width')))
 
     return (
@@ -91,7 +94,7 @@ class Container extends Component {
         data-background-color={mjAttribute('background-color')}
         data-width={width}
         style={this.styles.div}>
-        {renderWrappedOutlookChildren(children)}
+        {children}
       </div>
     )
   }

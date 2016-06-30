@@ -1,5 +1,7 @@
 ## mjml-table
 
+This tag allows you to display table and filled it with data.
+
 ```xml
 <mjml>
   <mj-body>
@@ -30,15 +32,17 @@
 </mjml>
 ```
 
-This tag allows you to display table and filled it with data.
-
 <p align="center">
-  <a href="/try-it-live/table"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>
+  <a href="https://mjml.io/try-it-live/component/table">
+    <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
+  </a>
 </p>
 
 attribute                   | unit                        | description                    | default value
 ----------------------------|-----------------------------|------------------------------- |--------------
 color                       | color                       | text header & footer color     | #000
+cellpadding                 | pixels                      | space between cells            | n/a
+cellspacing                 | pixels                      | space between cell and border  | n/a
 font-family                 | string                      | font name                      | Ubuntu, Helvetica, Arial, sans-serif
 font-size                   | px/em                       | font size                      | 13px
 line-height                 | percent/px                  | space between lines            | 22px

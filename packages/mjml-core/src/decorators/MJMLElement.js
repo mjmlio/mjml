@@ -4,6 +4,7 @@ import MJMLElementsCollection from '../MJMLElementsCollection'
 import React, { Component } from 'react'
 import ReactDOMServer from 'react-dom/server'
 import trim from 'lodash/trim'
+import merge from 'lodash/merge'
 import warning from 'warning'
 
 const getElementWidth = ({ element, siblings, parentWidth }) => {
@@ -35,6 +36,12 @@ let siblingCount = 1
 
 function createComponent (ComposedComponent) {
 
+  const baseStyles = {
+    td: {
+      wordBreak: 'break-word'
+    }
+  }
+
   class MJMLElement extends Component {
 
     constructor (props) {
@@ -45,7 +52,23 @@ function createComponent (ComposedComponent) {
 
     mjAttribute = name => this.mjml.getIn(['attributes', name])
 
-    mjName = () => this.constructor.tagName
+    getStyles () {
+      return merge({}, baseStyles, {
+        td: {
+          background: this.mjAttribute('container-background-color'),
+          fontSize: '0px',
+          padding: defaultUnit(this.mjAttribute('padding'), 'px'),
+          paddingTop: defaultUnit(this.mjAttribute('padding-top'), 'px'),
+          paddingBottom: defaultUnit(this.mjAttribute('padding-bottom'), 'px'),
+          paddingRight: defaultUnit(this.mjAttribute('padding-right'), 'px'),
+          paddingLeft: defaultUnit(this.mjAttribute('padding-left'), 'px')
+        }
+      })
+    }
+
+    mjName = () =>  {
+      return this.constructor.tagName
+    }
 
     mjContent = () => {
       const content = this.mjml.get('content')
@@ -73,6 +96,7 @@ function createComponent (ComposedComponent) {
     isInheritedAttributes = name => this.mjml.get('inheritedAttributes') && this.mjml.get('inheritedAttributes').includes(name)
 
     getWidth = () => this.mjAttribute('rawPxWidth') || this.mjAttribute('width')
+    getParentWidth = () => this.mjAttribute('parentWidth')
 
     renderWrappedOutlookChildren = children => {
       children = React.Children.toArray(children)
@@ -130,9 +154,9 @@ function createComponent (ComposedComponent) {
       return wrappedElements
     }
 
-    paddingParser = direction => {
-      const paddingDirection = this.mjAttribute(`padding-${direction}`)
-      const padding = this.mjAttribute('padding')
+    paddingParser = (direction, prefix = '') => {
+      const paddingDirection = this.mjAttribute(`${prefix}padding-${direction}`)
+      const padding = this.mjAttribute(`${prefix}padding`)
 
       if (typeof paddingDirection !== 'undefined') {
         return parseInt(paddingDirection)
@@ -170,7 +194,7 @@ function createComponent (ComposedComponent) {
       }
 
       return parentMjml.get('children').map((mjml, i) => {
-        const childMjml = mjml.setIn(['attributes', 'parentWidth'], this.mjAttribute('rawPxWidth'))
+        const childMjml = mjml.setIn(['attributes', 'parentWidth'], this.getWidth())
 
         const tag = childMjml.get('tagName')
         const Element = MJMLElementsCollection[tag]
@@ -199,7 +223,7 @@ function createComponent (ComposedComponent) {
       ]
 
       // assign sibling count for element and children
-      if (parentMjml && this.mjName() === 'mj-column') {
+      if (parentMjml) {
         siblingCount = parentMjml.get('children').size
       }
 
@@ -217,7 +241,7 @@ function createComponent (ComposedComponent) {
         // siblings count, can change display
         sibling: siblingCount,
 
-        parentWidth: this.getWidth(),
+        parentWidth: this.getParentWidth(),
         getPadding: this.paddingParser,
         defaultUnit,
 
@@ -230,43 +254,25 @@ function createComponent (ComposedComponent) {
       }
     }
 
-    isColumnElement = () => this.constructor.parentTag === 'mj-column'
+    render () {
+      if (this.props.columnElement) {
+        this.styles = this.getStyles()
 
-    renderColumnContainer () {
-      const styles = {
-        td: {
-          background: this.mjAttribute('container-background-color'),
-          fontSize: '1px',
-          padding: defaultUnit(this.mjAttribute('padding')),
-          paddingBottom: defaultUnit(this.mjAttribute('padding-bottom')),
-          paddingLeft: defaultUnit(this.mjAttribute('padding-left')),
-          paddingRight: defaultUnit(this.mjAttribute('padding-right')),
-          paddingTop: defaultUnit(this.mjAttribute('padding-top')),
-          textAlign: this.mjAttribute('align'),
-          verticalAlign: this.mjAttribute('vertical-align'),
-          wordBreak: 'break-word'
-        }
+        return (
+          <tr>
+            <td
+              data-legacy-align={this.mjAttribute('align')}
+              data-legacy-background={this.mjAttribute('container-background-color')}
+              style={this.styles.td}>
+              <ComposedComponent {...this.buildProps()} />
+            </td>
+          </tr>
+        )
       }
 
       return (
-        <tr>
-          <td
-            data-legacy-background={this.mjAttribute('container-background-color')}
-            style={styles.td}>
-            <ComposedComponent {...this.buildProps()} />
-          </td>
-        </tr>
-      )
-    }
-
-    renderDefaultContainer () {
-      return (
         <ComposedComponent {...this.buildProps()} />
       )
-    }
-
-    render () {
-      return this.isColumnElement() ? this.renderColumnContainer() : this.renderDefaultContainer()
     }
   }
 

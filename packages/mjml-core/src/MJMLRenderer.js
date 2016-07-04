@@ -13,7 +13,6 @@ import MJMLElementsCollection, { postRenders, registerMJElement } from './MJMLEl
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import warning from 'warning'
-import juice from 'juice'
 
 const debug = require('debug')('mjml-engine/mjml2html')
 

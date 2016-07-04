@@ -1,7 +1,7 @@
 {
   "name": "mjml",
   "description": "MJML: the only framework that makes responsive-email easy",
-  "version": "2.3.0",
+  "version": "2.2.0",
   "main": "lib/index.js",
   "bin": {
     "mjml": "bin/mjml"
@@ -25,6 +25,7 @@
     "mjml-group": "^2.0.1",
     "mjml-head-attributes": "^2.0.5",
     "mjml-head-font": "^2.0.0",
+    "mjml-head-style": "^2.0.0",
     "mjml-head-title": "^2.0.0",
     "mjml-hero": "^2.0.7",
     "mjml-html": "^2.0.7",

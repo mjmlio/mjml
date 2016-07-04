@@ -12,6 +12,7 @@ import MJMLElementsCollection, { postRenders, registerMJElement } from './MJMLEl
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import warning from 'warning'
+import juice from 'juice'
 
 const debug = require('debug')('mjml-engine/mjml2html')
 
@@ -24,6 +25,7 @@ export default class MJMLRenderer {
       container: defaultContainer(),
       defaultAttributes: {},
       cssClasses: {},
+      css: [],
       fonts: cloneDeep(defaultFonts)
     }
 
@@ -127,6 +129,12 @@ export default class MJMLRenderer {
     }
 
     finalMJMLDocument = he.decode(finalMJMLDocument)
+    finalMJMLDocument = juice(finalMJMLDocument, {
+      extraCss: `${this.attributes.css.join('')}`,
+      removeStyleTags: false,
+      applyStyleTags: false,
+      insertPreservedExtraCss: false
+    })
 
     return finalMJMLDocument
   }

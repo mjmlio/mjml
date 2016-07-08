@@ -14,6 +14,7 @@ import isBrowser from './helpers/isBrowser'
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import warning from 'warning'
+import xsd from 'libxml-xsd'
 
 const debug = require('debug')('mjml-engine/mjml2html')
 
@@ -76,7 +77,9 @@ export default class MJMLRenderer {
     debug('Start parsing document')
     this.schemaXsd = defaultXsd(schemaXsds.map(schemaXsd => schemaXsd(MJMLElementsCollection)).join(`\n`))
 
-    // console.log(this.schemaXsd)
+    const schema = xsd.parse(this.schemaXsd)
+    console.log(schema.validate(this.content)) // eslint-disable-line no-console
+
     this.content = documentParser(this.content, this.attributes)
     debug('Content parsed')
   }

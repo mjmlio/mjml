@@ -2,8 +2,13 @@ import { MJMLElement } from 'mjml-core'
 import React, { Component } from 'react'
 
 const tagName = 'mj-raw'
+const parentTag = ['mj-body', 'mj-container', 'mj-section', 'mj-column']
 const endingTag = true
 const rawElement = true
+const defaultMJMLDefinition = {
+  attributes: {
+  }
+}
 const postRender = $ => {
   $('.mj-raw').each(function () {
     $(this).replaceWith($(this).html())
@@ -39,8 +44,10 @@ class Raw extends Component {
 }
 
 Raw.tagName = tagName
+Raw.parentTag = parentTag
 Raw.endingTag = endingTag
 Raw.rawElement = rawElement
 Raw.postRender = postRender
+Raw.defaultMJMLDefinition = defaultMJMLDefinition
 
 export default Raw

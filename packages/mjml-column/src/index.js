@@ -3,10 +3,9 @@ import each from 'lodash/each'
 import merge from 'lodash/merge'
 import React, { Component } from 'react'
 import uniq from 'lodash/uniq'
-import include from 'lodash/include'
 
 const tagName = 'mj-column'
-const parentTag = ['mj-section']
+const parentTag = ['mj-section', 'mj-group']
 const defaultMJMLDefinition = {
   attributes: {
     'width': null,
@@ -49,26 +48,6 @@ const postRender = $ => {
   }
 
   return $
-}
-const schemaXsd = elements => {
-  const columnElements = Object.keys(elements).map(element => include(elements[element].parentTag, tagName) ? elements[element].tagName : null).filter(Boolean)
-
-  return `
-    <xs:complexType name="${tagName}-elements" mixed="true">
-      <xs:sequence>
-        ${columnElements.map(elem => `<xs:element name="${elem}" minOccurs="0" maxOccurs="unbounded"/>`)}
-      </xs:sequence>
-    </xs:complexType>
-
-    <xs:complexType name="${tagName}-attributes">
-      <xs:complexContent>
-        <xs:extension base="xs:string">
-          ${Object.keys(defaultMJMLDefinition.attributes).map(attribute => `<xs:attribute type="xs:string" name="${attribute}" />`).join(`\n`)}
-        </xs:extension>
-      </xs:simpleContent>
-    </xs:complexType>
-
-    <xs:element name="${tagName}" type="${tagName}-attributes" />`
 }
 
 @MJMLElement
@@ -163,10 +142,10 @@ class Column extends Component {
 
 }
 
+Column.defaultMJMLDefinition = defaultMJMLDefinition
 Column.tagName = tagName
 Column.parentTag = parentTag
 Column.baseStyles = baseStyles
 Column.postRender = postRender
-Column.schemaXsd = schemaXsd
 
 export default Column

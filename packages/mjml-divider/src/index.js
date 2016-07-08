@@ -3,8 +3,8 @@ import merge from 'lodash/merge'
 import React, { Component } from 'react'
 
 const tagName = 'mj-divider'
-const parentTag = ['mj-column']
-const closingTag = false
+const parentTag = ['mj-column', 'mj-hero-content']
+const selfClosingTag = true
 const defaultMJMLDefinition = {
   attributes: {
     'align': null,
@@ -39,11 +39,6 @@ const postRender = $ => {
 
   return $
 }
-const schemaXsd = () => (
-  `<xs:complexType name="${tagName}">
-    ${Object.keys(defaultMJMLDefinition.attributes).map(attribute => `<xs:attribute type="xs:string" name="${attribute}" />`).join(`\n`)}
-  </xs:complexType>`
-)
 
 @MJMLElement
 class Divider extends Component {
@@ -88,10 +83,9 @@ class Divider extends Component {
 
 Divider.tagName = tagName
 Divider.parentTag = parentTag
-Divider.closingTag = closingTag
+Divider.selfClosingTag = selfClosingTag
 Divider.defaultMJMLDefinition = defaultMJMLDefinition
 Divider.baseStyles = baseStyles
 Divider.postRender = postRender
-Divider.schemaXsd = schemaXsd
 
 export default Divider

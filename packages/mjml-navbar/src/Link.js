@@ -3,6 +3,7 @@ import merge from 'lodash/merge'
 import React, { Component } from 'react'
 
 const tagName = 'mj-link'
+const parentTag = ['mj-inline-links']
 const defaultMJMLDefinition = {
   attributes: {
     'padding': '15px 10px',
@@ -85,5 +86,6 @@ Link.defaultMJMLDefinition = defaultMJMLDefinition
 Link.baseStyles = baseStyles
 Link.endingTag = endingTag
 Link.postRender = postRender
+Link.parentTag = parentTag
 
 export default Link

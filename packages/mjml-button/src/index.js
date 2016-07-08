@@ -3,7 +3,7 @@ import merge from 'lodash/merge'
 import React, { Component } from 'react'
 
 const tagName = 'mj-button'
-const parentTag = ['mj-column']
+const parentTag = ['mj-column', 'mj-hero-content']
 const endingTag = true
 const defaultMJMLDefinition = {
   content: '',
@@ -33,24 +33,6 @@ const baseStyles = {
     textDecoration: 'none'
   }
 }
-const schemaXsd = () => (
-  `
-  <xs:complexType name="${tagName}-elements" mixed="true">
-    <xs:sequence>
-      <xs:any processContents="skip" minOccurs="0" maxOccurs="unbounded"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="${tagName}-attributes">
-    <xs:complexContent>
-      <xs:extension base="xs:string">
-        ${Object.keys(defaultMJMLDefinition.attributes).map(attribute => `<xs:attribute type="xs:string" name="${attribute}" />`).join(`\n`)}
-      </xs:extension>
-    </xs:simpleContent>
-  </xs:complexType>
-
-  <xs:element name="${tagName}" type="${tagName}-attributes" />`
-)
 
 @MJMLElement
 class Button extends Component {
@@ -136,6 +118,5 @@ Button.parentTag = parentTag
 Button.endingTag = endingTag
 Button.defaultMJMLDefinition = defaultMJMLDefinition
 Button.baseStyles = baseStyles
-Button.schemaXsd = schemaXsd
 
 export default Button

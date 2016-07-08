@@ -2,8 +2,8 @@ import { MJMLElement } from 'mjml-core'
 import React, { Component } from 'react'
 
 const tagName = 'mj-spacer'
-const parentTag = ['mj-column']
-const closingTag = false
+const parentTag = ['mj-column', 'mj-hero-content']
+const selfClosingTag = true
 const defaultMJMLDefinition = {
   attributes: {
     'align': null,
@@ -16,11 +16,6 @@ const defaultMJMLDefinition = {
     'vertical-align': null
   }
 }
-const schemaXsd = () => (
-  `<xs:complexType name="${tagName}">
-    ${Object.keys(defaultMJMLDefinition.attributes).map(attribute => `<xs:attribute type="xs:string" name="${attribute}" />`).join(`\n`)}
-  </xs:complexType>`
-)
 
 @MJMLElement
 class Spacer extends Component {
@@ -50,8 +45,7 @@ class Spacer extends Component {
 
 Spacer.tagName = tagName
 Spacer.parentTag = parentTag
-Spacer.closingTag = closingTag
+Spacer.selfClosingTag = selfClosingTag
 Spacer.defaultMJMLDefinition = defaultMJMLDefinition
-Spacer.schemaXsd = schemaXsd
 
 export default Spacer

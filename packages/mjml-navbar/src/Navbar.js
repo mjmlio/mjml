@@ -3,6 +3,7 @@ import MJMLSection from 'mjml-section'
 import React, { Component } from 'react'
 
 const tagName = 'mj-navbar'
+const parentTag = ['mj-container']
 const defaultMJMLDefinition = {
   attributes: {
     'navbar-hamburger': '',
@@ -28,5 +29,6 @@ class Navbar extends Component {
 
 Navbar.tagName = tagName
 Navbar.defaultMJMLDefinition = defaultMJMLDefinition
+Navbar.parentTag = parentTag
 
 export default Navbar

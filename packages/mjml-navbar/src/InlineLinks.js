@@ -5,6 +5,7 @@ import React, { Component } from 'react'
 import crypto from 'crypto'
 
 const tagName = 'mj-inline-links'
+const parentTag = ['mj-column']
 const defaultMJMLDefinition = {
   attributes: {
     'align': 'center',
@@ -182,5 +183,6 @@ InlineLinks.tagName = tagName
 InlineLinks.defaultMJMLDefinition = defaultMJMLDefinition
 InlineLinks.baseStyles = baseStyles
 InlineLinks.postRender = postRender
+InlineLinks.parentTag = parentTag
 
 export default InlineLinks

@@ -1,22 +1,21 @@
 import warning from 'warning'
+import defaultXsd from './helpers/xsd'
 
-export const closingTags = []
 export const endingTags = []
 export const postRenders = []
 export const schemaXsds = []
 
 export const registerMJElement = Component => {
-  const { closingTag, endingTag, postRender, tagName, schemaXsd } = Component
+  const { endingTag, postRender, tagName, schemaXsd } = Component
 
   if (!tagName) {
     return warning(false, 'Component has no tagName')
   }
 
-  closingTag === false && closingTags.push(tagName)
   endingTag  === true  && endingTags.push(tagName)
 
   postRender && postRenders.push(postRender)
-  schemaXsd  && schemaXsds.push(schemaXsd)
+  schemaXsds.push(schemaXsd || defaultXsd(Component))
 
   MJMLElementsCollection[tagName] = Component
 }

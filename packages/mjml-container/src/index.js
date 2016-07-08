@@ -2,10 +2,11 @@ import { MJMLElement, helpers, elements } from 'mjml-core'
 import React, { Component } from 'react'
 
 const tagName = 'mj-container'
-const parentTag = 'mj-body'
+const parentTag = ['mj-body']
 const defaultMJMLDefinition = {
   attributes: {
-    'width': '600px'
+    'width': '600px',
+    'background-color': null
   },
   inheritedAttributes: [
     'width'
@@ -59,15 +60,6 @@ const postRender = $ => {
 
   return $
 }
-const schemaXsd = elements => {
-  const containerElements = Object.keys(elements).map(element => elements[element].parentTag === tagName ? elements[element].tagName : null).filter(Boolean)
-
-  return `<xs:complexType name="${tagName}">
-    <xs:choice maxOccurs="unbounded" minOccurs="1">
-      ${(containerElements.map(element => `<xs:element name="${element}" type="${element}" minOccurs="0" maxOccurs="unbounded" />`).join(`\n`))}
-    </xs:choice>
-  </xs:complexType>`
-}
 
 @MJMLElement
 class Container extends Component {
@@ -105,7 +97,6 @@ Container.tagName = tagName
 Container.parentTag = parentTag
 Container.defaultMJMLDefinition = defaultMJMLDefinition
 Container.postRender = postRender
-Container.schemaXsd = schemaXsd
 
 // Support V1.X MJML mj-body
 elements['mj-body'] = Container

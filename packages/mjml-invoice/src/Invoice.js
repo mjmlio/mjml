@@ -6,6 +6,7 @@ import numeral from 'numeral'
 import React, { Component } from 'react'
 
 const tagName = 'mj-invoice'
+const parentTag = ['mj-column']
 const defaultMJMLDefinition = {
   attributes: {
     'border': '1px solid #ecedee',
@@ -154,6 +155,7 @@ class Invoice extends Component {
 }
 
 Invoice.tagName = tagName
+Invoice.parentTag = parentTag
 Invoice.defaultMJMLDefinition = defaultMJMLDefinition
 Invoice.baseStyles = baseStyles
 Invoice.intl = intl

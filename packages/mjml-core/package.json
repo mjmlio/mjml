@@ -17,7 +17,6 @@
   "homepage": "https://mjml.io",
   "browser": {
     "cheerio": false,
-    "fs": false,
     "html-minifier": false
   },
   "dependencies": {
@@ -25,10 +24,12 @@
     "classnames": "^2.2.5",
     "debug": "^2.2.0",
     "he": "^1.1.0",
+    "hoist-non-react-statics": "^1.2.0",
     "html-minifier": "^2.1.5",
     "immutable": "^3.8.1",
     "jquery": "^3.0.0",
     "js-beautify": "^1.6.3",
+    "libxml-xsd": "^0.5.2",
     "lodash": "^4.13.1",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",

@@ -1,6 +1,5 @@
 import { MJMLElement, helpers } from 'mjml-core'
 import cloneDeep from 'lodash/cloneDeep'
-import include from "lodash/include"
 import merge from 'lodash/merge'
 import React, { Component } from 'react'
 
@@ -79,25 +78,6 @@ const postRender = $ => {
   })
 
   return $
-}
-const schemaXsd = elements => {
-  const sectionElements = Object.keys(elements).map(element => include(elements[element].parentTag, tagName) ? elements[element].tagName : null).filter(Boolean)
-
-  return `<xs:complexType name="${tagName}-elements" mixed="true">
-      <xs:sequence>
-        ${sectionElements.map(elem => `<xs:element name="${elem}" minOccurs="0" maxOccurs="unbounded"/>`)}
-      </xs:sequence>
-    </xs:complexType>
-
-    <xs:complexType name="${tagName}-attributes">
-      <xs:complexContent>
-        <xs:extension base="xs:string">
-          ${Object.keys(defaultMJMLDefinition.attributes).map(attribute => `<xs:attribute type="xs:string" name="${attribute}" />`).join(`\n`)}
-        </xs:extension>
-      </xs:simpleContent>
-    </xs:complexType>
-
-    <xs:element name="${tagName}" type="${tagName}-attributes" />`
 }
 
 @MJMLElement
@@ -201,6 +181,5 @@ Section.parentTag = parentTag
 Section.defaultMJMLDefinition = defaultMJMLDefinition
 Section.baseStyles = baseStyles
 Section.postRender = postRender
-Section.schemaXsd = schemaXsd
 
 export default Section

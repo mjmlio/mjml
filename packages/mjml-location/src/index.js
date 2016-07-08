@@ -4,8 +4,9 @@ import MJMLText from 'mjml-text'
 import React, { Component } from 'react'
 
 const tagName = 'mj-location'
-const parentTag = ['mj-column']
+const parentTag = ['mj-column', 'mj-hero-content']
 const endingTag = true
+const selfClosingTag = true
 const defaultMJMLDefinition = {
   attributes: {
     'align': null,
@@ -23,13 +24,6 @@ const defaultMJMLDefinition = {
     'vertical-align': null
   }
 }
-const schemaXsd = () => (
-  `<xs:complexType name="${tagName}">
-    ${Object.keys(defaultMJMLDefinition.attributes).map(attribute => `<xs:attribute type="xs:string" name="${attribute}" />`).join(`\n`)}
-  </xs:complexType>
-
-  <xs:element name="${tagName}" type="${tagName}" />`
-)
 
 @MJMLElement
 class Location extends Component {
@@ -102,6 +96,6 @@ Location.tagName = tagName
 Location.parentTag = parentTag
 Location.endingTag = endingTag
 Location.defaultMJMLDefinition = defaultMJMLDefinition
-Location.schemaXsd = schemaXsd
+Location.selfClosingTag = selfClosingTag
 
 export default Location

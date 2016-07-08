@@ -6,6 +6,7 @@ import ReactDOMServer from 'react-dom/server'
 import trim from 'lodash/trim'
 import merge from 'lodash/merge'
 import warning from 'warning'
+import hoistNonReactStatic from 'hoist-non-react-statics';
 
 const getElementWidth = ({ element, siblings, parentWidth }) => {
   const { mjml } = element.props
@@ -276,8 +277,7 @@ function createComponent (ComposedComponent) {
     }
   }
 
-  return MJMLElement
-
+  return hoistNonReactStatic(MJMLElement, ComposedComponent)
 }
 
 export default createComponent

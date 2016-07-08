@@ -5,8 +5,8 @@ import clone from 'lodash/clone'
 import React, { Component } from 'react'
 
 const tagName = 'mj-social'
-const parentTag = ['mj-column']
-const closingTag = false
+const parentTag = ['mj-column', 'mj-hero-content']
+const selfClosingTag = true
 const defaultMJMLDefinition = {
   attributes: {
     'align': 'center',
@@ -124,11 +124,6 @@ const postRender = $ => {
 
   return $
 }
-const schemaXsd = () => (
-  `<xs:complexType name="${tagName}">
-    ${Object.keys(defaultMJMLDefinition.attributes).map(attribute => `<xs:attribute type="xs:string" name="${attribute}" />`).join(`\n`)}
-  </xs:complexType>`
-)
 
 @MJMLElement
 class Social extends Component {
@@ -309,11 +304,10 @@ class Social extends Component {
 
 Social.tagName = tagName
 Social.parentTag = parentTag
-Social.closingTag = closingTag
+Social.selfClosingTag = selfClosingTag
 Social.defaultMJMLDefinition = defaultMJMLDefinition
 Social.baseStyles = baseStyles
 Social.buttonDefinitions = buttonDefinitions
 Social.postRender = postRender
-Social.schemaXsd = schemaXsd
 
 export default Social

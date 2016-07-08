@@ -2,7 +2,7 @@ import { MJMLElement } from 'mjml-core'
 import React, { Component } from 'react'
 
 const tagName = 'mj-table'
-const parentTag = ['mj-column']
+const parentTag = ['mj-column', 'mj-hero-content']
 const endingTag = true
 const defaultMJMLDefinition = {
   content: '',
@@ -23,15 +23,6 @@ const defaultMJMLDefinition = {
     'width': '100%'
   }
 }
-const schemaXsd = () => (
-  `<xs:complexType name="${tagName}">
-    <xs:complexContent>
-      <xs:extension base="xs:any">
-        ${Object.keys(defaultMJMLDefinition.attributes).map(attribute => `<xs:attribute type="xs:string" name="${attribute}" />`).join(`\n`)}
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>`
-)
 
 @MJMLElement
 class Table extends Component {
@@ -74,6 +65,5 @@ Table.tagName = tagName
 Table.parentTag = parentTag
 Table.endingTag = endingTag
 Table.defaultMJMLDefinition = defaultMJMLDefinition
-Table.schemaXsd = schemaXsd
 
 export default Table

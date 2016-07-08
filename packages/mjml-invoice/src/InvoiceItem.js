@@ -3,7 +3,7 @@ import merge from 'lodash/merge'
 import React, { Component } from 'react'
 
 const tagName = 'mj-invoice-item'
-const parentTag = 'mj-invoice'
+const parentTag = ['mj-invoice']
 const endingTag = true
 const defaultMJMLDefinition = {
   attributes: {

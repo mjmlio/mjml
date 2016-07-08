@@ -54,8 +54,4 @@ const { Navbar, InlineLinks, Link } = MJNavbar;
   MJHeadFont,
   MJHeadTitle ].map( headElement => registerMJHeadElement(headElement.name, headElement.handler))
 
-registerMJHeadElement('mj-attributes', MJHeadAttributes)
-registerMJHeadElement('mj-font', MJHeadFont)
-registerMJHeadElement('mj-title', MJHeadTitle)
-
 export * from 'mjml-core'

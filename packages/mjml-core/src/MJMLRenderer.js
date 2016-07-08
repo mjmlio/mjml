@@ -75,6 +75,8 @@ export default class MJMLRenderer {
 
     debug('Start parsing document')
     this.schemaXsd = defaultXsd(schemaXsds.map(schemaXsd => schemaXsd(MJMLElementsCollection)).join(`\n`))
+
+    // console.log(this.schemaXsd)
     this.content = documentParser(this.content, this.attributes)
     debug('Content parsed')
   }

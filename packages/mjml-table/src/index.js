@@ -2,7 +2,7 @@ import { MJMLElement } from 'mjml-core'
 import React, { Component } from 'react'
 
 const tagName = 'mj-table'
-const parentTag = 'mj-column'
+const parentTag = ['mj-column']
 const endingTag = true
 const defaultMJMLDefinition = {
   content: '',

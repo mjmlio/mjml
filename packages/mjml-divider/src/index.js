@@ -3,7 +3,7 @@ import merge from 'lodash/merge'
 import React, { Component } from 'react'
 
 const tagName = 'mj-divider'
-const parentTag = 'mj-column'
+const parentTag = ['mj-column']
 const closingTag = false
 const defaultMJMLDefinition = {
   attributes: {

@@ -4,7 +4,7 @@ import min from 'lodash/min'
 import React, { Component } from 'react'
 
 const tagName = 'mj-image'
-const parentTag = 'mj-column'
+const parentTag = ['mj-column']
 const endingTag = true
 const closingTag = false
 const defaultMJMLDefinition = {
@@ -44,7 +44,10 @@ const baseStyles = {
 const schemaXsd = () => (
   `<xs:complexType name="${tagName}">
     ${Object.keys(defaultMJMLDefinition.attributes).map(attribute => `<xs:attribute type="xs:string" name="${attribute}" />`).join(`\n`)}
-  </xs:complexType>`
+  </xs:complexType>
+
+  <xs:element name="${tagName}" type="${tagName}" />`
+
 )
 
 @MJMLElement
@@ -87,7 +90,6 @@ class Image extends Component {
       <img
         alt={mjAttribute('alt')}
         title={mjAttribute('title')}
-        border="0"
         height={defaultUnit(mjAttribute('height'))}
         src={mjAttribute('src')}
         style={this.styles.img}

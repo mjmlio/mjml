@@ -3,9 +3,18 @@ import each from 'lodash/each'
 import merge from 'lodash/merge'
 import React, { Component } from 'react'
 import uniq from 'lodash/uniq'
+import include from 'lodash/include'
 
 const tagName = 'mj-column'
-const parentTag = 'mj-section'
+const parentTag = ['mj-section']
+const defaultMJMLDefinition = {
+  attributes: {
+    'width': null,
+    'background': null,
+    'background-color': null,
+    'vertical-align': null
+  }
+}
 const baseStyles = {
   div: {
     verticalAlign: 'top'
@@ -42,13 +51,24 @@ const postRender = $ => {
   return $
 }
 const schemaXsd = elements => {
-  const columnElements = Object.keys(elements).map(element => elements[element].parentTag === tagName ? elements[element].tagName : null).filter(Boolean)
+  const columnElements = Object.keys(elements).map(element => include(elements[element].parentTag, tagName) ? elements[element].tagName : null).filter(Boolean)
 
-  return `<xs:complexType name="${tagName}">
-    <xs:choice maxOccurs="unbounded" minOccurs="1">
-      ${(columnElements.map(element => `<xs:element name="${element}" type="${element}" minOccurs="0" maxOccurs="unbounded" />`).join(`\n`))}
-    </xs:choice>
-  </xs:complexType>`
+  return `
+    <xs:complexType name="${tagName}-elements" mixed="true">
+      <xs:sequence>
+        ${columnElements.map(elem => `<xs:element name="${elem}" minOccurs="0" maxOccurs="unbounded"/>`)}
+      </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="${tagName}-attributes">
+      <xs:complexContent>
+        <xs:extension base="xs:string">
+          ${Object.keys(defaultMJMLDefinition.attributes).map(attribute => `<xs:attribute type="xs:string" name="${attribute}" />`).join(`\n`)}
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:element name="${tagName}" type="${tagName}-attributes" />`
 }
 
 @MJMLElement

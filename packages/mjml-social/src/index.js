@@ -5,7 +5,7 @@ import clone from 'lodash/clone'
 import React, { Component } from 'react'
 
 const tagName = 'mj-social'
-const parentTag = 'mj-column'
+const parentTag = ['mj-column']
 const closingTag = false
 const defaultMJMLDefinition = {
   attributes: {

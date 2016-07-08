@@ -4,7 +4,7 @@ import MJMLText from 'mjml-text'
 import React, { Component } from 'react'
 
 const tagName = 'mj-location'
-const parentTag = 'mj-column'
+const parentTag = ['mj-column']
 const endingTag = true
 const defaultMJMLDefinition = {
   attributes: {
@@ -26,7 +26,9 @@ const defaultMJMLDefinition = {
 const schemaXsd = () => (
   `<xs:complexType name="${tagName}">
     ${Object.keys(defaultMJMLDefinition.attributes).map(attribute => `<xs:attribute type="xs:string" name="${attribute}" />`).join(`\n`)}
-  </xs:complexType>`
+  </xs:complexType>
+
+  <xs:element name="${tagName}" type="${tagName}" />`
 )
 
 @MJMLElement

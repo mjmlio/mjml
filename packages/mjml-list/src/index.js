@@ -32,6 +32,9 @@ const baseStyles = {
 const schemaXsd = () => (
   `<xs:complexType name="${tagName}">
     <xs:simpleContent>
+      <xs:sequence>
+        <xs:element name="li" type="li" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>
       <xs:extension base="xs:string">
         ${Object.keys(defaultMJMLDefinition.attributes).map(attribute => `<xs:attribute type="xs:string" name="${attribute}" />`).join(`\n`)}
       </xs:extension>

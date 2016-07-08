@@ -2,7 +2,7 @@ import { MJMLElement } from 'mjml-core'
 import React, { Component } from 'react'
 
 const tagName = 'mj-spacer'
-const parentTag = 'mj-column'
+const parentTag = ['mj-column']
 const closingTag = false
 const defaultMJMLDefinition = {
   attributes: {

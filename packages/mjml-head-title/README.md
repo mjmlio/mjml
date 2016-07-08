@@ -1,4 +1,4 @@
-## mjml-head-title
+## mjml-title
 
 This tag allows you to set the title of an MJML document
 
@@ -11,7 +11,7 @@ This tag allows you to set the title of an MJML document
      <mj-container>
        <mj-section>
          <mj-column>
-           <mj-text mj-class="blue big">
+           <mj-text>
              Hello World!
            </mj-text>
          </mj-column>

@@ -17,6 +17,7 @@
   "homepage": "https://mjml.io",
   "browser": {
     "cheerio": false,
+    "fs": false,
     "html-minifier": false
   },
   "dependencies": {
@@ -34,10 +35,6 @@
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
     "warning": "^3.0.0"
-  },
-  "browser": {
-    "cheerio": false,
-    "html-minifier": false
   },
   "devDependencies": {
     "chai": "^3.5.0",

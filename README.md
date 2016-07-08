@@ -1,6 +1,7 @@
 <p align="center">
   <a href="http://mjml.io" target="_blank">
     <img width="250"src="https://cloud.githubusercontent.com/assets/6558790/12672296/7b66d8cc-c675-11e5-805d-c6d196320537.png">
+    
   </a>
 </p>
 
@@ -12,6 +13,7 @@
     <img src="https://api.codacy.com/project/badge/grade/575339cb861f4ff4b0dbb3f9e1759c35"/>
   </a>
 </p>
+
 
 <p align="center">
   | <b><a href="#introduction">Introduction</a></b>
@@ -31,6 +33,7 @@ MJML is a markup language designed to reduce the pain of coding a responsive ema
     <img width="75%" src="https://cloud.githubusercontent.com/assets/6558790/12450760/ee034178-bf85-11e5-9dda-98d0c8f9f8d6.png">
   </a>
 </p>
+
 
 # Installation
 
@@ -63,19 +66,20 @@ npm install -g mjml
 
 ### Command line
 
-> Compile the file and output the result in `a.html`
+> Compiles the file and outputs the result in `a.html`
 
 ```bash
 $> mjml -r input.mjml
 ```
 
-> Redirect the result to a file
+
+> Redirects the result to a file
 
 ```bash
 $> mjml -r input.mjml -o output.html
 ```
 
-> Watch a file and compile every time the file changes
+> Watches a file and compiles every time the file changes
 
 ```bash
 $> mjml -w input.mjml -o output.html
@@ -125,6 +129,7 @@ $> mjml --init-component <name of you component> -e
 
 ```
 
+
 It will create a basic component template in a `.js` file. Follow the instructions provided in the file
 and read more about custom components in the documentation
 
@@ -165,6 +170,7 @@ Get your hands dirty by trying the MJML online editor! Write awesome code on the
     <td><a href="https://github.com/swibge">Matthieu</a></td>
   </tr>
 </table>
+
 
 # Contribute
 

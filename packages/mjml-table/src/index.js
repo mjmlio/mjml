@@ -8,6 +8,8 @@ const defaultMJMLDefinition = {
   content: '',
   attributes: {
     'align': 'left',
+    'cellpadding': '0',
+    'cellspacing': '0',
     'color': '#000',
     'container-background-color': null,
     'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
@@ -50,8 +52,8 @@ class Table extends Component {
 
     return (
       <table
-        cellPadding="0"
-        cellSpacing="0"
+        cellPadding={mjAttribute('cellpadding')}
+        cellSpacing={mjAttribute('cellspacing')}
         dangerouslySetInnerHTML={{__html: mjContent() }}
         data-legacy-border="0"
         style={this.styles.table}

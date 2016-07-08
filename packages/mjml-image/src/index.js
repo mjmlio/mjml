@@ -76,13 +76,14 @@ class Image extends Component {
   }
 
   renderImage () {
-    const { mjAttribute, defaultUnit } = this.props
+    const { mjAttribute } = this.props
 
     const img = (
       <img
         alt={mjAttribute('alt')}
         title={mjAttribute('title')}
-        height={defaultUnit(mjAttribute('height'))}
+        border="0"
+        height={mjAttribute('height')}
         src={mjAttribute('src')}
         style={this.styles.img}
         width={this.getContentWidth()} />

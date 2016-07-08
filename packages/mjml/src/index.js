@@ -48,7 +48,11 @@ const { Navbar, InlineLinks, Link } = MJNavbar;
   Social,
   Spacer,
   Table,
-  Text ].map(registerMJElement)
+  Text ].map(registerMJElement);
+
+[ MJHeadAttributes,
+  MJHeadFont,
+  MJHeadTitle ].map( headElement => registerMJHeadElement(headElement.name, headElement.handler))
 
 registerMJHeadElement('mj-attributes', MJHeadAttributes)
 registerMJHeadElement('mj-font', MJHeadFont)

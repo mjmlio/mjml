@@ -155,9 +155,9 @@ class Invoice extends Component {
 }
 
 Invoice.tagName = tagName
-Invoice.parentTag = parentTag
 Invoice.defaultMJMLDefinition = defaultMJMLDefinition
 Invoice.baseStyles = baseStyles
 Invoice.intl = intl
+Invoice.parentTag = parentTag
 
 export default Invoice

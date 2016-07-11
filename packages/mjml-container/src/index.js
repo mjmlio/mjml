@@ -77,8 +77,8 @@ class Container extends Component {
   }
 
   render () {
-    const { defaultUnit, mjAttribute, children } = this.props
-    const { width } = helpers.widthParser(defaultUnit(mjAttribute('width')))
+    const { renderWrappedOutlookChildren, mjAttribute, children } = this.props
+    const { width } = helpers.widthParser(mjAttribute('width'))
 
     return (
       <div
@@ -86,7 +86,7 @@ class Container extends Component {
         data-background-color={mjAttribute('background-color')}
         data-width={width}
         style={this.styles.div}>
-        {children}
+        {renderWrappedOutlookChildren(children)}
       </div>
     )
   }

@@ -1,4 +1,4 @@
-import { MJMLRenderer } from 'mjml-core'
+import { MJMLRenderer, version } from 'mjml-core'
 import camelCase from 'lodash/camelCase'
 import createComponent from './createComponent'
 import fs from 'fs'
@@ -10,7 +10,7 @@ import upperFirst from 'lodash/upperFirst'
  * The version number is the NPM
  * version number. It should be the same as the MJML engine
  */
-export const version = () => require('../package.json').version
+export { version }
 
 /*
  * Turns a callback style to a Promise style one

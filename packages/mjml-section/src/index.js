@@ -7,9 +7,18 @@ const tagName = 'mj-section'
 const parentTag = ['mj-container']
 const defaultMJMLDefinition = {
   attributes: {
-    'background-repeat': 'repeat',
-    'padding': '20px 0px',
-    'background-size': 'auto'
+    "background-color": null,
+    "background-url": null,
+    "background-repeat": "repeat",
+    "background-size": "auto",
+    "full-width": null,
+    "padding": "20px 0",
+    "padding-top": null,
+    "padding-bottom": null,
+    "padding-left": null,
+    "padding-right": null,
+    "text-align": "center",
+    "vertical-align": "top"
   }
 }
 const baseStyles = {

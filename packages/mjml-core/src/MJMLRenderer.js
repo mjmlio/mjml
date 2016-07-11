@@ -3,18 +3,16 @@ import { fixLegacyAttrs, removeCDATA } from './helpers/postRender'
 import { parseInstance } from './helpers/mjml'
 import cloneDeep from 'lodash/cloneDeep'
 import defaultContainer from './configs/defaultContainer'
-import defaultXsd from './configs/defaultXsd'
 import defaultFonts from './configs/listFontsImports'
 import he from 'he'
 import importFonts from './helpers/importFonts'
 import includeExternal from './includeExternal'
 import isEmpty from 'lodash/isEmpty'
-import MJMLElementsCollection, { schemaXsds, postRenders, registerMJElement } from './MJMLElementsCollection'
+import MJMLElementsCollection, { postRenders, registerMJElement } from './MJMLElementsCollection'
 import isBrowser from './helpers/isBrowser'
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import warning from 'warning'
-import xsd from 'libxml-xsd'
 
 const debug = require('debug')('mjml-engine/mjml2html')
 
@@ -75,11 +73,6 @@ export default class MJMLRenderer {
     const documentParser = require('./parsers/document').default
 
     debug('Start parsing document')
-    this.schemaXsd = defaultXsd(schemaXsds.map(schemaXsd => schemaXsd(MJMLElementsCollection)).join(`\n`))
-
-    const schema = xsd.parse(this.schemaXsd)
-    console.log(schema.validate(this.content)) // eslint-disable-line no-console
-
     this.content = documentParser(this.content, this.attributes)
     debug('Content parsed')
   }

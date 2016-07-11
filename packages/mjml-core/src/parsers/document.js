@@ -3,9 +3,11 @@ import compact from 'lodash/compact'
 import dom from '../helpers/dom'
 import each from 'lodash/each'
 import filter from 'lodash/filter'
-import MJMLElements, { endingTags } from '../MJMLElementsCollection'
+import MJMLElements, { endingTags, schemaXsds } from '../MJMLElementsCollection'
 import MJMLHeadElements from '../MJMLHead'
 import warning from 'warning'
+import defaultXsd from '../configs/defaultXsd'
+import libXsd from 'libxml-xsd'
 
 const regexTag = tag => new RegExp(`<${tag}([^>]*)>([^]*?)</${tag}>`, 'gmi')
 
@@ -74,6 +76,13 @@ const parseHead = (head, attributes) => {
   attributes.container = dom.getHTML($container)
 }
 
+const validateDocument = (content) => {
+  const schemaXsd = defaultXsd(schemaXsds.map(schemaXsd => schemaXsd(MJMLElements)).join(`\n`))
+
+  const schema = libXsd.parse(schemaXsd)
+  console.log(schema.validate(content)) // eslint-disable-line no-console
+}
+
 /**
  * Import an html document containing some mjml
  * returns JSON
@@ -84,8 +93,12 @@ const documentParser = (content, attributes) => {
   let root
   let head
 
+  const safeContent = safeEndingTags(content)
+
+  validateDocument(safeContent)
+
   try {
-    const $ = dom.parseXML(safeEndingTags(content))
+    const $ = dom.parseXML(safeContent)
     root = $('mjml > mj-body')
     head = $('mjml > mj-head')
 

@@ -27,10 +27,11 @@ export default class MJMLRenderer {
       fonts: cloneDeep(defaultFonts)
     }
 
-    this.content = includeExternal(content)
+    this.content = content
     this.options = options
 
     if (typeof this.content === 'string') {
+      this.content = includeExternal(this.content)
       this.parseDocument()
     }
   }

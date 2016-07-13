@@ -1,4 +1,3 @@
-
 import fs from 'fs'
 
 const includes = /<mj-include\s+path=['"](.*\.mjml)['"]\s*(\/>|>\s*<\/mj-include>)/g

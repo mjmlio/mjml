@@ -96,6 +96,7 @@ function createComponent (ComposedComponent) {
     isInheritedAttributes = name => this.mjml.get('inheritedAttributes') && this.mjml.get('inheritedAttributes').includes(name)
 
     getWidth = () => this.mjAttribute('rawPxWidth') || this.mjAttribute('width')
+    getParentWidth = () => this.mjAttribute('parentWidth')
 
     renderWrappedOutlookChildren = children => {
       children = React.Children.toArray(children)
@@ -193,7 +194,7 @@ function createComponent (ComposedComponent) {
       }
 
       return parentMjml.get('children').map((mjml, i) => {
-        const childMjml = mjml.setIn(['attributes', 'parentWidth'], this.mjAttribute('rawPxWidth'))
+        const childMjml = mjml.setIn(['attributes', 'parentWidth'], this.getWidth())
 
         const tag = childMjml.get('tagName')
         const Element = MJMLElementsCollection[tag]
@@ -222,7 +223,7 @@ function createComponent (ComposedComponent) {
       ]
 
       // assign sibling count for element and children
-      if (parentMjml && this.mjName() === 'mj-column') {
+      if (parentMjml) {
         siblingCount = parentMjml.get('children').size
       }
 
@@ -240,7 +241,7 @@ function createComponent (ComposedComponent) {
         // siblings count, can change display
         sibling: siblingCount,
 
-        parentWidth: this.getWidth(),
+        parentWidth: this.getParentWidth(),
         getPadding: this.paddingParser,
         defaultUnit,
 
@@ -254,7 +255,7 @@ function createComponent (ComposedComponent) {
     }
 
     render () {
-      if (this.constructor.columnElement) {
+      if (this.props.columnElement && this.constructor.tagName != 'mj-raw') {
         this.styles = this.getStyles()
 
         return (

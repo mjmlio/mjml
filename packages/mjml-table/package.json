@@ -1,7 +1,7 @@
 {
   "name": "mjml-table",
   "description": "mjml-table",
-  "version": "2.0.3",
+  "version": "2.0.7",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -13,7 +13,7 @@
   },
   "homepage": "https://mjml.io",
   "dependencies": {
-    "mjml-core": "^2.1.1",
+    "mjml-core": "^2.3.0",
     "react": "^15.1.0"
   }
 }

@@ -1,5 +1,8 @@
 ## mjml-section
 
+Sections are intended to be used as rows within your email.
+They will be used to structure the layout.
+
 ```xml
 <mjml>
   <mj-body>
@@ -11,9 +14,6 @@
   </mj-body>
 </mjml>
 ```
-
-Sections are intended to be used as rows within your email.
-They will be used to structure the layout.
 
 <p align="center">
   <a href="https://mjml.io/try-it-live/component/section">

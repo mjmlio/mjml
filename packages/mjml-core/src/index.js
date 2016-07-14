@@ -2,13 +2,11 @@ import warning from 'warning'
 
 import MJMLRenderer from './MJMLRenderer'
 import elements, { registerMJElement } from './MJMLElementsCollection'
-import mjCssClasses, { setMjCssClasses } from './mjCssClasses'
-import mjDefaultAttributes, { setMjDefaultAttributes } from './mjDefaultAttributes'
 import MJMLHeadElements, { registerMJHeadElement } from './MJMLHead'
 import * as helpers from './helpers'
 
 export MJMLElement from './decorators/MJMLElement'
-export { MJMLRenderer, registerMJElement, elements, helpers, mjCssClasses, mjDefaultAttributes, registerMJHeadElement, MJMLHeadElements, setMjDefaultAttributes, setMjCssClasses }
+export { MJMLRenderer, registerMJElement, elements, helpers, registerMJHeadElement, MJMLHeadElements }
 export const documentParser = content => {
   const documentParser = require('./parsers/document').default
 

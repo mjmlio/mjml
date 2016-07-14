@@ -1,32 +1,5 @@
-import { MJMLElement } from 'mjml-core'
-import MJMLSection from 'mjml-section'
-import React, { Component } from 'react'
+import Navbar from './Navbar'
+import InlineLinks from './InlineLinks'
+import Link from './Link'
 
-const tagName = 'mj-navbar'
-const defaultMJMLDefinition = {
-  attributes: {
-    'navbar-hamburger': '',
-    'padding': '10px 25px',
-    'width': '100%'
-  }
-}
-
-@MJMLElement
-class Navbar extends Component {
-
-  render () {
-    const { children } = this.props
-
-    return (
-      <MJMLSection full-width="full-width" {...this.props}>
-        {children}
-      </MJMLSection>
-    )
-  }
-
-}
-
-Navbar.tagName = tagName
-Navbar.defaultMJMLDefinition = defaultMJMLDefinition
-
-export default Navbar
+export default { Navbar, InlineLinks, Link }

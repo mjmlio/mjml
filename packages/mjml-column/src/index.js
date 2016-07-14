@@ -55,7 +55,7 @@ class Column extends Component {
         verticalAlign: mjAttribute('vertical-align'),
         fontSize: '13px',
         textAlign: 'left',
-        width: '100%'
+        width: this.getMobileWidth()
       },
       table: {
         verticalAlign: mjAttribute('vertical-align'),
@@ -84,6 +84,27 @@ class Column extends Component {
     }
   }
 
+  getMobileWidth () {
+    const { mjAttribute, sibling, parentWidth, mobileWidth } = this.props
+    const width = mjAttribute('width')
+
+    if (mobileWidth != "mobileWidth" ) {
+      return '100%'
+    } else if (width == undefined) {
+      return `${parseInt(100 / sibling)}%`
+    }
+
+    const { width: parsedWidth, unit } = helpers.widthParser(width)
+
+    switch (unit) {
+      case '%':
+        return width
+      case 'px':
+      default:
+        return `${parsedWidth / parentWidth}%`
+    }
+  }
+
   render () {
     const { mjAttribute, children, sibling } = this.props
     const width = mjAttribute('width') || (100 / sibling)
@@ -104,7 +125,7 @@ class Column extends Component {
           style={this.styles.table}
           width="100%">
           <tbody>
-            {children}
+            {children.map(child => React.cloneElement(child, { columnElement: true }))}
           </tbody>
         </table>
       </div>

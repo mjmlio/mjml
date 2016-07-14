@@ -6,6 +6,8 @@ const defaultMJMLDefinition = {
   content: '',
   attributes: {
     'align': 'left',
+    'cellpadding': '0',
+    'cellspacing': '0',
     'color': '#000',
     'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
     'font-size': '13px',
@@ -16,7 +18,6 @@ const defaultMJMLDefinition = {
   }
 }
 const endingTag = true
-const columnElement = true
 
 @MJMLElement
 class Table extends Component {
@@ -42,8 +43,8 @@ class Table extends Component {
 
     return (
       <table
-        cellPadding="0"
-        cellSpacing="0"
+        cellPadding={mjAttribute('cellpadding')}
+        cellSpacing={mjAttribute('cellspacing')}
         dangerouslySetInnerHTML={{__html: mjContent() }}
         data-legacy-border="0"
         style={this.styles.table}
@@ -56,6 +57,5 @@ class Table extends Component {
 Table.tagName = tagName
 Table.defaultMJMLDefinition = defaultMJMLDefinition
 Table.endingTag = endingTag
-Table.columnElement = columnElement
 
 export default Table

@@ -1,5 +1,7 @@
 ## mjml-hero
 
+Display a section with a background image and some content inside (mj-text, mj-button, mj-image ...) wrapped in mj-hero-content component
+
 Fixed height  
 
 <p align="center">
@@ -40,6 +42,12 @@ Fixed height
 </mjml>
  ```
 
+ <p align="center">
+   <a href="https://mjml.io/try-it-live/component/hero">
+     <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
+   </a>
+ </p>
+
 Fluid height
 
 <p align="center">
@@ -79,10 +87,8 @@ Fluid height
 </mjml>
 ```
 
-Display a section with a background image and some content inside (mj-text, mj-button, mj-image ...) wrapped in mj-hero-content component
-
 <p align="center">
-  <a href="https://mjml.io/try-it-live/component/hero">
+  <a href="https://mjml.io/try-it-live/component/hero/1">
     <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
   </a>
 </p>
@@ -118,3 +124,22 @@ padding-top         | px                                  | top offset          
 padding-right       | px                                  | right offset                                                         | 0px
 padding-left        | px                                  | left offset                                                          | 0px
 padding-bottom      | px                                  | bottom offset                                                        | 0px
+
+### mjml-hero-content
+
+Display some content in an `mj-hero` component
+
+<aside class="notice">
+Use only one mj-hero-content component inside a mj-hero component
+</aside>
+
+attribute        | unit              | description                                    | default value
+-----------------|-------------------|------------------------------------------------|------------------------------
+width            | px/percent        | content width                                  | 100%
+align            | left/center/right | horizontal alignment                           | center
+background-color | color             | content background color                       | transparent
+padding          | px                | supports up to 4 parameters                    | 0px
+padding-top      | px                | top offset                                     | 0px
+padding-right    | px                | right offset                                   | 0px
+padding-left     | px                | left offset                                    | 0px
+padding-bottom   | px                | bottom offset                                  | 0px

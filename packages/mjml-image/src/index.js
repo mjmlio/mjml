@@ -11,6 +11,7 @@ const defaultMJMLDefinition = {
     'align': 'center',
     'alt': '',
     'border': 'none',
+    'border-radius': '',
     'href': '',
     'src': '',
     'target': '_blank',
@@ -18,7 +19,6 @@ const defaultMJMLDefinition = {
   }
 }
 const endingTag = true
-const columnElement = true
 const baseStyles = {
   table: {
     borderCollapse: 'collapse',
@@ -26,6 +26,7 @@ const baseStyles = {
   },
   img: {
     border: 'none',
+    borderRadius: '',
     display: 'block',
     outline: 'none',
     textDecoration: 'none',
@@ -52,7 +53,7 @@ class Image extends Component {
   }
 
   getStyles () {
-    const { mjAttribute } = this.props
+    const { mjAttribute, defaultUnit } = this.props
 
     return merge({}, baseStyles, {
       td: {
@@ -60,7 +61,8 @@ class Image extends Component {
       },
       img: {
         border: mjAttribute('border'),
-        height: mjAttribute('height')
+        height: mjAttribute('height'),
+        borderRadius: defaultUnit(mjAttribute('border-radius'), "px")
       }
     })
   }
@@ -118,7 +120,6 @@ class Image extends Component {
 Image.tagName = tagName
 Image.defaultMJMLDefinition = defaultMJMLDefinition
 Image.endingTag = endingTag
-Image.columnElement = columnElement
 Image.baseStyles = baseStyles
 
 export default Image

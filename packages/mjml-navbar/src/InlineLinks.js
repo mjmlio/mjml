@@ -47,7 +47,6 @@ const baseStyles = {
     msoHide: 'all'
   }
 }
-const columnElement = true
 const postRender = $ => {
   $('.mj-inline-links')
     .each(function () {
@@ -182,7 +181,6 @@ class InlineLinks extends Component {
 InlineLinks.tagName = tagName
 InlineLinks.defaultMJMLDefinition = defaultMJMLDefinition
 InlineLinks.baseStyles = baseStyles
-InlineLinks.columnElement = columnElement
 InlineLinks.postRender = postRender
 
 export default InlineLinks

@@ -1,31 +1,37 @@
 import { registerMJElement, registerMJHeadElement } from 'mjml-core'
+
 import Button from 'mjml-button'
 import Column from 'mjml-column'
 import Container from 'mjml-container'
 import Divider from 'mjml-divider'
-import Hero from 'mjml-hero'
-import HeroContent from 'mjml-hero-content'
+import Group from 'mjml-group'
 import Html from 'mjml-html'
 import Image from 'mjml-image'
-import InlineLinks from 'mjml-inline-links'
-import Invoice from 'mjml-invoice'
-import InvoiceItem from 'mjml-invoice-item'
-import Link from 'mjml-link'
 import List from 'mjml-list'
 import Location from 'mjml-location'
-import Navbar from 'mjml-navbar'
+import MJHero from 'mjml-hero'
+import MJInvoice from 'mjml-invoice'
+import MJNavbar from 'mjml-navbar'
 import Raw from 'mjml-raw'
 import Section from 'mjml-section'
 import Social from 'mjml-social'
 import Spacer from 'mjml-spacer'
 import Table from 'mjml-table'
 import Text from 'mjml-text'
-import MJMLHeadAttributes from 'mjml-head-attributes'
+
+import MJHeadAttributes from 'mjml-head-attributes'
+import MJHeadFont from 'mjml-head-font'
+import MJHeadTitle from 'mjml-head-title'
+
+const { Hero, HeroContent } = MJHero
+const { Invoice, InvoiceItem } = MJInvoice
+const { Navbar, InlineLinks, Link } = MJNavbar;
 
 [ Button,
   Column,
   Container,
   Divider,
+  Group,
   Hero,
   HeroContent,
   Html,
@@ -42,8 +48,10 @@ import MJMLHeadAttributes from 'mjml-head-attributes'
   Social,
   Spacer,
   Table,
-  Text ].map(registerMJElement)
+  Text ].map(registerMJElement);
 
-registerMJHeadElement('mj-attributes', MJMLHeadAttributes)
+[ MJHeadAttributes,
+  MJHeadFont,
+  MJHeadTitle ].map( headElement => registerMJHeadElement(headElement.name, headElement.handler))
 
 export * from 'mjml-core'

@@ -74,7 +74,6 @@ class Image extends Component {
       <img
         alt={mjAttribute('alt')}
         title={mjAttribute('title')}
-        border="0"
         height={mjAttribute('height')}
         src={mjAttribute('src')}
         style={this.styles.img}

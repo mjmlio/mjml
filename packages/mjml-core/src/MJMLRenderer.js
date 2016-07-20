@@ -8,6 +8,7 @@ import he from 'he'
 import importFonts from './helpers/importFonts'
 import includeExternal from './includeExternal'
 import isEmpty from 'lodash/isEmpty'
+import juice from 'juice'
 import MJMLElementsCollection, { postRenders, registerMJElement } from './MJMLElementsCollection'
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
@@ -24,6 +25,7 @@ export default class MJMLRenderer {
       container: defaultContainer(),
       defaultAttributes: {},
       cssClasses: {},
+      css: [],
       fonts: cloneDeep(defaultFonts)
     }
 
@@ -128,6 +130,12 @@ export default class MJMLRenderer {
     }
 
     finalMJMLDocument = he.decode(finalMJMLDocument)
+    finalMJMLDocument = juice(finalMJMLDocument, {
+      extraCss: `${this.attributes.css.join('')}`,
+      removeStyleTags: false,
+      applyStyleTags: false,
+      insertPreservedExtraCss: false
+    })
 
     return finalMJMLDocument
   }

@@ -1,6 +1,64 @@
 import elements from '../MJMLElementsCollection'
 import includes from 'lodash/includes'
 
+class XsdError {
+  constructor (errors) {
+    this.errors = errors
+  }
+
+  defaultError ({line, column, code, message}) {
+    return this.formatLine(line, column, `Uknown MJML error, please open an issue on github.com/mjmlio/mjml with code: ${code} and message: ${message}`)
+  }
+
+  formatLine (line, column, message) {
+    return { line, column, message }
+  }
+
+  format (error) {
+    const cleanedErrorMessage = error.message.replace(/'/gmi, '"')
+    const errorFormater = XsdError.CODES[error.code]
+
+    if (!errorFormater) {
+      return this.defaultError(error)
+    }
+
+    const { regexp, message } = errorFormater
+    const matching = []
+    let matched
+
+    do {
+      matched = regexp.exec(cleanedErrorMessage)
+
+      if (matched) {
+        matching.push(matched[1].trim())
+      }
+    } while (matched)
+
+    if (matching.length < 1) {
+      return this.defaultError(error)
+    }
+
+    return this.formatLine(error.line, error.column, matching.reduce((finalMessage, value, index) => finalMessage.replace(`$${index}`, value), message))
+  }
+
+  getErrors () {
+    return this.errors.map((error) => this.format(error))
+  }
+}
+
+XsdError.CODES = {
+  "1866": {
+    regexp: /"(.*?)"/gmi,
+    message: `$0 : has no attribute "$1"`
+  },
+  "1871": {
+    regexp: /[\(|"](.*?)["|\)]/gmi,
+    message: `$0 is not allowed here, only $1 are accepted`
+  }
+}
+
+export { XsdError }
+
 const endingTagXsd = (Component) => {
 
   return `${Component.selfClosingTag ? '' : `

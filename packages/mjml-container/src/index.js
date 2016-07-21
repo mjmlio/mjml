@@ -1,4 +1,4 @@
-import { MJMLElement, helpers, elements } from 'mjml-core'
+import { MJMLElement, helpers } from 'mjml-core'
 import React, { Component } from 'react'
 
 const tagName = 'mj-container'
@@ -97,8 +97,5 @@ Container.tagName = tagName
 Container.parentTag = parentTag
 Container.defaultMJMLDefinition = defaultMJMLDefinition
 Container.postRender = postRender
-
-// Support V1.X MJML mj-body
-elements['mj-body'] = Container
 
 export default Container

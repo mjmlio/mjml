@@ -7,6 +7,7 @@ import MJMLElements, { endingTags, schemaXsds } from '../MJMLElementsCollection'
 import MJMLHeadElements from '../MJMLHead'
 import warning from 'warning'
 import defaultXsd from '../configs/defaultXsd'
+import { XsdError } from '../helpers/xsd'
 import libXsd from 'libxml-xsd'
 
 const regexTag = tag => new RegExp(`<${tag}([^>]*)>([^]*?)</${tag}>`, 'gmi')
@@ -80,7 +81,11 @@ const validateDocument = (content) => {
   const schemaXsd = defaultXsd(schemaXsds.map(schemaXsd => schemaXsd(MJMLElements)).join(`\n`))
 
   const schema = libXsd.parse(schemaXsd)
-  console.log(schema.validate(content)) // eslint-disable-line no-console
+  const errors = schema.validate(content)
+
+  if (errors.length > 0) {
+    throw new XsdError(errors)
+  }
 }
 
 /**
@@ -90,22 +95,17 @@ const validateDocument = (content) => {
  *   - mjml: a json representation of the mjml
  */
 const documentParser = (content, attributes) => {
-  let root
-  let head
-
   const safeContent = safeEndingTags(content)
 
-  validateDocument(safeContent)
+  let root
+  let head
 
   try {
     const $ = dom.parseXML(safeContent)
     root = $('mjml > mj-body')
     head = $('mjml > mj-head')
 
-    if (root.length < 1) {
-      root = $('mj-body').get(0)
-      warning(false, 'Please upgrade your MJML markup to add a <mjml> root tag, <mj-body> as root will no longer be supported soon, see https://github.com/mjmlio/mjml/blob/master/UPGRADE.md')
-    } else {
+    if (root.length > 0) {
       root = root.children().get(0)
     }
   } catch (e) {
@@ -115,6 +115,8 @@ const documentParser = (content, attributes) => {
   if (!root || root.length < 1) {
     throw new EmptyMJMLError('No root "<mjml>" or "<mj-body>" found in the file')
   }
+
+  validateDocument(safeContent)
 
   if (head && head.length === 1) {
     parseHead(head.get(0), attributes)

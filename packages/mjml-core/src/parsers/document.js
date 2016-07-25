@@ -83,7 +83,7 @@ const validateDocument = (content) => {
   const schema = libXsd.parse(schemaXsd)
   const errors = schema.validate(content)
 
-  if (errors.length > 0) {
+  if (errors && errors.length > 0) {
     throw new XsdError(errors)
   }
 }

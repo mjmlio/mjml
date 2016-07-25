@@ -47,13 +47,17 @@ class XsdError {
 }
 
 XsdError.CODES = {
+  "1843": {
+    regexp: /"(.*?)"/gmi,
+    message: `Plain text content inside "$0" isn't allowed`
+  },
   "1866": {
     regexp: /"(.*?)"/gmi,
-    message: `$0 : has no attribute "$1"`
+    message: `Tag "$0" has no attribute "$1"`
   },
   "1871": {
     regexp: /[\(|"](.*?)["|\)]/gmi,
-    message: `$0 is not allowed here, only $1 are accepted`
+    message: `Tag "$0" is not allowed here, only "$1" are accepted`
   }
 }
 
@@ -85,7 +89,7 @@ const defaultXsd = (Component) => {
   const allowedElements = Object.keys(elements).map(element => includes(elements[element].parentTag, Component.tagName) ? elements[element].tagName : null).filter(Boolean)
 
   return `
-    <xs:complexType name="${Component.tagName}-elements" mixed="true">
+    <xs:complexType name="${Component.tagName}-elements">
       <xs:sequence>
         ${allowedElements.map(elem => `<xs:element name="${elem}" type="${elem}" minOccurs="0" maxOccurs="unbounded"/>`).join(`\n`)}
       </xs:sequence>

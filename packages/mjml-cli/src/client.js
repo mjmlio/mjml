@@ -58,7 +58,14 @@ const render = (bufferPromise, { min, output, stdout }) => {
   bufferPromise
     .then(mjml => new MJMLRenderer(mjml.toString(), { minify: min }).render())
     .then(result => stdout ? process.stdout.write(result) : write(output, result))
-    .catch(error)
+    .catch(e => {
+      // XSD validation error ?
+      if (e.getErrors) {
+        return error(e.getErrors().map( v => `Line ${v.line}: ${v.message}` ).join('\n'))
+      }
+
+      return error(e)
+    })
 }
 
 /*

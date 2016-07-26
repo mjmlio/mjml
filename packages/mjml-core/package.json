@@ -1,7 +1,7 @@
 {
   "name": "mjml-core",
   "description": "mjml-core",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "main": "lib/index.js",
   "scripts": {
     "test": "mocha --compilers js:babel-register"
@@ -25,13 +25,13 @@
     "classnames": "^2.2.5",
     "debug": "^2.2.0",
     "he": "^1.1.0",
-    "html-minifier": "^2.1.5",
+    "html-minifier": "^3.0.1",
     "immutable": "^3.8.1",
-    "jquery": "^3.0.0",
+    "jquery": "^3.1.0",
     "js-beautify": "^1.6.3",
     "lodash": "^4.13.1",
-    "react": "^15.1.0",
-    "react-dom": "^15.1.0",
+    "react": "^15.2.1",
+    "react-dom": "^15.2.1",
     "warning": "^3.0.0"
   },
   "devDependencies": {

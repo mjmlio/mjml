@@ -44,6 +44,10 @@ class XsdError {
   getErrors () {
     return this.errors.map((error) => this.format(error))
   }
+
+  getMessages () {
+    return this.getErrors().map( v => `Line ${v.line}: ${v.message}` ).join('\n')
+  }
 }
 
 XsdError.CODES = {

@@ -97,22 +97,24 @@ const validateDocument = (content) => {
 const documentParser = (content, attributes) => {
   const safeContent = safeEndingTags(content)
 
-  let root
+  // let root
+  let body
   let head
 
   try {
     const $ = dom.parseXML(safeContent)
-    root = $('mjml > mj-body')
+    body = $('mjml > mj-body')
+    // root = $('mjml')
     head = $('mjml > mj-head')
 
-    if (root.length > 0) {
-      root = root.children().get(0)
+    if (body.length > 0) {
+      body = body.children().get(0)
     }
   } catch (e) {
     throw new ParseError('Error while parsing the file')
   }
 
-  if (!root || root.length < 1) {
+  if (!body || body.length < 1) {
     throw new EmptyMJMLError('No root "<mjml>" or "<mj-body>" found in the file')
   }
 
@@ -122,7 +124,7 @@ const documentParser = (content, attributes) => {
     parseHead(head.get(0), attributes)
   }
 
-  return mjmlElementParser(root)
+  return mjmlElementParser(body)
 }
 
 export default documentParser

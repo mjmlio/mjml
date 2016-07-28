@@ -26,6 +26,15 @@ const promisify = fn =>
  */
 const error = e => console.log(e.stack || e) // eslint-disable-line no-console
 
+const isDirectory = (file) => {
+  try {
+    const outputPath = path.resolve(process.cwd(), file)
+    return fs.statSync(outputPath).isDirectory()
+  } catch (e) {
+    return false
+  }
+}
+
 /*
  * Stdin to string buffer
  */
@@ -54,14 +63,14 @@ const readStdin = promisify(stdinToBuffer)
 /*
  * Render an input promise
  */
-const render = (bufferPromise, { min, output, stdout }) => {
+const render = (bufferPromise, { min, output, stdout, fileName }) => {
   bufferPromise
     .then(mjml => new MJMLRenderer(mjml.toString(), { minify: min }).render())
     .then(result => stdout ? process.stdout.write(result) : write(output, result))
     .catch(e => {
       // XSD validation error ?
       if (e.getErrors) {
-        return error(e.getErrors().map( v => `Line ${v.line}: ${v.message}` ).join('\n'))
+        return error(`${fileName ? `File: ${fileName} \n` : ``}${e.getMessages()}`)
       }
 
       return error(e)
@@ -73,28 +82,33 @@ const render = (bufferPromise, { min, output, stdout }) => {
  * min: boolean that specify the output format (pretty/minified)
  */
 export const renderFile = (input, options) => {
+  const outputIsDirectory = !!options.output && isDirectory(options.output)
+
   const renderFiles = files => {
     files.forEach((file, index) => {
       const inFile = path.basename(file, '.mjml')
+      const inputExtension = path.extname(inFile)
       let output
 
       if (options.output) {
-        const extension = path.extname(options.output) || '.html'
-        const outFile = path.join(path.dirname(options.output), path.basename(options.output, extension))
+        const outputExtension = path.extname(options.output) || '.html'
+        const outFile = path.join(path.dirname(options.output), path.basename(options.output, outputExtension))
+        const multipleFiles = files.length > 1
 
-        if (files.length > 1) {
-          output = `${outFile}-${index + 1}${extension}`
+        if (multipleFiles && outputIsDirectory) {
+          output = `${options.output}/${inFile}${outputExtension}`
+        } else if (multipleFiles) {
+          output = `${outFile}-${index + 1}${outputExtension}`
         } else {
-          output = `${outFile}${extension}`
+          output = `${outFile}${outputExtension}`
         }
       } else {
-        const extension = path.extname(inFile) || '.html'
-        output = `${inFile}${extension}`
+        output = `${inFile}${inputExtension}`
       }
 
       const filePath = path.resolve(process.cwd(), file)
 
-      render(read(filePath), { min: options.min, stdout: options.stdout, output })
+      render(read(filePath), { min: options.min, stdout: options.stdout, output, fileName: file })
     })
   }
 

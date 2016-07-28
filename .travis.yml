@@ -1,15 +1,19 @@
 sudo: false
+env:
+  - CXX=g++-4.8
+language: node_js
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - gcc-4.8
+      - g++-4.8
 language: node_js
 node_js:
  - 4
  - 5
  - 6
-before_install:
-  - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
-  - sudo apt-get -qq update
-  - sudo apt-get -qq install g++-4.8
-env:
-  - CXX=g++-4.8
 script:
  - npm run lint
  - cd packages/mjml-core

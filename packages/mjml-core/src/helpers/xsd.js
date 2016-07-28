@@ -49,11 +49,16 @@ class XsdError {
     return this.getErrors().map( v => `Line ${v.line}: ${v.message}` ).join('\n')
   }
 }
+XsdError.SKIP_CODES = [ "1824" ]
 
 XsdError.CODES = {
   "1843": {
     regexp: /"(.*?)"/gmi,
     message: `Plain text content inside "$0" isn't allowed`
+  },
+  "1840": {
+    regexp: /[\{|"](.*?)["|\}]/gmi,
+    message: `Tag "$0" doesn't support "$3" value on "$1" attribute, only $4 are accepted`
   },
   "1866": {
     regexp: /"(.*?)"/gmi,

@@ -1,7 +1,7 @@
 var mjml = require('./lib/index')
 try {
 const azeaze = mjml.mjml2html(`
-<mjml>
+<mjml validate="zaea">
   <mj-head>
     <mj-title>Hello MJML</mj-title>
     <mj-font name="Raleway" href="https://fonts.googleapis.com/css?family=Raleway" />
@@ -36,5 +36,4 @@ const azeaze = mjml.mjml2html(`
   } else {
     throw e
   }
-
 }

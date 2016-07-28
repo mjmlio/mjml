@@ -77,14 +77,13 @@ const parseHead = (head, attributes) => {
   attributes.container = dom.getHTML($container)
 }
 
-const validateDocument = (content) => {
+const validateDocument = (content, root) => {
   const schemaXsd = defaultXsd(schemaXsds.map(schemaXsd => schemaXsd(MJMLElements)).join(`\n`))
-
+  const validationMode = root.attr('validate') || "strict"
   const schema = libXsd.parse(schemaXsd)
   const errors = schema.validate(content)
 
   if (errors && errors.length > 0) {
-    throw new XsdError(errors)
   }
 }
 
@@ -97,14 +96,12 @@ const validateDocument = (content) => {
 const documentParser = (content, attributes) => {
   const safeContent = safeEndingTags(content)
 
-  // let root
   let body
   let head
 
   try {
     const $ = dom.parseXML(safeContent)
     body = $('mjml > mj-body')
-    // root = $('mjml')
     head = $('mjml > mj-head')
 
     if (body.length > 0) {
@@ -118,7 +115,6 @@ const documentParser = (content, attributes) => {
     throw new EmptyMJMLError('No root "<mjml>" or "<mj-body>" found in the file')
   }
 
-  validateDocument(safeContent)
 
   if (head && head.length === 1) {
     parseHead(head.get(0), attributes)

@@ -84,6 +84,11 @@ const validateDocument = (content, root) => {
   const errors = schema.validate(content)
 
   if (errors && errors.length > 0) {
+    if (validationMode == "soft") {
+      console.err(new XsdError(errors).getMessages()) // eslint-disable-line no-console
+    } else {
+      throw new XsdError(errors)
+    }
   }
 }
 
@@ -96,12 +101,14 @@ const validateDocument = (content, root) => {
 const documentParser = (content, attributes) => {
   const safeContent = safeEndingTags(content)
 
+  let root
   let body
   let head
 
   try {
     const $ = dom.parseXML(safeContent)
     body = $('mjml > mj-body')
+    root = $('mjml')
     head = $('mjml > mj-head')
 
     if (body.length > 0) {
@@ -115,6 +122,9 @@ const documentParser = (content, attributes) => {
     throw new EmptyMJMLError('No root "<mjml>" or "<mj-body>" found in the file')
   }
 
+  if (root.attr('validate') != "skip") {
+    validateDocument(safeContent, root)
+  }
 
   if (head && head.length === 1) {
     parseHead(head.get(0), attributes)

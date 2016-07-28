@@ -27,7 +27,7 @@ describe('MJML Renderer', () => {
   describe('Invalid MJML', () => {
     it('should throw if no elements registered', () => {
       expect(() => new MJMLRenderer(`
-        <mjml>
+        <mjml validate="none">
           <mj-body>
             <mj-container>
               <mj-column />
@@ -41,7 +41,7 @@ describe('MJML Renderer', () => {
   describe('Partial MJML registered', () => {
     it('should warn user that document will not be entirely parsed', () => {
       expect(new MJMLRenderer(`
-        <mjml>
+        <mjml validate="none">
           <mj-body>
             <mj-mock-list>
               <mj-mock />
@@ -56,7 +56,7 @@ describe('MJML Renderer', () => {
     it('should render a MJML document', () => {
       registerMJElement(MockComponent)
       expect(new MJMLRenderer(`
-        <mjml>
+        <mjml validate="none">
           <mj-body>
             <mj-mock-list>
               <mj-mock />

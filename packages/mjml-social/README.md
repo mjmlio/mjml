@@ -84,6 +84,7 @@ color                       | color       | text color                          
 base-url                    | string      | icon base url                                                            | https://www.mailjet.com/images/theme/v1/icons/ico-social/
 display                     | string      | List of social icons to display separated by a space,                    | facebook twitter google
                             |             | available values: `facebook google instagram pinterest linkedin twitter` |
+inner-padding               | px          | social network surrounding padding                                       | 4px
 padding                     | px          | supports up to 4 parameters                                              | 10px 25px
 padding-top                 | px          | top offset                                                               | n/a
 padding-bottom              | px          | bottom offset                                                            | n/a

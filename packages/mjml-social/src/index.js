@@ -143,6 +143,9 @@ class Social extends Component {
         lineHeight: defaultUnit(mjAttribute('line-height'), 'px'),
         textDecoration: mjAttribute('text-decoration')
       },
+      td1: {
+        padding: defaultUnit(mjAttribute('inner-padding'))
+      },
       td2: {
         width: defaultUnit(mjAttribute('icon-size'), 'px'),
         height: defaultUnit(mjAttribute('icon-size'), 'px')

@@ -20,7 +20,7 @@ const safeEndingTags = content => {
     return content
   }
 
-  bodyContent = bodyContent[0]
+  bodyContent = bodyContent[0].replace('$', '&#36;') // $ is a protected chars for regexp... avoid issue with duplicate content
 
   endingTags.forEach(tag => {
     bodyContent = bodyContent.replace(regexTag(tag), dom.replaceContentByCdata(tag))

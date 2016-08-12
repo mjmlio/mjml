@@ -38,6 +38,7 @@ export default class MJMLRenderer {
 
   registerDotfile () {
     const fs = require('fs')
+
     const path = process.cwd()
 
     try {

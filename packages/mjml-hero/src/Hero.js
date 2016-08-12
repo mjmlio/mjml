@@ -213,13 +213,13 @@ class Hero extends Component {
 
     return (
       <tr style={this.styles.tr}>
-        <td style={this.styles.edge}></td>
+        <td style={this.styles.edge} />
         <td
           data-legacy-background={mjAttribute('background-url')}
           style={this.styles.hero}>
           {children}
         </td>
-        <td style={this.styles.edge}></td>
+        <td style={this.styles.edge} />
       </tr>
     )
   }

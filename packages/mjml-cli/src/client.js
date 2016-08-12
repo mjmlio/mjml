@@ -1,10 +1,10 @@
 import { MJMLRenderer, version } from 'mjml-core'
-import camelCase from 'lodash/camelCase'
-import createComponent from './createComponent'
 import fs from 'fs'
 import glob from 'glob'
 import path from 'path'
+import camelCase from 'lodash/camelCase'
 import upperFirst from 'lodash/upperFirst'
+import createComponent from './createComponent'
 
 /*
  * The version number is the NPM

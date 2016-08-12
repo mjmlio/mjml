@@ -6,26 +6,11 @@ export default (schemas = '') => {
 
   return `<?xml version="1.0" encoding="UTF-8"?>
   <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-    <xs:complexType name="mjml-elements">
+    <xs:complexType name="mjml">
       <xs:sequence>
         <xs:element name="mj-head" type="mj-head" minOccurs="0" maxOccurs="1" />
         <xs:element name="mj-body" type="mj-body" minOccurs="1" maxOccurs="1" />
       </xs:sequence>
-    </xs:complexType>
-    <xs:complexType name="mjml">
-      <xs:complexContent>
-        <xs:extension base="mjml-elements">
-          <xs:attribute name="validate">
-            <xs:simpleType>
-              <xs:restriction base="xs:string">
-                <xs:enumeration value="strict"/>
-                <xs:enumeration value="soft"/>
-                <xs:enumeration value="none"/>
-              </xs:restriction>
-            </xs:simpleType>
-          </xs:attribute>
-        </xs:extension>
-      </xs:complexContent>
     </xs:complexType>
     <xs:complexType name="mj-head">
       <xs:sequence>

@@ -27,13 +27,13 @@ describe('MJML Renderer', () => {
   describe('Invalid MJML', () => {
     it('should throw if no elements registered', () => {
       expect(() => new MJMLRenderer(`
-        <mjml validate="skip">
+        <mjml>
           <mj-body>
             <mj-container>
               <mj-column />
             </mj-container>
           </mj-body>
-        </mjml>`).render()
+        </mjml>`, { validationLevel: "skip" }).render()
       ).to.throw(/EmptyMJMLError/)
     })
   })
@@ -41,13 +41,13 @@ describe('MJML Renderer', () => {
   describe('Partial MJML registered', () => {
     it('should warn user that document will not be entirely parsed', () => {
       expect(new MJMLRenderer(`
-        <mjml validate="skip">
+        <mjml>
           <mj-body>
             <mj-mock-list>
               <mj-mock />
             </mj-mock-list>
           </mj-body>
-        </mjml>`).render()
+        </mjml>`, { validationLevel: "skip" }).render()
       ).to.not.contain('Mocked Component!')
     })
   })
@@ -56,13 +56,13 @@ describe('MJML Renderer', () => {
     it('should render a MJML document', () => {
       registerMJElement(MockComponent)
       expect(new MJMLRenderer(`
-        <mjml validate="skip">
+        <mjml>
           <mj-body>
             <mj-mock-list>
               <mj-mock />
             </mj-mock-list>
           </mj-body>
-        </mjml>`).render()
+        </mjml>`, { validationLevel: "skip" }).render()
       ).to.contain('Mocked Component!')
     })
   })

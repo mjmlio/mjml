@@ -11,6 +11,7 @@ const defaultMJMLDefinition = {
     "background-url": null,
     "background-repeat": "repeat",
     "background-size": "auto",
+    "border": null,
     "full-width": null,
     "padding": "20px 0",
     "padding-top": null,
@@ -111,6 +112,7 @@ class Section extends Component {
 
     return merge({}, baseStyles, {
       td: {
+        'border': mjAttribute('border'),
         fontSize: '0px',
         padding: defaultUnit(mjAttribute('padding'), 'px'),
         paddingBottom: defaultUnit(mjAttribute('padding-bottom'), 'px'),

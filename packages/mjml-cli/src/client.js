@@ -63,9 +63,9 @@ const readStdin = promisify(stdinToBuffer)
 /*
  * Render an input promise
  */
-const render = (bufferPromise, { min, output, stdout, fileName }) => {
+const render = (bufferPromise, { min, output, stdout, fileName, validationLevel }) => {
   bufferPromise
-    .then(mjml => new MJMLRenderer(mjml.toString(), { minify: min }).render())
+    .then(mjml => new MJMLRenderer(mjml.toString(), { minify: min, validationLevel }).render())
     .then(result => stdout ? process.stdout.write(result) : write(output, result))
     .catch(e => {
       // XSD validation error ?

@@ -15,9 +15,10 @@ binary
       stdout: process.argv.indexOf('-s') !== -1 || process.argv.indexOf('--stdout') !== -1,
       output: binary.output
     }
-    
+
     cli.renderFile(files, options)
   })
+  .option('-v, --validateLevel [level]', 'Specifies the level of validation of MJML parser (skip/soft/strict)', /^(skip|soft|strict)$/i, 'strict')
   .option('-r, --render <file>', 'Compiles an MJML file')
   .option('-i, --stdin', 'Compiles an MJML file from input stream')
   .option('-w, --watch <file>', 'Watch and render an MJML file')

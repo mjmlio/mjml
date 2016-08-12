@@ -32,6 +32,7 @@ export default class MJMLRenderer {
 
     this.content = includeExternal(content)
     this.options = options
+    this.options["validationLevel"] = this.options["validationLevel"] || "strict"
 
     if (typeof this.content === 'string') {
       this.parseDocument()
@@ -73,7 +74,7 @@ export default class MJMLRenderer {
     const documentParser = require('./parsers/document').default
 
     debug('Start parsing document')
-    this.content = documentParser(this.content, this.attributes)
+    this.content = documentParser(this.content, this.attributes, this.options)
     debug('Content parsed')
   }
 

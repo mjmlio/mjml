@@ -8,10 +8,11 @@ const tagName = 'mj-column'
 const parentTag = ['mj-section', 'mj-group']
 const defaultMJMLDefinition = {
   attributes: {
-    'width': null,
     'background': null,
     'background-color': null,
-    'vertical-align': null
+    'border': null,
+    'vertical-align': null,
+    'width': null
   }
 }
 const baseStyles = {
@@ -67,6 +68,7 @@ class Column extends Component {
       },
       table: {
         background: mjAttribute('background-color'),
+        border: mjAttribute('border'),
         verticalAlign: mjAttribute('vertical-align')
       }
     })

@@ -77,14 +77,13 @@ const parseHead = (head, attributes) => {
   attributes.container = dom.getHTML($container)
 }
 
-const validateDocument = (content, root) => {
+const validateDocument = (content, validateLevel) => {
   const schemaXsd = defaultXsd(schemaXsds.map(schemaXsd => schemaXsd(MJMLElements)).join(`\n`))
-  const validationMode = root.attr('validate') || "strict"
   const schema = libXsd.parse(schemaXsd)
   const errors = schema.validate(content)
 
   if (errors && errors.length > 0) {
-    if (validationMode == "soft") {
+    if (validateLevel == "soft") {
       console.err(new XsdError(errors).getMessages()) // eslint-disable-line no-console
     } else {
       throw new XsdError(errors)
@@ -98,17 +97,15 @@ const validateDocument = (content, root) => {
  *   - container: the mjml container
  *   - mjml: a json representation of the mjml
  */
-const documentParser = (content, attributes) => {
+const documentParser = (content, attributes, options) => {
   const safeContent = safeEndingTags(content)
 
-  let root
   let body
   let head
 
   try {
     const $ = dom.parseXML(safeContent)
     body = $('mjml > mj-body')
-    root = $('mjml')
     head = $('mjml > mj-head')
 
     if (body.length > 0) {
@@ -122,8 +119,8 @@ const documentParser = (content, attributes) => {
     throw new EmptyMJMLError('No root "<mjml>" or "<mj-body>" found in the file')
   }
 
-  if (root.attr('validate') != "skip") {
-    validateDocument(safeContent, root)
+  if (options.validateLevel != "skip") {
+    validateDocument(safeContent, options.validateLevel)
   }
 
   if (head && head.length === 1) {

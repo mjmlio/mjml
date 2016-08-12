@@ -1,6 +1,3 @@
-var mjml = require('./lib/index')
-try {
-const azeaze = console.log(mjml.mjml2html(`
 <mjml validate="skip">
   <mj-body>
     <mj-container border="red solid 3px">
@@ -30,11 +27,4 @@ const azeaze = console.log(mjml.mjml2html(`
       </mj-section>
     </mj-container>
   </mj-body>
-</mjml>`, { beautify: true }))
-} catch(e) {
-  if (e.getErrors) {
-  console.log(e.getErrors())
-  } else {
-    throw e
-  }
-}
+</mjml>

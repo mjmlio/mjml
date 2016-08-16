@@ -1,5 +1,6 @@
 import elements from '../MJMLElementsCollection'
 import includes from 'lodash/includes'
+import filter from 'lodash/filter'
 
 class XsdError {
   constructor (errors) {
@@ -42,7 +43,7 @@ class XsdError {
   }
 
   getErrors () {
-    return this.errors.map((error) => this.format(error))
+    return filter(this.errors, (error) => !includes(XsdError.SKIP_CODES, error.code)).map((error) => this.format(error))
   }
 
   getMessages () {

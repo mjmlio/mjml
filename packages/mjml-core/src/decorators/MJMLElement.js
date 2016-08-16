@@ -256,7 +256,7 @@ function createComponent (ComposedComponent) {
     }
 
     render () {
-      if (this.props.columnElement) {
+      if (this.props.columnElement && this.constructor.tagName != 'mj-raw') {
         this.styles = this.getStyles()
 
         return (

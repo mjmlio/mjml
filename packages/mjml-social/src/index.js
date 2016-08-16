@@ -191,7 +191,6 @@ class Social extends Component {
                   <a href={href}>
                     <img
                       alt={platform}
-                      border="0"
                       height={parseInt(mjAttribute('icon-size'))}
                       src={definition.icon}
                       style={this.styles.img}

@@ -30,11 +30,12 @@ export default class MJMLRenderer {
       fonts: cloneDeep(defaultFonts)
     }
 
-    this.content = includeExternal(content)
+    this.content = content
     this.options = options
     this.options["validationLevel"] = this.options["validationLevel"] || "strict"
 
     if (typeof this.content === 'string') {
+      this.content = includeExternal(this.content)
       this.parseDocument()
     }
   }

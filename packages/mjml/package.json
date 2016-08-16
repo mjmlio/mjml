@@ -25,6 +25,7 @@
     "mjml-group": "^2.0.3",
     "mjml-head-attributes": "^2.0.7",
     "mjml-head-font": "^2.0.1",
+    "mjml-head-style": "^2.0.0",
     "mjml-head-title": "^2.0.1",
     "mjml-hero": "^2.0.9",
     "mjml-html": "^2.0.9",

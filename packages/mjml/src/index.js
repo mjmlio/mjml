@@ -21,6 +21,7 @@ import Text from 'mjml-text'
 
 import MJHeadAttributes from 'mjml-head-attributes'
 import MJHeadFont from 'mjml-head-font'
+import MJHeadStyle from 'mjml-head-style'
 import MJHeadTitle from 'mjml-head-title'
 
 const { Hero, HeroContent } = MJHero
@@ -52,6 +53,7 @@ const { Navbar, InlineLinks, Link } = MJNavbar;
 
 [ MJHeadAttributes,
   MJHeadFont,
+  MJHeadStyle,
   MJHeadTitle ].map( headElement => registerMJHeadElement(headElement.name, headElement.handler))
 
 export * from 'mjml-core'

@@ -30,6 +30,7 @@
     "immutable": "^3.8.1",
     "jquery": "^3.1.0",
     "js-beautify": "^1.6.3",
+    "juice": "^2.0.0",
     "libxml-xsd": "^0.5.2",
     "lodash": "^4.14.2",
     "react": "^15.3.0",

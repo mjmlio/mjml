@@ -1,7 +1,7 @@
 {
   "name": "mjml-html",
   "description": "mjml-html",
-  "version": "2.0.7",
+  "version": "2.0.9",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -13,8 +13,8 @@
   },
   "homepage": "https://mjml.io",
   "dependencies": {
-    "lodash": "^4.13.1",
-    "mjml-core": "^2.3.0",
-    "react": "^15.1.0"
+    "lodash": "^4.14.2",
+    "mjml-core": "^2.3.2",
+    "react": "^15.3.0"
   }
 }

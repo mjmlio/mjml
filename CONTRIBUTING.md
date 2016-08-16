@@ -78,7 +78,7 @@ Explain the problem you’re facing and include as many details as you can to he
 
       **MJML version:**
 
-      [Enter Atom version here]
+      [Enter MJML version here]
 
       **Email clients the bug is seen on:**
 

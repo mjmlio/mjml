@@ -53,8 +53,12 @@
     "space-before-function-paren": [2, "always"],
     "space-in-parens": 0,
     "vars-on-top": 0,
+    "no-mixed-operators": 0,
 
     "import/no-unresolved": 0,
+    "import/imports-first": 0,
+    "import/no-extraneous-dependencies": 0,
+    "import/prefer-default-export": 0,
 
     "react/jsx-boolean-value": 0,
     "react/jsx-closing-bracket-location": 0,
@@ -65,7 +69,9 @@
     "react/no-did-update-set-state": 0,
     "react/no-multi-comp": 0,
     "react/prefer-stateless-function": 0,
-    "react/prop-types": 0
+    "react/prop-types": 0,
+    "react/jsx-filename-extension": 0,
+    "react/jsx-no-target-blank": 0
   },
 
   "env": {

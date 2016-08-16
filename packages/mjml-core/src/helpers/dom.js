@@ -50,6 +50,7 @@ if (isBrowser) {
   }
 } else {
   const cheerio = require('cheerio')
+
   let $ = cheerio.load('', { decodeEntities: false })
 
   const parseMarkup = (str, options) => {

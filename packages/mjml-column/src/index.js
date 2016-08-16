@@ -135,7 +135,7 @@ class Column extends Component {
           style={this.styles.table}
           width="100%">
           <tbody>
-            {children.map(child => React.cloneElement(child, { columnElement: true }))}
+            {React.Children.map(children, child => React.cloneElement(child, { columnElement: true }))}
           </tbody>
         </table>
       </div>

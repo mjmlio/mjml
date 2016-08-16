@@ -14,8 +14,8 @@
   "homepage": "https://mjml.io",
   "dependencies": {
     "lodash": "^4.14.2",
-    "mjml-core": "^2.3.2",
-    "mjml-table": "^2.0.9",
+    "mjml-core": "~2.3.2",
+    "mjml-table": "~2.0.9",
     "numeral": "^1.5.3",
     "react": "^15.3.0"
   }

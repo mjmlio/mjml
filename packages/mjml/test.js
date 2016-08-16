@@ -5,6 +5,7 @@ const azeaze = console.log(mjml.mjml2html(`
   <mj-body>
     <mj-container border="red solid 3px">
       <mj-section border="yellow solid 3px">
+          <mj-nothing> azeaz</mj-nothing>
           <mj-column border="orange solid 3px">
             <mj-text font-family="Raleway, 'Comic Sans MS'">
               2 coloumnes $2
@@ -33,7 +34,7 @@ const azeaze = console.log(mjml.mjml2html(`
 </mjml>`, { beautify: true }))
 } catch(e) {
   if (e.getErrors) {
-  console.log(e.getErrors())
+  console.log(e.getMessages())
   } else {
     throw e
   }

@@ -13,7 +13,7 @@
   },
   "homepage": "https://mjml.io",
   "dependencies": {
-    "mjml-core": "^2.3.2",
+    "mjml-core": "~2.3.2",
     "react": "^15.3.0"
   }
 }

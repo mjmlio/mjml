@@ -108,7 +108,8 @@ export const renderStream = options => render(readStdin(process.stdin), options)
  */
 export const watch = (input, options) => {
   renderFile(input, options)
-  fs.watchFile(input, () => console.log(`${new Date()} Reloading MJML`) || renderFile(input, options)) // eslint-disable-line no-console
+  let now = new Date();
+  fs.watchFile(input, () => console.log(`[${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}] Reloading MJML`) || renderFile(input, options)) // eslint-disable-line no-console
 }
 
 /*

@@ -84,7 +84,7 @@ const validateDocument = (content, validationLevel) => {
 
   if (errors && errors.length > 0) {
     if (validationLevel == "soft") {
-      console.err(new XsdError(errors).getMessages()) // eslint-disable-line no-console
+      console.error(new XsdError(errors).getMessages()) // eslint-disable-line no-console
     } else {
       throw new XsdError(errors)
     }

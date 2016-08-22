@@ -46,6 +46,7 @@ class Location extends Component {
 
     return {
       text: {
+        'columnElement': true,
         'font-family': mjAttribute('font-family'),
         'font-size': defaultUnit(mjAttribute('font-size')),
         'font-weight': mjAttribute('font-weight'),
@@ -53,6 +54,7 @@ class Location extends Component {
         'text-decoration': mjAttribute('text-decoration')
       },
       img: {
+        'columnElement': true,
         'padding': '0px',
         'src': mjAttribute('img-src')
       }

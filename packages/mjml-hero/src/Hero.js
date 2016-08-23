@@ -235,6 +235,7 @@ class Hero extends Component {
         data-background-url={mjAttribute('background-url')}
         style={this.styles.div}>
         <table
+          role="presentation"
           border="0"
           cellPadding="0"
           cellSpacing="0"

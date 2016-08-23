@@ -59,6 +59,7 @@ class Location extends Component {
 
     return (
       <table
+        role="presentation"
         cellPadding="0"
         cellSpacing="0"
         data-legacy-border="0"

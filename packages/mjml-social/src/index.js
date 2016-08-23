@@ -98,7 +98,7 @@ const buttonDefinitions = {
 const postRender = $ => {
   $('.mj-social-outlook-open').each(function () {
     $(this).replaceWith(`${helpers.startConditionalTag}
-      <table border="0" cellpadding="0" cellspacing="0" align="${$(this).data('align')}"><tr><td>
+      <table role="presentation" border="0" cellpadding="0" cellspacing="0" align="${$(this).data('align')}"><tr><td>
       ${helpers.endConditionalTag}`)
   })
 
@@ -169,6 +169,7 @@ class Social extends Component {
       <tr key={platform}>
         <td style={this.styles.td1}>
           <table
+            role="presentation"
             cellPadding="0"
             cellSpacing="0"
             data-legacy-border="0"
@@ -243,6 +244,7 @@ class Social extends Component {
     const socialButtons = this.renderSocialButtons().map((socialButton, index) => {
       return (
         <table
+          role="presentation"
           cellPadding="0"
           cellSpacing="0"
           data-legacy-align={mjAttribute('align')}
@@ -271,6 +273,7 @@ class Social extends Component {
 
     return (
       <table
+        role="presentation"
         cellPadding="0"
         cellSpacing="0"
         data-legacy-border="0"

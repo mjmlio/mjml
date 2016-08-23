@@ -15,7 +15,7 @@ const postRender = $ => {
 
   $('.mj-container-outlook-open').each(function () {
     $(this).replaceWith(`${helpers.startConditionalTag}
-      <table border="0" cellpadding="0" cellspacing="0" width="${containerWidth}" align="center" style="width:${containerWidth}px;">
+      <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="${containerWidth}" align="center" style="width:${containerWidth}px;">
         <tr>
           <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
       ${helpers.endConditionalTag}`)
@@ -26,7 +26,7 @@ const postRender = $ => {
       </td></tr></table>
       ${helpers.endConditionalTag}
       ${helpers.startConditionalTag}
-      <table border="0" cellpadding="0" cellspacing="0" width="${containerWidth}" align="center" style="width:${containerWidth}px;">
+      <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="${containerWidth}" align="center" style="width:${containerWidth}px;">
         <tr>
           <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
       ${helpers.endConditionalTag}`)

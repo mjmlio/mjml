@@ -118,6 +118,7 @@ class Column extends Component {
         data-vertical-align={this.styles.div.verticalAlign}
         style={this.styles.div}>
         <table
+          role="presentation"
           cellPadding="0"
           cellSpacing="0"
           data-legacy-background={mjAttribute('background')}

@@ -32,7 +32,7 @@ const postRender = $ => {
     const backgroundColor = $(this).data('background-color')
 
     $(this).before(`${helpers.startConditionalTag}
-      <table border="0" cellpadding="0" cellspacing="0" align="${align}" width="${width.replace('px', '')}" style="width:${width};"><tr><td style="padding:0;background-color:${backgroundColor};">
+      <table role="presentation" border="0" cellpadding="0" cellspacing="0" align="${align}" width="${width.replace('px', '')}" style="width:${width};"><tr><td style="padding:0;background-color:${backgroundColor};">
       ${helpers.endConditionalTag}`)
     .after(`${helpers.startConditionalTag}
       </td></tr></table>
@@ -87,6 +87,7 @@ class HeroContent extends Component {
         data-background-color={mjAttribute('background-color')}
         style={this.styles.div}>
         <table
+          role="presentation"
           border="0"
           cellPadding="0"
           cellSpacing="0"
@@ -95,7 +96,7 @@ class HeroContent extends Component {
           <tbody>
             <tr>
               <td style={this.styles.td}>
-                <table style={this.styles.table}>
+                <table role="presentation" style={this.styles.table}>
                   <tbody>
                     {children}
                   </tbody>

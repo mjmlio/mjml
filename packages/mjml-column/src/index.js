@@ -59,7 +59,12 @@ class Column extends Component {
       },
       table: {
         verticalAlign: mjAttribute('vertical-align'),
-        background: mjAttribute('background-color')
+        background: mjAttribute('background-color'),
+        border: mjAttribute('border'),
+        borderTop: mjAttribute('border-top'),
+        borderBottom: mjAttribute('border-bottom'),
+        borderRight: mjAttribute('border-right'),
+        borderLeft: mjAttribute('border-left')
       }
     })
   }

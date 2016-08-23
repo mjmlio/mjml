@@ -117,6 +117,21 @@ class Section extends Component {
       div: this.isFullWidth() ? {} : cloneDeep(background),
       table: this.isFullWidth() ? {} : cloneDeep(background),
       tableFullwidth: this.isFullWidth() ? cloneDeep(background) : {}
+    }, {
+      table: this.isFullWidth() ? {} : {
+        border: mjAttribute('border'),
+        borderTop: mjAttribute('border-top'),
+        borderBottom: mjAttribute('border-bottom'),
+        borderRight: mjAttribute('border-right'),
+        borderLeft: mjAttribute('border-left')
+      },
+      tableFullwidth: this.isFullWidth() ? {
+        border: mjAttribute('border'),
+        borderTop: mjAttribute('border-top'),
+        borderBottom: mjAttribute('border-bottom'),
+        borderRight: mjAttribute('border-right'),
+        borderLeft: mjAttribute('border-left')
+      } : {}
     })
   }
 
@@ -148,15 +163,15 @@ class Section extends Component {
     return (
       <div style={this.styles.div}>
         <table
-          cellPadding="0"
-          cellSpacing="0"
-          className="mj-section-outlook-background"
-          data-legacy-align="center"
-          data-legacy-background={fullWidth ? undefined : mjAttribute('background-url')}
-          data-legacy-border="0"
-          data-url={mjAttribute('background-url') || ''}
-          data-width={parentWidth}
-          style={this.styles.table}>
+         cellPadding="0"
+         cellSpacing="0"
+         className="mj-section-outlook-background"
+         data-legacy-align="center"
+         data-legacy-background={fullWidth ? undefined : mjAttribute('background-url')}
+         data-legacy-border="0"
+         data-url={mjAttribute('background-url') || ''}
+         data-width={parentWidth}
+         style={this.styles.table}>
           <tbody>
             <tr>
               <td style={this.styles.td}>

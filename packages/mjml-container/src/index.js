@@ -69,7 +69,12 @@ class Container extends Component {
 
     return {
       div: {
-        backgroundColor: mjAttribute('background-color')
+        backgroundColor: mjAttribute('background-color'),
+        border: mjAttribute('border'),
+        borderTop: mjAttribute('border-top'),
+        borderBottom: mjAttribute('border-bottom'),
+        borderRight: mjAttribute('border-right'),
+        borderLeft: mjAttribute('border-left')
       }
     }
   }

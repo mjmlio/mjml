@@ -34,6 +34,12 @@ Every single column has to contain something because they are responsive contain
 
 attribute           | unit        | description                    | default attributes
 --------------------|-------------|--------------------------------|--------------------------------------
+background-color    | string      | background color for a column  | n/a
+border              | string      | css border format              | none
+border-bottom       | string      | css border format              | n/a
+border-left         | string      | css border format              | n/a
+border-right        | string      | css border format              | n/a
+border-top          | string      | css border format              | n/a
+border-radius       | px          | border radius                  | n/a
 width               | percent/px  | column width                   | (100 / number of columns in section)%
 vertical-align      | string      | middle/top/bottom              | top
-background-color    | string      | background color for a column  | n/a

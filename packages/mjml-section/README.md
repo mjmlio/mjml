@@ -28,6 +28,12 @@ changed to 100%.
 attribute           | unit        | description                    | default value
 --------------------|-------------|--------------------------------|---------------
 full-width          | string      | make the section full-width    | n/a
+border              | string      | css border format              | none
+border-bottom       | string      | css border format              | n/a
+border-left         | string      | css border format              | n/a
+border-right        | string      | css border format              | n/a
+border-top          | string      | css border format              | n/a
+border-radius       | px          | border radius                  | n/a
 background-color    | color       | section color                  | n/a
 background-url      | url         | background url                 | n/a
 background-repeat   | string      | css background repeat          | repeat

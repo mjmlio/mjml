@@ -1,11 +1,10 @@
 var mjml = require('./lib/index')
 try {
 const azeaze = console.log(mjml.mjml2html(`
-<mjml validate="skip">
+<mjml>
   <mj-body>
-    <mj-container border="red solid 3px">
+    <mj-container>
       <mj-section border="yellow solid 3px">
-          <mj-nothing> azeaz</mj-nothing>
           <mj-column border="orange solid 3px">
             <mj-text font-family="Raleway, 'Comic Sans MS'">
               2 coloumnes $2
@@ -13,12 +12,10 @@ const azeaze = console.log(mjml.mjml2html(`
           </mj-column>
           <mj-column border="green solid 3px">
             <mj-button
-              random-attr="wow"
               background-color="blue"
               border="2px solid white"
               color="white"
               text-transform="uppercase"
-              wow="sadness"
               inner-padding="10px"
               href="http://mjml.io" border-radius="10px"
               align="center">

@@ -7,7 +7,7 @@ const getContent = input =>
     .replace(/<mjml>[\n\s\t]+<mj-body>[\n\s\t]+<mj-container>/, '')
     .replace(/<\/mj-container>[\n\s\t]+<\/mj-body>[\n\s\t]+<\/mjml>/, '')
 
-export default mjml => mjml.replace(includes, (_, path) => {
+const replaceContent = (_, path) => {
   const mjmlExtension = file => file.trim().match(/.mjml$/) && file || `${file}.mjml`
 
   const template = fs.readFileSync(mjmlExtension(path), 'utf8')
@@ -16,4 +16,14 @@ export default mjml => mjml.replace(includes, (_, path) => {
   if (!content) { throw new Error(`Error while parsing file: ${path}`) }
 
   return content
-})
+}
+
+export default (baseMjml) => {
+  let mjml = baseMjml
+
+  while (mjml.match(includes)) {
+    mjml = mjml.replace(includes, replaceContent)
+  }
+
+  return mjml
+}

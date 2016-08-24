@@ -236,7 +236,6 @@ class Hero extends Component {
         style={this.styles.div}>
         <table
           role="presentation"
-          border="0"
           cellPadding="0"
           cellSpacing="0"
           style={this.styles.table}>

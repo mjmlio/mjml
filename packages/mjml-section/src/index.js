@@ -65,7 +65,7 @@ const postRender = $ => {
     const $columnDiv = $(this).next()
 
     $(this).replaceWith(`${helpers.startConditionalTag}
-      <table border="0" cellpadding="0" cellspacing="0"><tr><td style="vertical-align:${$columnDiv.data('vertical-align')};width:${parseInt($(this).data('width'))}px;">
+      <table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td style="vertical-align:${$columnDiv.data('vertical-align')};width:${parseInt($(this).data('width'))}px;">
       ${helpers.endConditionalTag}`)
 
     $columnDiv.removeAttr('data-vertical-align')
@@ -137,6 +137,7 @@ class Section extends Component {
 
     return (
       <table
+        role="presentation"
         cellPadding="0"
         cellSpacing="0"
         data-legacy-background={mjAttribute('background-url')}
@@ -160,6 +161,7 @@ class Section extends Component {
     return (
       <div style={this.styles.div}>
         <table
+          role="presentation"
           cellPadding="0"
           cellSpacing="0"
           className="mj-section-outlook-background"

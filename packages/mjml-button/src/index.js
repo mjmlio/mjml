@@ -31,6 +31,9 @@ const defaultMJMLDefinition = {
   }
 }
 const baseStyles = {
+  table: {
+    borderCollapse: 'separate'
+  },
   a: {
     display: 'inline-block',
     textDecoration: 'none'
@@ -47,6 +50,7 @@ class Button extends Component {
 
     return merge({}, baseStyles, {
       td: {
+        border: mjAttribute('border'),
         borderRadius: defaultUnit(mjAttribute('border-radius'), "px"),
         color: mjAttribute('color'),
         cursor: 'auto',
@@ -55,8 +59,6 @@ class Button extends Component {
       },
       a: {
         background: mjAttribute('background-color'),
-        border: mjAttribute('border'),
-        borderRadius: defaultUnit(mjAttribute('border-radius'), "px"),
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
         fontSize: defaultUnit(mjAttribute('font-size')),
@@ -95,6 +97,7 @@ class Button extends Component {
 
     return (
       <table
+        role="presentation"
         cellPadding="0"
         cellSpacing="0"
         data-legacy-align={mjAttribute('align')}

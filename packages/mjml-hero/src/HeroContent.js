@@ -98,7 +98,7 @@ class HeroContent extends Component {
               <td style={this.styles.td}>
                 <table role="presentation" style={this.styles.table}>
                   <tbody>
-                    {children}
+                    {React.Children.map(children, child => React.cloneElement(child, { columnElement: true }))}
                   </tbody>
                 </table>
               </td>

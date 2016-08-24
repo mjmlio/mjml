@@ -10,7 +10,12 @@ const defaultMJMLDefinition = {
   attributes: {
     'background': null,
     'background-color': null,
-    'border': null,
+    "border": null,
+    "border-bottom": null,
+    "border-left": null,
+    "border-radius": null,
+    "border-right": null,
+    "border-top": null,
     'vertical-align': null,
     'width': null
   }
@@ -57,7 +62,7 @@ class Column extends Component {
   styles = this.getStyles()
 
   getStyles () {
-    const { mjAttribute } = this.props
+    const { mjAttribute, defaultUnit } = this.props
 
     return merge({}, baseStyles, {
       div: {
@@ -69,6 +74,11 @@ class Column extends Component {
       table: {
         background: mjAttribute('background-color'),
         border: mjAttribute('border'),
+        borderBottom: mjAttribute('border-bottom'),
+        borderLeft: mjAttribute('border-left'),
+        borderRadius: defaultUnit(mjAttribute('border-radius'), "px"),
+        borderRight: mjAttribute('border-right'),
+        borderTop: mjAttribute('border-top'),
         verticalAlign: mjAttribute('vertical-align')
       }
     })

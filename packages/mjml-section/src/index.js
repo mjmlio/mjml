@@ -12,6 +12,11 @@ const defaultMJMLDefinition = {
     "background-repeat": "repeat",
     "background-size": "auto",
     "border": null,
+    "border-bottom": null,
+    "border-left": null,
+    "border-radius": null,
+    "border-right": null,
+    "border-top": null,
     "full-width": null,
     "padding": "20px 0",
     "padding-top": null,
@@ -112,7 +117,12 @@ class Section extends Component {
 
     return merge({}, baseStyles, {
       td: {
-        'border': mjAttribute('border'),
+        border: mjAttribute('border'),
+        borderBottom: mjAttribute('border-bottom'),
+        borderLeft: mjAttribute('border-left'),
+        borderRadius: defaultUnit(mjAttribute('border-radius'), "px"),
+        borderRight: mjAttribute('border-right'),
+        borderTop: mjAttribute('border-top'),
         fontSize: '0px',
         padding: defaultUnit(mjAttribute('padding'), 'px'),
         paddingBottom: defaultUnit(mjAttribute('padding-bottom'), 'px'),

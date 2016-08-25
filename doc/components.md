@@ -1,6 +1,5 @@
 # Components
 
-
 Components are the core of MJML. A component is an abstraction of a more complex email-responsive HTML layout. It exposes attributes, enabling you to interact with the final component visual aspect.
 
 For instance, the `mj-button` components is, on the inside, a complex HTML layout:
@@ -29,4 +28,3 @@ For instance, the `mj-button` components is, on the inside, a complex HTML layou
 # Standard components
 
 MJML comes out of the box with a set of standard components to help you build easily your first templates without having to reinvent the wheel.
-

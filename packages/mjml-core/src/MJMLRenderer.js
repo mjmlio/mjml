@@ -2,18 +2,18 @@ import { EmptyMJMLError } from './Error'
 import { fixLegacyAttrs, removeCDATA } from './helpers/postRender'
 import { parseInstance } from './helpers/mjml'
 import cloneDeep from 'lodash/cloneDeep'
+import configParser from './parsers/config'
+import documentParser from './parsers/document'
 import defaultContainer from './configs/defaultContainer'
 import defaultFonts from './configs/listFontsImports'
 import he from 'he'
 import importFonts from './helpers/importFonts'
 import includeExternal from './includeExternal'
-import isEmpty from 'lodash/isEmpty'
 import juice from 'juice'
-import MJMLElementsCollection, { postRenders, registerMJElement } from './MJMLElementsCollection'
+import MJMLElementsCollection, { postRenders } from './MJMLElementsCollection'
 import isBrowser from './helpers/isBrowser'
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
-import warning from 'warning'
 
 const debug = require('debug')('mjml-engine/mjml2html')
 
@@ -21,7 +21,7 @@ export default class MJMLRenderer {
 
   constructor (content, options = {}) {
     if (!isBrowser) {
-      this.registerDotfile()
+      configParser()
     }
 
     this.attributes = {
@@ -42,41 +42,7 @@ export default class MJMLRenderer {
     }
   }
 
-  registerDotfile () {
-    const fs = require('fs')
-
-    const path = process.cwd()
-
-    try {
-      fs.statSync(`${path}/.mjmlconfig`)
-    } catch (e) {
-      return warning(!isEmpty(MJMLElementsCollection), `No .mjmlconfig found in path ${path}, consider to add one`)
-    }
-
-    try {
-      const mjmlConfig = JSON.parse(fs.readFileSync(`${path}/.mjmlconfig`).toString())
-      const { packages } = mjmlConfig
-
-      packages.forEach(file => {
-        if (!file) {
-          return
-        }
-
-        try {
-          const Component = require.main.require(file)
-          registerMJElement(Component.default || Component)
-        } catch (e) {
-          warning(false, `.mjmlconfig file ${file} opened from ${path} has an error : ${e}`)
-        }
-      })
-    } catch (e) {
-      warning(false, `.mjmlconfig has a ParseError: ${e}`)
-    }
-  }
-
   parseDocument () {
-    const documentParser = require('./parsers/document').default
-
     debug('Start parsing document')
     this.content = documentParser(this.content, this.attributes, this.options)
     debug('Content parsed')

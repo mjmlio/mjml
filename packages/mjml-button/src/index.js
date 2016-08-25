@@ -31,7 +31,9 @@ const defaultMJMLDefinition = {
     "padding-top": null,
     "padding-bottom": null,
     "padding-left": null,
-    "padding-right": null
+    "padding-right": null,
+    "width": null,
+    "height": null
   }
 }
 const baseStyles = {
@@ -63,7 +65,9 @@ class Button extends Component {
         color: mjAttribute('color'),
         cursor: 'auto',
         fontStyle: mjAttribute('font-style'),
-        padding: defaultUnit(mjAttribute('inner-padding'), "px")
+        height: mjAttribute('height'),
+        padding: defaultUnit(mjAttribute('inner-padding'), "px"),
+        width: mjAttribute('width')
       },
       a: {
         background: mjAttribute('background-color'),

@@ -124,6 +124,7 @@ padding-top         | px                                  | top offset          
 padding-right       | px                                  | right offset                                                         | 0px
 padding-left        | px                                  | left offset                                                          | 0px
 padding-bottom      | px                                  | bottom offset                                                        | 0px
+vertical-align      | top/middle/bottom                   | content vertical alignment                                           | top
 
 ### mjml-hero-content
 

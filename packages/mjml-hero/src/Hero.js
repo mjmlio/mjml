@@ -179,7 +179,8 @@ class Hero extends Component {
         paddingLeft: getPadding('left'),
         paddingRight: getPadding('right'),
         paddingBottom: getPadding('bottom'),
-        backgroundPosition: mjAttribute('background-position')
+        backgroundPosition: mjAttribute('background-position'),
+        verticalAlign: mjAttribute('vertical-align')
       }
     })
   }

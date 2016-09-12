@@ -26,7 +26,6 @@ const baseStyles = {
     borderCollapse: 'separate'
   },
   a: {
-    display: 'inline-block',
     textDecoration: 'none'
   }
 }

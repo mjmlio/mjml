@@ -1,4 +1,5 @@
 import warning from 'warning'
+import { includes } from 'lodash'
 
 export const endingTags = []
 export const postRenders = []
@@ -10,7 +11,7 @@ export const registerMJElement = Component => {
     return warning(false, 'Component has no TagName')
   }
 
-  endingTag  && !endingTags.includes(tagName) && endingTags.push(tagName)
+  endingTag  && !includes(endingTags, tagName) && endingTags.push(tagName)
   postRender && postRenders.push(postRender)
 
   MJMLElementsCollection[tagName] = Component

@@ -63,10 +63,18 @@ const readStdin = promisify(stdinToBuffer)
 /*
  * Render an input promise
  */
-const render = (bufferPromise, { min, output, stdout, fileName, validationLevel }) => {
+const render = (bufferPromise, { min, output, stdout, fileName, level }) => {
   bufferPromise
-    .then(mjml => new MJMLRenderer(mjml.toString(), { minify: min, validationLevel }).render())
-    .then(result => stdout ? process.stdout.write(result) : write(output, result))
+    .then(mjml => new MJMLRenderer(mjml.toString(), { minify: min, level }).render())
+    .then(result => {
+      const { html: content, errors } = result
+
+      if (errors) {
+        process.stderr.write(errors)
+      }
+
+      stdout ? process.stdout.write(content) : write(output, content)
+    })
     .catch(e => {
       // XSD validation error ?
       if (e.getErrors) {
@@ -87,7 +95,6 @@ export const renderFile = (input, options) => {
   const renderFiles = files => {
     files.forEach((file, index) => {
       const inFile = path.basename(file, '.mjml')
-      const inputExtension = path.extname(inFile)
       let output
 
       if (options.output) {
@@ -103,12 +110,12 @@ export const renderFile = (input, options) => {
           output = `${outFile}${outputExtension}`
         }
       } else {
-        output = `${inFile}${inputExtension}`
+        output = `${inFile}${path.extname(inFile) || ".html"}`
       }
 
       const filePath = path.resolve(process.cwd(), file)
 
-      render(read(filePath), { min: options.min, stdout: options.stdout, output, fileName: file, validationLevel: options.validationLevel })
+      render(read(filePath), { min: options.min, stdout: options.stdout, output, fileName: file, level: options.level })
     })
   }
 

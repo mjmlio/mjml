@@ -34,17 +34,21 @@ export default class MJMLRenderer {
 
     this.content = content
     this.options = options
-    this.options["validationLevel"] = this.options["validationLevel"] || "strict"
+    this.options["level"] = this.options["level"] || "strict"
 
     if (typeof this.content === 'string') {
-      this.content = includeExternal(this.content)
       this.parseDocument()
     }
   }
 
   parseDocument () {
+    this.content = includeExternal(this.content)
+
     debug('Start parsing document')
-    this.content = documentParser(this.content, this.attributes, this.options)
+    const { html, errors } = documentParser(this.content, this.attributes, this.options)
+
+    this.content = html
+    this.errors = errors
     debug('Content parsed')
   }
 
@@ -61,7 +65,7 @@ export default class MJMLRenderer {
     debug('React rendering done. Continue with special overrides.')
     const MJMLDocument = this.attributes.container.replace('__content__', renderedMJML)
 
-    return this.postRender(MJMLDocument)
+    return { errors: this.errors, html: this.postRender(MJMLDocument) }
   }
 
   postRender (MJMLDocument) {
@@ -80,6 +84,13 @@ export default class MJMLRenderer {
 
     let finalMJMLDocument = dom.getHTML($)
     finalMJMLDocument     = removeCDATA(finalMJMLDocument)
+
+    finalMJMLDocument = juice(finalMJMLDocument, {
+      extraCss: `${this.attributes.css.join('')}`,
+      removeStyleTags: false,
+      applyStyleTags: false,
+      insertPreservedExtraCss: false
+    })
 
     if (this.options.beautify) {
       const beautify = require('js-beautify').html
@@ -101,12 +112,6 @@ export default class MJMLRenderer {
     }
 
     finalMJMLDocument = he.decode(finalMJMLDocument)
-    finalMJMLDocument = juice(finalMJMLDocument, {
-      extraCss: `${this.attributes.css.join('')}`,
-      removeStyleTags: false,
-      applyStyleTags: false,
-      insertPreservedExtraCss: false
-    })
 
     return finalMJMLDocument
   }

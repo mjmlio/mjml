@@ -8,7 +8,7 @@ import MJMLElementsCollection, { registerMJElement } from '../MJMLElementsCollec
 
 const cwd = process.cwd()
 
-const isFile = (name) => {
+const isRelativePath = (name) => {
   return some(['./', '.', '../'], (matcher) => startsWith(name, matcher))
 }
 
@@ -46,7 +46,7 @@ const parsePackages = (packages) => {
 
     try {
       const filename = path.join(process.cwd(), file)
-      const Component = isFile(file) ? require(filename) : require.main.require(file)
+      const Component = isRelativePath(file) ? require(filename) : require.main.require(file)
 
       registerMJElement(Component.default || Component)
     } catch (e) {

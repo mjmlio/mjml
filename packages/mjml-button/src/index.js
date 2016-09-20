@@ -26,7 +26,8 @@ const baseStyles = {
     borderCollapse: 'separate'
   },
   a: {
-    textDecoration: 'none'
+    textDecoration: 'none',
+    lineHeight: '100%'
   }
 }
 

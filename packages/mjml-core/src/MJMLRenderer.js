@@ -10,6 +10,7 @@ import he from 'he'
 import importFonts from './helpers/importFonts'
 import includeExternal from './includeExternal'
 import juice from 'juice'
+import MJMLValidator from './parsers/validator'
 import MJMLElementsCollection, { postRenders } from './MJMLElementsCollection'
 import isBrowser from './helpers/isBrowser'
 import React from 'react'
@@ -45,11 +46,12 @@ export default class MJMLRenderer {
     this.content = includeExternal(this.content)
 
     debug('Start parsing document')
-    const { html, errors } = documentParser(this.content, this.attributes, this.options)
-
-    this.content = html
-    this.errors = errors
+    this.content = documentParser(this.content, this.attributes, this.options)
     debug('Content parsed')
+  }
+
+  validate () {
+    this.errors = MJMLValidator(this.content)
   }
 
   render () {
@@ -57,9 +59,11 @@ export default class MJMLRenderer {
       throw new EmptyMJMLError(`.render: No MJML to render in options ${this.options.toString()}`)
     }
 
-    const rootElemComponent = React.createElement(MJMLElementsCollection[this.content.tagName], { mjml: parseInstance(this.content, this.attributes ) })
+    debug('Validating markup')
+    this.validate()
 
     debug('Render to static markup')
+    const rootElemComponent = React.createElement(MJMLElementsCollection[this.content.tagName], { mjml: parseInstance(this.content, this.attributes ) })
     const renderedMJML = ReactDOMServer.renderToStaticMarkup(rootElemComponent)
 
     debug('React rendering done. Continue with special overrides.')

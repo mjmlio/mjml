@@ -5,7 +5,6 @@ import React, { Component } from 'react'
 import ReactDOMServer from 'react-dom/server'
 import trim from 'lodash/trim'
 import merge from 'lodash/merge'
-import warning from 'warning'
 import hoistNonReactStatic from 'hoist-non-react-statics';
 
 const getElementWidth = ({ element, siblings, parentWidth }) => {
@@ -201,8 +200,7 @@ function createComponent (ComposedComponent) {
         const Element = MJMLElementsCollection[tag]
 
         if (!Element) {
-          warning(false, `Could not find element for : ${tag}`)
-          return null
+          return null;
         }
 
         return (
@@ -214,8 +212,14 @@ function createComponent (ComposedComponent) {
       })
     }
 
+    validChildren () {
+      const { children } = this.props
+
+      return (children || this.generateChildren()).filter(Boolean)
+    }
+
     buildProps () {
-      const { parentMjml, children } = this.props
+      const { parentMjml } = this.props
 
       const childMethods = [
         'mjAttribute',
@@ -237,7 +241,7 @@ function createComponent (ComposedComponent) {
         mjName: this.mjName(),
 
         // generate children
-        children: children || this.generateChildren(),
+        children: this.validChildren(),
 
         // siblings count, can change display
         sibling: siblingCount,

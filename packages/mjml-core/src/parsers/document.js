@@ -3,12 +3,9 @@ import compact from 'lodash/compact'
 import dom from '../helpers/dom'
 import each from 'lodash/each'
 import filter from 'lodash/filter'
-import MJMLElements, { endingTags, schemaXsds } from '../MJMLElementsCollection'
+import { endingTags } from '../MJMLElementsCollection'
 import MJMLHeadElements from '../MJMLHead'
 import warning from 'warning'
-import defaultXsd from '../configs/defaultXsd'
-import { XsdError } from '../helpers/xsd'
-import libXsd from 'libxml-xsd'
 
 const regexTag = tag => new RegExp(`<${tag}([^>]*)>([^]*?)</${tag}>`, 'gmi')
 
@@ -35,27 +32,23 @@ const safeEndingTags = content => {
 /**
  * converts MJML body into a JSON representation
  */
-const mjmlElementParser = elem => {
+const mjmlElementParser = (elem, content) => {
   if (!elem) {
     throw new NullElementError('Null element found in mjmlElementParser')
   }
 
+  const lineNumber = content.substr(0, elem.startIndex).match(/\n/g).length + 1
   const tagName = elem.tagName.toLowerCase()
   const attributes = dom.getAttributes(elem)
 
-  const element = { tagName, attributes }
-
-  if (!MJMLElements[tagName]) {
-    warning(false, `Unregistered element: ${tagName}, skipping it`)
-    return
-  }
+  const element = { tagName, attributes, lineNumber }
 
   if (endingTags.indexOf(tagName) !== -1) {
-    const $ = dom.parseXML(elem)
-    element.content = $(tagName).html().trim()
+    const $local = dom.parseXML(elem)
+    element.content = $local(tagName).html().trim()
   } else {
     const children = dom.getChildren(elem)
-    element.children = children ? compact(filter(children, child => child.tagName).map(mjmlElementParser)) : []
+    element.children = children ? compact(filter(children, child => child.tagName).map(child => mjmlElementParser(child, content))) : []
   }
 
   return element
@@ -77,32 +70,17 @@ const parseHead = (head, attributes) => {
   attributes.container = dom.getHTML($container)
 }
 
-const validateDocument = (content, level) => {
-  const schemaXsd = defaultXsd(schemaXsds.map(schemaXsd => schemaXsd(MJMLElements)).join(`\n`))
-  const schema = libXsd.parse(schemaXsd)
-  const errors = schema.validate(content)
-
-  if (errors && errors.length > 0) {
-    if (level == "soft") {
-      return new XsdError(errors).getMessages()
-    }
-
-    throw new XsdError(errors)
-  }
-}
-
 /**
  * Import an html document containing some mjml
  * returns JSON
  *   - container: the mjml container
  *   - mjml: a json representation of the mjml
  */
-const documentParser = (content, attributes, options) => {
+const documentParser = (content, attributes) => {
   const safeContent = safeEndingTags(content)
 
   let body
   let head
-  let errors
 
   try {
     const $ = dom.parseXML(safeContent)
@@ -121,15 +99,11 @@ const documentParser = (content, attributes, options) => {
     throw new EmptyMJMLError('No root "<mjml>" or "<mj-body>" found in the file')
   }
 
-  if (options.level != "skip") {
-    errors = validateDocument(safeContent, options.level)
-  }
-
   if (head && head.length === 1) {
     parseHead(head.get(0), attributes)
   }
 
-  return { errors,  html: mjmlElementParser(body) }
+  return mjmlElementParser(body, safeContent)
 }
 
 export default documentParser

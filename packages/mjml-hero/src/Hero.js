@@ -180,7 +180,8 @@ class Hero extends Component {
         paddingLeft: getPadding('left'),
         paddingRight: getPadding('right'),
         paddingBottom: getPadding('bottom'),
-        backgroundPosition: mjAttribute('background-position')
+        backgroundPosition: mjAttribute('background-position'),
+        verticalAlign: mjAttribute('vertical-align')
       }
     })
   }
@@ -237,7 +238,6 @@ class Hero extends Component {
         style={this.styles.div}>
         <table
           role="presentation"
-          border="0"
           cellPadding="0"
           cellSpacing="0"
           style={this.styles.table}>

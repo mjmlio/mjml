@@ -1,7 +1,7 @@
 import concat from 'lodash/concat'
 import filter from 'lodash/filter'
 import values from 'lodash/values'
-import * as rules from '../rules'
+import * as rules from './rules'
 
 const validateNode = element => {
   const { children } = element

@@ -1,4 +1,4 @@
-import MJMLElementsCollection from '../MJMLElementsCollection'
+import { elements } from 'mjml-core'
 import keys from 'lodash/keys'
 import includes from 'lodash/includes'
 import filter from 'lodash/filter'
@@ -6,7 +6,7 @@ import ruleError from './ruleError'
 
 export const validateAttribute = (element) => {
   const { attributes, tagName } = element
-  const Component = MJMLElementsCollection[tagName]
+  const Component = elements[tagName]
 
   if (!Component) {
     return;

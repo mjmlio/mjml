@@ -18,7 +18,7 @@ binary
 
     cli.renderFile(files, options)
   })
-  .option('-l, --level [level]', 'Specifies the level of validation of MJML parser (skip/soft/strict)', /^(skip|soft|strict)$/i, 'strict')
+  .option('-l, --level [level]', 'Specifies the level of validation of MJML parser (skip/soft/strict)', /^(skip|soft|strict)$/i, 'soft')
   .option('-r, --render <file>', 'Compiles an MJML file')
   .option('-i, --stdin', 'Compiles an MJML file from input stream')
   .option('-w, --watch <file>', 'Watch and render an MJML file')

@@ -10,7 +10,7 @@ import he from 'he'
 import importFonts from './helpers/importFonts'
 import includeExternal from './includeExternal'
 import juice from 'juice'
-import MJMLValidator from './parsers/validator'
+import MJMLValidator from 'mjml-validator'
 import MJMLElementsCollection, { postRenders } from './MJMLElementsCollection'
 import isBrowser from './helpers/isBrowser'
 import React from 'react'
@@ -35,7 +35,7 @@ export default class MJMLRenderer {
 
     this.content = content
     this.options = options
-    this.options["level"] = this.options["level"] || "strict"
+    this.options["level"] = this.options["level"] || "soft"
 
     if (typeof this.content === 'string') {
       this.parseDocument()

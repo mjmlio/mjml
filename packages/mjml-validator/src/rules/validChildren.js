@@ -1,11 +1,11 @@
-import MJMLElementsCollection from '../MJMLElementsCollection'
+import { elements } from 'mjml-core'
 import filter from 'lodash/filter'
 import includes from 'lodash/includes'
 import ruleError from './ruleError'
 
 export const validChildren = (element) => {
   const { children, tagName } = element
-  const Component = MJMLElementsCollection[tagName]
+  const Component = elements[tagName]
 
   if (!Component) {
     return;
@@ -17,7 +17,7 @@ export const validChildren = (element) => {
 
   return filter(children.map((child) => {
     const childTagName = child.tagName
-    const ChildComponent = MJMLElementsCollection[childTagName]
+    const ChildComponent = elements[childTagName]
 
     if (!ChildComponent) {
       return null;

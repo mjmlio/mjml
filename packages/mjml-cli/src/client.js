@@ -70,7 +70,7 @@ const render = (bufferPromise, { min, output, stdout, fileName, level }) => {
       const { html: content, errors } = result
 
       if (errors) {
-        process.stderr.write(errors)
+        process.stderr.write(errors.map(err => err.formattedMessage).join('\n'))
       }
 
       stdout ? process.stdout.write(content) : write(output, content)

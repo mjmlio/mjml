@@ -24,7 +24,8 @@ const defaultMJMLDefinition = {
     'src': '',
     'target': '_blank',
     'title': '',
-    'vertical-align': null
+    'vertical-align': null,
+    'width': null
   }
 }
 const baseStyles = {

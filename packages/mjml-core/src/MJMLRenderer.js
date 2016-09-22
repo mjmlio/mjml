@@ -1,4 +1,4 @@
-import { EmptyMJMLError } from './Error'
+import { EmptyMJMLError, MJMLValidationError } from './Error'
 import { fixLegacyAttrs, removeCDATA } from './helpers/postRender'
 import { parseInstance } from './helpers/mjml'
 import cloneDeep from 'lodash/cloneDeep'
@@ -51,7 +51,15 @@ export default class MJMLRenderer {
   }
 
   validate () {
+    if (this.options.level == "skip") {
+      return;
+    }
+
     this.errors = MJMLValidator(this.content)
+
+    if (this.options.level == "strict" && this.errors.length > 0) {
+      throw new MJMLValidationError(this.errors)
+    }
   }
 
   render () {

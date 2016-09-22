@@ -1,4 +1,3 @@
-
 /*
  * Create a custom Error class
  */
@@ -40,7 +39,14 @@ export const EmptyMJMLError = error('EmptyMJMLError', 2)
  */
 export const NullElementError = error('EmptyMJMLError', 3)
 
+class MJMLValidationError {
+  constructor (errors) {
+    this.errors = errors
+  }
 
-/*
- * TODO: Warnings
- */
+  getMessages () {
+    return this.errors.map(error => error.formattedMessage).join('')
+  }
+}
+
+export { MJMLValidationError }

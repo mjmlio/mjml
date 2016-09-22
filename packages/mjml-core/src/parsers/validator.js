@@ -5,7 +5,7 @@ import * as rules from '../rules'
 
 const validateNode = element => {
   const { children } = element
-  let errors = concat(errors, ...values(rules).map(rule => rule(element)))
+  let errors = concat([], ...values(rules).map(rule => rule(element)))
 
   if (children && children.length > 0) {
     errors = concat(errors, ...children.map(validateNode))

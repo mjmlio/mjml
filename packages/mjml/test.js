@@ -15,9 +15,9 @@ const azeaze = console.log(mjml.mjml2html(`
       </mj-section>
     </mj-container>
   </mj-body>
-</mjml>`, { beautify: true }))
+</mjml>`, { beautify: true, level: "strict" }))
 } catch(e) {
-  if (e.getErrors) {
+  if (e.getMessages) {
   console.log(e.getMessages())
   } else {
     throw e

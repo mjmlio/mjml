@@ -76,8 +76,7 @@ const render = (bufferPromise, { min, output, stdout, fileName, level }) => {
       stdout ? process.stdout.write(content) : write(output, content)
     })
     .catch(e => {
-      // XSD validation error ?
-      if (e.getErrors) {
+      if (e.getMessages) {
         return error(`${fileName ? `File: ${fileName} \n` : ``}${e.getMessages()}`)
       }
 

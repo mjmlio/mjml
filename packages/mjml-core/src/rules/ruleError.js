@@ -5,6 +5,6 @@ export default (message, element) => {
     line,
     message,
     tagName,
-    formattedMessage: `Line ${line} (${tagName}) — ${message}`
+    formattedMessage: `Line ${line} (${tagName}) — ${message}\n`
   }
 }

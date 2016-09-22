@@ -55,6 +55,9 @@ class Button extends Component {
     const { mjAttribute, defaultUnit } = this.props
 
     return merge({}, baseStyles, {
+      table: {
+        width: mjAttribute('width')
+      },
       td: {
         border: mjAttribute('border'),
         borderBottom: mjAttribute('border-bottom'),
@@ -66,8 +69,7 @@ class Button extends Component {
         cursor: 'auto',
         fontStyle: mjAttribute('font-style'),
         height: mjAttribute('height'),
-        padding: defaultUnit(mjAttribute('inner-padding'), "px"),
-        width: mjAttribute('width')
+        padding: defaultUnit(mjAttribute('inner-padding'), "px")
       },
       a: {
         background: mjAttribute('background-color'),
@@ -76,7 +78,6 @@ class Button extends Component {
         fontSize: defaultUnit(mjAttribute('font-size')),
         fontStyle: mjAttribute('font-style'),
         fontWeight: mjAttribute('font-weight'),
-        lineHeight: mjAttribute('height'),
         textDecoration: mjAttribute('text-decoration'),
         textTransform: mjAttribute('text-transform'),
         margin: "0px"

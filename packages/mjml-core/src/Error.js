@@ -45,7 +45,11 @@ class MJMLValidationError {
   }
 
   getMessages () {
-    return this.errors.map(error => error.formattedMessage).join('')
+    return this.errors.map(error => error.formattedMessage)
+  }
+
+  getErrors () {
+    return this.errors
   }
 }
 

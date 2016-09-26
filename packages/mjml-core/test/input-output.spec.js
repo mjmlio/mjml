@@ -29,9 +29,6 @@ describe('MJML Renderer', () => {
       expect(() => new MJMLRenderer(`
         <mjml>
           <mj-body>
-            <mj-container>
-              <mj-column />
-            </mj-container>
           </mj-body>
         </mjml>`, { level: "skip" }).render()
       ).to.throw(/EmptyMJMLError/)
@@ -47,7 +44,7 @@ describe('MJML Renderer', () => {
               <mj-mock />
             </mj-mock-list>
           </mj-body>
-        </mjml>`, { level: "skip" }).render()
+        </mjml>`, { level: "skip" }).render().html
       ).to.not.contain('Mocked Component!')
     })
   })
@@ -62,7 +59,7 @@ describe('MJML Renderer', () => {
               <mj-mock />
             </mj-mock-list>
           </mj-body>
-        </mjml>`, { level: "skip" }).render()
+        </mjml>`, { level: "skip" }).render().html
       ).to.contain('Mocked Component!')
     })
   })

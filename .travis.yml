@@ -19,6 +19,7 @@ script:
  - cd packages/mjml-validator
  - npm link mjml-core
  - npm link
+ - npm install
  - cd ../mjml-core
  - npm link mjml-validator
  - npm link

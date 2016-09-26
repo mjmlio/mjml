@@ -16,6 +16,11 @@ node_js:
  - 6
 script:
  - npm run lint
+ - cd packages/mjml-validator
+ - npm link mjml-core
+ - npm link
  - cd packages/mjml-core
+ - npm link mjml-validator
+ - npm link
  - npm install
  - npm test

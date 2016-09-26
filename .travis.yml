@@ -23,5 +23,6 @@ script:
  - cd ../mjml-core
  - npm link mjml-validator
  - npm link
+ - npm list
  - npm install
  - npm test

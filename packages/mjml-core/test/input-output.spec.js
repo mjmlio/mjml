@@ -33,7 +33,7 @@ describe('MJML Renderer', () => {
               <mj-column />
             </mj-container>
           </mj-body>
-        </mjml>`, { validationLevel: "skip" }).render()
+        </mjml>`, { level: "skip" }).render()
       ).to.throw(/EmptyMJMLError/)
     })
   })
@@ -47,7 +47,7 @@ describe('MJML Renderer', () => {
               <mj-mock />
             </mj-mock-list>
           </mj-body>
-        </mjml>`, { validationLevel: "skip" }).render()
+        </mjml>`, { level: "skip" }).render()
       ).to.not.contain('Mocked Component!')
     })
   })
@@ -62,7 +62,7 @@ describe('MJML Renderer', () => {
               <mj-mock />
             </mj-mock-list>
           </mj-body>
-        </mjml>`, { validationLevel: "skip" }).render()
+        </mjml>`, { level: "skip" }).render()
       ).to.contain('Mocked Component!')
     })
   })

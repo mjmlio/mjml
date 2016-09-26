@@ -3,13 +3,17 @@ import { fixLegacyAttrs, removeCDATA } from './helpers/postRender'
 import { parseInstance } from './helpers/mjml'
 import cloneDeep from 'lodash/cloneDeep'
 import configParser from './parsers/config'
+import curryRight from 'lodash/curryRight'
 import documentParser from './parsers/document'
 import defaultContainer from './configs/defaultContainer'
 import defaultFonts from './configs/listFontsImports'
+import dom from './helpers/dom'
 import he from 'he'
 import importFonts from './helpers/importFonts'
 import includeExternal from './includeExternal'
 import juice from 'juice'
+import { html as beautify } from 'js-beautify'
+import { minify } from 'html-minifier'
 import MJMLValidator from 'mjml-validator'
 import MJMLElementsCollection, { postRenders } from './MJMLElementsCollection'
 import isBrowser from './helpers/isBrowser'
@@ -17,6 +21,10 @@ import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 
 const debug = require('debug')('mjml-engine/mjml2html')
+
+const minifyHTML = htmlDocument => minify(htmlDocument, { collapseWhitespace: true, removeEmptyAttributes: true, minifyCSS: true })
+const beautifyHTML = htmlDocument => beautify(htmlDocument, { indent_size: 2, wrap_attributes_indent_size: 2 })
+const inlineExternal = (htmlDocument, css) => juice(htmlDocument, { extraCss: css, removeStyleTags: false, applyStyleTags: false, insertPreservedExtraCss: false })
 
 export default class MJMLRenderer {
 
@@ -81,7 +89,7 @@ export default class MJMLRenderer {
   }
 
   postRender (MJMLDocument) {
-    const dom = require('./helpers/dom').default
+    const externalCSS = this.attributes.css.join('')
 
     let $ = dom.parseHTML(MJMLDocument)
 
@@ -94,38 +102,12 @@ export default class MJMLRenderer {
       }
     })
 
-    let finalMJMLDocument = dom.getHTML($)
-    finalMJMLDocument     = removeCDATA(finalMJMLDocument)
-
-    finalMJMLDocument = juice(finalMJMLDocument, {
-      extraCss: `${this.attributes.css.join('')}`,
-      removeStyleTags: false,
-      applyStyleTags: false,
-      insertPreservedExtraCss: false
-    })
-
-    if (this.options.beautify) {
-      const beautify = require('js-beautify').html
-
-      finalMJMLDocument = beautify(finalMJMLDocument, {
-        indent_size: 2,
-        wrap_attributes_indent_size: 2
-      })
-    }
-
-    if (this.options.minify) {
-      const minify = require('html-minifier').minify
-
-      finalMJMLDocument = minify(finalMJMLDocument, {
-        collapseWhitespace: true,
-        removeEmptyAttributes: true,
-        minifyCSS: true
-      })
-    }
-
-    finalMJMLDocument = he.decode(finalMJMLDocument)
-
-    return finalMJMLDocument
+    return [ removeCDATA,
+             curryRight(inlineExternal)(externalCSS),
+             this.options.beautify ? beautifyHTML : undefined,
+             this.options.minify ? minifyHTML : undefined,
+             he.decode ].filter(element => typeof element == 'function')
+                        .reduce((res, fun) => fun(res), dom.getHTML($))
   }
 
 }

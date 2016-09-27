@@ -1,7 +1,6 @@
 ## mjml-chart
 
-Displays a responsive image in your email. It is similar to the HTML `<img />` tag.
-Note that if no width is provided, the image will use the parent column width.
+Displays a image chart in your email. Note that the chart can be animated (gif) if the `chan` attribute is specified.
 
 ```xml
 <mjml>

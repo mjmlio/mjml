@@ -3,3 +3,4 @@
 dist
 lib
 node_modules
+swagger.json

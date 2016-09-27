@@ -1,0 +1,36 @@
+{
+  "name": "mjml-chart",
+  "description": "mjml-chart",
+  "version": "2.0.10",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "mocha --compilers js:babel-register",
+    "swagger-prod": "curl -s https://image-charts.com/swagger.json > scripts/swagger.json",
+    "swagger-local": "curl -s http://localhost:8080/swagger.json > scripts/swagger.json",
+    "update": "node scripts/generateREADME.js && node scripts/generateComponent.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mjmlio/mjml.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mjmlio/mjml/issues"
+  },
+  "imageCharts": {
+    "documentation": "https://image-charts.com/documentation"
+  },
+  "homepage": "https://mjml.io",
+  "dependencies": {
+    "lodash": "^4.14.2",
+    "mjml-core": "^2.3.2",
+    "mjml-image": "^2.0.10",
+    "react": "^15.3.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "markdown-table": "^1.0.0",
+    "mocha": "^3.0.2",
+    "truncate": "^2.0.0"
+  }
+}

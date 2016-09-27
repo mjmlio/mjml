@@ -17,8 +17,6 @@ function meta (parameter) {
   return parameter['x-meta'];
 }
 
-// console.log(JSON.stringify(swagger.paths['/chart'].get.parameters, null, 2));
-
 const parameters = swagger.paths['/chart'].get.parameters
   .filter(parameter => parameter.in === 'query' && meta(parameter).implementation.status === 'COMPLETE');
 

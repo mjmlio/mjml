@@ -1,5 +1,3 @@
-import warning from 'warning'
-
 import MJMLRenderer from './MJMLRenderer'
 import elements, { registerMJElement } from './MJMLElementsCollection'
 import MJMLHeadElements, { registerMJHeadElement } from './MJMLHead'
@@ -14,8 +12,3 @@ export const documentParser = content => {
 }
 export const version = () => '__MJML_VERSION__'
 export const mjml2html = (mjml, options = {}) => new MJMLRenderer(mjml, options).render()
-export const registerElement = Component => {
-  warning(false, 'Please now use registerMJElement, registerElement is deprecated will no longer be supported soon')
-
-  return registerMJElement(Component)
-}

@@ -1,8 +1,11 @@
 import { elements } from 'mjml-core'
+import concat from 'lodash/concat'
 import keys from 'lodash/keys'
 import includes from 'lodash/includes'
 import filter from 'lodash/filter'
 import ruleError from './ruleError'
+
+const WHITELIST = [ 'mj-class' ]
 
 export const validateAttribute = (element) => {
   const { attributes, tagName } = element
@@ -12,8 +15,8 @@ export const validateAttribute = (element) => {
     return;
   }
 
-  const avalaibleAttributes = keys(Component.defaultMJMLDefinition.attributes)
-  const unknownAttributes = filter(keys(attributes), attribute => !includes(avalaibleAttributes, attribute))
+  const avalaibleAttributes = concat(keys(Component.defaultMJMLDefinition.attributes), WHITELIST)
+  const unknownAttributes = filter(keys(attributes), attribute => !includes(avalaibleAttributes, attribute) )
 
   if (unknownAttributes.length == 0) {
     return;

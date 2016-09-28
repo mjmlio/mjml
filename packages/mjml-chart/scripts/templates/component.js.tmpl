@@ -79,7 +79,6 @@ function buildURL (mjAttribute) {
 
 @MJMLElement
 class Chart extends Component {
-  // parentWidth = this.props.mjAttribute('parentWidth')
 
   render () {
     const {
@@ -93,12 +92,10 @@ class Chart extends Component {
       assert(!forbiddenAttributes.includes(attr), `"${attr}" is not an authorized attribute for <mjml-chart>`);
     })
 
-    // build url
-    const url = buildURL(mjAttribute)
     return (<Image
       width={width}
       height={height}
-      src={url}
+      src={buildURL(mjAttribute)}
       padding={mjAttribute('padding')}
       align={mjAttribute('align')}
       alt={mjAttribute('alt')}

@@ -1,7 +1,7 @@
 {
   "name": "mjml-core",
   "description": "mjml-core",
-  "version": "2.3.2",
+  "version": "3.0.0-beta.1",
   "main": "lib/index.js",
   "scripts": {
     "test": "mocha --compilers js:babel-register"
@@ -21,24 +21,24 @@
     "html-minifier": false
   },
   "dependencies": {
-    "cheerio": "^0.20.0",
+    "cheerio": "^0.22.0",
     "classnames": "^2.2.5",
     "debug": "^2.2.0",
     "he": "^1.1.0",
     "hoist-non-react-statics": "^1.2.0",
-    "html-minifier": "^3.0.2",
+    "html-minifier": "^3.1.0",
     "immutable": "^3.8.1",
-    "jquery": "^3.1.0",
-    "js-beautify": "^1.6.3",
-    "juice": "^2.0.0",
-    "lodash": "^4.14.2",
-    "mjml-validator": "^3.0.0",
-    "react": "^15.3.0",
-    "react-dom": "^15.3.0",
+    "jquery": "^3.1.1",
+    "js-beautify": "^1.6.4",
+    "juice": "^3.0.0",
+    "lodash": "^4.16.2",
+    "mjml-validator": "~3.0.0-beta.1",
+    "react-dom": "^15.3.2",
+    "react": "^15.3.2",
     "warning": "^3.0.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "mocha": "^3.0.2"
+    "mocha": "^3.1.0"
   }
 }

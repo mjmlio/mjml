@@ -1,7 +1,7 @@
 {
   "name": "mjml-chart",
   "description": "mjml-chart",
-  "version": "2.0.10",
+  "version": "1.0.0",
   "main": "lib/index.js",
   "scripts": {
     "test": "mocha --compilers js:babel-register",

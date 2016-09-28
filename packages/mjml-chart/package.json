@@ -5,9 +5,10 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "mocha --compilers js:babel-register",
-    "swagger-prod": "curl -s https://image-charts.com/swagger.json > scripts/swagger.json",
-    "swagger-local": "curl -s http://localhost:8080/swagger.json > scripts/swagger.json",
-    "update": "node scripts/generateREADME.js && node scripts/generateComponent.js"
+    "update-swagger": "curl -s https://image-charts.com/swagger.json > scripts/swagger.json",
+    "update-swagger-dev": "curl -s http://localhost:8080/swagger.json > scripts/swagger.json",
+    "update": "node scripts/generateREADME.js > README.md && node scripts/generateComponent.js > src/index.js",
+    "update-watch": "chokidar 'scripts/**' 'package.json' -c 'npm run update'"
   },
   "repository": {
     "type": "git",
@@ -18,7 +19,8 @@
     "url": "https://github.com/mjmlio/mjml/issues"
   },
   "imageCharts": {
-    "documentation": "https://image-charts.com/documentation"
+    "documentation": "https://image-charts.com/documentation",
+    "api": "https://image-charts.com/chart"
   },
   "homepage": "https://mjml.io",
   "dependencies": {
@@ -29,6 +31,7 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "chokidar-cli": "^1.2.0",
     "markdown-table": "^1.0.0",
     "mocha": "^3.0.2",
     "truncate": "^2.0.0"

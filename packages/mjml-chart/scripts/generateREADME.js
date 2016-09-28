@@ -3,25 +3,23 @@ const fs = require('fs');
 const path = require('path');
 const table = require('markdown-table');
 const truncate = require('truncate');
-
-const README_IN = path.resolve(__dirname, 'README.tmpl.md');
-const README_OUT = path.resolve(__dirname, '../README.md');
-const swagger = require('./swagger.json');
 const {
-  imageCharts: {
-    documentation
-  }
-} = require('../package.json');
+  chartAttributes,
+  imageAttributes
+} = require('./model');
 
-function meta (parameter) {
-  return parameter['x-meta'];
-}
+const README_IN = path.resolve(__dirname, 'templates/README.md.tmpl');
 
-const parameters = swagger.paths['/chart'].get.parameters
-  .filter(parameter => parameter.in === 'query' && meta(parameter).implementation.status === 'COMPLETE');
+const mdChartAttributesTable = table([
+  ['attribute', 'description', 'value examples']
+].concat(chartAttributes.map(({name, link, description, examples}) => [`[${name}](${link})`, description, examples.map(example => `\`${truncate(example, 40)}\``).join(', ')])));
 
-const mdAttributesTable = table([['attribute', 'description', 'value examples']].concat(parameters.map(parameter => [`[${parameter.name}](${documentation}${meta(parameter).link})`, parameter.description, meta(parameter).examples.map(example => `\`${truncate(example, 40)}\``).join(', ')])));
+const mdImageAttributesTable = table([
+  ['attribute', 'default values']
+].concat(imageAttributes.map(({name, defaultValue}) => [`[${name}](#mjml-image)`, defaultValue || 'n/a'])))
 
-const readme = fs.readFileSync(README_IN, 'utf8').replace('{mdAttributesTable}', mdAttributesTable);
+const readme = fs.readFileSync(README_IN, 'utf8')
+  .replace('{mdChartAttributesTable}', mdChartAttributesTable)
+  .replace('{mdImageAttributesTable}', mdImageAttributesTable)
 
-fs.writeFileSync(README_OUT, readme, 'utf8');
+console.log(readme); // eslint-disable-line no-console

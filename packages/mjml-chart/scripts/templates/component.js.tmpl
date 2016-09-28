@@ -1,0 +1,111 @@
+import {
+  MJMLElement
+} from 'mjml-core'
+// import Image from 'mjml-image'
+import Image from '../../mjml-image/src'
+
+import React, {
+  Component
+} from 'react'
+import qs from 'querystring'
+import assert from 'assert'
+import memoize from 'lodash/memoize'
+import toNumber from 'lodash/toNumber'
+import forEach from 'lodash/forEach'
+
+const tagName = 'mj-chart'
+const defaultMJMLDefinition = /*defaultMJMLDefinition*/
+const imageChartsParameters = /*imageChartsParameters*/
+
+/**
+ * @type {Array[String]}
+ */
+const forbiddenAttributes = /*forbiddenAttributes*/
+
+const endingTag = true
+const baseStyles = {
+  table: {
+    borderCollapse: 'collapse',
+    borderSpacing: '0px'
+  },
+  img: {
+    border: 'none',
+    borderRadius: '',
+    display: 'block',
+    outline: 'none',
+    textDecoration: 'none',
+    width: '100%'
+  }
+}
+
+const strToRegExp = memoize((regexp) => {
+  const [__, pattern, flags] = /\/(.*)\/(.*)/.exec(regexp); // eslint-disable-line no-unused-vars
+  return new RegExp(pattern, flags);
+})
+
+function buildURL (mjAttribute) {
+
+  function buildQuery () {
+    return imageChartsParameters.reduce((query, attr) => {
+      const val = mjAttribute(attr.name);
+
+      assert(!(attr.required && val === undefined), `${attr.name} is required. Examples values ${attr.examples.join(', ')}`);
+
+      if (val === undefined) {
+        return query;
+      }
+
+      if (attr.pattern) {
+        assert(strToRegExp(attr.pattern).test(val), `"${val}" is an invalid value for ${attr.name}. Examples: ${attr.examples.join(', ')}`);
+      }
+
+      if (attr.enum) {
+        assert(attr.enum.includes(val), `"${val}" is not an valid value for ${attr.name}. Valid values are: ${JSON.stringify(attr.enum)}`);
+      }
+
+      query[attr.name] = val;
+      return query;
+    }, {});
+  }
+
+  return `/*documentation_url*/?${qs.stringify(buildQuery())}`;
+}
+
+@MJMLElement
+class Chart extends Component {
+  // parentWidth = this.props.mjAttribute('parentWidth')
+
+  render () {
+    const {
+      mjAttribute
+    } = this.props
+
+    const [width, height] = mjAttribute('chs').split('x').map(toNumber)
+
+    // ensure forbidden attributes were not specified
+    forEach(this.props.mjml.get('attributes').toObject(), (value, attr) => {
+      assert(!forbiddenAttributes.includes(attr), `"${attr}" is not an authorized attribute for <mjml-chart>`);
+    })
+
+    // build url
+    const url = buildURL(mjAttribute)
+    return (<Image
+      width={width}
+      height={height}
+      src={url}
+      padding={mjAttribute('padding')}
+      align={mjAttribute('align')}
+      alt={mjAttribute('alt')}
+      border={mjAttribute('border')}
+      border-radius={mjAttribute('border-radius')}
+      title={mjAttribute('title')}
+    />);
+  }
+}
+
+Chart.tagName = tagName
+Chart.defaultMJMLDefinition = defaultMJMLDefinition
+Chart.endingTag = endingTag
+Chart.baseStyles = baseStyles
+
+export default Chart

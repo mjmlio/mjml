@@ -53,9 +53,9 @@ const postRender = $ => {
     .each(function () {
       $(this)
         .prepend(`<!--[if gte mso 9]>
-  			  <table role="presentation" border="0" cellpadding="0" cellspacing="0" align="${$(this).data('align')}">
+          <table role="presentation" border="0" cellpadding="0" cellspacing="0" align="${$(this).data('align')}">
             <tr>
-  		  <![endif]-->`)
+        <![endif]-->`)
         .append(`<!--[if gte mso 9]>
             </tr>
           </table>

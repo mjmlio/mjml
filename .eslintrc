@@ -1,26 +1,12 @@
 {
   "extends": "airbnb",
   "parser": "babel-eslint",
-
   "rules": {
-    "no-unused-expressions": 0,
-    "no-unused-vars": [2, { "varsIgnorePattern": "^debug$" }],
-    "strict": 0,
-    "new-cap": 0,
-    "camelcase": 0,
-    "react/jsx-uses-react": 1,
-    "semi": 0,
-
-    "react/sort-comp": [0, {
-      "order": [
-        "lifecycle",
-        "everything-else",
-        "render"
-      ]
-    }],
-
     "array-bracket-spacing": 0,
     "arrow-body-style": 0,
+    "arrow-parens": 0,
+    "camelcase": 0,
+    "class-methods-use-this": 0,
     "comma-dangle": [2, "never"],
     "consistent-return": 0,
     "default-case": 0,
@@ -32,16 +18,21 @@
     "indent": [2, 2, {"SwitchCase": 1}],
     "key-spacing": 0,
     "max-len": 0,
+    "new-cap": 0,
     "no-case-declarations": 0,
     "no-confusing-arrow": 0,
     "no-console": 2,
+    "no-mixed-operators": 0,
     "no-multi-spaces": 0,
     "no-nested-ternary": 0,
     "no-param-reassign": 0,
+    "no-plusplus": 0,
     "no-return-assign": 0,
     "no-shadow": 0,
     "no-throw-literal": 0,
     "no-underscore-dangle": 0,
+    "no-unused-expressions": 0,
+    "no-unused-vars": [2, { "varsIgnorePattern": "^debug$" }],
     "no-use-before-define": 0,
     "object-curly-spacing": 0,
     "object-shorthand": 0,
@@ -50,30 +41,41 @@
     "quote-props": 0,
     "quotes": 0,
     "radix": 0,
+    "semi": 0,
     "space-before-function-paren": [2, "always"],
     "space-in-parens": 0,
+    "strict": 0,
     "vars-on-top": 0,
-    "no-mixed-operators": 0,
 
-    "import/no-unresolved": 0,
+    "import/extensions": 0,
     "import/imports-first": 0,
+    "import/no-dynamic-require": 0,
     "import/no-extraneous-dependencies": 0,
+    "import/no-unresolved": 0,
     "import/prefer-default-export": 0,
 
     "react/jsx-boolean-value": 0,
     "react/jsx-closing-bracket-location": 0,
     "react/jsx-curly-spacing": 0,
+    "react/jsx-filename-extension": 0,
     "react/jsx-indent-props": 0,
     "react/jsx-no-bind": 0,
+    "react/jsx-no-target-blank": 0,
+    "react/jsx-uses-react": 1,
+    "react/no-danger": 0,
     "react/no-did-mount-set-state": 0,
     "react/no-did-update-set-state": 0,
     "react/no-multi-comp": 0,
     "react/prefer-stateless-function": 0,
     "react/prop-types": 0,
-    "react/jsx-filename-extension": 0,
-    "react/jsx-no-target-blank": 0
+    "react/sort-comp": [0, {
+      "order": [
+        "lifecycle",
+        "everything-else",
+        "render"
+      ]
+    }]
   },
-
   "env": {
     "browser": true,
     "node": true,

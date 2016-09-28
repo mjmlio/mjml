@@ -3,6 +3,7 @@ import merge from 'lodash/merge'
 import React, { Component } from 'react'
 
 const tagName = 'mj-group'
+const parentTag = ['mj-section', 'mj-navbar']
 const defaultMJMLDefinition = {
   attributes: {
     'width': null,
@@ -118,6 +119,7 @@ class Group extends Component {
 Group.tagName = tagName
 Group.baseStyles = baseStyles
 Group.postRender = postRender
+Group.parentTag = parentTag
 Group.defaultMJMLDefinition = defaultMJMLDefinition
 
 export default Group

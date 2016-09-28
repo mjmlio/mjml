@@ -5,7 +5,7 @@ import React, { Component } from 'react'
 import uniq from 'lodash/uniq'
 
 const tagName = 'mj-column'
-const parentTag = ['mj-section', 'mj-group']
+const parentTag = ['mj-section', 'mj-group', 'mj-navbar']
 const defaultMJMLDefinition = {
   attributes: {
     'background': null,

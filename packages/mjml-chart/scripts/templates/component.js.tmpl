@@ -7,8 +7,7 @@
 import {
   MJMLElement
 } from 'mjml-core'
-// import Image from 'mjml-image'
-import Image from '../../mjml-image/src'
+import Image from 'mjml-image'
 
 import React, {
   Component

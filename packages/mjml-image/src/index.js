@@ -44,7 +44,7 @@ const baseStyles = {
 
 @MJMLElement
 class Image extends Component {
-  
+
   styles = this.getStyles()
 
   getContentWidth () {

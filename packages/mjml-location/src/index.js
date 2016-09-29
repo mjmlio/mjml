@@ -9,6 +9,7 @@ const endingTag = true
 const selfClosingTag = true
 const defaultMJMLDefinition = {
   attributes: {
+    'address': null,
     'align': null,
     'color': '#3aa7ed',
     'container-background-color': null,

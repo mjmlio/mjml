@@ -215,7 +215,7 @@ function createComponent (ComposedComponent) {
     validChildren () {
       const { children } = this.props
 
-      return (children || this.generateChildren()).filter(Boolean)
+      return (React.Children.toArray(children) || this.generateChildren()).filter(Boolean)
     }
 
     buildProps () {

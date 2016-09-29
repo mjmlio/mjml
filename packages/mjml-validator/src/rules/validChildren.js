@@ -27,6 +27,6 @@ export const validChildren = (element) => {
       return null;
     }
 
-    return ruleError(`Cannot be used inside ${tagName}, only in : ${ChildComponent.parentTag.join(', ')}`, child)
+    return ruleError(`${ChildComponent.tagName} cannot be used inside ${tagName}, only in: ${ChildComponent.parentTag.join(', ')}`, child)
   }))
 }

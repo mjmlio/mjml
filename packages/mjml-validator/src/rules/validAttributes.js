@@ -22,5 +22,5 @@ export const validateAttribute = (element) => {
     return;
   }
 
-  return ruleError(`Attributes ${unknownAttributes.join(', ')} ${unknownAttributes.length > 1 ? "are illegals" : "is illegal"}`, element)
+  return ruleError(`${unknownAttributes.length > 1 ? "Attributes" : "Attribute"} ${unknownAttributes.join(', ')} ${unknownAttributes.length > 1 ? "are illegal" : "is illegal"}`, element)
 }

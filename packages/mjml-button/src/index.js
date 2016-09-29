@@ -18,7 +18,7 @@ const defaultMJMLDefinition = {
     "container-background-color": null,
     "font-style": null,
     "font-size": "13px",
-    "font-weight": "bold",
+    "font-weight": "normal",
     "font-family": "Ubuntu, Helvetica, Arial, sans-serif",
     "color": "#ffffff",
     "text-decoration": "none",

@@ -78,8 +78,14 @@ export default class MJMLRenderer {
     debug('Validating markup')
     this.validate()
 
+    const rootComponent = MJMLElementsCollection[this.content.tagName]
+
+    if (!rootComponent) {
+      return { errors: this.errors }
+    }
+
     debug('Render to static markup')
-    const rootElemComponent = React.createElement(MJMLElementsCollection[this.content.tagName], { mjml: parseInstance(this.content, this.attributes ) })
+    const rootElemComponent = React.createElement(rootComponent, { mjml: parseInstance(this.content, this.attributes ) })
     const renderedMJML = ReactDOMServer.renderToStaticMarkup(rootElemComponent)
 
     debug('React rendering done. Continue with special overrides.')

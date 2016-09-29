@@ -9,6 +9,8 @@ const parentTag = ['mj-column']
 const defaultMJMLDefinition = {
   attributes: {
     'align': 'center',
+    'base-url': null,
+    'hamburger': null,
     'ico-align': 'center',
     'ico-open': '9776',
     'ico-close': '8855',

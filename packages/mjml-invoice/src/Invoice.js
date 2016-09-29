@@ -13,6 +13,7 @@ const defaultMJMLDefinition = {
     'color': '#b9b9b9',
     'font-family': 'Roboto, Ubuntu, Helvetica, Arial, sans-serif',
     'font-size': '13px',
+    'format': null,
     'intl': 'name:Name;price:Price;quantity:Quantity',
     'line-height': '22px'
   }

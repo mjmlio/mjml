@@ -6,9 +6,24 @@ const tagName = 'mj-navbar'
 const parentTag = ['mj-container']
 const defaultMJMLDefinition = {
   attributes: {
-    'navbar-hamburger': '',
+    'background-color': null,
+    'background-url': null,
+    'background-repeat': 'repeat',
+    'background-size': 'auto',
+    'border': null,
+    'border-bottom': null,
+    'border-left': null,
+    'border-radius': null,
+    'border-right': null,
+    'border-top': null,
+    'full-width': null,
     'padding': '10px 25px',
-    'width': '100%'
+    'padding-top': null,
+    'padding-bottom': null,
+    'padding-left': null,
+    'padding-right': null,
+    'text-align': 'center',
+    'vertical-align': 'top'
   }
 }
 

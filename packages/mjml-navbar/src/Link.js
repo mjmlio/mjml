@@ -11,6 +11,7 @@ const defaultMJMLDefinition = {
     'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
     'font-size': '13px',
     'font-weight': 'normal',
+    'href': null,
     'line-height': '22px'
   }
 }

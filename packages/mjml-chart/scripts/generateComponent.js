@@ -11,7 +11,7 @@ const pick = require('lodash/pick');
 const COMPONENT_IN = fs.readFileSync(path.resolve(__dirname, 'templates/component.js.tmpl'), 'utf8');
 
 const defaultMJMLDefinition = chartAttributes.concat(imageAttributes).reduce((attribute, {name, defaultValue}) => {
-  attribute[name] = defaultValue || '';
+  attribute[name] = defaultValue || null;
   return attribute;
 }, {});
 

@@ -53,22 +53,6 @@ describe('mjml-chart', () => {
       }).to.throw('"aa" is not an valid value for cht. Valid values are: ["bvs","bhs","bvg","bhg","bvo","p","p3","pc","pd","ls","lc","lxy","ls:nda","lc:nda","lxy:nda"]')
     )
 
-    it('should crash at compile time in case of forbidden attributes', () =>
-      expect(() => {
-        new MJMLRenderer(`
-          <mjml>
-          <mj-body>
-          <mj-chart
-          width="300"
-          chs="300x200"
-          chd="t:10,20,30|15,25,35"
-          cht="bvs"
-          chxt="x,y"
-          chxl="0:|A|B|C" />
-          </mj-body>
-          </mjml>`).render()
-      }).to.throw(`"width" is not an authorized attribute for <mjml-chart>`)
-    )
   });
 
   describe('chart generation', () => {

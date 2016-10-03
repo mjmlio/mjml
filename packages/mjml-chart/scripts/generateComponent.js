@@ -1,8 +1,7 @@
 const {
   chartAttributes,
   imageAttributes,
-  API_ENDPOINT,
-  EXCLUDE_IMAGE_ATTRIBUTES
+  API_ENDPOINT
 } = require('./model');
 const fs = require('fs');
 const path = require('path');

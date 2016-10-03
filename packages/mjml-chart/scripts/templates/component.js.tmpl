@@ -86,11 +86,6 @@ class Chart extends Component {
 
     const [width, height] = mjAttribute('chs').split('x').map(toNumber)
 
-    // ensure forbidden attributes were not specified
-    forEach(this.props.mjml.get('attributes').toObject(), (value, attr) => {
-      assert(!forbiddenAttributes.includes(attr), `"${attr}" is not an authorized attribute for <mjml-chart>`);
-    })
-
     return (<Image
       width={width}
       height={height}

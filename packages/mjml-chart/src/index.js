@@ -16,7 +16,6 @@ import qs from 'querystring'
 import assert from 'assert'
 import memoize from 'lodash/memoize'
 import toNumber from 'lodash/toNumber'
-import forEach from 'lodash/forEach'
 
 const tagName = 'mj-chart'
 const defaultMJMLDefinition = {
@@ -208,17 +207,6 @@ const imageChartsParameters = [
     ],
     "required": false
   }
-]
-
-/**
- * @type {Array[String]}
- */
-const forbiddenAttributes = [
-  "src",
-  "width",
-  "height",
-  "href",
-  "target"
 ]
 
 const endingTag = true

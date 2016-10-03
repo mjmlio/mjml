@@ -18,7 +18,6 @@ const defaultMJMLDefinition = chartAttributes.concat(imageAttributes).reduce((at
 const COMPONENT_OUT = COMPONENT_IN
   .replace('/*defaultMJMLDefinition*/', JSON.stringify(defaultMJMLDefinition, null, 2))
   .replace('/*imageChartsParameters*/', JSON.stringify(chartAttributes.map((attribute) => pick(attribute, ['name', 'pattern', 'examples', 'required', 'enum'])), null, 2))
-  .replace('/*documentation_url*/', API_ENDPOINT)
-  .replace('/*forbiddenAttributes*/', JSON.stringify(EXCLUDE_IMAGE_ATTRIBUTES, null, 2))
+  .replace('/*documentation_url*/', API_ENDPOINT);
 
 console.log(COMPONENT_OUT); // eslint-disable-line no-console

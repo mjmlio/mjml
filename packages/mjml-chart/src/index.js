@@ -16,6 +16,7 @@ import qs from 'querystring'
 import assert from 'assert'
 import memoize from 'lodash/memoize'
 import toNumber from 'lodash/toNumber'
+import includes from 'lodash/includes'
 
 const tagName = 'mj-chart'
 const defaultMJMLDefinition = {
@@ -247,7 +248,7 @@ function buildURL (mjAttribute) {
       }
 
       if (attr.enum) {
-        assert(attr.enum.includes(val), `"${val}" is not an valid value for ${attr.name}. Valid values are: ${JSON.stringify(attr.enum)}`);
+        assert(includes(attr.enum, val), `"${val}" is not an valid value for ${attr.name}. Valid values are: ${JSON.stringify(attr.enum)}`);
       }
 
       query[attr.name] = val;

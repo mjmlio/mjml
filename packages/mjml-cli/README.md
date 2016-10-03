@@ -14,13 +14,25 @@ You can download and install the MJML engine from [NPM](https://www.npmjs.com).
 
 In addition to the translation engine, which converts MJML to email HTML, we've bundled a Command Line Interface (CLI) helping you to achieve the basic features it offers and integrate it seamlessly in your development flow.
 
-### Rendering
+### Render MJML to HTML
 
 ```bash
 $> mjml input.mjml
 ```
 
-It will output an HTML file called `input.html`.
+It will output a HTML file called `input.html`.
+
+### Render and minify the output HTML
+
+```bash
+$> mjml -m input.mjml
+
+# or
+
+$> mjml --min input.mjml
+```
+
+It will output a HTML file called `input.html`.
 
 ### Render and redirect the result to a file
 

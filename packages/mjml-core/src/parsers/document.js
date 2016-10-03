@@ -37,7 +37,8 @@ const mjmlElementParser = (elem, content) => {
     throw new NullElementError('Null element found in mjmlElementParser')
   }
 
-  const lineNumber = content.substr(0, elem.startIndex).match(/\n/g).length + 1
+  const findLine = content.substr(0, elem.startIndex).match(/\n/g)
+  const lineNumber = findLine ? findLine.length + 1 : 1
   const tagName = elem.tagName.toLowerCase()
   const attributes = dom.getAttributes(elem)
 

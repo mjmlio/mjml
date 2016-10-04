@@ -1,7 +1,7 @@
 {
   "name": "mjml-image",
   "description": "mjml-image",
-  "version": "3.0.0-beta.1",
+  "version": "3.0.0-beta.2",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -14,7 +14,7 @@
   "homepage": "https://mjml.io",
   "dependencies": {
     "lodash": "^4.16.2",
-    "mjml-core": "~3.0.0-beta.1",
+    "mjml-core": "~3.0.0-beta.2",
     "react": "^15.3.2"
   }
 }

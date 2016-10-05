@@ -1,7 +1,7 @@
 {
   "name": "mjml-chart",
   "description": "mjml-chart",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "lib/index.js",
   "scripts": {
     "test": "mocha --compilers js:babel-register",
@@ -9,7 +9,8 @@
     "update-swagger": "curl -s https://image-charts.com/swagger.json > scripts/swagger.json",
     "update-swagger-dev": "curl -s http://localhost:8080/swagger.json > scripts/swagger.json",
     "update": "node scripts/generateREADME.js > README.md && node scripts/generateComponent.js > src/index.js",
-    "update-watch": "chokidar 'scripts/**' 'package.json' -c 'npm run update'"
+    "update-watch": "chokidar 'scripts/**' 'package.json' -c 'npm run update'",
+    "example-html": "babel-node examples/simple-chart.js"
   },
   "repository": {
     "type": "git",
@@ -31,6 +32,7 @@
     "react": "^15.3.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.16.0",
     "chai": "^3.5.0",
     "chokidar-cli": "^1.2.0",
     "markdown-table": "^1.0.0",

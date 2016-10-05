@@ -1,0 +1,26 @@
+<mjml>
+  <mj-body>
+    <mj-container>
+      <mj-section>
+        <mj-column width="33.33333333333333%" vertical-align="middle">
+          <mj-text>
+            Hello World!
+          </mj-text>
+        </mj-column>
+        <mj-column  width="66.66666666666666%" vertical-align="middle">
+          <mj-chart
+            chs="700x200"
+            cht="lc"
+            chd="s:cEAELFJHHHKUju9uuXUc"
+            chco="76A4FB"
+            chls="2.0,0.0,0.0"
+            chxt="x,y"
+            chxl="0:|0|1|2|3|4|5|1:|0|50|100"
+            chg="20,50"
+           >
+          </mj-chart>
+        </mj-column>
+      </mj-section>
+    </mj-container>
+  </mj-body>
+</mjml>

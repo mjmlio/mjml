@@ -15,6 +15,7 @@ import React, {
 import qs from 'querystring'
 import assert from 'assert'
 import memoize from 'lodash/memoize'
+import min from 'lodash/min'
 import toNumber from 'lodash/toNumber'
 import includes from 'lodash/includes'
 
@@ -262,6 +263,19 @@ function buildURL (mjAttribute) {
 @MJMLElement
 class Chart extends Component {
 
+  getContentWidth (chsWidth) {
+    const { mjAttribute, getPadding } = this.props
+    const parentWidth = mjAttribute('parentWidth')
+
+    const width = min([parseInt(chsWidth), parseInt(parentWidth)])
+
+    const paddingRight = getPadding('right')
+    const paddingLeft = getPadding('left')
+    const widthOverflow = paddingLeft + paddingRight + width - parseInt(parentWidth)
+
+    return widthOverflow > 0 ? width - widthOverflow : width
+  }
+
   render () {
     const {
       mjAttribute
@@ -270,7 +284,7 @@ class Chart extends Component {
     const [width, height] = mjAttribute('chs').split('x').map(toNumber)
 
     return (<Image
-      width={width}
+      width={this.getContentWidth(width)}
       height={height}
       src={buildURL(mjAttribute)}
       padding={mjAttribute('padding')}

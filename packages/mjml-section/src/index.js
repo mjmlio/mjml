@@ -18,7 +18,7 @@ const defaultMJMLDefinition = {
     'border-right': null,
     'border-top': null,
     'full-width': null,
-    'padding': '10px 25px',
+    'padding': '20px 0',
     'padding-top': null,
     'padding-bottom': null,
     'padding-left': null,

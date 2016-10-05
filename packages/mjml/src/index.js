@@ -7,6 +7,7 @@ import Divider from 'mjml-divider'
 import Group from 'mjml-group'
 import Html from 'mjml-html'
 import Image from 'mjml-image'
+import Chart from 'mjml-chart'
 import List from 'mjml-list'
 import Location from 'mjml-location'
 import MJHero from 'mjml-hero'
@@ -37,6 +38,7 @@ const { Navbar, InlineLinks, Link } = MJNavbar;
   HeroContent,
   Html,
   Image,
+  Chart,
   InlineLinks,
   Invoice,
   InvoiceItem,

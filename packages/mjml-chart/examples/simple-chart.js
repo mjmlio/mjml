@@ -8,4 +8,4 @@ const htmlOutput = mjml2html(require('fs').readFileSync(path.resolve(__dirname, 
 /*
   Print the responsive HTML generated
 */
-console.log(htmlOutput);
+console.log(htmlOutput); // eslint-disable-line no-console

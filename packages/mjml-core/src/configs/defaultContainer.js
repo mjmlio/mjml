@@ -23,6 +23,13 @@ export default () => {
   </o:OfficeDocumentSettings>
 </xml>
 <![endif]-->
+<!--[if lte mso 11]>
+<style type="text/css">
+  .outlook-group-fix {
+    width:100% !important;
+  }
+</style>
+<![endif]-->
 </head>
 <body>
   __content__

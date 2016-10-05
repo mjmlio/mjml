@@ -1,4 +1,5 @@
 import { MJMLElement, helpers } from 'mjml-core'
+import cx from 'classnames'
 import each from 'lodash/each'
 import merge from 'lodash/merge'
 import React, { Component } from 'react'
@@ -129,11 +130,12 @@ class Column extends Component {
     const { mjAttribute, children, sibling } = this.props
     const width = mjAttribute('width') || (100 / sibling)
     const mjColumnClass = this.getColumnClass()
+    const divClasses = cx(mjColumnClass, 'outlook-group-fix')
 
     return (
       <div
         aria-labelledby={mjColumnClass}
-        className={mjColumnClass}
+        className={divClasses}
         data-column-width={parseInt(width)}
         data-vertical-align={this.styles.div.verticalAlign}
         style={this.styles.div}>

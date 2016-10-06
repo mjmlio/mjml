@@ -71,6 +71,7 @@ class Column extends Component {
         direction: 'ltr',
         fontSize: '13px',
         textAlign: 'left',
+        verticalAlign: mjAttribute('vertical-align'),
         width: this.getMobileWidth()
       },
       table: {

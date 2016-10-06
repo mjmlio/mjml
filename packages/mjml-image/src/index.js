@@ -52,7 +52,7 @@ class Image extends Component {
     const { mjAttribute, getPadding } = this.props
     const parentWidth = mjAttribute('parentWidth')
 
-    const width = min([parseInt(mjAttribute('width')), parseInt(parentWidth)])
+    const width = mjAttribute('width') ? min([parseInt(mjAttribute('width')), parseInt(parentWidth)]) : parseInt(parentWidth)
 
     const paddingRight = getPadding('right')
     const paddingLeft = getPadding('left')

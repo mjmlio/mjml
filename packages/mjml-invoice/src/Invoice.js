@@ -135,7 +135,7 @@ class Invoice extends Component {
           </tr>
         </thead>
         <tbody>
-          {children}
+          {React.Children.map(children, child => React.cloneElement(child, { columnElement: true }))}
         </tbody>
         <tfoot>
           <tr style={this.styles.tfoot}>

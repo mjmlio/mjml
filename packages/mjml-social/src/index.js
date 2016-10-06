@@ -23,6 +23,7 @@ const defaultMJMLDefinition = {
     'google-href': '[[SHORT_PERMALINK]]',
     'google-icon-color': '#dc4e41',
     'icon-size': '20px',
+    'inner-padding': null,
     'instagram-content': 'Share',
     'instagram-href': '[[SHORT_PERMALINK]]',
     'instagram-icon-color': '#3f729b',

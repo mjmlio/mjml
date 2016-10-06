@@ -68,6 +68,7 @@ class Column extends Component {
     return merge({}, baseStyles, {
       div: {
         display: 'inline-block',
+        direction: 'ltr',
         fontSize: '13px',
         textAlign: 'left',
         width: this.getMobileWidth()

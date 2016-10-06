@@ -8,6 +8,7 @@ const defaultMJMLDefinition = {
   attributes: {
     'mode': 'fixed-height',
     'height': '0px',
+    'background-url': null,
     'background-width': '0px',
     'background-height': '0px',
     'background-position': 'center center',

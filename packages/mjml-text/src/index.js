@@ -21,6 +21,8 @@ const defaultMJMLDefinition = {
     'padding-right': null,
     'padding-top': null,
     'padding': '10px 25px',
+    'text-decoration': null,
+    'text-transform': null,
     'vertical-align': null
   }
 }

@@ -11,6 +11,7 @@ const defaultMJMLDefinition = {
   attributes: {
     'border': '1px solid #ecedee',
     'color': '#b9b9b9',
+    'container-background-color': null,
     'font-family': 'Roboto, Ubuntu, Helvetica, Arial, sans-serif',
     'font-size': '13px',
     'format': null,

@@ -1,9 +1,11 @@
 const unitRegex = /[\d\.,]*(\D*)$/
 
-export const widthParser = width => {
+export const widthParser = (width, opts = { parseFloatToInt: true }) => {
   const widthUnit = unitRegex.exec(width.toString())[1]
+  const unitParsers = { default: parseInt, px: parseInt, '%': opts.parseFloatToInt ? parseInt : parseFloat}
+  const widthParser = unitParsers[widthUnit] || unitParsers['default']
 
-  return { unit: widthUnit || 'px', width: parseInt(width) }
+  return { unit: widthUnit || 'px', width: widthParser(width) }
 }
 
 export const defaultUnit = (units, defaultUnit = 'px') => {

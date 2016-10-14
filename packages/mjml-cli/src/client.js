@@ -1,10 +1,7 @@
-import { MJMLRenderer, version } from 'mjml-core'
+import { MJMLRenderer, version, documentParser, MJMLValidator } from 'mjml-core'
 import fs from 'fs'
 import glob from 'glob'
 import path from 'path'
-import camelCase from 'lodash/camelCase'
-import upperFirst from 'lodash/upperFirst'
-import createComponent from './createComponent'
 
 /*
  * The version number is the NPM
@@ -56,7 +53,6 @@ const stdinToBuffer = (stream, callback) => {
  * read: read a fileexists: ensure the file exists
  */
 const write     = promisify(fs.writeFile)
-const mkdir     = promisify(fs.mkdir)
 const read      = promisify(fs.readFile)
 const readStdin = promisify(stdinToBuffer)
 
@@ -130,21 +126,37 @@ export const renderFile = (input, options) => {
  */
 export const renderStream = options => render(readStdin(process.stdin), options)
 
+const availableOutputFormat = {
+  json: JSON.stringify,
+  text: (errs) => errs.map(e => e.formattedMessage).join('\n')
+}
+
+/**
+ * Validate an MJML document
+ */
+export const validate = (input, { format }) => {
+  read(input)
+    .then(content => {
+      const MJMLDocument = documentParser(content.toString())
+      const report = MJMLValidator(MJMLDocument)
+
+      const outputFormat = availableOutputFormat[format] || availableOutputFormat['text']
+
+      process.stdout.write(outputFormat(report))
+    })
+    .catch(e => {
+      return error(`Error: ${e} Cannot read ${input}`)
+    })
+}
+
 /*
  * Watch changes on a specific input file by calling render on each change
  */
 export const watch = (input, options) => {
   renderFile(input, options)
-  const now = new Date();
-  fs.watchFile(input, () => console.log(`[${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}] Reloading MJML`) || renderFile(input, options)) // eslint-disable-line no-console
-}
+  fs.watchFile(input, () => {
+    const now = new Date()
 
-/*
- * Create a new component based on the default template
- */
-export const initComponent = (name, ending) => {
-  mkdir(`./${name}`)
-    .then(() => mkdir(`./${name}/src`))
-    .then(() => write(`./${name}/src/index.js`, createComponent(upperFirst(camelCase(name)), ending)))
-    .then(() => console.log(`Component created: ${name}`)) // eslint-disable-line no-console
+    console.log(`[${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}] Reloading MJML`) || renderFile(input, options) // eslint-disable-line no-console
+  })
 }

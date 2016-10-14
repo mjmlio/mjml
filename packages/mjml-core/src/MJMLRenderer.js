@@ -5,15 +5,14 @@ import cloneDeep from 'lodash/cloneDeep'
 import configParser from './parsers/config'
 import curryRight from 'lodash/curryRight'
 import documentParser from './parsers/document'
+import defaults from 'lodash/defaults'
 import defaultContainer from './configs/defaultContainer'
 import defaultFonts from './configs/listFontsImports'
 import dom from './helpers/dom'
 import he from 'he'
 import importFonts from './helpers/importFonts'
 import includeExternal from './includeExternal'
-import juice from 'juice'
 import { html as beautify } from 'js-beautify'
-import { minify } from 'html-minifier'
 import MJMLValidator from 'mjml-validator'
 import MJMLElementsCollection, { postRenders } from './MJMLElementsCollection'
 import isBrowser from './helpers/isBrowser'
@@ -22,9 +21,17 @@ import ReactDOMServer from 'react-dom/server'
 
 const debug = require('debug')('mjml-engine/mjml2html')
 
-const minifyHTML = htmlDocument => minify(htmlDocument, { collapseWhitespace: true, removeEmptyAttributes: true, minifyCSS: true })
+const minifyHTML = htmlDocument => {
+  const { minify } = require('html-minifier')
+
+  return minify(htmlDocument, { collapseWhitespace: true, removeEmptyAttributes: true, minifyCSS: true })
+}
 const beautifyHTML = htmlDocument => beautify(htmlDocument, { indent_size: 2, wrap_attributes_indent_size: 2 })
-const inlineExternal = (htmlDocument, css) => juice(htmlDocument, { extraCss: css, removeStyleTags: false, applyStyleTags: false, insertPreservedExtraCss: false })
+const inlineExternal = (htmlDocument, css) => {
+  const juice = require('juice')
+
+  return juice(htmlDocument, { extraCss: css, removeStyleTags: false, applyStyleTags: false, insertPreservedExtraCss: false })
+}
 
 export default class MJMLRenderer {
 
@@ -42,8 +49,7 @@ export default class MJMLRenderer {
     }
 
     this.content = content
-    this.options = options
-    this.options["level"] = this.options["level"] || "soft"
+    this.options = defaults(options, { level: "soft", disableMjStyle: false, disableMjInclude: false, disableMinify: false })
 
     if (typeof this.content === 'string') {
       this.parseDocument()
@@ -51,7 +57,9 @@ export default class MJMLRenderer {
   }
 
   parseDocument () {
-    this.content = includeExternal(this.content)
+    if (!this.options.disableMjInclude) {
+      this.content = includeExternal(this.content)
+    }
 
     debug('Start parsing document')
     this.content = documentParser(this.content, this.attributes, this.options)
@@ -109,9 +117,9 @@ export default class MJMLRenderer {
     })
 
     return [ removeCDATA,
-             curryRight(inlineExternal)(externalCSS),
+             !this.options.disableMjStyle ? curryRight(inlineExternal)(externalCSS) : undefined,
              this.options.beautify ? beautifyHTML : undefined,
-             this.options.minify ? minifyHTML : undefined,
+             !this.options.disableMinify && this.options.minify ? minifyHTML : undefined,
              he.decode ].filter(element => typeof element == 'function')
                         .reduce((res, fun) => fun(res), dom.getHTML($))
   }

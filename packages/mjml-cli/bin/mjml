@@ -25,12 +25,15 @@ binary
   .option('-o, --output <file>', 'Redirect the HTML to a file')
   .option('-s, --stdout', 'Redirect the HTML to stdout')
   .option('-m, --min', 'Minify the final output file', 'false')
-  .option('-e, --ending', 'Specifies that the newly created component is an ending tag')
-  .option('-c, --column', 'Specifies that the newly created component is an column element')
-  .option('--init-component <name>', 'Initialize an MJML component')
+  .option('-f, --format <format>', 'Output format for MJML validation', /^(json|text)$/i, 'text')
+  .option('--validate <file>', 'Validate a MJML Document')
   .parse(process.argv)
 
 switch (true) {
+  case (!!binary.validate):
+    cli.validate(binary.validate, binary)
+    break
+
   case (!!binary.watch):
     cli.watch(binary.watch, binary)
     break
@@ -41,9 +44,5 @@ switch (true) {
 
   case (!!binary.stdin):
     cli.renderStream(binary)
-    break
-
-  case (!!binary.initComponent):
-    cli.initComponent(binary.initComponent, binary.ending, binary.column)
     break
 }

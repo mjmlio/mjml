@@ -13,6 +13,10 @@ const defaultMJMLDefinition = {
     'background-height': '0px',
     'background-position': 'center center',
     'padding': '0px',
+    'padding-bottom': null,
+    'padding-left': null,
+    'padding-right': null,
+    'padding-top': null,
     'background-color': '#ffffff'
   }
 }

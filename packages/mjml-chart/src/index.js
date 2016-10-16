@@ -285,7 +285,6 @@ class Chart extends Component {
 
     return (<Image
       width={this.getContentWidth(width)}
-      height={height}
       src={buildURL(mjAttribute)}
       padding={mjAttribute('padding')}
       align={mjAttribute('align')}

@@ -145,7 +145,7 @@ export const validate = (input, { format }) => {
       process.stdout.write(outputFormat(report))
     })
     .catch(e => {
-      return error(`Error: ${e} Cannot read ${input}`)
+      return error(`Error: ${e}`)
     })
 }
 

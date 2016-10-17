@@ -281,7 +281,7 @@ class Chart extends Component {
       mjAttribute
     } = this.props
 
-    const [width, height] = mjAttribute('chs').split('x').map(toNumber)
+    const [width] = mjAttribute('chs').split('x').map(toNumber)
 
     return (<Image
       width={this.getContentWidth(width)}

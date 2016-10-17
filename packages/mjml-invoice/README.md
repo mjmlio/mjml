@@ -31,6 +31,7 @@ Display a table of items with calculated total price.
 
 attribute                   | unit        | description                                           | default value
 ----------------            |-------------|-------------------------------------------------------|--------------
+align                       | string      | left/center/right                                     | left
 color                       | color       | text header & footer color                            | #b9b9b9
 font-family                 | string      | font name                                             | Roboto, Ubuntu, Helvetica, Arial, sans-serif
 font-size                   | px/em       | font size                                             | 13px

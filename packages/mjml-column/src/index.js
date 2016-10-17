@@ -37,10 +37,11 @@ const postRender = $ => {
       $(this).removeAttr('data-column-width')
     })
 
-    uniq(columnWidths).forEach(width => {
-      const mediaQueryClass = `${className}-${width}`
+    uniq(columnWidths).forEach((width) => {
+      const { width: parsedWidth } = helpers.widthParser(width, { parseFloatToInt: false })
+      const mediaQueryClass = `${className}-${parseInt(parsedWidth)}`
 
-      mediaQueries.push(`.${mediaQueryClass}, * [aria-labelledby="${mediaQueryClass}"] { width:${width}${unit}!important; }`)
+      mediaQueries.push(`.${mediaQueryClass}, * [aria-labelledby="${mediaQueryClass}"] { width:${parsedWidth}${unit}!important; }`)
     })
   })
 
@@ -130,7 +131,7 @@ class Column extends Component {
 
   render () {
     const { mjAttribute, children, sibling } = this.props
-    const width = mjAttribute('width') || (100 / sibling)
+    const width = mjAttribute('width') || `${100 / sibling}%`
     const mjColumnClass = this.getColumnClass()
     const divClasses = cx(mjColumnClass, 'outlook-group-fix')
 
@@ -138,7 +139,7 @@ class Column extends Component {
       <div
         aria-labelledby={mjColumnClass}
         className={divClasses}
-        data-column-width={parseInt(width)}
+        data-column-width={width}
         data-vertical-align={this.styles.div.verticalAlign}
         style={this.styles.div}>
         <table

@@ -1,10 +1,26 @@
 import { MJMLElement, helpers } from 'mjml-core'
+import cx from 'classnames'
 import each from 'lodash/each'
 import merge from 'lodash/merge'
 import React, { Component } from 'react'
 import uniq from 'lodash/uniq'
 
 const tagName = 'mj-column'
+const parentTag = ['mj-section', 'mj-group', 'mj-navbar']
+const defaultMJMLDefinition = {
+  attributes: {
+    'background': null,
+    'background-color': null,
+    "border": null,
+    "border-bottom": null,
+    "border-left": null,
+    "border-radius": null,
+    "border-right": null,
+    "border-top": null,
+    'vertical-align': null,
+    'width': null
+  }
+}
 const baseStyles = {
   div: {
     verticalAlign: 'top'
@@ -48,19 +64,26 @@ class Column extends Component {
   styles = this.getStyles()
 
   getStyles () {
-    const { mjAttribute } = this.props
+    const { mjAttribute, defaultUnit } = this.props
 
     return merge({}, baseStyles, {
       div: {
         display: 'inline-block',
-        verticalAlign: mjAttribute('vertical-align'),
+        direction: 'ltr',
         fontSize: '13px',
         textAlign: 'left',
+        verticalAlign: mjAttribute('vertical-align'),
         width: this.getMobileWidth()
       },
       table: {
-        verticalAlign: mjAttribute('vertical-align'),
-        background: mjAttribute('background-color')
+        background: mjAttribute('background-color'),
+        border: mjAttribute('border'),
+        borderBottom: mjAttribute('border-bottom'),
+        borderLeft: mjAttribute('border-left'),
+        borderRadius: defaultUnit(mjAttribute('border-radius'), "px"),
+        borderRight: mjAttribute('border-right'),
+        borderTop: mjAttribute('border-top'),
+        verticalAlign: mjAttribute('vertical-align')
       }
     })
   }
@@ -110,11 +133,12 @@ class Column extends Component {
     const { mjAttribute, children, sibling } = this.props
     const width = mjAttribute('width') || `${100 / sibling}%`
     const mjColumnClass = this.getColumnClass()
+    const divClasses = cx(mjColumnClass, 'outlook-group-fix')
 
     return (
       <div
         aria-labelledby={mjColumnClass}
-        className={mjColumnClass}
+        className={divClasses}
         data-column-width={width}
         data-vertical-align={this.styles.div.verticalAlign}
         style={this.styles.div}>
@@ -136,7 +160,9 @@ class Column extends Component {
 
 }
 
+Column.defaultMJMLDefinition = defaultMJMLDefinition
 Column.tagName = tagName
+Column.parentTag = parentTag
 Column.baseStyles = baseStyles
 Column.postRender = postRender
 

@@ -8,7 +8,7 @@ export const registerMJElement = Component => {
   const { endingTag, postRender, tagName } = Component
 
   if (!tagName) {
-    return warning(false, 'Component has no TagName')
+    return warning(false, 'Component has no tagName')
   }
 
   endingTag  && !includes(endingTags, tagName) && endingTags.push(tagName)

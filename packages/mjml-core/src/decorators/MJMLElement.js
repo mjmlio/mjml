@@ -1,11 +1,11 @@
 import { widthParser, defaultUnit } from '../helpers/mjAttribute'
 import Immutable from 'immutable'
-import merge from 'lodash/merge'
 import MJMLElementsCollection from '../MJMLElementsCollection'
 import React, { Component } from 'react'
 import ReactDOMServer from 'react-dom/server'
 import trim from 'lodash/trim'
-import warning from 'warning'
+import merge from 'lodash/merge'
+import hoistNonReactStatic from 'hoist-non-react-statics';
 
 const getElementWidth = ({ element, siblings, parentWidth }) => {
   const { mjml } = element.props
@@ -134,7 +134,7 @@ function createComponent (ComposedComponent) {
             childProps.mjml = childProps.mjml.mergeIn(['attributes', this.inheritedAttributes()])
           }
         } else {
-          Object.assign(childProps, {rawPxWidth: elementsWidth[i]})
+          Object.assign(childProps, { rawPxWidth: elementsWidth[i] })
 
           if (this.mjml.get('inheritedAttributes')) {
             Object.assign(childProps, this.inheritedAttributes())
@@ -144,7 +144,7 @@ function createComponent (ComposedComponent) {
         const childWithProps = React.cloneElement(child, childProps)
 
         wrappedElements.push(childWithProps)
-        if (childWithProps.type.tagName !== 'mj-raw' && i < realChildren.length - 1) {
+        if (!childWithProps.type.rawElement && i < realChildren.length - 1) {
           wrappedElements.push(<div key={`outlook-${i}`} className={`${prefix}-line`} data-width={elementsWidth[++i]} />)
         }
       })
@@ -200,8 +200,7 @@ function createComponent (ComposedComponent) {
         const Element = MJMLElementsCollection[tag]
 
         if (!Element) {
-          warning(false, `Could not find element for : ${tag}`)
-          return null
+          return null;
         }
 
         return (
@@ -213,8 +212,13 @@ function createComponent (ComposedComponent) {
       })
     }
 
+    validChildren () {
+      const { children } = this.props
+      return ((children && React.Children.toArray(children)) || this.generateChildren()).filter(Boolean)
+    }
+
     buildProps () {
-      const { parentMjml, children } = this.props
+      const { parentMjml } = this.props
 
       const childMethods = [
         'mjAttribute',
@@ -236,7 +240,7 @@ function createComponent (ComposedComponent) {
         mjName: this.mjName(),
 
         // generate children
-        children: children || this.generateChildren(),
+        children: this.validChildren(),
 
         // siblings count, can change display
         sibling: siblingCount,
@@ -276,8 +280,7 @@ function createComponent (ComposedComponent) {
     }
   }
 
-  return MJMLElement
-
+  return hoistNonReactStatic(MJMLElement, ComposedComponent)
 }
 
 export default createComponent

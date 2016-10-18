@@ -3,7 +3,7 @@ import compact from 'lodash/compact'
 import dom from '../helpers/dom'
 import each from 'lodash/each'
 import filter from 'lodash/filter'
-import MJMLElements, { endingTags } from '../MJMLElementsCollection'
+import { endingTags } from '../MJMLElementsCollection'
 import MJMLHeadElements from '../MJMLHead'
 import warning from 'warning'
 
@@ -32,27 +32,24 @@ const safeEndingTags = content => {
 /**
  * converts MJML body into a JSON representation
  */
-const mjmlElementParser = elem => {
+const mjmlElementParser = (elem, content) => {
   if (!elem) {
     throw new NullElementError('Null element found in mjmlElementParser')
   }
 
+  const findLine = content.substr(0, elem.startIndex).match(/\n/g)
+  const lineNumber = findLine ? findLine.length + 1 : 1
   const tagName = elem.tagName.toLowerCase()
   const attributes = dom.getAttributes(elem)
 
-  const element = { tagName, attributes }
-
-  if (!MJMLElements[tagName]) {
-    warning(false, `Unregistered element: ${tagName}, skipping it`)
-    return
-  }
+  const element = { tagName, attributes, lineNumber }
 
   if (endingTags.indexOf(tagName) !== -1) {
-    const $ = dom.parseXML(elem)
-    element.content = $(tagName).html().trim()
+    const $local = dom.parseXML(elem)
+    element.content = $local(tagName).html().trim()
   } else {
     const children = dom.getChildren(elem)
-    element.children = children ? compact(filter(children, child => child.tagName).map(mjmlElementParser)) : []
+    element.children = children ? compact(filter(children, child => child.tagName).map(child => mjmlElementParser(child, content))) : []
   }
 
   return element
@@ -81,25 +78,25 @@ const parseHead = (head, attributes) => {
  *   - mjml: a json representation of the mjml
  */
 const documentParser = (content, attributes) => {
-  let root
+  const safeContent = safeEndingTags(content)
+
+  let body
   let head
 
   try {
-    const $ = dom.parseXML(safeEndingTags(content))
-    root = $('mjml > mj-body')
+    const $ = dom.parseXML(safeContent)
+
+    body = $('mjml > mj-body')
     head = $('mjml > mj-head')
 
-    if (root.length < 1) {
-      root = $('mj-body').get(0)
-      warning(false, 'Please upgrade your MJML markup to add a <mjml> root tag, <mj-body> as root will no longer be supported soon, see https://github.com/mjmlio/mjml/blob/master/UPGRADE.md')
-    } else {
-      root = root.children().get(0)
+    if (body.length > 0) {
+      body = body.children().get(0)
     }
   } catch (e) {
     throw new ParseError('Error while parsing the file')
   }
 
-  if (!root || root.length < 1) {
+  if (!body || body.length < 1) {
     throw new EmptyMJMLError('No root "<mjml>" or "<mj-body>" found in the file')
   }
 
@@ -107,7 +104,7 @@ const documentParser = (content, attributes) => {
     parseHead(head.get(0), attributes)
   }
 
-  return mjmlElementParser(root)
+  return mjmlElementParser(body, safeContent)
 }
 
 export default documentParser

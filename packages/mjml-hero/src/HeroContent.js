@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import merge from 'lodash/merge'
 
 const tagName = 'mj-hero-content'
+const parentTag = ['mj-hero']
 const defaultMJMLDefinition = {
   attributes: {
     'width': '100%',
@@ -115,5 +116,6 @@ HeroContent.defaultMJMLDefinition = defaultMJMLDefinition
 HeroContent.endingTag = endingTag
 HeroContent.baseStyles = baseStyles
 HeroContent.postRender = postRender
+HeroContent.parentTag = parentTag
 
 export default HeroContent

@@ -1,10 +1,12 @@
-import { MJMLElement, helpers, elements } from 'mjml-core'
+import { MJMLElement, helpers } from 'mjml-core'
 import React, { Component } from 'react'
 
 const tagName = 'mj-container'
+const parentTag = ['mj-body']
 const defaultMJMLDefinition = {
   attributes: {
-    'width': '600'
+    'width': '600px',
+    'background-color': null
   },
   inheritedAttributes: [
     'width'
@@ -92,10 +94,8 @@ class Container extends Component {
 }
 
 Container.tagName = tagName
+Container.parentTag = parentTag
 Container.defaultMJMLDefinition = defaultMJMLDefinition
 Container.postRender = postRender
-
-// Support V1.X MJML mj-body
-elements['mj-body'] = Container
 
 export default Container

@@ -2,9 +2,18 @@ import { MJMLElement } from 'mjml-core'
 import React, { Component } from 'react'
 
 const tagName = 'mj-spacer'
+const parentTag = ['mj-column', 'mj-hero-content']
+const selfClosingTag = true
 const defaultMJMLDefinition = {
   attributes: {
-    'height': '20px'
+    'align': null,
+    'container-background-color': null,
+    'height': '20px',
+    'padding-bottom': null,
+    'padding-left': null,
+    'padding-right': null,
+    'padding-top': null,
+    'vertical-align': null
   }
 }
 
@@ -19,7 +28,7 @@ class Spacer extends Component {
     return {
       div: {
         fontSize: '1px',
-        lineHeight: defaultUnit(mjAttribute('height'), 'px')
+        lineHeight: defaultUnit(mjAttribute('height'))
       }
     }
   }
@@ -35,6 +44,8 @@ class Spacer extends Component {
 }
 
 Spacer.tagName = tagName
+Spacer.parentTag = parentTag
+Spacer.selfClosingTag = selfClosingTag
 Spacer.defaultMJMLDefinition = defaultMJMLDefinition
 
 export default Spacer

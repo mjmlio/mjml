@@ -3,24 +3,39 @@ import merge from 'lodash/merge'
 import React, { Component } from 'react'
 
 const tagName = 'mj-button'
+const parentTag = ['mj-column', 'mj-hero-content']
+const endingTag = true
 const defaultMJMLDefinition = {
   content: '',
   attributes: {
-    'align': 'center',
-    'background-color': '#414141',
-    'border-radius': '3px',
-    'color': '#ffffff',
-    'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
-    'font-size': '13px',
-    'font-weight': 'normal',
-    'href': '',
+    "background-color": "#414141",
+    "border": "none",
+    "border-bottom": null,
+    "border-left": null,
+    "border-radius": "3px",
+    "border-right": null,
+    "border-top": null,
+    "container-background-color": null,
+    "font-style": null,
+    "font-size": "13px",
+    "font-weight": "normal",
+    "font-family": "Ubuntu, Helvetica, Arial, sans-serif",
+    "color": "#ffffff",
+    "text-decoration": "none",
+    "text-transform": "none",
+    "align": "center",
+    "vertical-align": "middle",
+    "href": null,
+    "inner-padding": "10px 25px",
     'padding': '10px 25px',
-    'inner-padding': '10px 25px',
-    'text-decoration': 'none',
-    'vertical-align': 'middle'
+    "padding-top": null,
+    "padding-bottom": null,
+    "padding-left": null,
+    "padding-right": null,
+    "width": null,
+    "height": null
   }
 }
-const endingTag = true
 const baseStyles = {
   table: {
     borderCollapse: 'separate'
@@ -40,22 +55,29 @@ class Button extends Component {
     const { mjAttribute, defaultUnit } = this.props
 
     return merge({}, baseStyles, {
+      table: {
+        width: mjAttribute('width')
+      },
       td: {
         border: mjAttribute('border'),
+        borderBottom: mjAttribute('border-bottom'),
+        borderLeft: mjAttribute('border-left'),
         borderRadius: defaultUnit(mjAttribute('border-radius'), "px"),
+        borderRight: mjAttribute('border-right'),
+        borderTop: mjAttribute('border-top'),
         color: mjAttribute('color'),
         cursor: 'auto',
         fontStyle: mjAttribute('font-style'),
+        height: mjAttribute('height'),
         padding: defaultUnit(mjAttribute('inner-padding'), "px")
       },
       a: {
         background: mjAttribute('background-color'),
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
-        fontSize: defaultUnit(mjAttribute('font-size'), "px"),
+        fontSize: defaultUnit(mjAttribute('font-size')),
         fontStyle: mjAttribute('font-style'),
         fontWeight: mjAttribute('font-weight'),
-        lineHeight: mjAttribute('height'),
         textDecoration: mjAttribute('text-decoration'),
         textTransform: mjAttribute('text-transform'),
         margin: "0px"
@@ -112,8 +134,9 @@ class Button extends Component {
 }
 
 Button.tagName = tagName
-Button.defaultMJMLDefinition = defaultMJMLDefinition
+Button.parentTag = parentTag
 Button.endingTag = endingTag
+Button.defaultMJMLDefinition = defaultMJMLDefinition
 Button.baseStyles = baseStyles
 
 export default Button

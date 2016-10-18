@@ -4,17 +4,27 @@ import MJMLText from 'mjml-text'
 import React, { Component } from 'react'
 
 const tagName = 'mj-location'
+const parentTag = ['mj-column', 'mj-hero-content']
+const endingTag = true
+const selfClosingTag = true
 const defaultMJMLDefinition = {
   attributes: {
+    'address': null,
+    'align': null,
     'color': '#3aa7ed',
+    'container-background-color': null,
     'font-family': 'Roboto, sans-serif',
     'font-size': '18px',
     'font-weight': '500',
+    'img-src': 'http://i.imgur.com/DPCJHhy.png',
+    'padding-bottom': null,
+    'padding-left': null,
+    'padding-right': null,
+    'padding-top': null,
     'padding': '10px 25px',
-    'img-src': 'http://i.imgur.com/DPCJHhy.png'
+    'vertical-align': null
   }
 }
-const endingTag = true
 
 @MJMLElement
 class Location extends Component {
@@ -33,17 +43,19 @@ class Location extends Component {
   }
 
   getAttributes () {
-    const { mjAttribute } = this.props
+    const { mjAttribute, defaultUnit } = this.props
 
     return {
       text: {
+        'columnElement': true,
         'font-family': mjAttribute('font-family'),
-        'font-size': mjAttribute('font-size'),
+        'font-size': defaultUnit(mjAttribute('font-size')),
         'font-weight': mjAttribute('font-weight'),
         'padding': '0px',
         'text-decoration': mjAttribute('text-decoration')
       },
       img: {
+        'columnElement': true,
         'padding': '0px',
         'src': mjAttribute('img-src')
       }
@@ -85,7 +97,9 @@ class Location extends Component {
 }
 
 Location.tagName = tagName
-Location.defaultMJMLDefinition = defaultMJMLDefinition
+Location.parentTag = parentTag
 Location.endingTag = endingTag
+Location.defaultMJMLDefinition = defaultMJMLDefinition
+Location.selfClosingTag = selfClosingTag
 
 export default Location

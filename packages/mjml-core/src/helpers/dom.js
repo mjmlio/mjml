@@ -1,7 +1,8 @@
-const inBrowser = typeof window !== 'undefined'
+import isBrowser from './isBrowser'
+
 const dom = {}
 
-if (inBrowser) {
+if (isBrowser) {
   const jquery = require('jquery')
 
   const parseMarkup = str => {
@@ -66,7 +67,7 @@ if (inBrowser) {
 
   dom.parseHTML = str => parseMarkup(str, { xmlMode: false, decodeEntities: false })
 
-  dom.parseXML = str => parseMarkup(str, { xmlMode: true, decodeEntities: false })
+  dom.parseXML = str => parseMarkup(str, { xmlMode: true, decodeEntities: false, withStartIndices: true })
 
   dom.getAttributes = element => element.attribs || {}
 

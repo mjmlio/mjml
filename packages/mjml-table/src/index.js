@@ -2,6 +2,8 @@ import { MJMLElement } from 'mjml-core'
 import React, { Component } from 'react'
 
 const tagName = 'mj-table'
+const parentTag = ['mj-column', 'mj-hero-content']
+const endingTag = true
 const defaultMJMLDefinition = {
   content: '',
   attributes: {
@@ -9,15 +11,20 @@ const defaultMJMLDefinition = {
     'cellpadding': '0',
     'cellspacing': '0',
     'color': '#000',
+    'container-background-color': null,
     'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
     'font-size': '13px',
     'line-height': '22px',
+    'padding-bottom': null,
+    'padding-left': null,
+    'padding-right': null,
+    'padding-top': null,
     'padding': '10px 25px',
     'table-layout': 'auto',
+    'vertical-align': null,
     'width': '100%'
   }
 }
-const endingTag = true
 
 @MJMLElement
 class Table extends Component {
@@ -29,10 +36,12 @@ class Table extends Component {
 
     return {
       table: {
+        cellpadding: mjAttribute('cellspadding'),
+        cellspacing: mjAttribute('cellspacing'),
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
-        fontSize: defaultUnit(mjAttribute('font-size'), "px"),
-        lineHeight: defaultUnit(mjAttribute('line-height'), "px"),
+        fontSize: defaultUnit(mjAttribute('font-size')),
+        lineHeight: defaultUnit(mjAttribute('line-height')),
         tableLayout: mjAttribute('table-layout')
       }
     }
@@ -55,7 +64,8 @@ class Table extends Component {
 }
 
 Table.tagName = tagName
-Table.defaultMJMLDefinition = defaultMJMLDefinition
+Table.parentTag = parentTag
 Table.endingTag = endingTag
+Table.defaultMJMLDefinition = defaultMJMLDefinition
 
 export default Table

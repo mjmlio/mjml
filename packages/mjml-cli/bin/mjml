@@ -15,21 +15,25 @@ binary
       stdout: process.argv.indexOf('-s') !== -1 || process.argv.indexOf('--stdout') !== -1,
       output: binary.output
     }
-    
+
     cli.renderFile(files, options)
   })
+  .option('-l, --level [level]', 'Specifies the level of validation of MJML parser (skip/soft/strict)', /^(skip|soft|strict)$/i, 'soft')
   .option('-r, --render <file>', 'Compiles an MJML file')
   .option('-i, --stdin', 'Compiles an MJML file from input stream')
   .option('-w, --watch <file>', 'Watch and render an MJML file')
   .option('-o, --output <file>', 'Redirect the HTML to a file')
   .option('-s, --stdout', 'Redirect the HTML to stdout')
   .option('-m, --min', 'Minify the final output file', 'false')
-  .option('-e, --ending', 'Specifies that the newly created component is an ending tag')
-  .option('-c, --column', 'Specifies that the newly created component is an column element')
-  .option('--init-component <name>', 'Initialize an MJML component')
+  .option('-f, --format <format>', 'Output format for MJML validation', /^(json|text)$/i, 'text')
+  .option('--validate <file>', 'Validate a MJML Document')
   .parse(process.argv)
 
 switch (true) {
+  case (!!binary.validate):
+    cli.validate(binary.validate, binary)
+    break
+
   case (!!binary.watch):
     cli.watch(binary.watch, binary)
     break
@@ -40,9 +44,5 @@ switch (true) {
 
   case (!!binary.stdin):
     cli.renderStream(binary)
-    break
-
-  case (!!binary.initComponent):
-    cli.initComponent(binary.initComponent, binary.ending, binary.column)
     break
 }

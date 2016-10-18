@@ -3,14 +3,20 @@ import React, { Component } from 'react'
 import merge from 'lodash/merge'
 
 const tagName = 'mj-hero'
+const parentTag = ['mj-container']
 const defaultMJMLDefinition = {
   attributes: {
     'mode': 'fixed-height',
     'height': '0px',
+    'background-url': null,
     'background-width': '0px',
     'background-height': '0px',
     'background-position': 'center center',
     'padding': '0px',
+    'padding-bottom': null,
+    'padding-left': null,
+    'padding-right': null,
+    'padding-top': null,
     'background-color': '#ffffff'
   }
 }
@@ -255,5 +261,6 @@ Hero.defaultMJMLDefinition = defaultMJMLDefinition
 Hero.endingTag = endingTag
 Hero.baseStyles = baseStyles
 Hero.postRender = postRender
+Hero.parentTag = parentTag
 
 export default Hero

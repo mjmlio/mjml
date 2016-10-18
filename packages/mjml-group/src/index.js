@@ -3,6 +3,14 @@ import merge from 'lodash/merge'
 import React, { Component } from 'react'
 
 const tagName = 'mj-group'
+const parentTag = ['mj-section', 'mj-navbar']
+const defaultMJMLDefinition = {
+  attributes: {
+    'width': null,
+    'background-color': null,
+    'vertical-align': null
+  }
+}
 const baseStyles = {
   div: {
     verticalAlign: 'top'
@@ -10,12 +18,16 @@ const baseStyles = {
 }
 const postRender = $ => {
   $('.mj-group-outlook-open').each(function () {
+    const $parent = $(this).parent()
+    const mjGroupBg = $parent.data('mj-group-background')
     const $columnDiv = $(this).next()
+    const bgColor = mjGroupBg ? `bgcolor="${mjGroupBg}"` : ``
 
     $(this).replaceWith(`${helpers.startConditionalTag}
-      <table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td style="vertical-align:${$columnDiv.data('vertical-align')};width:${parseInt($(this).data('width'))}px;">
+      <table ${bgColor} role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td style="vertical-align:${$columnDiv.data('vertical-align')};width:${parseInt($(this).data('width'))}px;">
       ${helpers.endConditionalTag}`)
 
+    $parent.removeAttr('data-mj-group-background')
     $columnDiv.removeAttr('data-vertical-align')
   })
 
@@ -48,16 +60,13 @@ class Group extends Component {
 
     return merge({}, baseStyles, {
       div: {
+        background: mjAttribute('background-color'),
         display: 'inline-block',
         verticalAlign: mjAttribute('vertical-align'),
         fontSize: '0px',
         lineHeight: '0px',
         textAlign: 'left',
         width: '100%'
-      },
-      table: {
-        verticalAlign: mjAttribute('vertical-align'),
-        background: mjAttribute('background-color')
       }
     })
   }
@@ -100,6 +109,7 @@ class Group extends Component {
         className={mjGroupClass}
         data-column-width={parseInt(width)}
         data-vertical-align={this.styles.div.verticalAlign}
+        data-mj-group-background={mjAttribute('background-color')}
         style={this.styles.div}>
         {renderWrappedOutlookChildren(this.renderChildren())}
       </div>
@@ -111,5 +121,7 @@ class Group extends Component {
 Group.tagName = tagName
 Group.baseStyles = baseStyles
 Group.postRender = postRender
+Group.parentTag = parentTag
+Group.defaultMJMLDefinition = defaultMJMLDefinition
 
 export default Group

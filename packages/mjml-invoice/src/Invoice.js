@@ -6,12 +6,15 @@ import numeral from 'numeral'
 import React, { Component } from 'react'
 
 const tagName = 'mj-invoice'
+const parentTag = ['mj-column']
 const defaultMJMLDefinition = {
   attributes: {
     'border': '1px solid #ecedee',
     'color': '#b9b9b9',
+    'container-background-color': null,
     'font-family': 'Roboto, Ubuntu, Helvetica, Arial, sans-serif',
     'font-size': '13px',
+    'format': null,
     'intl': 'name:Name;price:Price;quantity:Quantity',
     'line-height': '22px'
   }
@@ -133,7 +136,7 @@ class Invoice extends Component {
           </tr>
         </thead>
         <tbody>
-          {children}
+          {React.Children.map(children, child => React.cloneElement(child, { columnElement: true }))}
         </tbody>
         <tfoot>
           <tr style={this.styles.tfoot}>
@@ -157,5 +160,6 @@ Invoice.tagName = tagName
 Invoice.defaultMJMLDefinition = defaultMJMLDefinition
 Invoice.baseStyles = baseStyles
 Invoice.intl = intl
+Invoice.parentTag = parentTag
 
 export default Invoice

@@ -3,13 +3,21 @@ import merge from 'lodash/merge'
 import React, { Component } from 'react'
 
 const tagName = 'mj-html'
+const parentTag = ['mj-column', 'mj-hero-content']
+const endingTag = true
 const defaultMJMLDefinition = {
   content: '',
   attributes: {
-    'padding': '0px'
+    'align': null,
+    'container-background-color': null,
+    'padding-bottom': null,
+    'padding-left': null,
+    'padding-right': null,
+    'padding-top': null,
+    'padding': '0px',
+    'vertical-align': null
   }
 }
-const endingTag = true
 const baseStyles = {
   div: {
     fontSize: '13px'
@@ -38,8 +46,9 @@ class Html extends Component {
 }
 
 Html.tagName = tagName
-Html.defaultMJMLDefinition = defaultMJMLDefinition
+Html.parentTag = parentTag
 Html.endingTag = endingTag
+Html.defaultMJMLDefinition = defaultMJMLDefinition
 Html.baseStyles = baseStyles
 
 export default Html

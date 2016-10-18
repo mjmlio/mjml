@@ -4,21 +4,30 @@ import min from 'lodash/min'
 import React, { Component } from 'react'
 
 const tagName = 'mj-image'
+const parentTag = ['mj-column', 'mj-hero-content']
+const endingTag = true
+const selfClosingTag = true
 const defaultMJMLDefinition = {
   attributes: {
-    'height': 'auto',
-    'padding': '10px 25px',
     'align': 'center',
     'alt': '',
     'border': 'none',
     'border-radius': '',
+    'container-background-color': null,
+    'height': 'auto',
     'href': '',
+    'padding-bottom': null,
+    'padding-left': null,
+    'padding-right': null,
+    'padding-top': null,
+    'padding': '10px 25px',
     'src': '',
     'target': '_blank',
-    'title': ''
+    'title': '',
+    'vertical-align': null,
+    'width': null
   }
 }
-const endingTag = true
 const baseStyles = {
   table: {
     borderCollapse: 'collapse',
@@ -43,7 +52,7 @@ class Image extends Component {
     const { mjAttribute, getPadding } = this.props
     const parentWidth = mjAttribute('parentWidth')
 
-    const width = min([parseInt(mjAttribute('width')), parseInt(parentWidth)])
+    const width = mjAttribute('width') ? min([parseInt(mjAttribute('width')), parseInt(parentWidth)]) : parseInt(parentWidth)
 
     const paddingRight = getPadding('right')
     const paddingLeft = getPadding('left')
@@ -57,7 +66,7 @@ class Image extends Component {
 
     return merge({}, baseStyles, {
       td: {
-        width: this.getContentWidth()
+        width: defaultUnit(this.getContentWidth())
       },
       img: {
         border: mjAttribute('border'),
@@ -118,8 +127,10 @@ class Image extends Component {
 }
 
 Image.tagName = tagName
-Image.defaultMJMLDefinition = defaultMJMLDefinition
+Image.parentTag = parentTag
 Image.endingTag = endingTag
+Image.selfClosingTag = selfClosingTag
+Image.defaultMJMLDefinition = defaultMJMLDefinition
 Image.baseStyles = baseStyles
 
 export default Image

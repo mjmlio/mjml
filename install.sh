@@ -23,23 +23,30 @@ BPurple='\033[1;35m'      # Purple
 BCyan='\033[1;36m'        # Cyan
 BWhite='\033[1;37m'       # White
 
-printf "${Yellow}Installing npm depencies for mono repo ${Color_Off} \n"
+printf "${BYellow}Installing npm depencies for mono repo ${Color_Off} \n"
 npm install
 
 printf "${BGreen}Done.${Color_Off} \n"
 cd packages
 
-printf "${Yellow}Linking dependencies for every mjml packages.${Color_Off} \n"
+printf "${BYellow}Linking dependencies for every mjml packages.${Color_Off} \n"
 
+# Core dependencies
+printf "${Yellow}Linking core dependencies${Color_Off} \n"
+cd mjml-validator && npm link && npm link mjml-core && cd ..
+# Core
+printf "${Yellow}Linking core${Color_Off} \n"
+cd mjml-core && npm link && npm link mjml-validator && cd ..
+# Mj elements
+printf "${Yellow}Linking MJML standard elements${Color_Off} \n"
 cd mjml-button && npm link && npm link mjml-core && cd ..
-cd mjml-cli && npm link && npm link mjml-core && cd ..
 cd mjml-column && npm link && npm link mjml-core && cd ..
 cd mjml-container && npm link && npm link mjml-core && cd ..
-cd mjml-core && npm link && npm link mjml-core && cd ..
 cd mjml-divider && npm link && npm link mjml-core && cd ..
 cd mjml-group && npm link && npm link mjml-core && cd ..
 cd mjml-head-attributes && npm link && npm link mjml-core && cd ..
 cd mjml-head-font && npm link && npm link mjml-core && cd ..
+cd mjml-head-style && npm link && cd ..
 cd mjml-head-title && npm link && npm link mjml-core && cd ..
 cd mjml-hero && npm link && npm link mjml-core && cd ..
 cd mjml-html && npm link && npm link mjml-core && cd ..
@@ -54,10 +61,13 @@ cd mjml-social && npm link && npm link mjml-core && cd ..
 cd mjml-spacer && npm link && npm link mjml-core && cd ..
 cd mjml-table && npm link && npm link mjml-core && cd ..
 cd mjml-text && npm link && npm link mjml-core && cd ..
+# Cli
+printf "${Yellow}Linking core${Color_Off} \n"
+cd mjml-cli && npm link && npm link mjml-core && cd ..
 
 printf "${BGreen}Done.${Color_Off} \n"
 
-printf "${Yellow}Linking dependencies for MJML package.${Color_Off} \n"
+printf "${BYellow}Linking dependencies for MJML package.${Color_Off} \n"
 
 cd mjml
 npm link mjml-button
@@ -69,6 +79,7 @@ npm link mjml-divider
 npm link mjml-group
 npm link mjml-head-attributes
 npm link mjml-head-font
+npm link mjml-head-style
 npm link mjml-head-title
 npm link mjml-hero
 npm link mjml-html
@@ -83,11 +94,14 @@ npm link mjml-social
 npm link mjml-spacer
 npm link mjml-table
 npm link mjml-text
+npm link mjml-validator
 
 printf "${BGreen}Done.${Color_Off} \n"
 
-printf "${Yellow}Installing npm depencies for each MJML packages ${Color_Off} \n"
+printf "${BYellow}Installing npm depencies for each MJML packages ${Color_Off} \n"
 gulp install
 cd ../..
 
-printf "${BGreen}Done.${Color_Off} Happy coding ! 🍺 \n"
+printf "${BGreen}Done.${Color_Off} ${Green}Building the project ${Color_Off} \n"
+gulp build
+printf "${BGreen}Done.🍺 ${Color_Off} \n ${Green}Use ${Color_Off}${BGreen}gulp build${Color_Off}${Green} to build the whole monorepo ! \n And run ${Color_Off}${BGreen}node test.js${Color_Off}${Green} inside ${Color_Off}${BGreen}packages/mjml${Color_Off}${Green} to test your installation ${Color_Off}\n"

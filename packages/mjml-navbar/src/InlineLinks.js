@@ -5,9 +5,12 @@ import React, { Component } from 'react'
 import crypto from 'crypto'
 
 const tagName = 'mj-inline-links'
+const parentTag = ['mj-column']
 const defaultMJMLDefinition = {
   attributes: {
     'align': 'center',
+    'base-url': null,
+    'hamburger': null,
     'ico-align': 'center',
     'ico-open': '9776',
     'ico-close': '8855',
@@ -52,9 +55,9 @@ const postRender = $ => {
     .each(function () {
       $(this)
         .prepend(`<!--[if gte mso 9]>
-  			  <table role="presentation" border="0" cellpadding="0" cellspacing="0" align="${$(this).data('align')}">
+          <table role="presentation" border="0" cellpadding="0" cellspacing="0" align="${$(this).data('align')}">
             <tr>
-  		  <![endif]-->`)
+        <![endif]-->`)
         .append(`<!--[if gte mso 9]>
             </tr>
           </table>
@@ -182,5 +185,6 @@ InlineLinks.tagName = tagName
 InlineLinks.defaultMJMLDefinition = defaultMJMLDefinition
 InlineLinks.baseStyles = baseStyles
 InlineLinks.postRender = postRender
+InlineLinks.parentTag = parentTag
 
 export default InlineLinks

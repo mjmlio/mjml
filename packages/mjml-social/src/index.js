@@ -5,8 +5,15 @@ import clone from 'lodash/clone'
 import React, { Component } from 'react'
 
 const tagName = 'mj-social'
+const parentTag = ['mj-column', 'mj-hero-content']
+const selfClosingTag = true
 const defaultMJMLDefinition = {
   attributes: {
+    'align': 'center',
+    'base-url': 'https://www.mailjet.com/images/theme/v1/icons/ico-social/',
+    'color': '#333333',
+    'container-background-color': null,
+    'display': 'facebook:share twitter:share google:share',
     'facebook-content': 'Share',
     'facebook-href': '[[SHORT_PERMALINK]]',
     'facebook-icon-color' : '#3b5998',
@@ -16,6 +23,7 @@ const defaultMJMLDefinition = {
     'google-href': '[[SHORT_PERMALINK]]',
     'google-icon-color': '#dc4e41',
     'icon-size': '20px',
+    'inner-padding': null,
     'instagram-content': 'Share',
     'instagram-href': '[[SHORT_PERMALINK]]',
     'instagram-icon-color': '#3f729b',
@@ -23,8 +31,12 @@ const defaultMJMLDefinition = {
     'linkedin-content': 'Share',
     'linkedin-href': '[[SHORT_PERMALINK]]',
     'linkedin-icon-color' : '#0077b5',
-    'padding': '10px 25px',
     'mode': 'horizontal',
+    'padding-bottom': null,
+    'padding-left': null,
+    'padding-right': null,
+    'padding-top': null,
+    'padding': '10px 25px',
     'pinterest-content': 'Pin it',
     'pinterest-href': '[[SHORT_PERMALINK]]',
     'pinterest-icon-color': '#bd081c',
@@ -33,10 +45,7 @@ const defaultMJMLDefinition = {
     'twitter-content': 'Tweet',
     'twitter-href': '[[SHORT_PERMALINK]]',
     'twitter-icon-color': '#55acee',
-    'align': 'center',
-    'color': '#333333',
-    'display': 'facebook:share twitter:share google:share',
-    'base-url': 'https://www.mailjet.com/images/theme/v1/icons/ico-social/'
+    'vertical-align': null
   }
 }
 const baseStyles = {
@@ -135,6 +144,9 @@ class Social extends Component {
         lineHeight: defaultUnit(mjAttribute('line-height'), 'px'),
         textDecoration: mjAttribute('text-decoration')
       },
+      td1: {
+        padding: defaultUnit(mjAttribute('inner-padding'))
+      },
       td2: {
         width: defaultUnit(mjAttribute('icon-size'), 'px'),
         height: defaultUnit(mjAttribute('icon-size'), 'px')
@@ -151,7 +163,7 @@ class Social extends Component {
   isInTextMode () {
     const { mjAttribute } = this.props
 
-    return mjAttribute('text-mode') == true || mjAttribute('text-mode') == 'true'
+    return mjAttribute('text-mode') === true || mjAttribute('text-mode') === 'true'
   }
 
   renderSocialButton (platform, share) {
@@ -235,7 +247,7 @@ class Social extends Component {
         return null
       }
 
-      return this.renderSocialButton(platform, share != "url")
+      return this.renderSocialButton(platform, share !== 'url')
     })
   }
 
@@ -297,6 +309,8 @@ class Social extends Component {
 }
 
 Social.tagName = tagName
+Social.parentTag = parentTag
+Social.selfClosingTag = selfClosingTag
 Social.defaultMJMLDefinition = defaultMJMLDefinition
 Social.baseStyles = baseStyles
 Social.buttonDefinitions = buttonDefinitions

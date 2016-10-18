@@ -4,16 +4,33 @@ import merge from 'lodash/merge'
 import React, { Component } from 'react'
 
 const tagName = 'mj-section'
+const parentTag = ['mj-container']
 const defaultMJMLDefinition = {
   attributes: {
+    'background-color': null,
+    'background-url': null,
     'background-repeat': 'repeat',
+    'background-size': 'auto',
+    'border': null,
+    'border-bottom': null,
+    'border-left': null,
+    'border-radius': null,
+    'border-right': null,
+    'border-top': null,
+    'direction': 'ltr',
+    'full-width': null,
     'padding': '20px 0',
-    'background-size': 'auto'
+    'padding-top': null,
+    'padding-bottom': null,
+    'padding-left': null,
+    'padding-right': null,
+    'text-align': 'center',
+    'vertical-align': 'top'
   }
 }
 const baseStyles = {
   div: {
-    margin: '0 auto'
+    margin: '0px auto'
   },
   table: {
     fontSize: '0px',
@@ -101,6 +118,13 @@ class Section extends Component {
 
     return merge({}, baseStyles, {
       td: {
+        border: mjAttribute('border'),
+        borderBottom: mjAttribute('border-bottom'),
+        borderLeft: mjAttribute('border-left'),
+        borderRadius: defaultUnit(mjAttribute('border-radius'), "px"),
+        borderRight: mjAttribute('border-right'),
+        borderTop: mjAttribute('border-top'),
+        direction: mjAttribute('direction'),
         fontSize: '0px',
         padding: defaultUnit(mjAttribute('padding'), 'px'),
         paddingBottom: defaultUnit(mjAttribute('padding-bottom'), 'px'),
@@ -178,6 +202,7 @@ class Section extends Component {
 }
 
 Section.tagName = tagName
+Section.parentTag = parentTag
 Section.defaultMJMLDefinition = defaultMJMLDefinition
 Section.baseStyles = baseStyles
 Section.postRender = postRender

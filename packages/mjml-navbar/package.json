@@ -1,7 +1,7 @@
 {
   "name": "mjml-navbar",
   "description": "mjml-navbar",
-  "version": "3.0.0-beta.3",
+  "version": "3.0.0",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -13,9 +13,9 @@
   },
   "homepage": "https://mjml.io",
   "dependencies": {
-    "lodash": "^4.16.2",
-    "mjml-core": "~3.0.0-beta.3",
-    "mjml-section": "~3.0.0-beta.3",
+    "lodash": "^4.16.4",
+    "mjml-core": "~3.0.0",
+    "mjml-section": "~3.0.0",
     "react": "^15.3.2"
   }
 }

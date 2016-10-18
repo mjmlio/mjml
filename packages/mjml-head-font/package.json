@@ -1,7 +1,7 @@
 {
   "name": "mjml-head-font",
   "description": "mjml-head-font",
-  "version": "3.0.0-beta.3",
+  "version": "3.0.0",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -13,6 +13,6 @@
   },
   "homepage": "https://mjml.io",
   "dependencies": {
-    "lodash": "^4.16.2"
+    "lodash": "^4.16.4"
   }
 }

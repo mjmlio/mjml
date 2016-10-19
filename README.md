@@ -66,14 +66,13 @@ npm install -g mjml
 
 ### Command line
 
-> Compiles the file and outputs the result in `a.html`
+> Compiles the file and outputs the result in `input.html`
 
 ```bash
 $> mjml -r input.mjml
 ```
 
-
-> Redirects the result to a file
+> Redirects the result to a file named `output.html`
 
 ```bash
 $> mjml -r input.mjml -o output.html
@@ -83,6 +82,12 @@ $> mjml -r input.mjml -o output.html
 
 ```bash
 $> mjml -w input.mjml -o output.html
+```
+
+> Sets the validation rule to `skip` so that the file is rendered without being validated.
+
+```bash
+$> mjml -l skip -r input.mjml
 ```
 
 ### Inside Node.js

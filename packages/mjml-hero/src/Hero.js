@@ -17,7 +17,8 @@ const defaultMJMLDefinition = {
     'padding-left': null,
     'padding-right': null,
     'padding-top': null,
-    'background-color': '#ffffff'
+    'background-color': '#ffffff',
+    'vertical-align': 'top'
   }
 }
 

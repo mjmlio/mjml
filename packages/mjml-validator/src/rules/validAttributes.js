@@ -15,8 +15,8 @@ export const validateAttribute = (element) => {
     return;
   }
 
-  const avalaibleAttributes = concat(keys(Component.defaultMJMLDefinition.attributes), WHITELIST)
-  const unknownAttributes = filter(keys(attributes), attribute => !includes(avalaibleAttributes, attribute) )
+  const availableAttributes = concat(keys(Component.defaultMJMLDefinition.attributes), WHITELIST)
+  const unknownAttributes = filter(keys(attributes), attribute => !includes(availableAttributes, attribute) )
 
   if (unknownAttributes.length == 0) {
     return;

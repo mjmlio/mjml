@@ -1,5 +1,4 @@
 import { MJMLElement, helpers } from 'mjml-core'
-import merge from 'lodash/merge'
 import React, { Component } from 'react'
 
 const tagName = 'mj-group'
@@ -58,7 +57,7 @@ class Group extends Component {
   getStyles () {
     const { mjAttribute } = this.props
 
-    return merge({}, baseStyles, {
+    return helpers.merge({}, baseStyles, {
       div: {
         background: mjAttribute('background-color'),
         display: 'inline-block',

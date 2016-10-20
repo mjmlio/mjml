@@ -1,5 +1,4 @@
-import { MJMLElement } from 'mjml-core'
-import merge from 'lodash/merge'
+import { MJMLElement, helpers } from 'mjml-core'
 import React, { Component } from 'react'
 
 const tagName = 'mj-html'
@@ -30,7 +29,7 @@ class Html extends Component {
   styles = this.getStyles()
 
   getStyles () {
-    return merge({}, baseStyles, {})
+    return helpers.merge({}, baseStyles, {})
   }
 
   render () {

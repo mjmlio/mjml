@@ -1,5 +1,4 @@
-import { MJMLElement } from 'mjml-core'
-import merge from 'lodash/merge'
+import { MJMLElement, helpers } from 'mjml-core'
 import React, { Component } from 'react'
 
 const tagName = 'mj-text'
@@ -40,7 +39,7 @@ class Text extends Component {
   getStyles () {
     const { mjAttribute, defaultUnit } = this.props
 
-    return merge({}, baseStyles, {
+    return helpers.merge({}, baseStyles, {
       div: {
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),

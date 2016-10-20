@@ -1,5 +1,4 @@
 import { MJMLElement, helpers } from 'mjml-core'
-import merge from 'lodash/merge'
 import React, { Component } from 'react'
 
 const tagName = 'mj-divider'
@@ -48,7 +47,7 @@ class Divider extends Component {
   getStyles () {
     const { mjAttribute, defaultUnit } = this.props
 
-    return merge({}, baseStyles, {
+    return helpers.merge({}, baseStyles, {
       p: {
         borderTop: `${defaultUnit(mjAttribute('border-width'))} ${mjAttribute('border-style')} ${mjAttribute('border-color')}`,
         width: defaultUnit(mjAttribute('width'))

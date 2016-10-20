@@ -1,5 +1,4 @@
 import { MJMLElement, helpers } from 'mjml-core'
-import merge from 'lodash/merge'
 import tap from 'lodash/tap'
 import clone from 'lodash/clone'
 import React, { Component } from 'react'
@@ -134,7 +133,7 @@ class Social extends Component {
   getStyles () {
     const { mjAttribute, defaultUnit } = this.props
 
-    return merge({}, baseStyles, {
+    return helpers.merge({}, baseStyles, {
       a: {
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),

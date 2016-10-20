@@ -1,5 +1,4 @@
-import { MJMLElement } from 'mjml-core'
-import merge from 'lodash/merge'
+import { MJMLElement, helpers } from 'mjml-core'
 import React, { Component } from 'react'
 
 const tagName = 'mj-invoice-item'
@@ -38,7 +37,7 @@ class InvoiceItem extends Component {
   getStyles () {
     const { mjAttribute, defaultUnit } = this.props
 
-    const styles = merge({}, baseStyles, {
+    const styles = helpers.merge({}, baseStyles, {
       td: {
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
@@ -48,8 +47,8 @@ class InvoiceItem extends Component {
       }
     })
 
-    styles.name = merge({}, styles.td, styles.name)
-    styles.quantity = merge({}, styles.td, styles.quantity)
+    styles.name = helpers.merge({}, styles.td, styles.name)
+    styles.quantity = helpers.merge({}, styles.td, styles.quantity)
 
     return styles
   }

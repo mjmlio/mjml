@@ -1,6 +1,5 @@
 import { MJMLElement, helpers } from 'mjml-core'
 import cloneDeep from 'lodash/cloneDeep'
-import merge from 'lodash/merge'
 import React, { Component } from 'react'
 
 const tagName = 'mj-section'
@@ -116,7 +115,7 @@ class Section extends Component {
       background: mjAttribute('background-color')
     }
 
-    return merge({}, baseStyles, {
+    return helpers.merge({}, baseStyles, {
       td: {
         border: mjAttribute('border'),
         borderBottom: mjAttribute('border-bottom'),
@@ -154,7 +153,7 @@ class Section extends Component {
         cellSpacing="0"
         data-legacy-background={mjAttribute('background-url')}
         data-legacy-border="0"
-        style={merge({}, this.styles.tableFullwidth, this.styles.table)}>
+        style={helpers.merge({}, this.styles.tableFullwidth, this.styles.table)}>
         <tbody>
           <tr>
             <td>

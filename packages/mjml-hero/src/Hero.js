@@ -1,6 +1,5 @@
 import { MJMLElement, helpers } from 'mjml-core'
 import React, { Component } from 'react'
-import merge from 'lodash/merge'
 
 const tagName = 'mj-hero'
 const parentTag = ['mj-container']
@@ -172,7 +171,7 @@ class Hero extends Component {
       width = mjAttribute('width')
     }
 
-    return merge({}, baseStyles, {
+    return helpers.merge({}, baseStyles, {
       div: {
         maxWidth: defaultUnit(width, 'px')
       },

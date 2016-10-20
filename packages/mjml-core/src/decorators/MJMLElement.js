@@ -4,7 +4,7 @@ import MJMLElementsCollection from '../MJMLElementsCollection'
 import React, { Component } from 'react'
 import ReactDOMServer from 'react-dom/server'
 import trim from 'lodash/trim'
-import merge from 'lodash/merge'
+import { merge } from '../helpers'
 import hoistNonReactStatic from 'hoist-non-react-statics';
 
 const getElementWidth = ({ element, siblings, parentWidth }) => {

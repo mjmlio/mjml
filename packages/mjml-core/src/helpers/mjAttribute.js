@@ -36,7 +36,7 @@ export const merge = (...args) => mergeWith(...args, (prev, next) => {
   }
 
   if (typeof prev == 'object' && typeof next == 'object' ) {
-    return merge(prev, next)
+    return merge({}, prev, next)
   }
 
   return next

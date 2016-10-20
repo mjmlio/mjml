@@ -8,6 +8,7 @@ const tagName = 'mj-invoice'
 const parentTag = ['mj-column']
 const defaultMJMLDefinition = {
   attributes: {
+    'align': null,
     'border': '1px solid #ecedee',
     'color': '#b9b9b9',
     'container-background-color': null,

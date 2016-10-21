@@ -1,7 +1,7 @@
 {
   "name": "mjml-group",
   "description": "mjml-group",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "main": "lib/index.js",
   "repository": {
     "type": "git",

@@ -1,5 +1,4 @@
-import { MJMLElement } from 'mjml-core'
-import merge from 'lodash/merge'
+import { MJMLElement, helpers } from 'mjml-core'
 import min from 'lodash/min'
 import React, { Component } from 'react'
 
@@ -64,7 +63,7 @@ class Image extends Component {
   getStyles () {
     const { mjAttribute, defaultUnit } = this.props
 
-    return merge({}, baseStyles, {
+    return helpers.merge({}, baseStyles, {
       td: {
         width: defaultUnit(this.getContentWidth())
       },

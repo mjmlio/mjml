@@ -1,6 +1,5 @@
 import { MJMLElement, helpers } from 'mjml-core'
 import React, { Component } from 'react'
-import merge from 'lodash/merge'
 
 const tagName = 'mj-hero-content'
 const parentTag = ['mj-hero']
@@ -62,7 +61,7 @@ class HeroContent extends Component {
   getStyles () {
     const { mjAttribute, defaultUnit, getPadding } = this.props
 
-    return merge({}, baseStyles, {
+    return helpers.merge({}, baseStyles, {
       div: {
         float: mjAttribute('align'),
         margin: mjAttribute('align') === 'center' ? '0px auto' : '0px',

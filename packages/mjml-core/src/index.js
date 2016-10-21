@@ -6,10 +6,10 @@ import * as helpers from './helpers'
 
 export MJMLElement from './decorators/MJMLElement'
 export { MJMLRenderer, registerMJElement, elements, helpers, registerMJHeadElement, MJMLHeadElements }
-export const documentParser = content => {
+export const documentParser = (content, attributes) => {
   const documentParser = require('./parsers/document').default
 
-  return documentParser(content)
+  return documentParser(content, attributes)
 }
 export const version = () => '__MJML_VERSION__'
 export const MJMLValidator = mjmlValidator

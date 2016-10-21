@@ -1,3 +1,5 @@
+import mergeWith from 'lodash/mergeWith'
+
 const unitRegex = /[\d\.,]*(\D*)$/
 
 export const widthParser = (width, opts = { parseFloatToInt: true }) => {
@@ -22,3 +24,20 @@ export const defaultUnit = (units, defaultUnit = 'px') => {
     })
     .join(' ')
 }
+
+// lodash/merge merges `null` values, use mergeWith with a custom strategy to avoid this behaviour
+export const merge = (...args) => mergeWith(...args, (prev, next) => {
+  if (next == undefined) {
+    return prev
+  }
+
+  if (prev == undefined) {
+    return next
+  }
+
+  if (typeof prev == 'object' && typeof next == 'object' ) {
+    return merge({}, prev, next)
+  }
+
+  return next
+})

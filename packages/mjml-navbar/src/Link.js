@@ -1,5 +1,4 @@
-import { MJMLElement } from 'mjml-core'
-import merge from 'lodash/merge'
+import { MJMLElement, helpers } from 'mjml-core'
 import React, { Component } from 'react'
 
 const tagName = 'mj-link'
@@ -48,7 +47,7 @@ class Link extends Component {
   getStyles () {
     const { mjAttribute } = this.props
 
-    return merge({}, baseStyles, {
+    return helpers.merge({}, baseStyles, {
       a: {
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),

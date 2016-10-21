@@ -1,5 +1,4 @@
-import { MJMLElement } from 'mjml-core'
-import merge from 'lodash/merge'
+import { MJMLElement, helpers } from 'mjml-core'
 import url from 'url'
 import React, { Component } from 'react'
 import crypto from 'crypto'
@@ -102,7 +101,7 @@ class InlineLinks extends Component {
   getStyles () {
     const { mjAttribute, defaultUnit, getPadding } = this.props
 
-    return merge({}, baseStyles, {
+    return helpers.merge({}, baseStyles, {
       div: {
         textAlign: mjAttribute('align')
       },

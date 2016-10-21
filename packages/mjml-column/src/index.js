@@ -1,7 +1,6 @@
 import { MJMLElement, helpers } from 'mjml-core'
 import cx from 'classnames'
 import each from 'lodash/each'
-import merge from 'lodash/merge'
 import React, { Component } from 'react'
 import uniq from 'lodash/uniq'
 
@@ -66,7 +65,7 @@ class Column extends Component {
   getStyles () {
     const { mjAttribute, defaultUnit } = this.props
 
-    return merge({}, baseStyles, {
+    return helpers.merge({}, baseStyles, {
       div: {
         display: 'inline-block',
         direction: 'ltr',

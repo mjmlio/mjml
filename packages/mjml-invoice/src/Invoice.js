@@ -1,6 +1,5 @@
-import { MJMLElement } from 'mjml-core'
+import { MJMLElement, helpers } from 'mjml-core'
 import cloneDeep from 'lodash/cloneDeep'
-import merge from 'lodash/merge'
 import MJMLTable from 'mjml-table'
 import numeral from 'numeral'
 import React, { Component } from 'react'
@@ -9,6 +8,7 @@ const tagName = 'mj-invoice'
 const parentTag = ['mj-column']
 const defaultMJMLDefinition = {
   attributes: {
+    'align': null,
     'border': '1px solid #ecedee',
     'color': '#b9b9b9',
     'container-background-color': null,
@@ -53,7 +53,7 @@ class Invoice extends Component {
   getStyles () {
     const { mjAttribute, defaultUnit } = this.props
 
-    const styles = merge({}, baseStyles, {
+    const styles = helpers.merge({}, baseStyles, {
       table: {
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
@@ -81,7 +81,7 @@ class Invoice extends Component {
       }
     })
 
-    styles.thQuantity = merge({}, styles.th, { textAlign: 'right' })
+    styles.thQuantity = helpers.merge({}, styles.th, { textAlign: 'right' })
 
     return styles
   }

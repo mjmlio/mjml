@@ -2,6 +2,7 @@ import { MJMLElement, helpers } from 'mjml-core'
 import cloneDeep from 'lodash/cloneDeep'
 import MJMLTable from 'mjml-table'
 import numeral from 'numeral'
+import omit from 'lodash/omit'
 import React, { Component } from 'react'
 
 const tagName = 'mj-invoice'
@@ -119,9 +120,8 @@ class Invoice extends Component {
     const { children } = this.props
     const intlValue = this.getIntlValue()
     const total = this.getTotal()
-
     return (
-      <MJMLTable {...this.props}>
+      <MJMLTable {...omit(this.props, 'columnElement')}>
         <thead>
           <tr style={this.styles.thead}>
             <th style={this.styles.th}>
@@ -136,7 +136,7 @@ class Invoice extends Component {
           </tr>
         </thead>
         <tbody>
-          {React.Children.map(children, child => React.cloneElement(child, { columnElement: true }))}
+          {children}
         </tbody>
         <tfoot>
           <tr style={this.styles.tfoot}>

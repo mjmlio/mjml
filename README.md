@@ -117,21 +117,10 @@ console.log(htmlOutput)
 
 ### Create your component
 
-> Issue the following in your terminal
+One of the great advantages of MJML is that it's component based. Components abstract complex patterns and can easily be reused. Added to the standard library of components, it is also possible to create your own components!
 
-```bash
-$> mjml --init-component <name of your component>
+To learn how to create your own component, follow this [step-by-step guide](https://medium.com/mjml-making-responsive-email-easy/tutorial-creating-your-own-mjml-component-d3a236ab7093#.pz0ebb537) which also includes a ready-to-use boilerplate.
 
-# If your component cannot contain anything else than text:
-$> mjml --init-component <name of you component> -e
-
-# It means nothing inside it will be parsed by the mjml engine.
-
-```
-
-
-It will create a basic component template in a `.js` file. Follow the instructions provided in the file
-and read more about custom components in the documentation
 
 # Try it live
 

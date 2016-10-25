@@ -5,13 +5,17 @@ const tagName = 'mj-link'
 const parentTag = ['mj-inline-links']
 const defaultMJMLDefinition = {
   attributes: {
-    'padding': '15px 10px',
     'color': '#000000',
     'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
     'font-size': '13px',
     'font-weight': 'normal',
     'href': null,
-    'line-height': '22px'
+    'line-height': '22px',
+    'padding': '15px 10px',
+    'padding-top': null,
+    'padding-left': null,
+    'padding-right': null,
+    'padding-bottom': null
   }
 }
 const baseStyles = {

@@ -21,8 +21,12 @@
 </mjml>
 ```
 
+<aside class="warning">
+  This component will soon be <b>deprecated</b>. To create a list, simply use HTML leveraging the `ul` and `li` tags inside a `mj-text`.
+</aside>
+
 <p align="center">
-  <a href="https://mjml.io/try-it-live/component/list">
+  <a href="https://mjml.io/try-it-live/components/list">
     <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
   </a>
 </p>

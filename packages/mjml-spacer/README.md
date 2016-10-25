@@ -16,6 +16,12 @@ Displays a blank space.
 </mjml>
 ```
 
+<p align="center">
+  <a href="https://mjml.io/try-it-live/components/social">
+    <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
+  </a>
+</p>
+
 attribute                   | unit        | description                    | default value
 ----------------------------|-------------|--------------------------------|------------------------------
 height                      | px          | spacer height                  | 20px

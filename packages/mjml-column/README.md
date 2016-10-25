@@ -23,7 +23,7 @@ Every single column has to contain something because they are responsive contain
 ```
 
 <p align="center">
-  <a href="https://mjml.io/try-it-live/component/column">
+  <a href="https://mjml.io/try-it-live/components/column">
     <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
   </a>
 </p>

@@ -33,7 +33,7 @@ This tag allows you to display table and filled it with data.
 ```
 
 <p align="center">
-  <a href="https://mjml.io/try-it-live/component/table">
+  <a href="https://mjml.io/try-it-live/components/table">
     <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
   </a>
 </p>

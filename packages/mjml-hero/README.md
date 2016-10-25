@@ -88,7 +88,7 @@ Fluid height
 ```
 
 <p align="center">
-  <a href="https://mjml.io/try-it-live/component/hero/1">
+  <a href="https://mjml.io/try-it-live/components/hero/1">
     <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
   </a>
 </p>

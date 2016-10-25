@@ -17,6 +17,7 @@
   "homepage": "https://mjml.io",
   "dependencies": {
     "mjml-button": "~3.0.1",
+    "mjml-chart": "^1.0.2",
     "mjml-cli": "~3.0.1",
     "mjml-column": "~3.0.1",
     "mjml-container": "~3.0.1",

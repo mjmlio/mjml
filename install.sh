@@ -51,6 +51,7 @@ cd mjml-head-title && npm link && npm link mjml-core && cd ..
 cd mjml-hero && npm link && npm link mjml-core && cd ..
 cd mjml-html && npm link && npm link mjml-core && cd ..
 cd mjml-image && npm link && npm link mjml-core && cd ..
+cd mjml-chart && npm link && npm link mjml-core && cd ..
 cd mjml-invoice && npm link && npm link mjml-core && npm link mjml-table && cd ..
 cd mjml-list && npm link && npm link mjml-core && cd ..
 cd mjml-location && npm link && npm link mjml-core && npm link mjml-text && cd ..
@@ -84,6 +85,7 @@ npm link mjml-head-title
 npm link mjml-hero
 npm link mjml-html
 npm link mjml-image
+npm link mjml-chart
 npm link mjml-invoice
 npm link mjml-list
 npm link mjml-location

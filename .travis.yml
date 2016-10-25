@@ -27,3 +27,6 @@ script:
  - npm install
  - npm link
  - npm test
+ - cd ../mjml-chart
+ - npm install
+ - npm test

@@ -102,7 +102,7 @@ Mode hamburger enabled:
 ```
 
 <p align="center">
-  <a href="https://mjml.io/try-it-live/component/navbar/1">
+  <a href="https://mjml.io/try-it-live/components/navbar/1">
     <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
   </a>
 </p>
@@ -160,7 +160,7 @@ ico-line-height             | px                 | hamburger icon line height (h
 Displays a horizontal navbar.
 
 <p align="center">
-  <a href="https://mjml.io/try-it-live/component/link">
+  <a href="https://mjml.io/try-it-live/components/link">
     <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
   </a>
 </p>

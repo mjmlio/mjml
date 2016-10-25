@@ -1,7 +1,7 @@
 <p align="center">
   <a href="http://mjml.io" target="_blank">
     <img width="250"src="https://cloud.githubusercontent.com/assets/6558790/12672296/7b66d8cc-c675-11e5-805d-c6d196320537.png">
-    
+
   </a>
 </p>
 
@@ -66,18 +66,22 @@ npm install -g mjml
 
 ### Command line
 
-> Compiles the file and outputs the result in `a.html`
+> Compiles the file and outputs the HTML generated in `input.html`
 
 ```bash
 $> mjml -r input.mjml
 ```
 
-
-> Redirects the result to a file
+> Redirects the HTML generated to a file named output.html
 
 ```bash
 $> mjml -r input.mjml -o output.html
 ```
+
+> Sets the validation rule to `skip` so that the file is rendered without being validated
+
+```bash
+$> mjml -l skip -r input.mjml
 
 > Watches a file and compiles every time the file changes
 

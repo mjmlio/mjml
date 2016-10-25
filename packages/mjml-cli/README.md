@@ -46,7 +46,7 @@ $> mjml input.mjml --output my-email.html
 
 You can output the resulting email responsive HTML in a file. If the file does not exist, it will be created.
 
-### Sets the validation rule to `skip` so that the file is rendered without being validated.
+### Set the validation rule to `skip` so that the file is rendered without being validated.
 
 ```bash
 $> mjml -l skip -r input.mjml

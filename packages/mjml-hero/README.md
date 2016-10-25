@@ -43,7 +43,7 @@ Fixed height
  ```
 
  <p align="center">
-   <a href="https://mjml.io/try-it-live/component/hero">
+   <a href="https://mjml.io/try-it-live/components/hero">
      <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
    </a>
  </p>

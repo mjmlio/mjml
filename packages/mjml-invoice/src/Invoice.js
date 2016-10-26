@@ -17,6 +17,11 @@ const defaultMJMLDefinition = {
     'font-size': '13px',
     'format': null,
     'intl': 'name:Name;price:Price;quantity:Quantity',
+    'padding': null,
+    'padding-top': null,
+    'padding-bottom': null,
+    'padding-left': null,
+    'padding-right': null,
     'line-height': '22px'
   }
 }

@@ -1,4 +1,4 @@
-# mjml-validator
+# Validating MJML
 
 MJML provides a validation layer that helps you building your email. It can detect if you misplaced or mispelled a MJML component, or if you used any unauthorised attribute on a specific component. It supports 3 levels of validation:
 * skip: your document is rendered without going through validation

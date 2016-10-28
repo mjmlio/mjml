@@ -1,5 +1,5 @@
 
-# Newsletter layout
+# Newsletter Layout
 
 In this section, you're going to build a newsletter template.
 The final result will look like this

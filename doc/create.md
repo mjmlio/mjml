@@ -1,4 +1,4 @@
-# Create a Component
+# Creating a Component
 
 One of the great advantages of MJML is that it's component based. Components abstract complex patterns and can easily be reused. Added to the standard library of components, it is also possible to create your own components!
 

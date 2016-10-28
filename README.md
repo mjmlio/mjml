@@ -1,7 +1,7 @@
 <p align="center">
   <a href="http://mjml.io" target="_blank">
     <img width="250"src="https://cloud.githubusercontent.com/assets/6558790/12672296/7b66d8cc-c675-11e5-805d-c6d196320537.png">
-    
+
   </a>
 </p>
 
@@ -66,28 +66,27 @@ npm install -g mjml
 
 ### Command line
 
-> Compiles the file and outputs the result in `input.html`
+> Compiles the file and outputs the HTML generated in `input.html`
 
 ```bash
 $> mjml -r input.mjml
 ```
 
-> Redirects the result to a file named `output.html`
+> Redirects the HTML generated to a file named output.html
 
 ```bash
 $> mjml -r input.mjml -o output.html
 ```
 
+> Sets the validation rule to `skip` so that the file is rendered without being validated
+
+```bash
+$> mjml -l skip -r input.mjml
+
 > Watches a file and compiles every time the file changes
 
 ```bash
 $> mjml -w input.mjml -o output.html
-```
-
-> Sets the validation rule to `skip` so that the file is rendered without being validated.
-
-```bash
-$> mjml -l skip -r input.mjml
 ```
 
 ### Inside Node.js
@@ -122,21 +121,10 @@ console.log(htmlOutput)
 
 ### Create your component
 
-> Issue the following in your terminal
+One of the great advantages of MJML is that it's component based. Components abstract complex patterns and can easily be reused. Added to the standard library of components, it is also possible to create your own components!
 
-```bash
-$> mjml --init-component <name of your component>
+To learn how to create your own component, follow this [step-by-step guide](https://medium.com/mjml-making-responsive-email-easy/tutorial-creating-your-own-mjml-component-d3a236ab7093#.pz0ebb537) which also includes a ready-to-use boilerplate.
 
-# If your component cannot contain anything else than text:
-$> mjml --init-component <name of you component> -e
-
-# It means nothing inside it will be parsed by the mjml engine.
-
-```
-
-
-It will create a basic component template in a `.js` file. Follow the instructions provided in the file
-and read more about custom components in the documentation
 
 # Try it live
 

@@ -1,9 +1,9 @@
-# mjml-validator
+# Validating MJML
 
 MJML provides a validation layer that helps you building your email. It can detect if you misplaced or mispelled a MJML component, or if you used any unauthorised attribute on a specific component. It supports 3 levels of validation:
-- skip: your document is rendered without going through validation
-- soft: your document is going through validation and is rendered, even if it has errors
-- strict: your document is going through validation and is not rendered if it has any error
+* skip: your document is rendered without going through validation
+* soft: your document is going through validation and is rendered, even if it has errors
+* strict: your document is going through validation and is not rendered if it has any error
 
 By default, the level is set to `soft`.
 
@@ -14,13 +14,13 @@ When using the `mjml` command line, you can add the option `-l` or `--level` wit
 > Validates the file without rendering it
 
 ```bash
-$> mjml --validate template.mjml 
+$> mjml --validate template.mjml
 ```
 
 > Sets the validation level to `skip` (so that the file is not validated) and renders the file
 
 ```bash
-$> mjml -l skip -r template.mjml 
+$> mjml -l skip -r template.mjml
 ```
 
 ## In Javascript

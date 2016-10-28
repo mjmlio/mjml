@@ -116,11 +116,13 @@ class Section extends Component {
     }
 
     return helpers.merge({}, baseStyles, {
+      table: {
+        borderRadius: defaultUnit(mjAttribute('border-radius'), "px")
+      },
       td: {
         border: mjAttribute('border'),
         borderBottom: mjAttribute('border-bottom'),
         borderLeft: mjAttribute('border-left'),
-        borderRadius: defaultUnit(mjAttribute('border-radius'), "px"),
         borderRight: mjAttribute('border-right'),
         borderTop: mjAttribute('border-top'),
         direction: mjAttribute('direction'),
@@ -134,6 +136,7 @@ class Section extends Component {
         verticalAlign: mjAttribute('vertical-align')
       },
       div: {
+        borderRadius: defaultUnit(mjAttribute('border-radius'), "px"),
         maxWidth: defaultUnit(parentWidth)
       }
     }, {

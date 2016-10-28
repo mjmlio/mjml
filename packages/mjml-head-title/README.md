@@ -22,7 +22,7 @@ This tag allows you to set the title of an MJML document
  ```
 
 <p align="center">
-  <a href="https://mjml.io/try-it-live/component/head-title">
+  <a href="https://mjml.io/try-it-live/components/head-title">
     <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
   </a>
 </p>

@@ -11,7 +11,7 @@
   <img src="https://cloud.githubusercontent.com/assets/570317/15677396/6bb62708-274a-11e6-8c59-0d8b3944a2ae.png" />
 </p>
 
-MJ-Group allows you to handle how columns are displayed on mobile. Allowing 2 or more columns in mobile.
+mj-group allows you to handle how columns are displayed on mobile. Allowing 2 or more columns in mobile.
 
 ```xml
 <mjml>
@@ -41,7 +41,7 @@ MJ-Group allows you to handle how columns are displayed on mobile. Allowing 2 or
 ```
 
 <p align="center">
-  <a href="/try-it-live/component/group"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>
+  <a href="/try-it-live/components/group"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>
 </p>
 
 <aside class="notice">

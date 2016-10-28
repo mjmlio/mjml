@@ -16,7 +16,7 @@ They will be used to structure the layout.
 ```
 
 <p align="center">
-  <a href="https://mjml.io/try-it-live/component/section">
+  <a href="https://mjml.io/try-it-live/components/section">
     <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
   </a>
 </p>

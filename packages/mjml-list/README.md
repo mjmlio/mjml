@@ -26,7 +26,7 @@
 </aside>
 
 <p align="center">
-  <a href="https://mjml.io/try-it-live/component/list">
+  <a href="https://mjml.io/try-it-live/components/list">
     <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
   </a>
 </p>

@@ -18,7 +18,7 @@ Note that if no width is provided, the image will use the parent column width.
 ```
 
 <p align="center">
-  <a href="https://mjml.io/try-it-live/component/image">
+  <a href="https://mjml.io/try-it-live/components/image">
     <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
   </a>
 </p>

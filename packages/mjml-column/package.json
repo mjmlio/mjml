@@ -1,7 +1,7 @@
 {
   "name": "mjml-column",
   "description": "mjml-column",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -15,7 +15,7 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "lodash": "^4.16.4",
-    "mjml-core": "~3.0.1",
+    "mjml-core": "~3.0.2",
     "react": "^15.3.2"
   }
 }

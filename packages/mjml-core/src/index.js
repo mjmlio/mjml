@@ -1,11 +1,11 @@
 import MJMLRenderer from './MJMLRenderer'
-import mjmlValidator from 'mjml-validator'
+import mjmlValidator, { MJMLExtendedValidator } from 'mjml-validator'
 import elements, { registerMJElement } from './MJMLElementsCollection'
 import MJMLHeadElements, { registerMJHeadElement } from './MJMLHead'
 import * as helpers from './helpers'
 
 export MJMLElement from './decorators/MJMLElement'
-export { MJMLRenderer, registerMJElement, elements, helpers, registerMJHeadElement, MJMLHeadElements }
+export { MJMLRenderer, registerMJElement, elements, helpers, registerMJHeadElement, MJMLHeadElements, MJMLExtendedValidator }
 export const documentParser = (content, attributes) => {
   const documentParser = require('./parsers/document').default
 

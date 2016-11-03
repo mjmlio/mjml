@@ -1,5 +1,5 @@
 var mjml = require('./lib/index')
-
+var mjmlExtendedValidator = new mjml.MJMLExtendedValidator()
 const inputMJML = `<mjml>
   <mj-body>
     <mj-container background-color="#d6dde5">
@@ -20,6 +20,24 @@ const inputMJML = `<mjml>
           <mj-image href="https://mjml.io" src="http://191n.mj.am/img/191n/3s/x4u.png" alt="Racoon logo" align="center" border="none" width="220" padding-left="0" padding-right="0" padding-bottom="10" padding-top="10">
 
           </mj-image>
+        </mj-column>
+        <mj-column width="50%" vertical-align="top">
+          <mj-text align="left" color="#000000" font-family="Ubuntu, Helvetica, Arial, sans-serif, Helvetica, Arial, sans-serif" font-size="13" padding-left="25" padding-right="25" padding-bottom="10" padding-top="10">
+            <p><a href="https://mjml.io" style="text-decoration: none; color: inherit;"><span style="font-size: 15px;">home</span></a> &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;
+              <a href="https://mjml.io" style="text-decoration: none; color: inherit;"><span style="font-size: 15px;">blog</span></a> &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;<a href="https://mjml.io" style="text-decoration: none; color: inherit;"><span style="font-size: 15px;">visit store &#xA0;</span><span style="font-weight: bold;"><span style="font-size: 15px;">&gt;</span></span></a></p>
+          </mj-text>
+        </mj-column>
+        <mj-column width="50%" vertical-align="top">
+          <mj-text align="left" color="#000000" font-family="Ubuntu, Helvetica, Arial, sans-serif, Helvetica, Arial, sans-serif" font-size="13" padding-left="25" padding-right="25" padding-bottom="10" padding-top="10">
+            <p><a href="https://mjml.io" style="text-decoration: none; color: inherit;"><span style="font-size: 15px;">home</span></a> &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;
+              <a href="https://mjml.io" style="text-decoration: none; color: inherit;"><span style="font-size: 15px;">blog</span></a> &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;<a href="https://mjml.io" style="text-decoration: none; color: inherit;"><span style="font-size: 15px;">visit store &#xA0;</span><span style="font-weight: bold;"><span style="font-size: 15px;">&gt;</span></span></a></p>
+          </mj-text>
+        </mj-column>
+        <mj-column width="50%" vertical-align="top">
+          <mj-text align="left" color="#000000" font-family="Ubuntu, Helvetica, Arial, sans-serif, Helvetica, Arial, sans-serif" font-size="13" padding-left="25" padding-right="25" padding-bottom="10" padding-top="10">
+            <p><a href="https://mjml.io" style="text-decoration: none; color: inherit;"><span style="font-size: 15px;">home</span></a> &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;
+              <a href="https://mjml.io" style="text-decoration: none; color: inherit;"><span style="font-size: 15px;">blog</span></a> &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;<a href="https://mjml.io" style="text-decoration: none; color: inherit;"><span style="font-size: 15px;">visit store &#xA0;</span><span style="font-weight: bold;"><span style="font-size: 15px;">&gt;</span></span></a></p>
+          </mj-text>
         </mj-column>
         <mj-column width="50%" vertical-align="top">
           <mj-text align="left" color="#000000" font-family="Ubuntu, Helvetica, Arial, sans-serif, Helvetica, Arial, sans-serif" font-size="13" padding-left="25" padding-right="25" padding-bottom="10" padding-top="10">
@@ -322,13 +340,25 @@ const inputMJML = `<mjml>
 </mjml>`
 
 try {
-  const { html, errors } = mjml.mjml2html(inputMJML, { beautify: true, level: "soft" })
+
+  // BEGIN Extended Validator
+  // mjmlExtendedValidator.registerMJRule(columnMaxSibling)
+  //
+  // const { html, errors } = mjml.mjml2html(inputMJML, { beautify: true, level: "soft", validator: mjmlExtendedValidator })
+  // mjmlExtendedValidator.parseValidate(inputMJML)
+  //
+  // if (mjmlExtendedValidator.errors) {
+  //   console.log(mjmlExtendedValidator.errors.map(e => e.formattedMessage).join('\n'))
+  // }
+  // END Extended Validator
+
+  const { html, errors } = mjml.mjml2html(inputMJML, { beautify: true, level: "soft"})
 
   if (errors) {
     console.log(errors.map(e => e.formattedMessage).join('\n'))
   }
 
-  console.log(html)
+  // console.log(html)
 } catch(e) {
   if (e.getMessages) {
   console.log(e.getMessages())
@@ -336,3 +366,32 @@ try {
     throw e
   }
 }
+
+// BEGIN Custom validation function
+function columnMaxSibling(element){
+  var typeCount   = {};
+  var tagName     = 'mj-column';
+  var columnLimit = 4;
+
+  for(var i = 0; typeof element.children == 'object' && element.children.length > 0 && i < element.children.length; i++){
+    var child = element.children[i];
+
+    if(child.tagName == tagName){
+        try {
+            if(typeCount[element.lineNumber][tagName] == 'undefined')
+                typeCount[element.lineNumber][tagName] = 0;
+        }catch(e){
+            typeCount[element.lineNumber] = {};
+            typeCount[element.lineNumber][tagName] = 0;
+        }
+
+        typeCount[element.lineNumber][tagName]++;
+
+        if(typeCount[element.lineNumber][tagName] > columnLimit){
+            return mjmlExtendedValidator.showError('Column count exceeded', element);
+        }
+    }
+  }
+  return;
+}
+// END Custom validation function

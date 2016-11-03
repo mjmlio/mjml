@@ -358,7 +358,7 @@ try {
     console.log(errors.map(e => e.formattedMessage).join('\n'))
   }
 
-  // console.log(html)
+  console.log(html)
 } catch(e) {
   if (e.getMessages) {
   console.log(e.getMessages())

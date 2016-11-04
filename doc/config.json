@@ -7,6 +7,7 @@
   "mjml/doc/components.md",
   "mjml/doc/head_components.md",
   "mjml/packages/mjml-head-attributes/README.md",
+  "mjml/packages/mjml-head-style/README.md",
   "mjml/packages/mjml-head-font/README.md",
   "mjml/packages/mjml-head-title/README.md",
   "mjml/doc/body_components.md",

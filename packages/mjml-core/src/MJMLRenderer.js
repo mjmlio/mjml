@@ -13,7 +13,7 @@ import he from 'he'
 import importFonts from './helpers/importFonts'
 import includeExternal from './includeExternal'
 import { html as beautify } from 'js-beautify'
-import MJMLValidator, { MJMLExtendedValidator } from 'mjml-validator'
+import MJMLValidator from 'mjml-validator'
 import MJMLElementsCollection, { postRenders } from './MJMLElementsCollection'
 import isBrowser from './helpers/isBrowser'
 import React from 'react'
@@ -49,7 +49,7 @@ export default class MJMLRenderer {
     }
 
     this.content = content
-    this.options = defaults(options, { level: "soft", disableMjStyle: false, disableMjInclude: false, disableMinify: false, validator: 'default' })
+    this.options = defaults(options, { level: "soft", disableMjStyle: false, disableMjInclude: false, disableMinify: false })
 
     if (typeof this.content === 'string') {
       this.parseDocument()
@@ -71,9 +71,7 @@ export default class MJMLRenderer {
       return;
     }
 
-    this.errors = (this.options.validator instanceof MJMLExtendedValidator) ?
-      this.options.validator.validate(this.content) :
-      MJMLValidator(this.content)
+    this.errors = MJMLValidator(this.content)
 
     if (this.options.level == "strict" && this.errors.length > 0) {
       throw new MJMLValidationError(this.errors)

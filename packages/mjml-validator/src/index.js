@@ -1,67 +1,26 @@
-import { documentParser } from 'mjml-core'
 import concat from 'lodash/concat'
 import filter from 'lodash/filter'
 import values from 'lodash/values'
 import ruleError from './rules/ruleError'
-import * as defaultRules from './rules'
-import customRules from './rules/custom'
+import rulesCollection, { registerMJRule } from './MJMLRulesCollection'
 
-const rules = customRules.hasCustomRules() ? customRules.getCustomRules(defaultRules) : defaultRules
+export { rulesCollection, registerMJRule }
 
-// Construct defaultRulesToAdd == (true || undefined) => all default rules added
-// Construct defaultRulesToAdd = [] => no default rules added
-// Construct defaultRulesToAdd = ['validTag'] => only validTag rule applied
-export class MJMLExtendedValidator {
-  constructor (defaultRulesToAdd = true) {
-    this.rules  = [];
+export const formatValidationError = ruleError
 
-    if (defaultRulesToAdd === true) {
-      Object.keys(rules).map((ruleName) => {
-        const rule = rules[ruleName]
-        this.registerMJRule(rule)
-        return ruleName
-      })
-    } else if (typeof defaultRulesToAdd == 'object') {
+const validateNode = (element) => {
 
-      Object.keys(rules).map((ruleName) => {
-        if (defaultRulesToAdd.indexOf(ruleName) > -1) {
-          const rule = rules[ruleName]
-          this.registerMJRule(rule)
-        }
-        return ruleName
-      })
-    }
+  const { children } = element
+
+  let errors = concat(errors, ...values(rulesCollection).map(rule => {
+    return rule(element)
+  }))
+
+  if (children && children.length > 0) {
+    errors = concat(errors, ...children.map((child) => validateNode(child)))
   }
-  showError (message, element) {
-    return ruleError(message, element)
-  }
-  registerMJRule (fn) {
-    if (typeof fn !== 'function') {
-      return;
-    }
-    if (fn.length !== 1) {
-      throw ('Your function must have one parameter which is the element to validate')
-    }
-    this.rules.push(fn);
-  }
-  validate (element) {
-    const { children } = element
-    let errors = concat(errors, ...values(this.rules).map(rule => {
-      return rule(element)
-    }))
 
-    if (children && children.length > 0) {
-      errors = concat(errors, ...children.map(this.validate.bind(this)))
-    }
-
-    return filter(errors)
-  }
-}
-
-const validator = new MJMLExtendedValidator();
-
-const validateNode = element => {
-  return validator.validate(element)
+  return filter(errors)
 }
 
 export default validateNode

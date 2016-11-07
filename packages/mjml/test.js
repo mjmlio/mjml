@@ -1,5 +1,4 @@
 var mjml = require('./lib/index')
-var mjmlExtendedValidator = new mjml.MJMLExtendedValidator()
 const inputMJML = `<mjml>
   <mj-body>
     <mj-container background-color="#d6dde5">
@@ -358,7 +357,7 @@ try {
     console.log(errors.map(e => e.formattedMessage).join('\n'))
   }
 
-  console.log(html)
+  //console.log(html)
 } catch(e) {
   if (e.getMessages) {
   console.log(e.getMessages())
@@ -366,32 +365,3 @@ try {
     throw e
   }
 }
-
-// BEGIN Custom validation function
-function columnMaxSibling(element){
-  var typeCount   = {};
-  var tagName     = 'mj-column';
-  var columnLimit = 4;
-
-  for(var i = 0; typeof element.children == 'object' && element.children.length > 0 && i < element.children.length; i++){
-    var child = element.children[i];
-
-    if(child.tagName == tagName){
-        try {
-            if(typeCount[element.lineNumber][tagName] == 'undefined')
-                typeCount[element.lineNumber][tagName] = 0;
-        }catch(e){
-            typeCount[element.lineNumber] = {};
-            typeCount[element.lineNumber][tagName] = 0;
-        }
-
-        typeCount[element.lineNumber][tagName]++;
-
-        if(typeCount[element.lineNumber][tagName] > columnLimit){
-            return mjmlExtendedValidator.showError('Column count exceeded', element);
-        }
-    }
-  }
-  return;
-}
-// END Custom validation function

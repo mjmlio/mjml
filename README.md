@@ -114,7 +114,7 @@ const htmlOutput = mjml2html(`
 `)
 
 /*
-  Print the responsive HTML generated
+  Print the responsive HTML generated and MJML errors if any
 */
 console.log(htmlOutput)
 ```

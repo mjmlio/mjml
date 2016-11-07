@@ -36,14 +36,13 @@ export class MJMLExtendedValidator {
     return ruleError(message, element)
   }
   registerMJRule (fn) {
+    if (typeof fn !== 'function') {
+      return;
+    }
     if (fn.length !== 1) {
       throw ('Your function must have one parameter which is the element to validate')
     }
     this.rules.push(fn);
-  }
-  parseValidate (content) {
-    const element = documentParser(content)
-    return this.validate(element)
   }
   validate (element) {
     const { children } = element

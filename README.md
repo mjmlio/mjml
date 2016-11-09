@@ -82,6 +82,7 @@ $> mjml -r input.mjml -o output.html
 
 ```bash
 $> mjml -l skip -r input.mjml
+```
 
 > Watches a file and compiles every time the file changes
 

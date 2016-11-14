@@ -1,6 +1,7 @@
 import { MJMLElement, helpers } from 'mjml-core'
 import React, { Component } from 'react'
 import range from 'lodash/range'
+import repeat from 'lodash/repeat'
 
 const tagName = 'mj-carousel'
 const parentTag = ['mj-column', 'mj-hero-content']
@@ -13,6 +14,20 @@ const defaultMJMLDefinition = {
   }
 }
 const baseStyles = {
+  carousel: {
+    div: {
+      display: 'table',
+      width:' 100%',
+      tableLayout: 'fixed',
+      textAlign: 'center',
+      fontSize: '0'
+    },
+    table: {
+      display: 'table-caption',
+      captionSide: 'top',
+      width: '100%'
+    }
+  },
   controls: {
     div: {
       display: 'none',
@@ -25,14 +40,18 @@ const baseStyles = {
     }
   },
   images: {
-    firstDiv: {},
+    div: {
+      padding: '20px'
+    },
+    firstImageDiv: {},
     img: {
+      borderRadius: '6px',
       display: 'block',
       width: '600px',
       maxWidth: '100%',
       height: 'auto'
     },
-    otherDiv: {
+    otherImageDiv: {
       display: 'none',
       msoHide: 'all'
     }
@@ -44,7 +63,15 @@ const baseStyles = {
     }
   },
   thumbnails: {
+    a: {
+      display: 'inline-block',
+      width: '90px',
+      border: '2px solid transparent',
+      borderRadius: '6px',
+      overflow: 'hidden'
+    },
     img: {
+      borderRadius: '6px',
       display: 'block',
       width: '100%',
       height: 'auto'
@@ -53,48 +80,12 @@ const baseStyles = {
 }
 
 const postRender = $ => {
+  const length = $('.mj-carousel').data('length') * 1
   const carouselCss = `<style type="text/css">
   .mj-carousel {
     -webkit-user-select: none;
     -moz-user-select: none;
     user-select: none;
-  }
-
-  .mj-carousel-main {
-    display: table-caption;
-    caption-side: top;
-    width: 100%;
-  }
-
-  .mj-carousel-content {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-    text-align: center;
-    font-size: 0;
-  }
-
-  .mj-carousel-thumbnail {
-    display: inline-block;
-    width: 90px;
-    border: 2px solid transparent;
-    border-radius: 6px;
-    overflow: hidden;
-  }
-
-  .mj-carousel-thumbnail img {
-    display: block;
-    width: 100%;
-    height: auto;
-    border-radius: 6px;
-  }
-
-  .mj-carousel-image img {
-    border-radius: 6px;
-  }
-
-  .mj-carousel-images {
-    padding: 20px;
   }
 
   .mj-carousel-radio,
@@ -109,43 +100,23 @@ const postRender = $ => {
     touch-action: manipulation;
   }
 
-  .mj-carousel-radio:checked + * + * + * + * + .mj-carousel-content .mj-carousel-image,
-  .mj-carousel-radio:checked + * + * + * + .mj-carousel-content .mj-carousel-image,
-  .mj-carousel-radio:checked + * + * + .mj-carousel-content .mj-carousel-image,
-  .mj-carousel-radio:checked + * + .mj-carousel-content .mj-carousel-image,
-  .mj-carousel-radio:checked + .mj-carousel-content .mj-carousel-image {
+  ${range(0, length).map(i => `.mj-carousel-radio:checked ${repeat('+ * ', i)}+ .mj-carousel-content .mj-carousel-image` ).join(',')} {
     display: none !important;
   }
 
-  .mj-carousel-radio-1:checked + * + * + * + * + .mj-carousel-content .mj-carousel-image-1,
-  .mj-carousel-radio-2:checked + * + * + * + .mj-carousel-content .mj-carousel-image-2,
-  .mj-carousel-radio-3:checked + * + * + .mj-carousel-content .mj-carousel-image-3,
-  .mj-carousel-radio-4:checked + * + .mj-carousel-content .mj-carousel-image-4,
-  .mj-carousel-radio-5:checked + .mj-carousel-content .mj-carousel-image-5 {
+  ${range(0, length).map(i => `.mj-carousel-radio-${i + 1}:checked ${repeat('+ * ', length - i - 1)}+ .mj-carousel-content .mj-carousel-image-${i + 1}` ).join(',')} {
     display: block !important;
   }
 
   .mj-carousel-previous-icons,
   .mj-carousel-next-icons,
-  .mj-carousel-radio-1:checked + * + * + * + * + .mj-carousel-content .mj-carousel-next-2,
-  .mj-carousel-radio-1:checked + * + * + * + * + .mj-carousel-content .mj-carousel-previous-5,
-  .mj-carousel-radio-2:checked + * + * + * + .mj-carousel-content .mj-carousel-next-3,
-  .mj-carousel-radio-2:checked + * + * + * + .mj-carousel-content .mj-carousel-previous-1,
-  .mj-carousel-radio-3:checked + * + * + .mj-carousel-content .mj-carousel-next-4,
-  .mj-carousel-radio-3:checked + * + * + .mj-carousel-content .mj-carousel-previous-2,
-  .mj-carousel-radio-4:checked + * + .mj-carousel-content .mj-carousel-next-5,
-  .mj-carousel-radio-4:checked + * + .mj-carousel-content .mj-carousel-previous-3,
-  .mj-carousel-radio-5:checked + .mj-carousel-content .mj-carousel-next-1,
-  .mj-carousel-radio-5:checked + .mj-carousel-content .mj-carousel-previous-4 {
+  ${range(0, length).map(i => `.mj-carousel-radio-${i + 1}:checked ${repeat('+ * ', length - i - 1)}+ .mj-carousel-content .mj-carousel-next-${((i + 1 % length) + length) % length + 1}`)},
+  ${range(0, length).map(i => `.mj-carousel-radio-${i + 1}:checked ${repeat('+ * ', length - i - 1)}+ .mj-carousel-content .mj-carousel-previous-${((i - 1 % length) + length) % length + 1}`)} {
     display: block !important;
   }
 
-  .mj-carousel-radio-1:checked + * + * + * + * + .mj-carousel-content .mj-carousel-thumbnail-1,
-  .mj-carousel-radio-2:checked + * + * + * + .mj-carousel-content .mj-carousel-thumbnail-2,
-  .mj-carousel-radio-3:checked + * + * + .mj-carousel-content .mj-carousel-thumbnail-3,
-  .mj-carousel-radio-4:checked + * + .mj-carousel-content .mj-carousel-thumbnail-4,
-  .mj-carousel-radio-5:checked + .mj-carousel-content .mj-carousel-thumbnail-5 {
-    border-color: #fead0d;
+  ${range(0, length).map(i => `.mj-carousel-radio-${i + 1}:checked ${repeat('+ * ', length - i - 1)}+ .mj-carousel-content .mj-carousel-thumbnail-${i + 1}` ).join(',')} {
+    border-color: #fead0d !important;
   }
 
   .mj-carousel-image img + div,
@@ -153,23 +124,15 @@ const postRender = $ => {
     display: none !important;
   }
 
-  .mj-carousel-thumbnail:hover + * + * + * + * + .mj-carousel-main .mj-carousel-image,
-  .mj-carousel-thumbnail:hover + * + * + * + .mj-carousel-main .mj-carousel-image,
-  .mj-carousel-thumbnail:hover + * + * + .mj-carousel-main .mj-carousel-image,
-  .mj-carousel-thumbnail:hover + * + .mj-carousel-main .mj-carousel-image,
-  .mj-carousel-thumbnail:hover + .mj-carousel-main .mj-carousel-image {
+  ${range(0, length).map(i => `.mj-carousel-thumbnail:hover ${repeat('+ * ', length - i - 1)}+ .mj-carousel-main .mj-carousel-image`).join(',')} {
     display: none !important;
   }
 
   .mj-carousel-thumbnail:hover {
-    border-color: #ccc;
+    border-color: #ccc !important;
   }
 
-  .mj-carousel-thumbnail-1:hover + * + * + * + * + .mj-carousel-main .mj-carousel-image-1,
-  .mj-carousel-thumbnail-2:hover + * + * + * + .mj-carousel-main .mj-carousel-image-2,
-  .mj-carousel-thumbnail-3:hover + * + * + .mj-carousel-main .mj-carousel-image-3,
-  .mj-carousel-thumbnail-4:hover + * + .mj-carousel-main .mj-carousel-image-4,
-  .mj-carousel-thumbnail-5:hover + .mj-carousel-main .mj-carousel-image-5 {
+  ${range(0, length).map(i => `.mj-carousel-thumbnail-${i + 1}:hover ${repeat('+ * ', length - i - 1)}+ .mj-carousel-main .mj-carousel-image-${i + 1}` ).join(',')} {
     display: block !important;
   }
   </style>`
@@ -213,7 +176,7 @@ class Carousel extends Component {
 
 
       return (
-        <a key={`mj-carousel-thumbnail-${imgIndex}`} href={`#${imgIndex}`} className={`mj-carousel-thumbnail mj-carousel-thumbnail-${imgIndex}`}>
+        <a style={this.styles.thumbnails.a} key={`mj-carousel-thumbnail-${imgIndex}`} href={`#${imgIndex}`} className={`mj-carousel-thumbnail mj-carousel-thumbnail-${imgIndex}`}>
           <label htmlFor={`mj-carousel-radio-${imgIndex}`}>
             <img src={img} alt="" style={this.styles.thumbnails.img} width={imgWidth} />
           </label>
@@ -247,13 +210,13 @@ class Carousel extends Component {
   generateImages () {
     return (
       <td>
-        <div className="mj-carousel-images">
+        <div className="mj-carousel-images" style={this.styles.images.div}>
           { this.images.map((src, index) => {
             return (
               <div
                 key={`mj-carousel-image-${index + 1}`}
                 className={`mj-carousel-image mj-carousel-image-${index + 1}`}
-                style={index === 0 ? this.styles.images.firstDiv : this.styles.images.otherDiv}>
+                style={index === 0 ? this.styles.images.firstImageDiv : this.styles.images.otherImageDiv}>
                 <a href="http://www.mjml.io/#1" target="_blank">
                   <img src={src} alt="" style={this.styles.images.img} width="400" border="0" />
                 </a>
@@ -275,6 +238,7 @@ class Carousel extends Component {
         cellSpacing="0"
         width="100%"
         role="presentation"
+        style={this.styles.carousel.table}
         className="mj-carousel-main">
         <tbody>
           <tr>
@@ -292,9 +256,9 @@ class Carousel extends Component {
     this.images = children.map(img => img.props.mjml.get('attributes').get('src') )
 
     return (
-      <div className="mj-carousel" data-first-image={this.images[0]}>
+      <div className="mj-carousel" data-first-image={this.images[0]} data-length={this.images.size}>
         {this.generateRadio()}
-        <div className="mj-carousel-content">
+        <div className="mj-carousel-content" style={this.styles.carousel.div}>
           {mjAttribute('thumbnails') == "visible" ? this.generateThumbnails() : null}
           {this.generateCarousel()}
         </div>

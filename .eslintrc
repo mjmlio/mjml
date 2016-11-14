@@ -24,6 +24,7 @@
     "no-console": 2,
     "no-mixed-operators": 0,
     "no-multi-spaces": 0,
+    "no-useless-escape": 0,
     "no-nested-ternary": 0,
     "no-param-reassign": 0,
     "no-plusplus": 0,

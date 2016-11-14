@@ -192,7 +192,15 @@ class Carousel extends Component {
 
   generateRadio () {
     return this.images.map((img, index) => {
-      return <input key={`mj-carousel-radio-${index + 1}`} defaultChecked={index === 0} type="radio" name="mj-carousel-radio" id={`mj-carousel-radio-${index + 1}`} style={this.styles.radio.input} />
+      return (
+        <input
+          key={`mj-carousel-radio-${index + 1}`}
+          className={`mj-carousel-radio mj-carousel-radio-${index + 1}`}
+          defaultChecked={index === 0}
+          type="radio" name="mj-carousel-radio"
+          id={`mj-carousel-radio-${index + 1}`}
+          style={this.styles.radio.input} />
+      )
     })
   }
 
@@ -223,7 +231,10 @@ class Carousel extends Component {
         <div className={`mj-carousel-${classAffix}-icons`} style={this.styles.controls.div}>
           { range(1, this.images.size + 1).map(i => {
             return (
-              <label key={`mj-carousel-radio-${i}`} htmlFor={`mj-carousel-radio-${i}`} className={`mj-carousel-previous mj-carousel-previous-${i}`}>
+              <label
+                key={`mj-carousel-radio-${i}`}
+                htmlFor={`mj-carousel-radio-${i}`}
+                className={`mj-carousel-${classAffix} mj-carousel-${classAffix}-${i}`}>
                 <img src={icon}alt="" style={this.styles.controls.img} width={iconWidth} />
               </label>
             )
@@ -239,7 +250,10 @@ class Carousel extends Component {
         <div className="mj-carousel-images">
           { this.images.map((src, index) => {
             return (
-              <div key={`mj-carousel-image-${index + 1}`} className={`mj-carousel-image mj-carousel-image-${index + 1}`} style={index === 0 ? this.styles.images.firstDiv : this.styles.images.otherDiv}>
+              <div
+                key={`mj-carousel-image-${index + 1}`}
+                className={`mj-carousel-image mj-carousel-image-${index + 1}`}
+                style={index === 0 ? this.styles.images.firstDiv : this.styles.images.otherDiv}>
                 <a href="http://www.mjml.io/#1" target="_blank">
                   <img src={src} alt="" style={this.styles.images.img} width="400" border="0" />
                 </a>
@@ -255,7 +269,13 @@ class Carousel extends Component {
     const { mjAttribute } = this.props
 
     return (
-      <table border="0" cellpPdding="0" cellSpacing="0" width="100%" role="presentation" className="mj-carousel-main">
+      <table
+        border="0"
+        cellpPdding="0"
+        cellSpacing="0"
+        width="100%"
+        role="presentation"
+        className="mj-carousel-main">
         <tbody>
           <tr>
             {this.generateControls('previous', mjAttribute('left-icon'))}

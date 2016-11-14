@@ -3,14 +3,14 @@ var mjml = require('./lib/index')
 const inputMJML = `<mjml>
   <mj-body>
     <mj-container background-color="#d6dde5">
-      <mj-section padding-bottom="20" padding-top="20">
+      <mj-section>
         <mj-column>
           <mj-carousel>
             <mj-carousel-image src="https://www.mailjet.com/wp-content/uploads/2016/11/ecommerce-guide.jpg" />
-            <mj-carousel-image src="https://www.mailjet.com/wp-content/uploads/2016/11/ecommerce-guide.jpg" />
-            <mj-carousel-image src="https://www.mailjet.com/wp-content/uploads/2016/11/ecommerce-guide.jpg" />
-            <mj-carousel-image src="https://www.mailjet.com/wp-content/uploads/2016/11/ecommerce-guide.jpg" />
-            <mj-carousel-image src="https://www.mailjet.com/wp-content/uploads/2016/11/ecommerce-guide.jpg" />
+            <mj-carousel-image src="https://www.mailjet.com/wp-content/uploads/2016/09/3@1x.png" />
+            <mj-carousel-image src="https://www.mailjet.com/wp-content/uploads/2016/09/1@1x.png" />
+            <mj-carousel-image src="https://www.mailjet.com/wp-content/uploads/2016/09/2@1x.png" />
+            <mj-carousel-image src="http://i.imgur.com/q4pq7FM.jpg" />
           </mj-carousel>
         </mj-column>
       </mj-section>

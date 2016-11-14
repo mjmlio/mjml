@@ -7,8 +7,10 @@ const selfClosing = true
 const parentTag = ['mj-carousel']
 const defaultMJMLDefinition = {
   attributes: {
-    src: null,
-    alt: null
+    'alt': null,
+    'href': null,
+    'src': null,
+    'thumbnails-src': null
   }
 }
 const baseStyles = {
@@ -17,9 +19,9 @@ const baseStyles = {
 @MJMLElement
 class CarouselImage extends Component {
   render () {
+    // None should call this...
     return null
   }
-
 }
 
 CarouselImage.tagName = tagName

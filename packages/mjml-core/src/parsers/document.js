@@ -58,8 +58,14 @@ const mjmlElementParser = (elem, content) => {
 const parseHead = (head, attributes) => {
   const $container = dom.parseHTML(attributes.container)
 
-  each(compact(filter(dom.getChildren(head), child => child.tagName)), element => {
-    const handler = MJMLHeadElements[element.tagName.toLowerCase()]
+  each(compact(filter(dom.getChildren(head), child => child.tagName)), el => {
+    const element = {
+      attributes: dom.getAttributes(el),
+      children: el.children,
+      tagName: el.tagName.toLowerCase(),
+    };
+
+    const handler = MJMLHeadElements[element.tagName]
 
     if (handler) {
       handler(element, { $container, ...attributes })

@@ -22,7 +22,6 @@ const defaultMJMLDefinition = {
 }
 
 const endingTag = false
-
 const baseStyles = {
   div: {
     margin: '0 auto'

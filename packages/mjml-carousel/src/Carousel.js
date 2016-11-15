@@ -2,6 +2,7 @@ import { MJMLElement, helpers } from 'mjml-core'
 import React, { Component } from 'react'
 import range from 'lodash/range'
 import repeat from 'lodash/repeat'
+import min from 'lodash/min'
 
 const tagName = 'mj-carousel'
 const parentTag = ['mj-column', 'mj-hero-content']
@@ -9,7 +10,7 @@ const defaultMJMLDefinition = {
   attributes: {
     'align': 'center',
     'border-radius': '6px',
-    'icon-width': '44',
+    'icon-width': '44px',
     'left-icon': 'http://i.imgur.com/xTh3hln.png',
     'padding': null,
     'padding-top': null,
@@ -18,10 +19,11 @@ const defaultMJMLDefinition = {
     'padding-right': null,
     'right-icon': 'http://i.imgur.com/os7o9kz.png',
     'thumbnails': 'visible',
-    'thumbnails-border': '2px solid transparent',
-    'thumbnails-border-radius': '6px',
-    'thumbnails-hover-border-color': '#fead0d',
-    'thumbnails-selected-border-color': '#ccc'
+    'tb-border': '2px solid transparent',
+    'tb-border-radius': '6px',
+    'tb-hover-border-color': '#fead0d',
+    'tb-selected-border-color': '#ccc',
+    'tb-width': null
   }
 }
 const baseStyles = {
@@ -34,8 +36,9 @@ const baseStyles = {
       fontSize: '0'
     },
     table: {
-      display: 'table-caption',
       captionSide: 'top',
+      display: 'table-caption',
+      tableLayout: 'fixed',
       width: '100%'
     }
   },
@@ -48,6 +51,10 @@ const baseStyles = {
       display: 'block',
       width: '100%',
       height: 'auto'
+    },
+    td: {
+      display: 'none',
+      msoHide: 'all'
     }
   },
   images: {
@@ -75,7 +82,6 @@ const baseStyles = {
   thumbnails: {
     a: {
       display: 'inline-block',
-      width: '90px',
       overflow: 'hidden'
     },
     img: {
@@ -85,9 +91,13 @@ const baseStyles = {
     }
   }
 }
-
 const postRender = $ => {
   const $mjCarousel = $('.mj-carousel')
+
+  if ($mjCarousel.length === 0) {
+    return $
+  }
+
   const length = $mjCarousel.data('length') * 1
 
   const carouselCss = `<style type="text/css">
@@ -95,6 +105,11 @@ const postRender = $ => {
     -webkit-user-select: none;
     -moz-user-select: none;
     user-select: none;
+  }
+
+  .mj-carousel-icons-cell {
+    display: table-cell !important;
+    width: ${$mjCarousel.data('icon-width')} !important;
   }
 
   .mj-carousel-radio,
@@ -156,6 +171,7 @@ const postRender = $ => {
     [owa] .mj-carousel-thumbnail { display: none !important; }
 
     @media screen yahoo {
+        .mj-carousel-icons-cell,
         .mj-carousel-previous-icons,
         .mj-carousel-next-icons {
             display: none !important;
@@ -170,9 +186,9 @@ const postRender = $ => {
   $('head').append(carouselCss)
   $('head').append(fallback)
 
-  $('.mj-carousel').before(`${helpers.startNegationConditionalTag}`)
+  $('.mj-carousel').before(`<!--[if !mso]><!-->`)
   $('.mj-carousel').after(`${helpers.endNegationConditionalTag}
-    ${helpers.startConditionalTag}
+    <!--[if mso]>
     ${$('.mj-carousel-image-1').html()}
     ${helpers.endConditionalTag}`)
 
@@ -181,8 +197,6 @@ const postRender = $ => {
 
 @MJMLElement
 class Carousel extends Component {
-
-  styles = this.getStyles()
 
   getStyles () {
     const { mjAttribute } = this.props
@@ -195,14 +209,21 @@ class Carousel extends Component {
       },
       thumbnails: {
         img: {
-          borderRadius: mjAttribute('thumbnails-border-radius')
+          borderRadius: mjAttribute('tb-border-radius')
         },
         a: {
-          border: mjAttribute('thumbnails-border'),
-          borderRadius: mjAttribute('thumbnails-border-radius')
+          border: mjAttribute('tb-border'),
+          borderRadius: mjAttribute('tb-border-radius'),
+          width: this.thumbnailsWidth()
         }
       }
     })
+  }
+
+  thumbnailsWidth () {
+    const { mjAttribute } = this.props
+
+    return mjAttribute('tb-width') ? mjAttribute('tb-width') : `${min([mjAttribute('parentWidth') / this.images.size, 110])}px`
   }
 
   generateRadio () {
@@ -220,8 +241,7 @@ class Carousel extends Component {
   }
 
   generateThumbnails () {
-    const { mjAttribute } = this.props
-    const imgWidth = mjAttribute('parentWidth') / this.images.size
+    const imgWidth = this.thumbnailsWidth()
 
     return this.images.map(({src, alt, 'thumbnails-src': thumbsSrc}, index) => {
       const imgIndex = index + 1
@@ -229,7 +249,7 @@ class Carousel extends Component {
       return (
         <a style={this.styles.thumbnails.a} key={`mj-carousel-thumbnail-${imgIndex}`} href={`#${imgIndex}`} className={`mj-carousel-thumbnail mj-carousel-thumbnail-${imgIndex}`}>
           <label htmlFor={`mj-carousel-radio-${imgIndex}`}>
-            <img src={thumbsSrc || src } alt={alt} style={this.styles.thumbnails.img} width={imgWidth} />
+            <img src={thumbsSrc || src } alt={alt} style={this.styles.thumbnails.img} width={parseInt(imgWidth)} />
           </label>
         </a>
       )
@@ -238,10 +258,10 @@ class Carousel extends Component {
 
   generateControls (classAffix, icon) {
     const { mjAttribute } = this.props
-    const iconWidth = mjAttribute('icon-width') * 1
+    const iconWidth = parseInt(mjAttribute('icon-width'))
 
     return (
-      <td>
+      <td className="mj-carousel-icons-cell" style={this.styles.controls.td}>
         <div className={`mj-carousel-${classAffix}-icons`} style={this.styles.controls.div}>
           { range(1, this.images.size + 1).map(i => {
             return (
@@ -304,14 +324,17 @@ class Carousel extends Component {
 
   render () {
     const { children, mjAttribute } = this.props
+
     this.images = children.map(img => img.props.mjml.get('attributes').toObject())
+    this.styles = this.getStyles()
 
     return (
       <div
         className="mj-carousel"
         data-length={this.images.size}
-        data-hover-border-color={mjAttribute('thumbnails-hover-border-color')}
-        data-selected-border-color={mjAttribute('thumbnails-selected-border-color')}>
+        data-icon-width={mjAttribute('icon-width')}
+        data-hover-border-color={mjAttribute('tb-hover-border-color')}
+        data-selected-border-color={mjAttribute('tb-selected-border-color')}>
         {this.generateRadio()}
         <div className="mj-carousel-content" style={this.styles.carousel.div}>
           {mjAttribute('thumbnails') == "visible" ? this.generateThumbnails() : null}

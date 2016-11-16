@@ -36,7 +36,6 @@ attribute | unit | description | default value
 ----------|------|-------------|---------------
 align | string | horizontal alignment | center
 border-radius | px | border radius | n/a
-width | px | image width | 100%
 background-color | string | column background color | none
 thumbnails | String | display or not the thumbnails (visible | hidden)
 tb-border | css border format | border of the thumbnails | none

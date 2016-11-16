@@ -204,7 +204,7 @@ class Carousel extends Component {
     return helpers.merge({}, baseStyles, {
       images: {
         img: {
-          borderRadius: '6px'
+          borderRadius: mjAttribute('border-radius')
         }
       },
       thumbnails: {

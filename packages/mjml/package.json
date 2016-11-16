@@ -1,7 +1,7 @@
 {
   "name": "mjml",
   "description": "MJML: the only framework that makes responsive-email easy",
-  "version": "3.1.0-beta.1",
+  "version": "3.1.0-beta.2",
   "main": "lib/index.js",
   "bin": {
     "mjml": "bin/mjml"
@@ -17,7 +17,7 @@
   "homepage": "https://mjml.io",
   "dependencies": {
     "mjml-button": "~3.1.0-beta.1",
-    "mjml-carousel": "~3.1.0-beta.1",
+    "mjml-carousel": "~3.1.0-beta.2",
     "mjml-cli": "~3.1.0-beta.1",
     "mjml-column": "~3.1.0-beta.1",
     "mjml-container": "~3.1.0-beta.1",

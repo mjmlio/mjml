@@ -1,5 +1,9 @@
 ## mjml-carousel
 
+<p align="center">
+  <img src="http://i.imgur.com/wHqIzgd.gif" alt="desktop" />
+</p>
+
 `mjml-carousel` is the first MJML interactive component, it displays a gallery of images or "carousel". Readers can interact by hovering and clicking on thumbnails depending on the email client they use.
 
 This component enables you to set the styles of the carousel elements.

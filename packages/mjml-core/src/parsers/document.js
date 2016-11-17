@@ -2,6 +2,7 @@ import { ParseError, EmptyMJMLError, NullElementError } from '../Error'
 import compact from 'lodash/compact'
 import dom from '../helpers/dom'
 import each from 'lodash/each'
+import toArray from 'lodash/toArray';
 import filter from 'lodash/filter'
 import { endingTags } from '../MJMLElementsCollection'
 import MJMLHeadElements from '../MJMLHead'
@@ -61,7 +62,7 @@ const parseHead = (head, attributes) => {
   each(compact(filter(dom.getChildren(head), child => child.tagName)), el => {
     const element = {
       attributes: dom.getAttributes(el),
-      children: el.children,
+      children: toArray(el.childNodes),
       tagName: el.tagName.toLowerCase(),
     };
 

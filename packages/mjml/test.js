@@ -339,7 +339,7 @@ const inputMJML = `<mjml>
 </mjml>`
 
 try {
-  const { html, errors } = mjml.mjml2html(inputMJML, { beautify: true, level: "soft"})
+  const { html, errors } = mjml.mjml2html(inputMJML, { beautify: true, level: "soft" })
 
   if (errors) {
     console.log(errors.map(e => e.formattedMessage).join('\n'))

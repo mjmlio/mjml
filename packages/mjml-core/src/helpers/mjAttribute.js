@@ -1,6 +1,6 @@
 import mergeWith from 'lodash/mergeWith'
 
-const unitRegex = /[\d.,]*(\D*)$/
+const unitRegex = /[\d\.,]*(\D*)$/
 
 export const widthParser = (width, opts = { parseFloatToInt: true }) => {
   const widthUnit = unitRegex.exec(width.toString())[1]

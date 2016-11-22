@@ -15,6 +15,7 @@ const defaultMJMLDefinition = {
     'font-style': null,
     'font-weight': null,
     'line-height': '22px',
+    'height': null,
     'padding-bottom': null,
     'padding-left': null,
     'padding-right': null,
@@ -47,6 +48,7 @@ class Text extends Component {
         fontStyle: mjAttribute('font-style'),
         fontWeight: mjAttribute('font-weight'),
         lineHeight: defaultUnit(mjAttribute('line-height'), "px"),
+        height: defaultUnit(mjAttribute('height'), "px"),
         textAlign: mjAttribute('align'),
         textDecoration: mjAttribute('text-decoration'),
         textTransform: mjAttribute('text-transform')

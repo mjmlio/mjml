@@ -63,7 +63,7 @@ const parseHead = (head, attributes) => {
     const element = {
       attributes: dom.getAttributes(el),
       children: toArray(el.childNodes),
-      tagName: el.tagName.toLowerCase(),
+      tagName: el.tagName.toLowerCase()
     };
 
     const handler = MJMLHeadElements[element.tagName]

@@ -339,25 +339,13 @@ const inputMJML = `<mjml>
 </mjml>`
 
 try {
-
-  // BEGIN Extended Validator
-  // mjmlExtendedValidator.registerMJRule(columnMaxSibling)
-  //
-  // const { html, errors } = mjml.mjml2html(inputMJML, { beautify: true, level: "soft", validator: mjmlExtendedValidator })
-  // mjmlExtendedValidator.parseValidate(inputMJML)
-  //
-  // if (mjmlExtendedValidator.errors) {
-  //   console.log(mjmlExtendedValidator.errors.map(e => e.formattedMessage).join('\n'))
-  // }
-  // END Extended Validator
-
   const { html, errors } = mjml.mjml2html(inputMJML, { beautify: true, level: "soft"})
 
   if (errors) {
     console.log(errors.map(e => e.formattedMessage).join('\n'))
   }
 
-  //console.log(html)
+  console.log(html)
 } catch(e) {
   if (e.getMessages) {
   console.log(e.getMessages())

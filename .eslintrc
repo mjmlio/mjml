@@ -34,6 +34,7 @@
     "no-unused-expressions": 0,
     "no-unused-vars": [2, { "varsIgnorePattern": "^debug$" }],
     "no-use-before-define": 0,
+    "no-useless-escape": 0,
     "object-curly-spacing": 0,
     "object-shorthand": 0,
     "one-var": 0,

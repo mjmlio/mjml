@@ -117,11 +117,11 @@ export default class MJMLRenderer {
     })
 
     return [ removeCDATA,
-             !this.options.disableMjStyle ? curryRight(inlineExternal)(externalCSS) : undefined,
-             this.options.beautify ? beautifyHTML : undefined,
-             !this.options.disableMinify && this.options.minify ? minifyHTML : undefined,
-             he.decode ].filter(element => typeof element == 'function')
-                        .reduce((res, fun) => fun(res), dom.getHTML($))
+      !this.options.disableMjStyle ? curryRight(inlineExternal)(externalCSS) : undefined,
+      this.options.beautify ? beautifyHTML : undefined,
+      !this.options.disableMinify && this.options.minify ? minifyHTML : undefined,
+      he.decode ].filter(element => typeof element == 'function')
+          .reduce((res, fun) => fun(res), dom.getHTML($))
   }
 
 }

@@ -1,5 +1,4 @@
 var mjml = require('./lib/index')
-
 const inputMJML = `<mjml>
   <mj-body>
     <mj-container background-color="#d6dde5">
@@ -20,6 +19,24 @@ const inputMJML = `<mjml>
           <mj-image href="https://mjml.io" src="http://191n.mj.am/img/191n/3s/x4u.png" alt="Racoon logo" align="center" border="none" width="220" padding-left="0" padding-right="0" padding-bottom="10" padding-top="10">
 
           </mj-image>
+        </mj-column>
+        <mj-column width="50%" vertical-align="top">
+          <mj-text align="left" color="#000000" font-family="Ubuntu, Helvetica, Arial, sans-serif, Helvetica, Arial, sans-serif" font-size="13" padding-left="25" padding-right="25" padding-bottom="10" padding-top="10">
+            <p><a href="https://mjml.io" style="text-decoration: none; color: inherit;"><span style="font-size: 15px;">home</span></a> &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;
+              <a href="https://mjml.io" style="text-decoration: none; color: inherit;"><span style="font-size: 15px;">blog</span></a> &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;<a href="https://mjml.io" style="text-decoration: none; color: inherit;"><span style="font-size: 15px;">visit store &#xA0;</span><span style="font-weight: bold;"><span style="font-size: 15px;">&gt;</span></span></a></p>
+          </mj-text>
+        </mj-column>
+        <mj-column width="50%" vertical-align="top">
+          <mj-text align="left" color="#000000" font-family="Ubuntu, Helvetica, Arial, sans-serif, Helvetica, Arial, sans-serif" font-size="13" padding-left="25" padding-right="25" padding-bottom="10" padding-top="10">
+            <p><a href="https://mjml.io" style="text-decoration: none; color: inherit;"><span style="font-size: 15px;">home</span></a> &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;
+              <a href="https://mjml.io" style="text-decoration: none; color: inherit;"><span style="font-size: 15px;">blog</span></a> &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;<a href="https://mjml.io" style="text-decoration: none; color: inherit;"><span style="font-size: 15px;">visit store &#xA0;</span><span style="font-weight: bold;"><span style="font-size: 15px;">&gt;</span></span></a></p>
+          </mj-text>
+        </mj-column>
+        <mj-column width="50%" vertical-align="top">
+          <mj-text align="left" color="#000000" font-family="Ubuntu, Helvetica, Arial, sans-serif, Helvetica, Arial, sans-serif" font-size="13" padding-left="25" padding-right="25" padding-bottom="10" padding-top="10">
+            <p><a href="https://mjml.io" style="text-decoration: none; color: inherit;"><span style="font-size: 15px;">home</span></a> &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;
+              <a href="https://mjml.io" style="text-decoration: none; color: inherit;"><span style="font-size: 15px;">blog</span></a> &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;<a href="https://mjml.io" style="text-decoration: none; color: inherit;"><span style="font-size: 15px;">visit store &#xA0;</span><span style="font-weight: bold;"><span style="font-size: 15px;">&gt;</span></span></a></p>
+          </mj-text>
         </mj-column>
         <mj-column width="50%" vertical-align="top">
           <mj-text align="left" color="#000000" font-family="Ubuntu, Helvetica, Arial, sans-serif, Helvetica, Arial, sans-serif" font-size="13" padding-left="25" padding-right="25" padding-bottom="10" padding-top="10">

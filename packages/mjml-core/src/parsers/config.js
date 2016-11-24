@@ -5,6 +5,7 @@ import some from 'lodash/some'
 import startsWith from 'lodash/startsWith'
 import isEmpty from 'lodash/isEmpty'
 import MJMLElementsCollection, { registerMJElement } from '../MJMLElementsCollection'
+import { registerMJRule } from 'mjml-validator'
 
 const cwd = process.cwd()
 
@@ -55,6 +56,27 @@ const parsePackages = (packages) => {
   })
 }
 
+const parseRules = (validators) => {
+  if (!validators) {
+    return;
+  }
+
+  validators.forEach(file => {
+    if (!file) {
+      return
+    }
+
+    try {
+      const filename = path.join(process.cwd(), file)
+      const rule = isRelativePath(file) ? require(filename) : require.main.require(file)
+
+      registerMJRule(rule)
+    } catch (e) {
+      warning(false, `.mjmlconfig file ${file} opened from ${cwd} has an error : ${e}`)
+    }
+  })
+}
+
 export default () => {
   const config = parseConfigFile()
 
@@ -63,4 +85,5 @@ export default () => {
   }
 
   parsePackages(config.packages)
+  parseRules(config.validators)
 }

@@ -121,7 +121,7 @@ export default class MJMLRenderer {
       this.options.beautify ? beautifyHTML : undefined,
       !this.options.disableMinify && this.options.minify ? minifyHTML : undefined,
       he.decode ].filter(element => typeof element == 'function')
-          .reduce((res, fun) => fun(res), dom.getHTML($))
+                 .reduce((res, fun) => fun(res), dom.getHTML($))
   }
 
 }

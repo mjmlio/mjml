@@ -25,13 +25,13 @@ This component enables you to set the styles of the carousel elements.
   </mj-body>
 </mjml>
 ```
-<!--
+
 <p align="center">
   <a href="https://mjml.io/try-it-live/components/carousel">
     <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
   </a>
 </p>
--->
+
 
 attribute | unit | description | default value
 ----------|------|-------------|---------------

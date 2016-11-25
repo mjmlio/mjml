@@ -1,7 +1,7 @@
 {
   "name": "mjml-core",
   "description": "mjml-core",
-  "version": "3.1.1-beta.1",
+  "version": "3.1.1-beta.2",
   "main": "lib/index.js",
   "scripts": {
     "test": "mocha --compilers js:babel-register"
@@ -32,7 +32,7 @@
     "js-beautify": "^1.6.4",
     "juice": "^4.0.0",
     "lodash": "^4.16.4",
-    "mjml-validator": "~3.1.1-beta.1",
+    "mjml-validator": "~3.1.1-beta.2",
     "react-dom": "^15.3.2",
     "react": "^15.3.2",
     "warning": "^3.0.0"

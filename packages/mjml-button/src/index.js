@@ -57,29 +57,35 @@ class Button extends Component {
       table: {
         width: mjAttribute('width')
       },
+      innerTable: {
+        border: '0',
+        margin: '0 auto',
+        padding: defaultUnit(mjAttribute('inner-padding'), "px")
+      },
       td: {
-        border: mjAttribute('border'),
+        background: mjAttribute('background-color'),
+        borderRadius: defaultUnit(mjAttribute('border-radius'), "px"),
+        height: mjAttribute('height'),
+        width: mjAttribute('width')
+      },
+      a: {
+        display: 'inline-block',
         borderBottom: mjAttribute('border-bottom'),
         borderLeft: mjAttribute('border-left'),
-        borderRadius: defaultUnit(mjAttribute('border-radius'), "px"),
+        border: mjAttribute('border'),
         borderRight: mjAttribute('border-right'),
         borderTop: mjAttribute('border-top'),
         color: mjAttribute('color'),
         cursor: 'auto',
-        fontStyle: mjAttribute('font-style'),
-        height: mjAttribute('height'),
-        padding: defaultUnit(mjAttribute('inner-padding'), "px")
-      },
-      a: {
-        background: mjAttribute('background-color'),
-        color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
         fontSize: defaultUnit(mjAttribute('font-size')),
         fontStyle: mjAttribute('font-style'),
         fontWeight: mjAttribute('font-weight'),
+        height: mjAttribute('height'),
         textDecoration: mjAttribute('text-decoration'),
         textTransform: mjAttribute('text-transform'),
-        margin: "0px"
+        margin: "0px",
+        padding: defaultUnit(mjAttribute('inner-padding'), "px")
       }
     })
   }
@@ -93,14 +99,14 @@ class Button extends Component {
           dangerouslySetInnerHTML={{ __html: mjContent() }}
           href={mjAttribute('href')}
           style={this.styles.a}
-          target="_blank" />
+          target="_blank"/>
       )
     }
 
     return (
       <p
         dangerouslySetInnerHTML={{ __html: mjContent() }}
-        style={this.styles.a} />
+        style={this.styles.a}/>
     )
   }
 
@@ -116,15 +122,26 @@ class Button extends Component {
         data-legacy-border="0"
         style={this.styles.table}>
         <tbody>
-          <tr>
-            <td
-              data-legacy-align="center"
-              data-legacy-bgcolor={mjAttribute('background-color') === "none" ? "" : mjAttribute('background-color')}
-              data-legacy-valign={mjAttribute('vertical-align')}
-              style={this.styles.td}>
-              {this.renderButton()}
-            </td>
-          </tr>
+        <tr>
+          <td>
+            <table
+              cellSpacing="0"
+              cellPadding="0"
+              style={this.styles.innerTable}>
+              <tbody>
+              <tr>
+                <td
+                  data-legacy-align="center"
+                  data-legacy-bgcolor={mjAttribute('background-color') === "none" ? "" : mjAttribute('background-color')}
+                  data-legacy-valign={mjAttribute('vertical-align')}
+                  style={this.styles.td}>
+                  {this.renderButton()}
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
         </tbody>
       </table>
     )

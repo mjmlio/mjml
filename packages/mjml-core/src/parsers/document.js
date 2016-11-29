@@ -15,19 +15,21 @@ const regexTag = tag => new RegExp(`<${tag}([^>]*)>([^]*?)</${tag}>`, 'gmi')
  */
 const safeEndingTags = content => {
   const regexpBody = regexTag('mj-body')
-  let bodyContent = content.match(regexpBody)
+  const safeContent = content.replace('$', '&#36;')
+
+  let bodyContent = safeContent.match(regexpBody)
 
   if (!bodyContent) {
-    return content
+    return safeContent
   }
 
-  bodyContent = bodyContent[0].replace('$', '&#36;') // $ is a protected chars for regexp... avoid issue with duplicate content
+  bodyContent = bodyContent[0]
 
   endingTags.forEach(tag => {
     bodyContent = bodyContent.replace(regexTag(tag), dom.replaceContentByCdata(tag))
   })
 
-  return content.replace(regexpBody, bodyContent)
+  return safeContent.replace(regexpBody, bodyContent)
 }
 
 /**

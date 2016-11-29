@@ -38,6 +38,7 @@ This tag allows you to display text in your email.
  font-style                   | string        | normal/italic/oblique          | n/a
  font-weight                  | number        | text thickness                 | n/a
  line-height                  | px            | space between the lines        | 22px
+ letter-spacing               | px            | letter spacing                 | none
  text-decoration              | string        | underline/overline/none        | n/a
  text-transform               | string        | uppercase/lowercase/capitalize | n/a
  align                        | string        | left/right/center              | left

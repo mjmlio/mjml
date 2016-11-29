@@ -1,5 +1,0 @@
-{
-  "validators": [
-    "./validators/ColumnCount.js"
-  ]
-}

@@ -46,7 +46,7 @@ class Text extends Component {
         fontSize: defaultUnit(mjAttribute('font-size')),
         fontStyle: mjAttribute('font-style'),
         fontWeight: mjAttribute('font-weight'),
-        lineHeight: defaultUnit(mjAttribute('line-height'), "px"),
+        lineHeight: mjAttribute('line-height'),
         textAlign: mjAttribute('align'),
         textDecoration: mjAttribute('text-decoration'),
         textTransform: mjAttribute('text-transform')

@@ -3,6 +3,8 @@
 var cli = require('../lib/client')
 var binary = require('commander')
 
+var commandResult = Promise.resolve()
+
 /*
  * Parse the command line arguments
  */
@@ -16,7 +18,7 @@ binary
       output: binary.output
     }
 
-    cli.renderFiles(Array.isArray(files) ? files.join(' ') : files, options)
+    commandResult = cli.renderFiles(Array.isArray(files) ? files.join(' ') : files, options)
   })
   .option('-l, --level [level]', 'Specifies the level of validation of MJML parser (skip/soft/strict)', /^(skip|soft|strict)$/i, 'soft')
   .option('-r, --render <file>', 'Compiles an MJML file')
@@ -29,9 +31,10 @@ binary
   .option('--validate <file>', 'Validate a MJML Document')
   .parse(process.argv)
 
+
 switch (true) {
   case (!!binary.validate):
-    cli.validate(binary.validate, binary)
+    commandResult = cli.validate(binary.validate, binary)
     break
 
   case (!!binary.watch):
@@ -39,10 +42,16 @@ switch (true) {
     break
 
   case (!!binary.render):
-    cli.renderFiles(binary.render, binary)
+    commandResult = cli.renderFiles(binary.render, binary)
     break
 
   case (!!binary.stdin):
-    cli.renderStream(binary)
+    commandResult = cli.renderStream(binary)
     break
 }
+
+commandResult.then(function() {
+  process.exit(0)
+}).catch(function() {
+  process.exit(1)
+})

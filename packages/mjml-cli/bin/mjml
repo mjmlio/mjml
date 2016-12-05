@@ -11,12 +11,12 @@ binary
   .arguments('[files...]', 'Compiles an MJML file')
   .action(function (files) {
     var options = {
-      min: process.argv.indexOf('-m') !== -1 || process.argv.indexOf('--min') !== -1,
-      stdout: process.argv.indexOf('-s') !== -1 || process.argv.indexOf('--stdout') !== -1,
+      min: binary.min,
+      stdout: binary.stdout,
       output: binary.output
     }
 
-    cli.renderFile(files, options)
+    cli.renderFiles(Array.isArray(files) ? files.join(' ') : files, options)
   })
   .option('-l, --level [level]', 'Specifies the level of validation of MJML parser (skip/soft/strict)', /^(skip|soft|strict)$/i, 'soft')
   .option('-r, --render <file>', 'Compiles an MJML file')
@@ -39,7 +39,7 @@ switch (true) {
     break
 
   case (!!binary.render):
-    cli.renderFile(binary.render, binary)
+    cli.renderFiles(binary.render, binary)
     break
 
   case (!!binary.stdin):

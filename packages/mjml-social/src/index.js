@@ -140,7 +140,7 @@ class Social extends Component {
         fontSize: defaultUnit(mjAttribute('font-size'), 'px'),
         fontStyle: mjAttribute('font-style'),
         fontWeight: mjAttribute('font-weight'),
-        lineHeight: defaultUnit(mjAttribute('line-height'), 'px'),
+        lineHeight: mjAttribute('line-height'),
         textDecoration: mjAttribute('text-decoration')
       },
       td1: {

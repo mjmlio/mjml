@@ -2,6 +2,7 @@ import { ParseError, EmptyMJMLError, NullElementError } from '../Error'
 import compact from 'lodash/compact'
 import dom from '../helpers/dom'
 import each from 'lodash/each'
+import toArray from 'lodash/toArray';
 import filter from 'lodash/filter'
 import { endingTags } from '../MJMLElementsCollection'
 import MJMLHeadElements from '../MJMLHead'
@@ -14,19 +15,21 @@ const regexTag = tag => new RegExp(`<${tag}([^>]*)>([^]*?)</${tag}>`, 'gmi')
  */
 const safeEndingTags = content => {
   const regexpBody = regexTag('mj-body')
-  let bodyContent = content.match(regexpBody)
+  const safeContent = content.replace('$', '&#36;')
+
+  let bodyContent = safeContent.match(regexpBody)
 
   if (!bodyContent) {
-    return content
+    return safeContent
   }
 
-  bodyContent = bodyContent[0].replace('$', '&#36;') // $ is a protected chars for regexp... avoid issue with duplicate content
+  bodyContent = bodyContent[0]
 
   endingTags.forEach(tag => {
     bodyContent = bodyContent.replace(regexTag(tag), dom.replaceContentByCdata(tag))
   })
 
-  return content.replace(regexpBody, bodyContent)
+  return safeContent.replace(regexpBody, bodyContent)
 }
 
 /**
@@ -58,8 +61,14 @@ const mjmlElementParser = (elem, content) => {
 const parseHead = (head, attributes) => {
   const $container = dom.parseHTML(attributes.container)
 
-  each(compact(filter(dom.getChildren(head), child => child.tagName)), element => {
-    const handler = MJMLHeadElements[element.tagName.toLowerCase()]
+  each(compact(filter(dom.getChildren(head), child => child.tagName)), el => {
+    const element = {
+      attributes: dom.getAttributes(el),
+      children: toArray(el.childNodes),
+      tagName: el.tagName.toLowerCase()
+    };
+
+    const handler = MJMLHeadElements[element.tagName]
 
     if (handler) {
       handler(element, { $container, ...attributes })
@@ -97,7 +106,7 @@ const documentParser = (content, attributes) => {
   }
 
   if (!body || body.length < 1) {
-    throw new EmptyMJMLError('No root "<mjml>" or "<mj-body>" found in the file')
+    throw new EmptyMJMLError('No root "<mjml>" or "<mj-body>" found in the file, or "<mj-body>" is empty')
   }
 
   if (head && head.length === 1) {

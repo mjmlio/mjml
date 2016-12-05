@@ -10,7 +10,7 @@ Here is the final render we want to end with:
 </p>
 
 <p align="center">
-  <a href="/try-it-live/basic"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>
+  <a href="/try-it-live/templates/basic"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>
 </p>
 
 Looks cool, right?

@@ -1,6 +1,6 @@
 {
-  "name": "mjml-raw",
-  "description": "mjml-raw",
+  "name": "mjml-carousel",
+  "description": "mjml-carousel",
   "version": "3.1.0",
   "main": "lib/index.js",
   "repository": {
@@ -13,6 +13,7 @@
   },
   "homepage": "https://mjml.io",
   "dependencies": {
+    "lodash": "^4.17.2",
     "mjml-core": "~3.1.0",
     "react": "^15.4.1"
   }

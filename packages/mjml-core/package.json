@@ -1,7 +1,7 @@
 {
   "name": "mjml-core",
   "description": "mjml-core",
-  "version": "3.1.1-beta.3",
+  "version": "3.1.0",
   "main": "lib/index.js",
   "scripts": {
     "test": "mocha --compilers js:babel-register"

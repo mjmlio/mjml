@@ -1,7 +1,7 @@
 {
   "name": "mjml-head-font",
   "description": "mjml-head-font",
-  "version": "3.0.1",
+  "version": "3.1.0",
   "main": "lib/index.js",
   "repository": {
     "type": "git",

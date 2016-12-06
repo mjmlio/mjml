@@ -36,34 +36,35 @@ printf "${Yellow}Linking core dependencies${Color_Off} \n"
 cd mjml-validator && npm link && npm link mjml-core && cd ..
 # Core
 printf "${Yellow}Linking core${Color_Off} \n"
-cd mjml-core && npm link && npm link mjml-validator && cd ..
+cd mjml-core && npm link mjml-validator && npm link && cd ..
 # Mj elements
 printf "${Yellow}Linking MJML standard elements${Color_Off} \n"
-cd mjml-button && npm link && npm link mjml-core && cd ..
-cd mjml-column && npm link && npm link mjml-core && cd ..
-cd mjml-container && npm link && npm link mjml-core && cd ..
-cd mjml-divider && npm link && npm link mjml-core && cd ..
-cd mjml-group && npm link && npm link mjml-core && cd ..
-cd mjml-head-attributes && npm link && npm link mjml-core && cd ..
-cd mjml-head-font && npm link && npm link mjml-core && cd ..
+cd mjml-button && npm link mjml-core && npm link && cd ..
+cd mjml-carousel && npm link mjml-core && npm link && cd ..
+cd mjml-column && npm link mjml-core && npm link && cd ..
+cd mjml-container && npm link mjml-core && npm link && cd ..
+cd mjml-divider && npm link mjml-core && npm link && cd ..
+cd mjml-group && npm link mjml-core && npm link && cd ..
+cd mjml-head-attributes && npm link mjml-core && npm link && cd ..
+cd mjml-head-font && npm link mjml-core && npm link && cd ..
 cd mjml-head-style && npm link && cd ..
-cd mjml-head-title && npm link && npm link mjml-core && cd ..
-cd mjml-hero && npm link && npm link mjml-core && cd ..
-cd mjml-html && npm link && npm link mjml-core && cd ..
-cd mjml-image && npm link && npm link mjml-core && cd ..
-cd mjml-invoice && npm link && npm link mjml-core && npm link mjml-table && cd ..
-cd mjml-list && npm link && npm link mjml-core && cd ..
-cd mjml-location && npm link && npm link mjml-core && npm link mjml-text && cd ..
-cd mjml-navbar && npm link && npm link mjml-core && npm link mjml-section && cd ..
-cd mjml-raw && npm link && npm link mjml-core && cd ..
-cd mjml-section && npm link && npm link mjml-core && cd ..
-cd mjml-social && npm link && npm link mjml-core && cd ..
-cd mjml-spacer && npm link && npm link mjml-core && cd ..
-cd mjml-table && npm link && npm link mjml-core && cd ..
-cd mjml-text && npm link && npm link mjml-core && cd ..
+cd mjml-head-title && npm link mjml-core && npm link && cd ..
+cd mjml-hero && npm link mjml-core && npm link && cd ..
+cd mjml-html && npm link mjml-core && npm link && cd ..
+cd mjml-image && npm link mjml-core && npm link && cd ..
+cd mjml-invoice && npm link mjml-core && npm link mjml-table && npm link && cd ..
+cd mjml-list && npm link mjml-core && npm link && cd ..
+cd mjml-location && npm link mjml-core && npm link mjml-text && npm link mjml-image && npm link && cd ..
+cd mjml-navbar && npm link mjml-core && npm link mjml-section && npm link && cd ..
+cd mjml-raw && npm link mjml-core && npm link && cd ..
+cd mjml-section && npm link mjml-core && npm link && cd ..
+cd mjml-social && npm link mjml-core && npm link && cd ..
+cd mjml-spacer && npm link mjml-core && npm link && cd ..
+cd mjml-table && npm link mjml-core && npm link && cd ..
+cd mjml-text && npm link mjml-core && npm link && cd ..
 # Cli
 printf "${Yellow}Linking core${Color_Off} \n"
-cd mjml-cli && npm link && npm link mjml-core && cd ..
+cd mjml-cli && npm link mjml-core && npm link && cd ..
 
 printf "${BGreen}Done.${Color_Off} \n"
 
@@ -71,6 +72,7 @@ printf "${BYellow}Linking dependencies for MJML package.${Color_Off} \n"
 
 cd mjml
 npm link mjml-button
+npm link mjml-carousel
 npm link mjml-cli
 npm link mjml-column
 npm link mjml-container

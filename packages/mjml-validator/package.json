@@ -1,7 +1,7 @@
 {
   "name": "mjml-validator",
   "description": "mjml-validator",
-  "version": "3.0.2",
+  "version": "3.1.0",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -13,6 +13,7 @@
   },
   "homepage": "https://mjml.io",
   "dependencies": {
-    "lodash": "^4.16.4"
+    "lodash": "^4.17.2",
+    "warning": "^3.0.0"
   }
 }

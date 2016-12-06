@@ -9,6 +9,7 @@ import Html from 'mjml-html'
 import Image from 'mjml-image'
 import List from 'mjml-list'
 import Location from 'mjml-location'
+import MJCarousel from 'mjml-carousel'
 import MJHero from 'mjml-hero'
 import MJInvoice from 'mjml-invoice'
 import MJNavbar from 'mjml-navbar'
@@ -26,9 +27,12 @@ import MJHeadTitle from 'mjml-head-title'
 
 const { Hero, HeroContent } = MJHero
 const { Invoice, InvoiceItem } = MJInvoice
+const { Carousel, CarouselImage } = MJCarousel;
 const { Navbar, InlineLinks, Link } = MJNavbar;
 
 [ Button,
+  Carousel,
+  CarouselImage,
   Column,
   Container,
   Divider,

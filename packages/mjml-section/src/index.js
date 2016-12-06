@@ -43,7 +43,7 @@ const baseStyles = {
 const postRender = $ => {
   $('.mj-section-outlook-background').each(function () {
     const url = $(this).data('url')
-    const width = $(this).data('width')
+    const width = parseInt($(this).data('width'))
 
     $(this)
       .removeAttr('class')
@@ -78,9 +78,10 @@ const postRender = $ => {
 
   $('.mj-section-outlook-line').each(function () {
     const $columnDiv = $(this).next()
+    const width = parseInt($(this).data('width'))
 
     $(this).replaceWith(`${helpers.startConditionalTag}
-      </td><td style="vertical-align:${$columnDiv.data('vertical-align')};width:${parseInt($(this).data('width'))}px;">
+      </td><td style="vertical-align:${$columnDiv.data('vertical-align')};width:${width}px;">
       ${helpers.endConditionalTag}`)
 
     $columnDiv.removeAttr('data-vertical-align')

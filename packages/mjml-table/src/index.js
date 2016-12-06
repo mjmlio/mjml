@@ -41,7 +41,7 @@ class Table extends Component {
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
         fontSize: defaultUnit(mjAttribute('font-size')),
-        lineHeight: defaultUnit(mjAttribute('line-height')),
+        lineHeight: mjAttribute('line-height'),
         tableLayout: mjAttribute('table-layout')
       }
     }

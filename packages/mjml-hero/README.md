@@ -28,7 +28,7 @@ Fixed height
             font-family="Helvetica"
             align="center"
             font-size="45"
-            line-height="45"
+            line-height="45px"
             font-weight="900">
             GO TO SPACE
           </mj-text>
@@ -73,7 +73,7 @@ Fluid height
           font-family="Helvetica"
           align="center"
           font-size="45"
-          line-height="45"
+          line-height="45px"
           font-weight="900">
             GO TO SPACE
           </mj-text>

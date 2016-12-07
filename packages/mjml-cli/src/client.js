@@ -68,7 +68,7 @@ const readStdin = promisify(stdinToBuffer)
 const render = (bufferPromise, { min, output, stdout, fileName, level }) => {
   const handleError = (message) => fileName ? error(`File: ${fileName} \n${message}`) : error(message)
 
-  bufferPromise
+  return bufferPromise
     .then(mjml => mjml2html(mjml.toString(), { minify: min, level }))
     .then(result => {
       const { html, errors } = result
@@ -80,7 +80,10 @@ const render = (bufferPromise, { min, output, stdout, fileName, level }) => {
 
       stdout ? process.stdout.write(html) : write(output, html)
     })
-    .catch(e => error(e.getMessages ? e.getMessages() : e))
+    .catch(e => {
+      error(e.getMessages ? e.getMessages() : e)
+      throw e
+    })
 }
 
 const outputFileName = (input, output) => {
@@ -99,29 +102,41 @@ const outputFileName = (input, output) => {
  * min: boolean that specify the output format (pretty/minified)
  */
 export const renderFiles = (input, options) => {
-  glob(input, (err, files) => files.forEach(f => renderFile(f, options)))
+  return new Promise((resolve, reject) => {
+    glob(input, (err, files) => {
+      const processedFiles = []
+
+      files.forEach(f => {
+        processedFiles.push(renderFile(f, options))
+      })
+
+      Promise.all(processedFiles).then(resolve).catch(reject)
+    })
+  })
 }
 
-export const renderFile = (file, { output, level, min, stdout }) => (
-  render(read(path.resolve(process.cwd(), file)), {
+export const renderFile = (file, { output, level, min, stdout }) => {
+  return render(read(path.resolve(process.cwd(), file)), {
     output: outputFileName(file, output),
     fileName: file,
     level,
     min,
     stdout
   })
-)
+}
 
 /**
  * Render based on input stream
  */
-export const renderStream = options => render(readStdin(process.stdin), options)
+export const renderStream = options => {
+  return render(readStdin(process.stdin), options)
+}
 
 /**
  * Validate an MJML document
  */
 export const validate = (input, { format }) => {
-  read(input)
+  return read(input)
     .then(content => {
       const MJMLDocument = documentParser(content.toString())
       const report = MJMLValidator(MJMLDocument)
@@ -130,7 +145,8 @@ export const validate = (input, { format }) => {
       error(outputFormat(report))
     })
     .catch(e => {
-      return error(`Error: ${e}`)
+      error(`Error: ${e}`)
+      throw e
     })
 }
 

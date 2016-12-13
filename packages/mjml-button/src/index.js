@@ -70,10 +70,11 @@ class Button extends Component {
       },
       a: {
         display: 'inline-block',
+        border: mjAttribute('border'),
         borderBottom: mjAttribute('border-bottom'),
         borderLeft: mjAttribute('border-left'),
-        border: mjAttribute('border'),
         borderRight: mjAttribute('border-right'),
+        borderRadius: defaultUnit(mjAttribute('border-radius'), "px"),
         borderTop: mjAttribute('border-top'),
         color: mjAttribute('color'),
         cursor: 'auto',
@@ -99,14 +100,14 @@ class Button extends Component {
           dangerouslySetInnerHTML={{ __html: mjContent() }}
           href={mjAttribute('href')}
           style={this.styles.a}
-          target="_blank"/>
+          target="_blank" />
       )
     }
 
     return (
       <p
         dangerouslySetInnerHTML={{ __html: mjContent() }}
-        style={this.styles.a}/>
+        style={this.styles.a} />
     )
   }
 
@@ -122,26 +123,26 @@ class Button extends Component {
         data-legacy-border="0"
         style={this.styles.table}>
         <tbody>
-        <tr>
-          <td>
-            <table
-              cellSpacing="0"
-              cellPadding="0"
-              style={this.styles.innerTable}>
-              <tbody>
-              <tr>
-                <td
-                  data-legacy-align="center"
-                  data-legacy-bgcolor={mjAttribute('background-color') === "none" ? "" : mjAttribute('background-color')}
-                  data-legacy-valign={mjAttribute('vertical-align')}
-                  style={this.styles.td}>
-                  {this.renderButton()}
-                </td>
-              </tr>
-              </tbody>
-            </table>
-          </td>
-        </tr>
+          <tr>
+            <td>
+              <table
+                cellSpacing="0"
+                cellPadding="0"
+                style={this.styles.innerTable}>
+                <tbody>
+                  <tr>
+                    <td
+                      data-legacy-align="center"
+                      data-legacy-bgcolor={mjAttribute('background-color') === "none" ? "" : mjAttribute('background-color')}
+                      data-legacy-valign={mjAttribute('vertical-align')}
+                      style={this.styles.td}>
+                      {this.renderButton()}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
         </tbody>
       </table>
     )

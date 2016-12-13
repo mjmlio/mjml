@@ -64,18 +64,17 @@ class Button extends Component {
       },
       td: {
         background: mjAttribute('background-color'),
-        borderRadius: defaultUnit(mjAttribute('border-radius'), "px"),
-        height: mjAttribute('height'),
-        width: mjAttribute('width')
-      },
-      a: {
-        display: 'inline-block',
         border: mjAttribute('border'),
         borderBottom: mjAttribute('border-bottom'),
         borderLeft: mjAttribute('border-left'),
         borderRight: mjAttribute('border-right'),
         borderRadius: defaultUnit(mjAttribute('border-radius'), "px"),
         borderTop: mjAttribute('border-top'),
+        height: mjAttribute('height'),
+        width: mjAttribute('width')
+      },
+      a: {
+        display: 'inline-block',
         color: mjAttribute('color'),
         cursor: 'auto',
         fontFamily: mjAttribute('font-family'),

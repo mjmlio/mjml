@@ -1,12 +1,12 @@
-import { ParseError, EmptyMJMLError, NullElementError } from '../Error'
 import compact from 'lodash/compact'
-import dom from '../helpers/dom'
 import each from 'lodash/each'
 import toArray from 'lodash/toArray';
 import filter from 'lodash/filter'
+import warning from 'warning'
+import { ParseError, EmptyMJMLError, NullElementError } from '../Error'
+import dom from '../helpers/dom'
 import { endingTags } from '../MJMLElementsCollection'
 import MJMLHeadElements from '../MJMLHead'
-import warning from 'warning'
 
 const regexTag = tag => new RegExp(`<${tag}([^>]*)>([^]*?)</${tag}>`, 'gmi')
 

@@ -1,5 +1,5 @@
-import { MJMLElement } from '../src/index'
 import React, { Component } from 'react'
+import { MJMLElement } from '../src/index'
 
 const tagName = 'mj-mock-list'
 const parentTag = ['mj-body']

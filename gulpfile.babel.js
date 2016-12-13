@@ -22,7 +22,7 @@ if (path.win32 === path) {
   srcEx = /(packages\\[^\\]+)\\src\\/
   libFragment = '$1\\lib\\'
 } else {
-  srcEx = /(packages\/[^\/]+)\/src\//
+  srcEx = /(packages\/[^/]+)\/src\//
   libFragment = '$1/lib/'
 }
 

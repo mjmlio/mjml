@@ -15,6 +15,7 @@ const defaultMJMLDefinition = {
     'font-style': null,
     'font-weight': null,
     'line-height': '22px',
+    'height': null,
     'padding-bottom': null,
     'padding-left': null,
     'padding-right': null,
@@ -29,6 +30,23 @@ const baseStyles = {
   div: {
     cursor: 'auto'
   }
+}
+
+const postRender = $ => {
+  $('.mj-text-height').each(function () {
+
+    const height = parseInt($(this).css('height'))
+
+    $(`${helpers.startConditionalTag}
+      <table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td height="${height}" style="vertical-align:top;height:${height}px;">
+      ${helpers.endConditionalTag}`).insertBefore($(this))
+
+    $(`${helpers.startConditionalTag}
+      </td></tr></table>
+      ${helpers.endConditionalTag}`).insertAfter($(this))
+    $(this).removeClass('mj-text-height').filter('[class=""]').removeAttr('class')
+  })
+  return $
 }
 
 @MJMLElement
@@ -47,6 +65,7 @@ class Text extends Component {
         fontStyle: mjAttribute('font-style'),
         fontWeight: mjAttribute('font-weight'),
         lineHeight: mjAttribute('line-height'),
+        height: defaultUnit(mjAttribute('height'), "px"),
         textAlign: mjAttribute('align'),
         textDecoration: mjAttribute('text-decoration'),
         textTransform: mjAttribute('text-transform')
@@ -55,10 +74,13 @@ class Text extends Component {
   }
 
   render () {
-    const { mjContent } = this.props
+    const { mjAttribute, mjContent } = this.props
+
+    const classNames = mjAttribute('height') ? 'mj-text-height' : ''
 
     return (
       <div
+        className={classNames}
         dangerouslySetInnerHTML={{ __html: mjContent() }}
         style={this.styles.div} />
     )
@@ -71,5 +93,6 @@ Text.parentTag = parentTag
 Text.endingTag = endingTag
 Text.defaultMJMLDefinition = defaultMJMLDefinition
 Text.baseStyles = baseStyles
+Text.postRender = postRender
 
 export default Text

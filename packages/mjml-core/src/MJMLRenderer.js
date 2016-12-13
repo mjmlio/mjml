@@ -30,7 +30,12 @@ const beautifyHTML = htmlDocument => beautify(htmlDocument, { indent_size: 2, wr
 const inlineExternal = (htmlDocument, css) => {
   const juice = require('juice')
 
-  return juice(htmlDocument, { extraCss: css, removeStyleTags: false, applyStyleTags: false, insertPreservedExtraCss: false })
+  return juice(htmlDocument, {
+    extraCss: css,
+    removeStyleTags: false,
+    applyStyleTags: false,
+    insertPreservedExtraCss: false
+  })
 }
 
 export default class MJMLRenderer {
@@ -49,7 +54,12 @@ export default class MJMLRenderer {
     }
 
     this.content = content
-    this.options = defaults(options, { level: "soft", disableMjStyle: false, disableMjInclude: false, disableMinify: false })
+    this.options = defaults(options, {
+      level: "soft",
+      disableMjStyle: false,
+      disableMjInclude: false,
+      disableMinify: false
+    })
 
     if (typeof this.content === 'string') {
       this.parseDocument()
@@ -93,7 +103,7 @@ export default class MJMLRenderer {
     }
 
     debug('Render to static markup')
-    const rootElemComponent = React.createElement(rootComponent, { mjml: parseInstance(this.content, this.attributes ) })
+    const rootElemComponent = React.createElement(rootComponent, { mjml: parseInstance(this.content, this.attributes) })
     const renderedMJML = ReactDOMServer.renderToStaticMarkup(rootElemComponent)
 
     debug('React rendering done. Continue with special overrides.')
@@ -116,12 +126,15 @@ export default class MJMLRenderer {
       }
     })
 
-    return [ removeCDATA,
+    return [
+      removeCDATA,
       !this.options.disableMjStyle ? curryRight(inlineExternal)(externalCSS) : undefined,
       this.options.beautify ? beautifyHTML : undefined,
       !this.options.disableMinify && this.options.minify ? minifyHTML : undefined,
-      he.decode ].filter(element => typeof element == 'function')
-                 .reduce((res, fun) => fun(res), dom.getHTML($))
+      he.decode
+    ]
+      .filter(element => typeof element == 'function')
+      .reduce((res, fun) => fun(res), dom.getHTML($))
   }
 
 }

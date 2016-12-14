@@ -28,7 +28,8 @@ class Spacer extends Component {
     return {
       div: {
         fontSize: '1px',
-        lineHeight: defaultUnit(mjAttribute('height'))
+        lineHeight: defaultUnit(mjAttribute('height')),
+        whiteSpace: 'nowrap'
       }
     }
   }

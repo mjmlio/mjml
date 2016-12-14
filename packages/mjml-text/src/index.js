@@ -15,6 +15,7 @@ const defaultMJMLDefinition = {
     'font-style': null,
     'font-weight': null,
     'line-height': '22px',
+    'letter-spacing': null,
     'height': null,
     'padding-bottom': null,
     'padding-left': null,

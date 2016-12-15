@@ -91,8 +91,8 @@ const outputFileName = (input, output) => {
   const { ext, name } = path.parse((!output || outputIsDirectory) ? input : output)
 
   return path.format({
-    dir: outputIsDirectory ? output : './',
-    name: name,
+    dir: outputIsDirectory ? output : '.',
+    name: name.replace('.mjml', ''),
     ext: ext == ".mjml" ? '.html' : ext
   })
 }

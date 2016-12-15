@@ -18,7 +18,7 @@ binary
       output: binary.output
     }
 
-    commandResult = cli.renderFiles(Array.isArray(files) ? `{${files.join(',')}}` : files, options)
+    commandResult = cli.renderFiles(files.length > 1 ? `{${files.join(',')}}` : files.toString(), options)
   })
   .option('-l, --level [level]', 'Specifies the level of validation of MJML parser (skip/soft/strict)', /^(skip|soft|strict)$/i, 'soft')
   .option('-r, --render <file>', 'Compiles an MJML file')

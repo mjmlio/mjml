@@ -42,6 +42,7 @@ const isDirectory = (file) => {
  * Stdin to string buffer
  */
 const stdinToBuffer = (stream, callback) => {
+const stdinToBuffer = (stream, done) => {
   let buffer = ''
 
   stream.on('data', chunck => {
@@ -50,6 +51,7 @@ const stdinToBuffer = (stream, callback) => {
 
   stream.on('end', () => {
     callback(null, buffer)
+    done(null, buffer)
   })
 }
 
@@ -69,7 +71,7 @@ const render = (bufferPromise, { min, output, stdout, fileName, level }) => {
   const handleError = (message) => fileName ? error(`File: ${fileName} \n${message}`) : error(message)
 
   return bufferPromise
-    .then(mjml => mjml2html(mjml.toString(), { minify: min, level }))
+    .then(mjml => mjml2html(mjml.toString(), { minify: min, filePath: fileName, level}))
     .then(result => {
       const { html, errors } = result
 

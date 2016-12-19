@@ -91,11 +91,11 @@ const buttonDefinitions = {
     icon: 'google-plus.png'
   },
   pinterest: {
-    linkAttribute: 'https://pinterest.com/pin/create/button/?url=[[URL]]&ampmedia=&ampdescription=',
+    linkAttribute: 'https://pinterest.com/pin/create/button/?url=[[URL]]&amp;media=&amp;description=',
     icon: 'pinterest.png'
   },
   linkedin: {
-    linkAttribute: 'https://www.linkedin.com/shareArticle?mini=true&ampurl=[[URL]]&amptitle=&ampsummary=&ampsource=',
+    linkAttribute: 'https://www.linkedin.com/shareArticle?mini=true&amp;url=[[URL]]&amp;title=&amp;summary=&ampsource=',
     icon: 'linkedin.png'
   },
   instagram: {

@@ -95,7 +95,7 @@ const buttonDefinitions = {
     icon: 'pinterest.png'
   },
   linkedin: {
-    linkAttribute: 'https://www.linkedin.com/shareArticle?mini=true&amp;url=[[URL]]&amp;title=&amp;summary=&ampsource=',
+    linkAttribute: 'https://www.linkedin.com/shareArticle?mini=true&amp;url=[[URL]]&amp;title=&amp;summary=&amp;source=',
     icon: 'linkedin.png'
   },
   instagram: {

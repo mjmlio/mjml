@@ -8,10 +8,10 @@
  *
  */
 import { expect } from 'chai'
-import { initComponent } from '../src/cli'
 import fs from 'fs'
 import fsp from 'fs-promise'
 import path from 'path'
+import { initComponent } from '../src/cli'
 
 /**
  * Simple formatting: isolate the '<' and '>' characters and change space and tabs to new lines

@@ -1,11 +1,11 @@
-import { widthParser, defaultUnit } from '../helpers/mjAttribute'
 import Immutable from 'immutable'
-import MJMLElementsCollection from '../MJMLElementsCollection'
 import React, { Component } from 'react'
 import ReactDOMServer from 'react-dom/server'
 import trim from 'lodash/trim'
-import { merge } from '../helpers'
 import hoistNonReactStatic from 'hoist-non-react-statics';
+import { widthParser, defaultUnit } from '../helpers/mjAttribute'
+import MJMLElementsCollection from '../MJMLElementsCollection'
+import { merge } from '../helpers'
 
 const getElementWidth = ({ element, siblings, parentWidth }) => {
   const { mjml } = element.props

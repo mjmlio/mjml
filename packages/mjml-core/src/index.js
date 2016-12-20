@@ -1,6 +1,6 @@
-import MJMLRenderer from './MJMLRenderer'
 import mjmlValidator, { formatValidationError, rulesCollection, registerMJRule } from 'mjml-validator'
 import elements, { registerMJElement } from './MJMLElementsCollection'
+import MJMLRenderer from './MJMLRenderer'
 import MJMLHeadElements, { registerMJHeadElement } from './MJMLHead'
 import * as helpers from './helpers'
 

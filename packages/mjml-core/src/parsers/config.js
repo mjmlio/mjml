@@ -4,8 +4,8 @@ import warning from 'warning'
 import some from 'lodash/some'
 import startsWith from 'lodash/startsWith'
 import isEmpty from 'lodash/isEmpty'
-import MJMLElementsCollection, { registerMJElement } from '../MJMLElementsCollection'
 import { registerMJRule } from 'mjml-validator'
+import MJMLElementsCollection, { registerMJElement } from '../MJMLElementsCollection'
 
 const cwd = process.cwd()
 

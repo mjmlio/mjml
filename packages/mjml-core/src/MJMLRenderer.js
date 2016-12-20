@@ -1,23 +1,23 @@
+import cloneDeep from 'lodash/cloneDeep'
+import curryRight from 'lodash/curryRight'
+import defaults from 'lodash/defaults'
+import he from 'he'
+import { html as beautify } from 'js-beautify'
+import MJMLValidator from 'mjml-validator'
+import React from 'react'
+import ReactDOMServer from 'react-dom/server'
 import { EmptyMJMLError, MJMLValidationError } from './Error'
 import { fixLegacyAttrs, removeCDATA } from './helpers/postRender'
 import { parseInstance } from './helpers/mjml'
-import cloneDeep from 'lodash/cloneDeep'
 import configParser from './parsers/config'
-import curryRight from 'lodash/curryRight'
 import documentParser from './parsers/document'
-import defaults from 'lodash/defaults'
 import defaultContainer from './configs/defaultContainer'
 import defaultFonts from './configs/listFontsImports'
 import dom from './helpers/dom'
-import he from 'he'
 import importFonts from './helpers/importFonts'
 import includeExternal from './includeExternal'
-import { html as beautify } from 'js-beautify'
-import MJMLValidator from 'mjml-validator'
 import MJMLElementsCollection, { postRenders } from './MJMLElementsCollection'
 import isBrowser from './helpers/isBrowser'
-import React from 'react'
-import ReactDOMServer from 'react-dom/server'
 
 const debug = require('debug')('mjml-engine/mjml2html')
 
@@ -30,7 +30,12 @@ const beautifyHTML = htmlDocument => beautify(htmlDocument, { indent_size: 2, wr
 const inlineExternal = (htmlDocument, css) => {
   const juice = require('juice')
 
-  return juice(htmlDocument, { extraCss: css, removeStyleTags: false, applyStyleTags: false, insertPreservedExtraCss: false })
+  return juice(htmlDocument, {
+    extraCss: css,
+    removeStyleTags: false,
+    applyStyleTags: false,
+    insertPreservedExtraCss: false
+  })
 }
 
 export default class MJMLRenderer {
@@ -49,7 +54,12 @@ export default class MJMLRenderer {
     }
 
     this.content = content
-    this.options = defaults(options, { level: "soft", disableMjStyle: false, disableMjInclude: false, disableMinify: false })
+    this.options = defaults(options, {
+      level: "soft",
+      disableMjStyle: false,
+      disableMjInclude: false,
+      disableMinify: false
+    })
 
     if (typeof this.content === 'string') {
       this.parseDocument()
@@ -93,7 +103,7 @@ export default class MJMLRenderer {
     }
 
     debug('Render to static markup')
-    const rootElemComponent = React.createElement(rootComponent, { mjml: parseInstance(this.content, this.attributes ) })
+    const rootElemComponent = React.createElement(rootComponent, { mjml: parseInstance(this.content, this.attributes) })
     const renderedMJML = ReactDOMServer.renderToStaticMarkup(rootElemComponent)
 
     debug('React rendering done. Continue with special overrides.')
@@ -116,12 +126,15 @@ export default class MJMLRenderer {
       }
     })
 
-    return [ removeCDATA,
+    return [
+      removeCDATA,
       !this.options.disableMjStyle ? curryRight(inlineExternal)(externalCSS) : undefined,
       this.options.beautify ? beautifyHTML : undefined,
       !this.options.disableMinify && this.options.minify ? minifyHTML : undefined,
-      he.decode ].filter(element => typeof element == 'function')
-                 .reduce((res, fun) => fun(res), dom.getHTML($))
+      he.decode
+    ]
+      .filter(element => typeof element == 'function')
+      .reduce((res, fun) => fun(res), dom.getHTML($))
   }
 
 }

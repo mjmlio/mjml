@@ -1,4 +1,4 @@
-export const removeCDATA = str => str.replace(/<!--\[CDATA\[([^]*?)\]\]-->/gm, '$1')
+export const removeCDATA = str => str.replace(/<!--\[CDATA\[([^]*?)]]-->/gm, '$1')
 
 export const fixLegacyAttrs = $ => {
   const legacyAttrs = ['align', 'valign', 'bgcolor', 'border', 'background']

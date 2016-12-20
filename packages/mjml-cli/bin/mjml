@@ -3,7 +3,7 @@
 var cli = require('../lib/client')
 var binary = require('commander')
 
-var commandResult = Promise.resolve()
+var commandResult
 
 /*
  * Parse the command line arguments
@@ -50,8 +50,10 @@ switch (true) {
     break
 }
 
-commandResult.then(function() {
-  process.exit(0)
-}).catch(function() {
-  process.exit(1)
-})
+if (commandResult) {
+  commandResult.then(function() {
+    process.exit(0)
+  }).catch(function(e) {
+    process.exit(1)
+  })
+}

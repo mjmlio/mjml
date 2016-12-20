@@ -1,11 +1,11 @@
 import fs from 'fs'
 import path from 'path'
 
-const includes = /<mj-include\s+path=['"](.*[\.mjml]?)['"]\s*(\/>|>\s*<\/mj-include>)/g
+export const includes = /<mj-include\s+path=['"](.*[\.mjml]?)['"]\s*(\/>|>\s*<\/mj-include>)/g
 
 const getBodyContent = input => (/<mj-container[^>]*>([\s\S]*?)<\/mj-container>/.exec(input) || [])[1]
 const getHeadContent = input => (/<mj-head[^>]*>([\s\S]*?)<\/mj-head>/.exec(input) || [])[1]
-
+const ensureMJMLFile = file => file.trim().match(/.mjml/) && file || `${file}.mjml`
 const parseDocument = input => {
   const internals = { content: getBodyContent(input), head: getHeadContent(input) }
 
@@ -17,8 +17,6 @@ const parseDocument = input => {
 
   return internals
 }
-
-const ensureMJMLFile = file => file.trim().match(/.mjml/) && file || `${file}.mjml`
 
 const replaceContent = (currentDir, headStack, _, fileName) => {
   const filePath = path.normalize(path.join(currentDir, ensureMJMLFile(fileName)))
@@ -45,11 +43,11 @@ const replaceContent = (currentDir, headStack, _, fileName) => {
   return content
 }
 
-export default (baseMjml, { filePath } = { filePath: process.cwd() }) => {
+export default (baseMjml, { filePath }) => {
   const headStack = []
   let mjml = baseMjml
 
-  mjml = mjml.replace(includes, replaceContent.bind(this, path.resolve(path.dirname(filePath)), headStack))
+  mjml = mjml.replace(includes, replaceContent.bind(this, path.resolve(path.dirname(filePath || process.cwd())), headStack))
 
   if (headStack.length > 0) {
     if (mjml.indexOf('<mj-head>') == -1) {

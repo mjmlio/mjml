@@ -16,6 +16,7 @@
   },
   "homepage": "https://mjml.io",
   "dependencies": {
+    "chokidar": "^1.6.1",
     "commander": "^2.9.0",
     "fs-promise": "^1.0.0",
     "glob": "^7.1.1",

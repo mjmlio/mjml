@@ -11,7 +11,7 @@
   <img src="https://cloud.githubusercontent.com/assets/570317/15677396/6bb62708-274a-11e6-8c59-0d8b3944a2ae.png" />
 </p>
 
-mj-group allows you to handle how columns are displayed on mobile. Allowing 2 or more columns in mobile.
+mj-group allows you to prevent columns from stacking on mobile. To do so, wrap the columns inside a `mj-group` tag, so they'll stay side by side on mobile.
 
 ```xml
 <mjml>

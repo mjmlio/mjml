@@ -11,6 +11,7 @@ export const documentParser = (content, attributes) => {
 
   return documentParser(content, attributes)
 }
+export { includes as mjIncludeRegexp }  from './includeExternal'
 
 export const version = () => '__MJML_VERSION__'
 export const MJMLValidator = mjmlValidator

@@ -17,18 +17,10 @@ const postRender = $ => {
 
   $('.mj-container-outlook-open').each(function () {
     $(this).replaceWith(`${helpers.startConditionalTag}
-      <table 
-        role="presentation"
-        data-legacy-border="0"
-        cellpadding="0"
-        cellspacing="0"
-        width="${containerWidth}"
-        align="center"
-        style="width:${containerWidth}px;"
-      >
+      <table role="presentation" data-legacy-border="0" cellpadding="0" cellspacing="0" width="${containerWidth}" align="center" style="width:${containerWidth}px;">
         <tr>
           <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
-            ${helpers.endConditionalTag}`)
+      ${helpers.endConditionalTag}`)
   })
 
   $('.mj-container-outlook-line').each(function () {
@@ -36,18 +28,10 @@ const postRender = $ => {
       </td></tr></table>
       ${helpers.endConditionalTag}
       ${helpers.startConditionalTag}
-      <table 
-        role="presentation"
-        data-legacy-border="0"
-        cellpadding="0"
-        cellspacing="0"
-        width="${containerWidth}"
-        align="center"
-        style="width:${containerWidth}px;"
-      >
+      <table role="presentation" data-legacy-border="0" cellpadding="0" cellspacing="0" width="${containerWidth}" align="center" style="width:${containerWidth}px;">
         <tr>
           <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
-            ${helpers.endConditionalTag}`)
+      ${helpers.endConditionalTag}`)
   })
 
   $('.mj-container-outlook-close').each(function () {

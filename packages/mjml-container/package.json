@@ -1,7 +1,7 @@
 {
   "name": "mjml-container",
   "description": "mjml-container",
-  "version": "3.2.0-beta.1",
+  "version": "3.2.0-beta.2",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -13,7 +13,7 @@
   },
   "homepage": "https://mjml.io",
   "dependencies": {
-    "mjml-core": "~3.2.0-beta.1",
+    "mjml-core": "~3.2.0-beta.2",
     "react": "^15.4.1"
   }
 }

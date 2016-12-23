@@ -32,13 +32,24 @@ const postRender = $ => {
     const backgroundColor = $(this).data('background-color')
 
     $(this).before(`${helpers.startConditionalTag}
-      <table role="presentation" border="0" cellpadding="0" cellspacing="0" align="${align}" width="${width.replace('px', '')}" style="width:${width};"><tr><td style="padding:0;background-color:${backgroundColor};">
+      <table 
+        role="presentation"
+        data-legacy-border="0"
+        cellpadding="0"
+        cellspacing="0"
+        align="${align}"
+        width="${width.replace('px', '')}"
+        style="width:${width};"
+      >
+        <tr>
+          <td style="padding:0;background-color:${backgroundColor};">
+            ${helpers.endConditionalTag}`).after(`${helpers.startConditionalTag}
+          </td>
+        </tr>
+      </table>
       ${helpers.endConditionalTag}`)
-    .after(`${helpers.startConditionalTag}
-      </td></tr></table>
-      ${helpers.endConditionalTag}`)
-    .removeAttr('data-background-color')
-    .removeAttr('data-align')
+        .removeAttr('data-background-color')
+        .removeAttr('data-align')
   })
 
   if ($mjHeroContent.length > 0 ) {
@@ -88,7 +99,7 @@ class HeroContent extends Component {
         style={this.styles.div}>
         <table
           role="presentation"
-          border="0"
+          data-legacy-border="0"
           cellPadding="0"
           cellSpacing="0"
           style={this.styles.table}

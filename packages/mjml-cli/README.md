@@ -2,9 +2,21 @@
 
 # Installation
 
+We recommend installing and using MJML locally, in a project folder where you'll use MJML: 
 ```bash
-# with npm
-npm i -g mjml
+$> npm install mjml
+```
+In the folder where you installed MJML you can now run:
+```bash
+$> ./node_modules/.bin/mjml input.mjml
+```
+To avoid typing `./node_modules/.bin/`, add it to your PATH:
+```bash
+$> export PATH="$PATH:./node_modules/.bin"
+```
+You can now run MJML directly, in that folder:
+```bash
+$> mjml input.mjml
 ```
 
 MJML is written with [NodeJS](https://nodejs.org/en/)

@@ -34,6 +34,16 @@ $> mjml input.mjml
 
 It will output a HTML file called `input.html`.
 
+### Render and redirect the result to stdout
+
+```bash
+$> mjml -s input.mjml
+
+# or
+
+$> mjml --stdout input.mjml
+```
+
 ### Render and minify the output HTML
 
 ```bash

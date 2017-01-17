@@ -1,7 +1,7 @@
 {
   "name": "mjml-head-style",
   "description": "mjml-head-style",
-  "version": "3.2.0",
+  "version": "3.1.1",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -11,5 +11,9 @@
   "bugs": {
     "url": "https://github.com/mjmlio/mjml/issues"
   },
-  "homepage": "https://mjml.io"
+  "homepage": "https://mjml.io",
+  "dependencies": {
+    "lodash": "^4.17.2",
+    "mjml-core": "~3.1.1"
+  }
 }

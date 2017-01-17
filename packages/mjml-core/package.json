@@ -1,11 +1,8 @@
 {
   "name": "mjml-core",
   "description": "mjml-core",
-  "version": "3.2.0",
+  "version": "3.1.1",
   "main": "lib/index.js",
-  "scripts": {
-    "test": "mocha --compilers js:babel-register"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mjmlio/mjml.git"
@@ -15,30 +12,11 @@
     "url": "https://github.com/mjmlio/mjml/issues"
   },
   "homepage": "https://mjml.io",
-  "browser": {
-    "cheerio": false,
-    "fs": false,
-    "html-minifier": false
-  },
   "dependencies": {
-    "cheerio": "^0.22.0",
-    "classnames": "^2.2.5",
-    "debug": "^2.6.0",
-    "he": "^1.1.0",
-    "hoist-non-react-statics": "^1.2.0",
     "html-minifier": "^3.2.3",
-    "immutable": "^3.8.1",
-    "jquery": "^3.1.1",
-    "js-beautify": "^1.6.8",
+    "js-beautify": "^1.6.6",
     "juice": "^4.0.2",
-    "lodash": "^4.17.4",
-    "mjml-validator": "^3.2.0",
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2",
-    "warning": "^3.0.0"
-  },
-  "devDependencies": {
-    "chai": "^3.5.0",
-    "mocha": "^3.2.0"
+    "lodash": "^4.17.3",
+    "object-path": "^0.11.3"
   }
 }

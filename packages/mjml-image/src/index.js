@@ -1,135 +1,117 @@
-import { MJMLElement, helpers } from 'mjml-core'
-import min from 'lodash/min'
-import React, { Component } from 'react'
+import _ from 'lodash'
 
-const tagName = 'mj-image'
-const parentTag = ['mj-column', 'mj-hero-content']
-const endingTag = true
-const selfClosingTag = true
-const defaultMJMLDefinition = {
+import {
+  createBodyComponent,
+} from 'mjml-core/lib/createComponent'
+
+import widthParser from 'mjml-core/lib/helpers/widthParser'
+
+export default createBodyComponent('mj-image', {
+  tagOmission: true,
   attributes: {
-    'align': 'center',
-    'alt': '',
-    'border': 'none',
-    'border-radius': null,
-    'container-background-color': null,
-    'height': 'auto',
-    'href': '',
-    'padding-bottom': null,
-    'padding-left': null,
-    'padding-right': null,
-    'padding-top': null,
-    'padding': '10px 25px',
-    'src': '',
-    'target': '_blank',
-    'title': '',
-    'vertical-align': null,
-    'width': null
-  }
-}
-const baseStyles = {
-  table: {
-    borderCollapse: 'collapse',
-    borderSpacing: '0px'
+    align: 'center',
+    border: '0',
+    height: 'auto',
+    padding: '10px 25px',
+    target: '_blank',
   },
-  img: {
-    border: 'none',
-    borderRadius: '',
-    display: 'block',
-    outline: 'none',
-    textDecoration: 'none',
-    width: '100%'
-  }
-}
-
-@MJMLElement
-class Image extends Component {
-
-  styles = this.getStyles()
-
-  getContentWidth () {
-    const { mjAttribute, getPadding } = this.props
-    const parentWidth = mjAttribute('parentWidth')
-
-    const width = mjAttribute('width') ? min([parseInt(mjAttribute('width')), parseInt(parentWidth)]) : parseInt(parentWidth)
-
-    const paddingRight = getPadding('right')
-    const paddingLeft = getPadding('left')
-    const widthOverflow = paddingLeft + paddingRight + width - parseInt(parentWidth)
-
-    return widthOverflow > 0 ? width - widthOverflow : width
-  }
-
   getStyles () {
-    const { mjAttribute, defaultUnit } = this.props
+    const width = this.getContentWidth()
+    const {
+      parsedWidth,
+      unit,
+    } = widthParser(width)
 
-    return helpers.merge({}, baseStyles, {
-      td: {
-        width: defaultUnit(this.getContentWidth())
-      },
+    return {
       img: {
-        border: mjAttribute('border'),
-        height: mjAttribute('height'),
-        borderRadius: defaultUnit(mjAttribute('border-radius'), "px")
-      }
-    })
-  }
+        border: this.getMjAttribute('border'),
+        display: 'block',
+        outline: 'none',
+        'text-decoration': 'none',
+        width: '100%',
+      },
+      td: {
+        width: `${parsedWidth}${unit}`,
+      },
+      table: {
+        'border-collapse': 'collapse',
+        'border-spacing': '0px',
+      },
+    }
+  },
+  getContentWidth () {
+    const {
+      columnWidth,
+    } = this.context
 
+    const width = this.getMjAttribute('width') ?
+      _.min( [
+        parseInt(this.getMjAttribute('width')),
+        columnWidth,
+      ] ) :
+      columnWidth
+
+    const paddingRight = this.getPadding('right')
+    const paddingLeft = this.getPadding('left')
+    const widthOverflow = paddingLeft + paddingRight + parseFloat(width) - columnWidth
+
+    return widthOverflow > 0 ?
+      parseFloat(width - widthOverflow) :
+      parseFloat(width)
+  },
   renderImage () {
-    const { mjAttribute } = this.props
-
-    const img = (
+    const img = `
       <img
-        alt={mjAttribute('alt')}
-        title={mjAttribute('title')}
-        height={mjAttribute('height')}
-        src={mjAttribute('src')}
-        style={this.styles.img}
-        width={this.getContentWidth()} />
-    )
+        ${this.generateHtmlAttributes({
+          alt: this.getMjAttribute('href'),
+          height: this.getMjAttribute('height'),
+          src: this.getMjAttribute('src'),
+          style: this.generateStyles('img'),
+          title: this.getMjAttribute('title'),
+          width: this.getContentWidth(),
+        })}
+      />
+    `
 
-    if (mjAttribute('href') != '') {
-      return (
+    if (this.getMjAttribute('href')) {
+      return `
         <a
-          href={mjAttribute('href')}
-          target={mjAttribute('target')}>
-          {img}
+          ${this.generateHtmlAttributes({
+            href: this.getMjAttribute('href'),
+            target: this.getMjAttribute('target'),
+          })}
+        >
+          ${img}
         </a>
-      )
+      `
     }
 
     return img
-  }
-
+  },
   render () {
-    const { mjAttribute } = this.props
-
-    return (
+    return `
       <table
-        role="presentation"
-        cellPadding="0"
-        cellSpacing="0"
-        data-legacy-align={mjAttribute('align')}
-        data-legacy-border="0"
-        style={this.styles.table}>
+        ${this.generateHtmlAttributes({
+          align: this.getMjAttribute('align'),
+          border: '0',
+          cellpadding: '0',
+          cellspacing: '0',
+          role: 'presentation',
+          style: this.generateStyles('table'),
+        })}
+      >
         <tbody>
           <tr>
-            <td style={this.styles.td}>
-              {this.renderImage()}
+            <td
+              ${this.generateHtmlAttributes({
+                style: this.generateStyles('td'),
+              })}
+            >
+              ${this.renderImage()}
             </td>
           </tr>
         </tbody>
       </table>
-    )
+    `
   }
-
-}
-
-Image.tagName = tagName
-Image.parentTag = parentTag
-Image.endingTag = endingTag
-Image.selfClosingTag = selfClosingTag
-Image.defaultMJMLDefinition = defaultMJMLDefinition
-Image.baseStyles = baseStyles
-
-export default Image
+})

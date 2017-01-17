@@ -1,6 +1,6 @@
 {
-  "name": "mjml-head-title",
-  "description": "mjml-head-title",
+  "name": "mjml-parser-xml",
+  "description": "mjml-parser-xml",
   "version": "3.1.1",
   "main": "lib/index.js",
   "repository": {
@@ -14,6 +14,6 @@
   "homepage": "https://mjml.io",
   "dependencies": {
     "lodash": "^4.17.2",
-    "mjml-core": "~3.1.1"
+    "node-expat": "^2.3.15"
   }
 }

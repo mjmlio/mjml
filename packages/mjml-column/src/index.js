@@ -1,167 +1,160 @@
-import { MJMLElement, helpers } from 'mjml-core'
-import cx from 'classnames'
-import each from 'lodash/each'
-import React, { Component } from 'react'
-import uniq from 'lodash/uniq'
+import _ from 'lodash'
 
-const tagName = 'mj-column'
-const parentTag = ['mj-section', 'mj-group', 'mj-navbar']
-const defaultMJMLDefinition = {
-  attributes: {
-    'background': null,
-    'background-color': null,
-    "border": null,
-    "border-bottom": null,
-    "border-left": null,
-    "border-radius": null,
-    "border-right": null,
-    "border-top": null,
-    'vertical-align': null,
-    'width': null
-  }
-}
-const baseStyles = {
-  div: {
-    verticalAlign: 'top'
-  }
-}
-const postRender = $ => {
-  const mediaQueries = []
+import {
+  createBodyComponent,
+} from 'mjml-core/lib/createComponent'
 
-  each({ 'mj-column-per': '%', 'mj-column-px': 'px' }, (unit, className) => {
-    const columnWidths = []
+import widthParser from 'mjml-core/lib/helpers/widthParser'
 
-    $(`[class*="${className}"]`).each(function () {
-      columnWidths.push($(this).data('column-width'))
-      $(this).removeAttr('data-column-width')
-    })
+export default createBodyComponent('mj-column', {
+  getChildContext () {
+    const {
+      containerWidth,
+    } = this.context
+    const {
+      sibling,
+    } = this.props
 
-    uniq(columnWidths).forEach((width) => {
-      const { width: parsedWidth } = helpers.widthParser(width, { parseFloatToInt: false })
-      const mediaQueryClass = `${className}-${parseInt(parsedWidth)}`
+    const columnWidth = this.getMjAttribute('width') || `${parseFloat(containerWidth) / sibling}`
 
-      mediaQueries.push(`.${mediaQueryClass} { width:${parsedWidth}${unit}!important; }`)
-    })
-  })
-
-  if (mediaQueries.length > 0) {
-    const mediaQuery = `<style type="text/css">
-  @media only screen and (min-width:480px) {
-    ${mediaQueries.join('\n')}
-  }
-</style>\n`
-
-    $('head').append(mediaQuery)
-  }
-
-  return $
-}
-
-@MJMLElement
-class Column extends Component {
-
-  styles = this.getStyles()
-
+    return {
+      ...this.context,
+      columnWidth,
+    }
+  },
   getStyles () {
-    const { mjAttribute, defaultUnit } = this.props
-
-    return helpers.merge({}, baseStyles, {
+    return {
       div: {
-        display: 'inline-block',
+        'font-size': '13px',
+        'text-align': 'left',
+        'vertical-align': 'top',
         direction: 'ltr',
-        fontSize: '13px',
-        textAlign: 'left',
-        verticalAlign: mjAttribute('vertical-align'),
-        width: this.getMobileWidth()
+        display: 'inline-block',
       },
-      table: {
-        background: mjAttribute('background-color'),
-        border: mjAttribute('border'),
-        borderBottom: mjAttribute('border-bottom'),
-        borderLeft: mjAttribute('border-left'),
-        borderRadius: defaultUnit(mjAttribute('border-radius'), "px"),
-        borderRight: mjAttribute('border-right'),
-        borderTop: mjAttribute('border-top'),
-        verticalAlign: mjAttribute('vertical-align')
-      }
+    }
+  },
+  getParsedWidth (toString) {
+    const {
+      sibling,
+    } = this.props
+
+    const width = this.getMjAttribute('width') || `${100 / sibling}%`
+
+    const {
+      unit,
+      parsedWidth,
+    } = widthParser(width, {
+      parseFloatToInt: false,
     })
-  }
 
+    if (toString) {
+      return `${parsedWidth}${unit}`
+    }
+
+    return {
+      unit,
+      parsedWidth,
+    }
+  },
   getColumnClass () {
-    const { mjAttribute, sibling } = this.props
-    const width = mjAttribute('width')
+    const {
+      addMediaQuery,
+    } = this.context
+    const {
+      sibling,
+    } = this.props
 
-    if (width == undefined) {
-      return `mj-column-per-${parseInt(100 / sibling)}`
-    }
+    let className = ''
 
-    const { width: parsedWidth, unit } = helpers.widthParser(width)
-
-    switch (unit) {
-      case '%':
-        return `mj-column-per-${parsedWidth}`
-
-      case 'px':
-      default:
-        return `mj-column-px-${parsedWidth}`
-    }
-  }
-
-  getMobileWidth () {
-    const { mjAttribute, sibling, parentWidth, mobileWidth } = this.props
-    const width = mjAttribute('width')
-
-    if (mobileWidth != "mobileWidth" ) {
-      return '100%'
-    } else if (width == undefined) {
-      return `${parseInt(100 / sibling)}%`
-    }
-
-    const { width: parsedWidth, unit } = helpers.widthParser(width)
+    const {
+      parsedWidth,
+      unit,
+    } = this.getParsedWidth()
 
     switch (unit) {
       case '%':
-        return width
+        className = `mj-column-per-${parseInt(parsedWidth)}`
+        break
+
       case 'px':
       default:
-        return `${parsedWidth / parentWidth}%`
+        className = `mj-column-px-${parseInt(parsedWidth)}`
+        break
     }
-  }
 
+    // Add className to media queries
+    addMediaQuery(className, {
+      parsedWidth,
+      unit,
+    })
+
+    return className
+  },
+  renderBefore () {
+    return `
+      <!--[if mso | IE]>
+      <table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td style="vertical-align:top;width:${this.getParsedWidth(true)};">
+      <![endif]-->
+    `
+  },
+  renderAfter () {
+    return `
+      <!--[if mso | IE]>
+      </td></tr></table>
+      <![endif]-->
+    `
+  },
   render () {
-    const { mjAttribute, children, sibling } = this.props
-    const width = mjAttribute('width') || `${100 / sibling}%`
-    const mjColumnClass = this.getColumnClass()
-    const divClasses = cx(mjColumnClass, 'outlook-group-fix')
+    const {
+      children,
+    } = this.props
 
-    return (
+    return `
+      ${this.renderBefore()}
       <div
-        className={divClasses}
-        data-column-width={width}
-        data-vertical-align={this.styles.div.verticalAlign}
-        style={this.styles.div}>
+        ${this.generateHtmlAttributes({
+          'class': `${this.getColumnClass()} outlook-group-fix`,
+          style: this.generateStyles('div'),
+        })}
+      >
         <table
-          role="presentation"
-          cellPadding="0"
-          cellSpacing="0"
-          data-legacy-background={mjAttribute('background')}
-          data-legacy-border="0"
-          style={this.styles.table}
-          width="100%">
+          ${this.generateHtmlAttributes({
+            border: '0',
+            cellpadding: '0',
+            cellspacing: '0',
+            role: 'presentation',
+            width: '100%',
+          })}
+        >
           <tbody>
-            {React.Children.map(children, child => React.cloneElement(child, { columnElement: true }))}
+            ${this.renderChildren(children, {
+              renderer: component => `
+                <tr>
+                  <td
+                    ${component.generateHtmlAttributes({
+                      align: component.getMjAttribute('align'),
+                      background: component.getMjAttribute('container-background-color'),
+                      style: component.generateStyles({
+                        background: component.getMjAttribute('container-background-color'),
+                        'font-size': '0px',
+                        padding: component.getMjAttribute('padding'),
+                        'padding-top': component.getMjAttribute('padding-top'),
+                        'padding-right': component.getMjAttribute('padding-right'),
+                        'padding-bottom': component.getMjAttribute('padding-bottom'),
+                        'padding-left': component.getMjAttribute('padding-left'),
+                        'word-break': 'break-word',
+                      }),
+                    })}
+                  >
+                    ${component.render()}
+                  </td>
+                </tr>
+              `
+            })}
           </tbody>
         </table>
       </div>
-    )
+      ${this.renderAfter()}
+    `
   }
-
-}
-
-Column.defaultMJMLDefinition = defaultMJMLDefinition
-Column.tagName = tagName
-Column.parentTag = parentTag
-Column.baseStyles = baseStyles
-Column.postRender = postRender
-
-export default Column
+})

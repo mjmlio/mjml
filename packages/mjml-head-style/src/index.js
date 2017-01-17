@@ -1,8 +1,14 @@
-export default {
-  name: "mj-style",
-  handler: (el, { css }) => {
-    const innerText = el.children.map(child => (child.type === 'text' || child.nodeType === Node.TEXT_NODE) && child.data).join('')
+import {
+  createHeadComponent,
+} from 'mjml-core/lib/createComponent'
 
-    css.push(innerText)
+export default createHeadComponent('mj-style', {
+  canContainMarkup: true,
+  handler () {
+    const {
+      addStyle,
+    } = this.context
+
+    addStyle(this.getMjContent())
   }
-}
+})

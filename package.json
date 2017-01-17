@@ -1,38 +1,19 @@
 {
-  "name": "mjml-repo",
-  "version": "1.0.0",
+  "name": "mjml",
   "private": true,
-  "description": "MJML monorepo",
-  "scripts": {
-    "lint": "eslint ."
-  },
-  "pre-commit": [
-    "lint"
-  ],
-  "devEngines": {
-    "node": "4.x || 5.x || 6.x",
-    "npm": "2.x || 3.x"
-  },
   "devDependencies": {
-    "babel": "^6.5.2",
-    "babel-core": "^6.18.2",
-    "babel-eslint": "^7.1.1",
+    "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "babel-preset-es2015": "^6.18.0",
-    "babel-preset-react": "^6.16.0",
+    "babel-preset-latest": "^6.16.0",
     "babel-preset-stage-0": "^6.16.0",
-    "babel-register": "^6.16.3",
-    "eslint": "^3.12.2",
-    "eslint-config-airbnb": "^13.0.0",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "^2.2.3",
-    "eslint-plugin-react": "^6.8.0",
+    "babel-register": "^6.18.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
-    "gulp-newer": "^1.3.0",
-    "pre-commit": "^1.1.3",
-    "shelljs": "^0.7.5",
-    "through2": "^2.0.3",
-    "yargs": "^6.5.0"
+    "merge-stream": "^1.0.1",
+    "shelljs": "^0.7.6",
+    "yargs": "^6.6.0"
+  },
+  "dependencies": {
+    "lodash": "^4.17.4"
   }
 }

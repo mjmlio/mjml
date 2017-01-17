@@ -1,101 +1,32 @@
-import { MJMLElement, helpers } from 'mjml-core'
-import React, { Component } from 'react'
+import {
+  createBodyComponent,
+} from 'mjml-core/lib/createComponent'
 
-const tagName = 'mj-container'
-const parentTag = ['mj-body']
-const defaultMJMLDefinition = {
+export default createBodyComponent('mj-container', {
   attributes: {
-    'width': '600px',
-    'background-color': null
+    width: '600px',
   },
-  inheritedAttributes: [
-    'width'
-  ]
-}
-const postRender = $ => {
-  const containerWidth = $('.mj-container').data('width')
-
-  $('.mj-container-outlook-open').each(function () {
-    $(this).replaceWith(`${helpers.startConditionalTag}
-      <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="${containerWidth}" align="center" style="width:${containerWidth}px;">
-        <tr>
-          <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
-      ${helpers.endConditionalTag}`)
-  })
-
-  $('.mj-container-outlook-line').each(function () {
-    $(this).replaceWith(`${helpers.startConditionalTag}
-      </td></tr></table>
-      ${helpers.endConditionalTag}
-      ${helpers.startConditionalTag}
-      <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="${containerWidth}" align="center" style="width:${containerWidth}px;">
-        <tr>
-          <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
-      ${helpers.endConditionalTag}`)
-  })
-
-  $('.mj-container-outlook-close').each(function () {
-    $(this).replaceWith(`${helpers.startConditionalTag}
-      </td></tr></table>
-      ${helpers.endConditionalTag}`)
-  })
-
-  $('body')
-    .css({ background: $('.mj-container').data('background-color') })
-    .each(function () {
-      if ($(this).attr('style') === '') {
-        $(this).removeAttr('style')
-      }
-    })
-
-  $('.mj-container')
-    .removeAttr('data-background-color')
-    .removeAttr('data-width')
-    .removeAttr('class')
-    .each(function () {
-      if ($(this).attr('style') === '') {
-        $(this).removeAttr('style')
-      }
-    })
-
-  return $
-}
-
-@MJMLElement
-class Container extends Component {
-
-  styles = this.getStyles()
-
-  getStyles () {
-    const { mjAttribute } = this.props
-
+  getChildContext () {
     return {
-      div: {
-        backgroundColor: mjAttribute('background-color')
-      }
+      ...this.context,
+      containerWidth: this.getMjAttribute('width'),
     }
-  }
-
+  },
+  getStyles () {
+    return {
+      'background-color': this.getMjAttribute('background-color'),
+    }
+  },
   render () {
-    const { renderWrappedOutlookChildren, mjAttribute, children } = this.props
-    const { width } = helpers.widthParser(mjAttribute('width'))
-
-    return (
+    return `
       <div
-        className="mj-container"
-        data-background-color={mjAttribute('background-color')}
-        data-width={width}
-        style={this.styles.div}>
-        {renderWrappedOutlookChildren(children)}
+        ${this.generateHtmlAttributes({
+          'background-color': this.getMjAttribute('background-color'),
+          style: this.generateStyles(),
+        })}
+      >
+        ${this.renderChildren()}
       </div>
-    )
+    `
   }
-
-}
-
-Container.tagName = tagName
-Container.parentTag = parentTag
-Container.defaultMJMLDefinition = defaultMJMLDefinition
-Container.postRender = postRender
-
-export default Container
+})

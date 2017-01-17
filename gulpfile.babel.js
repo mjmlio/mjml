@@ -1,120 +1,88 @@
-import { argv } from 'yargs'
-import { cd, exec, rm } from 'shelljs'
-import babel from 'gulp-babel'
+import _ from 'lodash'
 import fs from 'fs'
-import gulp from 'gulp'
-import newer from 'gulp-newer'
 import path from 'path'
-import through from 'through2'
+import gulp from 'gulp'
+import {
+  cd,
+  exec,
+  rm,
+} from 'shelljs'
+import {
+  argv,
+} from 'yargs'
+import babel from 'gulp-babel'
+import mergeStream from 'merge-stream'
 
+const ROOT_PATH = path.resolve(__dirname)
 const PACKAGES_PATH = path.resolve(__dirname, './packages')
-const packages = fs.readdirSync(PACKAGES_PATH).filter(file => {
-  return fs.statSync(path.resolve(PACKAGES_PATH, file)).isDirectory()
-}).reduce((acc, file) => ({
-  ...acc,
-  [file]: path.resolve(PACKAGES_PATH, file)
-}), {})
+const packages = fs.readdirSync(PACKAGES_PATH)
+  .filter(file => fs.statSync(path.resolve(PACKAGES_PATH, file)).isDirectory())
+  .reduce((result, value) => ({
+    ...result,
+    [value]: path.resolve(PACKAGES_PATH, value),
+  }), {})
 
-let srcEx
-let libFragment
+const sharedDeps = [
+  'lodash',
+]
 
-if (path.win32 === path) {
-  srcEx = /(packages\\[^\\]+)\\src\\/
-  libFragment = '$1\\lib\\'
-} else {
-  srcEx = /(packages\/[^\/]+)\/src\//
-  libFragment = '$1/lib/'
-}
+gulp.task('yarn-lock', () => Promise.all(
+  _.map(packages, (packageDirectory, packageName) => new Promise(resolve => {
+    cd(packageDirectory)
+    exec('yarn install')
+    resolve()
+  })))
+)
+
+gulp.task('yarn-dependencies', ['yarn-lock'], () => Promise.all(
+  _.map(packages, (packageDirectory, packageName) => new Promise(resolve => {
+    cd(packageDirectory)
+    exec('yarn upgrade-interactive')
+    resolve()
+  })))
+)
+
+gulp.task('link-packages', () => Promise.all(
+  _.map(packages, (packageDirectory, packageName) => new Promise(resolve => {
+    cd(packageDirectory)
+    exec('npm link')
+    cd(ROOT_PATH)
+    exec(`npm link ${packageName}`)
+    resolve()
+  })))
+  .then(() => Promise.all(
+    _.map(packages, packageDirectory => Promise.all(
+      Object.keys(packages).concat(sharedDeps).map(dependencyName => new Promise(resolve => {
+        rm('-rf', path.resolve(packageDirectory, 'node_modules', dependencyName))
+        resolve()
+      }))
+    )))
+  )
+)
 
 gulp.task('build', () => {
-  return gulp.src(`${PACKAGES_PATH}/*/src/**/*.js`)
-    .pipe(through.obj((file, encoding, callback) => {
-      file.contents = new Buffer(String(file.contents).replace(/__MJML_VERSION__/g, require(path.resolve(PACKAGES_PATH, `${file.relative.split(path.sep)[0]}/package.json`)).version))
-      callback(null, file)
-    }))
-    .pipe(through.obj((file, encoding, callback) => {
-      file._path = file.path
-      file.path = file.path.replace(srcEx, libFragment)
-      callback(null, file)
-    }))
-    .pipe(newer(PACKAGES_PATH))
-    .pipe(babel())
-    .pipe(gulp.dest(PACKAGES_PATH))
+  const stream = mergeStream()
+
+  _.forEach(packages, packageDirectory => {
+    const src = `${packageDirectory}/src/**/*`
+    const dest = path.resolve(packageDirectory, 'lib')
+
+    rm('-rf', dest)
+
+    const build = gulp.src(src)
+      .pipe(babel())
+      .pipe(gulp.dest(dest))
+
+    stream.add(build)
+  })
+
+  return stream
 })
 
-gulp.task('install', () => {
-  return Promise.all(
-    Object.keys(packages).map(packageName => new Promise(resolve => {
-      cd(packages[packageName])
-      exec('npm install')
-      resolve()
-    }))
-  )
-})
-
-gulp.task('test', () => {
-  return Promise.all(
-    Object.keys(packages).map(packageName => new Promise(resolve => {
-      cd(packages[packageName])
-      // test if there's a test directory
-      exec('mocha --compilers js:babel-register')
-      resolve()
-    }))
-  )
-})
-
-gulp.task('clean', () => {
-  // Remove package node_modules
-  return Promise.all(
-    Object.keys(packages).map(packageName => new Promise(resolve => {
-      rm('-rf', path.resolve(packages[packageName], 'node_modules'), path.resolve(packages[packageName], 'lib'), path.resolve(packages[packageName], 'dist'))
-      resolve()
-    }))
-  )
-})
-
-gulp.task('version', () => {
-  // Try to derive package name from directory where this was run from
-  const pwd = process.env.PWD
-  const pwdPackageName = Object.keys(packages).reduce((prev, name) => {
-    return packages[name] === pwd ? name : prev
-  }, undefined)
-
-  // Check params
-  const packageName = argv.pkg || argv.p || pwdPackageName
-  const version = argv.version || argv.v
-  if (!packageName || !version) {
-    throw new Error('Usage: gulp version -p <package> -v <version>')
-  }
-
-  // Bump the version
-  cd(packages[packageName])
-  const execResult = exec(`npm version ${version}`)
-  const bumpedVersion = execResult.toString().replace('\n', '').replace('v', '')
-
-  // Commit and tag
-  exec(`git add ${packages[packageName]}/package.json`)
-  const message = `${packageName}@${bumpedVersion}`
-  exec(`git commit -m "${message}"`)
-  const tagName = `${packageName}-v${bumpedVersion}`
-  exec(`git tag ${tagName}`)
-})
-
-gulp.task('publish', ['build'], () => {
-  // Try to derive package name from directory where this was run from
-  const pwd = process.env.PWD
-  const pwdPackageName = Object.keys(packages).reduce((prev, name) => {
-    return packages[name] === pwd ? name : prev
-  }, undefined)
-
-  // Check params
-  const packageName = argv.pkg || argv.p || pwdPackageName
-  if (!packageName) {
-    throw new Error('Usage: gulp publish -p <package> -t <tag>')
-  }
-
-  // Publish
-  cd(packages[packageName])
-
-  exec(`npm publish${argv.t ? ` --tag ${argv.t}` : ''}`)
-})
+gulp.task('clean', () => Promise.all(
+  _.map(packages, packageDirectory => new Promise(resolve => {
+    rm('-rf', path.resolve(packageDirectory, 'node_modules'))
+    rm('-rf', path.resolve(packageDirectory, 'yarn.lock'))
+    resolve()
+  })))
+)

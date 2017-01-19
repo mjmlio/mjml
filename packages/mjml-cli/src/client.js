@@ -4,7 +4,6 @@ import glob from 'glob'
 import path from 'path'
 import chokidar from 'chokidar'
 import difference from 'lodash/difference'
-import omit from 'lodash/omit'
 import fileContext from './helpers/fileContext'
 import { write, read, readStdin } from './helpers/promesify'
 import timePad from './helpers/timePad'
@@ -67,9 +66,15 @@ const render = (bufferPromise, { min, output, stdout, fileName, level }) => {
 const outputFileName = (input, output) => {
   const outputIsDirectory = isDirectory(output)
   const { ext, name } = path.parse((!output || outputIsDirectory) ? input : output)
+  let dir = outputIsDirectory ? output : './'
+
+  if (output && !outputIsDirectory) {
+    const { dir: outDir } = path.parse(output)
+    dir = outDir == '' ? dir : outDir
+  }
 
   return path.format({
-    dir: outputIsDirectory ? output : '.',
+    dir: dir,
     name: name.replace('.mjml', ''),
     ext: ext == ".mjml" ? '.html' : ext
   })
@@ -84,8 +89,12 @@ export const renderFiles = (input, options) => {
     glob(input, (err, files) => {
       const processedFiles = []
 
+      if (files.length > 1 && options.output && !isDirectory(options.output)) {
+        throw new Error('Output destination should be a directory instead of a file')
+      }
+
       files.forEach(f => {
-        processedFiles.push(renderFile(f, files.length > 1 ? omit(options, 'output') : options))
+        processedFiles.push(renderFile(f, options))
       })
 
       Promise.all(processedFiles).then(resolve).catch(reject)

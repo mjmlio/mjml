@@ -29,6 +29,10 @@ changed to 100%.
   <b>Inverting the order in which columns display:</b> set the `direction` attribute to `rtl` to change the order in which columns display on desktop. Because MJML is mobile-first, structure the columns in the <b>order you want them to stack on mobile</b>, and use `direction` to change the order they display <b>on desktop</b>.
 </aside>
 
+<aside class="warning">
+  Sections cannot be nested into sections. Also, any content in a section should also be wrapped in a column.
+</aside>
+
 attribute           | unit        | description                    | default value
 --------------------|-------------|--------------------------------|---------------
 full-width          | string      | make the section full-width    | n/a

@@ -46,8 +46,8 @@ const replaceContent = (currentDir, headStack, _, fileName) => {
 export default (baseMjml, { filePath }) => {
   const headStack = []
   let mjml = baseMjml
-
-  mjml = mjml.replace(includes, replaceContent.bind(this, path.resolve(path.dirname(filePath || process.cwd())), headStack))
+  const fileDir = filePath ? path.dirname(filePath) : process.cwd()
+  mjml = mjml.replace(includes, replaceContent.bind(this, path.resolve(fileDir), headStack))
 
   if (headStack.length > 0) {
     if (mjml.indexOf('<mj-head>') == -1) {

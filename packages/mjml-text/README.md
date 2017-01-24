@@ -43,6 +43,7 @@ This tag allows you to display text in your email.
  text-decoration              | string        | underline/overline/line-through/none        | n/a
  text-transform               | string        | uppercase/lowercase/capitalize              | n/a
  align                        | string        | left/right/center                           | left
+ allow-autolink               | boolean       | true/false. Disables the blue links in iOS  | true
  container-background-color   | color         | inner element background color              | n/a
  padding                      | px            | supports up to 4 parameters                 | 10px 25px
  padding-top                  | px            | top offset                                  | n/a

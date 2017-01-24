@@ -1,7 +1,7 @@
 {
   "name": "mjml-container",
   "description": "mjml-container",
-  "version": "3.2.0",
+  "version": "3.2.2",
   "main": "lib/index.js",
   "repository": {
     "type": "git",

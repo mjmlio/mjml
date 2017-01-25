@@ -106,7 +106,7 @@ const documentParser = (content, attributes) => {
   }
 
   if (!body || body.length < 1) {
-    throw new EmptyMJMLError('No root "<mjml>" or "<mj-body>" found in the file, or "<mj-body>" is empty')
+    throw new EmptyMJMLError('No root "<mjml>" or "<mj-body>" found in the file, or "<mj-body>" doesn\'t contain a child element.')
   }
 
   if (head && head.length === 1) {

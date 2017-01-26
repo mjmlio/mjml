@@ -1,7 +1,7 @@
 {
   "name": "mjml-cli",
   "description": "MJML: the only framework that makes responsive-email easy",
-  "version": "3.1.1",
+  "version": "3.2.2",
   "main": "bin/mjml",
   "bin": {
     "mjml-cli": "bin/mjml"
@@ -16,11 +16,12 @@
   },
   "homepage": "https://mjml.io",
   "dependencies": {
+    "chokidar": "^1.6.1",
     "commander": "^2.9.0",
     "fs-promise": "^1.0.0",
     "glob": "^7.1.1",
-    "lodash": "^4.17.2",
-    "mjml-core": "~3.1.1"
+    "lodash": "^4.17.4",
+    "mjml-core": "~3.2.2"
   },
   "devDependencies": {
     "chai": "^3.5.0",

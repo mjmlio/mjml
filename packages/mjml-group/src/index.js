@@ -104,7 +104,6 @@ class Group extends Component {
 
     return (
       <div
-        aria-labelledby={mjGroupClass}
         className={mjGroupClass}
         data-column-width={parseInt(width)}
         data-vertical-align={this.styles.div.verticalAlign}

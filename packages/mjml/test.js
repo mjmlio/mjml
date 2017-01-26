@@ -1,5 +1,12 @@
 var mjml = require('./lib/index')
 const inputMJML = `<mjml>
+  <mj-head>
+    <mj-attributes>
+      <mj-all font-size="36px" />
+      <mj-all color="blue" />
+      <mj-all font-size="40px" />
+    </mj-attributes>
+  </mj-head>
   <mj-body>
     <mj-container background-color="#d6dde5">
       <mj-wrapper background-color="red" full-width="full-width">

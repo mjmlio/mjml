@@ -58,7 +58,7 @@ export default class MJMLRenderer {
 
   parseDocument () {
     if (!this.options.disableMjInclude) {
-      this.content = includeExternal(this.content)
+      this.content = includeExternal(this.content, this.options)
     }
 
     debug('Start parsing document')

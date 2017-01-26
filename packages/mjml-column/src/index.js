@@ -40,7 +40,7 @@ const postRender = $ => {
       const { width: parsedWidth } = helpers.widthParser(width, { parseFloatToInt: false })
       const mediaQueryClass = `${className}-${parseInt(parsedWidth)}`
 
-      mediaQueries.push(`.${mediaQueryClass}, * [aria-labelledby="${mediaQueryClass}"] { width:${parsedWidth}${unit}!important; }`)
+      mediaQueries.push(`.${mediaQueryClass} { width:${parsedWidth}${unit}!important; }`)
     })
   })
 
@@ -136,7 +136,6 @@ class Column extends Component {
 
     return (
       <div
-        aria-labelledby={mjColumnClass}
         className={divClasses}
         data-column-width={width}
         data-vertical-align={this.styles.div.verticalAlign}

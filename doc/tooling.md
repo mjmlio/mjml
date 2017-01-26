@@ -6,7 +6,10 @@ In order to provide you with the best experience with MJML and help you use it m
 [Atom](https://atom.io) is a powerful text editor originally released by [Github](https://github.com). This package provides autocompletion and syntax highlighting for MJML. It is available [on Github](https://github.com/mjmlio/language-mjml) and through the [Atom Package Manager (APM)](https://atom.io/packages/language-mjml).
 
 ## Atom linter
-In addition to the language plugin, a linter is available to highlight errors in MJML. The linter is available [on Github](https://github.com/mjmlio/atom-linter-mjml) and through the [Atom Package Manager (APM)](https://atom.io/packages/linter-mjml).
+In addition to the language package, a linter is available to highlight errors in MJML. The linter is available [on Github](https://github.com/mjmlio/atom-linter-mjml) and through the [Atom Package Manager (APM)](https://atom.io/packages/linter-mjml).
+
+## Atom preview
+The Atom preview package enables you to see how your email renders as you code, directly within Atom. The preview package is available [on Github](https://github.com/mjmlio/atom-mjml-preview) and through the [Atom Package Manager (APM)](https://atom.io/packages/mjml-preview).
 
 ## Sublime Text
 [Sublime Text](https://www.sublimetext.com/) is a powerful text editor. We're providing you with a package to color MJML tags. It is available [on Github](https://github.com/mjmlio/mjml-syntax) and through the [Sublime Package Control](https://packagecontrol.io/packages/MJML-syntax).

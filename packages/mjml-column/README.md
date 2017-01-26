@@ -32,6 +32,10 @@ Every single column has to contain something because they are responsive contain
   Columns are meant to be used as a container for your content. They must not be used as offset. Any mj-element included in a column will have a width equivalent to 100% of this column's width.
 </aside>
 
+<aside class="warning">
+  Columns cannot be nested into columns, and sections cannot be nested into columns as well.
+</aside>
+
 attribute           | unit        | description                    | default attributes
 --------------------|-------------|--------------------------------|--------------------------------------
 background-color    | string      | background color for a column  | n/a

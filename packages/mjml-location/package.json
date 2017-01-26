@@ -1,7 +1,7 @@
 {
   "name": "mjml-location",
   "description": "mjml-location",
-  "version": "3.1.1",
+  "version": "3.2.2",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -13,10 +13,10 @@
   },
   "homepage": "https://mjml.io",
   "dependencies": {
-    "lodash": "^4.17.2",
-    "mjml-core": "~3.1.1",
-    "mjml-image": "~3.1.1",
-    "mjml-text": "~3.1.1",
-    "react": "^15.4.1"
+    "lodash": "^4.17.4",
+    "mjml-core": "~3.2.2",
+    "mjml-image": "~3.2.2",
+    "mjml-text": "~3.2.2",
+    "react": "^15.4.2"
   }
 }

@@ -172,7 +172,7 @@ Get your hands dirty by trying the MJML online editor! Write awesome code on the
     <td><a href="https://github.com/arnaudbreton">Arnaud</a></td>    
     <td><a href="https://github.com/hteumeuleu">HTeuMeuLeu</a></td>
     <td><a href="https://github.com/epayet">Emmanuel Payet</a></td>
-    <td><a href="https://github.com/swibge">Matthieu</a></td>
+    <td><a href="https://github.com/matthieupinte">Matthieu</a></td>
   </tr>
 </table>
 

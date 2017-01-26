@@ -2,9 +2,11 @@ import { ParseError, EmptyMJMLError, NullElementError } from '../Error'
 import compact from 'lodash/compact'
 import concat from 'lodash/concat'
 import dom from '../helpers/dom'
+import removeCDATA from '../helpers/removeCDATA'
 import parseAttributes from '../helpers/parseAttributes'
 import includes from 'lodash/includes'
 import map from 'lodash/map'
+import mapValues from 'lodash/mapValues'
 import toArray from 'lodash/toArray';
 import filter from 'lodash/filter'
 import { endingTags } from '../MJMLElementsCollection';
@@ -36,13 +38,13 @@ const mjmlElementParser = (elem, content) => {
   const findLine = content.substr(0, elem.startIndex).match(/\n/g)
   const lineNumber = findLine ? findLine.length + 1 : 1
   const tagName = elem.tagName.toLowerCase()
-  const attributes = dom.getAttributes(elem)
+  const attributes = mapValues(dom.getAttributes(elem), (val) => decodeURIComponent(val))
 
   const element = { tagName, attributes, lineNumber }
 
   if (endingTags.indexOf(tagName) !== -1) {
     const $local = dom.parseXML(elem)
-    element.content = $local(tagName).html().trim()
+    element.content = removeCDATA($local(tagName).html().trim())
   } else {
     const children = dom.getChildren(elem)
     element.children = children ? compact(filter(children, child => child.tagName).map(child => mjmlElementParser(child, content))) : []
@@ -59,9 +61,9 @@ const parseHead = (head) => {
       const endingTag = includes(headEndingTags, elem.tagName.toLowerCase())
 
       return {
-        attributes: dom.getAttributes(elem),
+        attributes: mapValues(dom.getAttributes(elem), (val) => decodeURIComponent(val)),
         children: endingTag ? null : compact(filter(toArray(elem.childNodes), child => child.tagName)).map(parseElement),
-        content: endingTag ? $local(elem.tagName.toLowerCase()).html().trim() : null,
+        content: endingTag ? removeCDATA($local(elem.tagName.toLowerCase()).html().trim()) : null,
         tagName: elem.tagName.toLowerCase()
       }
     }

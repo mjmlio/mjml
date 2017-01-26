@@ -1,5 +1,5 @@
 import { EmptyMJMLError, MJMLValidationError } from './Error'
-import { fixLegacyAttrs, removeCDATA } from './helpers/postRender'
+import { fixLegacyAttrs, insertHeadCSS } from './helpers/postRender'
 import { parseInstance } from './helpers/mjml'
 import cloneDeep from 'lodash/cloneDeep'
 import configParser from './parsers/config'
@@ -129,7 +129,9 @@ export default class MJMLRenderer {
     let $ = dom.parseHTML(MJMLDocument)
 
     importFonts({ $, fonts: this.attributes.fonts })
+
     $ = fixLegacyAttrs($)
+    $ = insertHeadCSS($, this.attributes.css.join(''))
 
     postRenders.forEach(postRender => {
       if (typeof postRender === 'function') {
@@ -137,8 +139,7 @@ export default class MJMLRenderer {
       }
     })
 
-    return [ removeCDATA,
-      !this.options.disableMjStyle ? curryRight(inlineExternal)(externalCSS) : undefined,
+    return [ !this.options.disableMjStyle ? curryRight(inlineExternal)(externalCSS) : undefined,
       this.options.beautify ? beautifyHTML : undefined,
       !this.options.disableMinify && this.options.minify ? minifyHTML : undefined,
       he.decode ].filter(element => typeof element == 'function')

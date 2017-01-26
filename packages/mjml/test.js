@@ -13,6 +13,11 @@ const inputMJML = `<mjml>
         text-decoration: none;
       }
     </mj-style>
+    <mj-style>
+      p {
+        margin: 12px;
+      }
+    </mj-style>
   </mj-head>
   <mj-body>
     <mj-container background-color="#d6dde5">

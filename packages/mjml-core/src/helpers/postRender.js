@@ -1,4 +1,8 @@
-export const removeCDATA = str => str.replace(/<!--\[CDATA\[([^]*?)\]\]-->/gm, '$1')
+export const insertHeadCSS = ($, headCSS) => {
+  $('head').append(`<style type="text/css">${headCSS}</style>`)
+
+  return $
+}
 
 export const fixLegacyAttrs = $ => {
   const legacyAttrs = ['align', 'valign', 'bgcolor', 'border', 'background']

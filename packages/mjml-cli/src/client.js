@@ -51,10 +51,15 @@ const render = (bufferPromise, { min, output, stdout, fileName, level }) => {
         handleError(availableErrorOutputFormat['text'](errors))
       }
 
-      if (stdout || (!output)) {
+      if (!(stdout || output)) {
         process.stdout.write(html)
       } else {
-        return write(output, html)
+        if (stdout) {
+          process.stdout.write(html)
+        }
+        if (output) {
+          return write(output, html)
+        }
       }
     })
     .catch(e => {

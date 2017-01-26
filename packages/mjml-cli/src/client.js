@@ -51,7 +51,7 @@ const render = (bufferPromise, { min, output, stdout, fileName, level }) => {
         handleError(availableErrorOutputFormat['text'](errors))
       }
 
-      if (stdout) {
+      if (stdout || (!output)) {
         process.stdout.write(html)
       } else {
         return write(output, html)

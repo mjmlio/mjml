@@ -41,7 +41,7 @@ const inlineExternal = (htmlDocument, css) => {
 export default class MJMLRenderer {
 
   constructor (content, options = {}) {
-    if (!isBrowser) {
+    if (!isBrowser()) {
       configParser()
     }
 

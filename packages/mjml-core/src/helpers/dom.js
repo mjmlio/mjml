@@ -2,7 +2,7 @@ import isBrowser from './isBrowser'
 
 const dom = {}
 
-if (isBrowser) {
+if (isBrowser()) {
   const jquery = require('jquery')
 
   const parseMarkup = str => {

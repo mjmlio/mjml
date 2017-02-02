@@ -1,5 +1,7 @@
 import { argv } from 'yargs'
 import { cd, exec, rm } from 'shelljs'
+import watch from 'gulp-watch'
+import debug from 'gulp-debug'
 import babel from 'gulp-babel'
 import fs from 'fs'
 import gulp from 'gulp'
@@ -41,6 +43,12 @@ const processJS = lazypipe()
   .pipe(() => newer(PACKAGES_PATH))
   .pipe(babel)
   .pipe(() => gulp.dest(PACKAGES_PATH))
+
+gulp.task('watch', () => {
+  return watch(DEV_FILES)
+    .pipe(debug({title: 'updated:'}))
+    .pipe(processJS())
+})
 
 gulp.task('build', () => {
   return gulp.src(DEV_FILES)

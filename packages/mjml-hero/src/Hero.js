@@ -2,7 +2,7 @@ import { MJMLElement, helpers } from 'mjml-core'
 import React, { Component } from 'react'
 
 const tagName = 'mj-hero'
-const parentTag = ['mj-container']
+const parentTag = ['mj-container', 'mj-wrapper']
 const defaultMJMLDefinition = {
   attributes: {
     'mode': 'fixed-height',

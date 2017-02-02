@@ -20,6 +20,7 @@ import Social from 'mjml-social'
 import Spacer from 'mjml-spacer'
 import Table from 'mjml-table'
 import Text from 'mjml-text'
+import Wrapper from 'mjml-wrapper'
 
 import MJHeadAttributes from 'mjml-head-attributes'
 import MJHeadFont from 'mjml-head-font'
@@ -54,7 +55,8 @@ const { Navbar, InlineLinks, Link } = MJNavbar;
   Social,
   Spacer,
   Table,
-  Text ].map(registerMJElement);
+  Text,
+  Wrapper ].map(registerMJElement);
 
 each([ MJHeadAttributes,
   MJHeadFont,

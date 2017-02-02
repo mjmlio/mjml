@@ -62,6 +62,7 @@ cd mjml-social && npm link mjml-core && npm link && cd ..
 cd mjml-spacer && npm link mjml-core && npm link && cd ..
 cd mjml-table && npm link mjml-core && npm link && cd ..
 cd mjml-text && npm link mjml-core && npm link && cd ..
+cd mjml-wrapper && npm link mjml-core && npm link mjml-section && npm link && cd ..
 # Cli
 printf "${Yellow}Linking core${Color_Off} \n"
 cd mjml-cli && npm link mjml-core && npm link && cd ..
@@ -97,6 +98,7 @@ npm link mjml-spacer
 npm link mjml-table
 npm link mjml-text
 npm link mjml-validator
+npm link mjml-wrapper
 
 printf "${BGreen}Done.${Color_Off} \n"
 

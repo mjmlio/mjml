@@ -3,7 +3,7 @@ import MJMLSection from 'mjml-section'
 import React, { Component } from 'react'
 
 const tagName = 'mj-navbar'
-const parentTag = ['mj-container']
+const parentTag = ['mj-container', 'mj-wrapper']
 const defaultMJMLDefinition = {
   attributes: {
     'background-color': null,

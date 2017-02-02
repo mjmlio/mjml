@@ -21,11 +21,18 @@ const inputMJML = `<mjml>
   </mj-head>
   <mj-body>
     <mj-container background-color="#d6dde5">
-      <mj-section background-color="white">
-        <mj-column>
-          <mj-text font-family="Punto">Hello Boyz <a> lol </a></mj-text>
-        </mj-column>
-      </mj-section>
+      <mj-wrapper background-color="red" full-width="full-width">
+        <mj-section background-color="white">
+          <mj-column>
+            <mj-text>Hello worldo</mj-text>
+          </mj-column>
+        </mj-section>
+        <mj-section background-color="blue">
+          <mj-column>
+            <mj-text>Hello worldo</mj-text>
+          </mj-column>
+        </mj-section>
+      </mj-wrapper>
     </mj-container>
   </mj-body>
 </mjml>`

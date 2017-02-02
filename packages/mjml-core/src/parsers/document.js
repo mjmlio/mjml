@@ -1,35 +1,30 @@
 import { ParseError, EmptyMJMLError, NullElementError } from '../Error'
 import compact from 'lodash/compact'
+import concat from 'lodash/concat'
 import dom from '../helpers/dom'
-import each from 'lodash/each'
+import removeCDATA from '../helpers/removeCDATA'
+import parseAttributes from '../helpers/parseAttributes'
+import includes from 'lodash/includes'
+import map from 'lodash/map'
+import mapValues from 'lodash/mapValues'
 import toArray from 'lodash/toArray';
 import filter from 'lodash/filter'
-import { endingTags } from '../MJMLElementsCollection'
-import MJMLHeadElements from '../MJMLHead'
-import warning from 'warning'
+import { endingTags } from '../MJMLElementsCollection';
+import { endingTags as headEndingTags } from '../MJMLHead';
 
-const regexTag = tag => new RegExp(`<${tag}([^>]*)>([^]*?)</${tag}>`, 'gmi')
+const regexTag = tag => new RegExp(`<${tag}([^>\/]*)>([^.]*?)</${tag}>`, 'gmi')
 
 /**
  * Avoid htmlparser to parse ending tags
  */
 const safeEndingTags = content => {
-  const regexpBody = regexTag('mj-body')
-  const safeContent = content.replace('$', '&#36;')
+  let safeContent = parseAttributes(content.replace('$', '&#36;'))
 
-  let bodyContent = safeContent.match(regexpBody)
-
-  if (!bodyContent) {
-    return safeContent
-  }
-
-  bodyContent = bodyContent[0]
-
-  endingTags.forEach(tag => {
-    bodyContent = bodyContent.replace(regexTag(tag), dom.replaceContentByCdata(tag))
+  concat(endingTags, headEndingTags).forEach(tag => {
+    safeContent = safeContent.replace(regexTag(tag), dom.replaceContentByCdata(tag))
   })
 
-  return safeContent.replace(regexpBody, bodyContent)
+  return safeContent
 }
 
 /**
@@ -43,13 +38,13 @@ const mjmlElementParser = (elem, content) => {
   const findLine = content.substr(0, elem.startIndex).match(/\n/g)
   const lineNumber = findLine ? findLine.length + 1 : 1
   const tagName = elem.tagName.toLowerCase()
-  const attributes = dom.getAttributes(elem)
+  const attributes = mapValues(dom.getAttributes(elem), (val) => decodeURIComponent(val))
 
   const element = { tagName, attributes, lineNumber }
 
   if (endingTags.indexOf(tagName) !== -1) {
     const $local = dom.parseXML(elem)
-    element.content = $local(tagName).html().trim()
+    element.content = removeCDATA($local(tagName).html().trim())
   } else {
     const children = dom.getChildren(elem)
     element.children = children ? compact(filter(children, child => child.tagName).map(child => mjmlElementParser(child, content))) : []
@@ -58,26 +53,23 @@ const mjmlElementParser = (elem, content) => {
   return element
 }
 
-const parseHead = (head, attributes) => {
-  const $container = dom.parseHTML(attributes.container)
+const parseHead = (head) => {
+  return map(compact(filter(dom.getChildren(head), child => child.tagName)), el => {
+    const $local = dom.parseXML(el)
 
-  each(compact(filter(dom.getChildren(head), child => child.tagName)), el => {
-    const element = {
-      attributes: dom.getAttributes(el),
-      children: toArray(el.childNodes),
-      tagName: el.tagName.toLowerCase()
-    };
+    const parseElement = (elem) => {
+      const endingTag = includes(headEndingTags, elem.tagName.toLowerCase())
 
-    const handler = MJMLHeadElements[element.tagName]
-
-    if (handler) {
-      handler(element, { $container, ...attributes })
-    } else {
-      warning(false, `No handler found for: ${element.tagName}, in mj-head, skipping it`)
+      return {
+        attributes: mapValues(dom.getAttributes(elem), (val) => decodeURIComponent(val)),
+        children: endingTag ? null : compact(filter(toArray(elem.childNodes), child => child.tagName)).map(parseElement),
+        content: endingTag ? removeCDATA($local(elem.tagName.toLowerCase()).html().trim()) : null,
+        tagName: elem.tagName.toLowerCase()
+      }
     }
-  })
 
-  attributes.container = dom.getHTML($container)
+    return parseElement(el)
+  })
 }
 
 /**
@@ -86,7 +78,7 @@ const parseHead = (head, attributes) => {
  *   - container: the mjml container
  *   - mjml: a json representation of the mjml
  */
-const documentParser = (content, attributes) => {
+const documentParser = (content) => {
   const safeContent = safeEndingTags(content)
 
   let body
@@ -109,11 +101,17 @@ const documentParser = (content, attributes) => {
     throw new EmptyMJMLError('No root "<mjml>" or "<mj-body>" found in the file, or "<mj-body>" doesn\'t contain a child element.')
   }
 
-  if (head && head.length === 1) {
-    parseHead(head.get(0), attributes)
+  return {
+    tagName: 'mjml',
+    children: [{
+      tagName: 'mj-head',
+      children: head && head.length > 0 ? parseHead(head.get(0)) : []
+    },
+    {
+      tagName: 'mj-body',
+      children: [ mjmlElementParser(body, safeContent) ]
+    }]
   }
-
-  return mjmlElementParser(body, safeContent)
 }
 
 export default documentParser

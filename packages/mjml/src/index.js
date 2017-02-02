@@ -1,4 +1,5 @@
 import { registerMJElement, registerMJHeadElement } from 'mjml-core'
+import each from 'lodash/each'
 
 import Button from 'mjml-button'
 import Column from 'mjml-column'
@@ -55,9 +56,9 @@ const { Navbar, InlineLinks, Link } = MJNavbar;
   Table,
   Text ].map(registerMJElement);
 
-[ MJHeadAttributes,
+each([ MJHeadAttributes,
   MJHeadFont,
   MJHeadStyle,
-  MJHeadTitle ].map( headElement => registerMJHeadElement(headElement.name, headElement.handler))
+  MJHeadTitle ], headTag => registerMJHeadElement(headTag))
 
 export * from 'mjml-core'

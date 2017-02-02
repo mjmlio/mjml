@@ -9,7 +9,6 @@ export { rulesCollection, registerMJRule }
 export const formatValidationError = ruleError
 
 const validateNode = (element) => {
-
   const { children } = element
 
   let errors = concat(errors, ...values(rulesCollection).map(rule => {

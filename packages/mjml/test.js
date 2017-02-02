@@ -1,11 +1,23 @@
 var mjml = require('./lib/index')
 const inputMJML = `<mjml>
   <mj-head>
+    <mj-title>Hello world!</mj-title>
+    <mj-font href="google.com/pouet" name="Punto" />
     <mj-attributes>
       <mj-all font-size="36px" />
       <mj-all color="blue" />
       <mj-all font-size="40px" />
     </mj-attributes>
+    <mj-style inline="inline">
+      a {
+        text-decoration: none;
+      }
+    </mj-style>
+    <mj-style>
+      p {
+        margin: 12px;
+      }
+    </mj-style>
   </mj-head>
   <mj-body>
     <mj-container background-color="#d6dde5">

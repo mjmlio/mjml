@@ -1,9 +1,11 @@
 import { EmptyMJMLError, MJMLValidationError } from './Error'
-import { fixLegacyAttrs, removeCDATA } from './helpers/postRender'
+import { fixLegacyAttrs, insertHeadCSS } from './helpers/postRender'
 import { parseInstance } from './helpers/mjml'
 import cloneDeep from 'lodash/cloneDeep'
 import configParser from './parsers/config'
 import curryRight from 'lodash/curryRight'
+import each from 'lodash/each'
+import find from 'lodash/find'
 import documentParser from './parsers/document'
 import defaults from 'lodash/defaults'
 import defaultContainer from './configs/defaultContainer'
@@ -15,11 +17,14 @@ import includeExternal from './includeExternal'
 import { html as beautify } from 'js-beautify'
 import MJMLValidator from 'mjml-validator'
 import MJMLElementsCollection, { postRenders } from './MJMLElementsCollection'
+import MJMLHeadElements from './MJMLHead'
 import isBrowser from './helpers/isBrowser'
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
+import warning from 'warning'
 
-const debug = require('debug')('mjml-engine/mjml2html')
+const getMJBody = (root) => find(root.children, ['tagName', 'mj-body'])
+const getMJHead = (root) => find(root.children, ['tagName', 'mj-head'])
 
 const minifyHTML = htmlDocument => {
   const { minify } = require('html-minifier')
@@ -36,7 +41,7 @@ const inlineExternal = (htmlDocument, css) => {
 export default class MJMLRenderer {
 
   constructor (content, options = {}) {
-    if (!isBrowser) {
+    if (!isBrowser()) {
       configParser()
     }
 
@@ -45,6 +50,7 @@ export default class MJMLRenderer {
       defaultAttributes: {},
       cssClasses: {},
       css: [],
+      inlineCSS: [],
       fonts: cloneDeep(defaultFonts)
     }
 
@@ -61,17 +67,15 @@ export default class MJMLRenderer {
       this.content = includeExternal(this.content, this.options)
     }
 
-    debug('Start parsing document')
-    this.content = documentParser(this.content, this.attributes, this.options)
-    debug('Content parsed')
+    this.content = documentParser(this.content)
   }
 
-  validate () {
+  validate (root) {
     if (this.options.level == "skip") {
       return;
     }
 
-    this.errors = MJMLValidator(this.content)
+    this.errors = MJMLValidator(root)
 
     if (this.options.level == "strict" && this.errors.length > 0) {
       throw new MJMLValidationError(this.errors)
@@ -79,36 +83,55 @@ export default class MJMLRenderer {
   }
 
   render () {
-    if (!this.content) {
+    if (!this.content || !getMJBody(this.content)) {
       throw new EmptyMJMLError(`.render: No MJML to render in options ${this.options.toString()}`)
     }
 
-    debug('Validating markup')
-    this.validate()
+    const body = getMJBody(this.content)
+    const head = getMJHead(this.content)
 
-    const rootComponent = MJMLElementsCollection[this.content.tagName]
+    if (head.children.length > 1) {
+      each(head.children, (headElement) => {
+        const handlerName = headElement.tagName
+        const handler = MJMLHeadElements[handlerName]
+
+        if (handler) {
+          handler(headElement, this.attributes)
+        } else {
+          warning(false, `No handler found for: ${handlerName}, in mj-head, skipping it`)
+        }
+
+      })
+    }
+
+    const rootElement = body.children[0]
+
+    this.validate(rootElement)
+
+    const rootComponent = MJMLElementsCollection[rootElement.tagName]
 
     if (!rootComponent) {
       return { errors: this.errors }
     }
 
-    debug('Render to static markup')
-    const rootElemComponent = React.createElement(rootComponent, { mjml: parseInstance(this.content, this.attributes ) })
+    const rootElemComponent = React.createElement(rootComponent, { mjml: parseInstance(rootElement, this.attributes ) })
     const renderedMJML = ReactDOMServer.renderToStaticMarkup(rootElemComponent)
 
-    debug('React rendering done. Continue with special overrides.')
     const MJMLDocument = this.attributes.container.replace('__content__', renderedMJML)
+                                                  .replace('__title__', this.attributes.title)
 
     return { errors: this.errors, html: this.postRender(MJMLDocument) }
   }
 
   postRender (MJMLDocument) {
-    const externalCSS = this.attributes.css.join('')
+    const externalCSS = this.attributes.inlineCSS.join('')
 
     let $ = dom.parseHTML(MJMLDocument)
 
     importFonts({ $, fonts: this.attributes.fonts })
+
     $ = fixLegacyAttrs($)
+    $ = insertHeadCSS($, this.attributes.css.join(''))
 
     postRenders.forEach(postRender => {
       if (typeof postRender === 'function') {
@@ -116,8 +139,7 @@ export default class MJMLRenderer {
       }
     })
 
-    return [ removeCDATA,
-      !this.options.disableMjStyle ? curryRight(inlineExternal)(externalCSS) : undefined,
+    return [ !this.options.disableMjStyle ? curryRight(inlineExternal)(externalCSS) : undefined,
       this.options.beautify ? beautifyHTML : undefined,
       !this.options.disableMinify && this.options.minify ? minifyHTML : undefined,
       he.decode ].filter(element => typeof element == 'function')

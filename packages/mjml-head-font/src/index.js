@@ -2,13 +2,14 @@ import find from "lodash/find"
 
 export default {
   name: "mj-font",
-  handler: (element, { fonts }) => {
-    const font = find(fonts, ['name', element.attributes.name])
+  endingTag: true,
+  handler: ({ attributes }, globalAttributes) => {
+    const font = find(globalAttributes.fonts, ['name', attributes.name])
 
     if (font) {
-      font.url = element.attributes.href
+      font.url = attributes.href
     } else {
-      fonts.push({ name: element.attributes.name, url: element.attributes.href })
+      globalAttributes.fonts.push({ name: attributes.name, url: attributes.href })
     }
   }
 }

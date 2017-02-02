@@ -72,7 +72,7 @@ export default class MJMLRenderer {
 
   validate (root) {
     if (this.options.level == "skip") {
-      return;
+      return [];
     }
 
     this.errors = MJMLValidator(root)

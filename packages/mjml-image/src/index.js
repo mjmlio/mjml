@@ -15,6 +15,7 @@ const defaultMJMLDefinition = {
     'container-background-color': null,
     'height': 'auto',
     'href': '',
+    'rel': null,
     'padding-bottom': null,
     'padding-left': null,
     'padding-right': null,
@@ -92,6 +93,7 @@ class Image extends Component {
       return (
         <a
           href={mjAttribute('href')}
+          rel={mjAttribute('rel')}
           target={mjAttribute('target')}>
           {img}
         </a>

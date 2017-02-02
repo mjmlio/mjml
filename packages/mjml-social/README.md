@@ -56,28 +56,34 @@ attribute                   | unit        | description                         
 ----------------------------|-------------|--------------------------------------------------------------------------|--------------------------------------------
 facebook-content            | string      | button text content                                                      | Share
 facebook-href               | url         | button redirection url                                                   | [[SHORT_PERMALINK]]
+facebook-rel                | string      | specify the rel attribute                                                | n/a
 facebook-icon-color         | color       | icon color                                                               | #3b5998
 font-family                 | string      | font name                                                                | Ubuntu, Helvetica, Arial, sans-serif
 font-size                   | px/em       | font size                                                                | 13px
 google-content              | string      | button text content                                                      | +1
 google-href                 | url         | button redirection url                                                   | [[SHORT_PERMALINK]]
+google-rel                  | string      | specify the rel attribute                                                | n/a
 google-icon-color           | color       | icon color                                                               | #dc4e41
 icon-size                   | percent/px  | icon size                                                                | 20px
 instagram-content           | string      | button text content                                                      | Share
 instagram-href              | url         | button redirection url                                                   | [[SHORT_PERMALINK]]
+instagram-rel               | string      | specify the rel attribute                                                | n/a
 instagram-icon-color        | color       | icon color                                                               | #3f729b
 line-height                 | percent/px  | space between lines                                                      | 22px
 linkedin-content            | string      | button text content                                                      | Share
 linkedin-href               | url         | button redirection url                                                   | [[SHORT_PERMALINK]]
+linkedin-rel                | string      | specify the rel attribute                                                | n/a
 linkedin-icon-color         | color       | icon color                                                               | #0077b5
 mode                        | string      | vertical/horizontal                                                      | horizontal
 pinterest-content           | string      | button text content                                                      | Pin it
 pinterest-href              | url         | button redirection url                                                   | [[SHORT_PERMALINK]]
+pinterest-rel               | string      | specify the rel attribute                                                | n/a
 pinterest-icon-color        | color       | icon color                                                               | #bd081c
 text-decoration             | string      | underline/overline/none                                                  | none
 text-mode                   | string      | display social network name                                              | true
 twitter-content             | string      | button text content                                                      | Tweet
 twitter-href                | url         | button redirection url                                                   | [[SHORT_PERMALINK]]
+twitter-rel                 | string      | specify the rel attribute                                                | n/a
 twitter-icon-color          | color       | icon color                                                               | #55acee
 align                       | string      | left/right/center                                                        | center
 color                       | color       | text color                                                               | #333333

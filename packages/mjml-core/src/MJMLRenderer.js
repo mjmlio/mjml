@@ -90,7 +90,7 @@ export default class MJMLRenderer {
     const body = getMJBody(this.content)
     const head = getMJHead(this.content)
 
-    if (head.children.length > 1) {
+    if (head && head.children.length > 1) {
       each(head.children, (headElement) => {
         const handlerName = headElement.tagName
         const handler = MJMLHeadElements[handlerName]
@@ -117,8 +117,9 @@ export default class MJMLRenderer {
     const rootElemComponent = React.createElement(rootComponent, { mjml: parseInstance(rootElement, this.attributes ) })
     const renderedMJML = ReactDOMServer.renderToStaticMarkup(rootElemComponent)
 
-    const MJMLDocument = this.attributes.container.replace('__content__', renderedMJML)
-                                                  .replace('__title__', this.attributes.title)
+    const MJMLDocument = this.attributes.container
+      .replace('__content__', renderedMJML || '')
+      .replace('__title__', this.attributes.title || '')
 
     return { errors: this.errors, html: this.postRender(MJMLDocument) }
   }

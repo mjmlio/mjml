@@ -6,8 +6,10 @@ import gulp from 'gulp'
 import newer from 'gulp-newer'
 import path from 'path'
 import through from 'through2'
+import lazypipe from 'lazypipe'
 
 const PACKAGES_PATH = path.resolve(__dirname, './packages')
+const DEV_FILES = `${PACKAGES_PATH}/*/src/**/*.js`
 const packages = fs.readdirSync(PACKAGES_PATH).filter(file => {
   return fs.statSync(path.resolve(PACKAGES_PATH, file)).isDirectory()
 }).reduce((acc, file) => ({
@@ -26,20 +28,23 @@ if (path.win32 === path) {
   libFragment = '$1/lib/'
 }
 
+const processJS = lazypipe()
+  .pipe(() => through.obj((file, encoding, callback) => {
+    file.contents = new Buffer(String(file.contents).replace(/__MJML_VERSION__/g, require(path.resolve(PACKAGES_PATH, `${file.relative.split(path.sep)[0]}/package.json`)).version))
+    callback(null, file)
+  }))
+  .pipe(() => through.obj((file, encoding, callback) => {
+    file._path = file.path
+    file.path = file.path.replace(srcEx, libFragment)
+    callback(null, file)
+  }))
+  .pipe(() => newer(PACKAGES_PATH))
+  .pipe(babel)
+  .pipe(() => gulp.dest(PACKAGES_PATH))
+
 gulp.task('build', () => {
-  return gulp.src(`${PACKAGES_PATH}/*/src/**/*.js`)
-    .pipe(through.obj((file, encoding, callback) => {
-      file.contents = new Buffer(String(file.contents).replace(/__MJML_VERSION__/g, require(path.resolve(PACKAGES_PATH, `${file.relative.split(path.sep)[0]}/package.json`)).version))
-      callback(null, file)
-    }))
-    .pipe(through.obj((file, encoding, callback) => {
-      file._path = file.path
-      file.path = file.path.replace(srcEx, libFragment)
-      callback(null, file)
-    }))
-    .pipe(newer(PACKAGES_PATH))
-    .pipe(babel())
-    .pipe(gulp.dest(PACKAGES_PATH))
+  return gulp.src(DEV_FILES)
+    .pipe(processJS())
 })
 
 gulp.task('install', () => {

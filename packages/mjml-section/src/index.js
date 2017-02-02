@@ -24,7 +24,8 @@ const defaultMJMLDefinition = {
     'padding-left': null,
     'padding-right': null,
     'text-align': 'center',
-    'vertical-align': 'top'
+    'vertical-align': 'top',
+    'css-class': ''
   }
 }
 const baseStyles = {
@@ -174,7 +175,10 @@ class Section extends Component {
     const fullWidth = this.isFullWidth()
 
     return (
-      <div style={this.styles.div}>
+      <div
+        style={this.styles.div}
+        className={`${mjAttribute('css-class')}`}
+      >
         <table
           role="presentation"
           cellPadding="0"

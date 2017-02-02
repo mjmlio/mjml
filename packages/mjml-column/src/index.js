@@ -17,7 +17,8 @@ const defaultMJMLDefinition = {
     "border-right": null,
     "border-top": null,
     'vertical-align': null,
-    'width': null
+    'width': null,
+    'css-class': ''
   }
 }
 const baseStyles = {
@@ -132,7 +133,7 @@ class Column extends Component {
     const { mjAttribute, children, sibling } = this.props
     const width = mjAttribute('width') || `${100 / sibling}%`
     const mjColumnClass = this.getColumnClass()
-    const divClasses = cx(mjColumnClass, 'outlook-group-fix')
+    const divClasses = cx(mjColumnClass, 'outlook-group-fix', mjAttribute('css-class'))
 
     return (
       <div

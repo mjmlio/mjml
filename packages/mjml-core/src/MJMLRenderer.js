@@ -33,9 +33,13 @@ const minifyHTML = htmlDocument => {
 }
 const beautifyHTML = htmlDocument => beautify(htmlDocument, { indent_size: 2, wrap_attributes_indent_size: 2 })
 const inlineExternal = (htmlDocument, css) => {
+  if (!css || css.length == 0) {
+    return htmlDocument
+  }
+
   const juice = require('juice')
 
-  return juice(htmlDocument, { extraCss: css, removeStyleTags: false, applyStyleTags: false, insertPreservedExtraCss: false })
+  return juice(htmlDocument, { extraCss: css.join('\n'), removeStyleTags: false, applyStyleTags: false, insertPreservedExtraCss: false })
 }
 
 export default class MJMLRenderer {
@@ -72,7 +76,8 @@ export default class MJMLRenderer {
 
   validate (root) {
     if (this.options.level == "skip") {
-      return [];
+      this.errors = []
+      return;
     }
 
     this.errors = MJMLValidator(root)
@@ -90,7 +95,7 @@ export default class MJMLRenderer {
     const body = getMJBody(this.content)
     const head = getMJHead(this.content)
 
-    if (head && head.children.length > 1) {
+    if (head && head.children.length > 0) {
       each(head.children, (headElement) => {
         const handlerName = headElement.tagName
         const handler = MJMLHeadElements[handlerName]
@@ -125,14 +130,14 @@ export default class MJMLRenderer {
   }
 
   postRender (MJMLDocument) {
-    const externalCSS = this.attributes.inlineCSS.join('')
+    const externalCSS = this.attributes.inlineCSS
 
     let $ = dom.parseHTML(MJMLDocument)
 
     importFonts({ $, fonts: this.attributes.fonts })
 
     $ = fixLegacyAttrs($)
-    $ = insertHeadCSS($, this.attributes.css.join(''))
+    $ = insertHeadCSS($, this.attributes.css)
 
     postRenders.forEach(postRender => {
       if (typeof postRender === 'function') {

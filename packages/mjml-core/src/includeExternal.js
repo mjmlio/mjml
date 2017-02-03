@@ -33,14 +33,19 @@ const replaceContent = (currentDir, headStack, _, fileName) => {
   if (!content && !head) { throw new Error(`Error while reading file: ${filePath}, file has no content ?`) }
 
   if (head) {
-    headStack.push(head)
+    const headLength = headStack.length
+    head = head.replace(includes, replaceContent.bind(this, path.resolve(path.dirname(filePath)), headStack))
+    // head.replace can add new element to the array
+    // we have to keep the initial position where we want to insert
+    // current mj-head in order to keep definition order
+    headStack.splice(headLength - 1, 0, head)
   }
 
   if (content) {
     content = content.replace(includes, replaceContent.bind(this, path.resolve(path.dirname(filePath)), headStack))
   }
 
-  return content
+  return content ||  ''
 }
 
 export default (baseMjml, { filePath }) => {

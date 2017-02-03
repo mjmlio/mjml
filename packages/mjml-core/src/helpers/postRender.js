@@ -1,5 +1,9 @@
 export const insertHeadCSS = ($, headCSS) => {
-  $('head').append(`<style type="text/css">${headCSS}</style>`)
+  if (!headCSS || headCSS.length == 0) {
+    return $
+  }
+
+  $('head').append(`<style type="text/css">${headCSS.join('')}</style>`)
 
   return $
 }

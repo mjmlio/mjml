@@ -1,7 +1,7 @@
 {
   "name": "mjml-raw",
   "description": "mjml-raw",
-  "version": "3.3.0-beta.1",
+  "version": "3.3.0-beta.3",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -13,7 +13,7 @@
   },
   "homepage": "https://mjml.io",
   "dependencies": {
-    "mjml-core": "~3.3.0-beta.1",
+    "mjml-core": "~3.3.0-beta.3",
     "react": "^15.4.2"
   }
 }

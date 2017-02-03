@@ -1,6 +1,6 @@
 ## mjml-wrapper
 
-Mj-Wrapper allows to wrap multiple sections. It allows to share background across them
+Wrapper enables to wrap multiple sections together. It's especially useful to achieve a layout where sections share a similar background or are wrapped in borders.
 
 ```xml
 <mjml>
@@ -26,7 +26,7 @@ changed to 100%.
 
 attribute           | unit        | description                    | default value
 --------------------|-------------|--------------------------------|---------------
-full-width          | string      | make the section full-width    | n/a
+full-width          | string      | make the wrapper full-width    | n/a
 border              | string      | css border format              | none
 border-bottom       | string      | css border format              | n/a
 border-left         | string      | css border format              | n/a

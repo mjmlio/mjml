@@ -41,7 +41,7 @@ const baseStyles = {
   },
   a: {
     textDecoration: 'none',
-    lineHeight: '100%'
+    lineHeight: '1.2'
   }
 }
 

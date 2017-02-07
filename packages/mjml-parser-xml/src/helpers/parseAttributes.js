@@ -11,3 +11,11 @@ export default function parseAttributes (input) {
     return `${beforeAttr}${newAttrVal}${afterAttr}`
   })
 }
+
+export function decodeAttributes (input) {
+  return input.replace(regexAttributes, (match, beforeAttr, attrVal, afterAttr) => {
+    const newAttrVal = decodeURIComponent(attrVal)
+
+    return `${beforeAttr}${newAttrVal}${afterAttr}`
+  })
+}

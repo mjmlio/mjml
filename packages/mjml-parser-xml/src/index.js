@@ -1,7 +1,7 @@
 import _ from 'lodash'
-import expat from 'node-expat'
+import htmlparser from 'htmlparser2'
 
-import parseAttributes from './helpers/parseAttributes'
+import parseAttributes, { decodeAttributes } from './helpers/parseAttributes'
 import cleanNode from './helpers/cleanNode'
 import convertBooleansOnAttrs from './helpers/convertBooleansOnAttrs'
 import addCDATASection from './helpers/addCDATASection'
@@ -9,73 +9,71 @@ import setEmptyAttributes from './helpers/setEmptyAttributes'
 
 export default function parseXML (xml, options = {}) {
   const {
-    globalAttributes = {},
-    CDATASections = [],
     addEmptyAttributes = true,
+    CDATASections = [],
     convertBooleans = true,
+    globalAttributes = {},
+    keepComments = true,
   } = options
 
-  let safeXml = parseAttributes(xml)
-  safeXml = addCDATASection(CDATASections, safeXml)
+  let safeXml = xml
 
-  const parser = new expat.Parser('utf-8')
+  safeXml = parseAttributes(safeXml)
+  safeXml = addCDATASection(CDATASections, safeXml)
 
   let mjml = null
   let cur = null
 
-  parser.on('startElement', (name, attrs) => {
-    if (convertBooleans) {
-      // "true" and "false" will be converted to bools
-      attrs = convertBooleansOnAttrs(attrs)
-    }
-
-    attrs = _.mapValues(attrs, val => decodeURIComponent(val))
-
-    const newNode = {
-      parent: cur,
-      tagName: name,
-      attributes: attrs,
-      children: [],
-    }
-
-    if (cur) {
-      cur.children.push(newNode)
-    } else {
-      mjml = newNode
-    }
-
-    cur = newNode
-  })
-
-  parser.on('endElement', () => {
-    cur = (cur && cur.parent) || null
-  })
-
-  parser.on('text', text => {
-    if (!text) { return }
-
-    const val = `${(cur.content || '')}${text}`.trim()
-
-    if (val) {
-      cur.content = val
-    }
-  })
-
-  parser.on('error', err => { throw err })
-
-  try {
-    parser.write(safeXml)
-  } catch (reason) {
-    if (reason === 'mismatched tag') {
-      if (cur) {
-        throw new Error(`Tag ${cur.tagName} is not closed.`)
+  const parser = new htmlparser.Parser({
+    onopentag: (name, attrs) => {
+      if (convertBooleans) {
+        // "true" and "false" will be converted to bools
+        attrs = convertBooleansOnAttrs(attrs)
       }
 
-      throw new Error('No correct tag found.')
-    }
+      attrs = _.mapValues(attrs, val => decodeURIComponent(val))
 
-    throw new Error(reason)
-  }
+      const newNode = {
+        parent: cur,
+        tagName: name,
+        attributes: attrs,
+        children: [],
+      }
+
+      if (cur) {
+        cur.children.push(newNode)
+      } else {
+        mjml = newNode
+      }
+
+      cur = newNode
+    },
+    onclosetag: () => {
+      cur = (cur && cur.parent) || null
+    },
+    ontext: text => {
+      if (!text) { return }
+
+      const val = `${((cur && cur.content) || '')}${text}`.trim()
+
+      if (val) {
+        cur.content = decodeAttributes(val)
+      }
+    },
+    oncomment: data => {
+      if (cur && keepComments) {
+        cur.children.push({
+          tagName: 'mj-raw',
+          content: `<!-- ${data.trim()} -->`,
+        })
+      }
+    },
+  }, {
+    xmlMode: true,
+  })
+
+  parser.write(safeXml)
+  parser.end()
 
   if (!_.isObject(mjml)) {
     throw new Error('Parsing failed. Check your mjml.')

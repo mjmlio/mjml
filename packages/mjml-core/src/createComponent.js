@@ -131,9 +131,10 @@ export default function createComponent (type, name, component) {
 
     @onlyFor('body')
     generateStyles (styles) {
-      styles = styles ?
-        typeof styles === 'string' ?
-          objectPath.get(this.getStyles(), styles) : styles
+      styles = styles
+        ? typeof styles === 'string'
+          ? objectPath.get(this.getStyles(), styles)
+          : styles
         : this.getStyles()
 
       let output = ''

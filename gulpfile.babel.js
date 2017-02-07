@@ -26,7 +26,7 @@ const sharedDeps = [
   'lodash',
 ]
 
-gulp.task('yarn-lock', () => Promise.all(
+gulp.task('yarn', () => Promise.all(
   _.map(packages, (packageDirectory, packageName) => new Promise(resolve => {
     cd(packageDirectory)
     exec('yarn install')
@@ -34,7 +34,7 @@ gulp.task('yarn-lock', () => Promise.all(
   })))
 )
 
-gulp.task('yarn-dependencies', ['yarn-lock'], () => Promise.all(
+gulp.task('upgrade-dependencies', () => Promise.all(
   _.map(packages, (packageDirectory, packageName) => new Promise(resolve => {
     cd(packageDirectory)
     exec('yarn upgrade-interactive')
@@ -81,6 +81,7 @@ gulp.task('build', () => {
 
 gulp.task('clean', () => Promise.all(
   _.map(packages, packageDirectory => new Promise(resolve => {
+    rm('-rf', path.resolve(packageDirectory, 'lib'))
     rm('-rf', path.resolve(packageDirectory, 'node_modules'))
     rm('-rf', path.resolve(packageDirectory, 'yarn.lock'))
     resolve()

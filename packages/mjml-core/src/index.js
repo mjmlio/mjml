@@ -30,6 +30,7 @@ export default function mjml2html (mjml, options = {}) {
     inlineCSS = true,
     minify = false,
     style = [],
+    keepComments,
   } = options
 
   let content = ''
@@ -46,12 +47,13 @@ export default function mjml2html (mjml, options = {}) {
   if (typeof mjml === 'string') {
     mjml = parseXML(mjml, {
       CDATASections: _.chain({
-        ...components.head,
-        ...components.body,
-      })
-      .filter(component => component.prototype.canContainMarkup)
-      .map(component => component.getName())
-      .value(),
+          ...components.head,
+          ...components.body,
+        })
+        .filter(component => component.prototype.endingTag)
+        .map(component => component.getName())
+        .value(),
+      keepComments,
     })
   }
 
@@ -129,17 +131,6 @@ export default function mjml2html (mjml, options = {}) {
     return parse(mjml)
   })
 
-  content = beautify ? htmlBeautify(content, {
-    indent_size: 2,
-    wrap_attributes_indent_size: 2,
-  }) : content
-
-  content = minify ? htmlMinify(content, {
-    collapseWhitespace: true,
-    minifyCSS: true,
-    removeEmptyAttributes: true,
-  }) : content
-
   if (globalDatas.style.length > 0) {
     content = inlineCSS ? juice(content, {
       applyStyleTags: false,
@@ -149,10 +140,25 @@ export default function mjml2html (mjml, options = {}) {
     }) : content
   }
 
-  return skeleton({
+  content = skeleton({
     content,
     ...globalDatas,
   })
+
+  content = beautify ? htmlBeautify(content, {
+    indent_size: 2,
+    wrap_attributes_indent_size: 2,
+    max_preserve_newline: 0,
+    preserve_newlines: false,
+  }) : content
+
+  content = minify ? htmlMinify(content, {
+    collapseWhitespace: true,
+    minifyCSS: true,
+    removeEmptyAttributes: true,
+  }) : content
+
+  return content
 
 }
 

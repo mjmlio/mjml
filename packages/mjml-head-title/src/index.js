@@ -3,7 +3,7 @@ import {
 } from 'mjml-core/lib/createComponent'
 
 export default createHeadComponent('mj-title', {
-  canContainMarkup: true,
+  endingTag: true,
   handler () {
     const {
       setTitle,

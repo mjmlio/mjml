@@ -7,12 +7,13 @@ registerComponent(require('mjml-head-font'))
 registerComponent(require('mjml-head-style'))
 registerComponent(require('mjml-head-title'))
 
-registerComponent(require('mjml-container'))
-registerComponent(require('mjml-section'))
 registerComponent(require('mjml-column'))
-registerComponent(require('mjml-text'))
+registerComponent(require('mjml-container'))
 registerComponent(require('mjml-divider'))
 registerComponent(require('mjml-image'))
+registerComponent(require('mjml-raw'))
+registerComponent(require('mjml-section'))
+registerComponent(require('mjml-text'))
 
 export default function (mjml, options) {
   return mjml2html(mjml, options)

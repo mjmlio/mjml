@@ -3,7 +3,7 @@ import {
 } from 'mjml-core/lib/createComponent'
 
 export default createHeadComponent('mj-style', {
-  canContainMarkup: true,
+  endingTag: true,
   handler () {
     const {
       addStyle,

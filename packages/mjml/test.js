@@ -1,38 +1,16 @@
 var mjml = require('./lib/index')
 const inputMJML = `<mjml>
-  <mj-head>
-    <mj-title>Hello world!</mj-title>
-    <mj-font href="google.com/pouet" name="Punto" />
-    <mj-attributes>
-      <mj-all font-size="36px" />
-      <mj-all color="blue" />
-      <mj-all font-size="40px" />
-    </mj-attributes>
-    <mj-style inline="inline">
-      a {
-        text-decoration: none;
-      }
-    </mj-style>
-    <mj-style>
-      p {
-        margin: 12px;
-      }
-    </mj-style>
-  </mj-head>
+
   <mj-body>
     <mj-container background-color="#d6dde5">
-      <mj-wrapper background-color="red" full-width="full-width">
-        <mj-section background-color="white">
-          <mj-column>
-            <mj-text>Hello worldo</mj-text>
-          </mj-column>
-        </mj-section>
-        <mj-section background-color="blue">
-          <mj-column>
-            <mj-text>Hello worldo</mj-text>
-          </mj-column>
-        </mj-section>
-      </mj-wrapper>
+      <mj-section background-color="blue">
+        <mj-column>
+          <mj-accordion>
+            <mj-accordion-title>Hello worldo</mj-accordion-title>
+            <mj-accordion-text>Ho bienvenue !</mj-accordion-text>
+          </mj-accordion>
+        </mj-column>
+      </mj-section>
     </mj-container>
   </mj-body>
 </mjml>`

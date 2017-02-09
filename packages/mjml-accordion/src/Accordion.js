@@ -6,9 +6,13 @@ const tagName = 'mj-accordion'
 const parentTag = ['mj-column', 'mj-hero-content']
 const defaultMJMLDefinition = {
   attributes: {
+    'font-family': 'Ubuntu, Helvetica, Arial, sans-serif'
   }
 }
 const baseStyles = {
+  label: {
+    fontSize: '13px'
+  },
   input: {
     display: 'none'
   },
@@ -44,8 +48,8 @@ const postRender = $ => {
     return $
   }
 
-  $('.mj-accordion-icons, .mj-accordion-checkbox').insertBefore($('<!--[if !mso | IE]><!-->'))
-  $('.mj-accordion-icons, .mj-accordion-checkbox').insertAfter($('<!--<![endif]-->'))
+  $('<!--[if !mso | IE]><!-->').insertBefore($('.mj-accordion-ico, .mj-accordion-checkbox'))
+  $('<!--<![endif]-->').insertAfter($('.mj-accordion-ico, .mj-accordion-checkbox'))
 
   $('head').append(`
     <style type="text/css" id="mj-accordion-css">
@@ -77,7 +81,12 @@ class Accordion extends Component {
   styles = this.getStyles()
 
   getStyles () {
+    const { mjAttribute } = this.props
+
     return helpers.merge({}, baseStyles, {
+      label: {
+        fontFamily: mjAttribute('font-family')
+      }
     })
   }
 
@@ -88,7 +97,7 @@ class Accordion extends Component {
     this.content = findChildren(children.toArray() || [], 'mj-accordion-text')
 
     return (
-      <label htmlFor="a" className="mj-accordion-element"> { // eslint-disable-line jsx-a11y/label-has-for
+      <label className="mj-accordion-element" style={this.styles.label}>{ // eslint-disable-line
       }
         <input className="mj-accordion-checkbox" type="checkbox" style={this.styles.input} />
         <div>
@@ -101,15 +110,15 @@ class Accordion extends Component {
               <tbody>
                 <tr>
                   <td style={this.styles.title.td}>{this.title ? this.title.props.mjml.get('content') : ''}</td>
-                  <td className="mj-accordion-icons" style={this.styles.title.td2}>
+                  <td className="mj-accordion-ico" style={this.styles.title.td2}>
                     <img
                       src="http://i.imgur.com/bIXv1bk.png"
-                      alt="+"
+                      alt=""
                       className="mj-accordion-more"
                       style={this.styles.title.img} />
                     <img
                       src="http://i.imgur.com/w4uTygT.png"
-                      alt="-"
+                      alt=""
                       className="mj-accordion-less"
                       style={this.styles.title.img} />
                   </td>
@@ -130,7 +139,9 @@ class Accordion extends Component {
               </tbody>
             </table>
           </div>
+          {/* end-label */}
         </div>
+
       </label>
     )
   }

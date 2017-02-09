@@ -5,6 +5,9 @@ const inputMJML = `<mjml>
     <mj-container background-color="#d6dde5">
       <mj-section background-color="blue">
         <mj-column>
+          <mj-text>
+            Bonjour
+          </mj-text>
           <mj-accordion>
             <mj-accordion-title>Hello worldo</mj-accordion-title>
             <mj-accordion-text>Ho bienvenue !</mj-accordion-text>
@@ -16,7 +19,7 @@ const inputMJML = `<mjml>
 </mjml>`
 
 try {
-  const { html, errors } = mjml.mjml2html(inputMJML, { beautify: true, level: "soft" })
+  const { html, errors } = mjml.mjml2html(inputMJML, { beautify: true, minify: false, level: "soft" })
 
   if (errors) {
     console.log(errors.map(e => e.formattedMessage).join('\n'))

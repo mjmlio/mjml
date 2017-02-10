@@ -4,6 +4,7 @@ MJML can not only be used as a markup, but also as a JSON object, which can be v
 programmatic manipulation or with the MJML API.
 
 With the JSON format, a MJML component is defined as an `object` with the following properties:
+
 * a `tagName` as a `string`
 * a list of attributes as an `object`
 * either a `content` as a `string` or a list of `children` tags as an `array`.

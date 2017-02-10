@@ -2,15 +2,12 @@ var mjml = require('./lib/index')
 const inputMJML = `<mjml>
 
   <mj-body>
-    <mj-container background-color="#d6dde5">
-      <mj-section background-color="blue">
-        <mj-column>
-          <mj-text>
-            Bonjour
-          </mj-text>
-          <mj-accordion>
-            <mj-accordion-title>Hello worldo</mj-accordion-title>
-            <mj-accordion-text>Ho bienvenue !</mj-accordion-text>
+    <mj-container background-color="#ffffaa">
+      <mj-section>
+        <mj-column background-color="orange">
+          <mj-accordion padding="20px" border="2px solid black">
+            <mj-accordion-title background-color="green" color="blue">Hello worldo</mj-accordion-title>
+            <mj-accordion-text background-color="yellow" color="purple">Ho bienvenue !</mj-accordion-text>
           </mj-accordion>
         </mj-column>
       </mj-section>

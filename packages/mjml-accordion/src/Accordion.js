@@ -1,4 +1,6 @@
 import { MJMLElement, helpers } from 'mjml-core'
+import MjAccordionTitle from './AccordionTitle'
+import MjAccordionText from './AccordionText'
 import React, { Component } from 'react'
 import find from 'lodash/find'
 
@@ -6,7 +8,22 @@ const tagName = 'mj-accordion'
 const parentTag = ['mj-column', 'mj-hero-content']
 const defaultMJMLDefinition = {
   attributes: {
-    'font-family': 'Ubuntu, Helvetica, Arial, sans-serif'
+    'container-background-color': null,
+    'border': null,
+    'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
+    'icon-align': 'middle',
+    'icon-wrapped-url': 'http://i.imgur.com/bIXv1bk.png',
+    'icon-wrapped-alt': '+',
+    'icon-unwrapped-url': 'http://i.imgur.com/w4uTygT.png',
+    'icon-unwrapped-alt': '-',
+    'icon-position': 'right',
+    'icon-height': '32px',
+    'icon-width': '32px',
+    'padding-bottom': null,
+    'padding-left': null,
+    'padding-right': null,
+    'padding-top': null,
+    'padding': '10px 25px'
   }
 }
 const baseStyles = {
@@ -20,13 +37,8 @@ const baseStyles = {
     table: {
       width: '100%'
     },
-    td: {
-      padding: '16px',
-      width: '100%'
-    },
     td2: {
-      padding: '16px',
-      verticalAlign: 'middle'
+      padding: '16px'
     },
     img: {
       display: 'none',
@@ -37,9 +49,6 @@ const baseStyles = {
   content: {
     table: {
       width: '100%'
-    },
-    td: {
-      padding: '16px'
     }
   }
 }
@@ -77,24 +86,63 @@ const findChildren = (elements, tagName) => find(elements, elem => elem.props.mj
 
 @MJMLElement
 class Accordion extends Component {
-
-  styles = this.getStyles()
-
   getStyles () {
-    const { mjAttribute } = this.props
+    const { mjAttribute, defaultUnit } = this.props
+    const iconBackground = this.title && this.title.props && this.title.props.mjml && this.title.props.mjml.get('attributes').get('background-color')
 
     return helpers.merge({}, baseStyles, {
       label: {
         fontFamily: mjAttribute('font-family')
+      },
+      title: {
+        table: {
+          border: mjAttribute('border')
+        },
+        td2: {
+          background: iconBackground,
+          verticalAlign: mjAttribute('icon-align')
+        },
+        img: {
+          width: defaultUnit(mjAttribute('width'), 'px'),
+          height: defaultUnit(mjAttribute('height'), 'px')
+        }
+      },
+      content: {
+        table: {
+          border: mjAttribute('border'),
+          borderTop: '0px'
+        }
       }
     })
   }
 
-  render () {
-    const { children } = this.props
+  renderIcons () {
+    const { mjAttribute } = this.props
 
-    this.title = findChildren(children.toArray() || [], 'mj-accordion-title')
-    this.content = findChildren(children.toArray() || [], 'mj-accordion-text')
+    return (
+      <td className="mj-accordion-ico" style={this.styles.title.td2}>
+        <img
+          src={mjAttribute('icon-unwrapped-url')}
+          alt={mjAttribute('icon-unwrapped-alt')}
+          className="mj-accordion-more"
+          style={this.styles.title.img} />
+        <img
+          src={mjAttribute('icon-wrapped-url')}
+          alt={mjAttribute('icon-wrapped-alt')}
+          className="mj-accordion-less"
+          style={this.styles.title.img} />
+      </td>
+    )
+  }
+
+  render () {
+    const { children, mjAttribute } = this.props
+
+    this.title = findChildren(children ? children.toArray() : [], 'mj-accordion-title')
+    this.styles = this.getStyles()
+
+    const content = findChildren(children ? children.toArray() : [], 'mj-accordion-text')
+    const accordionTitle = [ this.title || <MjAccordionTitle />, this.renderIcons()]
 
     return (
       <label className="mj-accordion-element" style={this.styles.label}>{ // eslint-disable-line
@@ -109,19 +157,7 @@ class Accordion extends Component {
               style={this.styles.title.table}>
               <tbody>
                 <tr>
-                  <td style={this.styles.title.td}>{this.title ? this.title.props.mjml.get('content') : ''}</td>
-                  <td className="mj-accordion-ico" style={this.styles.title.td2}>
-                    <img
-                      src="http://i.imgur.com/bIXv1bk.png"
-                      alt=""
-                      className="mj-accordion-more"
-                      style={this.styles.title.img} />
-                    <img
-                      src="http://i.imgur.com/w4uTygT.png"
-                      alt=""
-                      className="mj-accordion-less"
-                      style={this.styles.title.img} />
-                  </td>
+                  {mjAttribute('icon-position') == 'right' ? accordionTitle : accordionTitle.reverse()}
                 </tr>
               </tbody>
             </table>
@@ -134,14 +170,12 @@ class Accordion extends Component {
               style={this.styles.content.table}>
               <tbody>
                 <tr>
-                  <td style={this.styles.content.td}>{this.content ? this.content.props.mjml.get('content') : ''}</td>
+                  { content || <MjAccordionText /> }
                 </tr>
               </tbody>
             </table>
           </div>
-          {/* end-label */}
         </div>
-
       </label>
     )
   }

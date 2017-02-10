@@ -122,13 +122,13 @@ class Accordion extends Component {
     return (
       <td className="mj-accordion-ico" style={this.styles.title.td2}>
         <img
-          src={mjAttribute('icon-unwrapped-url')}
-          alt={mjAttribute('icon-unwrapped-alt')}
+          src={mjAttribute('icon-wrapped-url')}
+          alt={mjAttribute('icon-wrapped-alt')}
           className="mj-accordion-more"
           style={this.styles.title.img} />
         <img
-          src={mjAttribute('icon-wrapped-url')}
-          alt={mjAttribute('icon-wrapped-alt')}
+          src={mjAttribute('icon-unwrapped-url')}
+          alt={mjAttribute('icon-unwrapped-alt')}
           className="mj-accordion-less"
           style={this.styles.title.img} />
       </td>

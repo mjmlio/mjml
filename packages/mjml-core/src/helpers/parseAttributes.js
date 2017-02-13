@@ -1,13 +1,14 @@
-const regexAttributes = new RegExp('([^\\s]*="|\')([^"|\']*)("|\')', 'g')
+import _ from 'lodash'
 
-export default function parseAttributes (input) {
-  const replaceAmp = match => `&amp;${match.length > 1 ? match.charAt(1) : ''}`
-  const replaceAttrVal = match => match.replace(/&([^a]|$)/g, replaceAmp)
+const regexTag = tag => new RegExp(`<${tag}("[^"]*"|'[^']*'|[^'">])*>`, 'gmi')
+const regexAttributes = /(\S+)\s*?=\s*([\'"])(.*?|)\2/gmi
 
-  return input.replace(regexAttributes, (match, beforeAttr, attrVal, afterAttr) => {
-    let newAttrVal = attrVal.replace(/.*&([^a]|$).*/g, replaceAttrVal)
-    newAttrVal = encodeURIComponent(attrVal)
-
-    return `${beforeAttr}${newAttrVal}${afterAttr}`
+export default function parseAttributes (MJElements, content) {
+  _.forEach(MJElements, tag => {
+    content = content.replace(regexTag(tag), contentTag => {
+      return contentTag.replace(regexAttributes, (match, attr, around, value) => `${attr}=${around}${encodeURIComponent(value)}${around}`)
+    })
   })
+
+  return content
 }

@@ -12,6 +12,7 @@
   "mjml/packages/mjml-head-title/README.md",
   "mjml/doc/body_components.md",
   "mjml/packages/mjml-container/README.md",
+  "mjml/packages/mjml-wrapper/README.md",
   "mjml/packages/mjml-section/README.md",
   "mjml/packages/mjml-column/README.md",
   "mjml/packages/mjml-group/README.md",
@@ -33,5 +34,6 @@
   "mjml/doc/mjml-chart.md",
   "mjml/packages/mjml-validator/README.md",
   "mjml/doc/create.md",
+  "mjml/doc/using_mjml_in_json.md",
   "mjml/doc/tooling.md"
 ]

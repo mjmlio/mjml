@@ -3,7 +3,7 @@ import {
 } from 'mjml-core/lib/createComponent'
 
 export default createBodyComponent('mj-container', {
-  attributes: {
+  defaultAttributes: {
     width: '600px',
   },
   getChildContext () {

@@ -55,7 +55,7 @@ export default function createComponent (type, name, component) {
       }
 
       this.attributes = {
-        ...component.attributes,
+        ...component.defaultAttributes,
         ...attributes,
       }
       this.context = context

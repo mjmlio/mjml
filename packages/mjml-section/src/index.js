@@ -3,7 +3,7 @@ import {
 } from 'mjml-core/lib/createComponent'
 
 export default createBodyComponent('mj-section', {
-  attributes: {
+  defaultAttributes: {
     direction: 'ltr',
     padding: '20px 0',
     'text-align': 'center',

@@ -8,7 +8,7 @@ import widthParser from 'mjml-core/lib/helpers/widthParser'
 
 export default createBodyComponent('mj-image', {
   tagOmission: true,
-  attributes: {
+  defaultAttributes: {
     align: 'center',
     border: '0',
     height: 'auto',

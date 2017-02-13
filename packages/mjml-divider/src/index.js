@@ -6,7 +6,7 @@ import widthParser from 'mjml-core/lib/helpers/widthParser'
 
 export default createBodyComponent('mj-divider', {
   tagOmission: true,
-  attributes: {
+  defaultAttributes: {
     'border-color': '#000000',
     'border-style': 'solid',
     'border-width': '4px',

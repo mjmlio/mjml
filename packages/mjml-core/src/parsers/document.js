@@ -1,24 +1,36 @@
+import MJMLElements, { endingTags } from '../MJMLElementsCollection'
+import MJMLHeadElements, { endingTags as headEndingTags } from '../MJMLHead'
 import { ParseError, EmptyMJMLError, NullElementError } from '../Error'
 import compact from 'lodash/compact'
 import concat from 'lodash/concat'
 import dom from '../helpers/dom'
-import removeCDATA from '../helpers/removeCDATA'
-import parseAttributes from '../helpers/parseAttributes'
+import filter from 'lodash/filter'
+import forEach from 'lodash/forEach'
 import includes from 'lodash/includes'
 import map from 'lodash/map'
 import mapValues from 'lodash/mapValues'
-import toArray from 'lodash/toArray';
-import filter from 'lodash/filter'
-import { endingTags } from '../MJMLElementsCollection';
-import { endingTags as headEndingTags } from '../MJMLHead';
+import parseAttributes from '../helpers/parseAttributes'
+import removeCDATA from '../helpers/removeCDATA'
+import toArray from 'lodash/toArray'
 
-const regexTag = tag => new RegExp(`<${tag}([^>\/]*)>([^.]*?)</${tag}>`, 'gmi')
+const regexTag = tag => new RegExp(`<${tag}([^>\/]*)>([^]*?)</${tag}>`, 'gmi')
 
 /**
  * Avoid htmlparser to parse ending tags
  */
 const safeEndingTags = content => {
-  let safeContent = parseAttributes(content.replace('$', '&#36;'))
+  const MJElements = []
+
+  forEach({
+    ...MJMLElements,
+    ...MJMLHeadElements,
+  }, (element, name) => {
+    const tagName = element.tagName || name
+
+    MJElements.push(tagName)
+  })
+
+  let safeContent = parseAttributes(MJElements, content.replace('$', '&#36;'))
 
   concat(endingTags, headEndingTags).forEach(tag => {
     safeContent = safeContent.replace(regexTag(tag), dom.replaceContentByCdata(tag))
@@ -61,7 +73,7 @@ const parseHead = (head) => {
       const endingTag = includes(headEndingTags, elem.tagName.toLowerCase())
 
       return {
-        attributes: mapValues(dom.getAttributes(elem), (val) => decodeURIComponent(val)),
+        attributes: mapValues(dom.getAttributes(elem), val => decodeURIComponent(val)),
         children: endingTag ? null : compact(filter(toArray(elem.childNodes), child => child.tagName)).map(parseElement),
         content: endingTag ? removeCDATA($local(elem.tagName.toLowerCase()).html().trim()) : null,
         tagName: elem.tagName.toLowerCase()

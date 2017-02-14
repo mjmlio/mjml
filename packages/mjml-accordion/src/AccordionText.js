@@ -4,7 +4,7 @@ import merge from 'lodash/merge'
 
 const tagName = 'mj-accordion-text'
 const endingTag = true
-const parentTag = ['mj-accordion']
+const parentTag = ['mj-accordion-element']
 const defaultMJMLDefinition = {
   attributes: {
     'background-color': null,

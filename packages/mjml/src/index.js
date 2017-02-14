@@ -29,13 +29,14 @@ import MJHeadStyle from 'mjml-head-style'
 import MJHeadTitle from 'mjml-head-title'
 
 
-const { Accordion, AccordionTitle, AccordionText } = MJAccordion;
+const { Accordion, AccordionElement, AccordionTitle, AccordionText } = MJAccordion;
 const { Hero, HeroContent } = MJHero;
 const { Invoice, InvoiceItem } = MJInvoice;
 const { Carousel, CarouselImage } = MJCarousel;
 const { Navbar, InlineLinks, Link } = MJNavbar;
 
 [ Accordion,
+  AccordionElement,
   AccordionTitle,
   AccordionText,
   Button,

@@ -5,9 +5,15 @@ const inputMJML = `<mjml>
     <mj-container background-color="#ffffaa">
       <mj-section>
         <mj-column background-color="orange">
-          <mj-accordion padding="20px" border="2px solid black">
-            <mj-accordion-title background-color="green" color="blue">Hello worldo</mj-accordion-title>
-            <mj-accordion-text background-color="yellow" color="purple">Ho bienvenue !</mj-accordion-text>
+          <mj-accordion icon-wrapped-url="https://d30y9cdsu7xlg0.cloudfront.net/png/122350-200.png">
+            <mj-accordion-element padding="20px" border="2px solid black">
+              <mj-accordion-title background-color="green" color="blue">Hello worldo</mj-accordion-title>
+              <mj-accordion-text background-color="yellow" color="purple">Ho bienvenue !</mj-accordion-text>
+            </mj-accordion-element>
+            <mj-accordion-element icon-wrapped-url="https://d30y9cdsu7xlg0.cloudfront.net/png/121983-200.png" padding="20px" border="2px solid black">
+              <mj-accordion-title background-color="green" color="blue">Hello worldo</mj-accordion-title>
+              <mj-accordion-text background-color="yellow" color="purple">Ho bienvenue !</mj-accordion-text>
+            </mj-accordion-element>
           </mj-accordion>
         </mj-column>
       </mj-section>

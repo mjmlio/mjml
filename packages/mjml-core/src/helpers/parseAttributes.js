@@ -1,6 +1,6 @@
 import _ from 'lodash'
 
-const regexTag = tag => new RegExp(`<${tag}("[^"]*"|'[^']*'|[^'">])*>`, 'gmi')
+const regexTag = tag => new RegExp(`<${tag}(\s("[^"]*"|'[^']*'|[^'">])*)?>`, 'gmi')
 const regexAttributes = /(\S+)\s*?=\s*([\'"])(.*?|)\2/gmi
 
 export default function parseAttributes (MJElements, content) {

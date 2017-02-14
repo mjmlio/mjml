@@ -4,32 +4,32 @@ import conditionalTag from 'mjml-core/lib/helpers/conditionalTag'
 export default createBodyComponent('mj-text', {
   endingTag: true,
   allowedAttributes: {
-    'align': 'string',
+    align: 'enum(left,right,center)',
     'background-color': 'color',
-    'color': 'color',
+    color: 'color',
     'font-family': 'string',
-    'font-size': 'string',
+    'font-size': 'unit(px,%)',
     'font-style': 'string',
     'font-weight': 'string',
-    'height': 'string',
-    'letter-spacing': 'string',
-    'line-height': 'string',
-    'padding-bottom': 'string',
-    'padding-left': 'string',
-    'padding-right': 'string',
-    'padding-top': 'string',
-    'padding': 'string',
+    height: 'unit(px,%)',
+    'letter-spacing': 'unit(px,%)',
+    'line-height': 'unit(px,%)',
+    'padding-bottom': 'unit(px,%)',
+    'padding-left': 'unit(px,%)',
+    'padding-right': 'unit(px,%)',
+    'padding-top': 'unit(px,%)',
+    padding: 'unit(px,%){1,4}',
     'text-decoration': 'string',
     'text-transform': 'string',
     'vertical-align': 'string',
   },
   defaultAttributes: {
+    align: 'left',
+    color: '#000000',
     'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
     'font-size': '13px',
     'line-height': '1',
     'padding': '10px 25px',
-    align: 'left',
-    color: '#000000',
   },
   getStyles () {
     return {
@@ -56,7 +56,7 @@ export default createBodyComponent('mj-text', {
         ${this.getMjContent()}
       </div>
     `
-  }
+  },
   render () {
     const height = this.getMjAttribute('height')
 

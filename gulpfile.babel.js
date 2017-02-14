@@ -45,9 +45,9 @@ gulp.task('upgrade-dependencies', () => Promise.all(
 gulp.task('link-packages', () => Promise.all(
   _.map(packages, (packageDirectory, packageName) => new Promise(resolve => {
     cd(packageDirectory)
-    exec('npm link')
+    exec('yarn link')
     cd(ROOT_PATH)
-    exec(`npm link ${packageName}`)
+    exec(`yarn link ${packageName}`)
     resolve()
   })))
   .then(() => Promise.all(

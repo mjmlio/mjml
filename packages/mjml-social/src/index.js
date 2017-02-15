@@ -10,6 +10,7 @@ const defaultMJMLDefinition = {
   attributes: {
     'align': 'center',
     'base-url': 'https://www.mailjet.com/images/theme/v1/icons/ico-social/',
+    'border-radius': '3px',
     'color': '#333333',
     'container-background-color': null,
     'display': 'facebook:share twitter:share google:share',
@@ -69,12 +70,10 @@ const baseStyles = {
   a: {
     textDecoration: 'none',
     textAlign: 'left',
-    display: 'block',
-    borderRadius: '3px'
+    display: 'block'
   },
   img: {
-    display: 'block',
-    borderRadius: '3px'
+    display: 'block'
   }
 }
 const buttonDefinitions = {
@@ -141,7 +140,11 @@ class Social extends Component {
         fontStyle: mjAttribute('font-style'),
         fontWeight: mjAttribute('font-weight'),
         lineHeight: mjAttribute('line-height'),
-        textDecoration: mjAttribute('text-decoration')
+        textDecoration: mjAttribute('text-decoration'),
+        borderRadius: defaultUnit(mjAttribute('border-radius'), 'px')
+      },
+      img: {
+        borderRadius: defaultUnit(mjAttribute('border-radius'), 'px')
       },
       td1: {
         padding: defaultUnit(mjAttribute('inner-padding'))

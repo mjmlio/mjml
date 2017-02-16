@@ -6,7 +6,7 @@ const parentTag = ['mj-column', 'mj-hero-content']
 const defaultMJMLDefinition = {
   attributes: {
     'container-background-color': null,
-    'border': null,
+    'border':  '2px solid black',
     'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
     'icon-align': 'middle',
     'icon-wrapped-url': 'http://i.imgur.com/bIXv1bk.png',
@@ -26,9 +26,7 @@ const defaultMJMLDefinition = {
 const baseStyles = {
   table: {
     width: '100%',
-    borderCollapse: 'collapse',
-    border: '2px solid black',
-    borderBottom: 'none'
+    borderCollapse: 'collapse'
   }
 }
 const postRender = $ => {
@@ -70,7 +68,8 @@ class Accordion extends Component {
 
     return helpers.merge({}, baseStyles, {
       table: {
-        border: mjAttribute('border')
+        border: mjAttribute('border'),
+        borderBottom: 'none'
       }
     })
   }
@@ -78,6 +77,7 @@ class Accordion extends Component {
   renderAccordion (accordion) {
     const { mjAttribute } = this.props
     const attributes = accordion.props.mjml && accordion.props.mjml.get('attributes')
+
     if (!attributes) {
       return accordion
     }
@@ -91,12 +91,18 @@ class Accordion extends Component {
       'icon-height',
       'icon-width'
     ].reduce((res, attr) => {
-      res[attr] = attributes.get(attr) ? null : mjAttribute(attr)
+      if (!attributes.get(attr)) {
+        res['attributes'][attr] = mjAttribute(attr)
+      }
 
       return res
-    }, { border: mjAttribute('border') })
+    }, {
+      attributes: {
+        'border': mjAttribute('border')
+      }
+    })
 
-    return React.cloneElement(accordion, computedAttributes)
+    return React.cloneElement(accordion, { mjml: accordion.props.mjml.mergeDeep(computedAttributes)})
   }
 
   render () {

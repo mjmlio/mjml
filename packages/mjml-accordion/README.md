@@ -13,8 +13,10 @@
       <mj-section>
         <mj-column>
           <mj-accordion>
-            <mj-accordion-title>A neat title</mj-accordion-title>
-            <mj-accordion-text>What a good content !</mj-accordion-text>
+            <mj-accordion-element>
+              <mj-accordion-title>A neat title</mj-accordion-title>
+              <mj-accordion-text>What a good content !</mj-accordion-text>
+            </mj-accordion-element>
           </mj-accordion>
         </mj-column>
       </mj-section>
@@ -28,6 +30,10 @@
     <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
   </a>
 </p>
+
+<aside class="notice">
+Every attribute in `mj-accordion` are applied to `mj-accordion-element` unless you overide them on `mj-accordion-element`
+</aside>
 
 
 attribute | unit | description | default value
@@ -48,6 +54,23 @@ padding-left | px | padding left | n/a
 padding-right | px | padding right | n/a
 padding-top | px | padding top | n/a
 padding | px | padding | 10px 25px
+
+## mjml-accordion-element
+
+This component enables you to create a accordion pane
+
+attribute | unit | description | default value
+----------|------|-------------|---------------
+background-color | n/a | background color | n/a
+font-family | n/a | font | Ubuntu, Helvetica, Arial, sans-serif
+icon-align | n/a | icon alignment | middle
+icon-wrapped-url | n/a | icon when accordion is wrapped | http://i.imgur.com/bIXv1bk.png
+icon-wrapped-alt | n/a | alt text when accordion is wrapped | +
+icon-unwrapped-url | n/a | icon when accordion is unwrapped | http://i.imgur.com/w4uTygT.png
+icon-unwrapped-alt | n/a | alt text when accordion is unwrapped | -
+icon-position | n/a | display icon left or right | right
+icon-height | n/a | icon width | 32px
+icon-width | n/a | icon height | 32px
 
 ## mjml-accordion-title
 

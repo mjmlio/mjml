@@ -9,7 +9,6 @@ const parentTag = ['mj-accordion']
 const defaultMJMLDefinition = {
   attributes: {
     'background-color': null,
-    'border': null,
     'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
     'icon-align': null,
     'icon-wrapped-url': null,
@@ -18,12 +17,7 @@ const defaultMJMLDefinition = {
     'icon-unwrapped-alt': null,
     'icon-position': null,
     'icon-height': null,
-    'icon-width': null,
-    'padding-bottom': null,
-    'padding-left': null,
-    'padding-right': null,
-    'padding-top': null,
-    'padding': '10px 25px'
+    'icon-width': null
   }
 }
 const baseStyles = {

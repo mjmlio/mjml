@@ -1,21 +1,31 @@
 ## mjml-accordion
 
 <p align="center">
-  <img src="http://i.imgur.com/notready" alt="desktop" />
+  <img src="http://i.imgur.com/1p50NXi.gif" alt="accordion" />
 </p>
 
 `mjml-accordion` is an interactive MJML component to stack content in tabs, so the information is collapsed and only the titles are visible. Readers can interact by clicking on the tabs to reveal the content, providing a great experience on mobile devices where space is scarce.
 
 ```xml
 <mjml>
+  <mj-head>
+    <mj-attributes>
+      <mj-accordion-title font-size="18px" font-family="Helvetica"/>
+      <mj-accordion-text font-size="14px" font-family="Helvetica" />
+    </mj-attributes>
+  </mj-head>
   <mj-body>
-    <mj-container>
+    <mj-container background-color="#fbfbfb">
       <mj-section>
-        <mj-column>
-          <mj-accordion>
-            <mj-accordion-element>
-              <mj-accordion-title>A neat title</mj-accordion-title>
-              <mj-accordion-text>What a good content !</mj-accordion-text>
+        <mj-column background-color="#dfdfdf">
+          <mj-accordion border="1px solid blue">
+            <mj-accordion-element icon-position="left" icon-wrapped-url="https://cdn4.iconfinder.com/data/icons/e-commerce-icon-set/48/More-128.png" icon-unwrapped-url="https://cdn4.iconfinder.com/data/icons/e-commerce-icon-set/48/Less-128.png">
+              <mj-accordion-title background-color="#dedede" color="#333333">To the left, to the left</mj-accordion-title>
+              <mj-accordion-text background-color="#333333" color="#dedede">Isn't this content neat?</mj-accordion-text>
+            </mj-accordion-element>
+            <mj-accordion-element icon-position="right" icon-wrapped-url="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/down4-512.png" icon-unwrapped-url="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/up4-512.png">
+              <mj-accordion-title background-color="#dedeff" color="#444488">To the right, to the right</mj-accordion-title>
+              <mj-accordion-text background-color="#444488" color="#dedeff">What about this content?</mj-accordion-text>
             </mj-accordion-element>
           </mj-accordion>
         </mj-column>
@@ -26,7 +36,7 @@
 ```
 
 <p align="center">
-  <a href="https://mjml.io/try-it-live/components/carousel">
+  <a href="https://mjml.io/try-it-live/components/accordion">
     <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
   </a>
 </p>

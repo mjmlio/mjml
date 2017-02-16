@@ -9,7 +9,7 @@ const defaultMJMLDefinition = {
   attributes: {
     'background-color': null,
     'font-size': '13px',
-    'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
+    'font-family': null,
     'color': null,
     'padding-bottom': null,
     'padding-left': null,

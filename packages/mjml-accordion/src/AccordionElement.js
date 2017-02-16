@@ -9,7 +9,7 @@ const parentTag = ['mj-accordion']
 const defaultMJMLDefinition = {
   attributes: {
     'background-color': null,
-    'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
+    'font-family': null,
     'icon-align': null,
     'icon-wrapped-url': null,
     'icon-wrapped-alt': null,

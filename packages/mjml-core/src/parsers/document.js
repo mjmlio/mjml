@@ -23,7 +23,7 @@ const safeEndingTags = content => {
 
   forEach({
     ...MJMLElements,
-    ...MJMLHeadElements,
+    ...MJMLHeadElements
   }, (element, name) => {
     const tagName = element.tagName || name
 

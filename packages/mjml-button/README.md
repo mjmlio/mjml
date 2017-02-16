@@ -38,6 +38,7 @@ border-left                 | string      | css border format                   
 border-right                | string      | css border format                                | n/a
 border-top                  | string      | css border format                                | n/a
 border-radius               | px          | border radius                                    | 3px
+box-shadow	                | string      | box shadow	                                     | n/a
 font-style                  | string      | normal/italic/oblique                            | n/a
 font-size                   | px          | text size                                        | 13px
 font-weight                 | number      | text thickness                                   | bold
@@ -46,9 +47,12 @@ color                       | color       | text color                          
 text-decoration             | string      | underline/overline/none                          | none
 text-transform              | string      | capitalize/uppercase/lowercase                   | none
 align                       | string      | horizontal alignment                             | center
-vertical-align              | string      | vertical alignment                               | middle
 href                        | link        | link to be triggered when the button is clicked  | n/a
-inner-padding               | px          | inner button padding                             | 15px 25px
+margin                      | px          | supports up to 4 parameters                      | 0 0 0 15px
+margin-top                  | px          | top offset                                       | n/a
+margin-bottom               | px          | bottom offset                                    | n/a
+margin-left                 | px          | left offset                                      | n/a
+margin-right                | px          | right offset                                     | n/a
 padding                     | px          | supports up to 4 parameters                      | 15px 25px
 padding-top                 | px          | top offset                                       | n/a
 padding-bottom              | px          | bottom offset                                    | n/a

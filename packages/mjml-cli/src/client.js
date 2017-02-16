@@ -7,6 +7,7 @@ import difference from 'lodash/difference'
 import fileContext from './helpers/fileContext'
 import { write, read, readStdin } from './helpers/promesify'
 import timePad from './helpers/timePad'
+import find from 'lodash/find'
 
 /*
  * The version number is the NPM
@@ -126,7 +127,13 @@ export const validate = (input, { format }) => {
   return read(input)
     .then(content => {
       const MJMLDocument = documentParser(content.toString())
-      const report = MJMLValidator(MJMLDocument)
+      const body = find(MJMLDocument.children, ['tagName', 'mj-body'])
+
+      if (!body || body.children.length == 0) {
+        return;
+      }
+
+      const report = MJMLValidator(body.children[0])
       const outputFormat = availableErrorOutputFormat[format] || availableErrorOutputFormat['text']
 
       error(outputFormat(report))

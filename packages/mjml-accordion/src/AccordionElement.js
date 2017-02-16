@@ -71,8 +71,8 @@ class AccordionElement extends Component {
           verticalAlign: mjAttribute('icon-align')
         },
         img: {
-          width: defaultUnit(mjAttribute('width'), 'px'),
-          height: defaultUnit(mjAttribute('height'), 'px')
+          width: defaultUnit(mjAttribute('icon-width'), 'px'),
+          height: defaultUnit(mjAttribute('icon-height'), 'px')
         }
       },
       content: {

@@ -69,7 +69,8 @@ class Accordion extends Component {
     return helpers.merge({}, baseStyles, {
       table: {
         border: mjAttribute('border'),
-        borderBottom: 'none'
+        borderBottom: 'none',
+        fontFamily: mjAttribute('font-family')
       }
     })
   }
@@ -102,7 +103,7 @@ class Accordion extends Component {
       }
     })
 
-    return React.cloneElement(accordion, { mjml: accordion.props.mjml.mergeDeep(computedAttributes)})
+    return React.cloneElement(accordion, { mjml: accordion.props.mjml.mergeDeep(computedAttributes) })
   }
 
   render () {

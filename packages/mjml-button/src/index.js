@@ -32,7 +32,8 @@ const defaultMJMLDefinition = {
     "padding-left": null,
     "padding-right": null,
     "width": null,
-    "height": null
+    "height": null,
+    "line-height": '120%'
   }
 }
 const baseStyles = {
@@ -40,8 +41,7 @@ const baseStyles = {
     borderCollapse: 'separate'
   },
   a: {
-    textDecoration: 'none',
-    lineHeight: '1.2'
+    textDecoration: 'none'
   }
 }
 
@@ -77,6 +77,7 @@ class Button extends Component {
         fontSize: defaultUnit(mjAttribute('font-size')),
         fontStyle: mjAttribute('font-style'),
         fontWeight: mjAttribute('font-weight'),
+        lineHeight: defaultUnit(mjAttribute('line-height'), "%"),
         textDecoration: mjAttribute('text-decoration'),
         textTransform: mjAttribute('text-transform'),
         margin: "0px"

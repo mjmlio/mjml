@@ -10,6 +10,7 @@ import Html from 'mjml-html'
 import Image from 'mjml-image'
 import List from 'mjml-list'
 import Location from 'mjml-location'
+import MJAccordion from 'mjml-accordion'
 import MJCarousel from 'mjml-carousel'
 import MJHero from 'mjml-hero'
 import MJInvoice from 'mjml-invoice'
@@ -27,12 +28,18 @@ import MJHeadFont from 'mjml-head-font'
 import MJHeadStyle from 'mjml-head-style'
 import MJHeadTitle from 'mjml-head-title'
 
-const { Hero, HeroContent } = MJHero
-const { Invoice, InvoiceItem } = MJInvoice
+
+const { Accordion, AccordionElement, AccordionTitle, AccordionText } = MJAccordion;
+const { Hero, HeroContent } = MJHero;
+const { Invoice, InvoiceItem } = MJInvoice;
 const { Carousel, CarouselImage } = MJCarousel;
 const { Navbar, InlineLinks, Link } = MJNavbar;
 
-[ Button,
+[ Accordion,
+  AccordionElement,
+  AccordionTitle,
+  AccordionText,
+  Button,
   Carousel,
   CarouselImage,
   Column,

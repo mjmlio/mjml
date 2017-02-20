@@ -39,6 +39,7 @@ printf "${Yellow}Linking core${Color_Off} \n"
 cd mjml-core && npm link mjml-validator && npm link && cd ..
 # Mj elements
 printf "${Yellow}Linking MJML standard elements${Color_Off} \n"
+cd mjml-accordion && npm link mjml-core && npm link && cd ..
 cd mjml-button && npm link mjml-core && npm link && cd ..
 cd mjml-carousel && npm link mjml-core && npm link && cd ..
 cd mjml-column && npm link mjml-core && npm link && cd ..
@@ -72,6 +73,7 @@ printf "${BGreen}Done.${Color_Off} \n"
 printf "${BYellow}Linking dependencies for MJML package.${Color_Off} \n"
 
 cd mjml
+npm link mjml-accordion
 npm link mjml-button
 npm link mjml-carousel
 npm link mjml-cli

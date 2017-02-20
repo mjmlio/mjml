@@ -65,7 +65,7 @@ padding-right | px | padding right | n/a
 padding-top | px | padding top | n/a
 padding | px | padding | 10px 25px
 
-## mjml-accordion-element
+### mjml-accordion-element
 
 This component enables you to create a accordion pane
 
@@ -82,7 +82,7 @@ icon-position | n/a | display icon left or right | right
 icon-height | n/a | icon width | 32px
 icon-width | n/a | icon height | 32px
 
-## mjml-accordion-title
+### mjml-accordion-title
 
 This component enables you to add and style a title to your accordion
 
@@ -98,7 +98,7 @@ padding-right | px | padding right | n/a
 padding-top | px | padding top | n/a
 padding | px | padding | 16px
 
-## mjml-accordion-text
+### mjml-accordion-text
 
 This component enables you to add and style a text to your accordion
 

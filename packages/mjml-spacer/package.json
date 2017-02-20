@@ -1,7 +1,7 @@
 {
   "name": "mjml-spacer",
   "description": "mjml-spacer",
-  "version": "3.3.0-beta.5",
+  "version": "3.3.0-beta.6",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -13,7 +13,7 @@
   },
   "homepage": "https://mjml.io",
   "dependencies": {
-    "mjml-core": "~3.3.0-beta.5",
+    "mjml-core": "~3.3.0-beta.6",
     "react": "^15.4.2"
   }
 }

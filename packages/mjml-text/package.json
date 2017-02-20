@@ -1,7 +1,7 @@
 {
   "name": "mjml-text",
   "description": "mjml-text",
-  "version": "3.3.0-beta.5",
+  "version": "3.3.0-beta.6",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -14,7 +14,7 @@
   "homepage": "https://mjml.io",
   "dependencies": {
     "lodash": "^4.17.4",
-    "mjml-core": "~3.3.0-beta.5",
+    "mjml-core": "~3.3.0-beta.6",
     "react": "^15.4.2"
   }
 }

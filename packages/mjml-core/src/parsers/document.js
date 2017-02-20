@@ -30,7 +30,7 @@ const safeEndingTags = content => {
     MJElements.push(tagName)
   })
 
-  let safeContent = parseAttributes(MJElements, content.replace('$', '&#36;'))
+  let safeContent = parseAttributes(MJElements, content.replace(/\$/g, '&#36;'))
 
   concat(endingTags, headEndingTags).forEach(tag => {
     safeContent = safeContent.replace(regexTag(tag), dom.replaceContentByCdata(tag))

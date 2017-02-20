@@ -9,7 +9,7 @@ Displays a blank space.
       <mj-section>
         <mj-column>
           <mj-spacer height="50px" />
-        <mj-column>
+        </mj-column>
       </mj-section>
     </mj-container>
   </mj-body>

@@ -54,6 +54,7 @@ You can activate/deactivate any icon, with `display` property.
 
 attribute                   | unit        | description                                                              | default value
 ----------------------------|-------------|--------------------------------------------------------------------------|--------------------------------------------
+border-radius               | px          | border radius                                                            | 3px
 facebook-content            | string      | button text content                                                      | Share
 facebook-href               | url         | button redirection url                                                   | [[SHORT_PERMALINK]]
 facebook-icon-color         | color       | icon color                                                               | #3b5998

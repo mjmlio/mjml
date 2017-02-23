@@ -14,12 +14,13 @@ import removeCDATA from '../helpers/removeCDATA'
 import toArray from 'lodash/toArray'
 
 const regexTag = tag => new RegExp(`<${tag}([^>\/]*)>([^]*?)</${tag}>`, 'gmi')
+const WHITELISTED_GLOBAL_TAG = ['mj-class', 'mj-all']
 
 /**
  * Avoid htmlparser to parse ending tags
  */
 const safeEndingTags = content => {
-  const MJElements = []
+  const MJElements = [...WHITELISTED_GLOBAL_TAG]
 
   forEach({
     ...MJMLElements,

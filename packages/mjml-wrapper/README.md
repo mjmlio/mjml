@@ -7,7 +7,7 @@ Wrapper enables to wrap multiple sections together. It's especially useful to ac
   <mj-body>
     <mj-container>
       <mj-wrapper full-width="full-width" background-color="red">
-        <!-- Your sectios go here -->
+        <!-- Your sections go here -->
       </mj-wrapper>
     </mj-container>   
   </mj-body>

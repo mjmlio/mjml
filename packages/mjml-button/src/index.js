@@ -31,7 +31,7 @@ const defaultMJMLDefinition = {
     "padding-bottom": null,
     "padding-left": null,
     "padding-right": null,
-    "width": "100%",
+    "width": null,
     "height": null,
     "box-shadow": "none",
     "line-height": "16px",
@@ -55,14 +55,6 @@ const baseStyles = {
     borderCollapse: 'collapse',
     textAlign: 'left',
     verticalAlign: 'top'
-  },
-  containerTable: {
-    borderCollapse: 'separate',
-    borderSpacing: 0,
-    padding: 0,
-    textAlign: 'left',
-    verticalAlign: 'top',
-    width: '100%'
   },
   containerTr: {
     padding: 0,
@@ -173,7 +165,6 @@ class Button extends Component {
     const {mjAttribute} = this.props
     return (
       <table
-        className="root-table"
         role="presentation"
         cellPadding="0"
         cellSpacing="0"
@@ -184,7 +175,9 @@ class Button extends Component {
         <tbody>
           <tr style={this.styles.trRoot}>
             <td style={this.styles.tdRoot}>
-              <table style={this.containerTable}>
+              <table
+                cellPadding="0"
+                cellSpacing="0">
                 <tbody>
                   <tr style={this.styles.containerTr}>
                     <td style={this.styles.containerTd}>

@@ -14,6 +14,7 @@ const defaultMJMLDefinition = {
     "border-radius": "3px",
     "border-right": null,
     "border-top": null,
+    "container-background-color": null,
     "font-style": null,
     "font-size": "13px",
     "font-weight": "normal",
@@ -22,41 +23,52 @@ const defaultMJMLDefinition = {
     "text-decoration": "none",
     "text-transform": "none",
     "align": "center",
+    "vertical-align": "middle",
     "href": null,
-    "padding": "10px 25px",
+    "inner-padding": "10px 25px",
+    "padding": '10px 25px',
     "padding-top": null,
     "padding-bottom": null,
     "padding-left": null,
     "padding-right": null,
     "width": "100%",
+    "height": null,
     "box-shadow": "none",
     "line-height": "16px",
-    "text-align": "center",
-
-    "height": null,
-    "inner-padding": "0",
-    "vertical-align": "middle",
-    "container-background-color": null
+    "text-align": "center"
   }
 }
 const baseStyles = {
-  outerTd: {
-    padding: '0',
-    borderCollapse: 'collapse',
-    textAlign: 'left',
-    verticalAlign: 'top'
-  },
-  table: {
+  tableRoot: {
     borderCollapse: 'collapse',
     borderSpacing: '0',
     padding: '0',
     textAlign: 'left'
   },
-  tr: {
+  trRoot: {
+    padding: '0',
+    textAlign: 'left',
+    verticalAlign: 'top'
+  },
+  tdRoot: {
+    padding: '0',
+    borderCollapse: 'collapse',
+    textAlign: 'left',
+    verticalAlign: 'top'
+  },
+  containerTable: {
+    borderCollapse: 'separate',
+    borderSpacing: 0,
+    padding: 0,
+    textAlign: 'left',
+    verticalAlign: 'top',
+    width: '100%'
+  },
+  containerTr: {
     padding: 0,
     textAlign: 'left'
   },
-  td: {
+  containerTd: {
     border: 'none',
     borderCollapse: 'collapse',
     hyphens: 'auto',
@@ -65,13 +77,17 @@ const baseStyles = {
     WebkitHyphens: 'auto',
     wordWrap: 'break-word'
   },
-  typo: {
-    margin: '0',
-    padding: '0'
-  },
-  a: {
+  buttonA: {
     display: 'block',
     textTransform: 'none'
+  },
+  buttonTable: {
+    borderCollapse: 'separate',
+    width: '100%'
+  },
+  buttonP: {
+    margin: '0',
+    padding: '0'
   }
 }
 
@@ -84,13 +100,12 @@ class Button extends Component {
     const {mjAttribute} = this.props
 
     return helpers.merge({}, baseStyles, {
-      outerTd: {
-        padding: mjAttribute('inner-padding'),
+      tdRoot: {
         backgroundColor: mjAttribute('container-background-color')
       },
-      td: {
-        backgroundColor: mjAttribute('container-background-color'),
+      containerTd: {
         color: mjAttribute('color'),
+        backgroundColor: mjAttribute('container-background-color'),
         fontFamily: mjAttribute('font-family'),
         fontSize: mjAttribute('font-size'),
         fontWeight: mjAttribute('font-weight'),
@@ -98,7 +113,10 @@ class Button extends Component {
         textAlign: mjAttribute('text-align'),
         width: mjAttribute('width')
       },
-      typo: {
+      buttonA: {
+        textDecoration: mjAttribute('text-decoration')
+      },
+      buttonP: {
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
         fontSize: mjAttribute('font-size'),
@@ -107,24 +125,18 @@ class Button extends Component {
         lineHeight: mjAttribute('line-height'),
         textAlign: mjAttribute('text-align')
       },
-      box: {
+      buttonTd: {
         backgroundColor: mjAttribute('background-color'),
         border: mjAttribute('border'),
-        borderRadius: mjAttribute('border-radius'),
-        borderTop: mjAttribute('border-top'),
-        borderRight: mjAttribute('border-right'),
         borderBottom: mjAttribute('border-bottom'),
         borderLeft: mjAttribute('border-left'),
+        borderRadius: mjAttribute('border-radius'),
+        borderRight: mjAttribute('border-right'),
+        borderTop: mjAttribute('border-top'),
         boxShadow: mjAttribute('box-shadow'),
-        padding: mjAttribute('padding'),
-        paddingTop: mjAttribute('padding-top'),
-        paddingRight: mjAttribute('padding-right'),
-        paddingBottom: mjAttribute('padding-bottom'),
-        paddingLeft: mjAttribute('padding-left'),
-        height: mjAttribute('height')
-      },
-      a: {
-        textDecoration: mjAttribute('text-decoration')
+        height: mjAttribute('height'),
+        padding: mjAttribute('inner-padding'),
+        verticalAlign: mjAttribute('vertical-align')
       }
     })
   }
@@ -133,12 +145,12 @@ class Button extends Component {
     const {mjContent, mjAttribute} = this.props
     if (mjAttribute('href')) {
       return (
-        <a href={mjAttribute('href')} style={this.styles.a} target="_blank">
-          <table style={{borderCollapse: 'separate', width: '100%'}}>
+        <a href={mjAttribute('href')} style={this.styles.buttonA} target="_blank">
+          <table style={this.styles.buttonTable}>
             <tbody>
               <tr>
-                <td style={this.styles.box}>
-                  <p dangerouslySetInnerHTML={{__html: mjContent()}} style={this.styles.typo} />
+                <td style={this.styles.buttonTd}>
+                  <p dangerouslySetInnerHTML={{__html: mjContent()}} style={this.styles.buttonP} />
                 </td>
               </tr>
             </tbody>
@@ -146,11 +158,11 @@ class Button extends Component {
         </a>)
     }
     return (
-      <table style={{borderCollapse: 'separate', width: '100%'}}>
+      <table style={this.styles.buttonTable}>
         <tbody>
           <tr>
-            <td style={this.styles.box}>
-              <p dangerouslySetInnerHTML={{__html: mjContent()}} style={this.styles.typo} />
+            <td style={this.styles.buttonTd}>
+              <p dangerouslySetInnerHTML={{__html: mjContent()}} style={this.styles.buttonP} />
             </td>
           </tr>
         </tbody>
@@ -161,20 +173,21 @@ class Button extends Component {
     const {mjAttribute} = this.props
     return (
       <table
+        className="root-table"
         role="presentation"
         cellPadding="0"
         cellSpacing="0"
         align={mjAttribute('align')}
         data-legacy-align={mjAttribute('align')}
         data-legacy-border="0"
-        style={this.styles.table}>
+        style={this.styles.tableRoot}>
         <tbody>
-          <tr style={{padding: '0', textAlign: 'left', verticalAlign: 'top'}}>
-            <td style={this.styles.outerTd}>
-              <table style={{borderCollapse: 'separate', borderSpacing: 0, padding: 0, textAlign: 'left', verticalAlign: 'top', width: '100%'}}>
+          <tr style={this.styles.trRoot}>
+            <td style={this.styles.tdRoot}>
+              <table style={this.containerTable}>
                 <tbody>
-                  <tr style={this.styles.tr}>
-                    <td style={this.styles.td}>
+                  <tr style={this.styles.containerTr}>
+                    <td style={this.styles.containerTd}>
                       {this.renderButton()}
                     </td>
                   </tr>

@@ -44,15 +44,14 @@ font-size                   | px          | text size                           
 font-weight                 | number      | text thickness                                   | bold
 font-family                 | string      | font name                                        | Ubuntu, Helvetica, Arial, sans-serif
 color                       | color       | text color                                       | #ffffff
+line-height                 | px          | Line height to prevent cropped font              | 16px
+text-align                  | string      | left/center/right                                | center
 text-decoration             | string      | underline/overline/none                          | none
 text-transform              | string      | capitalize/uppercase/lowercase                   | none
 align                       | string      | horizontal alignment                             | center
+vertical-align              | string      | vertical alignment                               | middle
 href                        | link        | link to be triggered when the button is clicked  | n/a
-margin                      | px          | supports up to 4 parameters                      | 0 0 0 15px
-margin-top                  | px          | top offset                                       | n/a
-margin-bottom               | px          | bottom offset                                    | n/a
-margin-left                 | px          | left offset                                      | n/a
-margin-right                | px          | right offset                                     | n/a
+inner-padding               | px          | inner button padding                             | 15px 25px
 padding                     | px          | supports up to 4 parameters                      | 15px 25px
 padding-top                 | px          | top offset                                       | n/a
 padding-bottom              | px          | bottom offset                                    | n/a

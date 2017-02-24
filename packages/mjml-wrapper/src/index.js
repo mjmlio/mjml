@@ -4,7 +4,7 @@ import Section from 'mjml-section'
 
 const tagName = 'mj-wrapper'
 const parentTag = ['mj-container']
-const defaultMJMLDefinition = merge(Section.defaultMJMLDefinition, {
+const defaultMJMLDefinition = merge({}, Section.defaultMJMLDefinition, {
   inheritedAttributes: [
     'width'
   ]

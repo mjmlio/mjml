@@ -1,30 +1,33 @@
 var mjml = require('./lib/index')
-const inputMJML = `<mjml>
+const inputMJML = `
+<mjml>
+<mj-body>
+  <mj-container>
+    <!-- First solution -->
+    <mj-section padding="0px">
+      <mj-column background-color="red" width="20%">
 
-  <mj-body>
-    <mj-container background-color="#ffffaa">
-      <mj-section>
-        <mj-column>
-          <mj-text>
-            <h1>A title</h1>
-          </mj-text>
-        </mj-column>
-        <mj-column background-color="orange">
-          <mj-accordion icon-wrapped-url="https://d30y9cdsu7xlg0.cloudfront.net/png/122350-200.png">
-            <mj-accordion-element padding="20px">
-              <mj-accordion-title background-color="green" color="blue">Hello worldo</mj-accordion-title>
-              <mj-accordion-text background-color="yellow" color="purple">Ho bienvenue !</mj-accordion-text>
-            </mj-accordion-element>
-            <mj-accordion-element icon-wrapped-url="https://pouet" padding="20px">
-              <mj-accordion-title background-color="green" color="blue">Hello worldo</mj-accordion-title>
-              <mj-accordion-text background-color="yellow" color="purple">Ho bienvenue !</mj-accordion-text>
-            </mj-accordion-element>
-          </mj-accordion>
-        </mj-column>
-      </mj-section>
-    </mj-container>
-  </mj-body>
-</mjml>`
+        <mj-image width="100" src="/assets/img/logo-small.png"></mj-image>
+
+        <mj-divider border-color="#F45E43"></mj-divider>
+
+        <mj-text font-size="20px" color="#F45E43" font-family="helvetica">Hello World</mj-text>
+      </mj-column>
+
+      <mj-column background-color="blue" width="80%">
+
+        <mj-image width="100" src="/assets/img/logo-small.png"></mj-image>
+
+        <mj-divider border-color="#F45E43"></mj-divider>
+
+        <mj-text font-size="20px" color="#F45E43" font-family="helvetica">Hello World</mj-text>
+
+      </mj-column>
+    </mj-section>
+  </mj-container>
+</mj-body>
+</mjml>
+`
 
 try {
   const { html, errors } = mjml.mjml2html(inputMJML, { beautify: true, minify: false, level: "soft" })

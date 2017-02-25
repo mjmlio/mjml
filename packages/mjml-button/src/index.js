@@ -56,6 +56,9 @@ const baseStyles = {
     textAlign: 'left',
     verticalAlign: 'top'
   },
+  containerTable: {
+    width: '100%'
+  },
   containerTr: {
     padding: 0,
     textAlign: 'left'
@@ -89,11 +92,17 @@ class Button extends Component {
   styles = this.getStyles()
 
   getStyles () {
-    const {mjAttribute} = this.props
+    const {mjAttribute} = this.props,
+      width = mjAttribute('width'),
+      isWidthPerCent = width && width.indexOf('%') >= 0
 
     return helpers.merge({}, baseStyles, {
+      tableRoot: {
+        width: isWidthPerCent ? width : null
+      },
       tdRoot: {
-        backgroundColor: mjAttribute('container-background-color')
+        backgroundColor: mjAttribute('container-background-color'),
+        width: isWidthPerCent ? null : width
       },
       containerTd: {
         color: mjAttribute('color'),
@@ -177,7 +186,8 @@ class Button extends Component {
             <td style={this.styles.tdRoot}>
               <table
                 cellPadding="0"
-                cellSpacing="0">
+                cellSpacing="0"
+                style={this.styles.containerTable}>
                 <tbody>
                   <tr style={this.styles.containerTr}>
                     <td style={this.styles.containerTd}>

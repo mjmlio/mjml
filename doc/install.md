@@ -2,8 +2,8 @@
 # Installation
 
 ``` bash
-# Install with npm
-npm i mjml
+# Install with npm in a folder where you will use MJML
+$> npm install mjml
 
 # In the folder where you installed MJML you can now run:
 $> ./node_modules/.bin/mjml -V

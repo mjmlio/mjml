@@ -89,11 +89,13 @@ class AccordionElement extends Component {
     return (
       <td className="mj-accordion-ico" style={this.styles.title.td2}>
         <img
+          key="icon-wrapped"
           src={mjAttribute('icon-wrapped-url')}
           alt={mjAttribute('icon-wrapped-alt')}
           className="mj-accordion-more"
           style={this.styles.title.img} />
         <img
+          key="icon-wrapped"
           src={mjAttribute('icon-unwrapped-url')}
           alt={mjAttribute('icon-unwrapped-alt')}
           className="mj-accordion-less"
@@ -118,7 +120,7 @@ class AccordionElement extends Component {
           }
             <input className="mj-accordion-checkbox" type="checkbox" style={this.styles.input} />
             <div>
-              <div className="mj-accordion-title">
+              <div className="mj-accordion-title" key="title">
                 <table
                   data-legacy-border="0"
                   cellPadding="0"
@@ -131,7 +133,7 @@ class AccordionElement extends Component {
                   </tbody>
                 </table>
               </div>
-              <div className="mj-accordion-content">
+              <div className="mj-accordion-content" key="content">
                 <table
                   data-legacy-border="0"
                   cellPadding="0"

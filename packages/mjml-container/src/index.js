@@ -1,12 +1,14 @@
 import { MJMLElement, helpers } from 'mjml-core'
 import React, { Component } from 'react'
+import cx from 'classnames'
 
 const tagName = 'mj-container'
 const parentTag = ['mj-body']
 const defaultMJMLDefinition = {
   attributes: {
     'width': '600px',
-    'background-color': null
+    'background-color': null,
+    'css-class': ''
   },
   inheritedAttributes: [
     'width'
@@ -51,7 +53,6 @@ const postRender = $ => {
   $('.mj-container')
     .removeAttr('data-background-color')
     .removeAttr('data-width')
-    .removeAttr('class')
     .each(function () {
       if ($(this).attr('style') === '') {
         $(this).removeAttr('style')
@@ -79,10 +80,11 @@ class Container extends Component {
   render () {
     const { renderWrappedOutlookChildren, mjAttribute, children } = this.props
     const { width } = helpers.widthParser(mjAttribute('width'))
+    const classNames = cx('mj-container', mjAttribute('css-class'))
 
     return (
       <div
-        className="mj-container"
+        className={classNames}
         data-background-color={mjAttribute('background-color')}
         data-width={width}
         style={this.styles.div}>

@@ -95,7 +95,7 @@ class AccordionElement extends Component {
           className="mj-accordion-more"
           style={this.styles.title.img} />
         <img
-          key="icon-wrapped"
+          key="icon-unwrapped"
           src={mjAttribute('icon-unwrapped-url')}
           alt={mjAttribute('icon-unwrapped-alt')}
           className="mj-accordion-less"

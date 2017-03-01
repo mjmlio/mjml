@@ -87,7 +87,7 @@ class AccordionElement extends Component {
     const { mjAttribute } = this.props
 
     return (
-      <td className="mj-accordion-ico" style={this.styles.title.td2}>
+      <td className="mj-accordion-ico" style={this.styles.title.td2} key="icons">
         <img
           key="icon-wrapped"
           src={mjAttribute('icon-wrapped-url')}

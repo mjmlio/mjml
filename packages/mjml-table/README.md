@@ -1,6 +1,6 @@
 ## mjml-table
 
-This tag allows you to display table and filled it with data.
+This tag allows you to display table and filled it with data. It only accepts plain HTML.
 
 ```xml
 <mjml>

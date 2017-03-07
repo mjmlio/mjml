@@ -59,7 +59,7 @@ gulp.task('install', () => {
   return Promise.all(
     Object.keys(packages).map(packageName => new Promise(resolve => {
       cd(packages[packageName])
-      exec('npm install')
+      exec('yarn')
       resolve()
     }))
   )

@@ -18,7 +18,7 @@
   "dependencies": {
     "chokidar": "^1.6.1",
     "commander": "^2.9.0",
-    "fs-promise": "^1.0.0",
+    "fs-promise": "^2.0.0",
     "glob": "^7.1.1",
     "lodash": "^4.17.4",
     "mjml-core": "~3.3.0-beta.6"

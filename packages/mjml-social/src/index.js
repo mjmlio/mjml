@@ -263,7 +263,7 @@ class Social extends Component {
           cellSpacing="0"
           data-legacy-align={mjAttribute('align')}
           data-legacy-border="0"
-          key={`wrapped-social-button-${index}`}
+          key={`wrapped-social-button-${index}`} // eslint-disable-line react/no-array-index-key
           style={this.styles.tableHorizontal}>
           <tbody>
             {socialButton}
@@ -272,7 +272,12 @@ class Social extends Component {
       )
     }).reduce((result, socialButton, index) => {
       result.push(socialButton)
-      result.push(<div className="mj-social-outlook-line" key={`outlook-line-${index}`} />)
+      result.push((
+        <div
+          className="mj-social-outlook-line"
+          key={`outlook-line-${index}`} // eslint-disable-line react/no-array-index-key
+        />
+      )
 
       return result
     }, [<div className="mj-social-outlook-open" key="outlook-open" data-legacy-align={mjAttribute('align')} />])

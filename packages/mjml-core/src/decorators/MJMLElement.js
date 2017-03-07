@@ -205,7 +205,7 @@ function createComponent (ComposedComponent) {
 
         return (
           <Element
-            key={i}
+            key={i} // eslint-disable-line react/no-array-index-key
             mjml={childMjml}
             parentMjml={parentMjml} />
         )

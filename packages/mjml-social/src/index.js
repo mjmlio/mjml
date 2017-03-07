@@ -277,7 +277,7 @@ class Social extends Component {
           className="mj-social-outlook-line"
           key={`outlook-line-${index}`} // eslint-disable-line react/no-array-index-key
         />
-      )
+      ))
 
       return result
     }, [<div className="mj-social-outlook-open" key="outlook-open" data-legacy-align={mjAttribute('align')} />])

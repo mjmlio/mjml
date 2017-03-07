@@ -1,31 +1,18 @@
 var mjml = require('./lib/index')
 const inputMJML = `
 <mjml>
-<mj-body>
-  <mj-container>
-    <!-- First solution -->
-    <mj-section padding="0px">
-      <mj-column background-color="red" width="20%">
-
-        <mj-image width="100" src="/assets/img/logo-small.png"></mj-image>
-
-        <mj-divider border-color="#F45E43"></mj-divider>
-
-        <mj-text font-size="20px" color="#F45E43" font-family="helvetica">Hello World</mj-text>
-      </mj-column>
-
-      <mj-column background-color="blue" width="80%">
-
-        <mj-image width="100" src="/assets/img/logo-small.png"></mj-image>
-
-        <mj-divider border-color="#F45E43"></mj-divider>
-
-        <mj-text font-size="20px" color="#F45E43" font-family="helvetica">Hello World</mj-text>
-
-      </mj-column>
-    </mj-section>
-  </mj-container>
-</mj-body>
+  <mj-body>
+    <mj-container>
+      <mj-section>
+        <mj-column width="100%">
+          <mj-invoice format="0,00.00€" intl="name:Product Name">
+            <mj-invoice-item name="TV" price="549€" quantity="1" />
+            <mj-invoice-item name="DVD - Iron Man II" price="22.99€" quantity="2" />
+          </mj-invoice>
+        </mj-column>
+      </mj-section>
+    </mj-container>
+  </mj-body>
 </mjml>
 `
 

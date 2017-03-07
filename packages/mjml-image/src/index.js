@@ -11,7 +11,7 @@ const defaultMJMLDefinition = {
     'align': 'center',
     'alt': '',
     'border': 'none',
-    'border-radius': null,
+    'border-radius': '0',
     'container-background-color': null,
     'height': 'auto',
     'href': '',

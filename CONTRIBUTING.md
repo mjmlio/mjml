@@ -111,21 +111,21 @@ Type of issue and issue state
 | --- | --- |
 | `Feature request` | Feature requests or improvements |
 | `Bug` | Confirmed bugs or reports likely to be bugs |
-| `Community-help-wanted` | The MJML team would appreciate help from the community in implementing these issues |
+| `Community help wanted` | The MJML team would appreciate help from the community in implementing these issues |
 | `Beginner` | Less complex issues that would be good first issues to work on for users who want to contribute to MJML |
 | `More information needed` | We need more information to solve this issue (see [How to submit a good bug report or enhancement]( https://github.com/mjmlio/mjml/blob/master/CONTRIBUTING.md#how-to-submit-a-good-bug-report-or-enhancement)) |
 | `Needs reproduction` | Likely bugs we couldn’t reproduce |
 | `Duplicate` | Issues that are duplicates of other issues |
 | `Invalid` | Issues which aren’t valid (e.g user errors) |
 | `Tooling idea` | Feature requests that might be good candidates for tools around MJML instead of extending MJML |
+| `MJML 4` | Issues related to MJML 4 (fix/feature may or may not be released with MJML 4) |
 
 #### Topic categories
 
 | Label name | Description |
 | --- | --- |
-| `Not rendering` | the engine won’t render a template without a valid reason |
-| `General rendering issue` | the HTML rendered is not responsive while respecting MJML’s best practices |
-| `Email client name` | The HTML rendered is not responsive for a specific email client |
+| `Render issue` | the HTML rendered is not responsive while respecting MJML’s best practices |
+| `Email-client-name issue` | The HTML rendered is not responsive for a specific email client |
 | `CLI`| issues related to the MJML Command Line Interface |
 | `Documentation` | issues related to the MJML documentation |
 

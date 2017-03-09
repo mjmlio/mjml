@@ -1,5 +1,6 @@
-import _ from 'lodash'
+import forEach from 'lodash/forEach'
 import fs from 'fs'
+import map from 'lodash/map'
 import path from 'path'
 import gulp from 'gulp'
 import {
@@ -7,9 +8,6 @@ import {
   exec,
   rm,
 } from 'shelljs'
-import {
-  argv,
-} from 'yargs'
 import babel from 'gulp-babel'
 import mergeStream from 'merge-stream'
 
@@ -27,7 +25,7 @@ const sharedDeps = [
 ]
 
 gulp.task('yarn', () => Promise.all(
-  _.map(packages, (packageDirectory, packageName) => new Promise(resolve => {
+  map(packages, (packageDirectory) => new Promise(resolve => {
     cd(packageDirectory)
     exec('yarn install')
     resolve()
@@ -35,7 +33,7 @@ gulp.task('yarn', () => Promise.all(
 )
 
 gulp.task('upgrade-dependencies', () => Promise.all(
-  _.map(packages, (packageDirectory, packageName) => new Promise(resolve => {
+  map(packages, (packageDirectory) => new Promise(resolve => {
     cd(packageDirectory)
     exec('yarn upgrade-interactive')
     resolve()
@@ -43,7 +41,7 @@ gulp.task('upgrade-dependencies', () => Promise.all(
 )
 
 gulp.task('link-packages', () => Promise.all(
-  _.map(packages, (packageDirectory, packageName) => new Promise(resolve => {
+  map(packages, (packageDirectory, packageName) => new Promise(resolve => {
     cd(packageDirectory)
     exec('yarn link')
     cd(ROOT_PATH)
@@ -51,7 +49,7 @@ gulp.task('link-packages', () => Promise.all(
     resolve()
   })))
   .then(() => Promise.all(
-    _.map(packages, packageDirectory => Promise.all(
+    map(packages, packageDirectory => Promise.all(
       Object.keys(packages).concat(sharedDeps).map(dependencyName => new Promise(resolve => {
         rm('-rf', path.resolve(packageDirectory, 'node_modules', dependencyName))
         resolve()
@@ -63,7 +61,7 @@ gulp.task('link-packages', () => Promise.all(
 gulp.task('build', () => {
   const stream = mergeStream()
 
-  _.forEach(packages, packageDirectory => {
+  forEach(packages, packageDirectory => {
     const src = `${packageDirectory}/src/**/*`
     const dest = path.resolve(packageDirectory, 'lib')
 
@@ -80,7 +78,7 @@ gulp.task('build', () => {
 })
 
 gulp.task('clean', () => Promise.all(
-  _.map(packages, packageDirectory => new Promise(resolve => {
+  map(packages, packageDirectory => new Promise(resolve => {
     rm('-rf', path.resolve(packageDirectory, 'lib'))
     rm('-rf', path.resolve(packageDirectory, 'node_modules'))
     rm('-rf', path.resolve(packageDirectory, 'yarn.lock'))

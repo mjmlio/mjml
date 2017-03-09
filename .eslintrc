@@ -7,7 +7,7 @@
     "arrow-parens": 0,
     "camelcase": 0,
     "class-methods-use-this": 0,
-    "comma-dangle": [2, "never"],
+    "comma-dangle": [2, "only-multiline"],
     "consistent-return": 0,
     "default-case": 0,
     "dot-notation": 0,

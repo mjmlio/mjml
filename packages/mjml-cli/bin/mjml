@@ -1,0 +1,59 @@
+#!/usr/bin/env node
+
+var cli = require('../lib/client')
+var binary = require('commander')
+
+var commandResult
+
+/*
+ * Parse the command line arguments
+ */
+binary
+  .version(cli.version())
+  .arguments('[files...]', 'Compiles an MJML file')
+  .action(function (files) {
+    var options = {
+      min: binary.min,
+      stdout: binary.stdout,
+      output: binary.output
+    }
+
+    commandResult = cli.renderFiles(files.length > 1 ? `{${files.join(',')}}` : files.toString(), options)
+  })
+  .option('-l, --level [level]', 'Specifies the level of validation of MJML parser (skip/soft/strict)', /^(skip|soft|strict)$/i, 'soft')
+  .option('-r, --render <file>', 'Compiles an MJML file')
+  .option('-i, --stdin', 'Compiles an MJML file from input stream')
+  .option('-w, --watch <file>', 'Watch and render an MJML file')
+  .option('-o, --output <file>', 'Redirect the HTML to a file')
+  .option('-s, --stdout', 'Redirect the HTML to stdout')
+  .option('-m, --min', 'Minify the final output file', 'false')
+  .option('-f, --format <format>', 'Output format for MJML validation', /^(json|text)$/i, 'text')
+  .option('--validate <file>', 'Validate a MJML Document')
+  .parse(process.argv)
+
+
+switch (true) {
+  case (!!binary.validate):
+    commandResult = cli.validate(binary.validate, binary)
+    break
+
+  case (!!binary.watch):
+    cli.watch(binary.watch, binary)
+    break
+
+  case (!!binary.render):
+    commandResult = cli.renderFiles(binary.render, binary)
+    break
+
+  case (!!binary.stdin):
+    commandResult = cli.renderStream(binary)
+    break
+}
+
+if (commandResult) {
+  commandResult.then(function() {
+    process.exit(0)
+  }).catch(function(e) {
+    process.exit(1)
+  })
+}

@@ -1,5 +1,9 @@
 import _ from 'lodash'
 import htmlparser from 'htmlparser2'
+import isObject from 'lodash/isObject'
+import findLastIndex from 'lodash/findLastIndex'
+import mapValues from 'lodash/mapValues'
+import { components } from 'mjml-core'
 
 import parseAttributes, { decodeAttributes } from './helpers/parseAttributes'
 import cleanNode from './helpers/cleanNode'
@@ -7,12 +11,28 @@ import convertBooleansOnAttrs from './helpers/convertBooleansOnAttrs'
 import addCDATASection from './helpers/addCDATASection'
 import setEmptyAttributes from './helpers/setEmptyAttributes'
 
+const indexesForNewLine  = (xml) => {
+  const regex = /\n/gi
+  const indexes = [ 0 ]
+
+  while (regex.exec(xml)) {
+    indexes.push(regex.lastIndex);
+  }
+
+  return indexes
+}
+
 export default function parseXML (xml, options = {}) {
   const {
     addEmptyAttributes = true,
-    CDATASections = [],
+    CDATASections = _.chain({
+      ...components.head,
+      ...components.body,
+    })
+      .filter(component => component.prototype.endingTag)
+      .map(component => component.getName())
+      .value(),
     convertBooleans = true,
-    globalAttributes = {},
     keepComments = true,
   } = options
 
@@ -24,16 +44,21 @@ export default function parseXML (xml, options = {}) {
   let mjml = null
   let cur = null
 
+  const lineIndexes = indexesForNewLine(safeXml)
+
   const parser = new htmlparser.Parser({
     onopentag: (name, attrs) => {
+      const line = findLastIndex(lineIndexes, (i) => i <= parser.startIndex) + 1
+
       if (convertBooleans) {
         // "true" and "false" will be converted to bools
         attrs = convertBooleansOnAttrs(attrs)
       }
 
-      attrs = _.mapValues(attrs, val => decodeURIComponent(val))
+      attrs = mapValues(attrs, val => decodeURIComponent(val))
 
       const newNode = {
+        line: line,
         parent: cur,
         tagName: name,
         attributes: attrs,
@@ -63,6 +88,7 @@ export default function parseXML (xml, options = {}) {
     oncomment: data => {
       if (cur && keepComments) {
         cur.children.push({
+          line: findLastIndex(lineIndexes, (i) => i <= parser.startIndex) + 1,
           tagName: 'mj-raw',
           content: `<!-- ${data.trim()} -->`,
         })
@@ -75,7 +101,7 @@ export default function parseXML (xml, options = {}) {
   parser.write(safeXml)
   parser.end()
 
-  if (!_.isObject(mjml)) {
+  if (!isObject(mjml)) {
     throw new Error('Parsing failed. Check your mjml.')
   }
 

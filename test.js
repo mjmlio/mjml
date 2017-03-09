@@ -1,7 +1,6 @@
 const mjml2html = require('./packages/mjml/lib/index')
 
-const xml = `
-<mjml>
+const xml = `<mjml>
   <mj-head>
     <!-- blblbl -->
     <mj-title>
@@ -24,6 +23,9 @@ const xml = `
       </mj-section>
       <!-- my second section \o/ -->
       <mj-section>
+        <mj-text>
+          YOU SHOULD NOT BE HERE DUDE
+        </mj-text>
         <!-- inner my second section ô ô -->
       </mj-section>
     </mj-container>
@@ -35,6 +37,7 @@ console.time('mjml2html')
 
 const html = mjml2html(xml, {
   beautify: true,
+  validationLevel: 'strict',
 })
 
 if (process.argv.includes('--output')) {

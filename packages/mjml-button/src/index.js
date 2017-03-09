@@ -92,9 +92,9 @@ class Button extends Component {
   styles = this.getStyles()
 
   getStyles () {
-    const {mjAttribute} = this.props,
-      width = mjAttribute('width'),
-      isWidthPerCent = width && width.indexOf('%') >= 0
+    const {mjAttribute} = this.props
+    const width = mjAttribute('width')
+    const isWidthPerCent = width && width.indexOf('%') >= 0
 
     return helpers.merge({}, baseStyles, {
       tableRoot: {

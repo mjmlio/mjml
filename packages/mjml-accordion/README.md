@@ -1,7 +1,7 @@
 ## mjml-accordion
 
 <p align="center">
-  <img src="http://i.imgur.com/1p50NXi.gif" alt="accordion" />
+  <img src="http://i.imgur.com/6B5VpAQ.gif" alt="accordion" />
 </p>
 
 `mjml-accordion` is an interactive MJML component to stack content in tabs, so the information is collapsed and only the titles are visible. Readers can interact by clicking on the tabs to reveal the content, providing a great experience on mobile devices where space is scarce.
@@ -10,26 +10,35 @@
 <mjml>
   <mj-head>
     <mj-attributes>
-      <mj-accordion-title font-size="18px" font-family="Helvetica"/>
-      <mj-accordion-text font-size="14px" font-family="Helvetica" />
+      <mj-accordion border="none" padding="1px" />
+      <mj-accordion-element icon-wrapped-url="http://i.imgur.com/Xvw0vjq.png" icon-unwrapped-url="http://i.imgur.com/KKHenWa.png" icon-height="24px" icon-width="24px" />
+      <mj-accordion-title font-family="Roboto, Open Sans, Helvetica, Arial, sans-serif" background-color="#fff" color="#031017" padding="15px" font-size="18px" />
+      <mj-accordion-text font-family="Open Sans, Helvetica, Arial, sans-serif" background-color="#fafafa" padding="15px" color="#505050" font-size="14px" />
     </mj-attributes>
   </mj-head>
+
   <mj-body>
-    <mj-container background-color="#fbfbfb">
-      <mj-section>
-        <mj-column background-color="#dfdfdf">
-          <mj-accordion border="1px solid blue">
-            <mj-accordion-element icon-position="left" icon-wrapped-url="https://cdn4.iconfinder.com/data/icons/e-commerce-icon-set/48/More-128.png" icon-unwrapped-url="https://cdn4.iconfinder.com/data/icons/e-commerce-icon-set/48/Less-128.png">
-              <mj-accordion-title background-color="#dedede" color="#333333">To the left, to the left</mj-accordion-title>
-              <mj-accordion-text background-color="#333333" color="#dedede">Isn't this content neat?</mj-accordion-text>
-            </mj-accordion-element>
-            <mj-accordion-element icon-position="right" icon-wrapped-url="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/down4-512.png" icon-unwrapped-url="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/up4-512.png">
-              <mj-accordion-title background-color="#dedeff" color="#444488">To the right, to the right</mj-accordion-title>
-              <mj-accordion-text background-color="#444488" color="#dedeff">What about this content?</mj-accordion-text>
-            </mj-accordion-element>
-          </mj-accordion>
-        </mj-column>
-      </mj-section>
+    <mj-container background-color="#f5f5f5" width="650px">
+        <mj-section padding="20px" background-color="#ffffff">
+          <mj-column background-color="#dededd">
+            <mj-accordion>
+              <mj-accordion-element>
+                <mj-accordion-title>Why using an mj-accordion?</mj-accordion-title>
+                <mj-accordion-text>
+                  <span style="line-height:20px">Because emails with a lot of content are most of the time a very bad experience on mobile, mj-accordion comes handy when you want to deliver a lot of information in a concise way.
+                  </span>
+                </mj-accordion-text>
+              </mj-accordion-element>
+              <mj-accordion-element>
+                <mj-accordion-title>How it works</mj-accordion-title>
+                <mj-accordion-text>
+                  <span style="line-height:20px">
+                Content is stacked into tabs and users can expand them at will. If responsive styles are not supported (mostly on desktop clients), tabs are then expanded and your content is readable at once.</span>
+                </mj-accordion-text>
+              </mj-accordion-element>
+            </mj-accordion>
+          </mj-column>
+        </mj-section>
     </mj-container>
   </mj-body>
 </mjml>

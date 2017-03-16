@@ -20,7 +20,7 @@ const postRender = ($) => {
     const width = parseInt($(this).data('width'))
 
     $(this).replaceWith(`${helpers.startConditionalTag}
-      </td><tr><td style="width:${width}px;">
+      </td></tr><tr><td style="width:${width}px;">
       ${helpers.endConditionalTag}`)
   })
 

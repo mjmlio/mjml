@@ -1,7 +1,7 @@
 {
   "name": "mjml-group",
   "description": "mjml-group",
-  "version": "3.3.0-beta.8",
+  "version": "3.3.0",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -14,7 +14,7 @@
   "homepage": "https://github.com/mjmlio/mjml",
   "dependencies": {
     "lodash": "^4.17.4",
-    "mjml-core": "~3.3.0-beta.8",
+    "mjml-core": "~3.3.0",
     "react": "^15.4.2"
   }
 }

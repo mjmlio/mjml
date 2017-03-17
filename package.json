@@ -15,13 +15,13 @@
   },
   "devDependencies": {
     "babel": "^6.5.2",
-    "babel-core": "^6.18.2",
+    "babel-core": "^6.24.0",
     "babel-eslint": "^7.1.1",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-es2015": "^6.24.0",
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-0": "^6.16.0",
-    "babel-register": "^6.16.3",
+    "babel-register": "^6.24.0",
     "eslint": "^3.12.2",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",
@@ -34,8 +34,8 @@
     "gulp-watch": "^4.3.11",
     "lazypipe": "^1.0.1",
     "pre-commit": "^1.1.3",
-    "shelljs": "^0.7.5",
+    "shelljs": "^0.7.7",
     "through2": "^2.0.3",
-    "yargs": "^7.0.1"
+    "yargs": "^7.0.2"
   }
 }

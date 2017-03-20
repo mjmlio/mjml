@@ -81,7 +81,35 @@ export default createBodyComponent('mj-section', {
                   style: this.generateStyles('td'),
                 })}
               >
-                ${this.renderChildren()}
+                <!--[if mso | IE]>
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                <![endif]-->
+                ${this.renderChildren({
+                  renderer: (component) => {
+                    if (component.rawElement) {
+                      return component.render()
+                    }
+
+                    return `
+                      <!--[if mso | IE]>
+                        <td
+                          ${this.generateHtmlAttributes({
+                            style: this.generateStyles('td-outlook'),
+                          })}
+                        >
+                      <![endif]-->
+                        ${component.render()}
+                      <!--[if mso | IE]>
+                        </td>
+                      <![endif]-->
+                    `
+                  }
+                })}
+                <!--[if mso | IE]>
+                    </tr>
+                  </table>
+                <![endif]-->
               </td>
             </tr>
           </tbody>

@@ -17,7 +17,6 @@ const xml = `<mjml>
         <mj-column>
           <!-- column ! -->
           <mj-text>
-            Hey !
           </mj-text>
         </mj-column>
       </mj-section>

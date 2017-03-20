@@ -1,4 +1,5 @@
-export default { 'mj-accordion': [ 'mj-accordion-element' ],
+export default {
+  'mj-accordion': [ 'mj-accordion-element' ],
   'mj-accordion-element': [
     'mj-accordion-title',
     'mj-accordion-text',

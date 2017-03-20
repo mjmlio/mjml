@@ -60,9 +60,6 @@ export default createBodyComponent('mj-column', {
     const {
       addMediaQuery,
     } = this.context
-    const {
-      sibling,
-    } = this.props
 
     let className = ''
 
@@ -90,27 +87,12 @@ export default createBodyComponent('mj-column', {
 
     return className
   },
-  renderBefore () {
-    return `
-      <!--[if mso | IE]>
-      <table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td style="vertical-align:top;width:${this.getParsedWidth(true)};">
-      <![endif]-->
-    `
-  },
-  renderAfter () {
-    return `
-      <!--[if mso | IE]>
-      </td></tr></table>
-      <![endif]-->
-    `
-  },
   render () {
     const {
       children,
     } = this.props
 
     return `
-      ${this.renderBefore()}
       <div
         ${this.generateHtmlAttributes({
           'class': `${this.getColumnClass()} outlook-group-fix`,
@@ -129,15 +111,16 @@ export default createBodyComponent('mj-column', {
           <tbody>
             ${this.renderChildren(children, {
               renderer: component => component.rawElement ? component.render() : `
+                {componen}
                 <tr>
                   <td
                     ${component.generateHtmlAttributes({
                       align: component.getMjAttribute('align'),
                       background: component.getMjAttribute('container-background-color'),
                       style: component.generateStyles({
-                        background: component.getMjAttribute('container-background-color'),
+                        'background': component.getMjAttribute('container-background-color'),
                         'font-size': '0px',
-                        padding: component.getMjAttribute('padding'),
+                        'padding': component.getMjAttribute('padding'),
                         'padding-top': component.getMjAttribute('padding-top'),
                         'padding-right': component.getMjAttribute('padding-right'),
                         'padding-bottom': component.getMjAttribute('padding-bottom'),
@@ -154,7 +137,6 @@ export default createBodyComponent('mj-column', {
           </tbody>
         </table>
       </div>
-      ${this.renderAfter()}
     `
   }
 })

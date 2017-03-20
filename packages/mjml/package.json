@@ -23,6 +23,7 @@
     "mjml-head-title": "~3.1.1",
     "mjml-image": "~3.1.1",
     "mjml-section": "~3.1.1",
+    "mjml-table": "~3.1.1",
     "mjml-text": "~3.1.1"
   }
 }

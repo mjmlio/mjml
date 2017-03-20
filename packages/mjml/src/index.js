@@ -15,6 +15,7 @@ registerComponent(require('mjml-image'))
 registerComponent(require('mjml-raw'))
 registerComponent(require('mjml-section'))
 registerComponent(require('mjml-text'))
+registerComponent(require('mjml-table'))
 
 registerDependencies(dependencies)
 

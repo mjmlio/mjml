@@ -111,7 +111,6 @@ export default createBodyComponent('mj-column', {
           <tbody>
             ${this.renderChildren(children, {
               renderer: component => component.rawElement ? component.render() : `
-                {componen}
                 <tr>
                   <td
                     ${component.generateHtmlAttributes({

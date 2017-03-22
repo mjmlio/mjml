@@ -57,6 +57,10 @@ export default createBodyComponent('mj-section', {
     `
   },
   render () {
+    const {
+      children,
+    } = this.props
+
     return `
       ${this.renderBefore()}
       <div
@@ -85,26 +89,20 @@ export default createBodyComponent('mj-section', {
                   <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                     <tr>
                 <![endif]-->
-                ${this.renderChildren({
-                  renderer: (component) => {
-                    if (component.rawElement) {
-                      return component.render()
-                    }
-
-                    return `
-                      <!--[if mso | IE]>
-                        <td
-                          ${this.generateHtmlAttributes({
-                            style: this.generateStyles('td-outlook'),
-                          })}
-                        >
-                      <![endif]-->
-                        ${component.render()}
-                      <!--[if mso | IE]>
-                        </td>
-                      <![endif]-->
-                    `
-                  }
+                ${this.renderChildren(children, {
+                  renderer: (component) => component.rawElement ? component.render() : `
+                    <!--[if mso | IE]>
+                      <td
+                        ${this.generateHtmlAttributes({
+                          style: this.generateStyles('td-outlook'),
+                        })}
+                      >
+                    <![endif]-->
+                      ${component.render()}
+                    <!--[if mso | IE]>
+                      </td>
+                    <![endif]-->
+                  `
                 })}
                 <!--[if mso | IE]>
                     </tr>

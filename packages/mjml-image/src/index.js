@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import min from 'lodash/min'
 
 import {
   createBodyComponent,
@@ -17,6 +17,7 @@ export default createBodyComponent('mj-image', {
   },
   getStyles () {
     const width = this.getContentWidth()
+    const fullWidth = this.getMjAttribute('full-width') == 'full-width'
     const {
       parsedWidth,
       unit,
@@ -24,14 +25,16 @@ export default createBodyComponent('mj-image', {
 
     return {
       img: {
-        border: this.getMjAttribute('border'),
-        display: 'block',
-        outline: 'none',
+        'border': this.getMjAttribute('border'),
+        'display': 'block',
+        'outline': 'none',
         'text-decoration': 'none',
-        width: '100%',
+        'min-width': fullWidth ? '100%' : null,
+        'width': fullWidth ? width : '100%',
+        'max-width': fullWidth ? '100%' : null,
       },
       td: {
-        width: `${parsedWidth}${unit}`,
+        'width': fullWidth ? null : `${parsedWidth}${unit}`,
       },
       table: {
         'border-collapse': 'collapse',
@@ -41,19 +44,19 @@ export default createBodyComponent('mj-image', {
   },
   getContentWidth () {
     const {
-      columnWidth,
+      parentWidth,
     } = this.context
 
     const width = this.getMjAttribute('width') ?
-      _.min( [
+      min([
         parseInt(this.getMjAttribute('width')),
-        columnWidth,
-      ] ) :
-      columnWidth
+        parentWidth,
+      ]) :
+      parentWidth
 
     const paddingRight = this.getPadding('right')
     const paddingLeft = this.getPadding('left')
-    const widthOverflow = paddingLeft + paddingRight + parseFloat(width) - columnWidth
+    const widthOverflow = paddingLeft + paddingRight + parseFloat(width) - parentWidth
 
     return widthOverflow > 0 ?
       parseFloat(width - widthOverflow) :

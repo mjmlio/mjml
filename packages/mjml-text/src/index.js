@@ -38,12 +38,11 @@ export default createBodyComponent('mj-text', {
       'font-weight': this.getMjAttribute('font-weight'),
       'letter-spacing': this.getMjAttribute('letter-spacing'),
       'line-height': this.getMjAttribute('line-height'),
-      'line-height': this.getMjAttribute('line-height'),
       'text-align': this.getMjAttribute('align'),
       'text-decoration': this.getMjAttribute('text-decoration'),
       'text-transform': this.getMjAttribute('text-transform'),
-      color: this.getMjAttribute('color'),
-      height: this.getMjAttribute('height'),
+      'color': this.getMjAttribute('color'),
+      'height': this.getMjAttribute('height'),
     }
   },
   renderContent () {

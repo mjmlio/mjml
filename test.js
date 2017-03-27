@@ -1,36 +1,41 @@
 const mjml2html = require('./packages/mjml/lib/index')
+const map = require('lodash/map')
+
+const toTest = [
+  {},
+  {
+    'background-color': '#dd8800'
+  }, {
+    'background-url': 'https://i.imgur.com/YJOX1PC.png'
+  }, {
+    'background-url': 'https://total-error-background-with-fallback.com',
+    'background-color': '#dd88ee'
+  }
+]
+
+const generateTags = (attrs) => `
+  <mj-section ${map(attrs, ((v, i) => `${i}="${v}"`)).join(' ')}>
+    <mj-column>
+      <mj-text>
+        <h1>Case: ${JSON.stringify(attrs)}</h1>
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      </mj-text>
+    </mj-column>
+  </mj-section>
+  <mj-section full-width="full-width" ${map(attrs, ((v, i) => `${i}="${v}"`)).join(' ')}>
+    <mj-column>
+      <mj-text>
+        <h1>Case: ${JSON.stringify(attrs)}</h1>
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      </mj-text>
+    </mj-column>
+  </mj-section>
+`
 
 const xml = `<mjml>
   <mj-body>
     <mj-container>
-      <mj-section background-color="#2f323b" padding-bottom="20" padding-top="20">
-    <mj-column>
-      <mj-image src="http://191n.mj.am/img/191n/3s/x47.png" alt="Cards" width="72">
-      </mj-image>
-      <mj-text align="center" color="#fff" font-size="13" padding-left="25" padding-right="25" padding-bottom="0" padding-top="0">
-        <p style="font-size: 15px;font-weight: bold;">PAYMENT METHODS</p>
-        <p>We accept all majors payments options</p>
-      </mj-text>
-    </mj-column>
-    <mj-column>
-      <mj-image src="http://191n.mj.am/img/191n/3s/x48.png" alt="Currencies" align="center" border="none" width="70" padding-left="25" padding-right="25" padding-bottom="0" padding-top="10">
-
-      </mj-image>
-      <mj-text align="center" color="#fff" font-size="13" padding-left="25" padding-right="25" padding-bottom="0" padding-top="0">
-        <p style="font-size: 15px;font-weight: bold;">CURRENCIES CHOICE</p>
-        <p>You have the choice to pay with your own currencies</p>
-      </mj-text>
-    </mj-column>
-    <mj-column>
-      <mj-image src="http://191n.mj.am/img/191n/3s/x4y.png" alt="Express" align="center" border="none" width="82" padding-left="25" padding-right="25" padding-bottom="8" padding-top="10">
-
-      </mj-image>
-      <mj-text align="center" color="#fff" font-size="13" padding-left="25" padding-right="25" padding-bottom="0" padding-top="0">
-        <p style="font-size: 15px;font-weight: bold;">EXPRESS SHIPPING</p>
-        <p>Delivered tomorrow before noon</p>
-      </mj-text>
-    </mj-column>
-  </mj-section>
+      ${toTest.map(generateTags).join('\n')}
     </mj-container>
   </mj-body>
 </mjml>

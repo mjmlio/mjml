@@ -41,9 +41,11 @@ export default createBodyComponent('mj-section', {
     const fullWidth = this.isFullWidth()
 
     const background = this.getMjAttribute('background-url') ? {
-      background: `${this.getMjAttribute('background-color') || ''} url(${this.getMjAttribute('background-url')}) top center / ${this.getMjAttribute('background-size') || ''} ${this.getMjAttribute('background-repeat') || ''}`.trim()
+      'background': `${this.getMjAttribute('background-color') || ''} url(${this.getMjAttribute('background-url')}) top center / ${this.getMjAttribute('background-size') || ''} ${this.getMjAttribute('background-repeat') || ''}`.trim(),
+      'background-color': this.getMjAttribute('background-color'),
     } : {
-      background: this.getMjAttribute('background-color')
+      'background': this.getMjAttribute('background-color'),
+      'background-color': this.getMjAttribute('background-color'),
     }
 
     return {
@@ -170,6 +172,7 @@ export default createBodyComponent('mj-section', {
         <table
           ${this.generateHtmlAttributes({
             align: 'center',
+            background: this.isFullWidth() ? null : this.getMjAttribute('background-url'),
             border: '0',
             cellpadding: '0',
             cellspacing: '0',
@@ -205,6 +208,7 @@ export default createBodyComponent('mj-section', {
       <table
         ${this.generateHtmlAttributes({
           align: 'center',
+          background: this.getMjAttribute('background-url'),
           border: '0',
           cellpadding: '0',
           cellspacing: '0',
@@ -243,21 +247,3 @@ export default createBodyComponent('mj-section', {
     return this.isFullWidth() ? this.renderFullWidth() : this.renderSimple()
   }
 })
-
-// table full width
-//   background vml
-//   outlook start
-//   div
-//     table
-//       columns
-//   outlook end
-//   end vml
-//
-//
-// outlook start
-//   background vml
-//     div
-//       table
-//         columns
-//   end vml
-// outlook end

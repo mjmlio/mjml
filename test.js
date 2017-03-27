@@ -6,9 +6,9 @@ const toTest = [
   {
     'background-color': '#dd8800'
   }, {
-    'background-url': 'https://i.imgur.com/YJOX1PC.png'
+    'background-url': 'http://cdn.wallpapersafari.com/47/47/QifFw9.jpg'
   }, {
-    'background-url': 'https://total-error-background-with-fallback.com',
+    'background-url': 'https://total-error-background-with-fallback.com/test.jpg',
     'background-color': '#dd88ee'
   }
 ]

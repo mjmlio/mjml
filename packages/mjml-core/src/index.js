@@ -1,4 +1,5 @@
-import _ from 'lodash'
+import forEach from 'lodash/forEach'
+import identity from 'lodash/identity'
 import juice from 'juice'
 import {
   html as htmlBeautify,
@@ -6,17 +7,31 @@ import {
 import {
   minify as htmlMinify,
 } from 'html-minifier'
+import map from 'lodash/map'
+import omit from 'lodash/omit'
 import parseXML from 'mjml-parser-xml'
+import MJMLValidator from 'mjml-validator'
+import reduce from 'lodash/reduce'
 
 import components, {
   initComponent,
   registerComponent,
+  flattenComponents,
 } from './components'
 
 import skeleton from './helpers/skeleton'
 import traverseMJML from './helpers/traverseMJML'
 
+class ValidationError extends Error {
+  constructor(message, errors) {
+    super(message)
+    this.errors = errors
+  }
+}
+
 export default function mjml2html (mjml, options = {}) {
+  let content = ''
+  let errors = []
 
   const {
     beautify = false,
@@ -31,9 +46,8 @@ export default function mjml2html (mjml, options = {}) {
     minify = false,
     style = [],
     keepComments,
+    validationLevel = 'soft',
   } = options
-
-  let content = ''
 
   const globalDatas = {
     classes: {},
@@ -45,24 +59,31 @@ export default function mjml2html (mjml, options = {}) {
   }
 
   if (typeof mjml === 'string') {
-    mjml = parseXML(mjml, {
-      CDATASections: _.chain({
-          ...components.head,
-          ...components.body,
-        })
-        .filter(component => component.prototype.endingTag)
-        .map(component => component.getName())
-        .value(),
-      keepComments,
-    })
+    mjml = parseXML(mjml, {keepComments})
   }
 
-  const processing = (type, context, parseMJML = _.identity) => {
+  switch (validationLevel) {
+    case 'skip':
+      break;
+    case 'strict':
+      errors = MJMLValidator(mjml)
+
+      if (errors.length > 0) {
+        throw new ValidationError(`ValidationError: \n ${errors.map(e => e.formattedMessage).join('\n')}`, errors)
+      }
+      break;
+    case 'soft':
+    default:
+      errors = MJMLValidator(mjml)
+      break;
+  }
+
+  const processing = (type, context, parseMJML = identity) => {
     const componentRoot = traverseMJML(mjml, child => child.tagName === `mj-${type}`)
 
     if (componentRoot &&
         componentRoot.children) {
-      _.forEach(componentRoot.children, child => {
+      forEach(componentRoot.children, child => {
         const component = initComponent({
           type,
           name: child.tagName,
@@ -111,7 +132,7 @@ export default function mjml2html (mjml, options = {}) {
     const parse = mjml => {
       const classes = mjml.attributes['mj-class']
       const attributesClasses = classes ?
-        _.reduce(classes.split(' '), (result, value, key) => ({
+        reduce(classes.split(' '), (result, value) => ({
           ...result,
           ...globalDatas.classes[value],
         }), {}) : {}
@@ -119,12 +140,12 @@ export default function mjml2html (mjml, options = {}) {
       return {
         ...mjml,
         attributes: {
-          ..._.omit(mjml.attributes, [ 'mj-class' ]),
+          ...omit(mjml.attributes, [ 'mj-class' ]),
           ...attributesClasses,
           ...globalDatas.defaultAttributes[mjml.tagName],
           ...globalDatas.defaultAttributes['mj-all'],
         },
-        children: mjml.children && _.map(mjml.children, parse),
+        children: mjml.children && map(mjml.children, parse),
       }
     }
 
@@ -158,12 +179,12 @@ export default function mjml2html (mjml, options = {}) {
     removeEmptyAttributes: true,
   }) : content
 
-  return content
-
+  return { html: content, errors: errors }
 }
 
 export {
   components,
+  flattenComponents,
   initComponent,
   registerComponent,
 }

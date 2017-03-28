@@ -38,7 +38,7 @@ function createComponent (ComposedComponent) {
 
   const baseStyles = {
     td: {
-      wordBreak: 'break-word'
+      wordWrap: 'break-word',
     }
   }
 

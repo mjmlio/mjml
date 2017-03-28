@@ -56,8 +56,19 @@ const mjmlElementParser = (elem, content) => {
   const element = { tagName, attributes, lineNumber }
 
   if (endingTags.indexOf(tagName) !== -1) {
-    const $local = dom.parseXML(elem)
-    element.content = removeCDATA($local(tagName).html().trim())
+    var serializer = new XMLSerializer()
+    const $local = dom.parseXML(serializer.serializeToString(elem).trim())
+    var localElement = $local(tagName);
+    if (localElement.length > 0) {
+      localElement = localElement[0];
+      let content = ""
+      if (localElement.childNodes.length > 0) {
+        for (var i = 0; i < localElement.childNodes.length; i++) {
+          content += serializer.serializeToString(localElement.childNodes[i])
+        }
+      }
+      element.content = content;
+    }
   } else {
     const children = dom.getChildren(elem)
     element.children = children ? compact(filter(children, child => child.tagName).map(child => mjmlElementParser(child, content))) : []
@@ -122,7 +133,7 @@ const documentParser = (content) => {
     },
     {
       tagName: 'mj-body',
-      children: [ mjmlElementParser(body, safeContent) ]
+      children: [mjmlElementParser(body, safeContent)]
     }]
   }
 }

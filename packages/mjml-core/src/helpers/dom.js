@@ -39,7 +39,11 @@ if (isBrowser()) {
     return attributes
   }
 
-  dom.getChildren = element => element.children
+  dom.getChildren = element => {
+    return Array.from(element.childNodes).filter((node) => {
+      return node.nodeType === 1
+    })
+  }
 
   dom.replaceContentByCdata = tag => `<${tag}$1><!--[CDATA[$2]]--></${tag}>`
 

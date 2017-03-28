@@ -30,13 +30,14 @@ export default createBodyComponent('mj-image', {
         'outline': 'none',
         'text-decoration': 'none',
         'min-width': fullWidth ? '100%' : null,
-        'width': fullWidth ? width : '100%',
+        'width': fullWidth ? `${parsedWidth}${unit}` : '100%',
         'max-width': fullWidth ? '100%' : null,
       },
       td: {
         'width': fullWidth ? null : `${parsedWidth}${unit}`,
       },
       table: {
+        'width': fullWidth ? '100%' : null,
         'border-collapse': 'collapse',
         'border-spacing': '0px',
       },

@@ -8,7 +8,9 @@ Displays a blank space.
     <mj-container>
       <mj-section>
         <mj-column>
+          <mj-text>A first line of text</mj-text>
           <mj-spacer height="50px" />
+          <mj-text>A second line of text</mj-text>
         </mj-column>
       </mj-section>
     </mj-container>
@@ -17,7 +19,7 @@ Displays a blank space.
 ```
 
 <p align="center">
-  <a href="https://mjml.io/try-it-live/components/social">
+  <a href="https://mjml.io/try-it-live/components/spacer">
     <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
   </a>
 </p>

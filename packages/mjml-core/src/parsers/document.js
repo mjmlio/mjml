@@ -57,18 +57,8 @@ const mjmlElementParser = (elem, content) => {
 
   if (endingTags.indexOf(tagName) !== -1) {
     var serializer = new XMLSerializer()
-    const $local = dom.parseXML(serializer.serializeToString(elem).trim())
-    var localElement = $local(tagName);
-    if (localElement.length > 0) {
-      localElement = localElement[0];
-      let content = ""
-      if (localElement.childNodes.length > 0) {
-        for (var i = 0; i < localElement.childNodes.length; i++) {
-          content += serializer.serializeToString(localElement.childNodes[i])
-        }
-      }
-      element.content = content;
-    }
+    var $local = _dom2.default.parseXML(serializer.serializeToString(elem).trim());
+    element.content = getHTMLForElement($local(tagName));
   } else {
     const children = dom.getChildren(elem)
     element.children = children ? compact(filter(children, child => child.tagName).map(child => mjmlElementParser(child, content))) : []
@@ -77,9 +67,25 @@ const mjmlElementParser = (elem, content) => {
   return element
 }
 
+const getHTMLForElement = (el) =>{
+	const serializer = new XMLSerializer();
+	var _content = "";
+	if (el.length > 0) {
+      el = el[0];
+      
+      if (el.childNodes.length > 0) {
+        for (var i = 0; i < el.childNodes.length; i++) {
+            _content += (0, _removeCDATA2.default)(serializer.serializeToString(el.childNodes[i]));
+        }
+      }
+    }
+	return _content;
+};
+
 const parseHead = (head) => {
   return map(compact(filter(dom.getChildren(head), child => child.tagName)), el => {
-    const $local = dom.parseXML(el)
+    const serializer = new XMLSerializer();
+    const $local = dom.parseXML(serializer.serializeToString(el).trim())
 
     const parseElement = (elem) => {
       const endingTag = includes(headEndingTags, elem.tagName.toLowerCase())
@@ -87,7 +93,7 @@ const parseHead = (head) => {
       return {
         attributes: mapValues(dom.getAttributes(elem), val => decodeURIComponent(val)),
         children: endingTag ? null : compact(filter(toArray(elem.childNodes), child => child.tagName)).map(parseElement),
-        content: endingTag ? removeCDATA($local(elem.tagName.toLowerCase()).html().trim()) : null,
+        content: endingTag ? getHTMLForElement($local(elem.tagName.toLowerCase())) : null,
         tagName: elem.tagName.toLowerCase()
       }
     }

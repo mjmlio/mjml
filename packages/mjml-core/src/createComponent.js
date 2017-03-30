@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import objectPath from 'object-path'
+import shorthandParser from './helpers/shorthandParser'
 
 import {
   initComponent,
@@ -81,39 +82,19 @@ export default function createComponent (type, name, component) {
     }
 
     @onlyFor('body')
-    getPadding (direction) {
-      const paddingDirection = this.getMjAttribute(`padding-${direction}`)
-      const padding = this.getMjAttribute('padding')
+    getShorthandAttrValue (attribute, direction) {
+      const mjAttributeDirection = this.getMjAttribute(`${attribute}-${direction}`)
+      const mjAttribute = this.getMjAttribute(attribute)
 
-      if (paddingDirection) {
-        return parseInt(paddingDirection)
+      if (mjAttributeDirection) {
+        return parseInt(mjAttributeDirection)
       }
 
-      if (!padding) {
+      if (!mjAttribute) {
         return 0
       }
 
-      const paddings = padding.split(' ')
-      let directions = {}
-
-      switch (paddings.length) {
-        case 1:
-          return parseInt(padding)
-
-        case 2:
-          directions = { top: 0, bottom: 0, left: 1, right: 1 }
-          break
-
-        case 3:
-          directions = { top: 0, left: 1, right: 1, bottom: 2 }
-          break
-
-        case 4:
-          directions = { top: 0, right: 1, bottom: 2, left: 3 }
-          break
-      }
-
-      return parseFloat(paddings[directions[direction]] || 0)
+      return shorthandParser(mjAttribute, direction)
     }
 
     @onlyFor('body')

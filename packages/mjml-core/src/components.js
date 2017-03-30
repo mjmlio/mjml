@@ -20,5 +20,5 @@ export function initComponent ({ initialDatas, name, type = 'body' }) {
   return null
 }
 
-export const flattenComponents = () => merge({}, ...flatMap(components))
+export const getFlattenComponents = () => merge({}, ...flatMap(components))
 export default components

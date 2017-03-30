@@ -1,4 +1,3 @@
-import cloneDeep from 'lodash/cloneDeep'
 import {
   createBodyComponent,
 } from 'mjml-core/lib/createComponent'
@@ -50,12 +49,12 @@ export default createBodyComponent('mj-section', {
 
     return {
       tableFullwidth: {
-        ...(fullWidth ? cloneDeep(background) : {}),
+        ...(fullWidth ? background : {}),
         'width': '100%',
         'border-radius': this.getMjAttribute('border-radius'),
       },
       table: {
-        ...(fullWidth ? {} : cloneDeep(background)),
+        ...(fullWidth ? {} : background),
         'width': '100%',
         'border-radius': this.getMjAttribute('border-radius'),
       },
@@ -76,7 +75,7 @@ export default createBodyComponent('mj-section', {
         'vertical-align': this.getMjAttribute('vertical-align')
       },
       div: {
-        ...(fullWidth ? {} : cloneDeep(background)),
+        ...(fullWidth ? {} : background),
         'Margin': '0px auto',
         'border-radius': this.getMjAttribute('border-radius'),
         'max-width': containerWidth,
@@ -159,10 +158,6 @@ export default createBodyComponent('mj-section', {
     `
   },
   renderSection () {
-    const {
-      children,
-    } = this.props
-
     return `
       <div
         ${this.generateHtmlAttributes({

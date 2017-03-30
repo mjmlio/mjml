@@ -16,7 +16,7 @@ import reduce from 'lodash/reduce'
 import components, {
   initComponent,
   registerComponent,
-  flattenComponents,
+  getFlattenComponents,
 } from './components'
 
 import skeleton from './helpers/skeleton'
@@ -184,7 +184,7 @@ export default function mjml2html (mjml, options = {}) {
 
 export {
   components,
-  flattenComponents,
+  getFlattenComponents,
   initComponent,
   registerComponent,
 }

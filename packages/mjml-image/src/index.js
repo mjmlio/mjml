@@ -37,7 +37,9 @@ export default createBodyComponent('mj-image', {
         'width': fullWidth ? null : `${parsedWidth}${unit}`,
       },
       table: {
-        'width': fullWidth ? '100%' : null,
+        'min-width': fullWidth ? '100%' : null,
+        'max-width': fullWidth ? '100%' : null,
+        'width': fullWidth ? `${parsedWidth}${unit}` : null,
         'border-collapse': 'collapse',
         'border-spacing': '0px',
       },
@@ -55,8 +57,8 @@ export default createBodyComponent('mj-image', {
       ]) :
       parentWidth
 
-    const paddingRight = this.getPadding('right')
-    const paddingLeft = this.getPadding('left')
+    const paddingRight = this.getShorthandAttrValue('padding', 'right')
+    const paddingLeft = this.getShorthandAttrValue('padding', 'left')
     const widthOverflow = paddingLeft + paddingRight + parseFloat(width) - parentWidth
 
     return widthOverflow > 0 ?

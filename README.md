@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="http://mjml.io" target="_blank">
+  <a href="https://mjml.io" target="_blank">
     <img width="250"src="https://cloud.githubusercontent.com/assets/6558790/12672296/7b66d8cc-c675-11e5-805d-c6d196320537.png">
 
   </a>
@@ -29,7 +29,7 @@
 MJML is a markup language designed to reduce the pain of coding a responsive email. Its semantic syntax makes it easy and straightforward while its rich standard components library fastens your development time and lightens your email codebase. MJML’s open-source engine takes care of translating the MJML you wrote into responsive HTML.
 
 <p align="center">
-  <a href="http://mjml.io" target="_blank">
+  <a href="https://mjml.io" target="_blank">
     <img width="75%" src="https://cloud.githubusercontent.com/assets/6558790/12450760/ee034178-bf85-11e5-9dda-98d0c8f9f8d6.png">
   </a>
 </p>
@@ -143,7 +143,7 @@ To learn how to create your own component, follow this [step-by-step guide](http
 Get your hands dirty by trying the MJML online editor! Write awesome code on the left side and preview your email on the right. You can also get the rendered HTML directly from the online editor.
 
 <p align="center">
-  <a href="http://mjml.io/try-it-live"><img src="https://cloud.githubusercontent.com/assets/6558790/12195421/58a40618-b5f7-11e5-9ed3-80463874ab14.png" alt="try it live" width="75%"></a>
+  <a href="https://mjml.io/try-it-live"><img src="https://cloud.githubusercontent.com/assets/6558790/12195421/58a40618-b5f7-11e5-9ed3-80463874ab14.png" alt="try it live" width="75%"></a>
 </p>
 <br>
 

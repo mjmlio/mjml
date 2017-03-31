@@ -4,7 +4,7 @@
   <img src="https://cloud.githubusercontent.com/assets/1830348/15317906/d6cef510-1c23-11e6-83d7-31e4e4f8ba2a.png" width="800px" />
 </p>
 
-Displays a full width section for navigation
+Displays a menu for navigation with an optional hamburger mode for mobile devices.
 
 ```xml
 <mjml>
@@ -15,12 +15,11 @@ Displays a full width section for navigation
           <mj-image width="150px" src="https://mjml.io/assets/img/logo-white-small.png"></mj-image>
         </mj-column>
         <mj-column width="80%">
-          <mj-inline-links base-url="https://mjml.io">
+          <mj-inline-links base-url="https://mjml.io" hamburger="hamburger" ico-color="#ffffff">
             <mj-link href="/gettings-started-onboard" color="#ffffff">Getting started</mj-link>
             <mj-link href="/try-it-live" color="#ffffff">Try it live</mj-link>
             <mj-link href="/templates" color="#ffffff">Templates</mj-link>
             <mj-link href="/components" color="#ffffff">Components</mj-link>
-            <mj-link href="/documentation" color="#ffffff">Documentation</mj-link>
           </mj-inline-links>
         </mj-column>
       </mj-navbar>
@@ -58,7 +57,7 @@ padding-right       | px          | section right offset           | n/a
 
 ### mjml-inline-links
 
-To display some links horizontally
+Individual links of the menu should we wrapped inside mj-inline-links.
 
 Standard Desktop:
 
@@ -76,35 +75,6 @@ Mode hamburger enabled:
 
 <p align="center">
   <img src="https://cloud.githubusercontent.com/assets/1830348/15317922/f01c5c24-1c23-11e6-9b0c-95b0602da260.gif" width="309px" />
-</p>
-
-```xml
-<mjml>
-  <mj-body>
-    <mj-container>
-      <mj-navbar background-color="#ef6451">
-        <mj-column width="20%">
-          <mj-image width="150px" src="https://mjml.io/assets/img/logo-white-small.png"></mj-image>
-        </mj-column>
-        <mj-column width="80%">
-          <mj-inline-links base-url="https://mjml.io">
-            <mj-link href="/gettings-started-onboard" color="#ffffff">Getting started</mj-link>
-            <mj-link href="/try-it-live" color="#ffffff">Try it live</mj-link>
-            <mj-link href="/templates" color="#ffffff">Templates</mj-link>
-            <mj-link href="/components" color="#ffffff">Components</mj-link>
-            <mj-link href="/documentation" color="#ffffff">Documentation</mj-link>
-          </mj-inline-links>
-        </mj-column>
-      </mj-navbar>
-    </mj-container>
-  </mj-body>
-</mjml>
-```
-
-<p align="center">
-  <a href="https://mjml.io/try-it-live/components/navbar/1">
-    <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
-  </a>
 </p>
 
 <aside class="notice">
@@ -129,44 +99,18 @@ ico-padding-bottom          | px                 | hamburger icon bottom offset 
 ico-padding-left            | px                 | hamburger icon left offset (hamburger mode required)                                             | 10px
 ico-align                   | string             | hamburger icon alignment, left/center/right (hamburger mode required)                            | center
 ico-color                   | color format       | hamburger icon color (hamburger mode required)                                                   | #000000
-ico-font-size               | px                 | hamburger icon size (hamburger mode required)                                                    | Ubuntu, Helvetica, Arial, sans-serif
-ico-font-family             | string             | hamburger icon font (only on hamburger mode)                                                     | 30px
+ico-font-size               | px                 | hamburger icon size (hamburger mode required)                                                    | 30px
+ico-font-family             | string             | hamburger icon font (only on hamburger mode)                                                     | Ubuntu, Helvetica, Arial, sans-serif
 ico-text-transform          | string             | hamburger icon text transformation none/capitalize/uppercase/lowercase (hamburger mode required) | none
 ico-text-decoration         | string             | hamburger icon text decoration none/underline/overline/line-through (hamburger mode required)    | none
 ico-line-height             | px                 | hamburger icon line height (hamburger mode required)                                             | 30px
 
 ### mjml-link
 
-```xml
-<mjml>
-  <mj-body>
-    <mj-container>
-      <!-- Navbar (see component mj-navbar) -->
-      <mj-navbar>
-        <mj-column>
-          <!-- Wrapper (see component mj-inline-links) -->
-          <mj-inline-links base-url="https://mjml.io">
-            <mj-link href="/getting-started-onboard">Getting started</mj-link>
-            <mj-link href="/try-it-live">Try it live</mj-link>
-            <mj-link href="/documentation">Documentation</mj-link>
-          </mj-inline-links>
-        </mj-column>
-      </mj-navbar>
-    </mj-container>
-  </mj-body>
-</mjml>
-```
-
-Displays a horizontal navbar.
-
-<p align="center">
-  <a href="https://mjml.io/try-it-live/components/link">
-    <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
-  </a>
-</p>
+This component should be used to display an individual link in the navbar.
 
 <aside class="notice">
-  All the mj-link components must be wrapped in a component mj-inline-links
+  The mj-link component must be used inside a mj-inline-links component only.
 </aside>
 
 attribute        | unit          | description                           | default value

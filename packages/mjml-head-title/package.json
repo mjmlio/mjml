@@ -1,7 +1,7 @@
 {
   "name": "mjml-head-title",
   "description": "mjml-head-title",
-  "version": "3.3.0-beta.8",
+  "version": "3.3.0",
   "main": "lib/index.js",
   "repository": {
     "type": "git",

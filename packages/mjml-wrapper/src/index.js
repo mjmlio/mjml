@@ -11,24 +11,17 @@ const defaultMJMLDefinition = merge({}, Section.defaultMJMLDefinition, {
 })
 const postRender = ($) => {
   $('.mj-wrapper-outlook-open').each(function () {
-    const $columnDiv = $(this).next()
-
     $(this).replaceWith(`${helpers.startConditionalTag}
-      <table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td style="vertical-align:${$columnDiv.data('vertical-align')};width:${parseInt($(this).data('width'))}px;">
+      <table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td style="width:${parseInt($(this).data('width'))}px;">
       ${helpers.endConditionalTag}`)
-
-    $columnDiv.removeAttr('data-vertical-align')
   })
 
   $('.mj-wrapper-outlook-line').each(function () {
-    const $columnDiv = $(this).next()
     const width = parseInt($(this).data('width'))
 
     $(this).replaceWith(`${helpers.startConditionalTag}
-      </td><tr><tr><td style="vertical-align:${$columnDiv.data('vertical-align')};width:${width}px;">
+      </td></tr><tr><td style="width:${width}px;">
       ${helpers.endConditionalTag}`)
-
-    $columnDiv.removeAttr('data-vertical-align')
   })
 
   $('.mj-wrapper-outlook-close').each(function () {

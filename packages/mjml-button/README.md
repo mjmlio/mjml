@@ -38,11 +38,14 @@ border-left                 | string      | css border format                   
 border-right                | string      | css border format                                | n/a
 border-top                  | string      | css border format                                | n/a
 border-radius               | px          | border radius                                    | 3px
+box-shadow	                | string      | box shadow	                                     | n/a
 font-style                  | string      | normal/italic/oblique                            | n/a
 font-size                   | px          | text size                                        | 13px
 font-weight                 | number      | text thickness                                   | bold
 font-family                 | string      | font name                                        | Ubuntu, Helvetica, Arial, sans-serif
 color                       | color       | text color                                       | #ffffff
+line-height                 | px          | Line height to prevent cropped font              | 16px
+text-align                  | string      | left/center/right                                | center
 text-decoration             | string      | underline/overline/none                          | none
 text-transform              | string      | capitalize/uppercase/lowercase                   | none
 align                       | string      | horizontal alignment                             | center

@@ -41,3 +41,4 @@ href                          | url           | link to redirect to on click   |
 alt                           | string        | image description              | n/a
 align                         | position      | image alignment                | center
 title                         | string        | tooltip & accessibility        | n/a
+css-class                     | string        | HTML Element Class Name        | n/a

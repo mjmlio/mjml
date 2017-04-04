@@ -17,8 +17,7 @@ const defaultMJMLDefinition = {
     "border-right": null,
     "border-top": null,
     'vertical-align': null,
-    'width': null,
-    'css-class': ''
+    'width': null
   }
 }
 const baseStyles = {

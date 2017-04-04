@@ -69,9 +69,12 @@ const postRender = $ => {
 
   $('.mj-section-outlook-open').each(function () {
     const $columnDiv = $(this).next()
+    const classes = $columnDiv.attr('class') ? $columnDiv.attr('class').split(' ').map(c => `${c}-outlook`).join(' ') : false
 
     $(this).replaceWith(`${helpers.startConditionalTag}
-      <table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td style="vertical-align:${$columnDiv.data('vertical-align')};width:${parseInt($(this).data('width'))}px;">
+      <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td style="vertical-align:${$columnDiv.data('vertical-align')};width:${parseInt($(this).data('width'))}px;"${classes ? ` ${classes}` : ''}>
       ${helpers.endConditionalTag}`)
 
     $columnDiv.removeAttr('data-vertical-align')
@@ -80,9 +83,10 @@ const postRender = $ => {
   $('.mj-section-outlook-line').each(function () {
     const $columnDiv = $(this).next()
     const width = parseInt($(this).data('width'))
+    const classes = $columnDiv.attr('class') ? $columnDiv.attr('class').split(' ').map(c => `${c}-outlook`).join(' ') : false
 
     $(this).replaceWith(`${helpers.startConditionalTag}
-      </td><td style="vertical-align:${$columnDiv.data('vertical-align')};width:${width}px;">
+      </td><td style="vertical-align:${$columnDiv.data('vertical-align')};width:${width}px;"${classes ? ` ${classes}` : ''}>
       ${helpers.endConditionalTag}`)
 
     $columnDiv.removeAttr('data-vertical-align')

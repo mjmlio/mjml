@@ -24,7 +24,8 @@ import ReactDOMServer from 'react-dom/server'
 import warning from 'warning'
 
 const DANGEROUS_CHARS = ['{{', '}}', '<%', '%>', '<', '>']
-const PLACEHOLDER = '__MJML__'
+const SEED = Math.floor(Math.random() * 0x10000000000).toString(16)
+const PLACEHOLDER = `__MJML__${SEED}__`
 const mjmlSanitizer = (mjml) => {
   if (mjml.children && mjml.children) {
     each(mjml.children, mjmlSanitizer)

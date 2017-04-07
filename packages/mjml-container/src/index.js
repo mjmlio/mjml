@@ -17,8 +17,8 @@ const postRender = $ => {
   const containerWidth = $('.mj-container').data('width')
 
   $('.mj-container-outlook-open').each(function () {
-    const $columnDiv = $(this).next()
-    const classes = $columnDiv.attr('class') ? $columnDiv.attr('class').split(' ').map(c => `${c}-outlook`).join(' ') : false
+    const $nextElem = $(this).next()
+    const classes = $nextElem.attr('class') ? $nextElem.attr('class').split(' ').map(c => `${c}-outlook`).join(' ') : false
 
     $(this).replaceWith(`${helpers.startConditionalTag}
       <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="${containerWidth}" align="center" style="width:${containerWidth}px;">
@@ -28,8 +28,8 @@ const postRender = $ => {
   })
 
   $('.mj-container-outlook-line').each(function () {
-    const $columnDiv = $(this).next()
-    const classes = $columnDiv.attr('class') ? $columnDiv.attr('class').split(' ').map(c => `${c}-outlook`).join(' ') : false
+    const $nextElem = $(this).next()
+    const classes = $nextElem.attr('class') ? $nextElem.attr('class').split(' ').map(c => `${c}-outlook`).join(' ') : false
 
     $(this).replaceWith(`${helpers.startConditionalTag}
       </td></tr></table>

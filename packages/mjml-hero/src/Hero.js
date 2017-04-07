@@ -1,4 +1,5 @@
 import { MJMLElement, helpers } from 'mjml-core'
+import cx from 'cx'
 import React, { Component } from 'react'
 
 const tagName = 'mj-hero'
@@ -81,7 +82,12 @@ const postRender = $ => {
 
     $(this)
       .before(`${helpers.startConditionalTag}
-          <v:image xmlns:v="urn:schemas-microsoft-com:vml" croptop="${backgroundCropTop}" cropbottom="${backgroundCropBottom}" style="width:${backgroundWidth}pt;height:${backgroundHeight}pt;position:absolute;top:0;mso-position-horizontal:center;border:0;z-index:-3;" src="${backgroundUrl}" />
+          <v:image
+            xmlns:v="urn:schemas-microsoft-com:vml"
+            croptop="${backgroundCropTop}"
+            cropbottom="${backgroundCropBottom}"
+            style="width:${backgroundWidth}pt;height:${backgroundHeight}pt;position:absolute;top:0;mso-position-horizontal:center;border:0;z-index:-3;"
+            src="${backgroundUrl}" />
         ${helpers.endConditionalTag}`)
       .removeAttr('class')
       .removeAttr('data-background-width')
@@ -232,10 +238,11 @@ class Hero extends Component {
 
   render () {
     const { mjAttribute, defaultUnit } = this.props
+    const divClasses = cx('mj-hero-outlook', mjAttribute('css-class'))
 
     return (
       <div
-        className="mj-hero-outlook"
+        className={divClasses}
         data-background-width={defaultUnit(mjAttribute('background-width'), 'px')}
         data-background-height={defaultUnit(mjAttribute('background-height'), 'px')}
         data-background-url={mjAttribute('background-url')}

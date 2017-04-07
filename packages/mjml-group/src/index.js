@@ -21,9 +21,12 @@ const postRender = $ => {
     const mjGroupBg = $parent.data('mj-group-background')
     const $columnDiv = $(this).next()
     const bgColor = mjGroupBg ? `bgcolor="${mjGroupBg}"` : ``
+    const classes = $columnDiv.attr('class') ? $columnDiv.attr('class').split(' ').map(c => `${c}-outlook`).join(' ') : false
 
     $(this).replaceWith(`${helpers.startConditionalTag}
-      <table ${bgColor} role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td style="vertical-align:${$columnDiv.data('vertical-align')};width:${parseInt($(this).data('width'))}px;">
+      <table ${bgColor} role="presentation" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td style="vertical-align:${$columnDiv.data('vertical-align')};width:${parseInt($(this).data('width'))}px;"${classes ? ` ${classes}` : ''}>
       ${helpers.endConditionalTag}`)
 
     $parent.removeAttr('data-mj-group-background')
@@ -32,9 +35,11 @@ const postRender = $ => {
 
   $('.mj-group-outlook-line').each(function () {
     const $columnDiv = $(this).next()
+    const classes = $columnDiv.attr('class') ? $columnDiv.attr('class').split(' ').map(c => `${c}-outlook`).join(' ') : false
 
     $(this).replaceWith(`${helpers.startConditionalTag}
-    </td><td style="vertical-align:${$columnDiv.data('vertical-align')};width:${parseInt($(this).data('width'))}px;">
+            </td>
+            <td style="vertical-align:${$columnDiv.data('vertical-align')};width:${parseInt($(this).data('width'))}px;"${classes ? ` ${classes}` : ''}>
       ${helpers.endConditionalTag}`)
 
     $columnDiv.removeAttr('data-vertical-align')
@@ -42,7 +47,9 @@ const postRender = $ => {
 
   $('.mj-group-outlook-close').each(function () {
     $(this).replaceWith(`${helpers.startConditionalTag}
-      </td></tr></table>
+            </td>
+          </tr>
+        </table>
       ${helpers.endConditionalTag}`)
   })
 

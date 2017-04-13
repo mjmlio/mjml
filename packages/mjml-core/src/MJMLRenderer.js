@@ -23,7 +23,7 @@ import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import warning from 'warning'
 
-const DANGEROUS_CHARS = ['{{', '}}', '<%', '%>', '<', '>', '{%', '%}']
+const DANGEROUS_CHARS = ['{{', '}}', '<%', '%>', '<', '>', '{%', '%}', '{{{', '}}}']
 const SEED = Math.floor(Math.random() * 0x10000000000).toString(16)
 const PLACEHOLDER = `__MJML__${SEED}__`
 const mjmlSanitizer = (mjml) => {
@@ -36,8 +36,8 @@ const mjmlSanitizer = (mjml) => {
   }
 }
 
-const sanitizer = (text) => DANGEROUS_CHARS.reduce((content, char, index) => content.replace(char, `${PLACEHOLDER}${index}`), text)
-const restore = (text) => DANGEROUS_CHARS.reduce((content, char, index) => content.replace(`${PLACEHOLDER}${index}`, char), text)
+const sanitizer = (text) => DANGEROUS_CHARS.reduce((content, char, index) => content.replace(new RegExp(char, 'g'), `${PLACEHOLDER}${index}`), text)
+const restore = (text) => DANGEROUS_CHARS.reduce((content, char, index) => content.replace(new RegExp(`${PLACEHOLDER}${index}`, 'g'), char), text)
 
 const getMJBody = (root) => find(root.children, ['tagName', 'mj-body'])
 const getMJHead = (root) => find(root.children, ['tagName', 'mj-head'])

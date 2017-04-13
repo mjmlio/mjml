@@ -23,7 +23,7 @@ const postRender = $ => {
     $(this).replaceWith(`${helpers.startConditionalTag}
       <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="${containerWidth}" align="center" style="width:${containerWidth}px;">
         <tr>
-          <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"${classes ? ` ${classes}` : ''}>
+          <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"${classes ? ` class="${classes}"` : ''}>
       ${helpers.endConditionalTag}`)
   })
 
@@ -35,7 +35,7 @@ const postRender = $ => {
       </td></tr></table>
       ${helpers.endConditionalTag}
       ${helpers.startConditionalTag}
-      <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="${containerWidth}" align="center" style="width:${containerWidth}px;"${classes ? ` ${classes}` : ''}>
+      <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="${containerWidth}" align="center" style="width:${containerWidth}px;"${classes ? ` class="${classes}"` : ''}>
         <tr>
           <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
       ${helpers.endConditionalTag}`)

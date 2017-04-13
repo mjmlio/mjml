@@ -57,7 +57,7 @@ class InvoiceItem extends Component {
     const { mjAttribute } = this.props
 
     return (
-      <tr>
+      <tr className={mjAttribute('css-class')}>
         <td style={this.styles.name}>{mjAttribute('name')}</td>
         <td style={this.styles.td}>{mjAttribute('price')}</td>
         <td style={this.styles.quantity}>{mjAttribute('quantity')}</td>

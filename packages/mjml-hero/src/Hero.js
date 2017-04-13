@@ -1,5 +1,5 @@
 import { MJMLElement, helpers } from 'mjml-core'
-import cx from 'cx'
+import cx from 'classnames'
 import React, { Component } from 'react'
 
 const tagName = 'mj-hero'

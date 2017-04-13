@@ -26,7 +26,7 @@ const postRender = $ => {
     $(this).replaceWith(`${helpers.startConditionalTag}
       <table ${bgColor} role="presentation" border="0" cellpadding="0" cellspacing="0">
         <tr>
-          <td style="vertical-align:${$columnDiv.data('vertical-align')};width:${parseInt($(this).data('width'))}px;"${classes ? ` ${classes}` : ''}>
+          <td style="vertical-align:${$columnDiv.data('vertical-align')};width:${parseInt($(this).data('width'))}px;"${classes ? ` class="${classes}"` : ''}>
       ${helpers.endConditionalTag}`)
 
     $parent.removeAttr('data-mj-group-background')
@@ -39,7 +39,7 @@ const postRender = $ => {
 
     $(this).replaceWith(`${helpers.startConditionalTag}
             </td>
-            <td style="vertical-align:${$columnDiv.data('vertical-align')};width:${parseInt($(this).data('width'))}px;"${classes ? ` ${classes}` : ''}>
+            <td style="vertical-align:${$columnDiv.data('vertical-align')};width:${parseInt($(this).data('width'))}px;"${classes ? ` class="${classes}"` : ''}>
       ${helpers.endConditionalTag}`)
 
     $columnDiv.removeAttr('data-vertical-align')

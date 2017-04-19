@@ -13,6 +13,7 @@
   },
   "homepage": "https://github.com/mjmlio/mjml",
   "dependencies": {
+    "classnames": "^2.2.5",
     "lodash": "^4.17.4",
     "mjml-core": "~3.3.0",
     "react": "^15.4.2"

@@ -1,5 +1,6 @@
 import { MJMLElement, helpers } from 'mjml-core'
 import React, { Component } from 'react'
+import cx from 'classnames'
 
 const tagName = 'mj-group'
 const parentTag = ['mj-section', 'mj-navbar']
@@ -108,10 +109,11 @@ class Group extends Component {
     const { mjAttribute, sibling, renderWrappedOutlookChildren } = this.props
     const width = mjAttribute('width') || (100 / sibling)
     const mjGroupClass = this.getGroupClass()
+    const divClasses = cx(mjGroupClass, 'outlook-group-fix', mjAttribute('css-class'))
 
     return (
       <div
-        className={mjGroupClass}
+        className={divClasses}
         data-column-width={parseInt(width)}
         data-vertical-align={this.styles.div.verticalAlign}
         data-mj-group-background={mjAttribute('background-color')}

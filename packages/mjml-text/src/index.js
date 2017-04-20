@@ -39,7 +39,7 @@ const postRender = $ => {
     const height = parseInt($(this).css('height'))
 
     $(`${helpers.startConditionalTag}
-      <table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td height="${height}" style="vertical-align:top;height:${height}px;">
+      <table role="presentation" data-legacy-border="0" cellpadding="0" cellspacing="0"><tr><td height="${height}" style="vertical-align:top;height:${height}px;">
       ${helpers.endConditionalTag}`).insertBefore($(this))
 
     $(`${helpers.startConditionalTag}

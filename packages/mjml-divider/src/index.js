@@ -28,7 +28,7 @@ const baseStyles = {
 }
 const postRender = $ => {
   $('.mj-divider-outlook').each(function () {
-    const insertNode = `<table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0" style="${$(this).attr('style')}" width="${$(this).data('divider-width')}"><tr><td style="height:0;line-height:0;">&nbsp;</td></tr></table>`
+    const insertNode = `<table role="presentation" align="center" data-legacy-border="0" cellpadding="0" cellspacing="0" style="${$(this).attr('style')}" width="${$(this).data('divider-width')}"><tr><td style="height:0;line-height:0;">&nbsp;</td></tr></table>`
 
     $(this)
       .removeAttr('data-divider-width')

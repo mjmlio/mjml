@@ -105,7 +105,7 @@ const buttonDefinitions = {
 const postRender = $ => {
   $('.mj-social-outlook-open').each(function () {
     $(this).replaceWith(`${helpers.startConditionalTag}
-      <table role="presentation" border="0" cellpadding="0" cellspacing="0" align="${$(this).data('align')}"><tr><td>
+      <table role="presentation" data-legacy-border="0" cellpadding="0" cellspacing="0" align="${$(this).data('align')}"><tr><td>
       ${helpers.endConditionalTag}`)
   })
 

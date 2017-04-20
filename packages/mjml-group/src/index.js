@@ -23,7 +23,7 @@ const postRender = $ => {
     const bgColor = mjGroupBg ? `bgcolor="${mjGroupBg}"` : ``
 
     $(this).replaceWith(`${helpers.startConditionalTag}
-      <table ${bgColor} role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td style="vertical-align:${$columnDiv.data('vertical-align')};width:${parseInt($(this).data('width'))}px;">
+      <table ${bgColor} role="presentation" data-legacy-border="0" cellpadding="0" cellspacing="0"><tr><td style="vertical-align:${$columnDiv.data('vertical-align')};width:${parseInt($(this).data('width'))}px;">
       ${helpers.endConditionalTag}`)
 
     $parent.removeAttr('data-mj-group-background')

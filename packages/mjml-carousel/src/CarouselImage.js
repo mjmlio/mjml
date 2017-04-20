@@ -9,6 +9,7 @@ const defaultMJMLDefinition = {
   attributes: {
     'alt': null,
     'href': null,
+    'rel': null,
     'src': null,
     'thumbnails-src': null
   }

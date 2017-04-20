@@ -25,6 +25,7 @@ const defaultMJMLDefinition = {
     "align": "center",
     "vertical-align": "middle",
     "href": null,
+    "rel": null,
     "inner-padding": "10px 25px",
     'padding': '10px 25px',
     "padding-top": null,
@@ -92,6 +93,7 @@ class Button extends Component {
         <a
           dangerouslySetInnerHTML={{ __html: mjContent() }}
           href={mjAttribute('href')}
+          rel={mjAttribute('rel')}
           style={this.styles.a}
           target="_blank" />
       )

@@ -57,5 +57,6 @@ attribute | unit | description | default value
 src | url | image source | n/a
 thumbnails-src | url | image source to have a thumbnail different than the image it's linked to | null
 href | url | link to redirect to on click | n/a
+rel | string | specify the rel attribute | n/a
 alt | string | image description | n/a
 title | string | tooltip & accessibility | n/a

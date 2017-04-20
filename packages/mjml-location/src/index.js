@@ -10,6 +10,7 @@ const selfClosingTag = true
 const defaultMJMLDefinition = {
   attributes: {
     'address': null,
+    'rel': null,
     'align': null,
     'color': '#3aa7ed',
     'container-background-color': null,
@@ -79,12 +80,14 @@ class Location extends Component {
         <tbody>
           <MJMLImage
             {...attrs.img}
-            href={address} />
+            href={address}
+            rel={mjAttribute('rel')} />
           <MJMLText
             {...attrs.text}
             align="center">
             <a
               href={address}
+              rel={mjAttribute('rel')}
               style={this.styles.text}
               target="_blank">
               {text}

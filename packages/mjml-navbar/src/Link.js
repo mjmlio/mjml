@@ -10,6 +10,7 @@ const defaultMJMLDefinition = {
     'font-size': '13px',
     'font-weight': 'normal',
     'href': null,
+    'rel': null,
     'line-height': '22px',
     'padding': '15px 10px',
     'padding-top': null,
@@ -76,6 +77,7 @@ class Link extends Component {
       <a
         className="mj-link"
         href={mjAttribute('href')}
+        rel={mjAttribute('rel')}
         dangerouslySetInnerHTML={{ __html: mjContent() }}
         style={this.styles.a}
         data-padding={this.styles.a.padding}

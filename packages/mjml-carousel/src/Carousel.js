@@ -282,7 +282,7 @@ class Carousel extends Component {
     return (
       <td>
         <div className="mj-carousel-images" style={this.styles.images.div}>
-          { this.images.map(({src, alt, href}, index) => {
+          { this.images.map(({src, alt, href, rel}, index) => {
             const image = <img src={src} alt={alt} style={this.styles.images.img} width="400" border="0" />
 
             return (
@@ -290,7 +290,7 @@ class Carousel extends Component {
                 key={`mj-carousel-image-${index + 1}`}
                 className={`mj-carousel-image mj-carousel-image-${index + 1}`}
                 style={index === 0 ? this.styles.images.firstImageDiv : this.styles.images.otherImageDiv}>
-                { href ? <a href={href} target="_blank">{image}</a> : image }
+                { href ? <a href={href} rel={rel} target="_blank">{image}</a> : image }
               </div>
             )
           })}

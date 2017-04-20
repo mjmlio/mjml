@@ -23,6 +23,22 @@ import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import warning from 'warning'
 
+const DANGEROUS_CHARS = ['{{', '}}', '<%', '%>', '<=', '=>', '{%', '%}', '{{{', '}}}']
+const SEED = Math.floor(Math.random() * 0x10000000000).toString(16)
+const PLACEHOLDER = `__MJML__${SEED}__`
+const mjmlSanitizer = (mjml) => {
+  if (mjml.children && mjml.children) {
+    each(mjml.children, mjmlSanitizer)
+  }
+
+  if (mjml.content) {
+    mjml.content = sanitizer(mjml.content)
+  }
+}
+
+const sanitizer = (text) => DANGEROUS_CHARS.reduce((content, char, index) => content.replace(new RegExp(char, 'g'), `${PLACEHOLDER}${index}`), text)
+const restore = (text) => DANGEROUS_CHARS.reduce((content, char, index) => content.replace(new RegExp(`${PLACEHOLDER}${index}`, 'g'), char), text)
+
 const getMJBody = (root) => find(root.children, ['tagName', 'mj-body'])
 const getMJHead = (root) => find(root.children, ['tagName', 'mj-head'])
 
@@ -92,6 +108,8 @@ export default class MJMLRenderer {
       throw new EmptyMJMLError(`.render: No MJML to render in options ${this.options.toString()}`)
     }
 
+    mjmlSanitizer(this.content)
+
     const body = getMJBody(this.content)
     const head = getMJHead(this.content)
 
@@ -148,8 +166,9 @@ export default class MJMLRenderer {
     return [ !this.options.disableMjStyle ? curryRight(inlineExternal)(externalCSS) : undefined,
       this.options.beautify ? beautifyHTML : undefined,
       !this.options.disableMinify && this.options.minify ? minifyHTML : undefined,
-      he.decode ].filter(element => typeof element == 'function')
-                 .reduce((res, fun) => fun(res), dom.getHTML($))
+      he.decode,
+      restore ].filter(element => typeof element == 'function')
+               .reduce((res, fun) => fun(res), dom.getHTML($))
   }
 
 }

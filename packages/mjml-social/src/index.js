@@ -16,20 +16,24 @@ const defaultMJMLDefinition = {
     'display': 'facebook:share twitter:share google:share',
     'facebook-content': 'Share',
     'facebook-href': '[[SHORT_PERMALINK]]',
+    'facebook-rel': null,
     'facebook-icon-color' : '#3b5998',
     'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
     'font-size': '13px',
     'google-content': '+1',
     'google-href': '[[SHORT_PERMALINK]]',
+    'google-rel': null,
     'google-icon-color': '#dc4e41',
     'icon-size': '20px',
     'inner-padding': null,
     'instagram-content': 'Share',
     'instagram-href': '[[SHORT_PERMALINK]]',
+    'instagram-rel': null,
     'instagram-icon-color': '#3f729b',
     'line-height': '22px',
     'linkedin-content': 'Share',
     'linkedin-href': '[[SHORT_PERMALINK]]',
+    'linkedin-rel': null,
     'linkedin-icon-color' : '#0077b5',
     'mode': 'horizontal',
     'padding-bottom': null,
@@ -39,11 +43,13 @@ const defaultMJMLDefinition = {
     'padding': '10px 25px',
     'pinterest-content': 'Pin it',
     'pinterest-href': '[[SHORT_PERMALINK]]',
+    'pinterest-rel': null,
     'pinterest-icon-color': '#bd081c',
     'text-decoration': 'none',
     'text-mode': true,
     'twitter-content': 'Tweet',
     'twitter-href': '[[SHORT_PERMALINK]]',
+    'twitter-rel': null,
     'twitter-icon-color': '#55acee',
     'vertical-align': null
   }
@@ -192,7 +198,7 @@ class Social extends Component {
               <tr>
                 <td
                   style={this.styles.td2}>
-                  <a href={href}>
+                  <a href={href} rel={mjAttribute(`${platform}-rel`)}>
                     <img
                       alt={platform}
                       height={parseInt(mjAttribute('icon-size'))}

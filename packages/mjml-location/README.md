@@ -34,6 +34,7 @@ font-family     | string        | font name                     | Roboto, sans-s
 font-size       | px/em         | font size                     | 18px
 font-weight     | css weight    | font weight                   | 500
 href            | string        | href link on image/text       | http://maps.google.com/maps?q=(mjAttribute: address)
+rel             | string        | specify the rel attribute     | n/a
 padding         | px            | supports up to 4 parameters   | 10px 25px
 padding-top     | px            | top offset                    | n/a
 padding-bottom  | px            | bottom offset                 | n/a

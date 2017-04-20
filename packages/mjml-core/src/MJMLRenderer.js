@@ -23,7 +23,7 @@ import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import warning from 'warning'
 
-const DANGEROUS_CHARS = ['{{', '}}', '<%', '%>', '<', '>', '{%', '%}', '{{{', '}}}']
+const DANGEROUS_CHARS = ['{{', '}}', '<%', '%>', '<=', '=>', '{%', '%}', '{{{', '}}}']
 const SEED = Math.floor(Math.random() * 0x10000000000).toString(16)
 const PLACEHOLDER = `__MJML__${SEED}__`
 const mjmlSanitizer = (mjml) => {

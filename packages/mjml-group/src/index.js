@@ -22,7 +22,8 @@ const postRender = $ => {
     const mjGroupBg = $parent.data('mj-group-background')
     const $columnDiv = $(this).next()
     const bgColor = mjGroupBg ? `bgcolor="${mjGroupBg}"` : ``
-    const classes = $columnDiv.attr('class') ? $columnDiv.attr('class').split(' ').map(c => `${c}-outlook`).join(' ') : false
+    const classes = $columnDiv.attr('data-class') ? $columnDiv.attr('data-class').split(' ').map(c => `${c}-outlook`).join(' ') : false
+    $columnDiv.removeAttr('data-class')
 
     $(this).replaceWith(`${helpers.startConditionalTag}
       <table ${bgColor} role="presentation" border="0" cellpadding="0" cellspacing="0">
@@ -36,7 +37,8 @@ const postRender = $ => {
 
   $('.mj-group-outlook-line').each(function () {
     const $columnDiv = $(this).next()
-    const classes = $columnDiv.attr('class') ? $columnDiv.attr('class').split(' ').map(c => `${c}-outlook`).join(' ') : false
+    const classes = $columnDiv.attr('data-class') ? $columnDiv.attr('data-class').split(' ').map(c => `${c}-outlook`).join(' ') : false
+    $columnDiv.removeAttr('data-class')
 
     $(this).replaceWith(`${helpers.startConditionalTag}
             </td>
@@ -114,6 +116,7 @@ class Group extends Component {
     return (
       <div
         className={divClasses}
+        data-class={mjAttribute('css-class')}
         data-column-width={parseInt(width)}
         data-vertical-align={this.styles.div.verticalAlign}
         data-mj-group-background={mjAttribute('background-color')}

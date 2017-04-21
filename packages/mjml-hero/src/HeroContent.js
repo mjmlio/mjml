@@ -28,13 +28,15 @@ const postRender = $ => {
   const $mjHeroContent = $('.mj-hero-content')
 
   $mjHeroContent.each(function () {
-    const classes = $(this).attr('class') ? $(this).attr('class')
-                                                   .split(' ')
-                                                   .map(c => `${c}-outlook`)
-                                                   .join(' ') : false
+    const classes = $(this).attr('data-class') ? $(this).attr('data-class')
+                                                        .split(' ')
+                                                        .map(c => `${c}-outlook`)
+                                                        .join(' ') : false
     const width = $(this).css('width')
     const align = $(this).data('align')
     const backgroundColor = $(this).data('background-color')
+
+    $(this).removeAttr('data-class')
 
     $(this).before(`${helpers.startConditionalTag}
       <table role="presentation"
@@ -100,6 +102,7 @@ class HeroContent extends Component {
     return (
       <div
         className={divClasses}
+        data-class={mjAttribute('css-class')}
         data-align={mjAttribute('align')}
         data-background-color={mjAttribute('background-color')}
         style={this.styles.div}>

@@ -12,10 +12,11 @@ const defaultMJMLDefinition = merge({}, Section.defaultMJMLDefinition, {
 const postRender = ($) => {
   $('.mj-wrapper-outlook-open').each(function () {
     const $next = $(this).next()
-    const classes = $next.attr('class') ? $next.attr('class')
+    const classes = $next.attr('data-class') ? $next.attr('data-class')
                                                .split(' ')
                                                .map(c => `${c}-outlook`)
                                                .join(' ') : false
+    $next.removeAttr('data-class')
 
     $(this).replaceWith(`${helpers.startConditionalTag}
       <table role="presentation" border="0" cellpadding="0" cellspacing="0">
@@ -26,11 +27,12 @@ const postRender = ($) => {
 
   $('.mj-wrapper-outlook-line').each(function () {
     const $next = $(this).next()
-    const classes = $next.attr('class') ? $next.attr('class')
+    const classes = $next.attr('data-class') ? $next.attr('data-class')
                                                 .split(' ')
                                                 .map(c => `${c}-outlook`)
                                                 .join(' ') : false
     const width = parseInt($(this).data('width'))
+    $next.removeAttr('data-class')
 
     $(this).replaceWith(`${helpers.startConditionalTag}
         </td>

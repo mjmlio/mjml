@@ -89,10 +89,11 @@ const postRender = $ => {
             style="width:${backgroundWidth}pt;height:${backgroundHeight}pt;position:absolute;top:0;mso-position-horizontal:center;border:0;z-index:-3;"
             src="${backgroundUrl}" />
         ${helpers.endConditionalTag}`)
-      .removeAttr('class')
+      .removeClass('mj-hero-outlook')
       .removeAttr('data-background-width')
       .removeAttr('data-background-height')
       .removeAttr('data-background-url')
+
   })
 
   return $

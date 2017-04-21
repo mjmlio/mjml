@@ -69,10 +69,10 @@ const postRender = $ => {
 
   $('.mj-section-outlook-open').each(function () {
     const $columnDiv = $(this).next()
-    const classes = $columnDiv.attr('class') ? $columnDiv.attr('class')
-                                                         .split(' ')
-                                                         .map(c => `${c}-outlook`)
-                                                         .join(' ') : false
+    const classes = $columnDiv.attr('data-class') ? $columnDiv.attr('data-class')
+                                                              .split(' ')
+                                                              .map(c => `${c}-outlook`)
+                                                              .join(' ') : false
 
     $(this).replaceWith(`${helpers.startConditionalTag}
       <table role="presentation" border="0" cellpadding="0" cellspacing="0">
@@ -81,18 +81,23 @@ const postRender = $ => {
       ${helpers.endConditionalTag}`)
 
     $columnDiv.removeAttr('data-vertical-align')
+    $columnDiv.removeAttr('data-class')
   })
 
   $('.mj-section-outlook-line').each(function () {
     const $columnDiv = $(this).next()
     const width = parseInt($(this).data('width'))
-    const classes = $columnDiv.attr('class') ? $columnDiv.attr('class').split(' ').map(c => `${c}-outlook`).join(' ') : false
+    const classes = $columnDiv.attr('data-class') ? $columnDiv.attr('data-class')
+                                                              .split(' ')
+                                                              .map(c => `${c}-outlook`)
+                                                              .join(' ') : false
 
     $(this).replaceWith(`${helpers.startConditionalTag}
       </td><td style="vertical-align:${$columnDiv.data('vertical-align')};width:${width}px;"${classes ? ` class="${classes}"` : ''}>
       ${helpers.endConditionalTag}`)
 
     $columnDiv.removeAttr('data-vertical-align')
+    $columnDiv.removeAttr('data-class')
   })
 
   $('.mj-section-outlook-close').each(function () {
@@ -157,7 +162,6 @@ class Section extends Component {
 
   renderFullWidthSection () {
     const { mjAttribute } = this.props
-
     return (
       <table
         role="presentation"
@@ -165,7 +169,9 @@ class Section extends Component {
         cellSpacing="0"
         data-legacy-background={mjAttribute('background-url')}
         data-legacy-border="0"
-        style={helpers.merge({}, this.styles.tableFullwidth, this.styles.table)}>
+        style={helpers.merge({}, this.styles.tableFullwidth, this.styles.table)}
+        data-class={mjAttribute('css-class')}
+      >
         <tbody>
           <tr>
             <td>
@@ -180,11 +186,15 @@ class Section extends Component {
   renderSection () {
     const { renderWrappedOutlookChildren, mjAttribute, children, parentWidth } = this.props
     const fullWidth = this.isFullWidth()
+    const divProps = fullWidth ? {} : {
+      "className": mjAttribute('css-class'),
+      "data-class": mjAttribute('css-class')
+    }
 
     return (
       <div
         style={this.styles.div}
-        className={`${mjAttribute('css-class')}`}
+        {...divProps}
       >
         <table
           role="presentation"

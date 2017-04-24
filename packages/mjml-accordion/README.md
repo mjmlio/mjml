@@ -23,7 +23,7 @@
           <mj-column background-color="#dededd">
             <mj-accordion>
               <mj-accordion-element>
-                <mj-accordion-title>Why using an mj-accordion?</mj-accordion-title>
+                <mj-accordion-title>Why use an accordion?</mj-accordion-title>
                 <mj-accordion-text>
                   <span style="line-height:20px">Because emails with a lot of content are most of the time a very bad experience on mobile, mj-accordion comes handy when you want to deliver a lot of information in a concise way.
                   </span>

@@ -24,5 +24,6 @@ This is the starting point of your email.
 
 attribute            | unit          | description                    | default value
 ---------------------|---------------|--------------------------------|---------------
+css-class            | string        | HTML Element Class Name        | n/a
 width                | px            | email's width                  | 600px
 background-color     | color formats | the general background color   | n/a

@@ -1,5 +1,6 @@
 import { MJMLElement, helpers } from 'mjml-core'
 import React, { Component } from 'react'
+import cx from 'classnames'
 
 const tagName = 'mj-text'
 const parentTag = ['mj-column', 'mj-hero-content']
@@ -24,7 +25,8 @@ const defaultMJMLDefinition = {
     'padding': '10px 25px',
     'text-decoration': null,
     'text-transform': null,
-    'vertical-align': null
+    'vertical-align': null,
+    'css-class': ''
   }
 }
 const baseStyles = {
@@ -78,7 +80,7 @@ class Text extends Component {
   render () {
     const { mjAttribute, mjContent } = this.props
 
-    const classNames = mjAttribute('height') ? 'mj-text-height' : ''
+    const classNames = cx(mjAttribute('height') ? 'mj-text-height' : '', mjAttribute('css-class'))
 
     return (
       <div

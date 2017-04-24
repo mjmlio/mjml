@@ -25,7 +25,8 @@ const defaultMJMLDefinition = {
     'target': '_blank',
     'title': '',
     'vertical-align': null,
-    'width': null
+    'width': null,
+    'css-class': ''
   }
 }
 const baseStyles = {
@@ -109,6 +110,7 @@ class Image extends Component {
     return (
       <table
         role="presentation"
+        className={mjAttribute('css-class')}
         cellPadding="0"
         cellSpacing="0"
         data-legacy-align={mjAttribute('align')}

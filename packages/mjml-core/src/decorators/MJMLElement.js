@@ -263,7 +263,7 @@ function createComponent (ComposedComponent) {
         this.styles = this.getStyles()
 
         return (
-          <tr>
+          <tr className={this.mjAttribute('css-class')}>
             <td
               data-legacy-align={this.mjAttribute('align')}
               data-legacy-background={this.mjAttribute('container-background-color')}

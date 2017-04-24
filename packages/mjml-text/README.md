@@ -49,3 +49,4 @@ This tag allows you to display text in your email.
  padding-bottom               | px            | bottom offset                               | n/a
  padding-left                 | px            | left offset                                 | n/a
  padding-right                | px            | right offset                                | n/a
+ css-class                    | string        | HTML Element Class Name                     | n/a

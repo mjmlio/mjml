@@ -38,6 +38,8 @@ width                         | px            | image width                    |
 height                        | px            | image height                   | auto
 src                           | url           | image source                   | n/a
 href                          | url           | link to redirect to on click   | n/a
+rel                           | string        | specify the rel attribute      | n/a
 alt                           | string        | image description              | n/a
 align                         | position      | image alignment                | center
 title                         | string        | tooltip & accessibility        | n/a
+css-class                     | string        | HTML Element Class Name        | n/a

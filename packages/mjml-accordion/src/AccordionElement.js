@@ -114,7 +114,7 @@ class AccordionElement extends Component {
     const accordionTitle = [ this.title || <MjAccordionTitle />, this.renderIcons()]
 
     return (
-      <tr>
+      <tr className={mjAttribute('css-class')}>
         <td style={this.styles.td}>
           <label className="mj-accordion-element" style={this.styles.label}>{ // eslint-disable-line
           }

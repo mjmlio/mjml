@@ -648,9 +648,9 @@ minimist@0.0.8:
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.0.8.tgz#857fcabfc3397d2625b8228262e86aa7a011b05d"
 
-mjml-core@~3.3.0-beta.8:
-  version "3.3.0-beta.8"
-  resolved "https://registry.yarnpkg.com/mjml-core/-/mjml-core-3.3.0-beta.8.tgz#cd2ca49ffff300fcd3e496285501fb17a43e481a"
+mjml-core@~3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/mjml-core/-/mjml-core-3.3.0.tgz#4033694b2ac7a27efe387b72cb4d89ccc9886edb"
   dependencies:
     cheerio "^0.22.0"
     classnames "^2.2.5"
@@ -663,30 +663,30 @@ mjml-core@~3.3.0-beta.8:
     js-beautify "^1.6.8"
     juice "^4.0.2"
     lodash "^4.17.4"
-    mjml-validator "~3.3.0-beta.8"
+    mjml-validator "~3.3.0"
     react "^15.4.2"
     react-dom "^15.4.2"
     warning "^3.0.0"
 
-mjml-image@~3.3.0-beta.8:
-  version "3.3.0-beta.8"
-  resolved "https://registry.yarnpkg.com/mjml-image/-/mjml-image-3.3.0-beta.8.tgz#eee2958ba5751096225d9a35c683fdd7e126dadb"
+mjml-image@~3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/mjml-image/-/mjml-image-3.3.0.tgz#e642e84d16e595da7d121c5ae4db3170f484b371"
   dependencies:
     lodash "^4.17.4"
-    mjml-core "~3.3.0-beta.8"
+    mjml-core "~3.3.0"
     react "^15.4.2"
 
-mjml-text@~3.3.0-beta.8:
-  version "3.3.0-beta.8"
-  resolved "https://registry.yarnpkg.com/mjml-text/-/mjml-text-3.3.0-beta.8.tgz#39b7eccbcd655f38b131c89e923fb3b6922c11c7"
+mjml-text@~3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/mjml-text/-/mjml-text-3.3.0.tgz#51691eda48829dfd2bfe6efcfe695ea79c6b8967"
   dependencies:
     lodash "^4.17.4"
-    mjml-core "~3.3.0-beta.8"
+    mjml-core "~3.3.0"
     react "^15.4.2"
 
-mjml-validator@~3.3.0-beta.8:
-  version "3.3.0-beta.8"
-  resolved "https://registry.yarnpkg.com/mjml-validator/-/mjml-validator-3.3.0-beta.8.tgz#0f48be47126235aefaa0b066640120f4ad7ab83d"
+mjml-validator@~3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/mjml-validator/-/mjml-validator-3.3.0.tgz#1f9acaf0eb313625757ca86ce2f6c03805407cfd"
   dependencies:
     lodash "^4.17.4"
     warning "^3.0.0"

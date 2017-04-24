@@ -1,14 +1,26 @@
 var mjml = require('./lib/index')
 const inputMJML = `
 <mjml>
+  <mj-head>
+    <mj-style inline="inline">
+      a { color: blue;}
+    </mj-style>
+  </mj-head>
   <mj-body>
     <mj-container>
       <mj-section>
-        <mj-column width="100%">
-          <mj-invoice format="0,00.00€" intl="name:Product Name">
-            <mj-invoice-item name="TV" price="549€" quantity="1" />
-            <mj-invoice-item name="DVD - Iron Man II" price="22.99€" quantity="2" />
-          </mj-invoice>
+        <mj-column>
+          <mj-image height="70px" width="463px" src="https://live.ascential.com/sites/default/files/images/logos/ascential-logo-large.png"></mj-image>
+          <mj-divider border-color="#2c7b61"></mj-divider>
+          <mj-text font-size="35px" color="#2c7b61" font-family="helvetica" align="center" line-height="">
+              Your ATR "<%= @atr.title %>" has been approved by the approval chain.{{ test }}
+          </mj-text>
+        </mj-column>
+      </mj-section>
+      <mj-section>
+        <mj-column>
+            <mj-raw>
+            </mj-raw>
         </mj-column>
       </mj-section>
     </mj-container>

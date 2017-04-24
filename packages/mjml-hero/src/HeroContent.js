@@ -1,4 +1,5 @@
 import { MJMLElement, helpers } from 'mjml-core'
+import cx from 'classnames'
 import React, { Component } from 'react'
 
 const tagName = 'mj-hero-content'
@@ -27,15 +28,32 @@ const postRender = $ => {
   const $mjHeroContent = $('.mj-hero-content')
 
   $mjHeroContent.each(function () {
+    const classes = $(this).attr('data-class') ? $(this).attr('data-class')
+                                                        .split(' ')
+                                                        .map(c => `${c}-outlook`)
+                                                        .join(' ') : false
     const width = $(this).css('width')
     const align = $(this).data('align')
     const backgroundColor = $(this).data('background-color')
 
+    $(this).removeAttr('data-class')
+
     $(this).before(`${helpers.startConditionalTag}
-      <table role="presentation" border="0" cellpadding="0" cellspacing="0" align="${align}" width="${width.replace('px', '')}" style="width:${width};"><tr><td style="padding:0;background-color:${backgroundColor};">
+      <table role="presentation"
+             border="0"
+             ${classes ? ` class="${classes}"` : ''}
+             cellpadding="0"
+             cellspacing="0"
+             align="${align}"
+             width="${width.replace('px', '')}"
+             style="width:${width};">
+        <tr>
+          <td style="padding:0;background-color:${backgroundColor};">
       ${helpers.endConditionalTag}`)
     .after(`${helpers.startConditionalTag}
-      </td></tr></table>
+          </td>
+        </tr>
+      </table>
       ${helpers.endConditionalTag}`)
     .removeAttr('data-background-color')
     .removeAttr('data-align')
@@ -79,10 +97,12 @@ class HeroContent extends Component {
 
   render () {
     const { mjAttribute, children } = this.props
+    const divClasses = cx('mj-hero-content', mjAttribute('css-class'))
 
     return (
       <div
-        className="mj-hero-content"
+        className={divClasses}
+        data-class={mjAttribute('css-class')}
         data-align={mjAttribute('align')}
         data-background-color={mjAttribute('background-color')}
         style={this.styles.div}>

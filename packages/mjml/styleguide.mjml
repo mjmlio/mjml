@@ -1,0 +1,768 @@
+<mjml>
+  <mj-head>
+    <mj-attributes>
+      <mj-text font-family="Helvetica" />
+    </mj-attributes>
+    <mj-style>
+      @media (max-width: 480px) {
+        #mobile {
+            color: blue;
+        }
+      }
+      @media (max-width: 480px) {
+        #mobile-center {
+            text-align: center;
+        }
+      }
+    </mj-style>
+  </mj-head>
+  <mj-body>
+    <mj-container background-color="#ccccdd">
+      
+      <mj-wrapper border="1px solid #888" padding="50px 30px" background-color="white">
+        
+        <mj-section border-top="1px solid #dddddd" border-left="1px solid #dddddd" border-right="1px solid #dddddd" padding="20px">
+          <mj-column>
+            <mj-image src="https://puu.sh/tMDfk/98da3212a9.png" />
+          </mj-column>
+        </mj-section>
+        
+        <mj-section border-left="1px solid #dddddd" border-right="1px solid #dddddd" padding="20px">
+          <mj-group>
+            <mj-column width="70%">
+              <mj-text>
+                <span id="mobile">
+                  2 x General Admission (blue on mobile)
+                </span>
+              </mj-text>
+            </mj-column>
+            <mj-column width="30%">
+              <mj-text align="right">
+                $ 20
+              </mj-text>
+            </mj-column>
+          </mj-group>
+        </mj-section>
+        
+        <mj-section border-left="1px solid #dddddd" border-right="1px solid #dddddd">
+          <mj-column>
+            <mj-divider border-width="1px" border-style="dashed" border-color="lightgrey" padding="0 20px" />
+          </mj-column>
+        </mj-section>
+        
+        <mj-section border-bottom="1px solid #dddddd" border-left="1px solid #dddddd" border-right="1px solid #dddddd" padding="20px">
+              <mj-column width="70%">
+                <mj-text>
+                  <p id="mobile-center">
+                    2 x General Admission (centered on mobile)
+                  </p>
+                </mj-text>
+              </mj-column>
+              <mj-column width="30%">
+                <mj-text align="right">
+                  <p id="mobile-center">
+                      $ 20 (centered on mobile)
+                  </p>
+                </mj-text>
+              </mj-column>
+        </mj-section>
+        
+      </mj-wrapper>
+      
+      <mj-section>
+        <mj-column>
+          <mj-spacer />
+        </mj-column>
+      </mj-section>
+
+      <!-- Section -->
+      <mj-section background-color="#FFF">
+        <mj-column>
+          <mj-text container-background-color="#EEE" color="#666" font-family="Trebuchet, serif" font-style="italic" text-decoration="underline" align="center">
+            <h1>
+              Lorem Ipsum
+            </h1>
+          </mj-text>
+        </mj-column>
+      </mj-section>
+
+      <mj-section background-color="#DDD" border-bottom="1px solid black" border-left="3px dashed blue">
+        <mj-column>
+          <mj-text container-background-color="#CCC" color="#444" line-height="14px" align="right" padding="0px 0px">
+            <h1>Left and bottom borders on section</h1>
+            <p>
+              container-background-color on text.<br />
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer aliquet hendrerit vulputate. Cras non libero ac neque ultrices faucibus. Fusce vulputate sapien sollicitudin dolor ullamcorper fermentum. Phasellus ut ipsum diam. In accumsan feugiat elit
+              sed molestie. Proin quis viverra erat, at euismod ligula. Etiam tincidunt dui at libero blandit, at accumsan nunc auctor. Mauris in efficitur lectus, ut imperdiet libero. Fusce neque augue, iaculis ac metus cursus, hendrerit porta sem. Nullam
+              vehicula ipsum sit amet dictum facilisis. In congue quis odio quis interdum. Suspendisse a lorem id mi efficitur lobortis. Nam eu neque sed sem blandit consequat nec vitae lectus. In ornare eget mauris ut vulputate.
+            </p>
+          </mj-text>
+        </mj-column>
+      </mj-section>
+
+      <mj-section>
+      </mj-section>
+
+      <mj-section background-color="#999" border-radius="50px" border="3px dotted blue" padding="50px">
+        <mj-column>
+          <mj-text color="#000" font-weight="900" line-height="35px">
+            <h1>border-radius on section</h1>
+            <p>
+              Donec pretium odio magna, vitae iaculis libero ullamcorper et. Duis dapibus, odio in congue efficitur, ipsum elit egestas sapien, a fermentum lacus lorem nec risus. Pellentesque a tincidunt libero. Suspendisse metus orci, viverra in ligula ut, condimentum
+              eleifend ante. Integer id tempus ipsum. Donec luctus venenatis ante, sit amet feugiat erat bibendum eget. Nulla ac ex quis justo commodo vulputate. Pellentesque suscipit sollicitudin turpis vel faucibus. Nullam ut nisi et turpis condimentum
+              porttitor quis vitae libero. Suspendisse non blandit ante. Fusce in consectetur elit. Nulla vitae erat sed lorem suscipit tincidunt in non odio. Nam finibus ultricies tellus, ut imperdiet nunc posuere sit amet. Donec sit amet blandit quam,
+              nec aliquam purus. Ut lacinia vulputate nunc id lacinia. Nam egestas leo sed tortor vehicula, vel commodo justo lobortis.
+            </p>
+          </mj-text>
+        </mj-column>
+      </mj-section>
+
+      <mj-section>
+      </mj-section>
+
+      <mj-section border-radius="50px" background-url="https://mjml.io/assets/img/logo-small.png">
+        <mj-column>
+          <mj-text color="#000" font-weight="900" line-height="35px">
+            <h1>Background-url</h1>
+            <p>
+              Donec pretium odio magna, vitae iaculis libero ullamcorper et. Duis dapibus, odio in congue efficitur, ipsum elit egestas sapien, a fermentum lacus lorem nec risus. Pellentesque a tincidunt libero. Suspendisse metus orci, viverra in ligula ut, condimentum
+              eleifend ante. Integer id tempus ipsum. Donec luctus venenatis ante, sit amet feugiat erat bibendum eget. Nulla ac ex quis justo commodo vulputate. Pellentesque suscipit sollicitudin turpis vel faucibus. Nullam ut nisi et turpis condimentum
+              porttitor quis vitae libero. Suspendisse non blandit ante. Fusce in consectetur elit. Nulla vitae erat sed lorem suscipit tincidunt in non odio. Nam finibus ultricies tellus, ut imperdiet nunc posuere sit amet. Donec sit amet blandit quam,
+              nec aliquam purus. Ut lacinia vulputate nunc id lacinia. Nam egestas leo sed tortor vehicula, vel commodo justo lobortis.
+            </p>
+          </mj-text>
+        </mj-column>
+      </mj-section>
+
+      <mj-section>
+      </mj-section>
+
+      <mj-section border-radius="50px" background-url="https://mjml.io/assets/img/logo-small.png" background-repeat="no-repeat">
+        <mj-column>
+          <mj-text color="#000" font-weight="900" line-height="35px">
+            <h1>Background-url no repeat</h1>
+            <p>
+              Donec pretium odio magna, vitae iaculis libero ullamcorper et. Duis dapibus, odio in congue efficitur, ipsum elit egestas sapien, a fermentum lacus lorem nec risus. Pellentesque a tincidunt libero. Suspendisse metus orci, viverra in ligula ut, condimentum
+              eleifend ante. Integer id tempus ipsum. Donec luctus venenatis ante, sit amet feugiat erat bibendum eget. Nulla ac ex quis justo commodo vulputate. Pellentesque suscipit sollicitudin turpis vel faucibus. Nullam ut nisi et turpis condimentum
+              porttitor quis vitae libero. Suspendisse non blandit ante. Fusce in consectetur elit. Nulla vitae erat sed lorem suscipit tincidunt in non odio. Nam finibus ultricies tellus, ut imperdiet nunc posuere sit amet. Donec sit amet blandit quam,
+              nec aliquam purus. Ut lacinia vulputate nunc id lacinia. Nam egestas leo sed tortor vehicula, vel commodo justo lobortis.
+            </p>
+          </mj-text>
+        </mj-column>
+      </mj-section>
+      <!-- End of section -->
+
+      <!-- Start of column -->
+      <mj-section>
+        <mj-column background-color="#F45E43" border="2px solid green" border-radius="50px">
+          <mj-text font-size="16px" color="#ffffff" font-family="helvetica">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</mj-text>
+        </mj-column>
+        <mj-column background-color="#4381f4" border-bottom="1px solid black" border-left="3px dashed black">
+          <mj-text font-size="16px" color="#ffffff" font-family="helvetica">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</mj-text>
+        </mj-column>
+        <mj-column background-color="#3cbc67" border-top="2px dashed red" border-right="1px solid blue">
+          <mj-text font-size="16px" color="#ffffff" font-family="helvetica">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</mj-text>
+        </mj-column>
+      </mj-section>
+
+      <mj-section direction="rtl">
+        <mj-column background-color="#F45E43" border="2px solid green">
+          <mj-text font-size="16px" color="#ffffff" font-family="helvetica">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</mj-text>
+        </mj-column>
+        <mj-column background-color="#4381f4" border-bottom="1px solid black" border-left="3px dashed black">
+          <mj-text font-size="16px" color="#ffffff" font-family="helvetica">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</mj-text>
+        </mj-column>
+        <mj-column background-color="#3cbc67" border-top="2px dashed red" border-right="1px solid blue">
+          <mj-text font-size="16px" color="#ffffff" font-family="helvetica">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</mj-text>
+        </mj-column>
+      </mj-section>
+      <!-- End of column -->
+
+      <!-- Start of button -->
+      <mj-section>
+        <mj-column>
+          <mj-button href="https://mjml.io/" font-family="Helvetica" color="white" background-color="#f45e43" font-style="italic">
+            Background-color & font-size
+          </mj-button>
+        </mj-column>
+        <mj-column>
+          <mj-button href="https://mjml.io/" font-family="Helvetica" color="white" background-color="#f45e43" border-radius="50px">
+            border-radius
+          </mj-button>
+        </mj-column>
+      </mj-section>
+
+      <mj-section>
+        <mj-column>
+          <mj-button href="https://mjml.io/" font-family="Helvetica" font-size="18px" color="black" background-color="#FFFFFF" align="right">
+            align right
+          </mj-button>
+        </mj-column>
+        <mj-column>
+          <mj-button href="https://mjml.io/" font-family="Helvetica" font-size="18px" color="black" background-color="#FFFFFF" align="left">
+            align left
+          </mj-button>
+        </mj-column>
+      </mj-section>
+
+      <mj-section>
+        <mj-column>
+          <mj-button href="https://mjml.io/" font-family="Helvetica" color="white" background-color="#f45e43" border="2px solid #FFF" vertical-align="top">
+            2px solid #FFF
+          </mj-button>
+        </mj-column>
+        <mj-column>
+          <mj-button href="https://mjml.io/" font-family="Helvetica" color="white" background-color="#f45e43" border="2px dashed #FFF" vertical-align="bottom">
+            2px dashed #FFF
+          </mj-button>
+        </mj-column>
+      </mj-section>
+
+      <mj-section>
+        <mj-column>
+          <mj-button href="https://mjml.io/" font-family="Helvetica" color="#4d4d4d" background-color="#f45e43" container-background-color="#FFF" padding="35px 10px">
+            container-background-color & padding
+          </mj-button>
+        </mj-column>
+      </mj-section>
+
+      <mj-section>
+        <mj-column>
+          <mj-button href="https://mjml.io/" font-family="Helvetica" color="#333" border="solid 2px #f45e43" border-radius="20px" background-color="transparent" inner-padding="15px 30px">
+            Ghost button
+          </mj-button>
+        </mj-column>
+      </mj-section>
+
+      <mj-section>
+          <mj-column>
+            <mj-button href="https://mjml.io/" font-family="Helvetica" color="#333" border-top="solid 2px #f45e43" border-bottom="solid 2px #f45e43" background-color="transparent" inner-padding="15px 30px">
+              Border-top, border-bottom, transparent
+            </mj-button>
+          </mj-column>
+        <mj-column>
+          <mj-button href="https://mjml.io/" font-family="Helvetica" color="#333" border-left="solid 2px #f45e43" border-right="solid 2px #f45e43" border-radius="20px" background-color="#ddddd">
+            Border-left, border-right & radius
+          </mj-button>
+        </mj-column>
+      </mj-section>
+
+      <mj-section>
+        <mj-column>
+          <mj-button href="https://mjml.io/" font-family="Helvetica" color="#333" border="solid 2px #f45e43" border-radius="20px" background-color="transparent" width="200px">
+            Width 200px
+          </mj-button>
+        </mj-column>
+        <mj-column>
+          <mj-button href="https://mjml.io/" font-family="Helvetica" color="#333" border="solid 2px #f45e43" border-radius="20px" background-color="transparent" height="80px">
+            Height 80px
+          </mj-button>
+        </mj-column>
+        <mj-column>
+          <mj-button href="https://mjml.io/" font-family="Helvetica" color="#ffffff" border="solid 2px #111" border-radius="20px" background-color="#f45e43" width="200px" height="80px">
+            Height 80px & Width 200px
+          </mj-button>
+        </mj-column>
+      </mj-section>
+      <!-- Enf of button -->
+
+      <!-- Start of divider -->
+      <mj-section>
+        <mj-column>
+          <mj-divider container-background-color="#DDDDDD" border-width="1px" border-style="solid" container-background-color="#DDDDDD" border-color="#000000" />
+        </mj-column>
+      </mj-section>
+
+      <mj-section>
+        <mj-column>
+          <mj-divider container-background-color="#CCCCCC" border-width="2px" border-style="dashed" border-color="#f45e43" />
+        </mj-column>
+      </mj-section>
+
+      <mj-section>
+        <mj-column>
+          <mj-divider container-background-color="#DDDDDD" border-width="4px" border-style="dashed" border-color="#f45e43" />
+        </mj-column>
+      </mj-section>
+
+      <mj-section>
+        <mj-column>
+          <mj-divider container-background-color="#CCCCCC" border-width="5px" border-style="dotted" border-color="#f45e43" width="20px" />
+        </mj-column>
+      </mj-section>
+
+      <mj-section>
+        <mj-column>
+          <mj-divider container-background-color="#DDDDDD" border-width="1px" border-style="dotted" border-color="#f45e43" />
+        </mj-column>
+      </mj-section>
+
+        <mj-section>
+          <mj-column>
+            <mj-divider container-background-color="#CCCCCC" border-width="2px" border-style="dashed" border-color="#f45e43" padding-right="0" padding-left="100px" />
+          </mj-column>
+        </mj-section>
+
+        <mj-section>
+          <mj-column>
+            <mj-divider container-background-color="#DDDDDD" border-width="2px" border-style="dashed" border-color="#f45e43" padding="5px 0 25px 0" />
+          </mj-column>
+        </mj-section>
+        <mj-section>
+          <mj-column>
+            <mj-divider container-background-color="#CCCCCC" border-width="10px" border-style="solid" border-color="#000000" width="75%" />
+          </mj-column>
+        </mj-section>
+        <!-- End of divider  -->
+
+        <!-- Start of image -->
+        <mj-section>
+          <mj-column>
+            <mj-image border="1px solid blue" border-radius="50px" width="100%" align="right" container-background-color="#EEE" src="https://mjml.io/assets/img/responsive.png" href="http://mjml.io/" alt="The only framework that makes responsive-email easy" />
+          </mj-column>
+
+          <mj-column>
+            <mj-image align="left" width="100%" container-background-color="#DDD" src="https://mjml.io/assets/img/responsive.png" alt="The only framework that makes responsive-email easy" />
+          </mj-column>
+        </mj-section>
+
+
+        <mj-section>
+          <mj-column>
+            <mj-image width="100%" align="left" border="2px solid #f45e43" padding="25px" container-background-color="#CCC" src="https://mjml.io/assets/img/responsive.png" href="http://mjml.io/" alt="The only framework that makes responsive-email easy" />
+          </mj-column>
+
+          <mj-column>
+            <mj-image width="100%" align="right" border="2px dashed #f45e43" padding="25px" container-background-color="#BBB" src="https://mjml.io/assets/img/responsive.png" alt="The only framework that makes responsive-email easy" />
+          </mj-column>
+        </mj-section>
+
+
+        <mj-section>
+          <mj-column>
+            <mj-image width="100%" height="250px" align="right" container-background-color="#AAA" src="https://mjml.io/assets/img/responsive.png" href="http://mjml.io/" alt="The only framework that makes responsive-email easy" />
+          </mj-column>
+
+          <mj-column>
+            <mj-image height="125px" align="left" container-background-color="#999" src="https://mjml.io/assets/img/responsive.png" alt="The only framework that makes responsive-email easy" />
+          </mj-column>
+        </mj-section>
+        <!-- End of image -->
+
+        <!-- Start of invoice -->
+        <mj-section>
+          <mj-column>
+            <mj-invoice format="$0,0.00" intl="name:Desc.; quantity:Qty" border="1px solid #dc4e41" color="#dc4e41" container-background-color="#DDDDDD">
+              <mj-invoice-item price="$300" quantity="1" text-align="right" name="Object 1" />
+              <mj-invoice-item price="$200" quantity="2" text-align="right" name="Object 2" />
+              <mj-invoice-item price="$300" quantity="1" text-align="center" name="Object 3" />
+              <mj-invoice-item price="$500" quantity="1" text-align="left" name="Object 4" />
+              <mj-invoice-item price="$50" quantity="1" text-align="left" name="Object 5" />
+            </mj-invoice>
+          </mj-column>
+        </mj-section>
+
+        <mj-section>
+          <mj-column>
+            <mj-invoice format="$0,00.00" intl="name:Value" border="1px dashed #dc4e41" align="center">
+              <mj-invoice-item price="$1000" quantity="5" name="$1000" />
+              <mj-invoice-item price="$1000" quantity="4" name="$1000" />
+              <mj-invoice-item price="$1000" quantity="3" name="$1000" />
+              <mj-invoice-item price="$1000" quantity="2" name="$1000" />
+              <mj-invoice-item price="$1000" quantity="1" name="$1000" />
+              <mj-invoice-item price="$1000" quantity="0" name="$1000" />
+            </mj-invoice>
+          </mj-column>
+
+          <mj-column>
+            <mj-invoice format="0,00.00â‚¬" intl="name:Value" border="1px dotted #dc4e41" align="center" container-background-color="#DDDDDD">
+              <mj-invoice-item price="1000â‚¬" quantity="0" name="1000â‚¬" />
+              <mj-invoice-item price="1000â‚¬" quantity="1" name="1000â‚¬" />
+              <mj-invoice-item price="1000â‚¬" quantity="2" name="1000â‚¬" />
+              <mj-invoice-item price="1000â‚¬" quantity="3" name="1000â‚¬" />
+              <mj-invoice-item price="1000â‚¬" quantity="4" name="1000â‚¬" />
+              <mj-invoice-item price="1000â‚¬" quantity="5" name="1000â‚¬" />
+            </mj-invoice>
+          </mj-column>
+        </mj-section>
+
+        <mj-section>
+          <mj-column>
+            <mj-invoice format="$0,00.00" intl="name:Border-type" border="4px double #dc4e41" align="center">
+              <mj-invoice-item price="$1" quantity="1" name="double" />
+            </mj-invoice>
+          </mj-column>
+
+          <mj-column>
+            <mj-invoice format="$0,00.00" intl="name:Border-type" border="4px groove #dc4e41" align="center">
+              <mj-invoice-item price="$1" quantity="1" name="groove" />
+            </mj-invoice>
+          </mj-column>
+        </mj-section>
+
+        <mj-section>
+          <mj-column>
+            <mj-invoice format="$0,00.00" intl="name:Border-type" border="4px inset #dc4e41" align="center">
+              <mj-invoice-item price="$1" quantity="1" name="inset" />
+            </mj-invoice>
+          </mj-column>
+
+          <mj-column>
+            <mj-invoice format="$0,00.00" intl="name:Border-type" border="4px outset #dc4e41" align="center">
+              <mj-invoice-item price="$1" quantity="1" name="outset" />
+            </mj-invoice>
+          </mj-column>
+        </mj-section>
+        <!-- End of invoice -->
+
+        <!-- Start of social -->
+        <mj-section>
+          <mj-column>
+            <mj-social display="facebook google instagram pinterest linkedin twitter" mode="horizontal" facebook-href="https://mjml.io/" google-href="https://mjml.io/" instagram-href="https://mjml.io/" pinterest-href="https://mjml.io/" linkedin-href="https://mjml.io/"
+              twitter-href="https://mjml.io/" />
+          </mj-column>
+        </mj-section>
+
+        <mj-section>
+          <mj-column>
+            <mj-social display="facebook google instagram" mode="horizontal" icon-size="30px" font-size="15px" facebook-icon-color="#4d4d4d" google-icon-color="#4d4d4d" instagram-icon-color="#4d4d4d" facebook-content="Facebook" google-content="Google" instagram-content="Instagram"
+              facebook-href="https://mjml.io/" google-href="https://mjml.io/" instagram-href="https://mjml.io/" />
+          </mj-column>
+        </mj-section>
+        <mj-section>
+          <mj-column>
+            <mj-social display="pinterest linkedin twitter" mode="horizontal" icon-size="15px" font-size="11px" pinterest-icon-color="#4d4d4d" linkedin-icon-color="#4d4d4d" twitter-icon-color="#4d4d4d" pinterest-content="Pinterest" linkedin-content="Linkedin" twitter-content="Twitter"
+              pinterest-href="https://mjml.io/" linkedin-href="https://mjml.io/" twitter-href="https://mjml.io/" />
+          </mj-column>
+        </mj-section>
+
+        <mj-section>
+          <mj-column>
+            <mj-social display="facebook google instagram pinterest linkedin twitter" text-mode="false" mode="vertical" align="right" container-background-color="#AAA" facebook-href="https://mjml.io/" google-href="https://mjml.io/" instagram-href="https://mjml.io/"
+              pinterest-href="https://mjml.io/" linkedin-href="https://mjml.io/" twitter-href="https://mjml.io/" />
+          </mj-column>
+          <mj-column>
+            <mj-social display="facebook google instagram pinterest linkedin twitter" mode="vertical" line-height="25px" container-background-color="#CCC" color="#f45e43" text-decoration="underline" facebook-href="https://mjml.io/" google-href="https://mjml.io/"
+              instagram-href="https://mjml.io/" pinterest-href="https://mjml.io/" linkedin-href="https://mjml.io/" twitter-href="https://mjml.io/" />
+          </mj-column>
+          <mj-column>
+            <mj-social display="facebook google instagram pinterest linkedin twitter" mode="vertical" align="left" line-height="30px" container-background-color="#AAA" color="#f45e43" text-decoration="overline" facebook-href="https://mjml.io/" google-href="https://mjml.io/"
+              instagram-href="https://mjml.io/" pinterest-href="https://mjml.io/" linkedin-href="https://mjml.io/" twitter-href="https://mjml.io/" />
+          </mj-column>
+        </mj-section>
+        <!-- End of social -->
+
+        <!-- Start of table -->
+        <mj-section>
+          <mj-column>
+            <mj-table table-layout="auto" container-background-color="#DDDDDD" padding="0">
+              <tr>
+                <th colspan="3" bgcolor="#AAAAAA" align="center">Website A</th>
+              </tr>
+              <tr>
+                <th rowspan="2" bgcolor="#CCCCCC" align="center">Description</th>
+                <th colspan="2" bgcolor="#CCCCCC" align="center">A/B Testing</th>
+              </tr>
+              <tr>
+                <th bgcolor="#CCCCCC" style="background-color:#CCC;" align="center">A</th>
+                <th bgcolor="#CCCCCC" align="center">B</th>
+              </tr>
+              <tr>
+                <td align="left" style="padding-left:10px;" bgcolor="#EEEEEE">Header</td>
+                <td align="center" bgcolor="#EEEEEE"><span style="color:green">143</span></td>
+                <td align="center" bgcolor="#EEEEEE"><span style="color:green">111</span></td>
+              </tr>
+              <tr>
+                <td align="left" style="padding-left:10px;" bgcolor="#EEEEEE">Menu</td>
+                <td align="center" bgcolor="#EEEEEE">35</td>
+                <td align="center" bgcolor="#EEEEEE">27</td>
+              </tr>
+              <tr>
+                <td align="left" style="padding-left:10px;" bgcolor="#EEEEEE">Homepage</td>
+                <td align="center" bgcolor="#EEEEEE">44</td>
+                <td align="center" bgcolor="#EEEEEE">34</td>
+              </tr>
+              <tr>
+                <td align="left" style="padding-left:10px;" bgcolor="#EEEEEE">Footer</td>
+                <td align="center" bgcolor="#EEEEEE">26</td>
+                <td align="center" bgcolor="#EEEEEE">26</td>
+              </tr>
+              <tr>
+                <td colspan="3" align="right"><span style="color:green">green</span> color signifies a good score.</td>
+              </tr>
+            </mj-table>
+          </mj-column>
+        </mj-section>
+
+        <mj-section>
+          <mj-column>
+            <mj-table table-layout="fixed" width="90%" align="right">
+              <tr bgcolor="#AAAAAA">
+                <th colspan="3" align="center">Website B</th>
+              </tr>
+              <tr bgcolor="#CCCCCC">
+                <th rowspan="2" align="center">Description</th>
+                <th colspan="2" align="center">A/B Testing</th>
+              </tr>
+              <tr bgcolor="#CCCCCC">
+                <th align="center">A</th>
+                <th align="center">B</th>
+              </tr>
+              <tr bgcolor="#EEEEEE">
+                <td align="left" style="padding-left:10px;">Header</td>
+                <td align="center"><span style="color:green">132</span></td>
+                <td align="center">92</td>
+              </tr>
+              <tr bgcolor="#EEEEEE">
+                <td align="left" style="padding-left:10px;">Menu</td>
+                <td align="center">32</td>
+                <td align="center">23</td>
+              </tr>
+              <tr bgcolor="#EEEEEE">
+                <td align="left" style="padding-left:10px;">Homepage</td>
+                <td align="center">41</td>
+                <td align="center">28</td>
+              </tr>
+              <tr bgcolor="#EEEEEE">
+                <td align="left" style="padding-left:10px;">Footer</td>
+                <td align="center">24</td>
+                <td align="center">24</td>
+              </tr>
+              <tr>
+                <td colspan="3" align="right"><span style="color:green">green</span> color signifies a good score.</td>
+              </tr>
+            </mj-table>
+          </mj-column>
+        </mj-section>
+
+        <mj-section>
+          <mj-column>
+            <mj-table table-layout="initial" container-background-color="#DDDDDD">
+              <tr bgcolor="#AAAAAA">
+                <th colspan="3" align="center">Website C</th>
+              </tr>
+              <tr bgcolor="#CCCCCC">
+                <th rowspan="2" align="center">Description</th>
+                <th colspan="2" align="center">A/B Testing</th>
+              </tr>
+              <tr bgcolor="#CCCCCC">
+                <th align="center">A</th>
+                <th align="center">B</th>
+              </tr>
+              <tr bgcolor="#EEEEEE">
+                <td align="left" style="padding-left:10px;">Header</td>
+                <td align="center"><span style="color:green">459</span></td>
+                <td align="center"><span style="color:green">448</span></td>
+              </tr>
+              <tr bgcolor="#EEEEEE">
+                <td align="left" style="padding-left:10px;">Menu</td>
+                <td align="center"><span style="color:green">115</span></td>
+                <td align="center"><span style="color:green">112</span></td>
+              </tr>
+              <tr bgcolor="#EEEEEE">
+                <td align="left" style="padding-left:10px;">Homepage</td>
+                <td align="center"><span style="color:green">143</span></td>
+                <td align="center"><span style="color:green">140</span></td>
+              </tr>
+              <tr bgcolor="#EEEEEE">
+                <td align="left" style="padding-left:10px;">Footer</td>
+                <td align="center">85</td>
+                <td align="center">85</td>
+              </tr>
+              <tr>
+                <td colspan="3" align="right"><span style="color:green">green</span> color signifies a good score.</td>
+              </tr>
+            </mj-table>
+          </mj-column>
+        </mj-section>
+
+        <mj-section>
+          <mj-column>
+            <mj-table table-layout="inherit" container-background-color="#DDDDDD" width="90%" align="center">
+              <tr bgcolor="#AAAAAA">
+                <th colspan="3" align="center">Website D</th>
+              </tr>
+              <tr bgcolor="#CCCCCC">
+                <th rowspan="2" align="center">Description</th>
+                <th colspan="2" align="center">A/B Testing</th>
+              </tr>
+              <tr bgcolor="#CCCCCC">
+                <th align="center">A</th>
+                <th align="center">B</th>
+              </tr>
+              <tr bgcolor="#EEEEEE">
+                <td align="left" style="padding-left:10px;">Header</td>
+                <td align="center"><span style="color:green">249</span></td>
+                <td align="center"><span style="color:green">232</span></td>
+              </tr>
+              <tr bgcolor="#EEEEEE">
+                <td align="left" style="padding-left:10px;">Menu</td>
+                <td align="center">62</td>
+                <td align="center">58</td>
+              </tr>
+              <tr bgcolor="#EEEEEE">
+                <td align="left" style="padding-left:10px;">Homepage</td>
+                <td align="center">77</td>
+                <td align="center">72</td>
+              </tr>
+              <tr bgcolor="#EEEEEE">
+                <td align="left" style="padding-left:10px;">Footer</td>
+                <td align="center">46</td>
+                <td align="center">46</td>
+              </tr>
+              <tr>
+                <td colspan="3" align="right" style="padding:0 10px;"><span style="color:green">green</span> color signifies a good score.</td>
+              </tr>
+            </mj-table>
+          </mj-column>
+        </mj-section>
+
+
+
+        <mj-section padding="0">
+          <mj-column>
+            <mj-table table-layout="auto" container-background-color="#EEEEEE" padding="0">
+              <tr>
+                <th style="border-bottom: 1px solid black; border-right: 1px solid black;">Table-layout</th>
+                <th style="border-bottom: 1px solid black;">Float Value</th>
+              </tr>
+              <tr>
+                <td style="border-right: 1px solid black;">auto</td>
+                <td>123456789.123456789</td>
+              </tr>
+            </mj-table>
+          </mj-column>
+
+          <mj-column>
+            <mj-table table-layout="fixed" container-background-color="#DDDDDD" padding="0">
+              <tr>
+                <th style="border-bottom: 1px solid black; border-right: 1px solid black;">Table-layout</th>
+                <th style="border-bottom: 1px solid black;">Float Value</th>
+              </tr>
+              <tr>
+                <td style="border-right: 1px solid black;">fixed</td>
+                <td>123456789.123456789</td>
+              </tr>
+            </mj-table>
+          </mj-column>
+        </mj-section>
+
+        <mj-section padding="0">
+          <mj-column>
+            <mj-table table-layout="initial" container-background-color="#CCCCCC" padding="0">
+              <tr>
+                <th style="border-bottom: 1px solid black; border-right: 1px solid black;">Table-layout</th>
+                <th style="border-bottom: 1px solid black;">Float Value</th>
+              </tr>
+              <tr>
+                <td style="border-right: 1px solid black;">initial</td>
+                <td>123456789.123456789</td>
+              </tr>
+            </mj-table>
+          </mj-column>
+
+          <mj-column>
+            <mj-table table-layout="inherit" container-background-color="#BBBBBB" padding="0">
+              <tr>
+                <th style="border-bottom: 1px solid black; border-right: 1px solid black;">Table-layout</th>
+                <th style="border-bottom: 1px solid black;">Float Value</th>
+              </tr>
+              <tr>
+                <td style="border-right: 1px solid black;">inherit</td>
+                <td>123456789.123456789</td>
+              </tr>
+            </mj-table>
+          </mj-column>
+        </mj-section>
+        <!-- End of table -->
+
+        <!-- Start of text -->
+
+        <mj-section background-color="#FFF">
+          <mj-column>
+            <mj-text container-background-color="#EEE" color="#666" font-family="Trebuchet, serif" font-style="italic" text-decoration="underline" align="center">
+              <h1>
+              Lorem Ipsum
+            </h1>
+            </mj-text>
+          </mj-column>
+        </mj-section>
+
+        <mj-section background-color="#DDD">
+          <mj-column>
+            <mj-text container-background-color="#CCC" color="#444" line-height="14px" align="right" padding="0px 0px">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer aliquet hendrerit vulputate. Cras non libero ac neque ultrices faucibus. Fusce vulputate sapien sollicitudin dolor ullamcorper fermentum. Phasellus ut ipsum diam. In accumsan feugiat elit
+                sed molestie. Proin quis viverra erat, at euismod ligula. Etiam tincidunt dui at libero blandit, at accumsan nunc auctor. Mauris in efficitur lectus, ut imperdiet libero. Fusce neque augue, iaculis ac metus cursus, hendrerit porta sem. Nullam
+                vehicula ipsum sit amet dictum facilisis. In congue quis odio quis interdum. Suspendisse a lorem id mi efficitur lobortis. Nam eu neque sed sem blandit consequat nec vitae lectus. In ornare eget mauris ut vulputate.
+              </p>
+            </mj-text>
+          </mj-column>
+        </mj-section>
+
+        <mj-section background-color="#BBB">
+          <mj-column>
+            <mj-text container-background-color="#AAA" color="#222" font-weight="500" text-transform="capitalize">
+              <p>
+                Praesent interdum sem ac euismod tempor. Vestibulum porttitor metus a diam maximus, in gravida mi ullamcorper. Suspendisse porttitor nulla id mauris imperdiet vehicula. Mauris accumsan, dui eu auctor varius, urna nulla mollis mauris, eget rhoncus est
+                ante vitae ex. Pellentesque at neque et odio egestas malesuada. Nam id nunc vitae elit malesuada auctor. Morbi fringilla, dolor vel gravida dictum, risus ex scelerisque quam, et tincidunt ipsum mauris eu orci. Donec finibus mollis dui at
+                vulputate. Pellentesque euismod purus et odio dictum semper.
+              </p>
+            </mj-text>
+          </mj-column>
+        </mj-section>
+
+        <mj-section background-color="#999">
+          <mj-column>
+            <mj-text container-background-color="#888" color="#000" font-weight="900" line-height="35px">
+              <p>
+                Donec pretium odio magna, vitae iaculis libero ullamcorper et. Duis dapibus, odio in congue efficitur, ipsum elit egestas sapien, a fermentum lacus lorem nec risus. Pellentesque a tincidunt libero. Suspendisse metus orci, viverra in ligula ut, condimentum
+                eleifend ante. Integer id tempus ipsum. Donec luctus venenatis ante, sit amet feugiat erat bibendum eget. Nulla ac ex quis justo commodo vulputate. Pellentesque suscipit sollicitudin turpis vel faucibus. Nullam ut nisi et turpis condimentum
+                porttitor quis vitae libero. Suspendisse non blandit ante. Fusce in consectetur elit. Nulla vitae erat sed lorem suscipit tincidunt in non odio. Nam finibus ultricies tellus, ut imperdiet nunc posuere sit amet. Donec sit amet blandit quam,
+                nec aliquam purus. Ut lacinia vulputate nunc id lacinia. Nam egestas leo sed tortor vehicula, vel commodo justo lobortis.
+              </p>
+            </mj-text>
+          </mj-column>
+        </mj-section>
+        <!-- End of text -->
+        
+        
+        <!-- Start of accordion -->
+        <mj-section>
+          <mj-column background-color="#dfdfdf">
+            <mj-accordion border="1px solid blue">
+              <mj-accordion-element icon-position="left" icon-wrapped-url="https://cdn4.iconfinder.com/data/icons/e-commerce-icon-set/48/More-128.png" icon-unwrapped-url="https://cdn4.iconfinder.com/data/icons/e-commerce-icon-set/48/Less-128.png">
+                <mj-accordion-title background-color="#dedede" color="#333333">To the left, to the left</mj-accordion-title>
+                <mj-accordion-text background-color="#333333" color="#dedede">Isn't this content neat?</mj-accordion-text>
+              </mj-accordion-element>
+              <mj-accordion-element icon-position="right" icon-wrapped-url="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/down4-512.png" icon-unwrapped-url="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/up4-512.png">
+                <mj-accordion-title background-color="#dedeff" color="#444488">To the right, to the right</mj-accordion-title>
+                <mj-accordion-text background-color="#444488" color="#dedeff">What about this content?</mj-accordion-text>
+              </mj-accordion-element>
+            </mj-accordion>
+          </mj-column>
+        </mj-section>
+        
+        <!-- End of accordion -->
+        
+        <!-- Start of carousel --> 
+        <mj-section>
+          <mj-column>
+            <mj-carousel>
+              <mj-carousel-image src="https://www.mailjet.com/wp-content/uploads/2016/11/ecommerce-guide.jpg" />
+              <mj-carousel-image src="https://www.mailjet.com/wp-content/uploads/2016/09/3@1x.png" />
+              <mj-carousel-image src="https://www.mailjet.com/wp-content/uploads/2016/09/1@1x.png" />
+            </mj-carousel>
+          </mj-column>
+        </mj-section>
+        <!-- End of carousel --> 
+
+    </mj-container>
+  </mj-body>
+</mjml>

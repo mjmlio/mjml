@@ -48,10 +48,10 @@ class AccordionTitle extends Component {
   }
 
   render () {
-    const { mjContent } = this.props
+    const { mjContent, mjAttribute } = this.props
 
     return (
-      <td style={this.styles.td}>
+      <td className={mjAttribute('css-class')} style={this.styles.td}>
         { mjContent() }
       </td>
     )

@@ -25,6 +25,7 @@ const defaultMJMLDefinition = {
     "align": "center",
     "vertical-align": "middle",
     "href": null,
+    "rel": null,
     "inner-padding": "10px 25px",
     "padding": '10px 25px',
     "padding-top": null,
@@ -146,7 +147,7 @@ class Button extends Component {
     const {mjContent, mjAttribute} = this.props
     if (mjAttribute('href')) {
       return (
-        <a href={mjAttribute('href')} style={this.styles.buttonA} target="_blank">
+        <a href={mjAttribute('href')} style={this.styles.buttonA} target="_blank" rel={mjAttribute('rel')}>
           <table style={this.styles.buttonTable}>
             <tbody>
               <tr>

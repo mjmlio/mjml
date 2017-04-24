@@ -1,5 +1,6 @@
 import { MJMLElement, helpers } from 'mjml-core'
 import React, { Component } from 'react'
+import cx from 'classnames'
 
 const tagName = 'mj-group'
 const parentTag = ['mj-section', 'mj-navbar']
@@ -21,9 +22,13 @@ const postRender = $ => {
     const mjGroupBg = $parent.data('mj-group-background')
     const $columnDiv = $(this).next()
     const bgColor = mjGroupBg ? `bgcolor="${mjGroupBg}"` : ``
+    const classes = $columnDiv.attr('data-class') ? $columnDiv.attr('data-class').split(' ').map(c => `${c}-outlook`).join(' ') : false
+    $columnDiv.removeAttr('data-class')
 
     $(this).replaceWith(`${helpers.startConditionalTag}
-      <table ${bgColor} role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td style="vertical-align:${$columnDiv.data('vertical-align')};width:${parseInt($(this).data('width'))}px;">
+      <table ${bgColor} role="presentation" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td style="vertical-align:${$columnDiv.data('vertical-align')};width:${parseInt($(this).data('width'))}px;"${classes ? ` class="${classes}"` : ''}>
       ${helpers.endConditionalTag}`)
 
     $parent.removeAttr('data-mj-group-background')
@@ -32,9 +37,12 @@ const postRender = $ => {
 
   $('.mj-group-outlook-line').each(function () {
     const $columnDiv = $(this).next()
+    const classes = $columnDiv.attr('data-class') ? $columnDiv.attr('data-class').split(' ').map(c => `${c}-outlook`).join(' ') : false
+    $columnDiv.removeAttr('data-class')
 
     $(this).replaceWith(`${helpers.startConditionalTag}
-    </td><td style="vertical-align:${$columnDiv.data('vertical-align')};width:${parseInt($(this).data('width'))}px;">
+            </td>
+            <td style="vertical-align:${$columnDiv.data('vertical-align')};width:${parseInt($(this).data('width'))}px;"${classes ? ` class="${classes}"` : ''}>
       ${helpers.endConditionalTag}`)
 
     $columnDiv.removeAttr('data-vertical-align')
@@ -42,7 +50,9 @@ const postRender = $ => {
 
   $('.mj-group-outlook-close').each(function () {
     $(this).replaceWith(`${helpers.startConditionalTag}
-      </td></tr></table>
+            </td>
+          </tr>
+        </table>
       ${helpers.endConditionalTag}`)
   })
 
@@ -101,10 +111,12 @@ class Group extends Component {
     const { mjAttribute, sibling, renderWrappedOutlookChildren } = this.props
     const width = mjAttribute('width') || (100 / sibling)
     const mjGroupClass = this.getGroupClass()
+    const divClasses = cx(mjGroupClass, 'outlook-group-fix', mjAttribute('css-class'))
 
     return (
       <div
-        className={mjGroupClass}
+        className={divClasses}
+        data-class={mjAttribute('css-class')}
         data-column-width={parseInt(width)}
         data-vertical-align={this.styles.div.verticalAlign}
         data-mj-group-background={mjAttribute('background-color')}

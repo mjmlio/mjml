@@ -15,6 +15,7 @@ const defaultMJMLDefinition = {
     'container-background-color': null,
     'height': 'auto',
     'href': '',
+    'rel': null,
     'padding-bottom': null,
     'padding-left': null,
     'padding-right': null,
@@ -24,7 +25,8 @@ const defaultMJMLDefinition = {
     'target': '_blank',
     'title': '',
     'vertical-align': null,
-    'width': null
+    'width': null,
+    'css-class': ''
   }
 }
 const baseStyles = {
@@ -92,6 +94,7 @@ class Image extends Component {
       return (
         <a
           href={mjAttribute('href')}
+          rel={mjAttribute('rel')}
           target={mjAttribute('target')}>
           {img}
         </a>
@@ -107,6 +110,7 @@ class Image extends Component {
     return (
       <table
         role="presentation"
+        className={mjAttribute('css-class')}
         cellPadding="0"
         cellSpacing="0"
         data-legacy-align={mjAttribute('align')}

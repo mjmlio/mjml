@@ -145,21 +145,7 @@ class Button extends Component {
 
   renderButton () {
     const {mjContent, mjAttribute} = this.props
-    if (mjAttribute('href')) {
-      return (
-        <a href={mjAttribute('href')} style={this.styles.buttonA} target="_blank" rel={mjAttribute('rel')}>
-          <table style={this.styles.buttonTable}>
-            <tbody>
-              <tr>
-                <td style={this.styles.buttonTd}>
-                  <p dangerouslySetInnerHTML={{__html: mjContent()}} style={this.styles.buttonP} />
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </a>)
-    }
-    return (
+    const button = (
       <table style={this.styles.buttonTable}>
         <tbody>
           <tr>
@@ -168,7 +154,18 @@ class Button extends Component {
             </td>
           </tr>
         </tbody>
-      </table>)
+      </table>
+    )
+
+    if (mjAttribute('href')) {
+      return (
+        <a href={mjAttribute('href')} style={this.styles.buttonA} target="_blank" rel={mjAttribute('rel')}>
+          {button}
+        </a>
+      )
+    }
+
+    return button
   }
 
   render () {

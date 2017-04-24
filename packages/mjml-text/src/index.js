@@ -8,6 +8,7 @@ const defaultMJMLDefinition = {
   content: '',
   attributes: {
     'align': 'left',
+    'allow-autolink': true,
     'color': '#000000',
     'container-background-color': null,
     'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
@@ -78,7 +79,14 @@ class Text extends Component {
   render () {
     const { mjAttribute, mjContent } = this.props
 
-    const classNames = mjAttribute('height') ? 'mj-text-height' : ''
+    const classNames = []
+    if (mjAttribute('height')) {
+      classNames.push('mj-text-height')
+    }
+    if (["false", false].includes(mjAttribute('allow-autolink'))) {
+      classNames.push('no-blue-link-ios')
+    }
+
 
     return (
       <div

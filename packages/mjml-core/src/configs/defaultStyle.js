@@ -7,4 +7,12 @@ export default `
   table, td { border-collapse:collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
   img { border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; }
   p { display: block; margin: 13px 0; }
+  .no-blue-link-ios a[x-apple-data-detectors] {
+    color: inherit !important;
+    text-decoration: none !important;
+    font-size: inherit !important;
+    font-family: inherit !important;
+    font-weight: inherit !important;
+    line-height: inherit !important;
+}
 `

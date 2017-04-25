@@ -104,7 +104,9 @@ export default createBodyComponent('mj-section', {
   renderAfter () {
     return `
       <!--[if mso | IE]>
-      </td></tr></table>
+          </td>
+        </tr>
+      </table>
       <![endif]-->
     `
   },

@@ -10,15 +10,15 @@ export default createBodyComponent('mj-divider', {
     'border-color': '#000000',
     'border-style': 'solid',
     'border-width': '4px',
-    padding: '10px 25px',
-    width: '100%',
+    'padding': '10px 25px',
+    'width': '100%',
   },
   getStyles () {
     return {
       'border-top': `${this.getMjAttribute('border-width')} ${this.getMjAttribute('border-style')} ${this.getMjAttribute('border-color')}`,
       'font-size': '1px',
-      margin: '0px auto',
-      width: this.getMjAttribute('width'),
+      'margin': '0px auto',
+      'width': this.getMjAttribute('width'),
     }
   },
   getOutlookWidth () {

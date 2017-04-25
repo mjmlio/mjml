@@ -4,6 +4,8 @@ import mjml2html, {
 import { registerDependencies } from 'mjml-validator'
 import dependencies from './dependencies'
 
+const { Social, SocialElement } = require('mjml-social')
+
 registerComponent(require('mjml-head-attributes'))
 registerComponent(require('mjml-head-font'))
 registerComponent(require('mjml-head-style'))
@@ -16,6 +18,8 @@ registerComponent(require('mjml-raw'))
 registerComponent(require('mjml-section'))
 registerComponent(require('mjml-text'))
 registerComponent(require('mjml-table'))
+registerComponent(Social)
+registerComponent(SocialElement)
 
 registerDependencies(dependencies)
 

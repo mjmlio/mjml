@@ -1,4 +1,5 @@
-import _ from 'lodash'
+import forEach from 'lodash/forEach'
+import reduce from 'lodash/reduce'
 import objectPath from 'object-path'
 import shorthandParser from './helpers/shorthandParser'
 
@@ -99,15 +100,13 @@ export default function createComponent (type, name, component) {
 
     @onlyFor('body')
     generateHtmlAttributes (attributes) {
-      let output = ''
-
-      _.forEach(attributes, (value, name) => {
+      return reduce(attributes, (output, value, name) => {
         if (value) {
-          output += ` ${name}="${value}"`
+          return output += ` ${name}="${value}"`
         }
-      })
 
-      return output
+        return output
+      }, '')
     }
 
     @onlyFor('body')
@@ -120,7 +119,7 @@ export default function createComponent (type, name, component) {
 
       let output = ''
 
-      _.forEach(styles, (value, name) => {
+      forEach(styles, (value, name) => {
         if (value) {
           output += `${name}:${value};`
         }
@@ -134,6 +133,7 @@ export default function createComponent (type, name, component) {
       const {
         props = {},
         renderer = component => component.render(),
+        attributes = {},
       } = options
 
       children = children || this.props.children
@@ -149,6 +149,10 @@ export default function createComponent (type, name, component) {
           name: child.tagName,
           initialDatas: {
             ...child,
+            attributes: {
+              ...attributes,
+              ...child.attributes,
+            },
             context: this.getChildContext(),
             props: {
               ...props,

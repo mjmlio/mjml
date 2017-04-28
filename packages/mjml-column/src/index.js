@@ -137,6 +137,7 @@ class Column extends Component {
     return (
       <div
         className={divClasses}
+        data-class={mjAttribute('css-class')}
         data-column-width={width}
         data-vertical-align={this.styles.div.verticalAlign}
         style={this.styles.div}>

@@ -16,7 +16,9 @@ const defaultMJMLDefinition = {
     'padding-top': null,
     'padding-left': null,
     'padding-right': null,
-    'padding-bottom': null
+    'padding-bottom': null,
+    'text-decoration': null,
+    'text-transform': null
   }
 }
 const baseStyles = {

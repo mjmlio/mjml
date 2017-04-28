@@ -35,7 +35,7 @@ const defaultMJMLDefinition = {
     "width": null,
     "height": null,
     "box-shadow": "none",
-    "line-height": "16px",
+    "line-height": "1.2",
     "text-align": "center"
   }
 }
@@ -93,8 +93,8 @@ class Button extends Component {
   styles = this.getStyles()
 
   getStyles () {
-    const {mjAttribute} = this.props
-    const width = mjAttribute('width')
+    const { mjAttribute, defaultUnit } = this.props
+    const width = defaultUnit(mjAttribute('width'), 'px')
     const isWidthPerCent = width && width.indexOf('%') >= 0
 
     return helpers.merge({}, baseStyles, {
@@ -109,11 +109,11 @@ class Button extends Component {
         color: mjAttribute('color'),
         backgroundColor: mjAttribute('container-background-color'),
         fontFamily: mjAttribute('font-family'),
-        fontSize: mjAttribute('font-size'),
+        fontSize: defaultUnit(mjAttribute('font-size'), 'px'),
         fontWeight: mjAttribute('font-weight'),
         lineHeight: mjAttribute('line-height'),
         textAlign: mjAttribute('text-align'),
-        width: mjAttribute('width')
+        width: width
       },
       buttonA: {
         textDecoration: mjAttribute('text-decoration')
@@ -121,7 +121,7 @@ class Button extends Component {
       buttonP: {
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
-        fontSize: mjAttribute('font-size'),
+        fontSize: defaultUnit(mjAttribute('font-size'), 'px'),
         fontStyle: mjAttribute('font-style'),
         fontWeight: mjAttribute('font-weight'),
         lineHeight: mjAttribute('line-height'),
@@ -136,8 +136,8 @@ class Button extends Component {
         borderRight: mjAttribute('border-right'),
         borderTop: mjAttribute('border-top'),
         boxShadow: mjAttribute('box-shadow'),
-        height: mjAttribute('height'),
-        padding: mjAttribute('inner-padding'),
+        height: defaultUnit(mjAttribute('height'), 'px'),
+        padding: defaultUnit(mjAttribute('inner-padding'), 'px'),
         verticalAlign: mjAttribute('vertical-align')
       }
     })

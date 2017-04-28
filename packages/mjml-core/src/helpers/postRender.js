@@ -22,5 +22,7 @@ export const fixLegacyAttrs = $ => {
     })
   })
 
+  $('*[class=""]').removeAttr('class')
+
   return $
 }

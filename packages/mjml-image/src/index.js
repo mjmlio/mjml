@@ -37,6 +37,7 @@ const baseStyles = {
     border: 'none',
     borderRadius: '',
     display: 'block',
+    fontSize: '13px',
     outline: 'none',
     textDecoration: 'none',
     width: '100%'

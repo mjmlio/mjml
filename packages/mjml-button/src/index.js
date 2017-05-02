@@ -58,29 +58,35 @@ class Button extends Component {
       table: {
         width: mjAttribute('width')
       },
+      innerTable: {
+        border: '0',
+        margin: '0 auto',
+        padding: defaultUnit(mjAttribute('inner-padding'), "px")
+      },
       td: {
+        background: mjAttribute('background-color'),
         border: mjAttribute('border'),
         borderBottom: mjAttribute('border-bottom'),
         borderLeft: mjAttribute('border-left'),
-        borderRadius: defaultUnit(mjAttribute('border-radius'), "px"),
         borderRight: mjAttribute('border-right'),
+        borderRadius: defaultUnit(mjAttribute('border-radius'), "px"),
         borderTop: mjAttribute('border-top'),
-        color: mjAttribute('color'),
-        cursor: 'auto',
-        fontStyle: mjAttribute('font-style'),
         height: mjAttribute('height'),
-        padding: defaultUnit(mjAttribute('inner-padding'), "px")
+        width: mjAttribute('width')
       },
       a: {
-        background: mjAttribute('background-color'),
+        display: 'inline-block',
         color: mjAttribute('color'),
+        cursor: 'auto',
         fontFamily: mjAttribute('font-family'),
         fontSize: defaultUnit(mjAttribute('font-size')),
         fontStyle: mjAttribute('font-style'),
         fontWeight: mjAttribute('font-weight'),
+        height: mjAttribute('height'),
         textDecoration: mjAttribute('text-decoration'),
         textTransform: mjAttribute('text-transform'),
-        margin: "0px"
+        margin: "0px",
+        padding: defaultUnit(mjAttribute('inner-padding'), "px")
       }
     })
   }
@@ -119,12 +125,23 @@ class Button extends Component {
         style={this.styles.table}>
         <tbody>
           <tr>
-            <td
-              data-legacy-align="center"
-              data-legacy-bgcolor={mjAttribute('background-color') === "none" ? "" : mjAttribute('background-color')}
-              data-legacy-valign={mjAttribute('vertical-align')}
-              style={this.styles.td}>
-              {this.renderButton()}
+            <td>
+              <table
+                cellSpacing="0"
+                cellPadding="0"
+                style={this.styles.innerTable}>
+                <tbody>
+                  <tr>
+                    <td
+                      data-legacy-align="center"
+                      data-legacy-bgcolor={mjAttribute('background-color') === "none" ? "" : mjAttribute('background-color')}
+                      data-legacy-valign={mjAttribute('vertical-align')}
+                      style={this.styles.td}>
+                      {this.renderButton()}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </td>
           </tr>
         </tbody>

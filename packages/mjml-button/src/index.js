@@ -1,5 +1,5 @@
-import { MJMLElement, helpers } from 'mjml-core'
-import React, { Component } from 'react'
+import {MJMLElement, helpers} from 'mjml-core'
+import React, {Component} from 'react'
 
 const tagName = 'mj-button'
 const parentTag = ['mj-column', 'mj-hero-content']
@@ -27,22 +27,63 @@ const defaultMJMLDefinition = {
     "href": null,
     "rel": null,
     "inner-padding": "10px 25px",
-    'padding': '10px 25px',
+    "padding": '10px 25px',
     "padding-top": null,
     "padding-bottom": null,
     "padding-left": null,
     "padding-right": null,
     "width": null,
-    "height": null
+    "height": null,
+    "box-shadow": "none",
+    "line-height": "16px",
+    "text-align": "center"
   }
 }
 const baseStyles = {
-  table: {
-    borderCollapse: 'separate'
+  tableRoot: {
+    borderCollapse: 'collapse',
+    borderSpacing: '0',
+    padding: '0',
+    textAlign: 'left'
   },
-  a: {
-    textDecoration: 'none',
-    lineHeight: '100%'
+  trRoot: {
+    padding: '0',
+    textAlign: 'left',
+    verticalAlign: 'top'
+  },
+  tdRoot: {
+    padding: '0',
+    borderCollapse: 'collapse',
+    textAlign: 'left',
+    verticalAlign: 'top'
+  },
+  containerTable: {
+    width: '100%'
+  },
+  containerTr: {
+    padding: 0,
+    textAlign: 'left'
+  },
+  containerTd: {
+    border: 'none',
+    borderCollapse: 'collapse',
+    hyphens: 'auto',
+    MozHyphens: 'auto',
+    padding: '0',
+    WebkitHyphens: 'auto',
+    wordWrap: 'break-word'
+  },
+  buttonA: {
+    display: 'block',
+    textTransform: 'none'
+  },
+  buttonTable: {
+    borderCollapse: 'separate',
+    width: '100%'
+  },
+  buttonP: {
+    margin: '0',
+    padding: '0'
   }
 }
 
@@ -52,86 +93,113 @@ class Button extends Component {
   styles = this.getStyles()
 
   getStyles () {
-    const { mjAttribute, defaultUnit } = this.props
+    const {mjAttribute} = this.props
+    const width = mjAttribute('width')
+    const isWidthPerCent = width && width.indexOf('%') >= 0
 
     return helpers.merge({}, baseStyles, {
-      table: {
+      tableRoot: {
+        width: isWidthPerCent ? width : null
+      },
+      tdRoot: {
+        backgroundColor: mjAttribute('container-background-color'),
+        width: isWidthPerCent ? null : width
+      },
+      containerTd: {
+        color: mjAttribute('color'),
+        backgroundColor: mjAttribute('container-background-color'),
+        fontFamily: mjAttribute('font-family'),
+        fontSize: mjAttribute('font-size'),
+        fontWeight: mjAttribute('font-weight'),
+        lineHeight: mjAttribute('line-height'),
+        textAlign: mjAttribute('text-align'),
         width: mjAttribute('width')
       },
-      td: {
+      buttonA: {
+        textDecoration: mjAttribute('text-decoration')
+      },
+      buttonP: {
+        color: mjAttribute('color'),
+        fontFamily: mjAttribute('font-family'),
+        fontSize: mjAttribute('font-size'),
+        fontStyle: mjAttribute('font-style'),
+        fontWeight: mjAttribute('font-weight'),
+        lineHeight: mjAttribute('line-height'),
+        textAlign: mjAttribute('text-align')
+      },
+      buttonTd: {
+        backgroundColor: mjAttribute('background-color'),
         border: mjAttribute('border'),
         borderBottom: mjAttribute('border-bottom'),
         borderLeft: mjAttribute('border-left'),
-        borderRadius: defaultUnit(mjAttribute('border-radius'), "px"),
+        borderRadius: mjAttribute('border-radius'),
         borderRight: mjAttribute('border-right'),
         borderTop: mjAttribute('border-top'),
-        color: mjAttribute('color'),
-        cursor: 'auto',
-        fontStyle: mjAttribute('font-style'),
+        boxShadow: mjAttribute('box-shadow'),
         height: mjAttribute('height'),
-        padding: defaultUnit(mjAttribute('inner-padding'), "px")
-      },
-      a: {
-        background: mjAttribute('background-color'),
-        color: mjAttribute('color'),
-        fontFamily: mjAttribute('font-family'),
-        fontSize: defaultUnit(mjAttribute('font-size')),
-        fontStyle: mjAttribute('font-style'),
-        fontWeight: mjAttribute('font-weight'),
-        textDecoration: mjAttribute('text-decoration'),
-        textTransform: mjAttribute('text-transform'),
-        margin: "0px"
+        padding: mjAttribute('inner-padding'),
+        verticalAlign: mjAttribute('vertical-align')
       }
     })
   }
 
   renderButton () {
-    const { mjContent, mjAttribute } = this.props
+    const {mjContent, mjAttribute} = this.props
+    const button = (
+      <table style={this.styles.buttonTable}>
+        <tbody>
+          <tr>
+            <td style={this.styles.buttonTd}>
+              <p dangerouslySetInnerHTML={{__html: mjContent()}} style={this.styles.buttonP} />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    )
 
     if (mjAttribute('href')) {
       return (
-        <a
-          dangerouslySetInnerHTML={{ __html: mjContent() }}
-          href={mjAttribute('href')}
-          rel={mjAttribute('rel')}
-          style={this.styles.a}
-          target="_blank" />
+        <a href={mjAttribute('href')} style={this.styles.buttonA} target="_blank" rel={mjAttribute('rel')}>
+          {button}
+        </a>
       )
     }
 
-    return (
-      <p
-        dangerouslySetInnerHTML={{ __html: mjContent() }}
-        style={this.styles.a} />
-    )
+    return button
   }
 
   render () {
-    const { mjAttribute } = this.props
-
+    const {mjAttribute} = this.props
     return (
       <table
         role="presentation"
         cellPadding="0"
         cellSpacing="0"
+        align={mjAttribute('align')}
         data-legacy-align={mjAttribute('align')}
         data-legacy-border="0"
-        style={this.styles.table}>
+        style={this.styles.tableRoot}>
         <tbody>
-          <tr>
-            <td
-              data-legacy-align="center"
-              data-legacy-bgcolor={mjAttribute('background-color') === "none" ? "" : mjAttribute('background-color')}
-              data-legacy-valign={mjAttribute('vertical-align')}
-              style={this.styles.td}>
-              {this.renderButton()}
+          <tr style={this.styles.trRoot}>
+            <td style={this.styles.tdRoot}>
+              <table
+                cellPadding="0"
+                cellSpacing="0"
+                style={this.styles.containerTable}>
+                <tbody>
+                  <tr style={this.styles.containerTr}>
+                    <td style={this.styles.containerTd}>
+                      {this.renderButton()}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </td>
           </tr>
         </tbody>
       </table>
     )
   }
-
 }
 
 Button.tagName = tagName

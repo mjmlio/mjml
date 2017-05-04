@@ -6,8 +6,9 @@ const xml = `<mjml>
     <mj-container>
       <mj-section background-color="orange">
         <mj-column>
-          <mj-social>
-            <mj-social-element />
+          <mj-social font-size="29px">
+            <mj-social-element name="facebook" href="test" />
+            <mj-social-element href="http://test" color="blue" font-size="22px" src="icon.png">Touitter</mj-social-element>
           </mj-social>
         </mj-column>
       </mj-section>

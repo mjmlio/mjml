@@ -33,23 +33,25 @@ export default createBodyComponent('mj-text', {
   },
   getStyles () {
     return {
-      'font-family': this.getMjAttribute('font-family'),
-      'font-size': this.getMjAttribute('font-size'),
-      'font-weight': this.getMjAttribute('font-weight'),
-      'letter-spacing': this.getMjAttribute('letter-spacing'),
-      'line-height': this.getMjAttribute('line-height'),
-      'text-align': this.getMjAttribute('align'),
-      'text-decoration': this.getMjAttribute('text-decoration'),
-      'text-transform': this.getMjAttribute('text-transform'),
-      'color': this.getMjAttribute('color'),
-      'height': this.getMjAttribute('height'),
+      div: {
+        'font-family': this.getMjAttribute('font-family'),
+        'font-size': this.getMjAttribute('font-size'),
+        'font-weight': this.getMjAttribute('font-weight'),
+        'letter-spacing': this.getMjAttribute('letter-spacing'),
+        'line-height': this.getMjAttribute('line-height'),
+        'text-align': this.getMjAttribute('align'),
+        'text-decoration': this.getMjAttribute('text-decoration'),
+        'text-transform': this.getMjAttribute('text-transform'),
+        'color': this.getMjAttribute('color'),
+        'height': this.getMjAttribute('height'),
+      }
     }
   },
   renderContent () {
     return `
       <div
         ${this.generateHtmlAttributes({
-          style: this.generateStyles(),
+          style: 'text',
         })}
       >
         ${this.getMjContent()}

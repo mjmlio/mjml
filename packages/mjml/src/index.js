@@ -18,6 +18,7 @@ registerComponent(require('mjml-raw'))
 registerComponent(require('mjml-section'))
 registerComponent(require('mjml-text'))
 registerComponent(require('mjml-table'))
+
 registerComponent(Social)
 registerComponent(SocialElement)
 

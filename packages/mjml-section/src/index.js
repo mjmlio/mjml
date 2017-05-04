@@ -22,6 +22,7 @@ export default createBodyComponent('mj-section', {
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
     'text-align': 'enum(left,center,right)',
+    'text-padding': 'unit(px,%){1,4}',
     'vertical-align': 'enum(bottom,middle,top)',
   },
   defaultAttributes: {
@@ -30,6 +31,7 @@ export default createBodyComponent('mj-section', {
     'direction': 'ltr',
     'padding': '20px 0',
     'text-align': 'center',
+    'text-padding': '4px 4px 4px 0',
     'vertical-align': 'top',
   },
   getStyles () {
@@ -119,7 +121,12 @@ export default createBodyComponent('mj-section', {
       ${this.renderChildren(children, {
         renderer: (component) => component.rawElement ? component.render() : `
           <!--[if mso | IE]>
-            <td ${this.generateHtmlAttributes({ style: this.generateStyles('td-outlook') })}>
+            <td
+              ${this.generateHtmlAttributes({
+                align: component.getMjAttribute('align'),
+                style: 'td-outlook'
+              })}
+            >
           <![endif]-->
             ${component.render()}
           <!--[if mso | IE]>
@@ -161,11 +168,7 @@ export default createBodyComponent('mj-section', {
   },
   renderSection () {
     return `
-      <div
-        ${this.generateHtmlAttributes({
-          style: this.generateStyles('div'),
-        })}
-      >
+      <div ${this.generateHtmlAttributes({ style: 'div' })}>
         <table
           ${this.generateHtmlAttributes({
             align: 'center',
@@ -174,14 +177,14 @@ export default createBodyComponent('mj-section', {
             cellpadding: '0',
             cellspacing: '0',
             role: 'presentation',
-            style: this.generateStyles('table'),
+            style: 'table',
           })}
         >
           <tbody>
             <tr>
               <td
                 ${this.generateHtmlAttributes({
-                  style: this.generateStyles('td'),
+                  style: 'td',
                 })}
               >
                 <!--[if mso | IE]>
@@ -210,7 +213,7 @@ export default createBodyComponent('mj-section', {
           cellpadding: '0',
           cellspacing: '0',
           role: 'presentation',
-          style: this.generateStyles('tableFullwidth'),
+          style: 'tableFullwidth',
         })}
       >
         <tbody>

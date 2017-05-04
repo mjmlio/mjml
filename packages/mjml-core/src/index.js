@@ -19,6 +19,7 @@ import components, {
   getFlattenComponents,
 } from './components'
 
+import mergeOutlookConditionnals from './helpers/mergeOutlookConditionnals'
 import skeleton from './helpers/skeleton'
 import traverseMJML from './helpers/traverseMJML'
 
@@ -178,6 +179,8 @@ export default function mjml2html (mjml, options = {}) {
     minifyCSS: true,
     removeEmptyAttributes: true,
   }) : content
+
+  content = mergeOutlookConditionnals(content)
 
   return { html: content, errors: errors }
 }

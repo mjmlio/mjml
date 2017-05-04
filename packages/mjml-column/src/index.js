@@ -153,11 +153,7 @@ export default createBodyComponent('mj-column', {
       >
         <tbody>
           <tr>
-            <td
-              ${this.generateHtmlAttributes({
-                style: this.generateStyles('gutter')
-              })}
-            >
+            <td ${this.generateHtmlAttributes({style: 'gutter'})}>
               ${this.renderColumn()}
             </td>
           </tr>
@@ -178,7 +174,7 @@ export default createBodyComponent('mj-column', {
           cellpadding: '0',
           cellspacing: '0',
           role: 'presentation',
-          style: this.generateStyles('table'),
+          style: 'table',
           width: '100%',
         })}
       >
@@ -216,7 +212,7 @@ export default createBodyComponent('mj-column', {
       <div
         ${this.generateHtmlAttributes({
           'class': `${this.getColumnClass()} outlook-group-fix`,
-          style: this.generateStyles('div'),
+          style: 'div',
         })}
       >
         ${this.hasGutter() ? this.renderGutter() : this.renderColumn()}

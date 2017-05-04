@@ -36,13 +36,15 @@ export default createBodyComponent('mj-table', {
   },
   getStyles () {
     return {
-      'cellpadding': this.getMjAttribute('cellspadding'),
-      'cellspacing': this.getMjAttribute('cellspacing'),
-      'color': this.getMjAttribute('color'),
-      'font-family': this.getMjAttribute('font-family'),
-      'font-size': this.getMjAttribute('font-size'),
-      'line-height': this.getMjAttribute('line-height'),
-      'table-layout': this.getMjAttribute('table-layout')
+      table: {
+        'cellpadding': this.getMjAttribute('cellspadding'),
+        'cellspacing': this.getMjAttribute('cellspacing'),
+        'color': this.getMjAttribute('color'),
+        'font-family': this.getMjAttribute('font-family'),
+        'font-size': this.getMjAttribute('font-size'),
+        'line-height': this.getMjAttribute('line-height'),
+        'table-layout': this.getMjAttribute('table-layout'),
+      }
     }
   },
   render () {
@@ -55,7 +57,7 @@ export default createBodyComponent('mj-table', {
         ${this.generateHtmlAttributes({
           ...tableAttributes,
           border: "0",
-          style: this.generateStyles(),
+          style: 'table',
         })}
       >
         ${this.getMjContent()}

@@ -14,7 +14,9 @@ export default createBodyComponent('mj-container', {
   },
   getStyles () {
     return {
-      'background-color': this.getMjAttribute('background-color'),
+      div: {
+        'background-color': this.getMjAttribute('background-color'),
+      }
     }
   },
   render () {
@@ -22,7 +24,7 @@ export default createBodyComponent('mj-container', {
       <div
         ${this.generateHtmlAttributes({
           'background-color': this.getMjAttribute('background-color'),
-          style: this.generateStyles(),
+          style: 'div',
         })}
       >
         ${this.renderChildren()}

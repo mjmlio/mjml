@@ -72,7 +72,7 @@ export default createBodyComponent('mj-image', {
           alt: this.getMjAttribute('href'),
           height: this.getMjAttribute('height'),
           src: this.getMjAttribute('src'),
-          style: this.generateStyles('img'),
+          style: 'img',
           title: this.getMjAttribute('title'),
           width: this.getContentWidth(),
         })}
@@ -103,16 +103,12 @@ export default createBodyComponent('mj-image', {
           cellpadding: '0',
           cellspacing: '0',
           role: 'presentation',
-          style: this.generateStyles('table'),
+          style: 'table',
         })}
       >
         <tbody>
           <tr>
-            <td
-              ${this.generateHtmlAttributes({
-                style: this.generateStyles('td'),
-              })}
-            >
+            <td ${this.generateHtmlAttributes({style: 'td'})}>
               ${this.renderImage()}
             </td>
           </tr>

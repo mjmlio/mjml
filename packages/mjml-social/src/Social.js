@@ -51,6 +51,7 @@ export default createBodyComponent('mj-social', {
       'color',
       'font-family',
       'font-size',
+      'font-weight',
       'icon-size',
       'inner-padding',
       'line-height'].reduce((res, attr) => {
@@ -87,7 +88,7 @@ export default createBodyComponent('mj-social', {
                   cellpadding: '0',
                   cellspacing: '0',
                   role: 'presentation',
-                  style: this.generateStyles('tableHorizontal'),
+                  style: 'tableHorizontal',
                 })}
               >
                 ${component.render()}
@@ -113,7 +114,8 @@ export default createBodyComponent('mj-social', {
           border: '0',
           cellpadding: '0',
           cellspacing: '0',
-          style: this.generateStyles(),
+          role: 'presentation',
+          style: 'tableVertical',
         })}
       >
         ${this.renderChildren(children, { attributes: this.getSocialElementAttributes() })}

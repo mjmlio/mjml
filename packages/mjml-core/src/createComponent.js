@@ -7,6 +7,7 @@ import {
   initComponent,
 } from './components'
 
+
 export function createBodyComponent (name, component) {
   return createComponent('body', name, component)
 }
@@ -100,7 +101,14 @@ export default function createComponent (type, name, component) {
 
     @onlyFor('body')
     generateHtmlAttributes (attributes) {
-      return reduce(attributes, (output, value, name) => {
+      const specialAttributes = {
+        style: (v) => this.generateStyles(v),
+        default: (v) => v
+      }
+
+      return reduce(attributes, (output, v, name) => {
+        const value = (specialAttributes[name] || specialAttributes['default'])(v)
+
         if (value) {
           return output += ` ${name}="${value}"`
         }

@@ -89,7 +89,8 @@ const baseStyles = {
 const postRender = ($) => {
   $('.outlook-button-fix').each(function () {
     const $a = $(this)
-    const attributes = ['style', 'rel', 'href', 'target'].map(a => `${a}="${$a.attr(a)}"`)
+    const attributes = ['style', 'rel', 'href', 'target'].filter(a => $a.attr(a))
+                                                         .map(a => `${a}="${$a.attr(a)}"`)
                                                          .join(' ')
 
     $a.find('p').each(function () {

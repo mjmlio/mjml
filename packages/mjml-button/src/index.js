@@ -86,6 +86,27 @@ const baseStyles = {
     padding: '0'
   }
 }
+const postRender = ($) => {
+  $('.outlook-button-fix').each(function () {
+    const $a = $(this)
+    const attributes = ['style', 'rel', 'href', 'target'].map(a => `${a}="${$a.attr(a)}"`)
+                                                         .join(' ')
+
+    $a.find('p').each(function () {
+      $(this).replaceWith(`
+        ${helpers.startConditionalTag}
+          <a ${attributes}>
+        ${helpers.endConditionalTag}
+          ${$(this).toString()}
+        ${helpers.startConditionalTag}
+          </a>
+        ${helpers.endConditionalTag}
+      `)
+    })
+  })
+
+  return $
+}
 
 @MJMLElement
 class Button extends Component {
@@ -159,7 +180,7 @@ class Button extends Component {
 
     if (mjAttribute('href')) {
       return (
-        <a href={mjAttribute('href')} style={this.styles.buttonA} target="_blank" rel={mjAttribute('rel')}>
+        <a className="outlook-button-fix" href={mjAttribute('href')} style={this.styles.buttonA} target="_blank" rel={mjAttribute('rel')}>
           {button}
         </a>
       )
@@ -207,5 +228,6 @@ Button.parentTag = parentTag
 Button.endingTag = endingTag
 Button.defaultMJMLDefinition = defaultMJMLDefinition
 Button.baseStyles = baseStyles
+Button.postRender = postRender
 
 export default Button

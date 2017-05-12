@@ -94,11 +94,11 @@ const postRender = ($) => {
                                                          .join(' ')
 
     $a.find('p').each(function () {
-      $(this).replaceWith(`
+      $(this).html(`
         ${helpers.startConditionalTag}
           <a ${attributes}>
         ${helpers.endConditionalTag}
-          ${$(this).toString()}
+          ${$(this).html()}
         ${helpers.startConditionalTag}
           </a>
         ${helpers.endConditionalTag}
@@ -128,7 +128,6 @@ class Button extends Component {
         width: isWidthPerCent ? null : width
       },
       containerTd: {
-        color: mjAttribute('color'),
         backgroundColor: mjAttribute('container-background-color'),
         fontFamily: mjAttribute('font-family'),
         fontSize: defaultUnit(mjAttribute('font-size'), 'px'),
@@ -138,10 +137,10 @@ class Button extends Component {
         width: width
       },
       buttonA: {
+        color: mjAttribute('color'),
         textDecoration: mjAttribute('text-decoration')
       },
       buttonP: {
-        color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
         fontSize: defaultUnit(mjAttribute('font-size'), 'px'),
         fontStyle: mjAttribute('font-style'),
@@ -181,7 +180,12 @@ class Button extends Component {
 
     if (mjAttribute('href')) {
       return (
-        <a className="outlook-button-fix" href={mjAttribute('href')} style={this.styles.buttonA} target="_blank" rel={mjAttribute('rel')}>
+        <a
+          className="outlook-button-fix"
+          href={mjAttribute('href')}
+          style={this.styles.buttonA}
+          target="_blank"
+          rel={mjAttribute('rel')}>
           {button}
         </a>
       )

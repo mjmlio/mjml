@@ -31,13 +31,16 @@ cd packages
 
 printf "${BYellow}Linking dependencies for every mjml packages.${Color_Off} \n"
 
+# Core
+printf "${Yellow}Linking core${Color_Off} \n"
+cd mjml-core && yarn && yarn link && cd ..
+
 # Core dependencies
 printf "${Yellow}Linking core dependencies${Color_Off} \n"
 cd mjml-validator && yarn && yarn link && yarn link mjml-core && cd ..
 
-# Core
-printf "${Yellow}Linking core${Color_Off} \n"
-cd mjml-core && yarn && yarn link mjml-validator && yarn link && cd ..
+# Link core dependencies to core
+cd mjml-core && yarn link mjml-validator && cd ..
 
 # Mj elements
 printf "${Yellow}Linking MJML standard elements${Color_Off} \n"
@@ -55,21 +58,22 @@ cd mjml-head-title && yarn && yarn link mjml-core && yarn link && cd ..
 cd mjml-hero && yarn && yarn link mjml-core && yarn link && cd ..
 cd mjml-html && yarn && yarn link mjml-core && yarn link && cd ..
 cd mjml-image && yarn && yarn link mjml-core && yarn link && cd ..
-cd mjml-invoice && yarn && yarn link mjml-core && yarn link mjml-table && yarn link && cd ..
 cd mjml-list && yarn && yarn link mjml-core && yarn link && cd ..
-cd mjml-location && yarn && yarn link mjml-core && yarn link mjml-text && yarn link mjml-image && yarn link && cd ..
-cd mjml-navbar && yarn && yarn link mjml-core && yarn link mjml-section && yarn link && cd ..
 cd mjml-raw && yarn && yarn link mjml-core && yarn link && cd ..
 cd mjml-section && yarn && yarn link mjml-core && yarn link && cd ..
 cd mjml-social && yarn && yarn link mjml-core && yarn link && cd ..
 cd mjml-spacer && yarn && yarn link mjml-core && yarn link && cd ..
 cd mjml-table && yarn && yarn link mjml-core && yarn link && cd ..
 cd mjml-text && yarn && yarn link mjml-core && yarn link && cd ..
+
+cd mjml-invoice && yarn && yarn link mjml-core && yarn link mjml-table && yarn link && cd ..
+cd mjml-location && yarn && yarn link mjml-core && yarn link mjml-text && yarn link mjml-image && yarn link && cd ..
+cd mjml-navbar && yarn && yarn link mjml-core && yarn link mjml-section && yarn link && cd ..
 cd mjml-wrapper && yarn && yarn link mjml-core && yarn link mjml-section && yarn link && cd ..
 
 # Cli
 printf "${Yellow}Linking core${Color_Off} \n"
-cd mjml-cli && yarn && yarn link mjml-core && yarn link && cd ..
+cd mjml-cli && yarn && yarn link mjml-core && yarn link ; cd ..
 
 printf "${BGreen}Done.${Color_Off} \n"
 
@@ -103,8 +107,9 @@ yarn link mjml-table
 yarn link mjml-text
 yarn link mjml-validator
 yarn link mjml-wrapper
+cd ../..
 
 printf "${BGreen}Done.${Color_Off} ${Green}Building the project ${Color_Off} \n"
-gulp build
+./node_modules/.bin/gulp build
 
 printf "${BGreen}Done.🍺 ${Color_Off} \n ${Green}Use ${Color_Off}${BGreen}gulp build${Color_Off}${Green} to build the whole monorepo ! \n And run ${Color_Off}${BGreen}node test.js${Color_Off}${Green} inside ${Color_Off}${BGreen}packages/mjml${Color_Off}${Green} to test your installation ${Color_Off}\n"

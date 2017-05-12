@@ -62,7 +62,7 @@ export default class MJMLRenderer {
 
   constructor (content, options = {}) {
     if (!isBrowser()) {
-      configParser()
+      configParser(options)
     }
 
     this.attributes = {

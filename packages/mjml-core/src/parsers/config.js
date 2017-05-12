@@ -13,9 +13,9 @@ const isRelativePath = (name) => {
   return some(['./', '.', '../'], (matcher) => startsWith(name, matcher))
 }
 
-const checkIfConfigFileExist = () => {
+const checkIfConfigFileExist = (options = {}) => {
   try {
-    fs.statSync(`${cwd}/.mjmlconfig`)
+    fs.statSync(`${options.cwd || cwd}/.mjmlconfig`)
     return true
   } catch (e) {
     warning(!isEmpty(MJMLElementsCollection), `No .mjmlconfig found in path ${cwd}, consider to add one`)
@@ -23,19 +23,19 @@ const checkIfConfigFileExist = () => {
   }
 }
 
-const parseConfigFile = () => {
-  if (!checkIfConfigFileExist()) {
+const parseConfigFile = (options = {}) => {
+  if (!checkIfConfigFileExist(options)) {
     return false
   }
 
   try {
-    return JSON.parse(fs.readFileSync(`${cwd}/.mjmlconfig`).toString())
+    return JSON.parse(fs.readFileSync(`${options.cwd || cwd}/.mjmlconfig`).toString())
   } catch (e) {
     warning(false, `.mjmlconfig has a ParseError: ${e}`)
   }
 }
 
-const parsePackages = (packages) => {
+const parsePackages = (packages, options = {}) => {
   if (!packages) {
     return;
   }
@@ -46,7 +46,7 @@ const parsePackages = (packages) => {
     }
 
     try {
-      const filename = path.join(process.cwd(), file)
+      const filename = path.join(options.cwd || cwd, file)
       const Component = isRelativePath(file) ? require(filename) : require.main.require(file)
 
       registerMJElement(Component.default || Component)
@@ -56,7 +56,7 @@ const parsePackages = (packages) => {
   })
 }
 
-const parseRules = (validators) => {
+const parseRules = (validators, options = {}) => {
   if (!validators) {
     return;
   }
@@ -67,7 +67,7 @@ const parseRules = (validators) => {
     }
 
     try {
-      const filename = path.join(process.cwd(), file)
+      const filename = path.join(options.cwd || cwd, file)
       const rule = isRelativePath(file) ? require(filename) : require.main.require(file)
 
       registerMJRule(rule)
@@ -77,13 +77,13 @@ const parseRules = (validators) => {
   })
 }
 
-export default () => {
-  const config = parseConfigFile()
+export default (options = {}) => {
+  const config = parseConfigFile(options)
 
   if (!config) {
     return;
   }
 
-  parsePackages(config.packages)
-  parseRules(config.validators)
+  parsePackages(config.packages, options)
+  parseRules(config.validators, options)
 }

@@ -52,8 +52,8 @@ align                       | string      | horizontal alignment                
 vertical-align              | string      | vertical alignment                               | middle
 href                        | link        | link to be triggered when the button is clicked  | n/a
 rel                         | string      | specify the rel attribute for the button link    | n/a
-inner-padding               | px          | inner button padding                             | 15px 25px
-padding                     | px          | supports up to 4 parameters                      | 15px 25px
+inner-padding               | px          | inner button padding                             | 10px 25px
+padding                     | px          | supports up to 4 parameters                      | 10px 25px
 padding-top                 | px          | top offset                                       | n/a
 padding-bottom              | px          | bottom offset                                    | n/a
 padding-left                | px          | left offset                                      | n/a

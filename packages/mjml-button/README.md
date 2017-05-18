@@ -47,6 +47,7 @@ text-decoration             | string      | underline/overline/none             
 text-transform              | string      | capitalize/uppercase/lowercase                   | none
 align                       | string      | horizontal alignment                             | center
 vertical-align              | string      | vertical alignment                               | middle
+line-height                 | px/%/none   | line-height on link                              | 120%
 href                        | link        | link to be triggered when the button is clicked  | n/a
 rel                         | string      | specify the rel attribute for the button link    | n/a
 inner-padding               | px          | inner button padding                             | 10px 25px

@@ -86,6 +86,28 @@ const baseStyles = {
     padding: '0'
   }
 }
+const postRender = ($) => {
+  $('.outlook-button-fix').each(function () {
+    const $a = $(this)
+    const attributes = ['style', 'rel', 'href', 'target'].filter(a => $a.attr(a))
+                                                         .map(a => `${a}="${$a.attr(a)}"`)
+                                                         .join(' ')
+
+    $a.find('p').each(function () {
+      $(this).html(`
+        ${helpers.startConditionalTag}
+          <a ${attributes}>
+        ${helpers.endConditionalTag}
+          ${$(this).html()}
+        ${helpers.startConditionalTag}
+          </a>
+        ${helpers.endConditionalTag}
+      `)
+    })
+  })
+
+  return $
+}
 
 @MJMLElement
 class Button extends Component {
@@ -106,7 +128,6 @@ class Button extends Component {
         width: isWidthPerCent ? null : width
       },
       containerTd: {
-        color: mjAttribute('color'),
         backgroundColor: mjAttribute('container-background-color'),
         fontFamily: mjAttribute('font-family'),
         fontSize: defaultUnit(mjAttribute('font-size'), 'px'),
@@ -116,10 +137,10 @@ class Button extends Component {
         width: width
       },
       buttonA: {
+        color: mjAttribute('color'),
         textDecoration: mjAttribute('text-decoration')
       },
       buttonP: {
-        color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
         fontSize: defaultUnit(mjAttribute('font-size'), 'px'),
         fontStyle: mjAttribute('font-style'),
@@ -159,7 +180,12 @@ class Button extends Component {
 
     if (mjAttribute('href')) {
       return (
-        <a href={mjAttribute('href')} style={this.styles.buttonA} target="_blank" rel={mjAttribute('rel')}>
+        <a
+          className="outlook-button-fix"
+          href={mjAttribute('href')}
+          style={this.styles.buttonA}
+          target="_blank"
+          rel={mjAttribute('rel')}>
           {button}
         </a>
       )
@@ -207,5 +233,6 @@ Button.parentTag = parentTag
 Button.endingTag = endingTag
 Button.defaultMJMLDefinition = defaultMJMLDefinition
 Button.baseStyles = baseStyles
+Button.postRender = postRender
 
 export default Button

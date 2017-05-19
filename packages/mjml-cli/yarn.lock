@@ -1100,9 +1100,9 @@ minimist@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
 
-mjml-core@~3.3.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/mjml-core/-/mjml-core-3.3.0.tgz#4033694b2ac7a27efe387b72cb4d89ccc9886edb"
+mjml-core@~3.3.3-beta.1:
+  version "3.3.3-beta.1"
+  resolved "https://registry.yarnpkg.com/mjml-core/-/mjml-core-3.3.3-beta.1.tgz#a03f6e857054d1020fc843c316afc07f99b5a35b"
   dependencies:
     cheerio "^0.22.0"
     classnames "^2.2.5"

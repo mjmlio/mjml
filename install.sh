@@ -53,6 +53,7 @@ cd mjml-divider && yarn && yarn link mjml-core && yarn link && cd ..
 cd mjml-group && yarn && yarn link mjml-core && yarn link && cd ..
 cd mjml-head-attributes && yarn && yarn link mjml-core && yarn link && cd ..
 cd mjml-head-font && yarn && yarn link mjml-core && yarn link && cd ..
+cd mjml-head-preview && yarn && yarn link && cd ..
 cd mjml-head-style && yarn && yarn link && cd ..
 cd mjml-head-title && yarn && yarn link mjml-core && yarn link && cd ..
 cd mjml-hero && yarn && yarn link mjml-core && yarn link && cd ..
@@ -90,6 +91,7 @@ yarn link mjml-divider
 yarn link mjml-group
 yarn link mjml-head-attributes
 yarn link mjml-head-font
+yarn link mjml-head-preview
 yarn link mjml-head-style
 yarn link mjml-head-title
 yarn link mjml-hero

@@ -3,27 +3,103 @@ import {
 } from 'mjml-core/lib/createComponent'
 
 export default createBodyComponent('mj-button', {
-  tagOmission: true,
-  defaultAttributes: {
-    'border-color': '#000000',
-    'border-style': 'solid',
-    'border-width': '4px',
+  endingTag: true,
+  allowedAttributes: {
+    'background-color': '#414141',
+    'border': 'none',
+    'border-bottom': null,
+    'border-left': null,
+    'border-radius': '3px',
+    'border-right': null,
+    'border-top': null,
+    'container-background-color': null,
+    'font-style': null,
+    'font-size': '13px',
+    'font-weight': 'normal',
+    'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
+    'color': '#ffffff',
+    'text-decoration': 'none',
+    'text-transform': 'none',
+    'align': 'center',
+    'vertical-align': 'middle',
+    'href': null,
+    'rel': null,
+    'inner-padding': '10px 25px',
+    'line-height': '120%',
     'padding': '10px 25px',
-    'width': '100%',
+    'padding-top': null,
+    'padding-bottom': null,
+    'padding-left': null,
+    'padding-right': null,
+    'width': null,
+    'height': null
+  },
+  defaultAttributes: {
+    'background-color': '#414141',
+    'border': 'none',
+    'border-radius': '3px',
+    'font-size': '13px',
+    'font-weight': 'normal',
+    'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
+    'color': '#ffffff',
+    'text-decoration': 'none',
+    'text-transform': 'none',
+    'align': 'center',
+    'vertical-align': 'middle',
+    'inner-padding': '10px 25px',
+    'line-height': '120%',
+    'padding': '10px 25px',
   },
   getStyles () {
     return {
-      div: {
-        'border-top': `${this.getMjAttribute('border-width')} ${this.getMjAttribute('border-style')} ${this.getMjAttribute('border-color')}`,
-        'font-size': '1px',
-        'margin': '0px auto',
-        'width': this.getMjAttribute('width'),
+      content: {
+
+      },
+      table: {
+
+      },
+      td: {
+
       }
     }
   },
   render () {
+    const tag = this.getMjAttribute('href') ? 'a' : 'p'
+
     return `
-      <button></button>
+      <table
+        ${this.generateHtmlAttributes({
+          align: this.getMjAttribute('align'),
+          border: '0',
+          cellPadding: '0',
+          cellSpacing: '0',
+          role: 'presentation',
+          style: 'table',
+        })}
+      >
+        <tr>
+          <td
+            ${this.generateHtmlAttributes({
+              align: "center",
+              bgcolor: this.getMjAttribute('background-color') === "none" ? undefined : this.getMjAttribute('background-color'),
+              role: 'presentation',
+              style: 'td',
+              valign: this.getMjAttribute('vertical-align'),
+            })}
+          >
+            <${tag}
+              ${this.generateHtmlAttributes({
+                href: this.getMjAttribute('href'),
+                rel: this.getMjAttribute('rel'),
+                style: 'content',
+                target: tag == "a" ? "_blank" : undefined,
+              })}
+            >
+              ${this.getMjContent()}
+            </${tag}>
+          </td>
+        </tr>
+      </table>
     `
   }
 })

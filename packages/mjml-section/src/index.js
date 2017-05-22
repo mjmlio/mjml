@@ -147,7 +147,8 @@ class Section extends Component {
         paddingRight: defaultUnit(mjAttribute('padding-right'), 'px'),
         paddingTop: defaultUnit(mjAttribute('padding-top'), 'px'),
         textAlign: mjAttribute('text-align'),
-        verticalAlign: mjAttribute('vertical-align')
+        verticalAlign: mjAttribute('vertical-align'),
+        borderRadius: mjAttribute('border-radius')
       },
       div: {
         borderRadius: defaultUnit(mjAttribute('border-radius'), "px"),

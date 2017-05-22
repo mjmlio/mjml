@@ -46,9 +46,10 @@ const render = (bufferPromise, { min, output, stdout, fileName, level }) => {
     .then(result => {
 
       const { html, errors } = result
+      const skipValidation = level === 'skip'
 
       // non-blocking errors
-      if (errors.length > 0) {
+      if (!skipValidation && errors.length > 0) {
         handleError(availableErrorOutputFormat['text'](errors))
       }
 

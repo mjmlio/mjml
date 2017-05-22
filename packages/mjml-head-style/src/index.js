@@ -5,10 +5,8 @@ import {
 export default createHeadComponent('mj-style', {
   endingTag: true,
   handler () {
-    const {
-      addStyle,
-    } = this.context
+    const { add } = this.context
 
-    addStyle(this.getMjContent())
+    addStyle('style', this.getMjContent())
   }
 })

@@ -6,10 +6,7 @@ import {
 
 export default createHeadComponent('mj-attributes', {
   handler () {
-    const {
-      addClass,
-      addDefaultAttributes,
-    } = this.context
+    const { add } = this.context
     const {
       children,
     } = this.props
@@ -21,9 +18,9 @@ export default createHeadComponent('mj-attributes', {
       } = child
 
       if (tagName === 'mj-class') {
-        addClass(attributes.name, _.omit(attributes, [ 'name' ]))
+        add('classes', attributes.name, _.omit(attributes, [ 'name' ]))
       } else {
-        addDefaultAttributes(tagName, attributes)
+        add('defaultAttributes', tagName, attributes)
       }
     })
   }

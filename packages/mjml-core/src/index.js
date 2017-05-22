@@ -55,6 +55,7 @@ export default function mjml2html (mjml, options = {}) {
     defaultAttributes: {},
     fonts,
     mediaQueries: {},
+    mobileBreakpoint: '480px',
     style,
     title: '',
   }
@@ -108,21 +109,19 @@ export default function mjml2html (mjml, options = {}) {
   }
 
   processing('head', {
-    addDefaultAttributes (tagName, attributes) {
-      globalDatas.defaultAttributes[tagName] = attributes
-    },
-    addClass (name, attributes) {
-      globalDatas.classes[name] = attributes
-    },
-    addFont (name, url) {
-      globalDatas.fonts[name] = url
-    },
-    addStyle (style) {
-      globalDatas.style.push(style)
-    },
-    setTitle (title) {
-      globalDatas.title = title
-    },
+    add (attr, ...params) {
+      if (Array.isArray(globalDatas[attr])) {
+        globalDatas[attr].push(...params)
+      } else if (globalDatas[attr]) {
+        if (params.length > 1) {
+          globalDatas[attr][params[0]] = params[1]
+        } else {
+          globalDatas[attr] = params[0]
+        }
+      } else {
+        throw Error(`An mj-head element add an unkown head attribute : ${attr} with params ${Array.isArray(params) ? params.join('') : params}`)
+      }
+    }
   })
 
   processing('body', {

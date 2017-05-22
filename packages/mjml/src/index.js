@@ -27,6 +27,7 @@ import MJHeadAttributes from 'mjml-head-attributes'
 import MJHeadFont from 'mjml-head-font'
 import MJHeadStyle from 'mjml-head-style'
 import MJHeadTitle from 'mjml-head-title'
+import MJHeadPreview from 'mjml-head-preview'
 
 
 const { Accordion, AccordionElement, AccordionTitle, AccordionText } = MJAccordion;
@@ -66,6 +67,7 @@ const { Navbar, InlineLinks, Link } = MJNavbar;
   Wrapper ].map(registerMJElement);
 
 each([ MJHeadAttributes,
+  MJHeadPreview,
   MJHeadFont,
   MJHeadStyle,
   MJHeadTitle ], headTag => registerMJHeadElement(headTag))

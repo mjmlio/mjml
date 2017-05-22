@@ -648,9 +648,9 @@ minimist@0.0.8:
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.0.8.tgz#857fcabfc3397d2625b8228262e86aa7a011b05d"
 
-mjml-core@~3.3.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/mjml-core/-/mjml-core-3.3.0.tgz#4033694b2ac7a27efe387b72cb4d89ccc9886edb"
+mjml-core@~3.3.3-beta.1:
+  version "3.3.3-beta.1"
+  resolved "https://registry.yarnpkg.com/mjml-core/-/mjml-core-3.3.3-beta.1.tgz#a03f6e857054d1020fc843c316afc07f99b5a35b"
   dependencies:
     cheerio "^0.22.0"
     classnames "^2.2.5"
@@ -668,12 +668,12 @@ mjml-core@~3.3.0:
     react-dom "^15.4.2"
     warning "^3.0.0"
 
-mjml-section@~3.3.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/mjml-section/-/mjml-section-3.3.0.tgz#49d822e1a028a8c50436bc592e9d6204c61b33ac"
+mjml-section@~3.3.3-beta.1:
+  version "3.3.3-beta.1"
+  resolved "https://registry.yarnpkg.com/mjml-section/-/mjml-section-3.3.3-beta.1.tgz#ef78686e6b8e63fbe52abcf59742da971fa3e220"
   dependencies:
     lodash "^4.17.4"
-    mjml-core "~3.3.0"
+    mjml-core "~3.3.3-beta.1"
     react "^15.4.2"
 
 mjml-validator@~3.3.0:

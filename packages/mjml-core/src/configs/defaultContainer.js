@@ -36,6 +36,7 @@ export default () => {
 <![endif]-->
 </head>
 <body>
+  __preview__
   __content__
 </body>
 </html>`)

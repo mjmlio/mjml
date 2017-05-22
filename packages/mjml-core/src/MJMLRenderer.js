@@ -143,6 +143,7 @@ export default class MJMLRenderer {
     const MJMLDocument = this.attributes.container
       .replace('__content__', renderedMJML || '')
       .replace('__title__', this.attributes.title || '')
+      .replace('__preview__', this.attributes.preview || '')
 
     return { errors: this.errors, html: this.postRender(MJMLDocument) }
   }

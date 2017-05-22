@@ -17,12 +17,6 @@ const inputMJML = `
           </mj-text>
         </mj-column>
       </mj-section>
-      <mj-section>
-        <mj-column>
-            <mj-raw>
-            </mj-raw>
-        </mj-column>
-      </mj-section>
     </mj-container>
   </mj-body>
 </mjml>

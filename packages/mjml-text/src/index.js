@@ -80,7 +80,7 @@ class Text extends Component {
   render () {
     const { mjAttribute, mjContent } = this.props
 
-    const classNames = cx(mjAttribute('height') ? 'mj-text-height' : '', mjAttribute('css-class'))
+    const classNames = cx(mjAttribute('height') ? 'mj-text-height' : '')
 
     return (
       <div

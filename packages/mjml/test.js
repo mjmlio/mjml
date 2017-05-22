@@ -2,22 +2,19 @@ var mjml = require('./lib/index')
 const inputMJML = `
 <mjml>
   <mj-head>
-    <mj-preview>Hey im the preview</mj-preview>
+    <mj-style inline="inline">
+      a { color: blue;}
+    </mj-style>
   </mj-head>
   <mj-body>
-    <mj-container background-color="#ccccdd">
-
-      <!-- Start of button -->
+    <mj-container>
       <mj-section>
         <mj-column>
-          <mj-button href="https://mjml.io/" font-family="Helvetica" color="white" background-color="#f45e43" font-style="italic">
-            Background-color & font-size
-          </mj-button>
-        </mj-column>
-        <mj-column>
-          <mj-button href="https://mjml.io/" font-family="Helvetica" color="white" background-color="#f45e43" border-radius="50px">
-            border-radius
-          </mj-button>
+          <mj-image height="70px" width="463px" src="https://live.ascential.com/sites/default/files/images/logos/ascential-logo-large.png"></mj-image>
+          <mj-divider border-color="#2c7b61"></mj-divider>
+          <mj-text font-size="35px" color="#2c7b61" font-family="helvetica" align="center" line-height="">
+              Your ATR "<%= @atr.title %>" has been approved by the approval chain.{{ test }}
+          </mj-text>
         </mj-column>
       </mj-section>
     </mj-container>

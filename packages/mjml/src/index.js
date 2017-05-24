@@ -6,13 +6,14 @@ import dependencies from './dependencies'
 
 const { Social, SocialElement } = require('mjml-social')
 
+registerComponent(require('mjml-body'))
+registerComponent(require('mjml-head'))
 registerComponent(require('mjml-head-attributes'))
 registerComponent(require('mjml-head-font'))
 registerComponent(require('mjml-head-style'))
 registerComponent(require('mjml-head-title'))
 registerComponent(require('mjml-button'))
 registerComponent(require('mjml-column'))
-registerComponent(require('mjml-container'))
 registerComponent(require('mjml-divider'))
 registerComponent(require('mjml-image'))
 registerComponent(require('mjml-raw'))

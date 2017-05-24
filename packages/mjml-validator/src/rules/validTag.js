@@ -1,9 +1,8 @@
-import { getFlattenComponents } from 'mjml-core'
+import components from 'mjml-core'
 import ruleError from './ruleError'
 
 export const validateTag = (element) => {
   const { tagName } = element
-  const components = getFlattenComponents()
   const Component = components[tagName]
 
   if (!Component) {

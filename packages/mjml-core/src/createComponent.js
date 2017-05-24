@@ -2,6 +2,7 @@ import forEach from 'lodash/forEach'
 import reduce from 'lodash/reduce'
 import objectPath from 'object-path'
 import shorthandParser from './helpers/shorthandParser'
+import parseXML from 'mjml-parser-xml'
 
 import {
   initComponent,
@@ -31,6 +32,7 @@ export default function createComponent (type, name, component) {
       }
     }
   }
+
 
   class Component {
 
@@ -136,6 +138,25 @@ export default function createComponent (type, name, component) {
       return output
     }
 
+    @onlyFor('head')
+    handlerChildren () {
+      const childrens = this.props.children
+
+      forEach(childrens, (children) => {
+        const component = initComponent({
+          name: children.tagName,
+          initialDatas: {
+            ...children,
+            context: this.getChildContext(),
+          }
+        })
+
+        if (component.handler) {
+          component.handler()
+        }
+      })
+    }
+
     @onlyFor('body')
     renderChildren (children, options = {}) {
       const {
@@ -153,7 +174,6 @@ export default function createComponent (type, name, component) {
       for (let index = 0; index < sibling; index++) {
         const child = children[index]
         const component = initComponent({
-          type,
           name: child.tagName,
           initialDatas: {
             ...child,
@@ -183,6 +203,15 @@ export default function createComponent (type, name, component) {
   }
 
   const newComponent = Component
+
+  if (component.useMJML) {
+    component._render = component.render
+    component.render = function() {
+      const mjml = parseXML(this._render(), {ignoreInclude: true})
+
+      return this.context.processing(mjml, this.context)
+    }
+  }
 
   Object.assign(newComponent.prototype, component)
 

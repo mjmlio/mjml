@@ -33,7 +33,7 @@ export default createBodyComponent('mj-text', {
   },
   getStyles () {
     return {
-      div: {
+      text: {
         'font-family': this.getMjAttribute('font-family'),
         'font-size': this.getMjAttribute('font-size'),
         'font-weight': this.getMjAttribute('font-weight'),

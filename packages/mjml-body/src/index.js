@@ -2,7 +2,7 @@ import {
   createBodyComponent,
 } from 'mjml-core/lib/createComponent'
 
-export default createBodyComponent('mj-container', {
+export default createBodyComponent('mj-body', {
   defaultAttributes: {
     width: '600px',
   },

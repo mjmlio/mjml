@@ -14,7 +14,8 @@
   "homepage": "https://mjml.io",
   "dependencies": {
     "mjml-column": "~3.1.1",
-    "mjml-container": "~3.1.1",
+    "mjml-body": "~3.1.1",
+    "mjml-head": "~3.1.1",
     "mjml-core": "~3.1.1",
     "mjml-divider": "~3.1.1",
     "mjml-head-attributes": "~3.1.1",

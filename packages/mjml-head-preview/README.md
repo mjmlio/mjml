@@ -1,11 +1,11 @@
-## mjml-title
+## mjml-preview
 
-This tag allows you to set the title of an MJML document
+This tag allows you to set the preview that will be displayed in the inbox of the recipient.
 
  ```xml
  <mjml>
    <mj-head>
-     <mj-title>Hello MJML</mj-title>
+     <mj-preview>Hello MJML</mj-preview>
    </mj-head>
    <mj-body>
      <mj-container>
@@ -22,7 +22,9 @@ This tag allows you to set the title of an MJML document
  ```
 
 <p align="center">
-  <a href="https://mjml.io/try-it-live/components/head-title">
+  <a href="https://mjml.io/try-it-live/components/head-preview">
     <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
   </a>
 </p>
+
+`mj-preview` doesn't support any attribute.

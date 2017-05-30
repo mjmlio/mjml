@@ -46,7 +46,7 @@ export default createBodyComponent('mj-divider', {
   renderAfter () {
     return `
     <!--[if mso | IE]>
-    <table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0" style="${this.generateStyles('p')}" width="${this.getOutlookWidth()}"><tr><td style="height:0;line-height:0;">&nbsp;</td></tr></table>
+      <table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0" style="${this.generateStyles('p')}" width="${this.getOutlookWidth()}"><tr><td style="height:0;line-height:0;">&nbsp;</td></tr></table>
     <![endif]-->
     `
   },

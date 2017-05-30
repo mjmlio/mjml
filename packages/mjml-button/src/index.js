@@ -51,16 +51,36 @@ export default createBodyComponent('mj-button', {
     'padding': '10px 25px',
   },
   getStyles () {
-    return {
-      content: {
-
-      },
+    return  {
       table: {
-
+        'border-collapse': 'separate',
+        'width': this.getMjAttribute('width'),
       },
       td: {
-
-      }
+        'border': this.getMjAttribute('border'),
+        'border-bottom': this.getMjAttribute('border-bottom'),
+        'border-left': this.getMjAttribute('border-left'),
+        'border-radius': this.getMjAttribute('border-radius'),
+        'border-right': this.getMjAttribute('border-right'),
+        'border-top': this.getMjAttribute('border-top'),
+        'color': this.getMjAttribute('color'),
+        'cursor': 'auto',
+        'font-style': this.getMjAttribute('font-style'),
+        'height': this.getMjAttribute('height'),
+        'padding': this.getMjAttribute('inner-padding'),
+      },
+      content: {
+        'background': this.getMjAttribute('background-color'),
+        'color': this.getMjAttribute('color'),
+        'font-family': this.getMjAttribute('font-family'),
+        'font-size': this.getMjAttribute('font-size'),
+        'font-style': this.getMjAttribute('font-style'),
+        'font-weight': this.getMjAttribute('font-weight'),
+        'line-height': this.getMjAttribute('line-height'),
+        'text-decoration': this.getMjAttribute('text-decoration'),
+        'text-transform': this.getMjAttribute('text-transform'),
+        'Margin': '0px',
+      },
     }
   },
   render () {

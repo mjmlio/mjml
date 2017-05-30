@@ -27,3 +27,4 @@ Displays a blank space.
 attribute                   | unit        | description                    | default value
 ----------------------------|-------------|--------------------------------|------------------------------
 height                      | px          | spacer height                  | 20px
+css-class                   | string      | class name, added to the root HTML element created | n/a

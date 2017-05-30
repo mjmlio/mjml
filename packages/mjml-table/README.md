@@ -54,3 +54,4 @@ padding-left                | px                          | left offset         
 padding-right               | px                          | right offset                   | n/a
 width                       | percent/px                  | table width                    | 100%
 table-layout                | auto/fixed/initial/inherit  | sets the table layout.         | auto
+css-class                   | string                      | class name, added to the root HTML element created | n/a

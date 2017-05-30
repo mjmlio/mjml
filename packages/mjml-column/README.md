@@ -47,4 +47,4 @@ border-top          | string      | css border format              | n/a
 border-radius       | px          | border radius                  | n/a
 width               | percent/px  | column width                   | (100 / number of columns in section)%
 vertical-align      | string      | middle/top/bottom              | top
-css-class           | string      | HTML Element Class Name        | n/a
+css-class | string | class name, added to the root HTML element created | n/a

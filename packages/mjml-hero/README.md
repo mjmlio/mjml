@@ -125,6 +125,7 @@ padding-right       | px                                  | right offset        
 padding-left        | px                                  | left offset                                                          | 0px
 padding-bottom      | px                                  | bottom offset                                                        | 0px
 vertical-align      | top/middle/bottom                   | content vertical alignment                                           | top
+css-class | string | class name, added to the root HTML element created | n/a
 
 ### mjml-hero-content
 
@@ -144,3 +145,4 @@ padding-top      | px                | top offset                               
 padding-right    | px                | right offset                                   | 0px
 padding-left     | px                | left offset                                    | 0px
 padding-bottom   | px                | bottom offset                                  | 0px
+css-class        | string            | class name, added to the root HTML element created | n/a

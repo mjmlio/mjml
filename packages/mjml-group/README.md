@@ -63,3 +63,4 @@ attribute           | unit        | description                    | default att
 width               | percent/px  | group width                    | (100 / number of sibling in section)%
 vertical-align      | string      | middle/top/bottom              | top
 background-color    | string      | background color for a group   | n/a
+css-class           | string      | class name, added to the root HTML element created | n/a

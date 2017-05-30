@@ -58,3 +58,4 @@ padding-left                | px          | left offset                         
 padding-right               | px          | right offset                                     | n/a
 width                       | px          | button width                                     | n/a
 height                      | px          | button height                                    | n/a
+css-class                   | string      | class name, added to the root HTML element created | n/a

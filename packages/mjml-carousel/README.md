@@ -47,6 +47,7 @@ tb-width | px | thumbnail width | null
 left-icon | url | icon on the left of the main image | https://mjml.io/assets/img/left-arrow.png
 right-icon | url | icon on the right of the main image | https://mjml.io/assets/img/right-arrow.png
 icon-width | px | width of the icons on left and right of the main image | 44px
+css-class | string | class name, added to the root HTML element created | n/a
 
 ### mjml-carousel-image
 
@@ -60,3 +61,4 @@ href | url | link to redirect to on click | n/a
 rel | string | specify the rel attribute | n/a
 alt | string | image description | n/a
 title | string | tooltip & accessibility | n/a
+css-class | string | class name, added to the root HTML element created | n/a

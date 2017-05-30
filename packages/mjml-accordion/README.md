@@ -57,6 +57,7 @@ Every attribute in `mj-accordion` are applied to `mj-accordion-element` unless y
 
 attribute | unit | description | default value
 ----------|------|-------------|---------------
+css-class | string | class name, added to the root HTML element created | n/a
 container-background-color | n/a | background-color of the cell | n/a,
 border | n/a | border | n/a
 font-family | n/a | font | Ubuntu, Helvetica, Arial, sans-serif
@@ -90,6 +91,7 @@ icon-unwrapped-alt | n/a | alt text when accordion is unwrapped | -
 icon-position | n/a | display icon left or right | right
 icon-height | n/a | icon width | 32px
 icon-width | n/a | icon height | 32px
+css-class | string | class name, added to the root HTML element created | n/a
 
 ### mjml-accordion-title
 
@@ -106,6 +108,7 @@ padding-left | px | padding left | n/a
 padding-right | px | padding right | n/a
 padding-top | px | padding top | n/a
 padding | px | padding | 16px
+css-class | string | class name, added to the root HTML element created | n/a
 
 ### mjml-accordion-text
 
@@ -122,3 +125,4 @@ padding-left | px | padding left | n/a
 padding-right | px | padding right | n/a
 padding-top | px | padding top | n/a
 padding | px | padding | 16px
+css-class | string | class name, added to the root HTML element created | n/a

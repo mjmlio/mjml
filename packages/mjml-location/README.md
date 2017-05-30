@@ -41,3 +41,4 @@ padding-bottom  | px            | bottom offset                 | n/a
 padding-left    | px            | left offset                   | n/a
 padding-right   | px            | right offset                  | n/a
 img-src         | string        | image source                  | http://i.imgur.com/DPCJHhy.png
+css-class       | string        | class name, added to the root HTML element created | n/a

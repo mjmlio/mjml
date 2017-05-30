@@ -45,6 +45,7 @@ padding-left                | px          | left offset                         
 padding-right               | px          | right offset                                          | n/a
 intl                        | string      | formatted string to set wording for header and footer | "name:Name;quantity:Quantity;price:Price"
 format   	                  | string      | how to format total price, based on [numeraljs](http://numeraljs.com/) | n/a
+css-class                   | string      | class name, added to the root HTML element created    | n/a
 
 ### mjml-invoice-item
 
@@ -83,3 +84,4 @@ padding-right   | px            | right offset                                  
 name            | string        | item name                                             | n/a
 price           | string/number | price (should already be formatted)                   | 0
 quantity        | number        | quantity                                              | 0
+css-class       | string        | class name, added to the root HTML element created    | n/a

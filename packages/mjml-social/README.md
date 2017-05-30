@@ -98,3 +98,4 @@ padding-bottom              | px          | bottom offset                       
 padding-left                | px          | left offset                                                              | n/a
 padding-right               | px          | right offset                                                             | n/a
 container-background-color  | color       | inner element background color                                           | n/a
+css-class                   | string      | class name, added to the root HTML element created | n/a

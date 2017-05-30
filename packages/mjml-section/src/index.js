@@ -3,10 +3,35 @@ import {
 } from 'mjml-core/lib/createComponent'
 
 export default createBodyComponent('mj-section', {
+  allowedAttributes: {
+    'background-color': 'color',
+    'background-url': 'string',
+    'background-repeat': 'enum(repeat/no-repeat)',
+    'background-size': 'string',
+    'border': 'string',
+    'border-bottom': 'string',
+    'border-left': 'string',
+    'border-radius': 'string',
+    'border-right': 'string',
+    'border-top': 'string',
+    'direction': 'enum(ltr,rtl)',
+    'full-width': 'enum(full-width)',
+    'padding': 'unit(px,%){1,4}',
+    'padding-top': 'unit(px,%)',
+    'padding-bottom': 'unit(px,%)',
+    'padding-left': 'unit(px,%)',
+    'padding-right': 'unit(px,%)',
+    'text-align': 'enum(left,center,right)',
+    'text-padding': 'unit(px,%){1,4}',
+    'vertical-align': 'enum(bottom,middle,top)',
+  },
   defaultAttributes: {
-    direction: 'ltr',
-    padding: '20px 0',
+    'background-repeat': 'repeat',
+    'background-size': 'auto',
+    'direction': 'ltr',
+    'padding': '20px 0',
     'text-align': 'center',
+    'text-padding': '4px 4px 4px 0',
     'vertical-align': 'top',
   },
   getStyles () {
@@ -14,27 +39,56 @@ export default createBodyComponent('mj-section', {
       containerWidth,
     } = this.context
 
+    const fullWidth = this.isFullWidth()
+
+    const background = this.getMjAttribute('background-url') ? {
+      'background': `${this.getMjAttribute('background-color') || ''} url(${this.getMjAttribute('background-url')}) top center / ${this.getMjAttribute('background-size') || ''} ${this.getMjAttribute('background-repeat') || ''}`.trim(),
+      'background-color': this.getMjAttribute('background-color'),
+    } : {
+      'background': this.getMjAttribute('background-color'),
+      'background-color': this.getMjAttribute('background-color'),
+    }
+
     return {
-      div: {
-        'max-width': containerWidth,
-        margin: '0px auto',
+      tableFullwidth: {
+        ...(fullWidth ? background : {}),
+        'width': '100%',
+        'border-radius': this.getMjAttribute('border-radius'),
       },
       table: {
-        'font-size': '0px',
-        width: '100%',
+        ...(fullWidth ? {} : background),
+        'width': '100%',
+        'border-radius': this.getMjAttribute('border-radius'),
       },
       td: {
-        direction: this.getMjAttribute('direction'),
+        'border': this.getMjAttribute('border'),
+        'border-bottom': this.getMjAttribute('border-bottom'),
+        'border-left': this.getMjAttribute('border-left'),
+        'border-right': this.getMjAttribute('border-right'),
+        'border-top': this.getMjAttribute('border-top'),
+        'direction': this.getMjAttribute('direction'),
         'font-size': '0px',
-        padding: this.getMjAttribute('padding'),
+        'padding': this.getMjAttribute('padding'),
         'padding-bottom': this.getMjAttribute('padding-bottom'),
         'padding-left': this.getMjAttribute('padding-left'),
         'padding-right': this.getMjAttribute('padding-right'),
         'padding-top': this.getMjAttribute('padding-top'),
-        'text-align': 'center',
-        'vertical-align': 'top',
+        'text-align': this.getMjAttribute('text-align'),
+        'vertical-align': this.getMjAttribute('vertical-align')
       },
+      div: {
+        ...(fullWidth ? {} : background),
+        'Margin': '0px auto',
+        'border-radius': this.getMjAttribute('border-radius'),
+        'max-width': containerWidth,
+      }
     }
+  },
+  hasBackground () {
+    return this.getMjAttribute('background-url') != null
+  },
+  isFullWidth () {
+    return this.getMjAttribute('full-width') == 'full-width'
   },
   renderBefore () {
     const {
@@ -52,42 +106,144 @@ export default createBodyComponent('mj-section', {
   renderAfter () {
     return `
       <!--[if mso | IE]>
-      </td></tr></table>
+          </td>
+        </tr>
+      </table>
       <![endif]-->
     `
   },
-  render () {
+  renderWrappedChildren () {
+    const {
+      children,
+    } = this.props
+
     return `
-      ${this.renderBefore()}
-      <div
-        ${this.generateHtmlAttributes({
-          style: this.generateStyles('div'),
-        })}
-      >
+      ${this.renderChildren(children, {
+        renderer: (component) => component.rawElement ? component.render() : `
+          <!--[if mso | IE]>
+            <td
+              ${this.generateHtmlAttributes({
+                align: component.getMjAttribute('align'),
+                style: 'td-outlook'
+              })}
+            >
+          <![endif]-->
+            ${component.render()}
+          <!--[if mso | IE]>
+            </td>
+          <![endif]-->
+        `
+      })}
+    `
+  },
+  renderWithBackground (content) {
+    const fullWidth = this.isFullWidth()
+    const {
+      containerWidth,
+    } = this.context
+
+    return `
+      <!--[if mso | IE]>
+        <v:rect ${this.generateHtmlAttributes({
+          'style': fullWidth ? 'mso-width-percent:1000;' : `width:${containerWidth}`,
+          'xmlns:v': 'urn:schemas-microsoft-com:vml',
+          'fill': 'true',
+          'stroke': 'false',
+        })}>
+        <v:fill ${this.generateHtmlAttributes({
+          'origin': '0.5, 0',
+          'position': '0.5, 0',
+          'src': this.getMjAttribute('background-url'),
+          'color': this.getMjAttribute('background-color'),
+          'type': 'tile',
+        })} />
+        <v:textbox style="mso-fit-shape-to-text:true" inset="0,0,0,0">
+      <![endif]-->
+          ${content}
+    <!--[if mso | IE]>
+        </v:textbox>
+      </v:rect>
+    <![endif]-->
+    `
+  },
+  renderSection () {
+    return `
+      <div ${this.generateHtmlAttributes({ style: 'div' })}>
         <table
           ${this.generateHtmlAttributes({
             align: 'center',
+            background: this.isFullWidth() ? null : this.getMjAttribute('background-url'),
             border: '0',
             cellpadding: '0',
             cellspacing: '0',
             role: 'presentation',
-            style: this.generateStyles('table'),
+            style: 'table',
           })}
         >
           <tbody>
             <tr>
               <td
                 ${this.generateHtmlAttributes({
-                  style: this.generateStyles('td'),
+                  style: 'td',
                 })}
               >
-                ${this.renderChildren()}
+                <!--[if mso | IE]>
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                <![endif]-->
+                  ${this.renderWrappedChildren()}
+                <!--[if mso | IE]>
+                    </tr>
+                  </table>
+                <![endif]-->
               </td>
             </tr>
           </tbody>
         </table>
       </div>
+    `
+  },
+  renderFullWidth () {
+    return `
+      <table
+        ${this.generateHtmlAttributes({
+          align: 'center',
+          background: this.getMjAttribute('background-url'),
+          border: '0',
+          cellpadding: '0',
+          cellspacing: '0',
+          role: 'presentation',
+          style: 'tableFullwidth',
+        })}
+      >
+        <tbody>
+          <tr>
+            <td>
+              ${this.hasBackground() ? this.renderWithBackground(`
+                ${this.renderBefore()}
+                ${this.renderSection()}
+                ${this.renderAfter()}
+              `) : `
+                ${this.renderBefore()}
+                ${this.renderSection()}
+                ${this.renderAfter()}
+              `}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    `
+  },
+  renderSimple () {
+    const section = this.renderSection()
+
+    return `
+      ${this.renderBefore()}
+      ${this.hasBackground() ? this.renderWithBackground(section) : section}
       ${this.renderAfter()}
     `
+  },
+  render () {
+    return this.isFullWidth() ? this.renderFullWidth() : this.renderSimple()
   }
 })

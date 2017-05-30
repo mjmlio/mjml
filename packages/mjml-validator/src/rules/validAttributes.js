@@ -1,4 +1,4 @@
-import { flattenComponents } from 'mjml-core'
+import components from 'mjml-core'
 import concat from 'lodash/concat'
 import keys from 'lodash/keys'
 import includes from 'lodash/includes'
@@ -8,7 +8,6 @@ import ruleError from './ruleError'
 const WHITELIST = [ 'mj-class' ]
 
 export const validateAttribute = (element) => {
-  const components = flattenComponents()
   const { attributes, tagName } = element
   const Component = components[tagName]
 

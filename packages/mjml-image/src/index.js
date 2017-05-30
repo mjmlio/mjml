@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import min from 'lodash/min'
 
 import {
   createBodyComponent,
@@ -17,6 +17,7 @@ export default createBodyComponent('mj-image', {
   },
   getStyles () {
     const width = this.getContentWidth()
+    const fullWidth = this.getMjAttribute('full-width') == 'full-width'
     const {
       parsedWidth,
       unit,
@@ -24,16 +25,21 @@ export default createBodyComponent('mj-image', {
 
     return {
       img: {
-        border: this.getMjAttribute('border'),
-        display: 'block',
-        outline: 'none',
+        'border': this.getMjAttribute('border'),
+        'display': 'block',
+        'outline': 'none',
         'text-decoration': 'none',
-        width: '100%',
+        'min-width': fullWidth ? '100%' : null,
+        'width': fullWidth ? `${parsedWidth}${unit}` : '100%',
+        'max-width': fullWidth ? '100%' : null,
       },
       td: {
-        width: `${parsedWidth}${unit}`,
+        'width': fullWidth ? null : `${parsedWidth}${unit}`,
       },
       table: {
+        'min-width': fullWidth ? '100%' : null,
+        'max-width': fullWidth ? '100%' : null,
+        'width': fullWidth ? `${parsedWidth}${unit}` : null,
         'border-collapse': 'collapse',
         'border-spacing': '0px',
       },
@@ -41,19 +47,19 @@ export default createBodyComponent('mj-image', {
   },
   getContentWidth () {
     const {
-      columnWidth,
+      parentWidth,
     } = this.context
 
     const width = this.getMjAttribute('width') ?
-      _.min( [
+      min([
         parseInt(this.getMjAttribute('width')),
-        columnWidth,
-      ] ) :
-      columnWidth
+        parentWidth,
+      ]) :
+      parentWidth
 
-    const paddingRight = this.getPadding('right')
-    const paddingLeft = this.getPadding('left')
-    const widthOverflow = paddingLeft + paddingRight + parseFloat(width) - columnWidth
+    const paddingRight = this.getShorthandAttrValue('padding', 'right')
+    const paddingLeft = this.getShorthandAttrValue('padding', 'left')
+    const widthOverflow = paddingLeft + paddingRight + parseFloat(width) - parentWidth
 
     return widthOverflow > 0 ?
       parseFloat(width - widthOverflow) :
@@ -66,7 +72,7 @@ export default createBodyComponent('mj-image', {
           alt: this.getMjAttribute('href'),
           height: this.getMjAttribute('height'),
           src: this.getMjAttribute('src'),
-          style: this.generateStyles('img'),
+          style: 'img',
           title: this.getMjAttribute('title'),
           width: this.getContentWidth(),
         })}
@@ -97,16 +103,12 @@ export default createBodyComponent('mj-image', {
           cellpadding: '0',
           cellspacing: '0',
           role: 'presentation',
-          style: this.generateStyles('table'),
+          style: 'table',
         })}
       >
         <tbody>
           <tr>
-            <td
-              ${this.generateHtmlAttributes({
-                style: this.generateStyles('td'),
-              })}
-            >
+            <td ${this.generateHtmlAttributes({style: 'td'})}>
               ${this.renderImage()}
             </td>
           </tr>

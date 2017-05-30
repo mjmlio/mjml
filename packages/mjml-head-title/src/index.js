@@ -5,10 +5,8 @@ import {
 export default createHeadComponent('mj-title', {
   endingTag: true,
   handler () {
-    const {
-      setTitle,
-    } = this.context
+    const { add } = this.context
 
-    setTitle(this.getMjContent())
+    add('title', this.getMjContent())
   }
 })

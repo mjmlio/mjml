@@ -4,21 +4,21 @@ import conditionalTag from 'mjml-core/lib/helpers/conditionalTag'
 export default createBodyComponent('mj-text', {
   endingTag: true,
   allowedAttributes: {
-    align: 'enum(left,right,center)',
+    'align': 'enum(left,right,center)',
     'background-color': 'color',
-    color: 'color',
+    'color': 'color',
     'font-family': 'string',
     'font-size': 'unit(px,%)',
     'font-style': 'string',
     'font-weight': 'string',
-    height: 'unit(px,%)',
+    'height': 'unit(px,%)',
     'letter-spacing': 'unit(px,%)',
     'line-height': 'unit(px,%)',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
-    padding: 'unit(px,%){1,4}',
+    'padding': 'unit(px,%){1,4}',
     'text-decoration': 'string',
     'text-transform': 'string',
     'vertical-align': 'string',
@@ -33,24 +33,25 @@ export default createBodyComponent('mj-text', {
   },
   getStyles () {
     return {
-      'font-family': this.getMjAttribute('font-family'),
-      'font-size': this.getMjAttribute('font-size'),
-      'font-weight': this.getMjAttribute('font-weight'),
-      'letter-spacing': this.getMjAttribute('letter-spacing'),
-      'line-height': this.getMjAttribute('line-height'),
-      'line-height': this.getMjAttribute('line-height'),
-      'text-align': this.getMjAttribute('align'),
-      'text-decoration': this.getMjAttribute('text-decoration'),
-      'text-transform': this.getMjAttribute('text-transform'),
-      color: this.getMjAttribute('color'),
-      height: this.getMjAttribute('height'),
+      text: {
+        'font-family': this.getMjAttribute('font-family'),
+        'font-size': this.getMjAttribute('font-size'),
+        'font-weight': this.getMjAttribute('font-weight'),
+        'letter-spacing': this.getMjAttribute('letter-spacing'),
+        'line-height': this.getMjAttribute('line-height'),
+        'text-align': this.getMjAttribute('align'),
+        'text-decoration': this.getMjAttribute('text-decoration'),
+        'text-transform': this.getMjAttribute('text-transform'),
+        'color': this.getMjAttribute('color'),
+        'height': this.getMjAttribute('height'),
+      }
     }
   },
   renderContent () {
     return `
       <div
         ${this.generateHtmlAttributes({
-          style: this.generateStyles(),
+          style: 'text',
         })}
       >
         ${this.getMjContent()}

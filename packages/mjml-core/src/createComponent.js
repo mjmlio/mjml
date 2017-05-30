@@ -1,9 +1,13 @@
-import _ from 'lodash'
+import forEach from 'lodash/forEach'
+import reduce from 'lodash/reduce'
 import objectPath from 'object-path'
+import shorthandParser from './helpers/shorthandParser'
+import parseXML from 'mjml-parser-xml'
 
 import {
   initComponent,
 } from './components'
+
 
 export function createBodyComponent (name, component) {
   return createComponent('body', name, component)
@@ -28,6 +32,7 @@ export default function createComponent (type, name, component) {
       }
     }
   }
+
 
   class Component {
 
@@ -81,52 +86,37 @@ export default function createComponent (type, name, component) {
     }
 
     @onlyFor('body')
-    getPadding (direction) {
-      const paddingDirection = this.getMjAttribute(`padding-${direction}`)
-      const padding = this.getMjAttribute('padding')
+    getShorthandAttrValue (attribute, direction) {
+      const mjAttributeDirection = this.getMjAttribute(`${attribute}-${direction}`)
+      const mjAttribute = this.getMjAttribute(attribute)
 
-      if (paddingDirection) {
-        return parseInt(paddingDirection)
+      if (mjAttributeDirection) {
+        return parseInt(mjAttributeDirection)
       }
 
-      if (!padding) {
+      if (!mjAttribute) {
         return 0
       }
 
-      const paddings = padding.split(' ')
-      let directions = {}
-
-      switch (paddings.length) {
-        case 1:
-          return parseInt(padding)
-
-        case 2:
-          directions = { top: 0, bottom: 0, left: 1, right: 1 }
-          break
-
-        case 3:
-          directions = { top: 0, left: 1, right: 1, bottom: 2 }
-          break
-
-        case 4:
-          directions = { top: 0, right: 1, bottom: 2, left: 3 }
-          break
-      }
-
-      return parseFloat(paddings[directions[direction]] || 0)
+      return shorthandParser(mjAttribute, direction)
     }
 
     @onlyFor('body')
     generateHtmlAttributes (attributes) {
-      let output = ''
+      const specialAttributes = {
+        style: (v) => this.generateStyles(v),
+        default: (v) => v
+      }
 
-      _.forEach(attributes, (value, name) => {
+      return reduce(attributes, (output, v, name) => {
+        const value = (specialAttributes[name] || specialAttributes['default'])(v)
+
         if (value) {
-          output += ` ${name}="${value}"`
+          return output += ` ${name}="${value}"`
         }
-      })
 
-      return output
+        return output
+      }, '')
     }
 
     @onlyFor('body')
@@ -139,7 +129,7 @@ export default function createComponent (type, name, component) {
 
       let output = ''
 
-      _.forEach(styles, (value, name) => {
+      forEach(styles, (value, name) => {
         if (value) {
           output += `${name}:${value};`
         }
@@ -148,11 +138,31 @@ export default function createComponent (type, name, component) {
       return output
     }
 
+    @onlyFor('head')
+    handlerChildren () {
+      const childrens = this.props.children
+
+      forEach(childrens, (children) => {
+        const component = initComponent({
+          name: children.tagName,
+          initialDatas: {
+            ...children,
+            context: this.getChildContext(),
+          }
+        })
+
+        if (component.handler) {
+          component.handler()
+        }
+      })
+    }
+
     @onlyFor('body')
     renderChildren (children, options = {}) {
       const {
         props = {},
         renderer = component => component.render(),
+        attributes = {},
       } = options
 
       children = children || this.props.children
@@ -164,10 +174,13 @@ export default function createComponent (type, name, component) {
       for (let index = 0; index < sibling; index++) {
         const child = children[index]
         const component = initComponent({
-          type,
           name: child.tagName,
           initialDatas: {
             ...child,
+            attributes: {
+              ...attributes,
+              ...child.attributes,
+            },
             context: this.getChildContext(),
             props: {
               ...props,
@@ -190,6 +203,15 @@ export default function createComponent (type, name, component) {
   }
 
   const newComponent = Component
+
+  if (component.useMJML) {
+    component._render = component.render
+    component.render = function() {
+      const mjml = parseXML(this._render(), {ignoreInclude: true})
+
+      return this.context.processing(mjml, this.context)
+    }
+  }
 
   Object.assign(newComponent.prototype, component)
 

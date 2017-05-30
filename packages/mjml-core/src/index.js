@@ -16,9 +16,9 @@ import reduce from 'lodash/reduce'
 import components, {
   initComponent,
   registerComponent,
-  flattenComponents,
 } from './components'
 
+import mergeOutlookConditionnals from './helpers/mergeOutlookConditionnals'
 import skeleton from './helpers/skeleton'
 import traverseMJML from './helpers/traverseMJML'
 
@@ -54,6 +54,7 @@ export default function mjml2html (mjml, options = {}) {
     defaultAttributes: {},
     fonts,
     mediaQueries: {},
+    mobileBreakpoint: '480px',
     style,
     title: '',
   }
@@ -78,57 +79,34 @@ export default function mjml2html (mjml, options = {}) {
       break;
   }
 
-  const processing = (type, context, parseMJML = identity) => {
-    const componentRoot = traverseMJML(mjml, child => child.tagName === `mj-${type}`)
+  const mjBody = traverseMJML(mjml, child => child.tagName === 'mj-body')
+  const mjHead = traverseMJML(mjml, child => child.tagName === 'mj-head')
 
-    if (componentRoot &&
-        componentRoot.children) {
-      forEach(componentRoot.children, child => {
-        const component = initComponent({
-          type,
-          name: child.tagName,
-          initialDatas: {
-            ...parseMJML(child),
-            context,
-          },
-        })
+  const processing = (node, context, parseMJML = identity) => {
+    if (!node) {
+      return;
+    }
 
-        if (component !== null) {
-          if ('handler' in component) {
-            component.handler()
-          }
+    const component = initComponent({
+      name: node.tagName,
+      initialDatas: {
+        ...parseMJML(node),
+        context,
+      },
+    })
 
-          if ('render' in component) {
-            content = component.render()
-          }
-        }
-      })
+    if (component !== null) {
+      if ('handler' in component) {
+        component.handler()
+      }
+
+      if ('render' in component) {
+        return component.render()
+      }
     }
   }
 
-  processing('head', {
-    addDefaultAttributes (tagName, attributes) {
-      globalDatas.defaultAttributes[tagName] = attributes
-    },
-    addClass (name, attributes) {
-      globalDatas.classes[name] = attributes
-    },
-    addFont (name, url) {
-      globalDatas.fonts[name] = url
-    },
-    addStyle (style) {
-      globalDatas.style.push(style)
-    },
-    setTitle (title) {
-      globalDatas.title = title
-    },
-  })
-
-  processing('body', {
-    addMediaQuery (className, { parsedWidth, unit }) {
-      globalDatas.mediaQueries[className] = `{ width:${parsedWidth}${unit} !important; }`
-    },
-  }, mjml => {
+  const applyAttributes = mjml => {
     const parse = mjml => {
       const classes = mjml.attributes['mj-class']
       const attributesClasses = classes ?
@@ -140,17 +118,45 @@ export default function mjml2html (mjml, options = {}) {
       return {
         ...mjml,
         attributes: {
-          ...omit(mjml.attributes, [ 'mj-class' ]),
-          ...attributesClasses,
           ...globalDatas.defaultAttributes[mjml.tagName],
           ...globalDatas.defaultAttributes['mj-all'],
+          ...attributesClasses,
+          ...omit(mjml.attributes, ['mj-class']),
         },
         children: mjml.children && map(mjml.children, parse),
       }
     }
 
     return parse(mjml)
-  })
+  }
+
+  const bodyHelpers = {
+    addMediaQuery (className, { parsedWidth, unit }) {
+      globalDatas.mediaQueries[className] = `{ width:${parsedWidth}${unit} !important; }`
+    },
+    processing: (node, context) => processing(node, context, applyAttributes)
+  }
+
+  const headHelpers = {
+    add (attr, ...params) {
+      if (Array.isArray(globalDatas[attr])) {
+        globalDatas[attr].push(...params)
+      } else if (globalDatas[attr]) {
+        if (params.length > 1) {
+          globalDatas[attr][params[0]] = params[1]
+        } else {
+          globalDatas[attr] = params[0]
+        }
+      } else {
+        throw Error(`An mj-head element add an unkown head attribute : ${attr} with params ${Array.isArray(params) ? params.join('') : params}`)
+      }
+    }
+  }
+
+  processing(mjHead, headHelpers)
+  content = processing(mjBody, bodyHelpers, applyAttributes)
+
+
 
   if (globalDatas.style.length > 0) {
     content = inlineCSS ? juice(content, {
@@ -179,12 +185,13 @@ export default function mjml2html (mjml, options = {}) {
     removeEmptyAttributes: true,
   }) : content
 
+  content = mergeOutlookConditionnals(content)
+
   return { html: content, errors: errors }
 }
 
 export {
   components,
-  flattenComponents,
   initComponent,
   registerComponent,
 }

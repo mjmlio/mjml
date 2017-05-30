@@ -1,43 +1,25 @@
 const mjml2html = require('./packages/mjml/lib/index')
+const map = require('lodash/map')
 
 const xml = `<mjml>
   <mj-head>
-    <!-- blblbl -->
-    <mj-title>
-      <!-- blou ? -->
-      Mon titre
-    </mj-title>
-    <!-- /o\ -->
+    <mj-attributes>
+      <mj-text color="blue" />
+      <mj-class name="try" color="violet" />
+    </mj-attributes>
   </mj-head>
   <mj-body>
-    <mj-container>
-      <!-- container ~~ -->
-      <!-- my first section <% %> -->
-      <mj-section>
-        <mj-column>
-          <!-- column ! -->
-          <mj-text>
-            Hey !
-          </mj-text>
-        </mj-column>
-      </mj-section>
-      <!-- my second section \o/ -->
-      <mj-section>
-        <mj-text>
-          YOU SHOULD NOT BE HERE DUDE
-        </mj-text>
-        <!-- inner my second section ô ô -->
-      </mj-section>
-    </mj-container>
+      <mj-text> Blue? </mj-text>
+      <mj-text mj-class="try"> violet</mj-text>
+      <mj-test />
   </mj-body>
 </mjml>
 `
 
 console.time('mjml2html')
 
-const html = mjml2html(xml, {
-  beautify: true,
-  validationLevel: 'strict',
+const { html } = mjml2html(xml, {
+  beautify: true
 })
 
 if (process.argv.includes('--output')) {

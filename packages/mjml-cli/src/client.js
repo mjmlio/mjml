@@ -14,7 +14,7 @@ import timePad from './helpers/timePad'
  * The version number is the NPM
  * version number. It should be the same as the MJML engine
  */
-export { version }
+// export { version }
 
 /*
  * Minimal Error Handling

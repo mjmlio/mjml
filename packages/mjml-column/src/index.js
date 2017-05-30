@@ -62,17 +62,21 @@ export default createBodyComponent('mj-column', {
     }
 
     return {
-      div: {
+      'div': {
         'font-size': '13px',
         'text-align': 'left',
         'vertical-align': 'top',
-        direction: 'ltr',
-        display: 'inline-block',
+        'direction': 'ltr',
+        'display': 'inline-block',
       },
-      table: {
+      'table': {
         ...(this.hasGutter() ? {} : tableStyle),
       },
-      gutter: {
+      'td-outlook' : {
+        'vertical-align': this.getMjAttribute('vertical-align'),
+        'width': this.getParsedWidth(true), // should be in PX for outlook
+      },
+      'gutter': {
         ...tableStyle,
         'padding': this.getMjAttribute('padding'),
         'padding-top': this.getMjAttribute('padding-top'),
@@ -186,7 +190,7 @@ export default createBodyComponent('mj-column', {
                   ${component.generateHtmlAttributes({
                     align: component.getMjAttribute('align'),
                     background: component.getMjAttribute('container-background-color'),
-                    style: component.generateStyles({
+                    style: {
                       'background': component.getMjAttribute('container-background-color'),
                       'font-size': '0px',
                       'padding': component.getMjAttribute('padding'),
@@ -195,7 +199,7 @@ export default createBodyComponent('mj-column', {
                       'padding-bottom': component.getMjAttribute('padding-bottom'),
                       'padding-left': component.getMjAttribute('padding-left'),
                       'word-break': 'break-word',
-                    }),
+                    },
                   })}
                 >
                   ${component.render()}

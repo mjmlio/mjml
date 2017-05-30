@@ -122,7 +122,7 @@ export default createBodyComponent('mj-section', {
         renderer: (component) => component.rawElement ? component.render() : `
           <!--[if mso | IE]>
             <td
-              ${this.generateHtmlAttributes({
+              ${component.generateHtmlAttributes({
                 align: component.getMjAttribute('align'),
                 style: 'td-outlook'
               })}

@@ -1,6 +1,6 @@
 {
-  "name": "mjml-table",
-  "description": "mjml-atable",
+  "name": "mjml-social",
+  "description": "mjml-social",
   "version": "4.0.0-alpha",
   "main": "lib/index.js",
   "repository": {

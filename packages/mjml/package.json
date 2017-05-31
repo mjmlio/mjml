@@ -1,7 +1,7 @@
 {
   "name": "mjml",
   "description": "MJML: the only framework that makes responsive-email easy",
-  "version": "4.0.0-alpha",
+  "version": "4.0.0-alpha.1",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -17,22 +17,22 @@
     "build": "../../node_modules/.bin/babel src --out-dir lib"
   },
   "dependencies": {
-    "mjml-body": "^4.0.0-alpha",
-    "mjml-button": "^4.0.0-alpha",
-    "mjml-column": "^4.0.0-alpha",
-    "mjml-core": "^4.0.0-alpha",
-    "mjml-divider": "^4.0.0-alpha",
-    "mjml-head-attributes": "^4.0.0-alpha",
-    "mjml-head-font": "^4.0.0-alpha",
-    "mjml-head-style": "^4.0.0-alpha",
-    "mjml-head-title": "^4.0.0-alpha",
-    "mjml-head": "^4.0.0-alpha",
-    "mjml-image": "^4.0.0-alpha",
-    "mjml-raw": "^4.0.0-alpha",
-    "mjml-section": "^4.0.0-alpha",
-    "mjml-social": "^4.0.0-alpha",
-    "mjml-table": "^4.0.0-alpha",
-    "mjml-text": "^4.0.0-alpha",
+    "mjml-body": "^4.0.0-alpha.1",
+    "mjml-button": "^4.0.0-alpha.1",
+    "mjml-column": "^4.0.0-alpha.1",
+    "mjml-core": "^4.0.0-alpha.1",
+    "mjml-divider": "^4.0.0-alpha.1",
+    "mjml-head": "^4.0.0-alpha.1",
+    "mjml-head-attributes": "^4.0.0-alpha.1",
+    "mjml-head-font": "^4.0.0-alpha.1",
+    "mjml-head-style": "^4.0.0-alpha.1",
+    "mjml-head-title": "^4.0.0-alpha.1",
+    "mjml-image": "^4.0.0-alpha.1",
+    "mjml-raw": "^4.0.0-alpha.1",
+    "mjml-section": "^4.0.0-alpha.1",
+    "mjml-social": "^4.0.0-alpha.1",
+    "mjml-table": "^4.0.0-alpha.1",
+    "mjml-text": "^4.0.0-alpha.1",
     "mjml-validator": "^4.0.0-alpha"
   }
 }

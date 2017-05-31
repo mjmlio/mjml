@@ -84,6 +84,6 @@ export default {
     'mj-hero',
     'mj-navbar',
     'mj-raw',
-    'mj-section'
+    'mj-section',
   ],
 }

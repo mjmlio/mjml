@@ -1,10 +1,7 @@
-import mjml2html, {
-  registerComponent,
-} from 'mjml-core'
+import mjml2html, { registerComponent } from 'mjml-core'
 import { registerDependencies } from 'mjml-validator'
-import dependencies from './dependencies'
 
-const { Social, SocialElement } = require('mjml-social')
+import { Social, SocialElement } from 'mjml-social'
 
 registerComponent(require('mjml-body'))
 registerComponent(require('mjml-head'))
@@ -24,8 +21,6 @@ registerComponent(require('mjml-table'))
 registerComponent(Social)
 registerComponent(SocialElement)
 
-registerDependencies(dependencies)
+registerDependencies(require('./dependencies'))
 
-export default function (mjml, options) {
-  return mjml2html(mjml, options)
-}
+export default mjml2html

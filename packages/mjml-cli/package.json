@@ -22,15 +22,15 @@
   "dependencies": {
     "chokidar": "^1.6.1",
     "commander": "^2.9.0",
-    "fs-promise": "^1.0.0",
+    "fs-promise": "^2.0.3",
     "glob": "^7.1.1",
     "lodash": "^4.17.4",
-    "mjml-core": "~3.2.2",
+    "mjml-core": "^3.3.2",
     "mjml-parser-xml": "^4.0.0-alpha",
     "mjml-validator": "^4.0.0-alpha"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
+    "chai": "^4.0.0",
     "mocha": "^3.2.0"
   }
 }

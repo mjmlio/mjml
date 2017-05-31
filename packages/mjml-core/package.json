@@ -17,9 +17,9 @@
     "build": "../../node_modules/.bin/babel src --out-dir lib"
   },
   "dependencies": {
-    "html-minifier": "^3.2.3",
-    "js-beautify": "^1.6.6",
-    "juice": "^4.0.2",
+    "html-minifier": "^3.5.2",
+    "js-beautify": "^1.6.14",
+    "juice": "^4.1.0",
     "lodash": "^4.17.3",
     "mjml-validator": "^4.0.0-alpha",
     "object-path": "^0.11.3"

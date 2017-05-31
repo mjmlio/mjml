@@ -1,6 +1,6 @@
 {
   "presets": [
-    "latest",
+    "env",
     "stage-0"
   ],
   "plugins": [

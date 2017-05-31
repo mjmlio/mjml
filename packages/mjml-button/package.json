@@ -17,8 +17,7 @@
     "build": "../../node_modules/.bin/babel src --out-dir lib"
   },
   "dependencies": {
-    "lodash": "^4.17.4",
-    "mjml-core": "~3.3.3-beta.1",
-    "react": "^15.4.2"
+    "lodash": "^4.17.2",
+    "mjml-core": "^4.0.0-alpha"
   }
 }

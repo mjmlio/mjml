@@ -28,8 +28,11 @@
     "mjml-head-title": "^4.0.0-alpha",
     "mjml-head": "^4.0.0-alpha",
     "mjml-image": "^4.0.0-alpha",
+    "mjml-raw": "^4.0.0-alpha",
     "mjml-section": "^4.0.0-alpha",
+    "mjml-social": "^4.0.0-alpha",
     "mjml-table": "^4.0.0-alpha",
-    "mjml-text": "^4.0.0-alpha"
+    "mjml-text": "^4.0.0-alpha",
+    "mjml-validator": "^4.0.0-alpha"
   }
 }

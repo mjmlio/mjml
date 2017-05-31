@@ -2,7 +2,7 @@ import forEach from 'lodash/forEach'
 import reduce from 'lodash/reduce'
 import objectPath from 'object-path'
 import shorthandParser from './helpers/shorthandParser'
-import parseXML from 'mjml-parser-xml'
+import MJMLParser from 'mjml-parser-xml'
 
 import {
   initComponent,
@@ -207,7 +207,7 @@ export default function createComponent (type, name, component) {
   if (component.useMJML) {
     component._render = component.render
     component.render = function() {
-      const mjml = parseXML(this._render(), {ignoreInclude: true})
+      const mjml = MJMLParser(this._render(), {ignoreInclude: true})
 
       return this.context.processing(mjml, this.context)
     }

@@ -488,7 +488,7 @@ lodash.unescape@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/lodash.unescape/-/lodash.unescape-4.0.1.tgz#bf2249886ce514cda112fae9218cdc065211fc9c"
 
-lodash@^4.14.0, lodash@^4.17.3, lodash@^4.17.4:
+lodash@^4.14.0, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.17.4:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -536,6 +536,25 @@ mimer@^0.2.1:
 minimist@0.0.8:
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.0.8.tgz#857fcabfc3397d2625b8228262e86aa7a011b05d"
+
+mjml-core@^4.0.0-alpha:
+  version "4.0.0-alpha"
+  resolved "https://registry.yarnpkg.com/mjml-core/-/mjml-core-4.0.0-alpha.tgz#2f0b7ad9d78c804f2bbe97e03f2edc412477f972"
+  dependencies:
+    html-minifier "^3.5.2"
+    js-beautify "^1.6.14"
+    juice "^4.1.0"
+    lodash "^4.17.3"
+    mjml-validator "^4.0.0-alpha"
+    object-path "^0.11.3"
+
+mjml-parser-xml@^4.0.0-alpha:
+  version "4.0.0-alpha"
+  resolved "https://registry.yarnpkg.com/mjml-parser-xml/-/mjml-parser-xml-4.0.0-alpha.tgz#ad3f1f63ce7e26cdb49ce467f08c1c1869916796"
+  dependencies:
+    htmlparser2 "^3.9.2"
+    lodash "^4.17.2"
+    mjml-core "^4.0.0-alpha"
 
 mjml-validator@^4.0.0-alpha:
   version "4.0.0-alpha"

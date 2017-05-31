@@ -9,7 +9,7 @@ import {
 } from 'html-minifier'
 import map from 'lodash/map'
 import omit from 'lodash/omit'
-import parseXML from 'mjml-parser-xml'
+import MJMLParser from 'mjml-parser-xml'
 import MJMLValidator from 'mjml-validator'
 import reduce from 'lodash/reduce'
 
@@ -60,7 +60,7 @@ export default function mjml2html (mjml, options = {}) {
   }
 
   if (typeof mjml === 'string') {
-    mjml = parseXML(mjml, {keepComments})
+    mjml = MJMLParser(mjml, {keepComments})
   }
 
   switch (validationLevel) {

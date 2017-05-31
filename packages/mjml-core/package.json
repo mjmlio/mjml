@@ -22,7 +22,7 @@
     "juice": "^4.1.0",
     "lodash": "^4.17.3",
     "mjml-parser-xml": "^4.0.0-alpha.1",
-    "mjml-validator": "^4.0.0-alpha",
+    "mjml-validator": "^4.0.0-alpha.1",
     "object-path": "^0.11.3"
   }
 }

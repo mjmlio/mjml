@@ -25,9 +25,9 @@
     "fs-promise": "^2.0.3",
     "glob": "^7.1.1",
     "lodash": "^4.17.4",
-    "mjml-core": "^3.3.2",
+    "mjml-core": "^4.0.0-alpha.1",
     "mjml-parser-xml": "^4.0.0-alpha.1",
-    "mjml-validator": "^4.0.0-alpha"
+    "mjml-validator": "^4.0.0-alpha.1"
   },
   "devDependencies": {
     "chai": "^4.0.0",

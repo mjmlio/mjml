@@ -33,6 +33,6 @@
     "mjml-social": "^4.0.0-alpha.1",
     "mjml-table": "^4.0.0-alpha.1",
     "mjml-text": "^4.0.0-alpha.1",
-    "mjml-validator": "^4.0.0-alpha"
+    "mjml-validator": "^4.0.0-alpha.1"
   }
 }

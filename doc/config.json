@@ -6,6 +6,7 @@
   "mjml/doc/advanced.md",
   "mjml/doc/components.md",
   "mjml/doc/head_components.md",
+  "mjml/packages/mjml-head-preview/README.md",
   "mjml/packages/mjml-head-attributes/README.md",
   "mjml/packages/mjml-head-style/README.md",
   "mjml/packages/mjml-head-font/README.md",

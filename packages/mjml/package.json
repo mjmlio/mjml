@@ -1,7 +1,7 @@
 {
   "name": "mjml",
   "description": "MJML: the only framework that makes responsive-email easy",
-  "version": "3.1.1",
+  "version": "4.0.0-alpha",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -12,19 +12,23 @@
     "url": "https://github.com/mjmlio/mjml/issues"
   },
   "homepage": "https://mjml.io",
+  "scripts": {
+    "clean": "../../node_modules/.bin/rimraf lib",
+    "build": "../../node_modules/.bin/babel src --out-dir lib"
+  },
   "dependencies": {
-    "mjml-column": "~3.1.1",
-    "mjml-body": "~3.1.1",
-    "mjml-head": "~3.1.1",
-    "mjml-core": "~3.1.1",
-    "mjml-divider": "~3.1.1",
-    "mjml-head-attributes": "~3.1.1",
-    "mjml-head-font": "~3.1.1",
-    "mjml-head-style": "~3.1.1",
-    "mjml-head-title": "~3.1.1",
-    "mjml-image": "~3.1.1",
-    "mjml-section": "~3.1.1",
-    "mjml-table": "~3.1.1",
-    "mjml-text": "~3.1.1"
+    "mjml-body": "^4.0.0-alpha",
+    "mjml-column": "^4.0.0-alpha",
+    "mjml-core": "^4.0.0-alpha",
+    "mjml-divider": "^4.0.0-alpha",
+    "mjml-head": "^4.0.0-alpha",
+    "mjml-head-attributes": "^4.0.0-alpha",
+    "mjml-head-font": "^4.0.0-alpha",
+    "mjml-head-style": "^4.0.0-alpha",
+    "mjml-head-title": "^4.0.0-alpha",
+    "mjml-image": "^4.0.0-alpha",
+    "mjml-section": "^4.0.0-alpha",
+    "mjml-table": "^4.0.0-alpha",
+    "mjml-text": "^4.0.0-alpha"
   }
 }

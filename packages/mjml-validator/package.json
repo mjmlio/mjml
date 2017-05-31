@@ -1,7 +1,7 @@
 {
   "name": "mjml-validator",
   "description": "mjml-validator",
-  "version": "3.2.0",
+  "version": "4.0.0-alpha",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -12,6 +12,10 @@
     "url": "https://github.com/mjmlio/mjml/issues"
   },
   "homepage": "https://mjml.io",
+  "scripts": {
+    "clean": "../../node_modules/.bin/rimraf lib",
+    "build": "../../node_modules/.bin/babel src --out-dir lib"
+  },
   "dependencies": {
     "lodash": "^4.17.4",
     "warning": "^3.0.0"

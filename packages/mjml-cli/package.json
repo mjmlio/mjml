@@ -1,7 +1,7 @@
 {
   "name": "mjml-cli",
   "description": "MJML: the only framework that makes responsive-email easy",
-  "version": "3.2.2",
+  "version": "4.0.0-alpha.2",
   "main": "bin/mjml",
   "bin": {
     "mjml-cli": "bin/mjml"
@@ -15,18 +15,22 @@
     "url": "https://github.com/mjmlio/mjml/issues"
   },
   "homepage": "https://mjml.io",
+  "scripts": {
+    "clean": "../../node_modules/.bin/rimraf lib",
+    "build": "../../node_modules/.bin/babel src --out-dir lib"
+  },
   "dependencies": {
     "chokidar": "^1.6.1",
     "commander": "^2.9.0",
-    "fs-promise": "^1.0.0",
+    "fs-promise": "^2.0.3",
     "glob": "^7.1.1",
     "lodash": "^4.17.4",
-    "mjml-core": "~3.2.2",
-    "mjml-parser-xml": "~3.1.1",
-    "mjml-validator": "~3.2.0"
+    "mjml-core": "^4.0.0-alpha.2",
+    "mjml-parser-xml": "^4.0.0-alpha.2",
+    "mjml-validator": "^4.0.0-alpha.2"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
+    "chai": "^4.0.0",
     "mocha": "^3.2.0"
   }
 }

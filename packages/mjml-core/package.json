@@ -1,7 +1,7 @@
 {
   "name": "mjml-core",
   "description": "mjml-core",
-  "version": "3.1.1",
+  "version": "4.0.0-alpha.2",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -12,12 +12,17 @@
     "url": "https://github.com/mjmlio/mjml/issues"
   },
   "homepage": "https://mjml.io",
+  "scripts": {
+    "clean": "../../node_modules/.bin/rimraf lib",
+    "build": "../../node_modules/.bin/babel src --out-dir lib"
+  },
   "dependencies": {
-    "mjml-validator": "^3.2.0",
-    "html-minifier": "^3.2.3",
-    "js-beautify": "^1.6.6",
-    "juice": "^4.0.2",
+    "html-minifier": "^3.5.2",
+    "js-beautify": "^1.6.14",
+    "juice": "^4.1.0",
     "lodash": "^4.17.3",
+    "mjml-parser-xml": "^4.0.0-alpha.2",
+    "mjml-validator": "^4.0.0-alpha.2",
     "object-path": "^0.11.3"
   }
 }

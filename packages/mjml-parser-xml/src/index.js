@@ -26,8 +26,7 @@ export default function parseXML (xml, options = {}) {
   const {
     addEmptyAttributes = true,
     CDATASections = _.chain({
-      ...components.head,
-      ...components.body,
+      ...components
     })
       .filter(component => component.prototype.endingTag)
       .map(component => component.getName())

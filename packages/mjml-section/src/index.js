@@ -162,8 +162,10 @@ class Section extends Component {
 
   renderFullWidthSection () {
     const { mjAttribute } = this.props
+
     return (
       <table
+        className={mjAttribute('css-class')}
         role="presentation"
         cellPadding="0"
         cellSpacing="0"

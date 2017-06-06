@@ -13,6 +13,7 @@ export default createBodyComponent('mj-column', {
     'border-radius': 'unit(px)',
     'border-right': 'unit(px)',
     'border-top': 'unit(px)',
+    'direction': 'enum(ltr,rtl)',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
@@ -20,6 +21,9 @@ export default createBodyComponent('mj-column', {
     'padding': 'unit(px,%){1,4}',
     'vertical-align': 'string',
     'width': 'unit(px,%)',
+  },
+  defaultAttributes: {
+    'direction': 'ltr',
   },
   getChildContext () {
     const {
@@ -59,15 +63,16 @@ export default createBodyComponent('mj-column', {
       'border-radius': this.getMjAttribute('border-radius'),
       'border-right': this.getMjAttribute('border-right'),
       'border-top': this.getMjAttribute('border-top'),
+      'vertical-align': this.getMjAttribute('vertical-align'),
     }
 
     return {
       'div': {
         'font-size': '13px',
         'text-align': 'left',
-        'vertical-align': 'top',
-        'direction': 'ltr',
+        'direction': this.getMjAttribute('direction'),
         'display': 'inline-block',
+        'vertical-align': this.getMjAttribute('vertical-align'),
         'width': '100%',
       },
       'table': {

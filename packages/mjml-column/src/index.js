@@ -68,6 +68,7 @@ export default createBodyComponent('mj-column', {
         'vertical-align': 'top',
         'direction': 'ltr',
         'display': 'inline-block',
+        'width': '100%',
       },
       'table': {
         ...(this.hasGutter() ? {} : tableStyle),

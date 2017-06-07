@@ -25,7 +25,7 @@ $> mjml -l skip -r template.mjml
 
 ## In Javascript
 
-In Javascript, you can provide the level through the `options` parameters on `MJMLRenderer`. Ex: `new MJMLRenderer(inputMJML, { level: strict })`
+In Javascript, you can provide the level through the `options` parameters on `MJMLRenderer`. Ex: `new MJMLRenderer(inputMJML, { level: 'strict' })`
 
 `strict` will raise a `MJMLValidationError` exception. This object has 2 methods:
 - `getErrors` returns an array of objects with `line`, `message`, `tagName` as well as a `formattedMessage` which contains the `line`, `message` and `tagName` concatenated in a sentence.
@@ -47,4 +47,4 @@ Add the following key to the json:
 }
 
 "validateTag", "validateAttribute" and "validChildren" are the default validation rules.
-If you want to add custom rules, you can add the path to the file where the validtion function resides. 
+If you want to add custom rules, you can add the path to the file where the validtion function resides.

@@ -10,7 +10,7 @@
 import { expect } from 'chai'
 import { initComponent } from '../src/cli'
 import fs from 'fs'
-import fsp from 'fs-promise'
+import fsp from 'mz/fs'
 import path from 'path'
 
 /**

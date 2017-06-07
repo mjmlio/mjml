@@ -7,6 +7,6 @@ export default createHeadComponent('mj-style', {
   handler () {
     const { add } = this.context
 
-    addStyle('style', this.getMjContent())
+    add('style', this.getMjContent())
   }
 })

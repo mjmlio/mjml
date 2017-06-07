@@ -142,11 +142,11 @@ export default function createComponent (type, name, component) {
     handlerChildren () {
       const childrens = this.props.children
 
-      forEach(childrens, (children) => {
+      forEach(childrens, (child) => {
         const component = initComponent({
-          name: children.tagName,
+          name: child.tagName,
           initialDatas: {
-            ...children,
+            ...child,
             context: this.getChildContext(),
           }
         })

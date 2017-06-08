@@ -29,7 +29,7 @@ class ValidationError extends Error {
   }
 }
 
-export default function mjml2html (mjml, options = {}) {
+export default function mjml2html(mjml, options = {}) {
   let content = ''
   let errors = []
 
@@ -38,9 +38,9 @@ export default function mjml2html (mjml, options = {}) {
     fonts = {
       'Open Sans': 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,700',
       'Droid Sans': 'https://fonts.googleapis.com/css?family=Droid+Sans:300,400,500,700',
-      'Lato': 'https://fonts.googleapis.com/css?family=Lato:300,400,500,700',
-      'Roboto': 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700',
-      'Ubuntu': 'https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700',
+      Lato: 'https://fonts.googleapis.com/css?family=Lato:300,400,500,700',
+      Roboto: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700',
+      Ubuntu: 'https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700',
     },
     inlineCSS = true,
     minify = false,
@@ -60,23 +60,23 @@ export default function mjml2html (mjml, options = {}) {
   }
 
   if (typeof mjml === 'string') {
-    mjml = MJMLParser(mjml, {keepComments})
+    mjml = MJMLParser(mjml, { keepComments })
   }
 
   switch (validationLevel) {
     case 'skip':
-      break;
+      break
     case 'strict':
       errors = MJMLValidator(mjml)
 
       if (errors.length > 0) {
         throw new ValidationError(`ValidationError: \n ${errors.map(e => e.formattedMessage).join('\n')}`, errors)
       }
-      break;
+      break
     case 'soft':
     default:
       errors = MJMLValidator(mjml)
-      break;
+      break
   }
 
   const mjBody = traverseMJML(mjml, child => child.tagName === 'mj-body')
@@ -84,7 +84,7 @@ export default function mjml2html (mjml, options = {}) {
 
   const processing = (node, context, parseMJML = identity) => {
     if (!node) {
-      return;
+      return
     }
 
     const component = initComponent({
@@ -106,8 +106,8 @@ export default function mjml2html (mjml, options = {}) {
     }
   }
 
-  const applyAttributes = mjml => {
-    const parse = mjml => {
+  const applyAttributes = (mjml) => {
+    const parse = (mjml) => {
       const classes = mjml.attributes['mj-class']
       const attributesClasses = classes ?
         reduce(classes.split(' '), (result, value) => ({
@@ -131,14 +131,14 @@ export default function mjml2html (mjml, options = {}) {
   }
 
   const bodyHelpers = {
-    addMediaQuery (className, { parsedWidth, unit }) {
+    addMediaQuery(className, { parsedWidth, unit }) {
       globalDatas.mediaQueries[className] = `{ width:${parsedWidth}${unit} !important; }`
     },
-    processing: (node, context) => processing(node, context, applyAttributes)
+    processing: (node, context) => processing(node, context, applyAttributes),
   }
 
   const headHelpers = {
-    add (attr, ...params) {
+    add(attr, ...params) {
       if (Array.isArray(globalDatas[attr])) {
         globalDatas[attr].push(...params)
       } else if (globalDatas[attr]) {
@@ -150,12 +150,11 @@ export default function mjml2html (mjml, options = {}) {
       } else {
         throw Error(`An mj-head element add an unkown head attribute : ${attr} with params ${Array.isArray(params) ? params.join('') : params}`)
       }
-    }
+    },
   }
 
   processing(mjHead, headHelpers)
   content = processing(mjBody, bodyHelpers, applyAttributes)
-
 
 
   if (globalDatas.style.length > 0) {
@@ -187,7 +186,7 @@ export default function mjml2html (mjml, options = {}) {
 
   content = mergeOutlookConditionnals(content)
 
-  return { html: content, errors: errors }
+  return { html: content, errors }
 }
 
 export {

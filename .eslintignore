@@ -1,4 +1,2 @@
 node_modules
-packages/mjml/test.js
-packages/mjml/test_cli/*
-packages/mjml*/lib/*.js
+lib

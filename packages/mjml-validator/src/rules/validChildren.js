@@ -9,11 +9,11 @@ export const validChildren = (element) => {
   const Component = components[tagName]
 
   if (!Component) {
-    return;
+    return
   }
 
   if (!children || children.length == 0) {
-    return;
+    return
   }
 
   return filter(children.map((child) => {
@@ -22,11 +22,11 @@ export const validChildren = (element) => {
     const parentDependencies = dependencies[tagName] || []
 
     if (!ChildComponent) {
-      return null;
+      return null
     }
 
     if (includes(parentDependencies, childTagName)) {
-      return null;
+      return null
     }
 
     return ruleError(`${childTagName} cannot be used inside ${tagName}, only inside: ${parentDependencies.join(', ')}`, child)

@@ -1,6 +1,6 @@
 import _ from 'lodash'
 
-export default function cleanNode (node) {
+export default function cleanNode(node) {
   delete node.parent
 
   // Delete children if needed

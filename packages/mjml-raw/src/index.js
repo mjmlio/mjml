@@ -5,7 +5,7 @@ import {
 export default createBodyComponent('mj-raw', {
   endingTag: true,
   rawElement: true,
-  render () {
+  render() {
     return this.getMjContent()
-  }
+  },
 })

@@ -2,42 +2,42 @@ import { createBodyComponent } from 'mjml-core/lib/createComponent'
 
 export default createBodyComponent('mj-social', {
   allowedAttributes: {
-    'align': 'enum(left,right,center)',
+    align: 'enum(left,right,center)',
     'border-radius': 'unit(px)',
     'container-background-color': 'color',
-    'color': 'color',
+    color: 'color',
     'font-family': 'string',
     'font-size': 'unit(px,%)',
     'font-style': 'string',
     'font-weight': 'string',
     'inner-padding': 'unit(px,%)',
     'line-height': 'unit(px,%)',
-    'mode': 'enum(horizontal,vertical)',
+    mode: 'enum(horizontal,vertical)',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
-    'padding': 'unit(px,%){1,4}',
+    padding: 'unit(px,%){1,4}',
     'table-layout': 'enum(auto,fixed)',
-    'vertical-align': 'enum(top,bottom,middle)'
+    'vertical-align': 'enum(top,bottom,middle)',
   },
   defaultAttributes: {
-    'align': 'center',
+    align: 'center',
     'border-radius': '3px',
-    'color': '#333333',
+    color: '#333333',
     'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
     'font-size': '13px',
     'icon-size': '20px',
     'inner-padding': null,
     'line-height': '22px',
-    'mode': 'horizontal',
-    'padding': '10px 25px',
-    'text-decoration': 'none'
+    mode: 'horizontal',
+    padding: '10px 25px',
+    'text-decoration': 'none',
   },
-  getStyles () {
+  getStyles() {
     return {
       tableVertical: {
-        'margin': '0px',
+        margin: '0px',
       },
       tableHorizontal: {
         float: 'none',
@@ -45,7 +45,7 @@ export default createBodyComponent('mj-social', {
       },
     }
   },
-  getSocialElementAttributes () {
+  getSocialElementAttributes() {
     return [
       'border-radius',
       'color',
@@ -59,7 +59,7 @@ export default createBodyComponent('mj-social', {
         return res
       }, {})
   },
-  renderHorizontal () {
+  renderHorizontal() {
     const { children } = this.props
 
     return `
@@ -77,7 +77,7 @@ export default createBodyComponent('mj-social', {
       <![endif]-->
       ${this.renderChildren(children, {
         attributes: this.getSocialElementAttributes(),
-        renderer: (component) => (`
+        renderer: component => (`
             <!--[if mso | IE]>
               <td>
             <![endif]-->
@@ -97,7 +97,7 @@ export default createBodyComponent('mj-social', {
               </td>
             <![endif]-->
           `
-        )
+        ),
       })}
       <!--[if mso | IE]>
           </tr>
@@ -105,7 +105,7 @@ export default createBodyComponent('mj-social', {
       <![endif]-->
     `
   },
-  renderVertical () {
+  renderVertical() {
     const { children } = this.props
 
     return `
@@ -122,9 +122,9 @@ export default createBodyComponent('mj-social', {
       </table>
     `
   },
-  render () {
+  render() {
     return `
       ${this.getMjAttribute('mode') == 'horizontal' ? this.renderHorizontal() : this.renderVertical()}
     `
-  }
+  },
 })

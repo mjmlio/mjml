@@ -5,7 +5,7 @@ import {
   buildMediaQueriesTags,
 } from './mediaQueries'
 
-export default function skeleton (options) {
+export default function skeleton(options) {
   const {
     content = '',
     fonts = {},

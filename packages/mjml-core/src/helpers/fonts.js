@@ -1,7 +1,7 @@
 import forEach from 'lodash/forEach'
 import map from 'lodash/map'
 
-export function buildFontsTags (content, fonts = {}) {
+export function buildFontsTags(content, fonts = {}) {
   const toImport = []
 
   forEach(fonts, (url, name) => {

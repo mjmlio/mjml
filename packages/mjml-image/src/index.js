@@ -15,7 +15,7 @@ export default createBodyComponent('mj-image', {
     padding: '10px 25px',
     target: '_blank',
   },
-  getStyles () {
+  getStyles() {
     const width = this.getContentWidth()
     const fullWidth = this.getMjAttribute('full-width') == 'full-width'
     const {
@@ -25,27 +25,27 @@ export default createBodyComponent('mj-image', {
 
     return {
       img: {
-        'border': this.getMjAttribute('border'),
-        'display': 'block',
-        'outline': 'none',
+        border: this.getMjAttribute('border'),
+        display: 'block',
+        outline: 'none',
         'text-decoration': 'none',
         'min-width': fullWidth ? '100%' : null,
-        'width': fullWidth ? `${parsedWidth}${unit}` : '100%',
+        width: fullWidth ? `${parsedWidth}${unit}` : '100%',
         'max-width': fullWidth ? '100%' : null,
       },
       td: {
-        'width': fullWidth ? null : `${parsedWidth}${unit}`,
+        width: fullWidth ? null : `${parsedWidth}${unit}`,
       },
       table: {
         'min-width': fullWidth ? '100%' : null,
         'max-width': fullWidth ? '100%' : null,
-        'width': fullWidth ? `${parsedWidth}${unit}` : null,
+        width: fullWidth ? `${parsedWidth}${unit}` : null,
         'border-collapse': 'collapse',
         'border-spacing': '0px',
       },
     }
   },
-  getContentWidth () {
+  getContentWidth() {
     const {
       parentWidth,
     } = this.context
@@ -65,7 +65,7 @@ export default createBodyComponent('mj-image', {
       parseFloat(width - widthOverflow) :
       parseFloat(width)
   },
-  renderImage () {
+  renderImage() {
     const img = `
       <img
         ${this.generateHtmlAttributes({
@@ -94,7 +94,7 @@ export default createBodyComponent('mj-image', {
 
     return img
   },
-  render () {
+  render() {
     return `
       <table
         ${this.generateHtmlAttributes({
@@ -108,12 +108,12 @@ export default createBodyComponent('mj-image', {
       >
         <tbody>
           <tr>
-            <td ${this.generateHtmlAttributes({style: 'td'})}>
+            <td ${this.generateHtmlAttributes({ style: 'td' })}>
               ${this.renderImage()}
             </td>
           </tr>
         </tbody>
       </table>
     `
-  }
+  },
 })

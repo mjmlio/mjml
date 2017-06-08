@@ -4,9 +4,9 @@ import {
 
 export default createHeadComponent('mj-style', {
   endingTag: true,
-  handler () {
+  handler() {
     const { add } = this.context
 
     addStyle('style', this.getMjContent())
-  }
+  },
 })

@@ -1,5 +1,5 @@
 export default {
-  'mj-accordion': [ 'mj-accordion-element' ],
+  'mj-accordion': ['mj-accordion-element'],
   'mj-accordion-element': [
     'mj-accordion-title',
     'mj-accordion-text',
@@ -11,9 +11,9 @@ export default {
     'mj-raw',
   ],
   'mj-button': [],
-  'mj-carousel': [ 'mj-carousel-image' ],
+  'mj-carousel': ['mj-carousel-image'],
   'mj-carousel-image': [],
-  'mj-column':[
+  'mj-column': [
     'mj-accordion',
     'mj-button',
     'mj-carousel',
@@ -42,7 +42,7 @@ export default {
     'mj-column',
     'mj-raw',
   ],
-  'mj-hero': [ 'mj-hero-content' ],
+  'mj-hero': ['mj-hero-content'],
   'mj-hero-content': [
     'mj-accordion',
     'mj-button',
@@ -59,8 +59,8 @@ export default {
   ],
   'mj-html': [],
   'mj-image': [],
-  'mj-inline-links': [ 'mj-link' ],
-  'mj-invoice': [ 'mj-invoice-item' ],
+  'mj-inline-links': ['mj-link'],
+  'mj-invoice': ['mj-invoice-item'],
   'mj-invoice-item': [],
   'mj-link': [],
   'mj-list': [],

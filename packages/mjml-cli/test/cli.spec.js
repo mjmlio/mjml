@@ -18,7 +18,7 @@ import path from 'path'
  * TODO:
  *  - This format function is the same as input-output.spec.js, maybe we can put them in the same place?
  */
-const format = input => {
+const format = (input) => {
   if (input) {
     return input
       .toLowerCase()
@@ -38,11 +38,9 @@ const format = input => {
 const compareFiles = (fileToCompare, expectedFile) => {
   const files = [fileToCompare, expectedFile]
 
-  return Promise.all(files.map(file => {
-    return fsp.readFile(file, { encoding:'utf8' })
-      .then(fileContent => format(fileContent))
-  }))
-    .then(filesContentFormatted => {
+  return Promise.all(files.map(file => fsp.readFile(file, { encoding: 'utf8' })
+      .then(fileContent => format(fileContent))))
+    .then((filesContentFormatted) => {
       expect(filesContentFormatted[0]).to.equal(filesContentFormatted[1])
     })
 }
@@ -53,7 +51,7 @@ describe('MJML Command Line Interface', () => {
   describe('init-component', () => {
     afterEach(() => fs.unlink(`./${componentName}.js`))
 
-    it('should generate a component code', done => {
+    it('should generate a component code', (done) => {
       initComponent(componentName, false, false).then(() => {
         compareFiles(`./${componentName}.js`, path.join(__dirname, 'assets/generatedComponent.js'))
           .then(done)
@@ -61,7 +59,7 @@ describe('MJML Command Line Interface', () => {
       })
     })
 
-    it('should generate a component with ending tag', done => {
+    it('should generate a component with ending tag', (done) => {
       initComponent(componentName, true, false).then(() => {
         compareFiles(`./${componentName}.js`, path.join(__dirname, 'assets/generatedComponentEndingTag.js'))
           .then(done)

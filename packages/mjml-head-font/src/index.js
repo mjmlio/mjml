@@ -4,9 +4,9 @@ import {
 
 export default createHeadComponent('mj-font', {
   tagOmission: true,
-  handler () {
+  handler() {
     const { add } = this.context
 
     add('fonts', this.getMjAttribute('name'), this.getMjAttribute('href'))
-  }
+  },
 })

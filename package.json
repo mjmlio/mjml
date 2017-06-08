@@ -2,6 +2,7 @@
   "name": "mjml-master",
   "private": true,
   "scripts": {
+    "build": "lerna run build --parallel",
     "lint": "eslint .",
     "postinstall": "lerna bootstrap"
   },

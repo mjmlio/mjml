@@ -10,8 +10,7 @@ import { minify as htmlMinify } from 'html-minifier'
 import MJMLParser from 'mjml-parser-xml'
 import MJMLValidator from 'mjml-validator'
 
-import components, { initComponent, registerComponent } from './components'
-import { BodyComponent, HeadComponent } from './createComponent'
+import components, { initComponent } from './components'
 
 import mergeOutlookConditionnals from './helpers/mergeOutlookConditionnals'
 import skeleton from './helpers/skeleton'
@@ -28,6 +27,7 @@ class ValidationError extends Error {
 }
 
 export default function mjml2html(mjml, options = {}) {
+
   let content = ''
   let errors = []
 
@@ -197,12 +197,16 @@ export default function mjml2html(mjml, options = {}) {
     html: content,
     errors,
   }
+
+}
+
+export {
+  components,
+  initComponent,
 }
 
 export {
   BodyComponent,
-  components,
   HeadComponent,
-  initComponent,
   registerComponent,
-}
+} from './createComponent'

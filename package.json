@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "build": "lerna run build --parallel",
+    "build:watch": "lerna run build --parallel -- -- -w",
     "lint": "eslint .",
     "postinstall": "lerna bootstrap"
   },

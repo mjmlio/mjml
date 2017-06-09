@@ -1,65 +1,74 @@
-import { createBodyComponent } from 'mjml-core/lib/createComponent'
+import { BodyComponent } from 'mjml-core'
+
 import conditionalTag from 'mjml-core/lib/helpers/conditionalTag'
 
-export default createBodyComponent('mj-text', {
-  endingTag: true,
-  allowedAttributes: {
-    align: 'enum(left,right,center)',
-    'background-color': 'color',
-    color: 'color',
-    'font-family': 'string',
-    'font-size': 'unit(px,%)',
-    'font-style': 'string',
-    'font-weight': 'string',
-    height: 'unit(px,%)',
-    'letter-spacing': 'unit(px,%)',
-    'line-height': 'unit(px,%)',
-    'padding-bottom': 'unit(px,%)',
-    'padding-left': 'unit(px,%)',
-    'padding-right': 'unit(px,%)',
-    'padding-top': 'unit(px,%)',
-    padding: 'unit(px,%){1,4}',
-    'text-decoration': 'string',
-    'text-transform': 'string',
-    'vertical-align': 'string',
-  },
-  defaultAttributes: {
+export default class extends BodyComponent {
+
+  static tagName = 'mj-text'
+
+  static endingTag = true
+
+  // static allowedAttributes = {
+  //   align: 'enum(left,right,center)',
+  //   'background-color': 'color',
+  //   color: 'color',
+  //   'font-family': 'string',
+  //   'font-size': 'unit(px,%)',
+  //   'font-style': 'string',
+  //   'font-weight': 'string',
+  //   height: 'unit(px,%)',
+  //   'letter-spacing': 'unit(px,%)',
+  //   'line-height': 'unit(px,%)',
+  //   'padding-bottom': 'unit(px,%)',
+  //   'padding-left': 'unit(px,%)',
+  //   'padding-right': 'unit(px,%)',
+  //   'padding-top': 'unit(px,%)',
+  //   padding: 'unit(px,%){1,4}',
+  //   'text-decoration': 'string',
+  //   'text-transform': 'string',
+  //   'vertical-align': 'string',
+  // }
+
+  static defaultAttributes = {
     align: 'left',
     color: '#000000',
     'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
     'font-size': '13px',
     'line-height': '1',
     padding: '10px 25px',
-  },
+  }
+
   getStyles() {
     return {
       text: {
-        'font-family': this.getMjAttribute('font-family'),
-        'font-size': this.getMjAttribute('font-size'),
-        'font-weight': this.getMjAttribute('font-weight'),
-        'letter-spacing': this.getMjAttribute('letter-spacing'),
-        'line-height': this.getMjAttribute('line-height'),
-        'text-align': this.getMjAttribute('align'),
-        'text-decoration': this.getMjAttribute('text-decoration'),
-        'text-transform': this.getMjAttribute('text-transform'),
-        color: this.getMjAttribute('color'),
-        height: this.getMjAttribute('height'),
+        'font-family': this.getAttribute('font-family'),
+        'font-size': this.getAttribute('font-size'),
+        'font-weight': this.getAttribute('font-weight'),
+        'letter-spacing': this.getAttribute('letter-spacing'),
+        'line-height': this.getAttribute('line-height'),
+        'text-align': this.getAttribute('align'),
+        'text-decoration': this.getAttribute('text-decoration'),
+        'text-transform': this.getAttribute('text-transform'),
+        color: this.getAttribute('color'),
+        height: this.getAttribute('height'),
       },
     }
-  },
+  }
+
   renderContent() {
     return `
       <div
-        ${this.generateHtmlAttributes({
+        ${this.htmlAttributes({
           style: 'text',
         })}
       >
-        ${this.getMjContent()}
+        ${this.getContent()}
       </div>
     `
-  },
+  }
+
   render() {
-    const height = this.getMjAttribute('height')
+    const height = this.getAttribute('height')
 
     return height
       ? `
@@ -72,5 +81,6 @@ export default createBodyComponent('mj-text', {
         `)}
       `
       : this.renderContent()
-  },
-})
+  }
+
+}

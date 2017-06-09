@@ -1,4 +1,2 @@
-import Social from './Social'
-import SocialElement from './SocialElement'
-
-export default { Social, SocialElement }
+export Social from './Social'
+export SocialElement from './SocialElement'

@@ -1,4 +1,4 @@
-export default (message, element) => {
+export default function ruleError(message, element) {
   const { line, tagName } = element
 
   return {

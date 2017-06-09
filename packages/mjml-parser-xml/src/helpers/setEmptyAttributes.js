@@ -1,10 +1,10 @@
-import _ from 'lodash'
+import forEach from 'lodash/forEach'
 
 export default function setEmptyAttributes(node) {
   if (!node.attributes) {
     node.attributes = {}
   }
   if (node.children) {
-    _.forEach(node.children, setEmptyAttributes)
+    forEach(node.children, setEmptyAttributes)
   }
 }

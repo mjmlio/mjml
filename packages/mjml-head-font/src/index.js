@@ -1,12 +1,17 @@
-import {
-  createHeadComponent,
-} from 'mjml-core/lib/createComponent'
+import { HeadComponent } from 'mjml-core'
 
-export default createHeadComponent('mj-font', {
-  tagOmission: true,
+export default class extends HeadComponent {
+
+  static tagName = 'mj-font'
+
+  static tagOmission = true
+
   handler() {
-    const { add } = this.context
+    const {
+      add,
+    } = this.context
 
-    add('fonts', this.getMjAttribute('name'), this.getMjAttribute('href'))
-  },
-})
+    add('fonts', this.getAttribute('name'), this.getAttribute('href'))
+  }
+
+}

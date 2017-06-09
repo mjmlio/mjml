@@ -1,8 +1,10 @@
-import components from 'mjml-core'
 import ruleError from './ruleError'
 
-export const validateTag = (element) => {
-  const { tagName } = element
+export default function validateTag(element, { components }) {
+  const {
+    tagName,
+  } = element
+
   const Component = components[tagName]
 
   if (!Component) {

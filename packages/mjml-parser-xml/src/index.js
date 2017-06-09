@@ -1,9 +1,9 @@
 import _ from 'lodash'
 import htmlparser from 'htmlparser2'
+
 import isObject from 'lodash/isObject'
 import findLastIndex from 'lodash/findLastIndex'
 import mapValues from 'lodash/mapValues'
-import { components } from 'mjml-core'
 
 import parseAttributes, { decodeAttributes } from './helpers/parseAttributes'
 import cleanNode from './helpers/cleanNode'
@@ -22,18 +22,20 @@ const indexesForNewLine = (xml) => {
   return indexes
 }
 
-export default function parseXML(xml, options = {}) {
+export default function MJMLParser(xml, options = {}) {
   const {
     addEmptyAttributes = true,
-    CDATASections = _.chain({
-      ...components,
-    })
-      .filter(component => component.prototype.endingTag)
-      .map(component => component.getName())
-      .value(),
+    components = {},
     convertBooleans = true,
     keepComments = true,
   } = options
+
+  const CDATASections = _.chain({
+    ...components,
+  })
+  .filter(component => component.prototype.endingTag)
+  .map(component => component.tagName)
+  .value()
 
   let safeXml = xml
 

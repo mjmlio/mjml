@@ -1,18 +1,14 @@
-import flatMap from 'lodash/flatMap'
-import merge from 'lodash/merge'
+const components = {}
 
-const components = {
-}
-
-export function registerComponent(component) {
-  components[component.getName()] = component
+export function registerComponent(Component) {
+  components[Component.tagName] = Component
 }
 
 export function initComponent({ initialDatas, name }) {
-  const component = components[name]
+  const Component = components[name]
 
-  if (component) {
-    return new component(initialDatas)
+  if (Component) {
+    return new Component(initialDatas)
   }
 
   return null

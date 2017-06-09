@@ -1,11 +1,13 @@
-import {
-  createBodyComponent,
-} from 'mjml-core/lib/createComponent'
+import { BodyComponent } from 'mjml-core'
 
-export default createBodyComponent('mj-raw', {
-  endingTag: true,
-  rawElement: true,
+export default class extends BodyComponent {
+
+  static tagName = 'mj-raw'
+
+  static endingTag = true
+
   render() {
-    return this.getMjContent()
-  },
-})
+    return this.getContent()
+  }
+
+}

@@ -1,4 +1,4 @@
-import { createBodyComponent } from 'mjml-core/lib/createComponent'
+import { BodyComponent } from 'mjml-core'
 
 const defaultSocialNetworks = {
   facebook: {
@@ -32,27 +32,32 @@ const defaultSocialNetworks = {
   },
 }
 
-export default createBodyComponent('mj-social-element', {
-  endingTag: true,
-  allowedAttributes: {
-    align: 'enum(left,center,right)',
-    color: 'color',
-    'border-radius': 'unit(px)',
-    'font-family': 'string',
-    'font-size': 'unit(px,%)',
-    'font-style': 'string',
-    'font-weight': 'string',
-    'line-height': 'unit(px,%)',
-    name: 'string',
-    'padding-bottom': 'unit(px,%)',
-    'padding-left': 'unit(px,%)',
-    'padding-right': 'unit(px,%)',
-    'padding-top': 'unit(px,%)',
-    padding: 'unit(px,%){1,4}',
-    'text-decoration': 'string',
-    width: 'integer',
-  },
-  defaultAttributes: {
+export default class extends BodyComponent {
+
+  static tagName = 'mj-social-element'
+
+  static endingTag = true
+
+  // static allowedAttributes = {
+  //   align: 'enum(left,center,right)',
+  //   color: 'color',
+  //   'border-radius': 'unit(px)',
+  //   'font-family': 'string',
+  //   'font-size': 'unit(px,%)',
+  //   'font-style': 'string',
+  //   'font-weight': 'string',
+  //   'line-height': 'unit(px,%)',
+  //   name: 'string',
+  //   'padding-bottom': 'unit(px,%)',
+  //   'padding-left': 'unit(px,%)',
+  //   'padding-right': 'unit(px,%)',
+  //   'padding-top': 'unit(px,%)',
+  //   padding: 'unit(px,%){1,4}',
+  //   'text-decoration': 'string',
+  //   width: 'integer',
+  // }
+
+  static defaultAttributes = {
     align: 'left',
     color: '#000',
     'border-radius': '3px',
@@ -62,17 +67,21 @@ export default createBodyComponent('mj-social-element', {
     padding: '10px 25px',
     'text-decoration': 'none',
     width: '100%',
-  },
+  }
+
   getStyles() {
-    const { 'icon-size': iconSize, 'background-color': backgroundColor } = this.getSocialAttributes()
+    const {
+      'icon-size': iconSize,
+      'background-color': backgroundColor,
+    } = this.getSocialAttributes()
 
     return {
       td: {
-        padding: this.getMjAttribute('inner-padding'),
+        padding: this.getAttribute('inner-padding'),
       },
       table: {
         background: backgroundColor,
-        'border-radius': this.getMjAttribute('border-radius'),
+        'border-radius': this.getAttribute('border-radius'),
         width: iconSize,
       },
       icon: {
@@ -80,37 +89,44 @@ export default createBodyComponent('mj-social-element', {
         height: iconSize,
       },
       img: {
-        'border-radius': this.getMjAttribute('border-radius'),
+        'border-radius': this.getAttribute('border-radius'),
       },
       text: {
-        color: this.getMjAttribute('color'),
-        'font-size': this.getMjAttribute('font-size'),
-        'font-family': this.getMjAttribute('font-family'),
-        'line-height': this.getMjAttribute('line-height'),
-        'text-decoration': this.getMjAttribute('text-decoration'),
+        color: this.getAttribute('color'),
+        'font-size': this.getAttribute('font-size'),
+        'font-family': this.getAttribute('font-family'),
+        'line-height': this.getAttribute('line-height'),
+        'text-decoration': this.getAttribute('text-decoration'),
       },
     }
-  },
+  }
+
   getSocialAttributes() {
-    const socialNetwork = { ...defaultSocialNetworks[this.getMjAttribute('name')] }
+    const socialNetwork = { ...defaultSocialNetworks[this.getAttribute('name')] }
 
     if (socialNetwork['share-url']) {
-      socialNetwork.href = socialNetwork['share-url'].replace('[[URL]]', this.getMjAttribute('href'))
+      socialNetwork.href = socialNetwork['share-url'].replace('[[URL]]', this.getAttribute('href'))
     }
 
     return ['icon-size', 'href', 'src', 'background-color'].reduce((r, attr) => {
-      r[attr] = (socialNetwork[attr] || this.getMjAttribute(attr))
+      r[attr] = (socialNetwork[attr] || this.getAttribute(attr))
 
       return r
     }, {})
-  },
+  }
+
   render() {
-    const { src, href, 'icon-size': iconSize } = this.getSocialAttributes()
+    const {
+      src,
+      href,
+      'icon-size': iconSize,
+    } = this.getSocialAttributes()
+
     return `
       <tr>
-        <td ${this.generateHtmlAttributes({ style: 'td' })}>
+        <td ${this.htmlAttributes({ style: 'td' })}>
           <table
-            ${this.generateHtmlAttributes({
+            ${this.htmlAttributes({
               border: '0',
               cellpadding: '0',
               cellspacing: '0',
@@ -119,14 +135,14 @@ export default createBodyComponent('mj-social-element', {
             })}
           >
             <tr>
-              <td ${this.generateHtmlAttributes({ style: 'icon' })}>
-                <a ${this.generateHtmlAttributes({
+              <td ${this.htmlAttributes({ style: 'icon' })}>
+                <a ${this.htmlAttributes({
                   href,
-                  rel: this.getMjAttribute('rel'),
+                  rel: this.getAttribute('rel'),
                 })}>
                     <img
-                      ${this.generateHtmlAttributes({
-                        alt: this.getMjAttribute('alt'),
+                      ${this.htmlAttributes({
+                        alt: this.getAttribute('alt'),
                         height: parseInt(iconSize),
                         src,
                         style: 'img',
@@ -135,15 +151,15 @@ export default createBodyComponent('mj-social-element', {
                     />
                   </a>
                 </td>
-                ${this.getMjContent() ? `
+                ${this.getContent() ? `
                   <td>
                     <a
-                      ${this.generateHtmlAttributes({
+                      ${this.htmlAttributes({
                         href,
                         style: 'text',
-                        rel: this.getMjAttribute('rel'),
+                        rel: this.getAttribute('rel'),
                       })}>
-                      ${this.getMjContent()}
+                      ${this.getContent()}
                     </a>
                   </td>
                   ` : ''
@@ -153,5 +169,6 @@ export default createBodyComponent('mj-social-element', {
         </td>
       </tr>
     `
-  },
-})
+  }
+
+}

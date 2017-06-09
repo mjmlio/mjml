@@ -1,40 +1,45 @@
-import {
-  createBodyComponent,
-} from 'mjml-core/lib/createComponent'
+import { BodyComponent } from 'mjml-core'
 
 import widthParser from 'mjml-core/lib/helpers/widthParser'
 
-export default createBodyComponent('mj-column', {
-  allowedAttributes: {
-    'background-color': 'color',
-    border: 'unit(px)',
-    'border-bottom': 'unit(px)',
-    'border-left': 'unit(px)',
-    'border-radius': 'unit(px)',
-    'border-right': 'unit(px)',
-    'border-top': 'unit(px)',
-    direction: 'enum(ltr,rtl)',
-    'padding-bottom': 'unit(px,%)',
-    'padding-left': 'unit(px,%)',
-    'padding-right': 'unit(px,%)',
-    'padding-top': 'unit(px,%)',
-    padding: 'unit(px,%){1,4}',
-    'vertical-align': 'string',
-    width: 'unit(px,%)',
-  },
-  defaultAttributes: {
+export default class extends BodyComponent {
+
+  static tagName = 'mj-column'
+
+  // static allowedAttributes: {
+  //   'background-color': 'color',
+  //   border: 'unit(px)',
+  //   'border-bottom': 'unit(px)',
+  //   'border-left': 'unit(px)',
+  //   'border-radius': 'unit(px)',
+  //   'border-right': 'unit(px)',
+  //   'border-top': 'unit(px)',
+  //   direction: 'enum(ltr,rtl)',
+  //   'padding-bottom': 'unit(px,%)',
+  //   'padding-left': 'unit(px,%)',
+  //   'padding-right': 'unit(px,%)',
+  //   'padding-top': 'unit(px,%)',
+  //   padding: 'unit(px,%){1,4}',
+  //   'vertical-align': 'string',
+  //   width: 'unit(px,%)',
+  // }
+
+  static defaultAttributes = {
     direction: 'ltr',
-  },
+  }
+
   getChildContext() {
     const {
       containerWidth,
     } = this.context
+
     const {
       sibling,
     } = this.props
+
     const paddingSize = this.getShorthandAttrValue('padding', 'left') + this.getShorthandAttrValue('padding', 'right')
 
-    let parentWidth = this.getMjAttribute('width') || `${parseFloat(containerWidth) / sibling}px`
+    let parentWidth = this.getAttribute('width') || `${parseFloat(containerWidth) / sibling}px`
 
     const {
       unit,
@@ -43,7 +48,7 @@ export default createBodyComponent('mj-column', {
       parseFloatToInt: false,
     })
 
-    if (unit == '%') {
+    if (unit === '%') {
       parentWidth = `${(parseFloat(containerWidth) * parsedWidth / 100) - paddingSize}px`
     } else {
       parentWidth = `${parsedWidth - paddingSize}px`
@@ -53,51 +58,53 @@ export default createBodyComponent('mj-column', {
       ...this.context,
       parentWidth,
     }
-  },
+  }
+
   getStyles() {
     const tableStyle = {
-      'background-color': this.getMjAttribute('background-color'),
-      border: this.getMjAttribute('border'),
-      'border-bottom': this.getMjAttribute('border-bottom'),
-      'border-left': this.getMjAttribute('border-left'),
-      'border-radius': this.getMjAttribute('border-radius'),
-      'border-right': this.getMjAttribute('border-right'),
-      'border-top': this.getMjAttribute('border-top'),
-      'vertical-align': this.getMjAttribute('vertical-align'),
+      'background-color': this.getAttribute('background-color'),
+      border: this.getAttribute('border'),
+      'border-bottom': this.getAttribute('border-bottom'),
+      'border-left': this.getAttribute('border-left'),
+      'border-radius': this.getAttribute('border-radius'),
+      'border-right': this.getAttribute('border-right'),
+      'border-top': this.getAttribute('border-top'),
+      'vertical-align': this.getAttribute('vertical-align'),
     }
 
     return {
       div: {
         'font-size': '13px',
         'text-align': 'left',
-        direction: this.getMjAttribute('direction'),
+        direction: this.getAttribute('direction'),
         display: 'inline-block',
-        'vertical-align': this.getMjAttribute('vertical-align'),
+        'vertical-align': this.getAttribute('vertical-align'),
         width: '100%',
       },
       table: {
         ...(this.hasGutter() ? {} : tableStyle),
       },
       'td-outlook': {
-        'vertical-align': this.getMjAttribute('vertical-align'),
+        'vertical-align': this.getAttribute('vertical-align'),
         width: this.getParsedWidth(true), // should be in PX for outlook
       },
       gutter: {
         ...tableStyle,
-        padding: this.getMjAttribute('padding'),
-        'padding-top': this.getMjAttribute('padding-top'),
-        'padding-right': this.getMjAttribute('padding-right'),
-        'padding-bottom': this.getMjAttribute('padding-bottom'),
-        'padding-left': this.getMjAttribute('padding-left'),
+        padding: this.getAttribute('padding'),
+        'padding-top': this.getAttribute('padding-top'),
+        'padding-right': this.getAttribute('padding-right'),
+        'padding-bottom': this.getAttribute('padding-bottom'),
+        'padding-left': this.getAttribute('padding-left'),
       },
     }
-  },
+  }
+
   getParsedWidth(toString) {
     const {
       sibling,
     } = this.props
 
-    const width = this.getMjAttribute('width') || `${100 / sibling}%`
+    const width = this.getAttribute('width') || `${100 / sibling}%`
 
     const {
       unit,
@@ -114,7 +121,8 @@ export default createBodyComponent('mj-column', {
       unit,
       parsedWidth,
     }
-  },
+  }
+
   getColumnClass() {
     const {
       addMediaQuery,
@@ -145,32 +153,35 @@ export default createBodyComponent('mj-column', {
     })
 
     return className
-  },
+  }
+
   hasGutter() {
-    return this.getMjAttribute('padding') != null
-  },
+    return this.getAttribute('padding') !== null
+  }
+
   renderGutter() {
     return `
       <table
-        ${this.generateHtmlAttributes({
-          background: this.getMjAttribute('background-color'),
-          border: '0',
-          cellpadding: '0',
-          cellspacing: '0',
+        ${this.htmlAttributes({
+          background: this.getAttribute('background-color'),
+          border: 0,
+          cellpadding: 0,
+          cellspacing: 0,
           role: 'presentation',
           width: '100%',
         })}
       >
         <tbody>
           <tr>
-            <td ${this.generateHtmlAttributes({ style: 'gutter' })}>
+            <td ${this.htmlAttributes({ style: 'gutter' })}>
               ${this.renderColumn()}
             </td>
           </tr>
         </tbody>
       </table>
     `
-  },
+  }
+
   renderColumn() {
     const {
       children,
@@ -178,11 +189,11 @@ export default createBodyComponent('mj-column', {
 
     return `
       <table
-        ${this.generateHtmlAttributes({
-          background: this.hasGutter() ? null : this.getMjAttribute('background-color'),
-          border: '0',
-          cellpadding: '0',
-          cellspacing: '0',
+        ${this.htmlAttributes({
+          background: this.hasGutter() ? null : this.getAttribute('background-color'),
+          border: 0,
+          cellpadding: 0,
+          cellspacing: 0,
           role: 'presentation',
           style: 'table',
           width: '100%',
@@ -193,17 +204,17 @@ export default createBodyComponent('mj-column', {
             renderer: component => component.rawElement ? component.render() : `
               <tr>
                 <td
-                  ${component.generateHtmlAttributes({
-                    align: component.getMjAttribute('align'),
-                    background: component.getMjAttribute('container-background-color'),
+                  ${component.htmlAttributes({
+                    align: component.getAttribute('align'),
+                    background: component.getAttribute('container-background-color'),
                     style: {
-                      background: component.getMjAttribute('container-background-color'),
-                      'font-size': '0px',
-                      padding: component.getMjAttribute('padding'),
-                      'padding-top': component.getMjAttribute('padding-top'),
-                      'padding-right': component.getMjAttribute('padding-right'),
-                      'padding-bottom': component.getMjAttribute('padding-bottom'),
-                      'padding-left': component.getMjAttribute('padding-left'),
+                      background: component.getAttribute('container-background-color'),
+                      'font-size': 0,
+                      padding: component.getAttribute('padding'),
+                      'padding-top': component.getAttribute('padding-top'),
+                      'padding-right': component.getAttribute('padding-right'),
+                      'padding-bottom': component.getAttribute('padding-bottom'),
+                      'padding-left': component.getAttribute('padding-left'),
                       'word-break': 'break-word',
                     },
                   })}
@@ -216,11 +227,12 @@ export default createBodyComponent('mj-column', {
         </tbody>
       </table>
     `
-  },
+  }
+
   render() {
     return `
       <div
-        ${this.generateHtmlAttributes({
+        ${this.htmlAttributes({
           class: `${this.getColumnClass()} outlook-group-fix`,
           style: 'div',
         })}
@@ -228,5 +240,6 @@ export default createBodyComponent('mj-column', {
         ${this.hasGutter() ? this.renderGutter() : this.renderColumn()}
       </div>
     `
-  },
-})
+  }
+
+}

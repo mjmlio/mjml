@@ -18,7 +18,6 @@
   },
   "dependencies": {
     "htmlparser2": "^3.9.2",
-    "lodash": "^4.17.2",
-    "mjml-core": "^4.0.0-alpha.2"
+    "lodash": "^4.17.2"
   }
 }

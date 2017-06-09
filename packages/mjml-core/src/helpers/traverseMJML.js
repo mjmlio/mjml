@@ -1,13 +1,16 @@
-import _ from 'lodash'
+import flattenDeep from 'lodash/flattenDeep'
+import head from 'lodash/head'
+import map from 'lodash/map'
+import noop from 'lodash/noop'
 
-export default function traverseMJML(mjml, predicate = _.noop) {
-  const traverse = (mjml, predicate) => _.map(mjml.children, (child) => {
+export default function traverseMJML(mjml, predicate = noop) {
+  const traverse = mjml => map(mjml.children, (child) => {
     if (predicate(child)) {
       return child
     }
 
-    return traverse(child, predicate)
+    return traverse(child)
   })
 
-  return _.head(_.flattenDeep(traverse(mjml, predicate)))
+  return head(flattenDeep(traverse(mjml)))
 }

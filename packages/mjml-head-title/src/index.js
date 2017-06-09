@@ -1,12 +1,17 @@
-import {
-  createHeadComponent,
-} from 'mjml-core/lib/createComponent'
+import { HeadComponent } from 'mjml-core'
 
-export default createHeadComponent('mj-title', {
-  endingTag: true,
+export default class extends HeadComponent {
+
+  static tagName = 'mj-title'
+
+  static endingTag = true
+
   handler() {
-    const { add } = this.context
+    const {
+      add,
+    } = this.context
 
-    add('title', this.getMjContent())
-  },
-})
+    add('style', this.getContent())
+  }
+
+}

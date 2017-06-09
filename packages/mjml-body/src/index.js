@@ -1,34 +1,38 @@
-import {
-  createBodyComponent,
-} from 'mjml-core/lib/createComponent'
+import { BodyComponent } from 'mjml-core'
 
-export default createBodyComponent('mj-body', {
-  defaultAttributes: {
+export default class extends BodyComponent {
+
+  static tagName = 'mj-body'
+
+  static defaultAttributes = {
     width: '600px',
-  },
+  }
+
   getChildContext() {
     return {
       ...this.context,
-      containerWidth: this.getMjAttribute('width'),
+      containerWidth: this.getAttribute('width'),
     }
-  },
+  }
+
   getStyles() {
     return {
       div: {
-        'background-color': this.getMjAttribute('background-color'),
+        'background-color': this.getAttribute('background-color'),
       },
     }
-  },
+  }
+
   render() {
     return `
       <div
-        ${this.generateHtmlAttributes({
-          'background-color': this.getMjAttribute('background-color'),
+        ${this.htmlAttributes({
           style: 'div',
         })}
       >
         ${this.renderChildren()}
       </div>
     `
-  },
-})
+  }
+
+}

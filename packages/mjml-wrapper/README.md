@@ -41,7 +41,7 @@ By default, it will be 600px. With the `full-width` property on, it will be
 changed to 100%.
 
 <aside class="notice">
-  You can't nest a full-width section inside a full-width wrapper, section will act as a non-full-widtion section.
+  You can't nest a full-width section inside a full-width wrapper, section will act as a non-full-width section.
 </aside>
 
 <aside class="notice">

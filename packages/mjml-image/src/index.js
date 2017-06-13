@@ -87,7 +87,7 @@ class Image extends Component {
         title={mjAttribute('title')}
         height={mjAttribute('height')}
         src={mjAttribute('src')}
-        srcset={mjAttribute('srcset')}
+        srcSet={mjAttribute('srcset')}
         style={this.styles.img}
         width={this.getContentWidth()} />
     )

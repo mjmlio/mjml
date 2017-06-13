@@ -24,8 +24,8 @@ export default createBodyComponent('mj-text', {
     'vertical-align': 'string',
   },
   defaultAttributes: {
-    align: 'left',
-    color: '#000000',
+    'align': 'left',
+    'color': '#000000',
     'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
     'font-size': '13px',
     'line-height': '1',

@@ -40,6 +40,15 @@ The `full-width` property will be used to manage the background width.
 By default, it will be 600px. With the `full-width` property on, it will be
 changed to 100%.
 
+<aside class="notice">
+  You can't nest a full-width section inside a full-width wrapper, section will act as a non-full-width section.
+</aside>
+
+<aside class="notice">
+  If you're using a background-url on a `mj-wrapper` then do not add one into a section within the mj-wrapper. Outlook Desktop doesn't support nested VML, so it will most likely break your email.
+</aside>
+
+
 attribute           | unit        | description                    | default value
 --------------------|-------------|--------------------------------|---------------
 full-width          | string      | make the wrapper full-width    | n/a

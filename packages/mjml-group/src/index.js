@@ -83,7 +83,6 @@ class Group extends Component {
   getGroupClass () {
     const { mjAttribute, sibling } = this.props
     const width = mjAttribute('width')
-    const parentWidth = this.props.parentWidth || mjAttribute('parentWidth')
 
     if (width == undefined) {
       return `mj-column-per-${parseInt(100 / sibling)}`
@@ -96,8 +95,7 @@ class Group extends Component {
         return `mj-column-per-${parsedWidth}`
 
       case 'px':
-        const percentWidth = parseInt(width) / parentWidth * 100
-        return `mj-column-per-${percentWidth}`
+        return `mj-column-px-${parsedWidth}`
     }
   }
 

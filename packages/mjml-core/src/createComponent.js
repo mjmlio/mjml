@@ -30,7 +30,6 @@ export default function createComponent(type, name, component) {
     }
   }
 
-
   class Component {
 
     static getName() {

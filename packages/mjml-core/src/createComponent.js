@@ -9,42 +9,39 @@ import {
 } from './components'
 
 
-export function createBodyComponent (name, component) {
+export function createBodyComponent(name, component) {
   return createComponent('body', name, component)
 }
 
-export function createHeadComponent (name, component) {
+export function createHeadComponent(name, component) {
   return createComponent('head', name, component)
 }
 
-export default function createComponent (type, name, component) {
+export default function createComponent(type, name, component) {
+  const onlyFor = forType => function (target, key, desc) {
+    const fn = desc.value
 
-  const onlyFor = forType => {
-    return function (target, key, desc) {
-      const fn = desc.value
-
-      desc.value = function (...args) {
-        if (forType !== type) {
-          throw new Error(`This method can be use only with a ${type} component.`)
-        }
-
-        return fn.apply(this, args)
+    desc.value = function (...args) {
+      if (forType !== type) {
+        throw new Error(`This method can be use only with a ${type} component.`)
       }
+
+      return fn.apply(this, args)
     }
   }
 
 
   class Component {
 
-    static getName () {
+    static getName() {
       return name
     }
 
-    static getType () {
+    static getType() {
       return type
     }
 
-    constructor (initialDatas = {}) {
+    constructor(initialDatas = {}) {
       const {
         attributes = {},
         children = [],
@@ -68,25 +65,25 @@ export default function createComponent (type, name, component) {
       return this
     }
 
-    getChildContext () {
+    getChildContext() {
       return this.context
     }
 
     @onlyFor('body')
-    getStyles () {
+    getStyles() {
       return {}
     }
 
-    getMjAttribute (name) {
+    getMjAttribute(name) {
       return this.attributes[name] || undefined
     }
 
-    getMjContent () {
+    getMjContent() {
       return this.props.content.trim()
     }
 
     @onlyFor('body')
-    getShorthandAttrValue (attribute, direction) {
+    getShorthandAttrValue(attribute, direction) {
       const mjAttributeDirection = this.getMjAttribute(`${attribute}-${direction}`)
       const mjAttribute = this.getMjAttribute(attribute)
 
@@ -102,14 +99,14 @@ export default function createComponent (type, name, component) {
     }
 
     @onlyFor('body')
-    generateHtmlAttributes (attributes) {
+    generateHtmlAttributes(attributes) {
       const specialAttributes = {
-        style: (v) => this.generateStyles(v),
-        default: (v) => v
+        style: v => this.generateStyles(v),
+        default: v => v,
       }
 
       return reduce(attributes, (output, v, name) => {
-        const value = (specialAttributes[name] || specialAttributes['default'])(v)
+        const value = (specialAttributes[name] || specialAttributes.default)(v)
 
         if (value) {
           return output += ` ${name}="${value}"`
@@ -120,7 +117,7 @@ export default function createComponent (type, name, component) {
     }
 
     @onlyFor('body')
-    generateStyles (styles) {
+    generateStyles(styles) {
       styles = styles
         ? typeof styles === 'string'
           ? objectPath.get(this.getStyles(), styles)
@@ -139,7 +136,7 @@ export default function createComponent (type, name, component) {
     }
 
     @onlyFor('head')
-    handlerChildren () {
+    handlerChildren() {
       const childrens = this.props.children
 
       forEach(childrens, (child) => {
@@ -148,7 +145,7 @@ export default function createComponent (type, name, component) {
           initialDatas: {
             ...child,
             context: this.getChildContext(),
-          }
+          },
         })
 
         if (component.handler) {
@@ -158,7 +155,7 @@ export default function createComponent (type, name, component) {
     }
 
     @onlyFor('body')
-    renderChildren (children, options = {}) {
+    renderChildren(children, options = {}) {
       const {
         props = {},
         renderer = component => component.render(),
@@ -206,8 +203,8 @@ export default function createComponent (type, name, component) {
 
   if (component.useMJML) {
     component._render = component.render
-    component.render = function() {
-      const mjml = MJMLParser(this._render(), {ignoreInclude: true})
+    component.render = function () {
+      const mjml = MJMLParser(this._render(), { ignoreInclude: true })
 
       return this.context.processing(mjml, this.context)
     }
@@ -216,5 +213,4 @@ export default function createComponent (type, name, component) {
   Object.assign(newComponent.prototype, component)
 
   return newComponent
-
 }

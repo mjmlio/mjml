@@ -3,7 +3,7 @@ import fs from 'fs'
 const stdinToBuffer = (stream, done) => {
   let buffer = ''
 
-  stream.on('data', chunck => {
+  stream.on('data', (chunck) => {
     buffer += chunck
   })
 
@@ -19,6 +19,6 @@ const promisify = fn =>
         err ? reject(err) : resolve(...data))))
 
 
-export const write     = promisify(fs.writeFile)
-export const read      = promisify(fs.readFile)
+export const write = promisify(fs.writeFile)
+export const read = promisify(fs.readFile)
 export const readStdin = promisify(stdinToBuffer)

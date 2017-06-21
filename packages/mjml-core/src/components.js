@@ -4,11 +4,11 @@ import merge from 'lodash/merge'
 const components = {
 }
 
-export function registerComponent (component) {
+export function registerComponent(component) {
   components[component.getName()] = component
 }
 
-export function initComponent ({ initialDatas, name }) {
+export function initComponent({ initialDatas, name }) {
   const component = components[name]
 
   if (component) {

@@ -9,20 +9,18 @@ export { rulesCollection, registerRule }
 
 export const formatValidationError = ruleError
 
-const SKIP_ELEMENTS = [ "mjml", "mj-body", "mj-head" ]
+const SKIP_ELEMENTS = ['mjml', 'mj-body', 'mj-head']
 
 const validateNode = (element) => {
   const { children, tagName } = element
   let errors
 
-  if ( !includes(SKIP_ELEMENTS, tagName) ) {
-    errors = concat(errors, ...values(rulesCollection).map(rule => {
-      return rule(element)
-    }))
+  if (!includes(SKIP_ELEMENTS, tagName)) {
+    errors = concat(errors, ...values(rulesCollection).map(rule => rule(element)))
   }
 
   if (children && children.length > 0) {
-    errors = concat(errors, ...children.map((child) => validateNode(child)))
+    errors = concat(errors, ...children.map(child => validateNode(child)))
   }
 
   return filter(errors)

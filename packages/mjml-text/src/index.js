@@ -4,21 +4,21 @@ import conditionalTag from 'mjml-core/lib/helpers/conditionalTag'
 export default createBodyComponent('mj-text', {
   endingTag: true,
   allowedAttributes: {
-    'align': 'enum(left,right,center)',
+    align: 'enum(left,right,center)',
     'background-color': 'color',
-    'color': 'color',
+    color: 'color',
     'font-family': 'string',
     'font-size': 'unit(px,%)',
     'font-style': 'string',
     'font-weight': 'string',
-    'height': 'unit(px,%)',
+    height: 'unit(px,%)',
     'letter-spacing': 'unit(px,%)',
     'line-height': 'unit(px,%)',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
-    'padding': 'unit(px,%){1,4}',
+    padding: 'unit(px,%){1,4}',
     'text-decoration': 'string',
     'text-transform': 'string',
     'vertical-align': 'string',
@@ -29,9 +29,9 @@ export default createBodyComponent('mj-text', {
     'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
     'font-size': '13px',
     'line-height': '1',
-    'padding': '10px 25px',
+    padding: '10px 25px',
   },
-  getStyles () {
+  getStyles() {
     return {
       text: {
         'font-family': this.getMjAttribute('font-family'),
@@ -42,12 +42,12 @@ export default createBodyComponent('mj-text', {
         'text-align': this.getMjAttribute('align'),
         'text-decoration': this.getMjAttribute('text-decoration'),
         'text-transform': this.getMjAttribute('text-transform'),
-        'color': this.getMjAttribute('color'),
-        'height': this.getMjAttribute('height'),
-      }
+        color: this.getMjAttribute('color'),
+        height: this.getMjAttribute('height'),
+      },
     }
   },
-  renderContent () {
+  renderContent() {
     return `
       <div
         ${this.generateHtmlAttributes({
@@ -58,7 +58,7 @@ export default createBodyComponent('mj-text', {
       </div>
     `
   },
-  render () {
+  render() {
     const height = this.getMjAttribute('height')
 
     return height
@@ -72,5 +72,5 @@ export default createBodyComponent('mj-text', {
         `)}
       `
       : this.renderContent()
-  }
+  },
 })

@@ -14,22 +14,22 @@ import convertBooleansOnAttrs from './helpers/convertBooleansOnAttrs'
 import addCDATASection from './helpers/addCDATASection'
 import setEmptyAttributes from './helpers/setEmptyAttributes'
 
-const indexesForNewLine  = (xml) => {
+const indexesForNewLine = (xml) => {
   const regex = /\n/gi
-  const indexes = [ 0 ]
+  const indexes = [0]
 
   while (regex.exec(xml)) {
-    indexes.push(regex.lastIndex);
+    indexes.push(regex.lastIndex)
   }
 
   return indexes
 }
 
-export default function parseXML (xml, options = {}) {
+export default function parseXML(xml, options = {}) {
   const {
     addEmptyAttributes = true,
     CDATASections = _.chain({
-      ...components
+      ...components,
     })
       .filter(component => component.prototype.endingTag)
       .map(component => component.getName())
@@ -112,7 +112,7 @@ export default function parseXML (xml, options = {}) {
 
   const parser = new htmlparser.Parser({
     onopentag: (name, attrs) => {
-      const line = findLastIndex(lineIndexes, (i) => i <= parser.startIndex) + 1
+      const line = findLastIndex(lineIndexes, i => i <= parser.startIndex) + 1
 
       if (name == 'mj-include') {
         inInclude = true
@@ -130,7 +130,7 @@ export default function parseXML (xml, options = {}) {
       const newNode = {
         file: filePath,
         absoluteFilePath: path.resolve(cwd, filePath),
-        line: line,
+        line,
         parent: cur,
         tagName: name,
         attributes: attrs,
@@ -153,7 +153,7 @@ export default function parseXML (xml, options = {}) {
 
       cur = (cur && cur.parent) || null
     },
-    ontext: text => {
+    ontext: (text) => {
       if (!text) { return }
 
       const val = `${((cur && cur.content) || '')}${text}`.trim()
@@ -162,10 +162,10 @@ export default function parseXML (xml, options = {}) {
         cur.content = decodeAttributes(val)
       }
     },
-    oncomment: data => {
+    oncomment: (data) => {
       if (cur && keepComments) {
         cur.children.push({
-          line: findLastIndex(lineIndexes, (i) => i <= parser.startIndex) + 1,
+          line: findLastIndex(lineIndexes, i => i <= parser.startIndex) + 1,
           tagName: 'mj-raw',
           content: `<!-- ${data.trim()} -->`,
         })

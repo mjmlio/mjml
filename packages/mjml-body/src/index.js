@@ -6,20 +6,20 @@ export default createBodyComponent('mj-body', {
   defaultAttributes: {
     width: '600px',
   },
-  getChildContext () {
+  getChildContext() {
     return {
       ...this.context,
       containerWidth: this.getMjAttribute('width'),
     }
   },
-  getStyles () {
+  getStyles() {
     return {
       div: {
         'background-color': this.getMjAttribute('background-color'),
-      }
+      },
     }
   },
-  render () {
+  render() {
     return `
       <div
         ${this.generateHtmlAttributes({
@@ -30,5 +30,5 @@ export default createBodyComponent('mj-body', {
         ${this.renderChildren()}
       </div>
     `
-  }
+  },
 })

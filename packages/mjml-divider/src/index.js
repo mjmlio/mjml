@@ -10,20 +10,20 @@ export default createBodyComponent('mj-divider', {
     'border-color': '#000000',
     'border-style': 'solid',
     'border-width': '4px',
-    'padding': '10px 25px',
-    'width': '100%',
+    padding: '10px 25px',
+    width: '100%',
   },
-  getStyles () {
+  getStyles() {
     return {
       div: {
         'border-top': `${this.getMjAttribute('border-width')} ${this.getMjAttribute('border-style')} ${this.getMjAttribute('border-color')}`,
         'font-size': '1px',
-        'margin': '0px auto',
-        'width': this.getMjAttribute('width'),
-      }
+        margin: '0px auto',
+        width: this.getMjAttribute('width'),
+      },
     }
   },
-  getOutlookWidth () {
+  getOutlookWidth() {
     const {
       columnWidth,
     } = this.context
@@ -43,14 +43,14 @@ export default createBodyComponent('mj-divider', {
         return columnWidth
     }
   },
-  renderAfter () {
+  renderAfter() {
     return `
     <!--[if mso | IE]>
       <table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0" style="${this.generateStyles('p')}" width="${this.getOutlookWidth()}"><tr><td style="height:0;line-height:0;">&nbsp;</td></tr></table>
     <![endif]-->
     `
   },
-  render () {
+  render() {
     return `
       <p
         ${this.generateHtmlAttributes({
@@ -60,5 +60,5 @@ export default createBodyComponent('mj-divider', {
       </p>
       ${this.renderAfter()}
     `
-  }
+  },
 })

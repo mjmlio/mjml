@@ -18,7 +18,7 @@ export default (baseFile) => {
       content = fs.readFileSync(currentFile, 'utf8')
     } catch (e) {
       error(`File not found ${currentFile} from ${base}`)
-      return;
+      return
     }
 
     let matchgroup = includeRegexp.exec(content)

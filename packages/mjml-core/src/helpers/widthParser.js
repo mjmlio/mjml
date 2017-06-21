@@ -1,6 +1,6 @@
 const unitRegex = /[\d\.,]*(\D*)$/
 
-export default function widthParser (width, options = {}) {
+export default function widthParser(width, options = {}) {
   const {
     parseFloatToInt = true,
   } = options
@@ -13,7 +13,7 @@ export default function widthParser (width, options = {}) {
       parseInt :
       parseFloat,
   }
-  const parser = unitParsers[widthUnit] || unitParsers['default']
+  const parser = unitParsers[widthUnit] || unitParsers.default
 
   return {
     parsedWidth: parser(width),

@@ -5,7 +5,7 @@ import {
 } from 'mjml-core/lib/createComponent'
 
 export default createHeadComponent('mj-head', {
-  handler () {
+  handler() {
     this.handlerChildren()
-  }
+  },
 })

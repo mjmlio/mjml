@@ -2,3 +2,4 @@
 *.log
 lib
 node_modules
+test.html

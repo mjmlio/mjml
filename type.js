@@ -8,7 +8,7 @@ const stringtype = types.initializeType('string')
 
 console.log(stringtype)
 
-const output = (t) => { console.log(`Type: ${t.constructor.name} — Value: ${t.value} — isValid: ${t.isValid()}`) }
+const output = (t) => { console.log(`Type: ${t.constructor.name} — Value: ${t.value} — isValid: ${t.isValid()} ${t.getErrorMessage()}`) }
 
 [ new colortype('grey'),
   new colortype('rgba(0,255,3,0.3)'),

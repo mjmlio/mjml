@@ -30,6 +30,16 @@ export default class Type {
     return some(this.matchers, (matcher) => this.value.match(matcher))
   }
 
+  getErrorMessage () {
+    if (this.isValid()) {
+      return
+    }
+
+    const errorMessage = this.constructor.errorMessage || `Invalid value: ${this.value} for type ${this.constructor.name} `
+
+    return errorMessage.replace(/\$value/g, this.value)
+  }
+
   static check (type) {
     return !!type.match(this.constructor.typeChecker)
   }

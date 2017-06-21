@@ -1,4 +1,5 @@
 const mjml2html = require('./packages/mjml/lib/index')
+
 const map = require('lodash/map')
 
 const xml = `<mjml>
@@ -25,7 +26,6 @@ const { html } = mjml2html(xml, {
 if (process.argv.includes('--output')) {
   console.log(html)
 }
-
 
 
 console.timeEnd('mjml2html')

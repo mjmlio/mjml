@@ -8,6 +8,9 @@ export default (params) => {
   const args = params.match(/\{([^}]+)\}/)[1].split(',')
 
   return class Unit extends Type {
+
+    static errorMessage = `Invalid value: $value for type Unit, only accepts (${units.join(', ')}) units and ${args.join(' to ')} members`
+
     constructor (value) {
       super(value)
 

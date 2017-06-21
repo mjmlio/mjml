@@ -97,13 +97,13 @@ const xml = `
       </mj-column>
     </mj-section>
   </mj-body>
-</mjml>
-`
+</mjml>`
 
 console.time('mjml2html')
 
 const { html } = mjml2html(xml, {
   beautify: true,
+  filePath: './test.mjml'
 })
 
 console.timeEnd('mjml2html')

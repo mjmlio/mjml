@@ -47,7 +47,7 @@ MJML is a markup language designed to reduce the pain of coding a responsive ema
   </a>
 </p>
 
-We recommend installing and using MJML locally, in a project folder where you'll use MJML: 
+We recommend installing and using MJML locally, in a project folder where you'll use MJML:
 ```bash
 $> npm install mjml
 ```
@@ -109,7 +109,7 @@ import { mjml2html } from 'mjml'
 /*
   Compile an mjml string
 */
-const htmlOutput = mjml2html(`
+const { errors, html } = mjml2html(`
   <mjml>
     <mj-body>
       <mj-container>
@@ -126,9 +126,14 @@ const htmlOutput = mjml2html(`
 `)
 
 /*
-  Print the responsive HTML generated and MJML errors if any
+  Print the generated responsive HTML
 */
-console.log(htmlOutput)
+console.log(html)
+
+/*
+  Print the mjml errors, if any
+ */
+console.log(errors)
 ```
 
 ### Create your component

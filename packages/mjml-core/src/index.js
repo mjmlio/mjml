@@ -10,7 +10,7 @@ import { minify as htmlMinify } from 'html-minifier'
 import MJMLParser from 'mjml-parser-xml'
 import MJMLValidator from 'mjml-validator'
 
-import components, { initComponent } from './components'
+import components, { initComponent, registerComponent } from './components'
 
 import mergeOutlookConditionnals from './helpers/mergeOutlookConditionnals'
 import skeleton from './helpers/skeleton'
@@ -203,10 +203,10 @@ export default function mjml2html(mjml, options = {}) {
 export {
   components,
   initComponent,
+  registerComponent,
 }
 
 export {
   BodyComponent,
   HeadComponent,
-  registerComponent,
 } from './createComponent'

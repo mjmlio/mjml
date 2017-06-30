@@ -73,32 +73,57 @@ export default class extends BodyComponent {
     }
 
     return {
-      div: {
+      'div': {
         'font-size': '13px',
         'text-align': 'left',
-        direction: this.getAttribute('direction'),
-        display: 'inline-block',
+        'direction': this.getAttribute('direction'),
+        'display': 'inline-block',
         'vertical-align': this.getAttribute('vertical-align'),
-        width: '100%',
+        'width': this.getMobileWidth(),
       },
-      table: {
+      'table': {
         ...(this.hasGutter() ? {} : tableStyle),
       },
       'td-outlook': {
         'vertical-align': this.getAttribute('vertical-align'),
-        width: this.getParsedWidth(true), // should be in PX for outlook
+        'width': this.getParsedWidth(true), // should be in PX for outlook
       },
-      gutter: {
+      'gutter': {
         ...tableStyle,
-        padding: this.getAttribute('padding'),
-        'padding-top': this.getAttribute('padding-top'),
-        'padding-right': this.getAttribute('padding-right'),
-        'padding-bottom': this.getAttribute('padding-bottom'),
-        'padding-left': this.getAttribute('padding-left'),
-      },
+        'padding': this.getMjAttribute('padding'),
+        'padding-top': this.getMjAttribute('padding-top'),
+        'padding-right': this.getMjAttribute('padding-right'),
+        'padding-bottom': this.getMjAttribute('padding-bottom'),
+        'padding-left': this.getMjAttribute('padding-left'),
+      }
     }
-  }
+  },
+  getMobileWidth() {
+    const { sibling } = this.props
+    const width = this.getAttribute('width')
+    const mobileWidth = this.getAttribute('mobileWidth')
 
+    if (mobileWidth != "mobileWidth" ) {
+      return '100%'
+    } else if (width == undefined) {
+      return `${parseInt(100 / sibling)}%`
+    }
+
+    const {
+      unit,
+      parsedWidth,
+    } = widthParser(width, {
+      parseFloatToInt: false,
+    })
+
+    switch (unit) {
+      case '%':
+        return width
+      case 'px':
+      default:
+        return `${parsedWidth / parentWidth}%`
+    }
+  },
   getParsedWidth(toString) {
     const {
       sibling,
@@ -208,9 +233,9 @@ export default class extends BodyComponent {
                     align: component.getAttribute('align'),
                     background: component.getAttribute('container-background-color'),
                     style: {
-                      background: component.getAttribute('container-background-color'),
-                      'font-size': 0,
-                      padding: component.getAttribute('padding'),
+                      'background': component.getAttribute('container-background-color'),
+                      'font-size': '0px',
+                      'padding': component.getAttribute('padding'),
                       'padding-top': component.getAttribute('padding-top'),
                       'padding-right': component.getAttribute('padding-right'),
                       'padding-bottom': component.getAttribute('padding-bottom'),

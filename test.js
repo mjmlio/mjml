@@ -12,10 +12,21 @@ const xml = `
   </mj-head>
   <mj-body>
     <mj-section>
+      <mj-group>
+        <mj-column>
+          <mj-text>
+            Hello don't explode pls :o
+          </mj-text>
+        </mj-column>
+        <mj-column>
+          <mj-text>
+            Hello don't explode pls :o
+          </mj-text>
+        </mj-column>
+      </mj-group>
       <mj-column>
-        <mj-button href="https://mjml.io/" font-family="Helvetica" color="white" background-color="#f45e43" font-style="italic">
-          Background-color & font-size
-        </mj-button>
+        <mj-text>
+          Hey this iz crazy
       </mj-column>
       <mj-column>
         <mj-button href="https://mjml.io/" font-family="Helvetica" color="white" background-color="#f45e43" border-radius="50px">
@@ -97,13 +108,13 @@ const xml = `
       </mj-column>
     </mj-section>
   </mj-body>
-</mjml>
-`
+</mjml>`
 
 console.time('mjml2html')
 
 const { html } = mjml2html(xml, {
   beautify: true,
+  filePath: './test.mjml'
 })
 
 console.timeEnd('mjml2html')

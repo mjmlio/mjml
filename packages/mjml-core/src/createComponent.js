@@ -1,6 +1,7 @@
 import forEach from 'lodash/forEach'
 import identity from 'lodash/identity'
 import reduce from 'lodash/reduce'
+import kebabCase from 'lodash/kebabCase'
 
 import objectPath from 'object-path'
 
@@ -11,6 +12,9 @@ import shorthandParser from './helpers/shorthandParser'
 import components, { initComponent } from './components'
 
 class Component {
+  static getTagName() {
+    return kebabCase(this.name)
+  }
 
   static defaultAttributes = {}
 
@@ -167,6 +171,9 @@ export class BodyComponent extends Component {
 }
 
 export class HeadComponent extends Component {
+  static getTagName() {
+    return kebabCase(this.name)
+  }
 
   handlerChildren() {
     const childrens = this.props.children

@@ -2,9 +2,7 @@ import { BodyComponent } from 'mjml-core'
 
 import conditionalTag from 'mjml-core/lib/helpers/conditionalTag'
 
-export default class extends BodyComponent {
-
-  static tagName = 'mj-text'
+export default class MjText extends BodyComponent {
 
   static endingTag = true
 

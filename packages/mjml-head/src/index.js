@@ -1,8 +1,6 @@
 import { HeadComponent } from 'mjml-core'
 
-export default class extends HeadComponent {
-
-  static tagName = 'mj-head'
+export default class MjHead extends HeadComponent {
 
   handler() {
     this.handlerChildren()

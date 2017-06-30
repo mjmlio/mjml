@@ -1,11 +1,10 @@
-import {
-  createBodyComponent,
-} from 'mjml-core/lib/createComponent'
+import { BodyComponent } from 'mjml-core'
 
 import widthParser from 'mjml-core/lib/helpers/widthParser'
 
-export default createBodyComponent('mj-group', {
-  allowedAttributes: {
+export default class MjGroup extends BodyComponent {
+
+  static allowedAttributes = {
     'background-color': 'color',
     'border': 'unit(px)',
     'border-bottom': 'unit(px)',
@@ -21,10 +20,12 @@ export default createBodyComponent('mj-group', {
     'padding': 'unit(px,%){1,4}',
     'vertical-align': 'string',
     'width': 'unit(px,%)',
-  },
-  defaultAttributes: {
+  }
+
+  static defaultAttributes = {
     'direction': 'ltr',
-  },
+  }
+
   getChildContext () {
     const {
       containerWidth,
@@ -53,7 +54,8 @@ export default createBodyComponent('mj-group', {
       ...this.context,
       containerWidth,
     }
-  },
+  }
+
   getStyles () {
     return {
       'div': {
@@ -80,7 +82,8 @@ export default createBodyComponent('mj-group', {
         'width': this.getParsedWidth(true), // should be in PX for outlook
       }
     }
-  },
+  }
+
   getParsedWidth (toString) {
     const {
       sibling,
@@ -103,7 +106,8 @@ export default createBodyComponent('mj-group', {
       unit,
       parsedWidth,
     }
-  },
+  }
+
   getColumnClass () {
     const {
       addMediaQuery,
@@ -134,7 +138,8 @@ export default createBodyComponent('mj-group', {
     })
 
     return className
-  },
+  }
+
   render () {
     const {
       children,
@@ -204,4 +209,5 @@ export default createBodyComponent('mj-group', {
       </div>
     `
   }
-})
+}
+

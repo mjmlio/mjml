@@ -1,8 +1,6 @@
 import { HeadComponent } from 'mjml-core'
 
-export default class extends HeadComponent {
-
-  static tagName = 'mj-title'
+export default class MjTitle extends HeadComponent {
 
   static endingTag = true
 

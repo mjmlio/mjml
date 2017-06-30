@@ -1,7 +1,9 @@
+import kebabCase from 'lodash/kebabCase'
+
 const components = {}
 
 export function registerComponent(Component) {
-  components[Component.tagName] = Component
+  components[kebabCase(Component.name)] = Component
 }
 
 export function initComponent({ initialDatas, name }) {

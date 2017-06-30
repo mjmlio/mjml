@@ -2,9 +2,7 @@ import { BodyComponent } from 'mjml-core'
 
 import widthParser from 'mjml-core/lib/helpers/widthParser'
 
-export default class extends BodyComponent {
-
-  static tagName = 'mj-column'
+export default class MjColumn extends BodyComponent {
 
   // static allowedAttributes: {
   //   'background-color': 'color',
@@ -90,14 +88,15 @@ export default class extends BodyComponent {
       },
       'gutter': {
         ...tableStyle,
-        'padding': this.getMjAttribute('padding'),
-        'padding-top': this.getMjAttribute('padding-top'),
-        'padding-right': this.getMjAttribute('padding-right'),
-        'padding-bottom': this.getMjAttribute('padding-bottom'),
-        'padding-left': this.getMjAttribute('padding-left'),
+        'padding': this.getAttribute('padding'),
+        'padding-top': this.getAttribute('padding-top'),
+        'padding-right': this.getAttribute('padding-right'),
+        'padding-bottom': this.getAttribute('padding-bottom'),
+        'padding-left': this.getAttribute('padding-left'),
       }
     }
-  },
+  }
+
   getMobileWidth() {
     const { sibling } = this.props
     const width = this.getAttribute('width')
@@ -123,7 +122,8 @@ export default class extends BodyComponent {
       default:
         return `${parsedWidth / parentWidth}%`
     }
-  },
+  }
+
   getParsedWidth(toString) {
     const {
       sibling,

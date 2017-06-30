@@ -3,9 +3,7 @@ import omit from 'lodash/omit'
 
 import { HeadComponent } from 'mjml-core'
 
-export default class extends HeadComponent {
-
-  static tagName = 'mj-attributes'
+export default class MjAttributes extends HeadComponent {
 
   handler() {
     const {

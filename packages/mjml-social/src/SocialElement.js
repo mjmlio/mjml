@@ -32,9 +32,7 @@ const defaultSocialNetworks = {
   },
 }
 
-export default class extends BodyComponent {
-
-  static tagName = 'mj-social-element'
+export default class MjSocialElement extends BodyComponent {
 
   static endingTag = true
 

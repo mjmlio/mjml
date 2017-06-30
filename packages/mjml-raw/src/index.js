@@ -1,8 +1,6 @@
 import { BodyComponent } from 'mjml-core'
 
-export default class extends BodyComponent {
-
-  static tagName = 'mj-raw'
+export default class MjRaw extends BodyComponent {
 
   static endingTag = true
 

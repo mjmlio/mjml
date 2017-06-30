@@ -1,8 +1,6 @@
 import { BodyComponent } from 'mjml-core'
 
-export default class extends BodyComponent {
-
-  static tagName = 'mj-section'
+export default class MjSection extends BodyComponent {
 
   // static allowedAttributes = {
   //   'background-color': 'color',

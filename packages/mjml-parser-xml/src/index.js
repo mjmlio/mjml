@@ -38,7 +38,7 @@ export default function MJMLParser(xml, options = {}) {
     ...components,
   })
   .filter(component => component.prototype.endingTag)
-  .map(component => component.tagName)
+  .map(component => component.getTagName())
   .value()
 
   const cwd = filePath ? path.dirname(filePath) : process.cwd()

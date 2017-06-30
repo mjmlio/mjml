@@ -1,8 +1,6 @@
 import { BodyComponent } from 'mjml-core'
 
-export default class extends BodyComponent {
-
-  static tagName = 'mj-body'
+export default class MjBody extends BodyComponent {
 
   static defaultAttributes = {
     width: '600px',

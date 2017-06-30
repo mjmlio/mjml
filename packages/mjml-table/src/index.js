@@ -1,8 +1,6 @@
 import { BodyComponent } from 'mjml-core'
 
-export default class extends BodyComponent {
-
-  static tagName = 'mj-table'
+export default class MjTable extends BodyComponent {
 
   static endingTag = true
 

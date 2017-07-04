@@ -1,0 +1,24 @@
+{
+  "name": "mjml-wrapper",
+  "description": "mjml-wrapper",
+  "version": "4.0.0-alpha.2",
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mjmlio/mjml.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mjmlio/mjml/issues"
+  },
+  "homepage": "https://mjml.io",
+  "scripts": {
+    "clean": "../../node_modules/.bin/rimraf lib",
+    "build": "../../node_modules/.bin/babel src --out-dir lib"
+  },
+  "dependencies": {
+    "lodash": "^4.17.2",
+    "mjml-core": "^4.0.0-alpha.2",
+    "mjml-section": "^4.0.0-alpha.2"
+  }
+}

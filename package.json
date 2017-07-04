@@ -20,7 +20,7 @@
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-import": "^2.3.0",
-    "lerna": "2.0.0-rc.5",
+    "lerna": "^2.0.0-rc.5",
     "opn": "^5.0.0",
     "rimraf": "^2.6.1"
   }

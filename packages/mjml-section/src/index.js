@@ -1,5 +1,7 @@
 import { BodyComponent } from 'mjml-core'
 
+import widthParser from 'mjml-core/lib/helpers/widthParser'
+
 export default class MjSection extends BodyComponent {
 
   // static allowedAttributes = {
@@ -28,11 +30,31 @@ export default class MjSection extends BodyComponent {
   static defaultAttributes = {
     'background-repeat': 'repeat',
     'background-size': 'auto',
-    direction: 'ltr',
-    padding: '20px 0',
+    'direction': 'ltr',
+    'padding': '20px 0',
     'text-align': 'center',
     'text-padding': '4px 4px 4px 0',
     'vertical-align': 'top',
+  }
+
+getChildContext() {
+    const {
+      containerWidth,
+    } = this.context
+
+    const paddingSize = this.getShorthandAttrValue('padding', 'left') + this.getShorthandAttrValue('padding', 'right')
+
+    const {
+      unit,
+      parsedWidth,
+    } = widthParser(containerWidth, {
+      parseFloatToInt: false,
+    })
+
+    return {
+      ...this.context,
+      containerWidth: `${parsedWidth - paddingSize}px`,
+    }
   }
 
   getStyles() {
@@ -53,23 +75,23 @@ export default class MjSection extends BodyComponent {
     return {
       tableFullwidth: {
         ...(fullWidth ? background : {}),
-        width: '100%',
+        'width': '100%',
         'border-radius': this.getAttribute('border-radius'),
       },
       table: {
         ...(fullWidth ? {} : background),
-        width: '100%',
+        'width': '100%',
         'border-radius': this.getAttribute('border-radius'),
       },
       td: {
-        border: this.getAttribute('border'),
+        'border': this.getAttribute('border'),
         'border-bottom': this.getAttribute('border-bottom'),
         'border-left': this.getAttribute('border-left'),
         'border-right': this.getAttribute('border-right'),
         'border-top': this.getAttribute('border-top'),
-        direction: this.getAttribute('direction'),
+        'direction': this.getAttribute('direction'),
         'font-size': '0px',
-        padding: this.getAttribute('padding'),
+        'padding': this.getAttribute('padding'),
         'padding-bottom': this.getAttribute('padding-bottom'),
         'padding-left': this.getAttribute('padding-left'),
         'padding-right': this.getAttribute('padding-right'),
@@ -79,15 +101,19 @@ export default class MjSection extends BodyComponent {
       },
       div: {
         ...(fullWidth ? {} : background),
-        Margin: '0px auto',
+        'Margin': '0px auto',
         'border-radius': this.getAttribute('border-radius'),
         'max-width': containerWidth,
       },
+      innerDiv: {
+        'line-height': '0',
+        'font-size': '0',
+      }
     }
   }
 
   hasBackground() {
-    return this.getAttribute('background-url') !== null
+    return this.getAttribute('background-url') != null
   }
 
   isFullWidth() {
@@ -124,6 +150,9 @@ export default class MjSection extends BodyComponent {
     } = this.props
 
     return `
+      <!--[if mso | IE]>
+        <tr>
+      <![endif]-->
       ${this.renderChildren(children, {
         renderer: component => component.rawElement ? component.render() : `
           <!--[if mso | IE]>
@@ -140,6 +169,10 @@ export default class MjSection extends BodyComponent {
           <![endif]-->
         `,
       })}
+
+      <!--[if mso | IE]>
+        </tr>
+      <![endif]-->
     `
   }
 
@@ -153,10 +186,10 @@ export default class MjSection extends BodyComponent {
     return `
       <!--[if mso | IE]>
         <v:rect ${this.htmlAttributes({
-          style: fullWidth ? 'mso-width-percent:1000;' : `width:${containerWidth}`,
+          'style': fullWidth ? { 'mso-width-percent': '1000' } : { width: containerWidth },
           'xmlns:v': 'urn:schemas-microsoft-com:vml',
-          fill: 'true',
-          stroke: 'false',
+          'fill': 'true',
+          'stroke': 'false',
         })}>
         <v:fill ${this.htmlAttributes({
           origin: '0.5, 0',
@@ -178,6 +211,7 @@ export default class MjSection extends BodyComponent {
   renderSection() {
     return `
       <div ${this.htmlAttributes({ style: 'div' })}>
+        ${this.hasBackground() ? `<div ${this.htmlAttributes({ style: 'innerDiv' })}>` : ''}
         <table
           ${this.htmlAttributes({
             align: 'center',
@@ -198,17 +232,16 @@ export default class MjSection extends BodyComponent {
               >
                 <!--[if mso | IE]>
                   <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                    <tr>
                 <![endif]-->
                   ${this.renderWrappedChildren()}
                 <!--[if mso | IE]>
-                    </tr>
                   </table>
                 <![endif]-->
               </td>
             </tr>
           </tbody>
         </table>
+        ${this.hasBackground() ? `</div>` : ''}
       </div>
     `
   }

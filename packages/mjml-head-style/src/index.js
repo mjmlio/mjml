@@ -9,7 +9,7 @@ export default class MjStyle extends HeadComponent {
       add,
     } = this.context
 
-    add('style', this.getContent())
+    add(this.getAttribute('inline') == 'inline' ? 'inlineStyle' : 'style', this.getContent())
   }
 
 }

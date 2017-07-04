@@ -36,14 +36,13 @@ export default function mjml2html(mjml, options = {}) {
     fonts = {
       'Open Sans': 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,700',
       'Droid Sans': 'https://fonts.googleapis.com/css?family=Droid+Sans:300,400,500,700',
-      Lato: 'https://fonts.googleapis.com/css?family=Lato:300,400,500,700',
-      Roboto: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700',
-      Ubuntu: 'https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700',
+      'Lato': 'https://fonts.googleapis.com/css?family=Lato:300,400,500,700',
+      'Roboto': 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700',
+      'Ubuntu': 'https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700',
     },
     inlineCSS = true,
     keepComments,
     minify = false,
-    style = [],
     validationLevel = 'soft',
   } = options
 
@@ -51,9 +50,10 @@ export default function mjml2html(mjml, options = {}) {
     classes: {},
     defaultAttributes: {},
     fonts,
+    inlineStyle: [],
     mediaQueries: {},
     mobileBreakpoint: '480px',
-    style,
+    style: [],
     title: '',
   }
 
@@ -164,13 +164,13 @@ export default function mjml2html(mjml, options = {}) {
 
   content = processing(mjBody, bodyHelpers, applyAttributes)
 
-  if (globalDatas.style.length > 0) {
-    content = inlineCSS ? juice(content, {
+  if (globalDatas.inlineStyle.length > 0) {
+    content = juice(content, {
       applyStyleTags: false,
-      extraCss: globalDatas.style.join(''),
+      extraCss: globalDatas.inlineStyle.join(''),
       insertPreservedExtraCss: false,
       removeStyleTags: false,
-    }) : content
+    })
   }
 
   content = skeleton({

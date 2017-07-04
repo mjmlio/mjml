@@ -11,6 +11,7 @@ export default function skeleton(options) {
     fonts = {},
     mediaQueries = {},
     title = '',
+    style,
   } = options
 
   return `
@@ -57,6 +58,7 @@ export default function skeleton(options) {
         <![endif]-->
         ${buildFontsTags(content, fonts)}
         ${buildMediaQueriesTags(mediaQueries)}
+        ${style ? `<style type="text/css">${style.join('')}</style>` : '' }
       </head>
       <body>
         ${content}

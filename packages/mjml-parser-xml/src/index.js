@@ -37,7 +37,7 @@ export default function MJMLParser(xml, options = {}) {
   const CDATASections = _.chain({
     ...components,
   })
-  .filter(component => component.prototype.endingTag)
+  .filter(component => component.endingTag)
   .map(component => component.getTagName())
   .value()
 

@@ -4,10 +4,21 @@ const mjml2html = require('./packages/mjml/src/index')
 
 const xml = `
 <mjml>
+  <mj-head>
+    <mj-style inline="inline">
+      p {
+        color: red;
+      }
+    </mj-style>
+  </mj-head>
   <mj-body>
     <mj-section background-url="http://www.lerepairedessciences.fr/sciences/questions_sciences/nuages_tombent_fichiers/nuages.jpg"  border-top="1px solid #aaaaaa" border-left="1px solid #aaaaaa" border-right="1px solid #aaaaaa" padding="20px">
       <mj-column>
-        <mj-image padding="0" src="https://placeholdit.imgix.net/~text?&w=350&h=150" />
+        <mj-text>
+          <p>
+            pouet pouet pouet
+          </p>
+        </mj-text>
       </mj-column>
     </mj-section>
   </mj-body>

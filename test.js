@@ -19,6 +19,12 @@ const xml = `
             pouet pouet pouet
           </p>
         </mj-text>
+        <mj-spacer height="200px" />
+        <mj-text>
+          <p>
+            pouet pouet pouet
+          </p>
+        </mj-text>
       </mj-column>
     </mj-section>
   </mj-body>

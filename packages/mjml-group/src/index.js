@@ -175,7 +175,7 @@ export default class MjGroup extends BodyComponent {
 
     return `
       <div
-        ${this.generateHtmlAttributes({
+        ${this.htmlAttributes({
           'class': `${this.getColumnClass()} outlook-group-fix`,
           style: 'div',
         })}
@@ -189,7 +189,7 @@ export default class MjGroup extends BodyComponent {
             renderer: component => component.rawElement ? component.render() : `
               <!--[if mso | IE]>
               <td
-                ${component.generateHtmlAttributes({
+                ${component.htmlAttributes({
                   style: {
                     align: component.getMjAttribute('align'),
                     width: getElementWidth(component.getMjAttribute('width'))

@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import htmlparser from 'htmlparser2'
 
 import isObject from 'lodash/isObject'
@@ -7,6 +6,9 @@ import find from 'lodash/find'
 import mapValues from 'lodash/mapValues'
 import path from 'path'
 import fs from 'fs'
+import filter from 'lodash/fp/filter'
+import map from 'lodash/fp/map'
+import flow from 'lodash/fp/flow'
 
 import parseAttributes, { decodeAttributes } from './helpers/parseAttributes'
 import cleanNode from './helpers/cleanNode'
@@ -34,12 +36,10 @@ export default function MJMLParser(xml, options = {}) {
     filePath = '.'
   } = options
 
-  const CDATASections = _.chain({
-    ...components,
-  })
-  .filter(component => component.endingTag)
-  .map(component => component.getTagName())
-  .value()
+  const CDATASections = flow(
+    filter(component => component.endingTag),
+    map(component => component.getTagName())
+  )({...components})
 
   const cwd = filePath ? path.dirname(filePath) : process.cwd()
 

@@ -10,7 +10,7 @@ export default class MjImage extends BodyComponent {
 
   static defaultAttributes = {
     align: 'center',
-    border: 0,
+    border: '0',
     height: 'auto',
     padding: '10px 25px',
     target: '_blank',

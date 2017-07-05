@@ -1,6 +1,6 @@
 import Type from './type'
 
-export const matcher = /^strin/gmi
+export const matcher = /^string/gmi
 
 export default (params) => {
   return class NString extends Type {

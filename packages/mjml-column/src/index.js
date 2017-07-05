@@ -200,7 +200,7 @@ export default class MjColumn extends BodyComponent {
   }
 
   hasGutter() {
-    return this.getAttribute('padding') !== null
+    return this.getAttribute('padding') != null
   }
 
   renderGutter() {
@@ -208,9 +208,9 @@ export default class MjColumn extends BodyComponent {
       <table
         ${this.htmlAttributes({
           background: this.getAttribute('background-color'),
-          border: 0,
-          cellpadding: 0,
-          cellspacing: 0,
+          border: '0',
+          cellpadding: '0',
+          cellspacing: '0',
           role: 'presentation',
           width: '100%',
         })}
@@ -235,9 +235,9 @@ export default class MjColumn extends BodyComponent {
       <table
         ${this.htmlAttributes({
           background: this.hasGutter() ? null : this.getAttribute('background-color'),
-          border: 0,
-          cellpadding: 0,
-          cellspacing: 0,
+          border: '0',
+          cellpadding: '0',
+          cellspacing: '0',
           role: 'presentation',
           style: 'table',
           width: '100%',

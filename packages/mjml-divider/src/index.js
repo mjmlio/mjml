@@ -19,8 +19,8 @@ export default class MjDivider extends BodyComponent {
       div: {
         'border-top': `${this.getAttribute('border-width')} ${this.getAttribute('border-style')} ${this.getAttribute('border-color')}`,
         'font-size': 1,
-        margin: '0px auto',
-        width: this.getAttribute('width'),
+        'margin': '0px auto',
+        'width': this.getAttribute('width'),
       },
     }
   }

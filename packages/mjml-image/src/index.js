@@ -27,21 +27,21 @@ export default class MjImage extends BodyComponent {
 
     return {
       img: {
-        border: this.getAttribute('border'),
-        display: 'block',
-        outline: 'none',
+        'border': this.getAttribute('border'),
+        'display': 'block',
+        'outline': 'none',
         'text-decoration': 'none',
         'min-width': fullWidth ? '100%' : null,
-        width: fullWidth ? `${parsedWidth}${unit}` : '100%',
+        'width': fullWidth ? `${parsedWidth}${unit}` : '100%',
         'max-width': fullWidth ? '100%' : null,
       },
       td: {
-        width: fullWidth ? null : `${parsedWidth}${unit}`,
+        'width': fullWidth ? null : `${parsedWidth}${unit}`,
       },
       table: {
         'min-width': fullWidth ? '100%' : null,
         'max-width': fullWidth ? '100%' : null,
-        width: fullWidth ? `${parsedWidth}${unit}` : null,
+        'width': fullWidth ? `${parsedWidth}${unit}` : null,
         'border-collapse': 'collapse',
         'border-spacing': '0px',
       },

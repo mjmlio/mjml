@@ -82,9 +82,9 @@ export default class MjColumn extends BodyComponent {
       'table': {
         ...(this.hasGutter() ? {} : tableStyle),
       },
-      'td-outlook': {
+      'tdOutlook': {
         'vertical-align': this.getAttribute('vertical-align'),
-        'width': this.getParsedWidth(true), // should be in PX for outlook
+        'width': this.getWidthAsPixel(),
       },
       'gutter': {
         ...tableStyle,
@@ -121,6 +121,25 @@ export default class MjColumn extends BodyComponent {
       case 'px':
       default:
         return `${parsedWidth / parentWidth}%`
+    }
+  }
+
+  getWidthAsPixel() {
+    const {
+      containerWidth
+    } = this.context
+
+    const {
+      unit,
+      parsedWidth,
+    } = widthParser(this.getParsedWidth(true), {
+      parseFloatToInt: false,
+    })
+
+    if (unit === '%') {
+      return `${(parseFloat(containerWidth) * parsedWidth / 100)}px`
+    } else {
+      return `${parsedWidth}px`
     }
   }
 

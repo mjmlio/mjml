@@ -159,7 +159,7 @@ getChildContext() {
             <td
               ${component.htmlAttributes({
                 align: component.getAttribute('align'),
-                style: 'td-outlook',
+                style: 'tdOutlook',
               })}
             >
           <![endif]-->

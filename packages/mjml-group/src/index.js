@@ -77,9 +77,9 @@ export default class MjGroup extends BodyComponent {
         'border-top': this.getMjAttribute('border-top'),
         'vertical-align': this.getMjAttribute('vertical-align'),
       },
-      'td-outlook' : {
+      'tdOutlook' : {
         'vertical-align': this.getMjAttribute('vertical-align'),
-        'width': this.getParsedWidth(true), // should be in PX for outlook
+        'width': this.getWidthAsPixel(),
       }
     }
   }
@@ -105,6 +105,25 @@ export default class MjGroup extends BodyComponent {
     return {
       unit,
       parsedWidth,
+    }
+  }
+
+   getWidthAsPixel() {
+    const {
+      containerWidth
+    } = this.context
+
+    const {
+      unit,
+      parsedWidth,
+    } = widthParser(this.getParsedWidth(true), {
+      parseFloatToInt: false,
+    })
+
+    if (unit === '%') {
+      return `${(parseFloat(containerWidth) * parsedWidth / 100)}px`
+    } else {
+      return `${parsedWidth}px`
     }
   }
 

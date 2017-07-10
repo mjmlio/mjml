@@ -10,13 +10,13 @@ export default class MjDivider extends BodyComponent {
     'border-color': '#000000',
     'border-style': 'solid',
     'border-width': '4px',
-    padding: '10px 25px',
-    width: '100%',
+    'padding': '10px 25px',
+    'width': '100%',
   }
 
   getStyles() {
     return {
-      div: {
+      p: {
         'border-top': `${this.getAttribute('border-width')} ${this.getAttribute('border-style')} ${this.getAttribute('border-color')}`,
         'font-size': 1,
         'margin': '0px auto',

@@ -65,7 +65,7 @@ const xml = `
           <mj-text align="center" padding="50px 40px 0 40px" font-weight="300" padding="0">
             Marketers/advertisers usually focus their efforts on the people responsible for making the purchase. In many cases, this is an effective approach but in other cases it can make for a totally useless marketing campaign.
           </mj-text>
-          <mj-button align="center" background-color="#5FA91D" color="#FFFFFF" border-radius="2px" href="#" inner-padding="15px 30px" padding-bottom="100" padding-top="20">
+          <mj-button align="center" background-color="#5FA91D" color="#FFFFFF" border-radius="2px" href="#" inner-padding="15px 30px" padding-bottom="100px" padding-top="20px">
             CALL TO ACTION
           </mj-button>
         </mj-column>

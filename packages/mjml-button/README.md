@@ -43,6 +43,7 @@ font-size                   | px          | text size                           
 font-weight                 | number      | text thickness                                   | bold
 font-family                 | string      | font name                                        | Ubuntu, Helvetica, Arial, sans-serif
 color                       | color       | text color                                       | #ffffff
+text-align                  | string      | text-align button content                        | none
 text-decoration             | string      | underline/overline/none                          | none
 text-transform              | string      | capitalize/uppercase/lowercase                   | none
 align                       | string      | horizontal alignment                             | center

@@ -26,6 +26,7 @@ const defaultMJMLDefinition = {
     "vertical-align": "middle",
     "href": null,
     "rel": null,
+    "text-align": null,
     "inner-padding": "10px 25px",
     "line-height": "120%",
     "padding": "10px 25px",
@@ -79,6 +80,7 @@ class Button extends Component {
         fontStyle: mjAttribute('font-style'),
         fontWeight: mjAttribute('font-weight'),
         lineHeight: mjAttribute('line-height'),
+        textAlign: mjAttribute('text-align'),
         textDecoration: mjAttribute('text-decoration'),
         textTransform: mjAttribute('text-transform'),
         margin: "0px"

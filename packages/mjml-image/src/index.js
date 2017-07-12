@@ -22,6 +22,7 @@ const defaultMJMLDefinition = {
     'padding-top': null,
     'padding': '10px 25px',
     'src': '',
+    'srcset': '',
     'target': '_blank',
     'title': '',
     'vertical-align': null,
@@ -86,6 +87,7 @@ class Image extends Component {
         title={mjAttribute('title')}
         height={mjAttribute('height')}
         src={mjAttribute('src')}
+        srcSet={mjAttribute('srcset')}
         style={this.styles.img}
         width={this.getContentWidth()} />
     )

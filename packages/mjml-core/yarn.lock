@@ -782,9 +782,9 @@ minimist@0.0.8:
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.0.8.tgz#857fcabfc3397d2625b8228262e86aa7a011b05d"
 
-mjml-validator@~3.3.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/mjml-validator/-/mjml-validator-3.3.0.tgz#1f9acaf0eb313625757ca86ce2f6c03805407cfd"
+mjml-validator@~3.3.3:
+  version "3.3.3"
+  resolved "https://registry.yarnpkg.com/mjml-validator/-/mjml-validator-3.3.3.tgz#c364fb1dfaa7bc23be08ec4bc36d2250c12e690a"
   dependencies:
     lodash "^4.17.4"
     warning "^3.0.0"

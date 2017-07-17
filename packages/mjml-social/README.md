@@ -48,7 +48,8 @@ You can activate/deactivate any icon, with `display` property.
     awesome-network-icon-color="#FF00FF"
     awesome-network-icon="http://myicon.png" /&gt;
   </code>
-  Note that <code class="prettyprint">content</code> is mandatory if <code class="prettyprint">text-mode</code> is set to <code class="prettyprint">true</code>
+  Note that <code class="prettyprint">content</code> is mandatory if <code class="prettyprint">text-mode</code> is set to <code class="prettyprint">true</code><br>
+  <code class="prettyprint">base-url</code> will not be applied on a custom social network icon url
 </aside>
 
 

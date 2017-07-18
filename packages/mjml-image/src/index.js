@@ -22,9 +22,9 @@ const defaultMJMLDefinition = {
     'padding-top': null,
     'padding': '10px 25px',
     'src': '',
-    'srcset': '',
+    'srcset': null,
     'target': '_blank',
-    'title': '',
+    'title': null,
     'vertical-align': null,
     'width': null
   }

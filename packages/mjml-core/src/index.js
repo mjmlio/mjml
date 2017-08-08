@@ -47,12 +47,13 @@ export default function mjml2html(mjml, options = {}) {
   } = options
 
   const globalDatas = {
+    breakpoint: '480px',
     classes: {},
     defaultAttributes: {},
     fonts,
     inlineStyle: [],
     mediaQueries: {},
-    mobileBreakpoint: '480px',
+    preview: '',
     style: [],
     title: '',
   }
@@ -148,7 +149,7 @@ export default function mjml2html(mjml, options = {}) {
     add(attr, ...params) {
       if (Array.isArray(globalDatas[attr])) {
         globalDatas[attr].push(...params)
-      } else if (globalDatas[attr]) {
+      } else if (globalDatas.hasOwnProperty(attr)) {
         if (params.length > 1) {
           globalDatas[attr][params[0]] = params[1]
         } else {

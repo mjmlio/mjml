@@ -1,4 +1,8 @@
 export default {
+  'mjml': [
+    'mj-body',
+    'mj-head',
+  ],
   'mj-accordion': ['mj-accordion-element'],
   'mj-accordion-element': [
     'mj-accordion-title',
@@ -6,6 +10,9 @@ export default {
   ],
   'mj-accordion-title': [],
   'mj-accordion-text': [],
+  'mj-attributes': [
+    /^.*^/
+  ],
   'mj-body': [
     'mj-container',
     'mj-raw',
@@ -41,6 +48,14 @@ export default {
   'mj-group': [
     'mj-column',
     'mj-raw',
+  ],
+  'mj-head': [
+    'mj-attributes',
+    'mj-breakpoint',
+    'mj-font',
+    'mj-preview',
+    'mj-style',
+    'mj-title',
   ],
   'mj-hero': ['mj-hero-content'],
   'mj-hero-content': [

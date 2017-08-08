@@ -37,34 +37,36 @@ export default class MjSocialElement extends BodyComponent {
   static endingTag = true
 
   // static allowedAttributes = {
-  //   align: 'enum(left,center,right)',
-  //   color: 'color',
+  //   'align': 'enum(left,center,right)',
+  //   'color': 'color',
   //   'border-radius': 'unit(px)',
   //   'font-family': 'string',
   //   'font-size': 'unit(px,%)',
   //   'font-style': 'string',
   //   'font-weight': 'string',
   //   'line-height': 'unit(px,%)',
-  //   name: 'string',
+  //   'name': 'string',
   //   'padding-bottom': 'unit(px,%)',
   //   'padding-left': 'unit(px,%)',
   //   'padding-right': 'unit(px,%)',
   //   'padding-top': 'unit(px,%)',
-  //   padding: 'unit(px,%){1,4}',
+  //   'padding': 'unit(px,%){1,4}',
+  //   'target': 'string',
   //   'text-decoration': 'string',
-  //   width: 'integer',
+  //   'width': 'integer',
   // }
 
   static defaultAttributes = {
-    align: 'left',
-    color: '#000',
+    'align': 'left',
+    'color': '#000',
     'border-radius': '3px',
     'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
     'font-size': '13px',
     'line-height': '22px',
-    padding: '10px 25px',
+    'padding': '10px 25px',
+    'target': '_blank',
     'text-decoration': 'none',
-    width: '100%',
+    'width': '100%',
   }
 
   getStyles() {

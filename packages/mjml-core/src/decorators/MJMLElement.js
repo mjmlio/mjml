@@ -78,12 +78,14 @@ function createComponent (ComposedComponent) {
         return trim(content)
       }
 
-      return React.Children.map(this.props.children, child => {
+      const contentItems = React.Children.map(this.props.children, child => {
         if (typeof child === 'string') {
           return child
         }
         return ReactDOMServer.renderToStaticMarkup(child)
       })
+
+      return (Array.isArray(contentItems)) ? contentItems.join("") : contentItems;
     }
 
     inheritedAttributes () {

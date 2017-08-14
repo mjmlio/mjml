@@ -82,10 +82,13 @@ class Text extends Component {
 
     const classNames = cx(mjAttribute('height') ? 'mj-text-height' : '')
 
+    const content = mjContent();
+    const commaLessContent = (Array.isArray(content)) ? content.join("") : content;
+
     return (
       <div
         className={classNames}
-        dangerouslySetInnerHTML={{ __html: mjContent() }}
+        dangerouslySetInnerHTML={{ __html: commaLessContent }}
         style={this.styles.div} />
     )
   }

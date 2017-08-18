@@ -62,6 +62,7 @@ const postRender = $ => {
       ${helpers.endConditionalTag}`)
 
     $(this).after(`${helpers.startConditionalTag}
+        <p style="margin:0;mso-hide:all"><o:p xmlns:o="urn:schemas-microsoft-com:office:office">&nbsp;</o:p></p>
         </v:textbox>
       </v:rect>
       ${helpers.endConditionalTag}`)

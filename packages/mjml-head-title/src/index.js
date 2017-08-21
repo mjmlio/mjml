@@ -9,7 +9,7 @@ export default class MjTitle extends HeadComponent {
       add,
     } = this.context
 
-    add('style', this.getContent())
+    add('title', this.getContent())
   }
 
 }

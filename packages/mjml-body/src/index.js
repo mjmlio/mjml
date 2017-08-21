@@ -25,6 +25,7 @@ export default class MjBody extends BodyComponent {
     return `
       <div
         ${this.htmlAttributes({
+          class: this.getAttribute('css-class'),
           style: 'div',
         })}
       >

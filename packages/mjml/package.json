@@ -3,6 +3,9 @@
   "description": "MJML: the only framework that makes responsive-email easy",
   "version": "4.0.0-alpha.2",
   "main": "lib/index.js",
+  "bin": {
+    "mjml": "bin/mjml"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mjmlio/mjml.git"
@@ -19,6 +22,7 @@
   "dependencies": {
     "mjml-body": "^4.0.0-alpha.2",
     "mjml-button": "^4.0.0-alpha.2",
+    "mjml-cli": "^4.0.0-alpha.2",
     "mjml-column": "^4.0.0-alpha.2",
     "mjml-core": "^4.0.0-alpha.2",
     "mjml-divider": "^4.0.0-alpha.2",

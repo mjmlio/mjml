@@ -8,7 +8,7 @@ export default class MjWrapper extends MjSection {
     } = this.props
 
     const {
-      containerWidth
+      containerWidth,
     } = this.context
 
     return `
@@ -19,7 +19,13 @@ export default class MjWrapper extends MjSection {
               <td
                 ${component.htmlAttributes({
                   align: component.getAttribute('align'),
-                  width: containerWidth
+                  class: component.getAttribute('css-class') ?
+                  component.getAttribute('css-class')
+                    .split(' ')
+                    .map(c => `${c}-outlook`)
+                    .join(' ')
+                  : null,
+                  width: containerWidth,
                 })}
               >
           <![endif]-->

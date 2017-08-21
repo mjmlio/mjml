@@ -251,6 +251,7 @@ export default class MjColumn extends BodyComponent {
                   ${component.htmlAttributes({
                     align: component.getAttribute('align'),
                     background: component.getAttribute('container-background-color'),
+                    class: component.getAttribute('css-class'),
                     style: {
                       'background': component.getAttribute('container-background-color'),
                       'font-size': '0px',
@@ -274,10 +275,16 @@ export default class MjColumn extends BodyComponent {
   }
 
   render() {
+    let classesName = `${this.getColumnClass()} outlook-group-fix`
+
+    if (this.getAttribute('css-class')) {
+      classesName += ` ${this.getAttribute('css-class')}`
+    }
+
     return `
       <div
         ${this.htmlAttributes({
-          class: `${this.getColumnClass()} outlook-group-fix`,
+          class: classesName,
           style: 'div',
         })}
       >

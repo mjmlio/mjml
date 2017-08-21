@@ -7,6 +7,7 @@ import ruleError from './ruleError'
 
 const WHITELIST = [
   'mj-class',
+  'css-class',
 ]
 
 export default function validateAttribute(element, { components }) {

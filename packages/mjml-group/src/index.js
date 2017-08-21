@@ -35,7 +35,7 @@ export default class MjGroup extends BodyComponent {
     } = this.props
     const paddingSize = this.getShorthandAttrValue('padding', 'left') + this.getShorthandAttrValue('padding', 'right')
 
-    let parentWidth = this.getMjAttribute('width') || `${parseFloat(containerWidth) / sibling}px`
+    let parentWidth = this.getAttribute('width') || `${parseFloat(containerWidth) / sibling}px`
 
     const {
       unit,
@@ -44,7 +44,7 @@ export default class MjGroup extends BodyComponent {
       parseFloatToInt: false,
     })
 
-    if (unit == '%') {
+    if (unit === '%') {
       parentWidth = `${(parseFloat(containerWidth) * parsedWidth / 100) - paddingSize}px`
     } else {
       parentWidth = `${parsedWidth - paddingSize}px`
@@ -62,23 +62,23 @@ export default class MjGroup extends BodyComponent {
         'font-size': '0',
         'line-height': '0',
         'text-align': 'left',
-        'direction': this.getMjAttribute('direction'),
+        'direction': this.getAttribute('direction'),
         'display': 'inline-block',
-        'vertical-align': this.getMjAttribute('vertical-align'),
+        'vertical-align': this.getAttribute('vertical-align'),
         'width': '100%',
       },
       'table': {
-        'background-color': this.getMjAttribute('background-color'),
-        'border': this.getMjAttribute('border'),
-        'border-bottom': this.getMjAttribute('border-bottom'),
-        'border-left': this.getMjAttribute('border-left'),
-        'border-radius': this.getMjAttribute('border-radius'),
-        'border-right': this.getMjAttribute('border-right'),
-        'border-top': this.getMjAttribute('border-top'),
-        'vertical-align': this.getMjAttribute('vertical-align'),
+        'background-color': this.getAttribute('background-color'),
+        'border': this.getAttribute('border'),
+        'border-bottom': this.getAttribute('border-bottom'),
+        'border-left': this.getAttribute('border-left'),
+        'border-radius': this.getAttribute('border-radius'),
+        'border-right': this.getAttribute('border-right'),
+        'border-top': this.getAttribute('border-top'),
+        'vertical-align': this.getAttribute('vertical-align'),
       },
       'tdOutlook' : {
-        'vertical-align': this.getMjAttribute('vertical-align'),
+        'vertical-align': this.getAttribute('vertical-align'),
         'width': this.getWidthAsPixel(),
       }
     }
@@ -89,7 +89,7 @@ export default class MjGroup extends BodyComponent {
       sibling,
     } = this.props
 
-    const width = this.getMjAttribute('width') || `${100 / sibling}%`
+    const width = this.getAttribute('width') || `${100 / sibling}%`
 
     const {
       unit,
@@ -192,10 +192,16 @@ export default class MjGroup extends BodyComponent {
       }
     }
 
+    let classesName = `${this.getColumnClass()} outlook-group-fix`
+
+    if (this.getAttribute('css-class')) {
+      classesName += ` ${this.getAttribute('css-class')}`
+    }
+
     return `
       <div
         ${this.htmlAttributes({
-          'class': `${this.getColumnClass()} outlook-group-fix`,
+          class: classesName,
           style: 'div',
         })}
       >
@@ -210,8 +216,8 @@ export default class MjGroup extends BodyComponent {
               <td
                 ${component.htmlAttributes({
                   style: {
-                    align: component.getMjAttribute('align'),
-                    width: getElementWidth(component.getMjAttribute('width'))
+                    align: component.getAttribute('align'),
+                    width: getElementWidth(component.getAttribute('width'))
                   }
                 })}
               >

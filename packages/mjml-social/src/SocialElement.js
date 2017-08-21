@@ -77,22 +77,22 @@ export default class MjSocialElement extends BodyComponent {
 
     return {
       td: {
-        padding: this.getAttribute('inner-padding'),
+        'padding': this.getAttribute('inner-padding'),
       },
       table: {
-        background: backgroundColor,
+        'background': backgroundColor,
         'border-radius': this.getAttribute('border-radius'),
-        width: iconSize,
+        'width': iconSize,
       },
       icon: {
-        width: iconSize,
-        height: iconSize,
+        'width': iconSize,
+        'height': iconSize,
       },
       img: {
         'border-radius': this.getAttribute('border-radius'),
       },
       text: {
-        color: this.getAttribute('color'),
+        'color': this.getAttribute('color'),
         'font-size': this.getAttribute('font-size'),
         'font-family': this.getAttribute('font-family'),
         'line-height': this.getAttribute('line-height'),
@@ -123,7 +123,11 @@ export default class MjSocialElement extends BodyComponent {
     } = this.getSocialAttributes()
 
     return `
-      <tr>
+      <tr
+        ${this.htmlAttributes({
+          class: this.getAttribute('css-class'),
+        })}
+      >
         <td ${this.htmlAttributes({ style: 'td' })}>
           <table
             ${this.htmlAttributes({

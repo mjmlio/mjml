@@ -127,7 +127,22 @@ getChildContext() {
 
     return `
       <!--[if mso | IE]>
-      <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="${parseFloat(containerWidth)}" align="center" style="width:${containerWidth};">
+      <table
+        ${this.htmlAttributes({
+          align: 'center',
+          border: '0',
+          cellpadding: '0',
+          cellspacing: '0',
+          class: this.getAttribute('css-class') ?
+            this.getAttribute('css-class')
+              .split(' ')
+              .map(c => `${c}-outlook`)
+              .join(' ')
+            : null,
+          style: { width: `${containerWidth}` },
+          width: parseInt(containerWidth, 10),
+        })}
+      >
         <tr>
           <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
       <![endif]-->
@@ -159,6 +174,12 @@ getChildContext() {
             <td
               ${component.htmlAttributes({
                 align: component.getAttribute('align'),
+                class: component.getAttribute('css-class') ?
+                  component.getAttribute('css-class')
+                    .split(' ')
+                    .map(c => `${c}-outlook`)
+                    .join(' ')
+                  : null,
                 style: 'tdOutlook',
               })}
             >
@@ -209,9 +230,14 @@ getChildContext() {
   }
 
   renderSection() {
+    const hasBackground = this.hasBackground()
+
     return `
-      <div ${this.htmlAttributes({ style: 'div' })}>
-        ${this.hasBackground() ? `<div ${this.htmlAttributes({ style: 'innerDiv' })}>` : ''}
+      <div ${this.htmlAttributes({
+        class: this.isFullWidth() ? null : this.getAttribute('css-class'),
+        style: 'div',
+      })}>
+        ${hasBackground ? `<div ${this.htmlAttributes({ style: 'innerDiv' })}>` : ''}
         <table
           ${this.htmlAttributes({
             align: 'center',
@@ -241,7 +267,7 @@ getChildContext() {
             </tr>
           </tbody>
         </table>
-        ${this.hasBackground() ? `</div>` : ''}
+        ${hasBackground ? `</div>` : ''}
       </div>
     `
   }
@@ -251,6 +277,7 @@ getChildContext() {
       <table
         ${this.htmlAttributes({
           align: 'center',
+          class: this.getAttribute('css-class'),
           background: this.getAttribute('background-url'),
           border: '0',
           cellpadding: '0',

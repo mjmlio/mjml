@@ -67,6 +67,7 @@ const baseStyles = {
     verticalAlign: 'middle'
   },
   td2:  {
+    fontSize: '0',
     verticalAlign: 'middle'
   },
   tdText: {

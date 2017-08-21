@@ -40,7 +40,7 @@ border-top                  | string      | css border format                   
 border-radius               | px          | border radius                                    | 3px
 font-style                  | string      | normal/italic/oblique                            | n/a
 font-size                   | px          | text size                                        | 13px
-font-weight                 | number      | text thickness                                   | bold
+font-weight                 | number      | text thickness                                   | normal
 font-family                 | string      | font name                                        | Ubuntu, Helvetica, Arial, sans-serif
 color                       | color       | text color                                       | #ffffff
 text-align                  | string      | text-align button content                        | none

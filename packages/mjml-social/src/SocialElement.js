@@ -36,25 +36,25 @@ export default class MjSocialElement extends BodyComponent {
 
   static endingTag = true
 
-  // static allowedAttributes = {
-  //   'align': 'enum(left,center,right)',
-  //   'color': 'color',
-  //   'border-radius': 'unit(px)',
-  //   'font-family': 'string',
-  //   'font-size': 'unit(px,%)',
-  //   'font-style': 'string',
-  //   'font-weight': 'string',
-  //   'line-height': 'unit(px,%)',
-  //   'name': 'string',
-  //   'padding-bottom': 'unit(px,%)',
-  //   'padding-left': 'unit(px,%)',
-  //   'padding-right': 'unit(px,%)',
-  //   'padding-top': 'unit(px,%)',
-  //   'padding': 'unit(px,%){1,4}',
-  //   'target': 'string',
-  //   'text-decoration': 'string',
-  //   'width': 'integer',
-  // }
+  static allowedAttributes = {
+    'align': 'enum(left,center,right)',
+    'color': 'color',
+    'border-radius': 'unit(px)',
+    'font-family': 'string',
+    'font-size': 'unit(px,%)',
+    'font-style': 'string',
+    'font-weight': 'string',
+    'line-height': 'unit(px,%)',
+    'name': 'string',
+    'padding-bottom': 'unit(px,%)',
+    'padding-left': 'unit(px,%)',
+    'padding-right': 'unit(px,%)',
+    'padding-top': 'unit(px,%)',
+    'padding': 'unit(px,%){1,4}',
+    'target': 'string',
+    'text-decoration': 'string',
+    'width': 'integer',
+  }
 
   static defaultAttributes = {
     'align': 'left',

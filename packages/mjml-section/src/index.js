@@ -4,28 +4,28 @@ import widthParser from 'mjml-core/lib/helpers/widthParser'
 
 export default class MjSection extends BodyComponent {
 
-  // static allowedAttributes = {
-  //   'background-color': 'color',
-  //   'background-url': 'string',
-  //   'background-repeat': 'enum(repeat/no-repeat)',
-  //   'background-size': 'string',
-  //   border: 'string',
-  //   'border-bottom': 'string',
-  //   'border-left': 'string',
-  //   'border-radius': 'string',
-  //   'border-right': 'string',
-  //   'border-top': 'string',
-  //   direction: 'enum(ltr,rtl)',
-  //   'full-width': 'enum(full-width)',
-  //   padding: 'unit(px,%){1,4}',
-  //   'padding-top': 'unit(px,%)',
-  //   'padding-bottom': 'unit(px,%)',
-  //   'padding-left': 'unit(px,%)',
-  //   'padding-right': 'unit(px,%)',
-  //   'text-align': 'enum(left,center,right)',
-  //   'text-padding': 'unit(px,%){1,4}',
-  //   'vertical-align': 'enum(bottom,middle,top)',
-  // }
+  static allowedAttributes = {
+    'background-color': 'color',
+    'background-url': 'string',
+    'background-repeat': 'enum(repeat/no-repeat)',
+    'background-size': 'string',
+    'border': 'string',
+    'border-bottom': 'string',
+    'border-left': 'string',
+    'border-radius': 'string',
+    'border-right': 'string',
+    'border-top': 'string',
+    'direction': 'enum(ltr,rtl)',
+    'full-width': 'enum(full-width)',
+    'padding': 'unit(px,%){1,4}',
+    'padding-top': 'unit(px,%)',
+    'padding-bottom': 'unit(px,%)',
+    'padding-left': 'unit(px,%)',
+    'padding-right': 'unit(px,%)',
+    'text-align': 'enum(left,center,right)',
+    'text-padding': 'unit(px,%){1,4}',
+    'vertical-align': 'enum(bottom,middle,top)',
+  }
 
   static defaultAttributes = {
     'background-repeat': 'repeat',

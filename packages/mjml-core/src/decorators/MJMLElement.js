@@ -85,7 +85,7 @@ function createComponent (ComposedComponent) {
         return ReactDOMServer.renderToStaticMarkup(child)
       })
 
-      return (Array.isArray(contentItems)) ? contentItems.join("") : contentItems;
+      return (Array.isArray(contentItems)) ? contentItems.join("") : contentItems
     }
 
     inheritedAttributes () {

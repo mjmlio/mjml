@@ -19,10 +19,7 @@ export default class MjImage extends BodyComponent {
     const width = this.getContentWidth()
     const fullWidth = this.getAttribute('full-width') === 'full-width'
 
-    const {
-      parsedWidth,
-      unit,
-    } = widthParser(width)
+    const { parsedWidth, unit } = widthParser(width)
 
     return {
       img: {
@@ -48,37 +45,30 @@ export default class MjImage extends BodyComponent {
   }
 
   getContentWidth() {
-    const {
-      containerWidth,
-    } = this.context
+    const { containerWidth } = this.context
 
     const width = this.getAttribute('width')
-      ? min([
-        parseInt(this.getAttribute('width')),
-        containerWidth,
-      ])
+      ? min([parseInt(this.getAttribute('width')), containerWidth])
       : containerWidth
 
     const paddingRight = this.getShorthandAttrValue('padding', 'right')
     const paddingLeft = this.getShorthandAttrValue('padding', 'left')
-    const widthOverflow = paddingLeft + paddingRight + parseFloat(width) - parentWidth
+    const widthOverflow = paddingLeft + paddingRight + parseFloat(width) - containerWidth
 
-    return widthOverflow > 0
-      ? parseFloat(width - widthOverflow)
-      : parseFloat(width)
+    return widthOverflow > 0 ? parseFloat(width - widthOverflow) : parseFloat(width)
   }
 
   renderImage() {
     const img = `
       <img
         ${this.htmlAttributes({
-    alt: this.getAttribute('href'),
-    height: this.getAttribute('height'),
-    src: this.getAttribute('src'),
-    style: 'img',
-    title: this.getAttribute('title'),
-    width: this.getContentWidth(),
-  })}
+          alt: this.getAttribute('href'),
+          height: this.getAttribute('height'),
+          src: this.getAttribute('src'),
+          style: 'img',
+          title: this.getAttribute('title'),
+          width: this.getContentWidth(),
+        })}
       />
     `
 
@@ -86,9 +76,9 @@ export default class MjImage extends BodyComponent {
       return `
         <a
           ${this.htmlAttributes({
-    href: this.getAttribute('href'),
-    target: this.getAttribute('target'),
-  })}
+            href: this.getAttribute('href'),
+            target: this.getAttribute('target'),
+          })}
         >
           ${img}
         </a>
@@ -102,13 +92,13 @@ export default class MjImage extends BodyComponent {
     return `
       <table
         ${this.htmlAttributes({
-    align: this.getAttribute('align'),
-    border: '0',
-    cellpadding: '0',
-    cellspacing: '0',
-    role: 'presentation',
-    style: 'table',
-  })}
+          align: this.getAttribute('align'),
+          border: '0',
+          cellpadding: '0',
+          cellspacing: '0',
+          role: 'presentation',
+          style: 'table',
+        })}
       >
         <tbody>
           <tr>

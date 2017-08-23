@@ -4,30 +4,27 @@ const mjml2html = require('./packages/mjml/src/index')
 
 const xml = `
 <mjml>
+  <mj-body>
+    <mj-section>
+      <mj-column>
 
-  <mj-head>
+        <mj-image width="100" src="/assets/img/logo-small.png"></mj-image>
 
-  </mj-head>
+        <mj-divider border-color="#F45E43"></mj-divider>
 
-  <mj-body background-color="#F2F2F2">
+        <mj-text font-size="20px" color="#F45E43" font-family="helvetica">Hello World</mj-text>
 
-      <mj-section padding="10px 0 20px 0">
-        <mj-column>
-          <mj-text align="center" color="#9B9B9B" font-size="11px"><a href="#" style="color: #9B9B9B;">Unsubscribe</a> from this newsletter<br>52 Edison Court Suite 259 / East Aidabury / Cambodi<br>
-            Hello boyz
-          </mj-text>
-        </mj-column>
-      </mj-section>
-
-
+      </mj-column>
+    </mj-section>
   </mj-body>
-</mjml>`
+</mjml>
+`
 
 console.time('mjml2html')
 
 const { html } = mjml2html(xml, {
   beautify: true,
-  filePath: './test.mjml'
+  filePath: './test.mjml',
 })
 
 console.timeEnd('mjml2html')

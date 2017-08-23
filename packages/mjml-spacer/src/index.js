@@ -3,28 +3,27 @@ import { BodyComponent } from 'mjml-core'
 import conditionalTag from 'mjml-core/lib/helpers/conditionalTag'
 
 export default class MjSpacer extends BodyComponent {
-
   static allowedAttributes = {
-    'border': 'unit(px)',
+    border: 'unit(px)',
     'border-bottom': 'unit(px)',
     'border-left': 'unit(px)',
     'border-radius': 'unit(px)',
     'border-right': 'unit(px)',
     'border-top': 'unit(px)',
     'container-background-color': 'color',
-    'direction': 'enum(ltr,rtl)',
+    direction: 'enum(ltr,rtl)',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
-    'padding': 'unit(px,%){1,4}',
+    padding: 'unit(px,%){1,4}',
     'vertical-align': 'string',
-    'width': 'unit(px,%)',
+    width: 'unit(px,%)',
   }
 
   static defaultAttributes = {}
 
-  getStyles () {
+  getStyles() {
     return {
       div: {
         height: this.getAttribute('height'),
@@ -32,7 +31,7 @@ export default class MjSpacer extends BodyComponent {
     }
   }
 
-  render () {
+  render() {
     const height = this.getAttribute('height')
 
     return `
@@ -41,8 +40,8 @@ export default class MjSpacer extends BodyComponent {
       `)}
       <div
         ${this.htmlAttributes({
-          style: 'div'
-        })}
+    style: 'div',
+  })}
       >
         &nbsp;
       </div>

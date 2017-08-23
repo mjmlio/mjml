@@ -65,11 +65,9 @@ class Component {
 
     return this.context.processing(mjml, this.context)
   }
-
 }
 
 export class BodyComponent extends Component {
-
   getStyles() {
     return {}
   }
@@ -167,7 +165,6 @@ export class BodyComponent extends Component {
 
     return output
   }
-
 }
 
 export class HeadComponent extends Component {
@@ -192,5 +189,4 @@ export class HeadComponent extends Component {
       }
     })
   }
-
 }

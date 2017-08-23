@@ -1,5 +1,5 @@
 export default {
-  'mjml': [
+  mjml: [
     'mj-body',
     'mj-head',
   ],
@@ -11,7 +11,7 @@ export default {
   'mj-accordion-title': [],
   'mj-accordion-text': [],
   'mj-attributes': [
-    /^.*^/
+    /^.*^/,
   ],
   'mj-body': [
     'mj-container',

@@ -3,23 +3,22 @@ import { BodyComponent } from 'mjml-core'
 import widthParser from 'mjml-core/lib/helpers/widthParser'
 
 export default class MjColumn extends BodyComponent {
-
-  static allowedAttributes: {
+  static allowedAttributes = {
     'background-color': 'color',
-    'border': 'unit(px)',
+    border: 'unit(px)',
     'border-bottom': 'unit(px)',
     'border-left': 'unit(px)',
     'border-radius': 'unit(px)',
     'border-right': 'unit(px)',
     'border-top': 'unit(px)',
-    'direction': 'enum(ltr,rtl)',
+    direction: 'enum(ltr,rtl)',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
-    'padding': 'unit(px,%){1,4}',
+    padding: 'unit(px,%){1,4}',
     'vertical-align': 'string',
-    'width': 'unit(px,%)',
+    width: 'unit(px,%)',
   }
 
   static defaultAttributes = {
@@ -27,27 +26,21 @@ export default class MjColumn extends BodyComponent {
   }
 
   getChildContext() {
-    const {
-      containerWidth,
-    } = this.context
+    const { containerWidth } = this.context
 
-    const {
-      sibling,
-    } = this.props
+    const { sibling } = this.props
 
-    const paddingSize = this.getShorthandAttrValue('padding', 'left') + this.getShorthandAttrValue('padding', 'right')
+    const paddingSize =
+      this.getShorthandAttrValue('padding', 'left') + this.getShorthandAttrValue('padding', 'right')
 
     let parentWidth = this.getAttribute('width') || `${parseFloat(containerWidth) / sibling}px`
 
-    const {
-      unit,
-      parsedWidth,
-    } = widthParser(parentWidth, {
+    const { unit, parsedWidth } = widthParser(parentWidth, {
       parseFloatToInt: false,
     })
 
     if (unit === '%') {
-      parentWidth = `${(parseFloat(containerWidth) * parsedWidth / 100) - paddingSize}px`
+      parentWidth = `${parseFloat(containerWidth) * parsedWidth / 100 - paddingSize}px`
     } else {
       parentWidth = `${parsedWidth - paddingSize}px`
     }
@@ -71,29 +64,29 @@ export default class MjColumn extends BodyComponent {
     }
 
     return {
-      'div': {
+      div: {
         'font-size': '13px',
         'text-align': 'left',
-        'direction': this.getAttribute('direction'),
-        'display': 'inline-block',
+        direction: this.getAttribute('direction'),
+        display: 'inline-block',
         'vertical-align': this.getAttribute('vertical-align'),
-        'width': this.getMobileWidth(),
+        width: this.getMobileWidth(),
       },
-      'table': {
+      table: {
         ...(this.hasGutter() ? {} : tableStyle),
       },
-      'tdOutlook': {
+      tdOutlook: {
         'vertical-align': this.getAttribute('vertical-align'),
-        'width': this.getWidthAsPixel(),
+        width: this.getWidthAsPixel(),
       },
-      'gutter': {
+      gutter: {
         ...tableStyle,
-        'padding': this.getAttribute('padding'),
+        padding: this.getAttribute('padding'),
         'padding-top': this.getAttribute('padding-top'),
         'padding-right': this.getAttribute('padding-right'),
         'padding-bottom': this.getAttribute('padding-bottom'),
         'padding-left': this.getAttribute('padding-left'),
-      }
+      },
     }
   }
 
@@ -102,16 +95,13 @@ export default class MjColumn extends BodyComponent {
     const width = this.getAttribute('width')
     const mobileWidth = this.getAttribute('mobileWidth')
 
-    if (mobileWidth != "mobileWidth" ) {
+    if (mobileWidth != 'mobileWidth') {
       return '100%'
     } else if (width == undefined) {
       return `${parseInt(100 / sibling)}%`
     }
 
-    const {
-      unit,
-      parsedWidth,
-    } = widthParser(width, {
+    const { unit, parsedWidth } = widthParser(width, {
       parseFloatToInt: false,
     })
 
@@ -125,35 +115,24 @@ export default class MjColumn extends BodyComponent {
   }
 
   getWidthAsPixel() {
-    const {
-      containerWidth
-    } = this.context
+    const { containerWidth } = this.context
 
-    const {
-      unit,
-      parsedWidth,
-    } = widthParser(this.getParsedWidth(true), {
+    const { unit, parsedWidth } = widthParser(this.getParsedWidth(true), {
       parseFloatToInt: false,
     })
 
     if (unit === '%') {
-      return `${(parseFloat(containerWidth) * parsedWidth / 100)}px`
-    } else {
-      return `${parsedWidth}px`
+      return `${parseFloat(containerWidth) * parsedWidth / 100}px`
     }
+    return `${parsedWidth}px`
   }
 
   getParsedWidth(toString) {
-    const {
-      sibling,
-    } = this.props
+    const { sibling } = this.props
 
     const width = this.getAttribute('width') || `${100 / sibling}%`
 
-    const {
-      unit,
-      parsedWidth,
-    } = widthParser(width, {
+    const { unit, parsedWidth } = widthParser(width, {
       parseFloatToInt: false,
     })
 
@@ -168,16 +147,11 @@ export default class MjColumn extends BodyComponent {
   }
 
   getColumnClass() {
-    const {
-      addMediaQuery,
-    } = this.context
+    const { addMediaQuery } = this.context
 
     let className = ''
 
-    const {
-      parsedWidth,
-      unit,
-    } = this.getParsedWidth()
+    const { parsedWidth, unit } = this.getParsedWidth()
 
     switch (unit) {
       case '%':
@@ -227,9 +201,7 @@ export default class MjColumn extends BodyComponent {
   }
 
   renderColumn() {
-    const {
-      children,
-    } = this.props
+    const { children } = this.props
 
     return `
       <table
@@ -245,7 +217,10 @@ export default class MjColumn extends BodyComponent {
       >
         <tbody>
           ${this.renderChildren(children, {
-            renderer: component => component.rawElement ? component.render() : `
+            renderer: component =>
+              component.rawElement
+                ? component.render()
+                : `
               <tr>
                 <td
                   ${component.htmlAttributes({
@@ -253,9 +228,9 @@ export default class MjColumn extends BodyComponent {
                     background: component.getAttribute('container-background-color'),
                     class: component.getAttribute('css-class'),
                     style: {
-                      'background': component.getAttribute('container-background-color'),
+                      background: component.getAttribute('container-background-color'),
                       'font-size': '0px',
-                      'padding': component.getAttribute('padding'),
+                      padding: component.getAttribute('padding'),
                       'padding-top': component.getAttribute('padding-top'),
                       'padding-right': component.getAttribute('padding-right'),
                       'padding-bottom': component.getAttribute('padding-bottom'),
@@ -292,5 +267,4 @@ export default class MjColumn extends BodyComponent {
       </div>
     `
   }
-
 }

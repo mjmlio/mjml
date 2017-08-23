@@ -17,17 +17,14 @@ import skeleton from './helpers/skeleton'
 import traverseMJML from './helpers/traverseMJML'
 
 class ValidationError extends Error {
-
   constructor(message, errors) {
     super(message)
 
     this.errors = errors
   }
-
 }
 
 export default function mjml2html(mjml, options = {}) {
-
   let content = ''
   let errors = []
 
@@ -36,9 +33,9 @@ export default function mjml2html(mjml, options = {}) {
     fonts = {
       'Open Sans': 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,700',
       'Droid Sans': 'https://fonts.googleapis.com/css?family=Droid+Sans:300,400,500,700',
-      'Lato': 'https://fonts.googleapis.com/css?family=Lato:300,400,500,700',
-      'Roboto': 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700',
-      'Ubuntu': 'https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700',
+      Lato: 'https://fonts.googleapis.com/css?family=Lato:300,400,500,700',
+      Roboto: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700',
+      Ubuntu: 'https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700',
     },
     inlineCSS = true,
     keepComments,
@@ -198,7 +195,6 @@ export default function mjml2html(mjml, options = {}) {
     html: content,
     errors,
   }
-
 }
 
 export {

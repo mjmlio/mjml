@@ -4,7 +4,6 @@ import omit from 'lodash/omit'
 import { HeadComponent } from 'mjml-core'
 
 export default class MjAttributes extends HeadComponent {
-
   handler() {
     const {
       add,
@@ -27,5 +26,4 @@ export default class MjAttributes extends HeadComponent {
       }
     })
   }
-
 }

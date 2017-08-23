@@ -1,7 +1,6 @@
 import { HeadComponent } from 'mjml-core'
 
 export default class MjTitle extends HeadComponent {
-
   static endingTag = true
 
   handler() {
@@ -11,5 +10,4 @@ export default class MjTitle extends HeadComponent {
 
     add('title', this.getContent())
   }
-
 }

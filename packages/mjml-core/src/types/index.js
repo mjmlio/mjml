@@ -6,7 +6,7 @@ import NString, { matcher as stringMatcher } from './string'
 
 export default {
   boolean: { matcher: booleanMatcher, typeConstructor: NBoolean },
-  enum: { matcher: enumMatcher, typeConstructor:  Enum },
+  enum: { matcher: enumMatcher, typeConstructor: Enum },
   color: { matcher: colorMatcher, typeConstructor: Color },
   unit: { matcher: unitMatcher, typeConstructor: Unit },
   string: { matcher: stringMatcher, typeConstructor: NString },

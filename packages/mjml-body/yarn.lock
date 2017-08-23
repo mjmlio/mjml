@@ -537,20 +537,29 @@ minimist@0.0.8:
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.0.8.tgz#857fcabfc3397d2625b8228262e86aa7a011b05d"
 
-mjml-core@^4.0.0-alpha:
-  version "4.0.0-alpha"
-  resolved "https://registry.yarnpkg.com/mjml-core/-/mjml-core-4.0.0-alpha.tgz#2f0b7ad9d78c804f2bbe97e03f2edc412477f972"
+mjml-core@^4.0.0-alpha.2:
+  version "4.0.0-alpha.2"
+  resolved "https://registry.yarnpkg.com/mjml-core/-/mjml-core-4.0.0-alpha.2.tgz#dd2951b106a5e77125c49c2b427726ff6b7125a7"
   dependencies:
     html-minifier "^3.5.2"
     js-beautify "^1.6.14"
     juice "^4.1.0"
     lodash "^4.17.3"
-    mjml-validator "^4.0.0-alpha"
+    mjml-parser-xml "^4.0.0-alpha.2"
+    mjml-validator "^4.0.0-alpha.2"
     object-path "^0.11.3"
 
-mjml-validator@^4.0.0-alpha:
-  version "4.0.0-alpha"
-  resolved "https://registry.yarnpkg.com/mjml-validator/-/mjml-validator-4.0.0-alpha.tgz#908ead9cce345e454d23ff33f11febae45fd662f"
+mjml-parser-xml@^4.0.0-alpha.2:
+  version "4.0.0-alpha.2"
+  resolved "https://registry.yarnpkg.com/mjml-parser-xml/-/mjml-parser-xml-4.0.0-alpha.2.tgz#5a14fae35990d582ffeb3ee393a7b188f993b4a5"
+  dependencies:
+    htmlparser2 "^3.9.2"
+    lodash "^4.17.2"
+    mjml-core "^4.0.0-alpha.2"
+
+mjml-validator@^4.0.0-alpha.2:
+  version "4.0.0-alpha.2"
+  resolved "https://registry.yarnpkg.com/mjml-validator/-/mjml-validator-4.0.0-alpha.2.tgz#cf0de56709ff4c5576516acd8c593895f942f4eb"
   dependencies:
     lodash "^4.17.4"
     warning "^3.0.0"

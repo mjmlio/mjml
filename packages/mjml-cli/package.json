@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "chokidar": "^1.6.1",
-    "commander": "^2.9.0",
+    "commander": "^2.11.0",
     "fs-promise": "^2.0.3",
     "glob": "^7.1.1",
     "lodash": "^4.17.4",
@@ -30,7 +30,7 @@
     "mjml-validator": "^4.0.0-alpha.2"
   },
   "devDependencies": {
-    "chai": "^4.0.0",
-    "mocha": "^3.2.0"
+    "chai": "^4.1.1",
+    "mocha": "^3.5.0"
   }
 }

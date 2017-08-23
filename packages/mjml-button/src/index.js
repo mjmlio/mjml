@@ -1,7 +1,6 @@
 import { BodyComponent } from 'mjml-core'
 
 export default class MjButton extends BodyComponent {
-
   static endingTag = true
 
   static allowedAttributes = [
@@ -36,17 +35,17 @@ export default class MjButton extends BodyComponent {
   ]
 
   static defaultAttributes = {
-    'align': 'center',
+    align: 'center',
     'background-color': '#414141',
-    'border': 'none',
+    border: 'none',
     'border-radius': '3px',
-    'color': '#ffffff',
+    color: '#ffffff',
     'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
     'font-size': '13px',
     'font-weight': 'normal',
     'inner-padding': '10px 25px',
     'line-height': '120%',
-    'padding': '10px 25px',
+    padding: '10px 25px',
     'text-decoration': 'none',
     'text-transform': 'none',
     'vertical-align': 'middle',
@@ -65,21 +64,21 @@ export default class MjButton extends BodyComponent {
         'border-radius': this.getAttribute('border-radius'),
         'border-right': this.getAttribute('border-right'),
         'border-top': this.getAttribute('border-top'),
-        'color': this.getAttribute('color'),
-        'cursor': 'auto',
+        color: this.getAttribute('color'),
+        cursor: 'auto',
         'font-style': this.getAttribute('font-style'),
-        'height': this.getAttribute('height'),
-        'padding': this.getAttribute('inner-padding'),
+        height: this.getAttribute('height'),
+        padding: this.getAttribute('inner-padding'),
       },
       content: {
-        'background': this.getAttribute('background-color'),
-        'color': this.getAttribute('color'),
+        background: this.getAttribute('background-color'),
+        color: this.getAttribute('color'),
         'font-family': this.getAttribute('font-family'),
         'font-size': this.getAttribute('font-size'),
         'font-style': this.getAttribute('font-style'),
         'font-weight': this.getAttribute('font-weight'),
         'line-height': this.getAttribute('line-height'),
-        'Margin': '0',
+        Margin: '0',
         'text-decoration': this.getAttribute('text-decoration'),
         'text-transform': this.getAttribute('text-transform'),
       },
@@ -92,31 +91,31 @@ export default class MjButton extends BodyComponent {
     return `
       <table
         ${this.htmlAttributes({
-          align: this.getAttribute('align'),
-          border: '0',
-          cellpadding: '0',
-          cellspacing: '0',
-          role: 'presentation',
-          style: 'table',
-        })}
+    align: this.getAttribute('align'),
+    border: '0',
+    cellpadding: '0',
+    cellspacing: '0',
+    role: 'presentation',
+    style: 'table',
+  })}
       >
         <tr>
           <td
             ${this.htmlAttributes({
-              align: 'center',
-              bgcolor: this.getAttribute('background-color') === 'none' ? undefined : this.getAttribute('background-color'),
-              role: 'presentation',
-              style: 'td',
-              valign: this.getAttribute('vertical-align'),
-            })}
+    align: 'center',
+    bgcolor: this.getAttribute('background-color') === 'none' ? undefined : this.getAttribute('background-color'),
+    role: 'presentation',
+    style: 'td',
+    valign: this.getAttribute('vertical-align'),
+  })}
           >
             <${tag}
               ${this.htmlAttributes({
-                href: this.getAttribute('href'),
-                rel: this.getAttribute('rel'),
-                style: 'content',
-                target: tag === 'a' ? '_blank' : undefined,
-              })}
+    href: this.getAttribute('href'),
+    rel: this.getAttribute('rel'),
+    style: 'content',
+    target: tag === 'a' ? '_blank' : undefined,
+  })}
             >
               ${this.getContent()}
             </${tag}>
@@ -125,5 +124,4 @@ export default class MjButton extends BodyComponent {
       </table>
     `
   }
-
 }

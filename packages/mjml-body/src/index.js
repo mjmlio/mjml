@@ -1,7 +1,6 @@
 import { BodyComponent } from 'mjml-core'
 
 export default class MjBody extends BodyComponent {
-
   static defaultAttributes = {
     width: '600px',
   }
@@ -25,13 +24,12 @@ export default class MjBody extends BodyComponent {
     return `
       <div
         ${this.htmlAttributes({
-          class: this.getAttribute('css-class'),
-          style: 'div',
-        })}
+    class: this.getAttribute('css-class'),
+    style: 'div',
+  })}
       >
         ${this.renderChildren()}
       </div>
     `
   }
-
 }

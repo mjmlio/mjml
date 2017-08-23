@@ -5,7 +5,6 @@ import { BodyComponent } from 'mjml-core'
 import widthParser from 'mjml-core/lib/helpers/widthParser'
 
 export default class MjImage extends BodyComponent {
-
   static tagOmission = true
 
   static defaultAttributes = {
@@ -27,21 +26,21 @@ export default class MjImage extends BodyComponent {
 
     return {
       img: {
-        'border': this.getAttribute('border'),
-        'display': 'block',
-        'outline': 'none',
+        border: this.getAttribute('border'),
+        display: 'block',
+        outline: 'none',
         'text-decoration': 'none',
         'min-width': fullWidth ? '100%' : null,
-        'width': fullWidth ? `${parsedWidth}${unit}` : '100%',
+        width: fullWidth ? `${parsedWidth}${unit}` : '100%',
         'max-width': fullWidth ? '100%' : null,
       },
       td: {
-        'width': fullWidth ? null : `${parsedWidth}${unit}`,
+        width: fullWidth ? null : `${parsedWidth}${unit}`,
       },
       table: {
         'min-width': fullWidth ? '100%' : null,
         'max-width': fullWidth ? '100%' : null,
-        'width': fullWidth ? `${parsedWidth}${unit}` : null,
+        width: fullWidth ? `${parsedWidth}${unit}` : null,
         'border-collapse': 'collapse',
         'border-spacing': '0px',
       },
@@ -54,10 +53,10 @@ export default class MjImage extends BodyComponent {
     } = this.context
 
     const width = this.getAttribute('width')
-       ? min([
-         parseInt(this.getAttribute('width')),
-         containerWidth,
-       ])
+      ? min([
+        parseInt(this.getAttribute('width')),
+        containerWidth,
+      ])
       : containerWidth
 
     const paddingRight = this.getShorthandAttrValue('padding', 'right')
@@ -73,13 +72,13 @@ export default class MjImage extends BodyComponent {
     const img = `
       <img
         ${this.htmlAttributes({
-          alt: this.getAttribute('href'),
-          height: this.getAttribute('height'),
-          src: this.getAttribute('src'),
-          style: 'img',
-          title: this.getAttribute('title'),
-          width: this.getContentWidth(),
-        })}
+    alt: this.getAttribute('href'),
+    height: this.getAttribute('height'),
+    src: this.getAttribute('src'),
+    style: 'img',
+    title: this.getAttribute('title'),
+    width: this.getContentWidth(),
+  })}
       />
     `
 
@@ -87,9 +86,9 @@ export default class MjImage extends BodyComponent {
       return `
         <a
           ${this.htmlAttributes({
-            href: this.getAttribute('href'),
-            target: this.getAttribute('target'),
-          })}
+    href: this.getAttribute('href'),
+    target: this.getAttribute('target'),
+  })}
         >
           ${img}
         </a>
@@ -103,13 +102,13 @@ export default class MjImage extends BodyComponent {
     return `
       <table
         ${this.htmlAttributes({
-          align: this.getAttribute('align'),
-          border: '0',
-          cellpadding: '0',
-          cellspacing: '0',
-          role: 'presentation',
-          style: 'table',
-        })}
+    align: this.getAttribute('align'),
+    border: '0',
+    cellpadding: '0',
+    cellspacing: '0',
+    role: 'presentation',
+    style: 'table',
+  })}
       >
         <tbody>
           <tr>
@@ -121,5 +120,4 @@ export default class MjImage extends BodyComponent {
       </table>
     `
   }
-
 }

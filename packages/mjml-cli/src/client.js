@@ -13,8 +13,6 @@ import timePad from './helpers/timePad'
 import { version as cliVersion } from '../package.json'
 import { version as coreVersion } from 'mjml-core/package.json'
 
-
-
 /*
  * The version number is the NPM
  * version number. It should be the same as the MJML engine
@@ -32,7 +30,7 @@ const availableErrorOutputFormat = {
 
 const error = e => console.log(e.stack || e) // eslint-disable-line no-console
 
-const isDirectory = (file) => {
+const isDirectory = file => {
   try {
     const outputPath = path.resolve(process.cwd(), file)
 
@@ -46,11 +44,12 @@ const isDirectory = (file) => {
  * Render an input promise
  */
 const render = (bufferPromise, { min, output, stdout, fileName, level }) => {
-  const handleError = message => fileName ? error(`File: ${fileName} \n${message}`) : error(message)
+  const handleError = message =>
+    fileName ? error(`File: ${fileName} \n${message}`) : error(message)
 
   return bufferPromise
     .then(mjml => mjml2html(mjml.toString(), { minify: min, filePath: fileName, level }))
-    .then((result) => {
+    .then(result => {
       const { html, errors } = result
 
       // non-blocking errors
@@ -64,7 +63,7 @@ const render = (bufferPromise, { min, output, stdout, fileName, level }) => {
         return write(output, html)
       }
     })
-    .catch((e) => {
+    .catch(e => {
       error(e.getMessages ? e.getMessages() : e)
       throw e
     })
@@ -72,7 +71,7 @@ const render = (bufferPromise, { min, output, stdout, fileName, level }) => {
 
 const outputFileName = (input, output) => {
   const outputIsDirectory = isDirectory(output)
-  const { ext, name } = path.parse((!output || outputIsDirectory) ? input : output)
+  const { ext, name } = path.parse(!output || outputIsDirectory ? input : output)
   let dir = outputIsDirectory ? output : './'
 
   if (output && !outputIsDirectory) {
@@ -91,29 +90,31 @@ const outputFileName = (input, output) => {
  * Turns an MJML input file into a pretty HTML file
  * min: boolean that specify the output format (pretty/minified)
  */
-export const renderFiles = (input, options) => new Promise((resolve, reject) => {
-  glob(input, (err, files) => {
-    const processedFiles = []
+export const renderFiles = (input, options) =>
+  new Promise((resolve, reject) => {
+    glob(input, (err, files) => {
+      const processedFiles = []
 
-    if (files.length > 1 && options.output && !isDirectory(options.output)) {
-      throw new Error('Output destination should be a directory instead of a file')
-    }
+      if (files.length > 1 && options.output && !isDirectory(options.output)) {
+        throw new Error('Output destination should be a directory instead of a file')
+      }
 
-    files.forEach((f) => {
-      processedFiles.push(renderFile(f, options))
+      files.forEach(f => {
+        processedFiles.push(renderFile(f, options))
+      })
+
+      Promise.all(processedFiles).then(resolve).catch(reject)
     })
-
-    Promise.all(processedFiles).then(resolve).catch(reject)
   })
-})
 
-export const renderFile = (file, { output, level, min, stdout }) => render(read(path.resolve(process.cwd(), file)), {
-  output: outputFileName(file, output),
-  fileName: file,
-  level,
-  min,
-  stdout,
-})
+export const renderFile = (file, { output, level, min, stdout }) =>
+  render(read(path.resolve(process.cwd(), file)), {
+    output: outputFileName(file, output),
+    fileName: file,
+    level,
+    min,
+    stdout,
+  })
 
 /**
  * Render based on input stream
@@ -123,15 +124,16 @@ export const renderStream = options => render(readStdin(process.stdin), options)
 /**
  * Validate an MJML document
  */
-export const validate = (input, { format }) => read(input)
-    .then((content) => {
+export const validate = (input, { format }) =>
+  read(input)
+    .then(content => {
       const MJMLDocument = MJMLParser(content.toString())
       const report = MJMLValidator(MJMLDocument)
       const outputFormat = availableErrorOutputFormat[format] || availableErrorOutputFormat.text
 
       error(outputFormat(report))
     })
-    .catch((e) => {
+    .catch(e => {
       error(`Error: ${e}`)
       throw e
     })
@@ -155,7 +157,11 @@ export const watch = (input, options) => {
 
     dependencies = newDependencies
 
-    console.log(`[${timePad(now.getHours())}:${timePad(now.getMinutes())}:${timePad(now.getSeconds())}] Reloading MJML`) // eslint-disable-line no-console
+    console.log(
+      `[${timePad(now.getHours())}:${timePad(now.getMinutes())}:${timePad(
+        now.getSeconds(),
+      )}] Reloading MJML`,
+    ) // eslint-disable-line no-console
     renderFile(input, options)
   })
 

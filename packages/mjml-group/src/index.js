@@ -3,30 +3,29 @@ import { BodyComponent } from 'mjml-core'
 import widthParser from 'mjml-core/lib/helpers/widthParser'
 
 export default class MjGroup extends BodyComponent {
-
   static allowedAttributes = {
     'background-color': 'color',
-    'border': 'unit(px)',
+    border: 'unit(px)',
     'border-bottom': 'unit(px)',
     'border-left': 'unit(px)',
     'border-radius': 'unit(px)',
     'border-right': 'unit(px)',
     'border-top': 'unit(px)',
-    'direction': 'enum(ltr,rtl)',
+    direction: 'enum(ltr,rtl)',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
-    'padding': 'unit(px,%){1,4}',
+    padding: 'unit(px,%){1,4}',
     'vertical-align': 'string',
-    'width': 'unit(px,%)',
+    width: 'unit(px,%)',
   }
 
   static defaultAttributes = {
-    'direction': 'ltr',
+    direction: 'ltr',
   }
 
-  getChildContext () {
+  getChildContext() {
     const {
       containerWidth,
     } = this.context
@@ -56,20 +55,20 @@ export default class MjGroup extends BodyComponent {
     }
   }
 
-  getStyles () {
+  getStyles() {
     return {
-      'div': {
+      div: {
         'font-size': '0',
         'line-height': '0',
         'text-align': 'left',
-        'direction': this.getAttribute('direction'),
-        'display': 'inline-block',
+        direction: this.getAttribute('direction'),
+        display: 'inline-block',
         'vertical-align': this.getAttribute('vertical-align'),
-        'width': '100%',
+        width: '100%',
       },
-      'table': {
+      table: {
         'background-color': this.getAttribute('background-color'),
-        'border': this.getAttribute('border'),
+        border: this.getAttribute('border'),
         'border-bottom': this.getAttribute('border-bottom'),
         'border-left': this.getAttribute('border-left'),
         'border-radius': this.getAttribute('border-radius'),
@@ -77,14 +76,14 @@ export default class MjGroup extends BodyComponent {
         'border-top': this.getAttribute('border-top'),
         'vertical-align': this.getAttribute('vertical-align'),
       },
-      'tdOutlook' : {
+      tdOutlook: {
         'vertical-align': this.getAttribute('vertical-align'),
-        'width': this.getWidthAsPixel(),
-      }
+        width: this.getWidthAsPixel(),
+      },
     }
   }
 
-  getParsedWidth (toString) {
+  getParsedWidth(toString) {
     const {
       sibling,
     } = this.props
@@ -108,9 +107,9 @@ export default class MjGroup extends BodyComponent {
     }
   }
 
-   getWidthAsPixel() {
+  getWidthAsPixel() {
     const {
-      containerWidth
+      containerWidth,
     } = this.context
 
     const {
@@ -122,12 +121,11 @@ export default class MjGroup extends BodyComponent {
 
     if (unit === '%') {
       return `${(parseFloat(containerWidth) * parsedWidth / 100)}px`
-    } else {
-      return `${parsedWidth}px`
     }
+    return `${parsedWidth}px`
   }
 
-  getColumnClass () {
+  getColumnClass() {
     const {
       addMediaQuery,
     } = this.context
@@ -159,18 +157,18 @@ export default class MjGroup extends BodyComponent {
     return className
   }
 
-  render () {
+  render() {
     const {
       children,
       sibling,
     } = this.props
 
     const {
-      containerWidth: groupWidth
+      containerWidth: groupWidth,
     } = this.getChildContext()
 
     const {
-      containerWidth
+      containerWidth,
     } = this.context
 
     const getElementWidth = (width) => {
@@ -187,9 +185,8 @@ export default class MjGroup extends BodyComponent {
 
       if (unit == '%') {
         return `${100 * parsedWidth / groupWidth}px`
-      } else {
-        return `${parsedWidth}${unit}`
       }
+      return `${parsedWidth}${unit}`
     }
 
     let classesName = `${this.getColumnClass()} outlook-group-fix`
@@ -201,32 +198,32 @@ export default class MjGroup extends BodyComponent {
     return `
       <div
         ${this.htmlAttributes({
-          class: classesName,
-          style: 'div',
-        })}
+    class: classesName,
+    style: 'div',
+  })}
       >
         <!--[if mso | IE]>
         <table  role="presentation" border="0" cellpadding="0" cellspacing="0">
           <tr>
         <![endif]-->
           ${this.renderChildren(children, {
-            attributes: { mobileWidth: 'mobileWidth' },
-            renderer: component => component.rawElement ? component.render() : `
+    attributes: { mobileWidth: 'mobileWidth' },
+    renderer: component => (component.rawElement ? component.render() : `
               <!--[if mso | IE]>
               <td
                 ${component.htmlAttributes({
-                  style: {
-                    align: component.getAttribute('align'),
-                    width: getElementWidth(component.getAttribute('width'))
-                  }
-                })}
+        style: {
+          align: component.getAttribute('align'),
+          width: getElementWidth(component.getAttribute('width')),
+        },
+      })}
               >
               <![endif]-->
                 ${component.render()}
               <!--[if mso | IE]>
               </td>
               <![endif]-->
-          `})}
+          `) })}
         <!--[if mso | IE]>
           </tr>
           </table>

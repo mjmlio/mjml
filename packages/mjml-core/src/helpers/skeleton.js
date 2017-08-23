@@ -61,7 +61,7 @@ export default function skeleton(options) {
         <![endif]-->
         ${buildFontsTags(content, fonts)}
         ${buildMediaQueriesTags(breakpoint, mediaQueries)}
-        ${style ? `<style type="text/css">${style.join('')}</style>` : '' }
+        ${style ? `<style type="text/css">${style.join('')}</style>` : ''}
       </head>
       <body>
         ${buildPreview(preview)}

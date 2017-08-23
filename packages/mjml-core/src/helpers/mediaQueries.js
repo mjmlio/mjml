@@ -8,5 +8,5 @@ export function buildMediaQueriesTags(breakpoint, mediaQueries = {}) {
       }
     </style>
   ` :
-  ''
+    ''
 }

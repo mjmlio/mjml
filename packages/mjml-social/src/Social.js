@@ -1,7 +1,6 @@
 import { BodyComponent } from 'mjml-core'
 
 export default class MjSocial extends BodyComponent {
-
   // static allowedAttributes = {
   //   align: 'enum(left,right,center)',
   //   'border-radius': 'unit(px)',
@@ -59,9 +58,9 @@ export default class MjSocial extends BodyComponent {
       'icon-size',
       'inner-padding',
       'line-height'].reduce((res, attr) => {
-        res[attr] = this.getAttribute(attr)
-        return res
-      }, {})
+      res[attr] = this.getAttribute(attr)
+      return res
+    }, {})
   }
 
   renderHorizontal() {
@@ -73,30 +72,30 @@ export default class MjSocial extends BodyComponent {
      <!--[if mso | IE]>
       <table
         ${this.htmlAttributes({
-          align: this.getAttribute('align'),
-          border: '0',
-          cellpadding: '0',
-          cellspacing: '0',
-          role: 'presentation',
-        })}
+    align: this.getAttribute('align'),
+    border: '0',
+    cellpadding: '0',
+    cellspacing: '0',
+    role: 'presentation',
+  })}
       >
         <tr>
       <![endif]-->
       ${this.renderChildren(children, {
-        attributes: this.getSocialElementAttributes(),
-        renderer: component => (`
+    attributes: this.getSocialElementAttributes(),
+    renderer: component => (`
             <!--[if mso | IE]>
               <td>
             <![endif]-->
               <table
                 ${component.htmlAttributes({
-                  align: component.getAttribute('align'),
-                  border: '0',
-                  cellpadding: '0',
-                  cellspacing: '0',
-                  role: 'presentation',
-                  style: 'tableHorizontal',
-                })}
+        align: component.getAttribute('align'),
+        border: '0',
+        cellpadding: '0',
+        cellspacing: '0',
+        role: 'presentation',
+        style: 'tableHorizontal',
+      })}
               >
                 ${component.render()}
               </table>
@@ -104,8 +103,8 @@ export default class MjSocial extends BodyComponent {
               </td>
             <![endif]-->
           `
-        ),
-      })}
+    ),
+  })}
       <!--[if mso | IE]>
           </tr>
         </table>
@@ -121,12 +120,12 @@ export default class MjSocial extends BodyComponent {
     return `
       <table
         ${this.htmlAttributes({
-          border: '0',
-          cellpadding: '0',
-          cellspacing: '0',
-          role: 'presentation',
-          style: 'tableVertical',
-        })}
+    border: '0',
+    cellpadding: '0',
+    cellspacing: '0',
+    role: 'presentation',
+    style: 'tableVertical',
+  })}
       >
         ${this.renderChildren(children, { attributes: this.getSocialElementAttributes() })}
       </table>
@@ -138,5 +137,4 @@ export default class MjSocial extends BodyComponent {
       ${this.getAttribute('mode') == 'horizontal' ? this.renderHorizontal() : this.renderVertical()}
     `
   }
-
 }

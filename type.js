@@ -10,7 +10,7 @@ console.log(stringtype)
 
 const output = (t) => { console.log(`Type: ${t.constructor.name} — Value: ${t.value} — isValid: ${t.isValid()} ${t.getErrorMessage()}`) }
 
-[ new colortype('grey'),
+[new colortype('grey'),
   new colortype('rgba(0,255,3,0.3)'),
   new colortype('#DDF'),
   new colortype('#DF'),
@@ -23,6 +23,6 @@ const output = (t) => { console.log(`Type: ${t.constructor.name} — Value: ${t.
   new unittype('10%'),
   new unittype('10px 10px'),
   new unittype('0'),
-  new stringtype('hello world')
+  new stringtype('hello world'),
 ].map(output)
 

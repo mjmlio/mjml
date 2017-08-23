@@ -3,21 +3,20 @@ import { BodyComponent } from 'mjml-core'
 import widthParser from 'mjml-core/lib/helpers/widthParser'
 
 export default class MjSection extends BodyComponent {
-
   static allowedAttributes = {
     'background-color': 'color',
     'background-url': 'string',
     'background-repeat': 'enum(repeat/no-repeat)',
     'background-size': 'string',
-    'border': 'string',
+    border: 'string',
     'border-bottom': 'string',
     'border-left': 'string',
     'border-radius': 'string',
     'border-right': 'string',
     'border-top': 'string',
-    'direction': 'enum(ltr,rtl)',
+    direction: 'enum(ltr,rtl)',
     'full-width': 'enum(full-width)',
-    'padding': 'unit(px,%){1,4}',
+    padding: 'unit(px,%){1,4}',
     'padding-top': 'unit(px,%)',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
@@ -30,14 +29,14 @@ export default class MjSection extends BodyComponent {
   static defaultAttributes = {
     'background-repeat': 'repeat',
     'background-size': 'auto',
-    'direction': 'ltr',
-    'padding': '20px 0',
+    direction: 'ltr',
+    padding: '20px 0',
     'text-align': 'center',
     'text-padding': '4px 4px 4px 0',
     'vertical-align': 'top',
   }
 
-getChildContext() {
+  getChildContext() {
     const {
       containerWidth,
     } = this.context
@@ -75,23 +74,23 @@ getChildContext() {
     return {
       tableFullwidth: {
         ...(fullWidth ? background : {}),
-        'width': '100%',
+        width: '100%',
         'border-radius': this.getAttribute('border-radius'),
       },
       table: {
         ...(fullWidth ? {} : background),
-        'width': '100%',
+        width: '100%',
         'border-radius': this.getAttribute('border-radius'),
       },
       td: {
-        'border': this.getAttribute('border'),
+        border: this.getAttribute('border'),
         'border-bottom': this.getAttribute('border-bottom'),
         'border-left': this.getAttribute('border-left'),
         'border-right': this.getAttribute('border-right'),
         'border-top': this.getAttribute('border-top'),
-        'direction': this.getAttribute('direction'),
+        direction: this.getAttribute('direction'),
         'font-size': '0px',
-        'padding': this.getAttribute('padding'),
+        padding: this.getAttribute('padding'),
         'padding-bottom': this.getAttribute('padding-bottom'),
         'padding-left': this.getAttribute('padding-left'),
         'padding-right': this.getAttribute('padding-right'),
@@ -101,14 +100,14 @@ getChildContext() {
       },
       div: {
         ...(fullWidth ? {} : background),
-        'Margin': '0px auto',
+        Margin: '0px auto',
         'border-radius': this.getAttribute('border-radius'),
         'max-width': containerWidth,
       },
       innerDiv: {
         'line-height': '0',
         'font-size': '0',
-      }
+      },
     }
   }
 
@@ -129,19 +128,19 @@ getChildContext() {
       <!--[if mso | IE]>
       <table
         ${this.htmlAttributes({
-          align: 'center',
-          border: '0',
-          cellpadding: '0',
-          cellspacing: '0',
-          class: this.getAttribute('css-class') ?
-            this.getAttribute('css-class')
-              .split(' ')
-              .map(c => `${c}-outlook`)
-              .join(' ')
-            : null,
-          style: { width: `${containerWidth}` },
-          width: parseInt(containerWidth, 10),
-        })}
+    align: 'center',
+    border: '0',
+    cellpadding: '0',
+    cellspacing: '0',
+    class: this.getAttribute('css-class') ?
+      this.getAttribute('css-class')
+        .split(' ')
+        .map(c => `${c}-outlook`)
+        .join(' ')
+      : null,
+    style: { width: `${containerWidth}` },
+    width: parseInt(containerWidth, 10),
+  })}
       >
         <tr>
           <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
@@ -169,27 +168,27 @@ getChildContext() {
         <tr>
       <![endif]-->
       ${this.renderChildren(children, {
-        renderer: component => component.rawElement ? component.render() : `
+    renderer: component => (component.rawElement ? component.render() : `
           <!--[if mso | IE]>
             <td
               ${component.htmlAttributes({
-                align: component.getAttribute('align'),
-                class: component.getAttribute('css-class') ?
-                  component.getAttribute('css-class')
-                    .split(' ')
-                    .map(c => `${c}-outlook`)
-                    .join(' ')
-                  : null,
-                style: 'tdOutlook',
-              })}
+        align: component.getAttribute('align'),
+        class: component.getAttribute('css-class') ?
+          component.getAttribute('css-class')
+            .split(' ')
+            .map(c => `${c}-outlook`)
+            .join(' ')
+          : null,
+        style: 'tdOutlook',
+      })}
             >
           <![endif]-->
             ${component.render()}
           <!--[if mso | IE]>
             </td>
           <![endif]-->
-        `,
-      })}
+    `),
+  })}
 
       <!--[if mso | IE]>
         </tr>
@@ -207,18 +206,18 @@ getChildContext() {
     return `
       <!--[if mso | IE]>
         <v:rect ${this.htmlAttributes({
-          'style': fullWidth ? { 'mso-width-percent': '1000' } : { width: containerWidth },
-          'xmlns:v': 'urn:schemas-microsoft-com:vml',
-          'fill': 'true',
-          'stroke': 'false',
-        })}>
+    style: fullWidth ? { 'mso-width-percent': '1000' } : { width: containerWidth },
+    'xmlns:v': 'urn:schemas-microsoft-com:vml',
+    fill: 'true',
+    stroke: 'false',
+  })}>
         <v:fill ${this.htmlAttributes({
-          origin: '0.5, 0',
-          position: '0.5, 0',
-          src: this.getAttribute('background-url'),
-          color: this.getAttribute('background-color'),
-          type: 'tile',
-        })} />
+    origin: '0.5, 0',
+    position: '0.5, 0',
+    src: this.getAttribute('background-url'),
+    color: this.getAttribute('background-color'),
+    type: 'tile',
+  })} />
         <v:textbox style="mso-fit-shape-to-text:true" inset="0,0,0,0">
       <![endif]-->
           ${content}
@@ -234,27 +233,27 @@ getChildContext() {
 
     return `
       <div ${this.htmlAttributes({
-        class: this.isFullWidth() ? null : this.getAttribute('css-class'),
-        style: 'div',
-      })}>
+    class: this.isFullWidth() ? null : this.getAttribute('css-class'),
+    style: 'div',
+  })}>
         ${hasBackground ? `<div ${this.htmlAttributes({ style: 'innerDiv' })}>` : ''}
         <table
           ${this.htmlAttributes({
-            align: 'center',
-            background: this.isFullWidth() ? null : this.getAttribute('background-url'),
-            border: '0',
-            cellpadding: '0',
-            cellspacing: '0',
-            role: 'presentation',
-            style: 'table',
-          })}
+    align: 'center',
+    background: this.isFullWidth() ? null : this.getAttribute('background-url'),
+    border: '0',
+    cellpadding: '0',
+    cellspacing: '0',
+    role: 'presentation',
+    style: 'table',
+  })}
         >
           <tbody>
             <tr>
               <td
                 ${this.htmlAttributes({
-                  style: 'td',
-                })}
+    style: 'td',
+  })}
               >
                 <!--[if mso | IE]>
                   <table role="presentation" border="0" cellpadding="0" cellspacing="0">
@@ -267,7 +266,7 @@ getChildContext() {
             </tr>
           </tbody>
         </table>
-        ${hasBackground ? `</div>` : ''}
+        ${hasBackground ? '</div>' : ''}
       </div>
     `
   }
@@ -276,15 +275,15 @@ getChildContext() {
     return `
       <table
         ${this.htmlAttributes({
-          align: 'center',
-          class: this.getAttribute('css-class'),
-          background: this.getAttribute('background-url'),
-          border: '0',
-          cellpadding: '0',
-          cellspacing: '0',
-          role: 'presentation',
-          style: 'tableFullwidth',
-        })}
+    align: 'center',
+    class: this.getAttribute('css-class'),
+    background: this.getAttribute('background-url'),
+    border: '0',
+    cellpadding: '0',
+    cellspacing: '0',
+    role: 'presentation',
+    style: 'tableFullwidth',
+  })}
       >
         <tbody>
           <tr>
@@ -293,11 +292,11 @@ getChildContext() {
                 ${this.renderBefore()}
                 ${this.renderSection()}
                 ${this.renderAfter()}
-              `) : `
+    `) : `
                 ${this.renderBefore()}
                 ${this.renderSection()}
                 ${this.renderAfter()}
-              `}
+  `}
             </td>
           </tr>
         </tbody>
@@ -318,5 +317,4 @@ getChildContext() {
   render() {
     return this.isFullWidth() ? this.renderFullWidth() : this.renderSimple()
   }
-
 }

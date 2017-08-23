@@ -16,7 +16,7 @@ const promisify = fn =>
   (...args) =>
     new Promise((resolve, reject) =>
       fn(...args.concat((err, ...data) =>
-        err ? reject(err) : resolve(...data))))
+        (err ? reject(err) : resolve(...data)))))
 
 
 export const write = promisify(fs.writeFile)

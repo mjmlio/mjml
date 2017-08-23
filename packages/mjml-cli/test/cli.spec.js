@@ -39,7 +39,7 @@ const compareFiles = (fileToCompare, expectedFile) => {
   const files = [fileToCompare, expectedFile]
 
   return Promise.all(files.map(file => fsp.readFile(file, { encoding: 'utf8' })
-      .then(fileContent => format(fileContent))))
+    .then(fileContent => format(fileContent))))
     .then((filesContentFormatted) => {
       expect(filesContentFormatted[0]).to.equal(filesContentFormatted[1])
     })

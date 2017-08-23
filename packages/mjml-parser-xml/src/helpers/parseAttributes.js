@@ -13,12 +13,10 @@ export default function parseAttributes(input) {
   }))
 }
 
-export function decodeAttributes (input) {
-  return input.replace(regexTag, match => {
-    return match.replace(regexAttributes, (match, beforeAttr, attrVal, afterAttr) => {
-      const newAttrVal = decodeURIComponent(attrVal)
+export function decodeAttributes(input) {
+  return input.replace(regexTag, match => match.replace(regexAttributes, (match, beforeAttr, attrVal, afterAttr) => {
+    const newAttrVal = decodeURIComponent(attrVal)
 
-      return `${beforeAttr}${newAttrVal}${afterAttr}`
-    })
-  })
+    return `${beforeAttr}${newAttrVal}${afterAttr}`
+  }))
 }

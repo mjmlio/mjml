@@ -10,7 +10,7 @@ export const initializeType = (typeConfig) => {
     return types[typeConfig]
   }
 
-  const { typeConstructor } = find(typesConstructors, (type) => !!typeConfig.match(type.matcher)) || {}
+  const { typeConstructor } = find(typesConstructors, type => !!typeConfig.match(type.matcher)) || {}
 
   if (!typeConstructor) {
     throw new Error(`No type found for ${typeConfig}`)
@@ -22,15 +22,15 @@ export const initializeType = (typeConfig) => {
 }
 
 export default class Type {
-  constructor (value) {
+  constructor(value) {
     this.value = value
   }
 
-  isValid () {
-    return some(this.matchers, (matcher) => this.value.match(matcher))
+  isValid() {
+    return some(this.matchers, matcher => this.value.match(matcher))
   }
 
-  getErrorMessage () {
+  getErrorMessage() {
     if (this.isValid()) {
       return
     }
@@ -40,11 +40,11 @@ export default class Type {
     return errorMessage.replace(/\$value/g, this.value)
   }
 
-  static check (type) {
+  static check(type) {
     return !!type.match(this.constructor.typeChecker)
   }
 
-  getValue () {
+  getValue() {
     return this.value
   }
 }

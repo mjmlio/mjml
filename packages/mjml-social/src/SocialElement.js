@@ -33,40 +33,39 @@ const defaultSocialNetworks = {
 }
 
 export default class MjSocialElement extends BodyComponent {
-
   static endingTag = true
 
   static allowedAttributes = {
-    'align': 'enum(left,center,right)',
-    'color': 'color',
+    align: 'enum(left,center,right)',
+    color: 'color',
     'border-radius': 'unit(px)',
     'font-family': 'string',
     'font-size': 'unit(px,%)',
     'font-style': 'string',
     'font-weight': 'string',
     'line-height': 'unit(px,%)',
-    'name': 'string',
+    name: 'string',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
-    'padding': 'unit(px,%){1,4}',
-    'target': 'string',
+    padding: 'unit(px,%){1,4}',
+    target: 'string',
     'text-decoration': 'string',
-    'width': 'integer',
+    width: 'integer',
   }
 
   static defaultAttributes = {
-    'align': 'left',
-    'color': '#000',
+    align: 'left',
+    color: '#000',
     'border-radius': '3px',
     'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
     'font-size': '13px',
     'line-height': '22px',
-    'padding': '10px 25px',
-    'target': '_blank',
+    padding: '10px 25px',
+    target: '_blank',
     'text-decoration': 'none',
-    'width': '100%',
+    width: '100%',
   }
 
   getStyles() {
@@ -77,22 +76,22 @@ export default class MjSocialElement extends BodyComponent {
 
     return {
       td: {
-        'padding': this.getAttribute('inner-padding'),
+        padding: this.getAttribute('inner-padding'),
       },
       table: {
-        'background': backgroundColor,
+        background: backgroundColor,
         'border-radius': this.getAttribute('border-radius'),
-        'width': iconSize,
+        width: iconSize,
       },
       icon: {
-        'width': iconSize,
-        'height': iconSize,
+        width: iconSize,
+        height: iconSize,
       },
       img: {
         'border-radius': this.getAttribute('border-radius'),
       },
       text: {
-        'color': this.getAttribute('color'),
+        color: this.getAttribute('color'),
         'font-size': this.getAttribute('font-size'),
         'font-family': this.getAttribute('font-family'),
         'line-height': this.getAttribute('line-height'),
@@ -125,33 +124,33 @@ export default class MjSocialElement extends BodyComponent {
     return `
       <tr
         ${this.htmlAttributes({
-          class: this.getAttribute('css-class'),
-        })}
+    class: this.getAttribute('css-class'),
+  })}
       >
         <td ${this.htmlAttributes({ style: 'td' })}>
           <table
             ${this.htmlAttributes({
-              border: '0',
-              cellpadding: '0',
-              cellspacing: '0',
-              role: 'presentation',
-              style: 'table',
-            })}
+    border: '0',
+    cellpadding: '0',
+    cellspacing: '0',
+    role: 'presentation',
+    style: 'table',
+  })}
           >
             <tr>
               <td ${this.htmlAttributes({ style: 'icon' })}>
                 <a ${this.htmlAttributes({
-                  href,
-                  rel: this.getAttribute('rel'),
-                })}>
+    href,
+    rel: this.getAttribute('rel'),
+  })}>
                     <img
                       ${this.htmlAttributes({
-                        alt: this.getAttribute('alt'),
-                        height: parseInt(iconSize),
-                        src,
-                        style: 'img',
-                        width: parseInt(iconSize),
-                      })}
+    alt: this.getAttribute('alt'),
+    height: parseInt(iconSize),
+    src,
+    style: 'img',
+    width: parseInt(iconSize),
+  })}
                     />
                   </a>
                 </td>
@@ -159,20 +158,19 @@ export default class MjSocialElement extends BodyComponent {
                   <td>
                     <a
                       ${this.htmlAttributes({
-                        href,
-                        style: 'text',
-                        rel: this.getAttribute('rel'),
-                      })}>
+    href,
+    style: 'text',
+    rel: this.getAttribute('rel'),
+  })}>
                       ${this.getContent()}
                     </a>
                   </td>
                   ` : ''
-                }
+}
               </tr>
           </table>
         </td>
       </tr>
     `
   }
-
 }

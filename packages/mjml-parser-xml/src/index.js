@@ -33,13 +33,13 @@ export default function MJMLParser(xml, options = {}) {
     components = {},
     convertBooleans = true,
     keepComments = true,
-    filePath = '.'
+    filePath = '.',
   } = options
 
   const CDATASections = flow(
     filter(component => component.endingTag),
     map(component => component.getTagName())
-  )({...components})
+  )({ ...components })
 
   const cwd = filePath ? path.dirname(filePath) : process.cwd()
 
@@ -63,7 +63,7 @@ export default function MJMLParser(xml, options = {}) {
     } catch (e) {
       const newNode = {
         line,
-        file: file,
+        file,
         absoluteFilePath: path.resolve(cwd, filePath),
         parent: cur,
         tagName: 'mj-raw',
@@ -79,8 +79,8 @@ export default function MJMLParser(xml, options = {}) {
 
     content = content.indexOf('<mjml>') == -1 ? `<mjml><mj-body>${content}</mj-body></mjml>` : content
 
-    const partialMjml = parseXML(content,  {...options, filePath: partialPath })
-    const bindToTree = (children, tree=cur) => children.map(c => ({...c, parent: tree }))
+    const partialMjml = parseXML(content, { ...options, filePath: partialPath })
+    const bindToTree = (children, tree = cur) => children.map(c => ({ ...c, parent: tree }))
 
     if (partialMjml.tagName != 'mjml') {
       return

@@ -1,7 +1,6 @@
 import { HeadComponent } from 'mjml-core'
 
 export default class MjPreview extends HeadComponent {
-
   static endingTag = true
 
   handler() {
@@ -11,5 +10,4 @@ export default class MjPreview extends HeadComponent {
 
     add('preview', this.getContent())
   }
-
 }

@@ -1,125 +1,129 @@
-import {
-  createBodyComponent,
-} from 'mjml-core/lib/createComponent'
+import { BodyComponent } from 'mjml-core'
 
-export default createBodyComponent('mj-button', {
-  endingTag: true,
-  allowedAttributes: {
+export default class MjButton extends BodyComponent {
+
+  static endingTag = true
+
+  static allowedAttributes = [
+    'align',
+    'background-color',
+    'border-bottom',
+    'border-left',
+    'border-radius',
+    'border-right',
+    'border-top',
+    'border',
+    'color',
+    'container-background-color',
+    'font-family',
+    'font-size',
+    'font-style',
+    'font-weight',
+    'height',
+    'href',
+    'inner-padding',
+    'line-height',
+    'padding-bottom',
+    'padding-left',
+    'padding-right',
+    'padding-top',
+    'padding',
+    'rel',
+    'text-decoration',
+    'text-transform',
+    'vertical-align',
+    'width',
+  ]
+
+  static defaultAttributes = {
+    'align': 'center',
     'background-color': '#414141',
-    border: 'none',
-    'border-bottom': null,
-    'border-left': null,
+    'border': 'none',
     'border-radius': '3px',
-    'border-right': null,
-    'border-top': null,
-    'container-background-color': null,
-    'font-style': null,
+    'color': '#ffffff',
+    'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
     'font-size': '13px',
     'font-weight': 'normal',
-    'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
-    color: '#ffffff',
-    'text-decoration': 'none',
-    'text-transform': 'none',
-    align: 'center',
-    'vertical-align': 'middle',
-    href: null,
-    rel: null,
     'inner-padding': '10px 25px',
     'line-height': '120%',
-    padding: '10px 25px',
-    'padding-top': null,
-    'padding-bottom': null,
-    'padding-left': null,
-    'padding-right': null,
-    width: null,
-    height: null,
-  },
-  defaultAttributes: {
-    'background-color': '#414141',
-    border: 'none',
-    'border-radius': '3px',
-    'font-size': '13px',
-    'font-weight': 'normal',
-    'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
-    color: '#ffffff',
+    'padding': '10px 25px',
     'text-decoration': 'none',
     'text-transform': 'none',
-    align: 'center',
     'vertical-align': 'middle',
-    'inner-padding': '10px 25px',
-    'line-height': '120%',
-    padding: '10px 25px',
-  },
+  }
+
   getStyles() {
     return {
       table: {
         'border-collapse': 'separate',
-        width: this.getMjAttribute('width'),
+        width: this.getAttribute('width'),
       },
       td: {
-        border: this.getMjAttribute('border'),
-        'border-bottom': this.getMjAttribute('border-bottom'),
-        'border-left': this.getMjAttribute('border-left'),
-        'border-radius': this.getMjAttribute('border-radius'),
-        'border-right': this.getMjAttribute('border-right'),
-        'border-top': this.getMjAttribute('border-top'),
-        color: this.getMjAttribute('color'),
-        cursor: 'auto',
-        'font-style': this.getMjAttribute('font-style'),
-        height: this.getMjAttribute('height'),
-        padding: this.getMjAttribute('inner-padding'),
+        border: this.getAttribute('border'),
+        'border-bottom': this.getAttribute('border-bottom'),
+        'border-left': this.getAttribute('border-left'),
+        'border-radius': this.getAttribute('border-radius'),
+        'border-right': this.getAttribute('border-right'),
+        'border-top': this.getAttribute('border-top'),
+        'color': this.getAttribute('color'),
+        'cursor': 'auto',
+        'font-style': this.getAttribute('font-style'),
+        'height': this.getAttribute('height'),
+        'padding': this.getAttribute('inner-padding'),
       },
       content: {
-        background: this.getMjAttribute('background-color'),
-        color: this.getMjAttribute('color'),
-        'font-family': this.getMjAttribute('font-family'),
-        'font-size': this.getMjAttribute('font-size'),
-        'font-style': this.getMjAttribute('font-style'),
-        'font-weight': this.getMjAttribute('font-weight'),
-        'line-height': this.getMjAttribute('line-height'),
-        'text-decoration': this.getMjAttribute('text-decoration'),
-        'text-transform': this.getMjAttribute('text-transform'),
-        Margin: '0px',
+        'background': this.getAttribute('background-color'),
+        'color': this.getAttribute('color'),
+        'font-family': this.getAttribute('font-family'),
+        'font-size': this.getAttribute('font-size'),
+        'font-style': this.getAttribute('font-style'),
+        'font-weight': this.getAttribute('font-weight'),
+        'line-height': this.getAttribute('line-height'),
+        'Margin': '0',
+        'text-decoration': this.getAttribute('text-decoration'),
+        'text-transform': this.getAttribute('text-transform'),
       },
     }
-  },
+  }
+
   render() {
-    const tag = this.getMjAttribute('href') ? 'a' : 'p'
+    const tag = this.getAttribute('href') ? 'a' : 'p'
 
     return `
       <table
-        ${this.generateHtmlAttributes({
-          align: this.getMjAttribute('align'),
+        ${this.htmlAttributes({
+          align: this.getAttribute('align'),
           border: '0',
-          cellPadding: '0',
-          cellSpacing: '0',
+          cellpadding: '0',
+          cellspacing: '0',
           role: 'presentation',
           style: 'table',
         })}
       >
         <tr>
           <td
-            ${this.generateHtmlAttributes({
+            ${this.htmlAttributes({
               align: 'center',
-              bgcolor: this.getMjAttribute('background-color') === 'none' ? undefined : this.getMjAttribute('background-color'),
+              bgcolor: this.getAttribute('background-color') === 'none' ? undefined : this.getAttribute('background-color'),
               role: 'presentation',
               style: 'td',
-              valign: this.getMjAttribute('vertical-align'),
+              valign: this.getAttribute('vertical-align'),
             })}
           >
             <${tag}
-              ${this.generateHtmlAttributes({
-                href: this.getMjAttribute('href'),
-                rel: this.getMjAttribute('rel'),
+              ${this.htmlAttributes({
+                href: this.getAttribute('href'),
+                rel: this.getAttribute('rel'),
                 style: 'content',
-                target: tag == 'a' ? '_blank' : undefined,
+                target: tag === 'a' ? '_blank' : undefined,
               })}
             >
-              ${this.getMjContent()}
+              ${this.getContent()}
             </${tag}>
           </td>
         </tr>
       </table>
     `
-  },
-})
+  }
+
+}

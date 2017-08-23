@@ -1,27 +1,29 @@
-import { createBodyComponent } from 'mjml-core/lib/createComponent'
+import { BodyComponent } from 'mjml-core'
 
-export default createBodyComponent('mj-social', {
-  allowedAttributes: {
-    align: 'enum(left,right,center)',
-    'border-radius': 'unit(px)',
-    'container-background-color': 'color',
-    color: 'color',
-    'font-family': 'string',
-    'font-size': 'unit(px,%)',
-    'font-style': 'string',
-    'font-weight': 'string',
-    'inner-padding': 'unit(px,%)',
-    'line-height': 'unit(px,%)',
-    mode: 'enum(horizontal,vertical)',
-    'padding-bottom': 'unit(px,%)',
-    'padding-left': 'unit(px,%)',
-    'padding-right': 'unit(px,%)',
-    'padding-top': 'unit(px,%)',
-    padding: 'unit(px,%){1,4}',
-    'table-layout': 'enum(auto,fixed)',
-    'vertical-align': 'enum(top,bottom,middle)',
-  },
-  defaultAttributes: {
+export default class MjSocial extends BodyComponent {
+
+  // static allowedAttributes = {
+  //   align: 'enum(left,right,center)',
+  //   'border-radius': 'unit(px)',
+  //   'container-background-color': 'color',
+  //   color: 'color',
+  //   'font-family': 'string',
+  //   'font-size': 'unit(px,%)',
+  //   'font-style': 'string',
+  //   'font-weight': 'string',
+  //   'inner-padding': 'unit(px,%)',
+  //   'line-height': 'unit(px,%)',
+  //   mode: 'enum(horizontal,vertical)',
+  //   'padding-bottom': 'unit(px,%)',
+  //   'padding-left': 'unit(px,%)',
+  //   'padding-right': 'unit(px,%)',
+  //   'padding-top': 'unit(px,%)',
+  //   padding: 'unit(px,%){1,4}',
+  //   'table-layout': 'enum(auto,fixed)',
+  //   'vertical-align': 'enum(top,bottom,middle)',
+  // }
+
+  static defaultAttributes = {
     align: 'center',
     'border-radius': '3px',
     color: '#333333',
@@ -33,7 +35,8 @@ export default createBodyComponent('mj-social', {
     mode: 'horizontal',
     padding: '10px 25px',
     'text-decoration': 'none',
-  },
+  }
+
   getStyles() {
     return {
       tableVertical: {
@@ -44,7 +47,8 @@ export default createBodyComponent('mj-social', {
         display: 'inline-table',
       },
     }
-  },
+  }
+
   getSocialElementAttributes() {
     return [
       'border-radius',
@@ -55,18 +59,21 @@ export default createBodyComponent('mj-social', {
       'icon-size',
       'inner-padding',
       'line-height'].reduce((res, attr) => {
-        res[attr] = this.getMjAttribute(attr)
+        res[attr] = this.getAttribute(attr)
         return res
       }, {})
-  },
+  }
+
   renderHorizontal() {
-    const { children } = this.props
+    const {
+      children,
+    } = this.props
 
     return `
      <!--[if mso | IE]>
       <table
-        ${this.generateHtmlAttributes({
-          align: this.getMjAttribute('align'),
+        ${this.htmlAttributes({
+          align: this.getAttribute('align'),
           border: '0',
           cellpadding: '0',
           cellspacing: '0',
@@ -82,8 +89,8 @@ export default createBodyComponent('mj-social', {
               <td>
             <![endif]-->
               <table
-                ${this.generateHtmlAttributes({
-                  align: this.getMjAttribute('align'),
+                ${component.htmlAttributes({
+                  align: component.getAttribute('align'),
                   border: '0',
                   cellpadding: '0',
                   cellspacing: '0',
@@ -104,13 +111,16 @@ export default createBodyComponent('mj-social', {
         </table>
       <![endif]-->
     `
-  },
+  }
+
   renderVertical() {
-    const { children } = this.props
+    const {
+      children,
+    } = this.props
 
     return `
       <table
-        ${this.generateHtmlAttributes({
+        ${this.htmlAttributes({
           border: '0',
           cellpadding: '0',
           cellspacing: '0',
@@ -121,10 +131,12 @@ export default createBodyComponent('mj-social', {
         ${this.renderChildren(children, { attributes: this.getSocialElementAttributes() })}
       </table>
     `
-  },
+  }
+
   render() {
     return `
-      ${this.getMjAttribute('mode') == 'horizontal' ? this.renderHorizontal() : this.renderVertical()}
+      ${this.getAttribute('mode') == 'horizontal' ? this.renderHorizontal() : this.renderVertical()}
     `
-  },
-})
+  }
+
+}

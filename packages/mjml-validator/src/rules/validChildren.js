@@ -1,11 +1,15 @@
-import components from 'mjml-core'
-import dependencies from '../dependencies'
 import filter from 'lodash/filter'
 import includes from 'lodash/includes'
+
+import dependencies from '../dependencies'
 import ruleError from './ruleError'
 
-export const validChildren = (element) => {
-  const { children, tagName } = element
+export default function validChildren(element, { components }) {
+  const {
+    children,
+    tagName,
+  } = element
+
   const Component = components[tagName]
 
   if (!Component) {

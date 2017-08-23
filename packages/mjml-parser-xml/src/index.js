@@ -1,12 +1,14 @@
-import _ from 'lodash'
 import htmlparser from 'htmlparser2'
+
 import isObject from 'lodash/isObject'
 import findLastIndex from 'lodash/findLastIndex'
 import find from 'lodash/find'
 import mapValues from 'lodash/mapValues'
 import path from 'path'
 import fs from 'fs'
-import { components } from 'mjml-core'
+import filter from 'lodash/fp/filter'
+import map from 'lodash/fp/map'
+import flow from 'lodash/fp/flow'
 
 import parseAttributes, { decodeAttributes } from './helpers/parseAttributes'
 import cleanNode from './helpers/cleanNode'
@@ -25,19 +27,19 @@ const indexesForNewLine = (xml) => {
   return indexes
 }
 
-export default function parseXML(xml, options = {}) {
+export default function MJMLParser(xml, options = {}) {
   const {
     addEmptyAttributes = true,
-    CDATASections = _.chain({
-      ...components,
-    })
-      .filter(component => component.prototype.endingTag)
-      .map(component => component.getName())
-      .value(),
+    components = {},
     convertBooleans = true,
     keepComments = true,
     filePath = '.'
   } = options
+
+  const CDATASections = flow(
+    filter(component => component.endingTag),
+    map(component => component.getTagName())
+  )({...components})
 
   const cwd = filePath ? path.dirname(filePath) : process.cwd()
 

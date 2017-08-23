@@ -1,3 +1,4 @@
+import buildPreview from './preview'
 import {
   buildFontsTags,
 } from './fonts'
@@ -7,10 +8,13 @@ import {
 
 export default function skeleton(options) {
   const {
+    breakpoint = '480px',
     content = '',
     fonts = {},
     mediaQueries = {},
+    preview,
     title = '',
+    style,
   } = options
 
   return `
@@ -56,9 +60,11 @@ export default function skeleton(options) {
         </style>
         <![endif]-->
         ${buildFontsTags(content, fonts)}
-        ${buildMediaQueriesTags(mediaQueries)}
+        ${buildMediaQueriesTags(breakpoint, mediaQueries)}
+        ${style ? `<style type="text/css">${style.join('')}</style>` : '' }
       </head>
       <body>
+        ${buildPreview(preview)}
         ${content}
       </body>
     </html>

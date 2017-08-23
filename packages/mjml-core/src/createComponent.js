@@ -1,216 +1,196 @@
 import forEach from 'lodash/forEach'
+import identity from 'lodash/identity'
 import reduce from 'lodash/reduce'
+import kebabCase from 'lodash/kebabCase'
+
 import objectPath from 'object-path'
-import shorthandParser from './helpers/shorthandParser'
+
 import MJMLParser from 'mjml-parser-xml'
 
-import {
-  initComponent,
-} from './components'
+import shorthandParser from './helpers/shorthandParser'
 
+import components, { initComponent } from './components'
 
-export function createBodyComponent(name, component) {
-  return createComponent('body', name, component)
-}
-
-export function createHeadComponent(name, component) {
-  return createComponent('head', name, component)
-}
-
-export default function createComponent(type, name, component) {
-  const onlyFor = forType => function (target, key, desc) {
-    const fn = desc.value
-
-    desc.value = function (...args) {
-      if (forType !== type) {
-        throw new Error(`This method can be use only with a ${type} component.`)
-      }
-
-      return fn.apply(this, args)
-    }
+class Component {
+  static getTagName() {
+    return kebabCase(this.name)
   }
 
+  static defaultAttributes = {}
 
-  class Component {
+  constructor(initialDatas = {}) {
+    const {
+      attributes = {},
+      children = [],
+      content = '',
+      context = {},
+      props = {},
+    } = initialDatas
 
-    static getName() {
-      return name
+    this.props = {
+      ...props,
+      children,
+      content,
     }
 
-    static getType() {
-      return type
+    this.attributes = {
+      ...this.constructor.defaultAttributes,
+      ...attributes,
     }
+    this.context = context
 
-    constructor(initialDatas = {}) {
-      const {
-        attributes = {},
-        children = [],
-        content = '',
-        context = {},
-        props = {},
-      } = initialDatas
+    return this
+  }
 
-      this.props = {
-        ...props,
-        children,
-        content,
-      }
+  getChildContext() {
+    return this.context
+  }
 
-      this.attributes = {
-        ...component.defaultAttributes,
-        ...attributes,
-      }
-      this.context = context
+  getAttribute(name) {
+    return this.attributes[name]
+  }
 
-      return this
-    }
+  getContent() {
+    return this.props.content.trim()
+  }
 
-    getChildContext() {
-      return this.context
-    }
-
-    @onlyFor('body')
-    getStyles() {
-      return {}
-    }
-
-    getMjAttribute(name) {
-      return this.attributes[name] || undefined
-    }
-
-    getMjContent() {
-      return this.props.content.trim()
-    }
-
-    @onlyFor('body')
-    getShorthandAttrValue(attribute, direction) {
-      const mjAttributeDirection = this.getMjAttribute(`${attribute}-${direction}`)
-      const mjAttribute = this.getMjAttribute(attribute)
-
-      if (mjAttributeDirection) {
-        return parseInt(mjAttributeDirection)
-      }
-
-      if (!mjAttribute) {
-        return 0
-      }
-
-      return shorthandParser(mjAttribute, direction)
-    }
-
-    @onlyFor('body')
-    generateHtmlAttributes(attributes) {
-      const specialAttributes = {
-        style: v => this.generateStyles(v),
-        default: v => v,
-      }
-
-      return reduce(attributes, (output, v, name) => {
-        const value = (specialAttributes[name] || specialAttributes.default)(v)
-
-        if (value) {
-          return output += ` ${name}="${value}"`
-        }
-
-        return output
-      }, '')
-    }
-
-    @onlyFor('body')
-    generateStyles(styles) {
-      styles = styles
-        ? typeof styles === 'string'
-          ? objectPath.get(this.getStyles(), styles)
-          : styles
-        : this.getStyles()
-
-      let output = ''
-
-      forEach(styles, (value, name) => {
-        if (value) {
-          output += `${name}:${value};`
-        }
-      })
-
-      return output
-    }
-
-    @onlyFor('head')
-    handlerChildren() {
-      const childrens = this.props.children
-
-      forEach(childrens, (child) => {
-        const component = initComponent({
-          name: child.tagName,
-          initialDatas: {
-            ...child,
-            context: this.getChildContext(),
-          },
-        })
-
-        if (component.handler) {
-          component.handler()
-        }
+  renderMJML(mjml, options = {}) {
+    if (typeof mjml === 'string') {
+      mjml = MJMLParser(mjml, {
+        ...options,
+        components,
+        ignoreInclude: true,
       })
     }
 
-    @onlyFor('body')
-    renderChildren(children, options = {}) {
-      const {
-        props = {},
-        renderer = component => component.render(),
-        attributes = {},
-      } = options
+    return this.context.processing(mjml, this.context)
+  }
 
-      children = children || this.props.children
+}
 
-      const sibling = children.length
+export class BodyComponent extends Component {
 
-      let output = ''
+  getStyles() {
+    return {}
+  }
 
-      for (let index = 0; index < sibling; index++) {
-        const child = children[index]
-        const component = initComponent({
-          name: child.tagName,
-          initialDatas: {
-            ...child,
-            attributes: {
-              ...attributes,
-              ...child.attributes,
-            },
-            context: this.getChildContext(),
-            props: {
-              ...props,
-              first: index === 0,
-              index,
-              last: index + 1 === sibling,
-              sibling,
-            },
-          },
-        })
+  getShorthandAttrValue(attribute, direction) {
+    const mjAttributeDirection = this.getAttribute(`${attribute}-${direction}`)
+    const mjAttribute = this.getAttribute(attribute)
 
-        if (component !== null) {
-          output += renderer(component)
-        }
+    if (mjAttributeDirection) {
+      return parseInt(mjAttributeDirection)
+    }
+
+    if (!mjAttribute) {
+      return 0
+    }
+
+    return shorthandParser(mjAttribute, direction)
+  }
+
+  htmlAttributes(attributes) {
+    const specialAttributes = {
+      style: v => this.styles(v),
+      default: identity,
+    }
+
+    return reduce(attributes, (output, v, name) => {
+      const value = (specialAttributes[name] || specialAttributes.default)(v)
+
+      if (value) {
+        return output += ` ${name}="${value}"`
       }
 
       return output
-    }
-
+    }, '')
   }
 
-  const newComponent = Component
+  styles(styles) {
+    styles = styles
+      ? typeof styles === 'string'
+        ? objectPath.get(this.getStyles(), styles)
+        : styles
+      : this.getStyles()
 
-  if (component.useMJML) {
-    component._render = component.render
-    component.render = function () {
-      const mjml = MJMLParser(this._render(), { ignoreInclude: true })
+    let output = ''
 
-      return this.context.processing(mjml, this.context)
-    }
+    forEach(styles, (value, name) => {
+      if (value) {
+        output += `${name}:${value};`
+      }
+    })
+
+    return output
   }
 
-  Object.assign(newComponent.prototype, component)
+  renderChildren(childrens, options = {}) {
+    const {
+      props = {},
+      renderer = component => component.render(),
+      attributes = {},
+    } = options
 
-  return newComponent
+    childrens = childrens || this.props.children
+
+    const sibling = childrens.length
+
+    let output = ''
+    let index = 0
+
+    forEach(childrens, (children) => {
+      const component = initComponent({
+        name: children.tagName,
+        initialDatas: {
+          ...children,
+          attributes: {
+            ...attributes,
+            ...children.attributes,
+          },
+          context: this.getChildContext(),
+          props: {
+            ...props,
+            first: index === 0,
+            index,
+            last: index + 1 === sibling,
+            sibling,
+          },
+        },
+      })
+
+      if (component !== null) {
+        output += renderer(component)
+      }
+
+      index++
+    })
+
+    return output
+  }
+
+}
+
+export class HeadComponent extends Component {
+  static getTagName() {
+    return kebabCase(this.name)
+  }
+
+  handlerChildren() {
+    const childrens = this.props.children
+
+    forEach(childrens, (children) => {
+      const component = initComponent({
+        name: children.tagName,
+        initialDatas: {
+          ...children,
+          context: this.getChildContext(),
+        },
+      })
+
+      if (component.handler) {
+        component.handler()
+      }
+    })
+  }
+
 }

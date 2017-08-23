@@ -1,12 +1,15 @@
-import {
-  createHeadComponent,
-} from 'mjml-core/lib/createComponent'
+import { HeadComponent } from 'mjml-core'
 
-export default createHeadComponent('mj-style', {
-  endingTag: true,
+export default class MjStyle extends HeadComponent {
+
+  static endingTag = true
+
   handler() {
-    const { add } = this.context
+    const {
+      add,
+    } = this.context
 
-    add('style', this.getMjContent())
-  },
-})
+    add(this.getAttribute('inline') == 'inline' ? 'inlineStyle' : 'style', this.getContent())
+  }
+
+}

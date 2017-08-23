@@ -1,11 +1,9 @@
-import _ from 'lodash'
+import { HeadComponent } from 'mjml-core'
 
-import {
-  createHeadComponent,
-} from 'mjml-core/lib/createComponent'
+export default class MjHead extends HeadComponent {
 
-export default createHeadComponent('mj-head', {
   handler() {
     this.handlerChildren()
-  },
-})
+  }
+
+}

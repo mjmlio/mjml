@@ -1,14 +1,21 @@
-import components from 'mjml-core'
 import concat from 'lodash/concat'
 import keys from 'lodash/keys'
 import includes from 'lodash/includes'
 import filter from 'lodash/filter'
+
 import ruleError from './ruleError'
 
-const WHITELIST = ['mj-class']
+const WHITELIST = [
+  'mj-class',
+  'css-class',
+]
 
-export const validateAttribute = (element) => {
-  const { attributes, tagName } = element
+export default function validateAttribute(element, { components }) {
+  const {
+    attributes,
+    tagName,
+  } = element
+
   const Component = components[tagName]
 
   if (!Component) {

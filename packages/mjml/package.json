@@ -3,6 +3,9 @@
   "description": "MJML: the only framework that makes responsive-email easy",
   "version": "4.0.0-alpha.2",
   "main": "lib/index.js",
+  "bin": {
+    "mjml": "bin/mjml"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mjmlio/mjml.git"
@@ -19,20 +22,26 @@
   "dependencies": {
     "mjml-body": "^4.0.0-alpha.2",
     "mjml-button": "^4.0.0-alpha.2",
+    "mjml-cli": "^4.0.0-alpha.2",
     "mjml-column": "^4.0.0-alpha.2",
     "mjml-core": "^4.0.0-alpha.2",
     "mjml-divider": "^4.0.0-alpha.2",
+    "mjml-group": "^4.0.0-alpha.2",
     "mjml-head": "^4.0.0-alpha.2",
     "mjml-head-attributes": "^4.0.0-alpha.2",
+    "mjml-head-breakpoint": "^4.0.0-alpha.2",
     "mjml-head-font": "^4.0.0-alpha.2",
+    "mjml-head-preview": "^4.0.0-alpha.2",
     "mjml-head-style": "^4.0.0-alpha.2",
     "mjml-head-title": "^4.0.0-alpha.2",
     "mjml-image": "^4.0.0-alpha.2",
     "mjml-raw": "^4.0.0-alpha.2",
     "mjml-section": "^4.0.0-alpha.2",
     "mjml-social": "^4.0.0-alpha.2",
+    "mjml-spacer": "^4.0.0-alpha.2",
     "mjml-table": "^4.0.0-alpha.2",
     "mjml-text": "^4.0.0-alpha.2",
-    "mjml-validator": "^4.0.0-alpha.2"
+    "mjml-validator": "^4.0.0-alpha.2",
+    "mjml-wrapper": "^4.0.0-alpha.2"
   }
 }

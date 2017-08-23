@@ -1,27 +1,31 @@
-import _ from 'lodash'
+import forEach from 'lodash/forEach'
+import omit from 'lodash/omit'
 
-import {
-  createHeadComponent,
-} from 'mjml-core/lib/createComponent'
+import { HeadComponent } from 'mjml-core'
 
-export default createHeadComponent('mj-attributes', {
+export default class MjAttributes extends HeadComponent {
+
   handler() {
-    const { add } = this.context
+    const {
+      add,
+    } = this.context
+
     const {
       children,
     } = this.props
 
-    _.forEach(children, (child) => {
+    forEach(children, (child) => {
       const {
         tagName,
         attributes,
       } = child
 
       if (tagName === 'mj-class') {
-        add('classes', attributes.name, _.omit(attributes, ['name']))
+        add('classes', attributes.name, omit(attributes, ['name']))
       } else {
         add('defaultAttributes', tagName, attributes)
       }
     })
-  },
-})
+  }
+
+}

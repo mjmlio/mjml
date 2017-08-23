@@ -1,35 +1,33 @@
-import forEach from 'lodash/forEach'
 import identity from 'lodash/identity'
-import juice from 'juice'
-import {
-  html as htmlBeautify,
-} from 'js-beautify'
-import {
-  minify as htmlMinify,
-} from 'html-minifier'
 import map from 'lodash/map'
 import omit from 'lodash/omit'
-import MJMLParser from 'mjml-parser-xml'
-import MJMLValidator from 'mjml-validator'
 import reduce from 'lodash/reduce'
 
-import components, {
-  initComponent,
-  registerComponent,
-} from './components'
+import juice from 'juice'
+import { html as htmlBeautify } from 'js-beautify'
+import { minify as htmlMinify } from 'html-minifier'
+
+import MJMLParser from 'mjml-parser-xml'
+import MJMLValidator from 'mjml-validator'
+
+import components, { initComponent, registerComponent } from './components'
 
 import mergeOutlookConditionnals from './helpers/mergeOutlookConditionnals'
 import skeleton from './helpers/skeleton'
 import traverseMJML from './helpers/traverseMJML'
 
 class ValidationError extends Error {
+
   constructor(message, errors) {
     super(message)
+
     this.errors = errors
   }
+
 }
 
 export default function mjml2html(mjml, options = {}) {
+
   let content = ''
   let errors = []
 
@@ -38,44 +36,54 @@ export default function mjml2html(mjml, options = {}) {
     fonts = {
       'Open Sans': 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,700',
       'Droid Sans': 'https://fonts.googleapis.com/css?family=Droid+Sans:300,400,500,700',
-      Lato: 'https://fonts.googleapis.com/css?family=Lato:300,400,500,700',
-      Roboto: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700',
-      Ubuntu: 'https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700',
+      'Lato': 'https://fonts.googleapis.com/css?family=Lato:300,400,500,700',
+      'Roboto': 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700',
+      'Ubuntu': 'https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700',
     },
     inlineCSS = true,
-    minify = false,
-    style = [],
     keepComments,
+    minify = false,
     validationLevel = 'soft',
   } = options
 
   const globalDatas = {
+    breakpoint: '480px',
     classes: {},
     defaultAttributes: {},
     fonts,
+    inlineStyle: [],
     mediaQueries: {},
-    mobileBreakpoint: '480px',
-    style,
+    preview: '',
+    style: [],
     title: '',
   }
 
   if (typeof mjml === 'string') {
-    mjml = MJMLParser(mjml, { keepComments })
+    mjml = MJMLParser(mjml, {
+      keepComments,
+      components,
+    })
+  }
+
+  const validatorOptions = {
+    components,
   }
 
   switch (validationLevel) {
     case 'skip':
       break
+
     case 'strict':
-      errors = MJMLValidator(mjml)
+      errors = MJMLValidator(mjml, validatorOptions)
 
       if (errors.length > 0) {
         throw new ValidationError(`ValidationError: \n ${errors.map(e => e.formattedMessage).join('\n')}`, errors)
       }
       break
+
     case 'soft':
     default:
-      errors = MJMLValidator(mjml)
+      errors = MJMLValidator(mjml, validatorOptions)
       break
   }
 
@@ -108,7 +116,7 @@ export default function mjml2html(mjml, options = {}) {
 
   const applyAttributes = (mjml) => {
     const parse = (mjml) => {
-      const classes = mjml.attributes['mj-class']
+      const classes = mjml.attributes && mjml.attributes['mj-class']
       const attributesClasses = classes ?
         reduce(classes.split(' '), (result, value) => ({
           ...result,
@@ -141,7 +149,7 @@ export default function mjml2html(mjml, options = {}) {
     add(attr, ...params) {
       if (Array.isArray(globalDatas[attr])) {
         globalDatas[attr].push(...params)
-      } else if (globalDatas[attr]) {
+      } else if (globalDatas.hasOwnProperty(attr)) {
         if (params.length > 1) {
           globalDatas[attr][params[0]] = params[1]
         } else {
@@ -154,16 +162,16 @@ export default function mjml2html(mjml, options = {}) {
   }
 
   processing(mjHead, headHelpers)
+
   content = processing(mjBody, bodyHelpers, applyAttributes)
 
-
-  if (globalDatas.style.length > 0) {
-    content = inlineCSS ? juice(content, {
+  if (globalDatas.inlineStyle.length > 0) {
+    content = juice(content, {
       applyStyleTags: false,
-      extraCss: globalDatas.style.join(''),
+      extraCss: globalDatas.inlineStyle.join(''),
       insertPreservedExtraCss: false,
       removeStyleTags: false,
-    }) : content
+    })
   }
 
   content = skeleton({
@@ -186,7 +194,11 @@ export default function mjml2html(mjml, options = {}) {
 
   content = mergeOutlookConditionnals(content)
 
-  return { html: content, errors }
+  return {
+    html: content,
+    errors,
+  }
+
 }
 
 export {
@@ -194,3 +206,8 @@ export {
   initComponent,
   registerComponent,
 }
+
+export {
+  BodyComponent,
+  HeadComponent,
+} from './createComponent'

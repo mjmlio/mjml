@@ -10,11 +10,17 @@ import fileContext from './helpers/fileContext'
 import { write, read, readStdin } from './helpers/promesify'
 import timePad from './helpers/timePad'
 
+import { version as cliVersion } from '../package.json'
+import { version as coreVersion } from 'mjml-core/package.json'
+
+
+
 /*
  * The version number is the NPM
  * version number. It should be the same as the MJML engine
  */
-// export { version }
+
+export const version = () => ({ core: coreVersion, cli: cliVersion })
 
 /*
  * Minimal Error Handling

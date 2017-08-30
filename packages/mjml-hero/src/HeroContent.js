@@ -15,9 +15,6 @@ const defaultMJMLDefinition = {
 const endingTag = false
 
 const baseStyles = {
-  div: {
-    float: 'center'
-  },
   table: {
     width: '100%',
     margin: '0px'

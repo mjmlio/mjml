@@ -70,7 +70,8 @@ class Button extends Component {
         cursor: 'auto',
         fontStyle: mjAttribute('font-style'),
         height: mjAttribute('height'),
-        padding: defaultUnit(mjAttribute('inner-padding'), "px")
+        padding: defaultUnit(mjAttribute('inner-padding'), "px"),
+        textAlign: mjAttribute('text-align')
       },
       a: {
         background: mjAttribute('background-color'),
@@ -80,7 +81,6 @@ class Button extends Component {
         fontStyle: mjAttribute('font-style'),
         fontWeight: mjAttribute('font-weight'),
         lineHeight: mjAttribute('line-height'),
-        textAlign: mjAttribute('text-align'),
         textDecoration: mjAttribute('text-decoration'),
         textTransform: mjAttribute('text-transform'),
         margin: "0px"

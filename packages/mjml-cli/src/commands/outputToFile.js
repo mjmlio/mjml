@@ -33,11 +33,11 @@ const makeGuessOutputName = (outputPath) => {
 export default (outputPath) => {
   const guessOutputName = makeGuessOutputName(outputPath)
 
-  return ({ file, mjml }) => (
+  return ({ file, compiled: { html } }) => (
     new Promise((resolve, reject) => {
       const outputName = guessOutputName(file)
 
-      fs.writeFile(outputName, mjml, (err) => {
+      fs.writeFile(outputName, html, (err) => {
         if (err) {
           return reject()
         }

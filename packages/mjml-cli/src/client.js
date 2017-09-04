@@ -104,7 +104,7 @@ switch (inputOpt) {
 inputs.map((i) => { // eslint-disable-line array-callback-return
   try {
     convertedStream.push(
-      Object.assign({}, i, { html: mjml2html(i.mjml, config) })
+      Object.assign({}, i, { compiled: mjml2html(i.mjml, config) }, { filePath: i.file })
     )
   } catch (e) {
     failedStream.push({ file: i.file, error: e })

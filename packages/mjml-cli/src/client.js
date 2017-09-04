@@ -127,7 +127,7 @@ if (convertedStream.length == 0) {
 
 switch (outputOpt) {
   case 'o':
-    if (inputs.length > 1 && (!isDirectory(argv.o) || argv.o === '')) {
+    if (inputs.length > 1 && (!isDirectory(argv.o) || argv.o !== '')) {
       error(`Multiple input files, but output option should be either a directory or an empty string: ${argv.o} given`)
     }
 

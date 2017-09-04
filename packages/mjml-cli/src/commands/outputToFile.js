@@ -11,7 +11,10 @@ export const isDirectory = (file) => {
   }
 }
 
-const replaceExtension = input => input.replace('.mjml', input.match(/(.)*\.(.)+$/g) ? '' : '.html')
+const replaceExtension = input => input.replace(
+  '.mjml',
+  input.replace('.mjml', '').match(/(.)*\.(.)+$/g) ? '' : '.html'
+)
 
 const makeGuessOutputName = (outputPath) => {
   if (isDirectory(outputPath)) {

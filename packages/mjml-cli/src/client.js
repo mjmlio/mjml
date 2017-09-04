@@ -1,169 +1,147 @@
+import yargs from 'yargs'
+
+import { flow, pick, isNil, negate, pickBy } from 'lodash/fp'
+import { isArray, isEmpty } from 'lodash'
 import mjml2html from 'mjml-core'
-import MJMLValidator from 'mjml-validator'
-import MJMLParser from 'mjml-parser-xml'
-import fs from 'fs'
-import glob from 'glob'
-import path from 'path'
-import chokidar from 'chokidar'
-import difference from 'lodash/difference'
-import fileContext from './helpers/fileContext'
-import { write, read, readStdin } from './helpers/promesify'
-import timePad from './helpers/timePad'
 
+import readFile, { flatMapPaths } from './commands/readFile'
+import watchFiles from './commands/watchFiles'
+import readStream from './commands/readStream'
+import outputToFile, { isDirectory } from './commands/outputToFile'
+import outputToConsole from './commands/outputToConsole'
+
+import { version as coreVersion } from 'mjml-core/package.json' // eslint-disable-line import/first
 import { version as cliVersion } from '../package.json'
-import { version as coreVersion } from 'mjml-core/package.json'
 
-/*
- * The version number is the NPM
- * version number. It should be the same as the MJML engine
- */
+const DEFAULT_OPTIONS = {
+  beautify: true,
+  minify: false,
+}
+let EXIT_CODE = 0
 
-export const version = () => ({ core: coreVersion, cli: cliVersion })
+const error = (msg) => {
+  console.error(msg) // eslint-disable-line no-console
 
-/*
- * Minimal Error Handling
- */
-const availableErrorOutputFormat = {
-  json: JSON.stringify,
-  text: errs => errs.map(e => e.formattedMessage).join('\n'),
+  return process.exit(1)
 }
 
-const error = e => console.log(e.stack || e) // eslint-disable-line no-console
+const pickArgs = args => (
+  flow(
+    pick(args),
+    pickBy(e => negate(isNil)(e) && !(isArray(e) && isEmpty(e)))
+  )
+)
 
-const isDirectory = file => {
+const argv = yargs
+  .options({
+    r: {
+      alias: 'read',
+      describe: 'Compile MJML File(s)',
+      type: 'array',
+    },
+    w: {
+      alias: 'watch',
+      describe: 'Watch and compile MJML File(s) when modified',
+    },
+    i: {
+      alias: 'stdin',
+      describe: 'Compiles MJML from input stream',
+    },
+    s: {
+      alias: 'stdout',
+      describe: 'Output HTML to stdout',
+    },
+    o: {
+      alias: 'output',
+      type: 'string',
+      describe: 'Filename/Directory to output compiled files',
+    },
+    c: {
+      alias: 'config',
+      describe: 'Option to pass to mjml-core',
+    },
+    version: {
+      alias: 'V',
+    },
+  })
+  .version(`mjml-core: ${coreVersion}\nmjml-cli: ${cliVersion}`)
+  .argv
+
+console.log(argv)
+
+const inputArgs = pickArgs(['r', 'w', 'i', '_'])(argv)
+const outputArgs = pickArgs(['o', 's'])(argv)
+const config = Object.assign(DEFAULT_OPTIONS, argv.c)
+
+if (Object.keys(inputArgs).length > 1) { error('Too much input arguments received') }
+if (Object.keys(inputArgs).length === 0) { error('No input arguments received') }
+if (Object.keys(outputArgs).length > 1) { error('Too much output arguments received') }
+
+const inputOpt = Object.keys(inputArgs)[0]
+const outputOpt = Object.keys(outputArgs)[0] || 's'
+
+const inputFiles = isArray(inputArgs[inputOpt]) ? inputArgs[inputOpt] : [inputArgs[inputOpt]]
+const inputs = []
+const convertedStream = []
+const failedStream = []
+
+switch (inputOpt) {
+  case 'r':
+  case '_': {
+    flatMapPaths(inputFiles).forEach((file) => {
+      inputs.push(readFile(file))
+    })
+    break
+  }
+  case 'w':
+    watchFiles(inputFiles, argv[outputOpt])
+    break
+  case 'i':
+    inputs.push(readStream())
+    break
+  default:
+    error('Cli error !')
+}
+
+inputs.map((i) => { // eslint-disable-line array-callback-return
   try {
-    const outputPath = path.resolve(process.cwd(), file)
-
-    return fs.statSync(outputPath).isDirectory()
+    convertedStream.push(
+      Object.assign({}, i, { html: mjml2html(i.mjml, config) })
+    )
   } catch (e) {
-    return false
-  }
-}
-
-/*
- * Render an input promise
- */
-const render = (bufferPromise, { min, output, stdout, fileName, level }) => {
-  const handleError = message =>
-    fileName ? error(`File: ${fileName} \n${message}`) : error(message)
-
-  return bufferPromise
-    .then(mjml => mjml2html(mjml.toString(), { minify: min, filePath: fileName, level }))
-    .then(result => {
-      const { html, errors } = result
-
-      // non-blocking errors
-      if (errors.length > 0) {
-        handleError(availableErrorOutputFormat.text(errors))
-      }
-
-      if (stdout) {
-        process.stdout.write(html)
-      } else {
-        return write(output, html)
-      }
-    })
-    .catch(e => {
-      error(e.getMessages ? e.getMessages() : e)
-      throw e
-    })
-}
-
-const outputFileName = (input, output) => {
-  const outputIsDirectory = isDirectory(output)
-  const { ext, name } = path.parse(!output || outputIsDirectory ? input : output)
-  let dir = outputIsDirectory ? output : './'
-
-  if (output && !outputIsDirectory) {
-    const { dir: outDir } = path.parse(output)
-    dir = outDir == '' ? dir : outDir
+    failedStream.push({ file: i.file, error: e })
   }
 
-  return path.format({
-    dir,
-    name: name.replace('.mjml', ''),
-    ext: ext == '.mjml' ? '.html' : ext,
-  })
+  EXIT_CODE = 2
+})
+
+failedStream.forEach(({ error, file }) => { // eslint-disable-line array-callback-return
+  console.error(`${file ? `File: ${file}\n` : null}${error}`) // eslint-disable-line no-console
+
+  if (config.stack) { console.error(error.stack) } // eslint-disable-line no-console
+})
+
+if (convertedStream.length == 0) {
+  error('All file(s) failed to render')
 }
 
-/*
- * Turns an MJML input file into a pretty HTML file
- * min: boolean that specify the output format (pretty/minified)
- */
-export const renderFiles = (input, options) =>
-  new Promise((resolve, reject) => {
-    glob(input, (err, files) => {
-      const processedFiles = []
+switch (outputOpt) {
+  case 'o':
+    if (inputs.length > 1 && (!isDirectory(argv.o) || argv.o === '')) {
+      error(`Multiple input files, but output option should be either a directory or an empty string: ${argv.o} given`)
+    }
 
-      if (files.length > 1 && options.output && !isDirectory(options.output)) {
-        throw new Error('Output destination should be a directory instead of a file')
-      }
-
-      files.forEach(f => {
-        processedFiles.push(renderFile(f, options))
-      })
-
-      Promise.all(processedFiles).then(resolve).catch(reject)
-    })
-  })
-
-export const renderFile = (file, { output, level, min, stdout }) =>
-  render(read(path.resolve(process.cwd(), file)), {
-    output: outputFileName(file, output),
-    fileName: file,
-    level,
-    min,
-    stdout,
-  })
-
-/**
- * Render based on input stream
- */
-export const renderStream = options => render(readStdin(process.stdin), options)
-
-/**
- * Validate an MJML document
- */
-export const validate = (input, { format }) =>
-  read(input)
-    .then(content => {
-      const MJMLDocument = MJMLParser(content.toString())
-      const report = MJMLValidator(MJMLDocument)
-      const outputFormat = availableErrorOutputFormat[format] || availableErrorOutputFormat.text
-
-      error(outputFormat(report))
-    })
-    .catch(e => {
-      error(`Error: ${e}`)
-      throw e
-    })
-
-/*
- * Watch changes on a specific input file by calling render on each change
- */
-export const watch = (input, options) => {
-  console.log(`Now watching: ${input}`) // eslint-disable-line no-console
-  renderFile(input, options)
-
-  let dependencies = fileContext(input)
-  const watcher = chokidar.watch(dependencies)
-
-  watcher.on('change', () => {
-    const now = new Date()
-    const newDependencies = fileContext(input)
-
-    watcher.unwatch(difference(dependencies, newDependencies))
-    watcher.add(difference(newDependencies, dependencies))
-
-    dependencies = newDependencies
-
-    console.log(
-      `[${timePad(now.getHours())}:${timePad(now.getMinutes())}:${timePad(
-        now.getSeconds(),
-      )}] Reloading MJML`,
-    ) // eslint-disable-line no-console
-    renderFile(input, options)
-  })
-
-  return watcher
+    Promise
+      .all(convertedStream.map(outputToFile(argv.o)))
+      .then(() => process.exit(EXIT_CODE))
+      .catch(() => process.exit(1))
+    break
+  case 's':
+    Promise
+      .all(convertedStream.map(outputToConsole))
+      .then(() => process.exit(EXIT_CODE))
+      .catch(() => process.exit(1))
+    break
+  default:
+    error('Cli error ! (No output option available)')
 }

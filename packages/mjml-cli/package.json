@@ -27,7 +27,8 @@
     "lodash": "^4.17.4",
     "mjml-core": "^4.0.0-alpha.3",
     "mjml-parser-xml": "^4.0.0-alpha.3",
-    "mjml-validator": "^4.0.0-alpha.3"
+    "mjml-validator": "^4.0.0-alpha.3",
+    "yargs": "^8.0.2"
   },
   "devDependencies": {
     "chai": "^4.1.1",

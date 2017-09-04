@@ -1,6 +1,6 @@
-export default ({ mjml, file }) => (
+export default ({ html, file }) => (
   new Promise((resolve) => {
-    console.log(`<!-- FILE: ${file} -->\n${mjml}`)
+    console.log(`<!-- FILE: ${file} -->\n${html}`)
     resolve()
   })
 )

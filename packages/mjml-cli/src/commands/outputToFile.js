@@ -30,10 +30,10 @@ const makeGuessOutputName = (outputPath) => {
 export default (outputPath) => {
   const guessOutputName = makeGuessOutputName(outputPath)
 
-  return ({ file, mjml }) => {
-    return new Promise((resolve, reject) => {
+  return ({ file, mjml }) => (
+    new Promise((resolve, reject) => {
       const outputName = guessOutputName(file)
-      console.log('???', outputName)
+
       fs.writeFile(outputName, mjml, (err) => {
         if (err) {
           return reject()
@@ -42,5 +42,5 @@ export default (outputPath) => {
         return resolve()
       })
     })
-  }
+  )
 }

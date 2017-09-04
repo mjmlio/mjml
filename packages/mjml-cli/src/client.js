@@ -67,8 +67,6 @@ const argv = yargs
   .version(`mjml-core: ${coreVersion}\nmjml-cli: ${cliVersion}`)
   .argv
 
-console.log(argv)
-
 const inputArgs = pickArgs(['r', 'w', 'i', '_'])(argv)
 const outputArgs = pickArgs(['o', 's'])(argv)
 const config = Object.assign(DEFAULT_OPTIONS, argv.c)
@@ -127,7 +125,8 @@ if (convertedStream.length == 0) {
 
 switch (outputOpt) {
   case 'o':
-    if (inputs.length > 1 && (!isDirectory(argv.o) || argv.o !== '')) {
+    if (inputs.length > 1 && (!isDirectory(argv.o) && argv.o !== '')) {
+      console.log(isDirectory(argv.o))
       error(`Multiple input files, but output option should be either a directory or an empty string: ${argv.o} given`)
     }
 

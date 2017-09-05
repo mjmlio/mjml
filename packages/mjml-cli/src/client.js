@@ -18,6 +18,7 @@ const DEFAULT_OPTIONS = {
   minify: false,
 }
 let EXIT_CODE = 0
+let KEEP_OPEN = false
 
 const error = (msg) => {
   console.error(msg) // eslint-disable-line no-console
@@ -67,9 +68,9 @@ const argv = yargs
   .version(`mjml-core: ${coreVersion}\nmjml-cli: ${cliVersion}`)
   .argv
 
+const config = Object.assign(DEFAULT_OPTIONS, argv.c)
 const inputArgs = pickArgs(['r', 'w', 'i', '_'])(argv)
 const outputArgs = pickArgs(['o', 's'])(argv)
-const config = Object.assign(DEFAULT_OPTIONS, argv.c)
 
 if (Object.keys(inputArgs).length > 1) { error('Too much input arguments received') }
 if (Object.keys(inputArgs).length === 0) { error('No input arguments received') }
@@ -80,8 +81,6 @@ const outputOpt = Object.keys(outputArgs)[0] || 's'
 
 const inputFiles = isArray(inputArgs[inputOpt]) ? inputArgs[inputOpt] : [inputArgs[inputOpt]]
 const inputs = []
-const convertedStream = []
-const failedStream = []
 
 switch (inputOpt) {
   case 'r':
@@ -92,7 +91,12 @@ switch (inputOpt) {
     break
   }
   case 'w':
-    watchFiles(inputFiles, argv[outputOpt])
+    if (!isDirectory(argv.o) && argv.o !== '') {
+      error(`Watching files, but output option should be either a directory or an empty string: ${argv.o} given`)
+    }
+
+    watchFiles(inputFiles, argv[outputOpt]).forEach(f => inputs.push(f))
+    KEEP_OPEN = true
     break
   case 'i':
     inputs.push(readStream())
@@ -101,16 +105,23 @@ switch (inputOpt) {
     error('Cli error !')
 }
 
-inputs.map((i) => { // eslint-disable-line array-callback-return
+const convertedStream = []
+const failedStream = []
+
+inputs.forEach((i) => { // eslint-disable-line array-callback-return
   try {
     convertedStream.push(
-      Object.assign({}, i, { compiled: mjml2html(i.mjml, config) }, { filePath: i.file })
+      Object.assign(
+        {},
+        i,
+        { compiled: mjml2html(i.mjml, { ...config, filePath: i.file }) }
+      )
     )
   } catch (e) {
+    EXIT_CODE = 2
+
     failedStream.push({ file: i.file, error: e })
   }
-
-  EXIT_CODE = 2
 })
 
 failedStream.forEach(({ error, file }) => { // eslint-disable-line array-callback-return
@@ -119,20 +130,21 @@ failedStream.forEach(({ error, file }) => { // eslint-disable-line array-callbac
   if (config.stack) { console.error(error.stack) } // eslint-disable-line no-console
 })
 
-if (convertedStream.length == 0) {
-  error('All file(s) failed to render')
+if (convertedStream.length === 0) {
+  error('Input file(s) failed to render')
 }
 
 switch (outputOpt) {
   case 'o':
     if (inputs.length > 1 && (!isDirectory(argv.o) && argv.o !== '')) {
-      console.log(isDirectory(argv.o))
       error(`Multiple input files, but output option should be either a directory or an empty string: ${argv.o} given`)
     }
 
     Promise
       .all(convertedStream.map(outputToFile(argv.o)))
-      .then(() => process.exit(EXIT_CODE))
+      .then(() => {
+        if (!KEEP_OPEN) { process.exit(EXIT_CODE) }
+      })
       .catch(() => process.exit(1))
     break
   case 's':

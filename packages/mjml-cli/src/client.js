@@ -42,6 +42,7 @@ const argv = yargs
     },
     w: {
       alias: 'watch',
+      type: 'array',
       describe: 'Watch and compile MJML File(s) when modified',
     },
     i: {
@@ -50,6 +51,7 @@ const argv = yargs
     },
     s: {
       alias: 'stdout',
+      type: 'boolean',
       describe: 'Output HTML to stdout',
     },
     o: {
@@ -65,6 +67,7 @@ const argv = yargs
       alias: 'V',
     },
   })
+  .help()
   .version(`mjml-core: ${coreVersion}\nmjml-cli: ${cliVersion}`)
   .argv
 

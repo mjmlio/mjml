@@ -9,11 +9,7 @@ import fileContext from '../helpers/fileContext'
 export default (input, options) => {
   console.log(`Now watching: ${input}`) // eslint-disable-line no-console
 
-  const dependencies = flow(
-    flatMapPaths,
-    paths => paths.map(p => path.resolve(p)),
-    paths => zipObject(paths, paths.map(fileContext))
-  )(input)
+  const dependencies = {}
 
   const getRelatedFiles = file => (
     flow(
@@ -26,32 +22,38 @@ export default (input, options) => {
     dependencies[file] = fileContext(file)
   }
 
-  const watcher = chokidar.watch([input, ...flatMap(dependencies)])
+  chokidar
+    .watch([input, ...flatMap(dependencies)])
+    .on('add', (file) => {
+      dependencies[path.resolve(file)] = fileContext(file)
 
-  watcher.on('add', (file) => {
-    dependencies[file] = fileContext(file)
+      console.log(`add ${file}`)
+    })
+    .on('unlink', (file) => {
+      const filePath = path.resolve(file)
+      console.log(`remove ${filePath}`)
+      delete dependencies[path.resolve(filePath)]
 
-    console.log(`add ${file}`)
-  })
+      getRelatedFiles(path.resolve(filePath)).forEach(reloadDependenciesForPath)
+    })
+    .on('change', (file) => {
+      const filePath = path.resolve(file)
+      const now = new Date()
 
-  watcher.on('unlink', (path) => {
-    console.log(`remove ${path}`)
-    delete dependencies[path]
+      console.log(`change on ${filePath}`)
 
-    getRelatedFiles(path).forEach(reloadDependenciesForPath)
-  })
+      getRelatedFiles(filePath).forEach(reloadDependenciesForPath)
 
-  watcher.on('change', (path) => {
-    const now = new Date()
+      // console.log(`[${timePad(now.getHours())}:${timePad(now.getMinutes())}:${timePad(now.getSeconds())}] Modification on ${path}, recompile ${mainFile} MJML`) // eslint-disable-line no-console
+    })
 
-    console.log(`change on ${path}`)
-
-    getRelatedFiles(path).forEach(reloadDependenciesForPath)
-
-    // console.log(`[${timePad(now.getHours())}:${timePad(now.getMinutes())}:${timePad(now.getSeconds())}] Modification on ${path}, recompile ${mainFile} MJML`) // eslint-disable-line no-console
-  })
-
-  console.log(Object.keys(dependencies).map(readFile))
-
-  return Object.keys(dependencies).map(readFile)
+  return Object
+    .keys(
+      flow(
+        flatMapPaths,
+        paths => paths.map(p => path.resolve(p)),
+        paths => zipObject(paths, paths.map(fileContext))
+      )(input)
+    )
+    .map(readFile)
 }

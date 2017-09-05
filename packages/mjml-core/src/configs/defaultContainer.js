@@ -18,16 +18,6 @@ export default () => {
     @viewport { width:320px; }
   }
 </style>
-<style>
-@media screen yahoo {
-  * {
-  overflow: visible!important
-  }
-  .y-overflow-hidden {
-  overflow: hidden!important
-  }
-}
-</style>
 <!--<![endif]-->
 <!--[if mso]>
 <xml>

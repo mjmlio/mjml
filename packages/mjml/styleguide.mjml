@@ -183,7 +183,7 @@
         </mj-column>
       </mj-section>
       <!-- End of column -->
-
+      
       <!-- Start of button -->
       <mj-section>
         <mj-column>
@@ -241,11 +241,11 @@
       </mj-section>
 
       <mj-section>
-          <mj-column>
-            <mj-button href="https://mjml.io/" font-family="Helvetica" color="#333" border-top="solid 2px #f45e43" border-bottom="solid 2px #f45e43" background-color="transparent" inner-padding="15px 30px">
-              Border-top, border-bottom, transparent
-            </mj-button>
-          </mj-column>
+        <mj-column>
+          <mj-button href="https://mjml.io/" font-family="Helvetica" color="#333" border-top="solid 2px #f45e43" border-bottom="solid 2px #f45e43" background-color="transparent" inner-padding="15px 30px">
+            Border-top, border-bottom, transparent
+          </mj-button>
+        </mj-column>
         <mj-column>
           <mj-button href="https://mjml.io/" font-family="Helvetica" color="#333" border-left="solid 2px #f45e43" border-right="solid 2px #f45e43" border-radius="20px" background-color="#ddddd">
             Border-left, border-right & radius
@@ -265,8 +265,16 @@
           </mj-button>
         </mj-column>
         <mj-column>
-          <mj-button href="https://mjml.io/" font-family="Helvetica" color="#ffffff" border="solid 2px #111" border-radius="20px" background-color="#f45e43" width="200px" height="80px">
-            Height 80px & Width 200px
+          <mj-button href="https://mjml.io/" font-family="Helvetica" color="#ffffff" border="solid 2px #111" border-radius="20px" background-color="#f45e43" width="150px" height="80px">
+            Height 80px & Width 150px
+          </mj-button>
+        </mj-column>
+      </mj-section>
+      
+      <mj-section>
+        <mj-column>
+          <mj-button href="https://mjml.io/" font-family="Helvetica" color="#333" border="solid 2px #f45e43" border-radius="20px" background-color="transparent" width="50px">
+            This is a multiline button
           </mj-button>
         </mj-column>
       </mj-section>

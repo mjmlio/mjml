@@ -13,6 +13,7 @@
   },
   "homepage": "https://mjml.io",
   "dependencies": {
+    "he": "^1.1.1",
     "lodash": "^4.17.4",
     "mjml-core": "~3.3.3",
     "mjml-table": "~3.3.3",

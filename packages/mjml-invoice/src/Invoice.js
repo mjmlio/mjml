@@ -48,13 +48,13 @@ class Invoice extends Component {
   constructor (props) {
     super(props)
 
-    const format = props.mjAttribute('format')
-    const currencies = he.decode(format).match(/([^-\d.,])+/g)
+    const format = he.decode(props.mjAttribute('format'))
+    const currencies = format.match(/([^-\d.,])+/g)
 
     this.items = props.mjml.get('children').filter(child => child.get('tagName') === 'mj-invoice-item')
     this.format = format.replace(/([^-\d.,])/g, "")
     this.currency = currencies[0] || null
-    this.currencyPosition = he.decode(format).startsWith(this.currency) ? 'left' : 'right'
+    this.currencyPosition = format.startsWith(this.currency) ? 'left' : 'right'
   }
 
   styles = this.getStyles()

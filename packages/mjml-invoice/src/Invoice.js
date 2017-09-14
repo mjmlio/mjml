@@ -3,6 +3,8 @@ import cloneDeep from 'lodash/cloneDeep'
 import MJMLTable from 'mjml-table'
 import numeral from 'numeral'
 import omit from 'lodash/omit'
+import flow from 'lodash/flow'
+import he from 'he'
 import React, { Component } from 'react'
 
 const tagName = 'mj-invoice'
@@ -46,12 +48,13 @@ class Invoice extends Component {
   constructor (props) {
     super(props)
 
-    const format = props.mjAttribute('format')
-    const currencies = format.match(/([^-\d.,])/g)
+    const format = he.decode(props.mjAttribute('format'))
+    const currencies = format.match(/([^-\d.,])+/g)
 
     this.items = props.mjml.get('children').filter(child => child.get('tagName') === 'mj-invoice-item')
-    this.format = format.replace(/([^-\d.,])/g, '$')
+    this.format = format.replace(/([^-\d.,])/g, "")
     this.currency = currencies[0] || null
+    this.currencyPosition = format.startsWith(this.currency) ? 'left' : 'right'
   }
 
   styles = this.getStyles()
@@ -112,13 +115,19 @@ class Invoice extends Component {
     const currency = this.currency
 
     const total = this.items.reduce((prev, item) => {
-      const unitPrice = parseFloat(numeral(item.getIn(['attributes', 'price'])).value()) || 0
-      const quantity = parseInt(item.getIn(['attributes', 'quantity'])) || 1
+      const unitPrice = flow(
+        he.decode,
+        (v) => numeral(v).value(),
+        parseFloat
+      )(item.getIn(['attributes', 'price'])) || 0
+      const quantity = parseInt(item.getIn(['attributes', 'quantity'])) || 0
 
       return prev + unitPrice * quantity
     }, 0)
 
-    return numeral(total).format(format).replace(/([^-\d.,])/g, currency)
+    const totalFormatted = numeral(total).format(format)
+
+    return this.currencyPosition == 'left' ? `${currency}${totalFormatted}` : `${totalFormatted}${currency}`
   }
 
   render () {
@@ -151,7 +160,7 @@ class Invoice extends Component {
               {intlValue['total']}
             </th>
             <td style={this.styles.total}>
-              {total}
+              {total.replace(/\$/g, '&#36;')}
             </td>
           </tr>
         </tfoot>

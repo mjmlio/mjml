@@ -51,7 +51,6 @@ const argv = yargs
     },
     s: {
       alias: 'stdout',
-      type: 'boolean',
       describe: 'Output HTML to stdout',
     },
     o: {

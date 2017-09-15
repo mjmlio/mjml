@@ -79,7 +79,7 @@ export default function MJMLParser(xml, options = {}) {
 
     content = content.indexOf('<mjml>') == -1 ? `<mjml><mj-body>${content}</mj-body></mjml>` : content
 
-    const partialMjml = parseXML(content, { ...options, filePath: partialPath })
+    const partialMjml = MJMLParser(content, { ...options, filePath: partialPath })
     const bindToTree = (children, tree = cur) => children.map(c => ({ ...c, parent: tree }))
 
     if (partialMjml.tagName != 'mjml') {

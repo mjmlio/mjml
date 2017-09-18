@@ -283,7 +283,7 @@ class Carousel extends Component {
       <td>
         <div className="mj-carousel-images" style={this.styles.images.div}>
           { this.images.map(({src, alt, href, rel, title}, index) => {
-            const image = <img title="title" src={src} alt={alt} style={this.styles.images.img} width="400" border="0" />
+            const image = <img title={title} src={src} alt={alt} style={this.styles.images.img} width="400" border="0" />
 
             return (
               <div

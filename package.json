@@ -1,6 +1,6 @@
 {
   "name": "mjml-repo",
-  "version": "3.3.4-preview",
+  "version": "3.3.4-style",
   "private": true,
   "description": "MJML monorepo",
   "scripts": {

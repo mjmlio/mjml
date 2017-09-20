@@ -1,81 +1,104 @@
 import chokidar from 'chokidar'
+import glob from 'glob'
 import path from 'path'
+import mjml2html from 'mjml-core'
 import { flow, pickBy, zipObject, flatMap, uniq, difference } from 'lodash/fp'
 
 import readFile, { flatMapPaths } from './readFile'
+import outputToFile from './outputToFile'
 import fileContext from '../helpers/fileContext'
 
-const _flatMap = flatMap.convert({ cap: false }) // eslint-disable-line no-underscore-dangle
+let dirty = []
 
+const _flatMap = flatMap.convert({ cap: false }) // eslint-disable-line no-underscore-dangle
+const flatMapAndJoin = _flatMap((v, k) => v.map(p => path.join(k, p)))
 const flatMapKeyAndValues = flow(
   _flatMap((v, k) => [k, ...v]),
   uniq,
 )
 
-const flatMapAndJoin = _flatMap((v, k) => v.map(p => path.join(k, p)))
-
 export default (input, options) => {
   console.log(`Now watching: ${input}`) // eslint-disable-line no-console
 
   const dependencies = {}
-
   const getRelatedFiles = file => (
     flow(
       pickBy((v, k) => (k === file || v.indexOf(file) !== -1)),
       Object.keys
     )(dependencies)
   )
+  const synchronyzeWatcher = (filePath) => {
+    getRelatedFiles(
+      filePath
+    ).forEach((f) => {
+      dependencies[f] = fileContext(f)
 
-  const reloadDependenciesForPath = (file) => {
-    dependencies[file] = fileContext(file)
+      if (dirty.indexOf(f) === -1) {
+        dirty.push(f)
+      }
+    })
+
+    const files = {
+      toWatch: flatMapKeyAndValues(dependencies),
+      watched: flatMapAndJoin(watcher.getWatched())
+    }
+
+    watcher.add(difference(files.toWatch, files.watched))
+    watcher.unwatch(difference(files.watched, files.toWatch))
   }
+  const readAndCompile = flow(
+    file => ({ file, content: readFile(file) }),
+    args => ({ ...args, compiled: mjml2html(args.content, options.config) }),
+    outputToFile(options.o)
+  )
+
+  console.log('???')
 
   const watcher = chokidar
-    .watch([input, ...flatMap(dependencies)])
+    .watch(input)
     .on('add', (file) => {
-      dependencies[path.resolve(file)] = fileContext(file)
+      const filePath = path.resolve(file)
+      const matchInputOption = input.reduce(
+        (found, file) => found || glob(path.resolve(file)).minimatch.match(filePath),
+        false
+      )
 
-      console.log(`add ${file}`)
+      if (matchInputOption) {
+        console.log('match watch options', filePath)
+        dependencies[filePath] = getRelatedFiles(filePath)
+      }
+
+      synchronyzeWatcher(filePath)
+
+      console.log(`added ${filePath}`)
     })
     .on('unlink', (file) => {
       const filePath = path.resolve(file)
 
       delete dependencies[path.resolve(filePath)]
 
-      getRelatedFiles(path.resolve(filePath)).forEach(reloadDependenciesForPath)
+      synchronyzeWatcher(filePath)
     })
     .on('change', (file) => {
       const filePath = path.resolve(file)
-      const relatedFiles = getRelatedFiles(filePath)
 
       console.log(`change on ${filePath}`)
 
-      relatedFiles.forEach((f) => {
-        reloadDependenciesForPath(f)
-      })
-
-      const files = {
-        toWatch: flatMapKeyAndValues(dependencies),
-        watched: flatMapAndJoin(watcher.getWatched()
-      }
-
-      watcher.add(difference(files.toWatch, files.watched))
-      watcher.remove(difference(files.watched, files.toWatch))
-
-      console.log(dependencies)
-      console.log('total file:', flatMapKeyAndValues(dependencies))
-      console.log('watched file:', flatMapAndJoin(watcher.getWatched()))
-      // removed
-      console.log('differnece total <-> watched: ', difference(flatMapAndJoin(watcher.getWatched()), flatMapKeyAndValues(dependencies)))
-      // add
-      console.log('differnece watched <-> total: ', difference(flatMapKeyAndValues(dependencies), flatMapAndJoin(watcher.getWatched())))
-
-
-      // add-remove non-needed files
-      // getWatched <> dependencies flattened
-
-      // console.log(`[${timePad(now.getHours())}:${timePad(now.getMinutes())}:${timePad(now.getSeconds())}] Modification on ${path}, recompile ${mainFile} MJML`) // eslint-disable-line no-console
+      synchronyzeWatcher(filePath)
     })
+
+  setInterval(
+    () => {
+      console.log('dirty:', dirty)
+      dirty.forEach(f => {
+        readAndCompile(f)
+          .then((htmlFile) => console.log(`${f} - Successfully write ${htmlFile}`)
+          .catch((htmlFile) => console.log(`${f} - Error while compiling file ${htmlFile}`)
+      })
+      dirty = []
+    },
+    500
+  )
 
   return Object
     .keys(

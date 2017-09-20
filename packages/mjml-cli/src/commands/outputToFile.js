@@ -7,6 +7,7 @@ export const isDirectory = (file) => {
 
     return fs.statSync(outputPath).isDirectory()
   } catch (e) {
+
     return false
   }
 }
@@ -39,10 +40,10 @@ export default (outputPath) => {
 
       fs.writeFile(outputName, html, (err) => {
         if (err) {
-          return reject()
+          return reject(outputName)
         }
 
-        return resolve()
+        return resolve(outputName)
       })
     })
   )

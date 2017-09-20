@@ -60,6 +60,7 @@ const argv = yargs
     },
     c: {
       alias: 'config',
+      type: 'object',
       describe: 'Option to pass to mjml-core',
     },
     version: {
@@ -94,10 +95,11 @@ switch (inputOpt) {
   }
   case 'w':
     if (!isDirectory(argv.o) && argv.o !== '') {
-      error(`Watching files, but output option should be either a directory or an empty string: ${argv.o} given`)
+      error(`Watching files, but output option should be either a directory or an empty string: ${argv.o} given ${isDirectory(argv.o)}`)
     }
 
-    watchFiles(inputFiles, argv[outputOpt]).forEach(f => inputs.push(f))
+    watchFiles(inputFiles, argv)
+      .forEach(f => inputs.push(f))
     KEEP_OPEN = true
     break
   case 'i':
@@ -147,7 +149,9 @@ switch (outputOpt) {
       .then(() => {
         if (!KEEP_OPEN) { process.exit(EXIT_CODE) }
       })
-      .catch(() => process.exit(1))
+      .catch(() => {
+        if (!KEEP_OPEN) { process.exit(1) }
+      })
     break
   case 's':
     Promise

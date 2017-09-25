@@ -71,13 +71,26 @@ const argv = yargs
   .version(`mjml-core: ${coreVersion}\nmjml-cli: ${cliVersion}`)
   .argv
 
+
 const config = Object.assign(DEFAULT_OPTIONS, argv.c)
 const inputArgs = pickArgs(['r', 'w', 'i', '_'])(argv)
-const outputArgs = pickArgs(['o', 's'])(argv)
+const outputArgs = pickArgs(['o', 's'])(argv);
 
-if (Object.keys(inputArgs).length > 1) { error('Too much input arguments received') }
-if (Object.keys(inputArgs).length === 0) { error('No input arguments received') }
-if (Object.keys(outputArgs).length > 1) { error('Too much output arguments received') }
+// implies (until yargs pr is accepted)
+[
+  [Object.keys(inputArgs).length > 1, 'No input arguments received'],
+  [Object.keys(inputArgs).length === 0, 'Too much input arguments received'],
+  [Object.keys(outputArgs).length > 1, 'Too much output arguments received'],
+  [argv.w && argv.w.length > 1 && !argv.o, 'Need an output option when watching files'],
+  [argv.w
+    && argv.w.length > 1
+    && argv.o
+    && !isDirectory(argv.o)
+    && argv.o !== '',
+  'Need an output option when watching files'],
+].forEach(v => (
+  v[0] ? error(v[1]) : null
+))
 
 const inputOpt = Object.keys(inputArgs)[0]
 const outputOpt = Object.keys(outputArgs)[0] || 's'
@@ -94,12 +107,7 @@ switch (inputOpt) {
     break
   }
   case 'w':
-    if (!isDirectory(argv.o) && argv.o !== '') {
-      error(`Watching files, but output option should be either a directory or an empty string: ${argv.o} given ${isDirectory(argv.o)}`)
-    }
-
     watchFiles(inputFiles, argv)
-      .forEach(f => inputs.push(f))
     KEEP_OPEN = true
     break
   case 'i':
@@ -134,7 +142,7 @@ failedStream.forEach(({ error, file }) => { // eslint-disable-line array-callbac
   if (config.stack) { console.error(error.stack) } // eslint-disable-line no-console
 })
 
-if (convertedStream.length === 0) {
+if (!KEEP_OPEN && convertedStream.length === 0) {
   error('Input file(s) failed to render')
 }
 

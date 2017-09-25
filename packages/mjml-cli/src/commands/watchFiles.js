@@ -4,7 +4,7 @@ import path from 'path'
 import mjml2html from 'mjml-core'
 import { flow, pickBy, zipObject, flatMap, uniq, difference } from 'lodash/fp'
 
-import readFile, { flatMapPaths } from './readFile'
+import readFile from './readFile'
 import outputToFile from './outputToFile'
 import fileContext from '../helpers/fileContext'
 
@@ -40,7 +40,7 @@ export default (input, options) => {
 
     const files = {
       toWatch: flatMapKeyAndValues(dependencies),
-      watched: flatMapAndJoin(watcher.getWatched())
+      watched: flatMapAndJoin(watcher.getWatched()),
     }
 
     watcher.add(difference(files.toWatch, files.watched))
@@ -90,23 +90,15 @@ export default (input, options) => {
   setInterval(
     () => {
       console.log('dirty:', dirty)
-      dirty.forEach(f => {
+      dirty.forEach(f => (
         readAndCompile(f)
-          .then((htmlFile) => console.log(`${f} - Successfully write ${htmlFile}`)
-          .catch((htmlFile) => console.log(`${f} - Error while compiling file ${htmlFile}`)
-      })
+          .then(htmlFile => console.log(`${f} - Successfully write ${htmlFile}`))
+          .catch(htmlFile => console.log(`${f} - Error while compiling file ${htmlFile}`))
+      ))
       dirty = []
     },
     500
   )
 
-  return Object
-    .keys(
-      flow(
-        flatMapPaths,
-        paths => paths.map(p => path.resolve(p)),
-        paths => zipObject(paths, paths.map(fileContext))
-      )(input)
-    )
-    .map(readFile)
+  return []
 }

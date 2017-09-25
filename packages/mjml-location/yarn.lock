@@ -668,6 +668,26 @@ mjml-core@~3.3.3:
     react-dom "^15.4.2"
     warning "^3.0.0"
 
+mjml-core@~3.3.5:
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/mjml-core/-/mjml-core-3.3.4.tgz#a26a41f13337e0e5a5ac3d29df1b16a18236abfb"
+  dependencies:
+    cheerio "^0.22.0"
+    classnames "^2.2.5"
+    debug "^2.6.0"
+    he "^1.1.0"
+    hoist-non-react-statics "^1.2.0"
+    html-minifier "^3.2.3"
+    immutable "^3.8.1"
+    jquery "^3.1.1"
+    js-beautify "^1.6.8"
+    juice "^4.0.2"
+    lodash "^4.17.4"
+    mjml-validator "~3.3.3"
+    react "^15.4.2"
+    react-dom "^15.4.2"
+    warning "^3.0.0"
+
 mjml-image@~3.3.3:
   version "3.3.3"
   resolved "https://registry.yarnpkg.com/mjml-image/-/mjml-image-3.3.3.tgz#74d6503e18a8064f5cbd21539dd41f28686c7e65"

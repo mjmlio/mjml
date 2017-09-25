@@ -20,7 +20,7 @@
     "commander": "^2.9.0",
     "glob": "^7.1.1",
     "lodash": "^4.17.4",
-    "mjml-core": "~3.3.4",
+    "mjml-core": "~3.3.5",
     "mz": "^2.6.0"
   },
   "devDependencies": {

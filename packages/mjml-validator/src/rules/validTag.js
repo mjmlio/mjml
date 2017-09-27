@@ -10,4 +10,6 @@ export default function validateTag(element, { components }) {
   if (!Component) {
     return ruleError(`Element ${tagName} doesn't exist or is not registered`, element)
   }
+
+  return null
 }

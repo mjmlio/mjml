@@ -1,7 +1,4 @@
-import concat from 'lodash/concat'
-import filter from 'lodash/filter'
-import includes from 'lodash/includes'
-import values from 'lodash/values'
+import { concat, filter, includes, values } from 'lodash'
 
 import ruleError from './rules/ruleError'
 import rulesCollection, { registerRule } from './MJMLRulesCollection'
@@ -26,11 +23,17 @@ export default function MJMLValidator(element, options = {}) {
   let errors
 
   if (!includes(SKIP_ELEMENTS, tagName)) {
-    errors = concat(errors, ...values(rulesCollection).map(rule => rule(element, options)))
+    errors = concat(
+      errors,
+      ...values(rulesCollection).map(rule => rule(element, options))
+    )
   }
 
   if (children && children.length > 0) {
-    errors = concat(errors, ...children.map(child => MJMLValidator(child, options)))
+    errors = concat(
+      errors,
+      ...children.map(child => MJMLValidator(child, options))
+    )
   }
 
   return filter(errors)

@@ -5,7 +5,7 @@ import mjml2html from 'mjml-core'
 import { flow, pickBy, zipObject, flatMap, uniq, difference } from 'lodash/fp'
 
 import readFile from './readFile'
-import outputToFile from './outputToFile'
+import makeOutputToFile from './outputToFile'
 import fileContext from '../helpers/fileContext'
 
 let dirty = []
@@ -21,6 +21,7 @@ export default (input, options) => {
   console.log(`Now watching: ${input}`) // eslint-disable-line no-console
 
   const dependencies = {}
+  const outputToFile = makeOutputToFile(options.o)
   const getRelatedFiles = file => (
     flow(
       pickBy((v, k) => (k === file || v.indexOf(file) !== -1)),
@@ -47,15 +48,32 @@ export default (input, options) => {
     watcher.unwatch(difference(files.watched, files.toWatch))
   }
   const readAndCompile = flow(
-    file => ({ file, content: readFile(file) }),
-    args => ({ ...args, compiled: mjml2html(args.content, options.config) }),
-    outputToFile(options.o)
-  )
+    file => ({ file, content: readFile(file).mjml }),
+    args => ({
+      ...args,
+      compiled: mjml2html(
+        args.content,
+        { filePath: args.file, ...options.config }
+      ),
+    }),
+    (args) => {
+      const { compiled: { errors } } = args
 
-  console.log('???')
+      console.warn(
+        errors,
+        ...errors.map(e => e.formattedMessage)
+      )
+
+      return args
+    },
+    args => outputToFile(args)
+      .then(() => console.log(`${args.file} - Successfully compiled`))
+      .catch(() => console.log(`${args.file} - Error while compiling file`))
+  )
 
   const watcher = chokidar
     .watch(input)
+    .on('change', file => synchronyzeWatcher(path.resolve(file)))
     .on('add', (file) => {
       const filePath = path.resolve(file)
       const matchInputOption = input.reduce(
@@ -64,13 +82,10 @@ export default (input, options) => {
       )
 
       if (matchInputOption) {
-        console.log('match watch options', filePath)
         dependencies[filePath] = getRelatedFiles(filePath)
       }
 
       synchronyzeWatcher(filePath)
-
-      console.log(`added ${filePath}`)
     })
     .on('unlink', (file) => {
       const filePath = path.resolve(file)
@@ -79,22 +94,17 @@ export default (input, options) => {
 
       synchronyzeWatcher(filePath)
     })
-    .on('change', (file) => {
-      const filePath = path.resolve(file)
-
-      console.log(`change on ${filePath}`)
-
-      synchronyzeWatcher(filePath)
-    })
 
   setInterval(
     () => {
-      console.log('dirty:', dirty)
-      dirty.forEach(f => (
-        readAndCompile(f)
-          .then(htmlFile => console.log(`${f} - Successfully write ${htmlFile}`))
-          .catch(htmlFile => console.log(`${f} - Error while compiling file ${htmlFile}`))
-      ))
+      dirty.forEach((f) => {
+        console.log(`${f} - Change detected`)
+        try {
+          readAndCompile(f)
+        } catch (e) {
+
+        }
+      })
       dirty = []
     },
     500

@@ -13,11 +13,11 @@ export default function validChildren(element, { components }) {
   const Component = components[tagName]
 
   if (!Component) {
-    return
+    return null
   }
 
   if (!children || children.length == 0) {
-    return
+    return null
   }
 
   return filter(children.map((child) => {

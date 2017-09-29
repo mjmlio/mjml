@@ -273,7 +273,7 @@
       
       <mj-section>
         <mj-column>
-          <mj-button href="https://mjml.io/" font-family="Helvetica" color="#333" border="solid 2px #f45e43" border-radius="20px" background-color="transparent" width="50px">
+          <mj-button href="https://mjml.io/" font-family="Helvetica" color="#333" border="solid 2px #f45e43" border-radius="20px" background-color="transparent" width="150px" text-align="left">
             This is a multiline button
           </mj-button>
         </mj-column>
@@ -389,13 +389,13 @@
           </mj-column>
 
           <mj-column>
-            <mj-invoice format="0,00.00â‚¬" intl="name:Value" border="1px dotted #dc4e41" align="center" container-background-color="#DDDDDD">
-              <mj-invoice-item price="1000â‚¬" quantity="0" name="1000â‚¬" />
-              <mj-invoice-item price="1000â‚¬" quantity="1" name="1000â‚¬" />
-              <mj-invoice-item price="1000â‚¬" quantity="2" name="1000â‚¬" />
-              <mj-invoice-item price="1000â‚¬" quantity="3" name="1000â‚¬" />
-              <mj-invoice-item price="1000â‚¬" quantity="4" name="1000â‚¬" />
-              <mj-invoice-item price="1000â‚¬" quantity="5" name="1000â‚¬" />
+            <mj-invoice format="0,00.00€" intl="name:Value" border="1px dotted #dc4e41" align="center" container-background-color="#DDDDDD">
+              <mj-invoice-item price="1000€" quantity="0" name="1000€" />
+              <mj-invoice-item price="1000€" quantity="0" name="1000€" />
+              <mj-invoice-item price="1000€" quantity="0" name="1000€" />
+              <mj-invoice-item price="1000€" quantity="1" name="1000€" />
+              <mj-invoice-item price="1000€" quantity="1" name="1000€" />
+              <mj-invoice-item price="1000€" quantity="10" name="1000€" />
             </mj-invoice>
           </mj-column>
         </mj-section>
@@ -762,10 +762,10 @@
         <!-- Start of carousel --> 
         <mj-section>
           <mj-column>
-            <mj-carousel>
-              <mj-carousel-image src="https://www.mailjet.com/wp-content/uploads/2016/11/ecommerce-guide.jpg" />
-              <mj-carousel-image src="https://www.mailjet.com/wp-content/uploads/2016/09/3@1x.png" />
-              <mj-carousel-image src="https://www.mailjet.com/wp-content/uploads/2016/09/1@1x.png" />
+            <mj-carousel title="title carousel 0">
+              <mj-carousel-image src="https://www.mailjet.com/wp-content/uploads/2016/11/ecommerce-guide.jpg" title="title carousel 1" />
+              <mj-carousel-image src="https://www.mailjet.com/wp-content/uploads/2016/09/3@1x.png" title="title carousel 2" />
+              <mj-carousel-image src="https://www.mailjet.com/wp-content/uploads/2016/09/1@1x.png" title="title carousel 3" />
             </mj-carousel>
           </mj-column>
         </mj-section>

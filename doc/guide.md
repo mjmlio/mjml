@@ -44,7 +44,7 @@ MJML has been designed with responsiveness in mind. The abstraction it offers gu
   <br />
   <br />
   <br />
-  <a href="/try-it-live/intro"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>
+  <a href="/try-it-live/intro"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="try it live button" /></a>
 </p>
 
 

@@ -41,7 +41,7 @@ This tag allows you to set CSS styles that will be applied to the <b>HTML</b> in
 
   <p align="center">
     <a href="https://mjml.io/try-it-live/components/head-style">
-      <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
+      <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="try it live button" />
     </a>
   </p>
   

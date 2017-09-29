@@ -29,7 +29,7 @@ You can activate/deactivate any icon, with `display` property.
 
 <p align="center">
   <a href="https://mjml.io/try-it-live/components/social">
-    <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
+    <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="try it live button" />
   </a>
 </p>
 

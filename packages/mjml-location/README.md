@@ -23,7 +23,7 @@ Display a Google Maps location link
 
 <p align="center">
   <a href="https://mjml.io/try-it-live/components/location">
-    <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
+    <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="try it live button" />
   </a>
 </p>
 

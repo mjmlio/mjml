@@ -648,9 +648,9 @@ minimist@0.0.8:
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.0.8.tgz#857fcabfc3397d2625b8228262e86aa7a011b05d"
 
-mjml-core@~3.3.3:
-  version "3.3.3"
-  resolved "https://registry.yarnpkg.com/mjml-core/-/mjml-core-3.3.3.tgz#a6e57f5e5b2caebcbceccd94164db4a00380e38c"
+mjml-core@~3.3.5:
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/mjml-core/-/mjml-core-3.3.4.tgz#a26a41f13337e0e5a5ac3d29df1b16a18236abfb"
   dependencies:
     cheerio "^0.22.0"
     classnames "^2.2.5"

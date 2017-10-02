@@ -44,7 +44,7 @@ Fixed height
 
  <p align="center">
    <a href="https://mjml.io/try-it-live/components/hero">
-     <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
+     <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="try it live button" />
    </a>
  </p>
 
@@ -89,7 +89,7 @@ Fluid height
 
 <p align="center">
   <a href="https://mjml.io/try-it-live/components/hero/1">
-    <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
+    <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="try it live button" />
   </a>
 </p>
 

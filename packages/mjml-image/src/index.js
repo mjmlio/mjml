@@ -53,9 +53,12 @@ export default class MjImage extends BodyComponent {
 
     const paddingRight = this.getShorthandAttrValue('padding', 'right')
     const paddingLeft = this.getShorthandAttrValue('padding', 'left')
-    const widthOverflow = paddingLeft + paddingRight + parseFloat(width) - containerWidth
+    const widthOverflow =
+      paddingLeft + paddingRight + parseFloat(width) - containerWidth
 
-    return widthOverflow > 0 ? parseFloat(width - widthOverflow) : parseFloat(width)
+    return widthOverflow > 0
+      ? parseFloat(width - widthOverflow)
+      : parseFloat(width)
   }
 
   renderImage() {

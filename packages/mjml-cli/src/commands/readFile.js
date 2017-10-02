@@ -2,9 +2,10 @@ import fs from 'fs'
 import glob from 'glob'
 import { flatMap } from 'lodash'
 
-export const flatMapPaths = paths => flatMap(paths, p => glob.sync(p, { nodir: true }))
+export const flatMapPaths = paths =>
+  flatMap(paths, p => glob.sync(p, { nodir: true }))
 
-export default (path) => {
+export default path => {
   try {
     return { file: path, mjml: fs.readFileSync(path).toString() }
   } catch (e) {
@@ -13,4 +14,3 @@ export default (path) => {
     return {}
   }
 }
-

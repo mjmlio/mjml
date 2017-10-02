@@ -31,8 +31,10 @@ export default function mjml2html(mjml, options = {}) {
   const {
     beautify = false,
     fonts = {
-      'Open Sans': 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,700',
-      'Droid Sans': 'https://fonts.googleapis.com/css?family=Droid+Sans:300,400,500,700',
+      'Open Sans':
+        'https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,700',
+      'Droid Sans':
+        'https://fonts.googleapis.com/css?family=Droid+Sans:300,400,500,700',
       Lato: 'https://fonts.googleapis.com/css?family=Lato:300,400,500,700',
       Roboto: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700',
       Ubuntu: 'https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700',
@@ -73,7 +75,12 @@ export default function mjml2html(mjml, options = {}) {
       errors = MJMLValidator(mjml, validatorOptions)
 
       if (errors.length > 0) {
-        throw new ValidationError(`ValidationError: \n ${errors.map(e => e.formattedMessage).join('\n')}`, errors)
+        throw new ValidationError(
+          `ValidationError: \n ${errors
+            .map(e => e.formattedMessage)
+            .join('\n')}`,
+          errors,
+        )
       }
       break
 
@@ -110,14 +117,19 @@ export default function mjml2html(mjml, options = {}) {
     }
   }
 
-  const applyAttributes = (mjml) => {
-    const parse = (mjml) => {
+  const applyAttributes = mjml => {
+    const parse = mjml => {
       const classes = mjml.attributes && mjml.attributes['mj-class']
-      const attributesClasses = classes ?
-        reduce(classes.split(' '), (result, value) => ({
-          ...result,
-          ...globalDatas.classes[value],
-        }), {}) : {}
+      const attributesClasses = classes
+        ? reduce(
+            classes.split(' '),
+            (result, value) => ({
+              ...result,
+              ...globalDatas.classes[value],
+            }),
+            {},
+          )
+        : {}
 
       return {
         ...mjml,
@@ -136,7 +148,9 @@ export default function mjml2html(mjml, options = {}) {
 
   const bodyHelpers = {
     addMediaQuery(className, { parsedWidth, unit }) {
-      globalDatas.mediaQueries[className] = `{ width:${parsedWidth}${unit} !important; }`
+      globalDatas.mediaQueries[
+        className
+      ] = `{ width:${parsedWidth}${unit} !important; }`
     },
     processing: (node, context) => processing(node, context, applyAttributes),
   }
@@ -152,7 +166,13 @@ export default function mjml2html(mjml, options = {}) {
           globalDatas[attr] = params[0]
         }
       } else {
-        throw Error(`An mj-head element add an unkown head attribute : ${attr} with params ${Array.isArray(params) ? params.join('') : params}`)
+        throw Error(
+          `An mj-head element add an unkown head attribute : ${attr} with params ${Array.isArray(
+            params,
+          )
+            ? params.join('')
+            : params}`,
+        )
       }
     },
   }
@@ -175,18 +195,22 @@ export default function mjml2html(mjml, options = {}) {
     ...globalDatas,
   })
 
-  content = beautify ? htmlBeautify(content, {
-    indent_size: 2,
-    wrap_attributes_indent_size: 2,
-    max_preserve_newline: 0,
-    preserve_newlines: false,
-  }) : content
+  content = beautify
+    ? htmlBeautify(content, {
+        indent_size: 2,
+        wrap_attributes_indent_size: 2,
+        max_preserve_newline: 0,
+        preserve_newlines: false,
+      })
+    : content
 
-  content = minify ? htmlMinify(content, {
-    collapseWhitespace: true,
-    minifyCSS: true,
-    removeEmptyAttributes: true,
-  }) : content
+  content = minify
+    ? htmlMinify(content, {
+        collapseWhitespace: true,
+        minifyCSS: true,
+        removeEmptyAttributes: true,
+      })
+    : content
 
   content = mergeOutlookConditionnals(content)
 
@@ -196,13 +220,6 @@ export default function mjml2html(mjml, options = {}) {
   }
 }
 
-export {
-  components,
-  initComponent,
-  registerComponent,
-}
+export { components, initComponent, registerComponent }
 
-export {
-  BodyComponent,
-  HeadComponent,
-} from './createComponent'
+export { BodyComponent, HeadComponent } from './createComponent'

@@ -13,26 +13,19 @@ let dirty = []
 
 const _flatMap = flatMap.convert({ cap: false }) // eslint-disable-line no-underscore-dangle
 const flatMapAndJoin = _flatMap((v, k) => v.map(p => path.join(k, p)))
-const flatMapKeyAndValues = flow(
-  _flatMap((v, k) => [k, ...v]),
-  uniq,
-)
+const flatMapKeyAndValues = flow(_flatMap((v, k) => [k, ...v]), uniq)
 
 export default (input, options) => {
   console.log(`Now watching: ${input}`)
 
   const dependencies = {}
   const outputToFile = makeOutputToFile(options.o)
-  const getRelatedFiles = file => (
-    flow(
-      pickBy((v, k) => (k === file || v.indexOf(file) !== -1)),
-      Object.keys
-    )(dependencies)
-  )
-  const synchronyzeWatcher = (filePath) => {
-    getRelatedFiles(
-      filePath
-    ).forEach((f) => {
+  const getRelatedFiles = file =>
+    flow(pickBy((v, k) => k === file || v.indexOf(file) !== -1), Object.keys)(
+      dependencies,
+    )
+  const synchronyzeWatcher = filePath => {
+    getRelatedFiles(filePath).forEach(f => {
       dependencies[f] = fileContext(f)
 
       if (dirty.indexOf(f) === -1) {
@@ -45,45 +38,46 @@ export default (input, options) => {
       watched: flatMapAndJoin(watcher.getWatched()), // eslint-disable-line no-use-before-define
     }
 
-    watcher.add( // eslint-disable-line no-use-before-define
-      difference(files.toWatch, files.watched)
+    watcher.add(
+      // eslint-disable-line no-use-before-define
+      difference(files.toWatch, files.watched),
     )
-    watcher.unwatch( // eslint-disable-line no-use-before-define
-      difference(files.watched, files.toWatch)
+    watcher.unwatch(
+      // eslint-disable-line no-use-before-define
+      difference(files.watched, files.toWatch),
     )
   }
   const readAndCompile = flow(
     file => ({ file, content: readFile(file).mjml }),
     args => ({
       ...args,
-      compiled: mjml2html(
-        args.content,
-        { filePath: args.file, ...options.config }
-      ),
+      compiled: mjml2html(args.content, {
+        filePath: args.file,
+        ...options.config,
+      }),
     }),
-    (args) => {
+    args => {
       const { compiled: { errors } } = args
 
-      console.warn(
-        errors,
-        ...errors.map(e => e.formattedMessage)
-      )
+      console.warn(errors, ...errors.map(e => e.formattedMessage))
 
       return args
     },
-    args => outputToFile(args)
-      .then(() => console.log(`${args.file} - Successfully compiled`))
-      .catch(() => console.log(`${args.file} - Error while compiling file`))
+    args =>
+      outputToFile(args)
+        .then(() => console.log(`${args.file} - Successfully compiled`))
+        .catch(() => console.log(`${args.file} - Error while compiling file`)),
   )
 
   const watcher = chokidar
     .watch(input)
     .on('change', file => synchronyzeWatcher(path.resolve(file)))
-    .on('add', (file) => {
+    .on('add', file => {
       const filePath = path.resolve(file)
       const matchInputOption = input.reduce(
-        (found, file) => found || glob(path.resolve(file)).minimatch.match(filePath),
-        false
+        (found, file) =>
+          found || glob(path.resolve(file)).minimatch.match(filePath),
+        false,
       )
 
       if (matchInputOption) {
@@ -92,7 +86,7 @@ export default (input, options) => {
 
       synchronyzeWatcher(filePath)
     })
-    .on('unlink', (file) => {
+    .on('unlink', file => {
       const filePath = path.resolve(file)
 
       delete dependencies[path.resolve(filePath)]
@@ -102,20 +96,17 @@ export default (input, options) => {
       synchronyzeWatcher(filePath)
     })
 
-  setInterval(
-    () => {
-      dirty.forEach((f) => {
-        console.log(`${f} - Change detected`)
-        try {
-          readAndCompile(f)
-        } catch (e) {
-          console.log(`${f} - Error while rendering the file : `, e)
-        }
-      })
-      dirty = []
-    },
-    500
-  )
+  setInterval(() => {
+    dirty.forEach(f => {
+      console.log(`${f} - Change detected`)
+      try {
+        readAndCompile(f)
+      } catch (e) {
+        console.log(`${f} - Error while rendering the file : `, e)
+      }
+    })
+    dirty = []
+  }, 500)
 
   return []
 }

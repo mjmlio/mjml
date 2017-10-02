@@ -20,18 +20,14 @@ const DEFAULT_OPTIONS = {
 let EXIT_CODE = 0
 let KEEP_OPEN = false
 
-const error = (msg) => {
+const error = msg => {
   console.error(msg) // eslint-disable-line no-console
 
   return process.exit(1)
 }
 
-const pickArgs = args => (
-  flow(
-    pick(args),
-    pickBy(e => negate(isNil)(e) && !(isArray(e) && isEmpty(e)))
-  )
-)
+const pickArgs = args =>
+  flow(pick(args), pickBy(e => negate(isNil)(e) && !(isArray(e) && isEmpty(e))))
 
 const argv = yargs
   .options({
@@ -68,40 +64,43 @@ const argv = yargs
     },
   })
   .help()
-  .version(`mjml-core: ${coreVersion}\nmjml-cli: ${cliVersion}`)
-  .argv
-
+  .version(`mjml-core: ${coreVersion}\nmjml-cli: ${cliVersion}`).argv
 
 const config = Object.assign(DEFAULT_OPTIONS, argv.c)
 const inputArgs = pickArgs(['r', 'w', 'i', '_'])(argv)
-const outputArgs = pickArgs(['o', 's'])(argv);
+const outputArgs = pickArgs(['o', 's'])(argv)
 
 // implies (until yargs pr is accepted)
-[
+;[
   [Object.keys(inputArgs).length > 1, 'No input arguments received'],
   [Object.keys(inputArgs).length === 0, 'Too much input arguments received'],
   [Object.keys(outputArgs).length > 1, 'Too much output arguments received'],
-  [argv.w && argv.w.length > 1 && !argv.o, 'Need an output option when watching files'],
-  [argv.w
-    && argv.w.length > 1
-    && argv.o
-    && !isDirectory(argv.o)
-    && argv.o !== '',
-  'Need an output option when watching files'],
-].forEach(v => (
-  v[0] ? error(v[1]) : null
-))
+  [
+    argv.w && argv.w.length > 1 && !argv.o,
+    'Need an output option when watching files',
+  ],
+  [
+    argv.w &&
+      argv.w.length > 1 &&
+      argv.o &&
+      !isDirectory(argv.o) &&
+      argv.o !== '',
+    'Need an output option when watching files',
+  ],
+].forEach(v => (v[0] ? error(v[1]) : null))
 
 const inputOpt = Object.keys(inputArgs)[0]
 const outputOpt = Object.keys(outputArgs)[0] || 's'
 
-const inputFiles = isArray(inputArgs[inputOpt]) ? inputArgs[inputOpt] : [inputArgs[inputOpt]]
+const inputFiles = isArray(inputArgs[inputOpt])
+  ? inputArgs[inputOpt]
+  : [inputArgs[inputOpt]]
 const inputs = []
 
 switch (inputOpt) {
   case 'r':
   case '_': {
-    flatMapPaths(inputFiles).forEach((file) => {
+    flatMapPaths(inputFiles).forEach(file => {
       inputs.push(readFile(file))
     })
     break
@@ -120,14 +119,13 @@ switch (inputOpt) {
 const convertedStream = []
 const failedStream = []
 
-inputs.forEach((i) => { // eslint-disable-line array-callback-return
+inputs.forEach(i => {
+  // eslint-disable-line array-callback-return
   try {
     convertedStream.push(
-      Object.assign(
-        {},
-        i,
-        { compiled: mjml2html(i.mjml, { ...config, filePath: i.file }) }
-      )
+      Object.assign({}, i, {
+        compiled: mjml2html(i.mjml, { ...config, filePath: i.file }),
+      }),
     )
   } catch (e) {
     EXIT_CODE = 2
@@ -136,10 +134,13 @@ inputs.forEach((i) => { // eslint-disable-line array-callback-return
   }
 })
 
-failedStream.forEach(({ error, file }) => { // eslint-disable-line array-callback-return
+failedStream.forEach(({ error, file }) => {
+  // eslint-disable-line array-callback-return
   console.error(`${file ? `File: ${file}\n` : null}${error}`) // eslint-disable-line no-console
 
-  if (config.stack) { console.error(error.stack) } // eslint-disable-line no-console
+  if (config.stack) {
+    console.error(error.stack)
+  } // eslint-disable-line no-console
 })
 
 if (!KEEP_OPEN && convertedStream.length === 0) {
@@ -149,21 +150,25 @@ if (!KEEP_OPEN && convertedStream.length === 0) {
 switch (outputOpt) {
   case 'o':
     if (inputs.length > 1 && (!isDirectory(argv.o) && argv.o !== '')) {
-      error(`Multiple input files, but output option should be either a directory or an empty string: ${argv.o} given`)
+      error(
+        `Multiple input files, but output option should be either a directory or an empty string: ${argv.o} given`,
+      )
     }
 
-    Promise
-      .all(convertedStream.map(outputToFile(argv.o)))
+    Promise.all(convertedStream.map(outputToFile(argv.o)))
       .then(() => {
-        if (!KEEP_OPEN) { process.exit(EXIT_CODE) }
+        if (!KEEP_OPEN) {
+          process.exit(EXIT_CODE)
+        }
       })
       .catch(() => {
-        if (!KEEP_OPEN) { process.exit(1) }
+        if (!KEEP_OPEN) {
+          process.exit(1)
+        }
       })
     break
   case 's':
-    Promise
-      .all(convertedStream.map(outputToConsole))
+    Promise.all(convertedStream.map(outputToConsole))
       .then(() => process.exit(EXIT_CODE))
       .catch(() => process.exit(1))
     break

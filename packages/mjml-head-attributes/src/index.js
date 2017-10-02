@@ -5,19 +5,12 @@ import { HeadComponent } from 'mjml-core'
 
 export default class MjAttributes extends HeadComponent {
   handler() {
-    const {
-      add,
-    } = this.context
+    const { add } = this.context
 
-    const {
-      children,
-    } = this.props
+    const { children } = this.props
 
-    forEach(children, (child) => {
-      const {
-        tagName,
-        attributes,
-      } = child
+    forEach(children, child => {
+      const { tagName, attributes } = child
 
       if (tagName === 'mj-class') {
         add('classes', attributes.name, omit(attributes, ['name']))

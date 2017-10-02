@@ -1,11 +1,4 @@
-import {
-  get,
-  forEach,
-  identity,
-  reduce,
-  kebabCase,
-} from 'lodash'
-
+import { get, forEach, identity, reduce, kebabCase } from 'lodash'
 
 import MJMLParser from 'mjml-parser-xml'
 
@@ -70,7 +63,8 @@ class Component {
 }
 
 export class BodyComponent extends Component {
-  getStyles() { // eslint-disable-line class-methods-use-this
+  getStyles() {
+    // eslint-disable-line class-methods-use-this
     return {}
   }
 
@@ -95,15 +89,19 @@ export class BodyComponent extends Component {
       default: identity,
     }
 
-    return reduce(attributes, (output, v, name) => {
-      const value = (specialAttributes[name] || specialAttributes.default)(v)
+    return reduce(
+      attributes,
+      (output, v, name) => {
+        const value = (specialAttributes[name] || specialAttributes.default)(v)
 
-      if (value) {
-        return `${output} ${name}="${value}"`
-      }
+        if (value) {
+          return `${output} ${name}="${value}"`
+        }
 
-      return output
-    }, '')
+        return output
+      },
+      '',
+    )
   }
 
   styles(styles) {
@@ -117,12 +115,16 @@ export class BodyComponent extends Component {
       }
     }
 
-    return reduce(stylesObject, (output, value, name) => {
-      if (value) {
-        return `${output}${name}:${value};`
-      }
-      return output
-    }, '')
+    return reduce(
+      stylesObject,
+      (output, value, name) => {
+        if (value) {
+          return `${output}${name}:${value};`
+        }
+        return output
+      },
+      '',
+    )
   }
 
   renderChildren(childrens, options = {}) {
@@ -139,7 +141,7 @@ export class BodyComponent extends Component {
     let output = ''
     let index = 0
 
-    forEach(childrens, (children) => {
+    forEach(childrens, children => {
       const component = initComponent({
         name: children.tagName,
         initialDatas: {
@@ -178,7 +180,7 @@ export class HeadComponent extends Component {
   handlerChildren() {
     const childrens = this.props.children
 
-    forEach(childrens, (children) => {
+    forEach(childrens, children => {
       const component = initComponent({
         name: children.tagName,
         initialDatas: {

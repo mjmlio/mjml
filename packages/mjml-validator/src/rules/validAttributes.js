@@ -5,16 +5,10 @@ import filter from 'lodash/filter'
 
 import ruleError from './ruleError'
 
-const WHITELIST = [
-  'mj-class',
-  'css-class',
-]
+const WHITELIST = ['mj-class', 'css-class']
 
 export default function validateAttribute(element, { components }) {
-  const {
-    attributes,
-    tagName,
-  } = element
+  const { attributes, tagName } = element
 
   const Component = components[tagName]
 
@@ -24,11 +18,11 @@ export default function validateAttribute(element, { components }) {
 
   const availableAttributes = concat(
     keys(Component.allowedAttributes),
-    WHITELIST
+    WHITELIST,
   )
   const unknownAttributes = filter(
     keys(attributes),
-    attribute => !includes(availableAttributes, attribute)
+    attribute => !includes(availableAttributes, attribute),
   )
 
   if (unknownAttributes.length === 0) {
@@ -40,5 +34,8 @@ export default function validateAttribute(element, { components }) {
     illegal: unknownAttributes.length > 1 ? 'are illegal' : 'is illegal',
   }
 
-  return ruleError(`${attribute} ${unknownAttributes.join(', ')} ${illegal}`, element)
+  return ruleError(
+    `${attribute} ${unknownAttributes.join(', ')} ${illegal}`,
+    element,
+  )
 }

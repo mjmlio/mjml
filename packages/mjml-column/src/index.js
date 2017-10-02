@@ -31,16 +31,19 @@ export default class MjColumn extends BodyComponent {
     const { sibling } = this.props
 
     const paddingSize =
-      this.getShorthandAttrValue('padding', 'left') + this.getShorthandAttrValue('padding', 'right')
+      this.getShorthandAttrValue('padding', 'left') +
+      this.getShorthandAttrValue('padding', 'right')
 
-    let parentWidth = this.getAttribute('width') || `${parseFloat(containerWidth) / sibling}px`
+    let parentWidth =
+      this.getAttribute('width') || `${parseFloat(containerWidth) / sibling}px`
 
     const { unit, parsedWidth } = widthParser(parentWidth, {
       parseFloatToInt: false,
     })
 
     if (unit === '%') {
-      parentWidth = `${parseFloat(containerWidth) * parsedWidth / 100 - paddingSize}px`
+      parentWidth = `${parseFloat(containerWidth) * parsedWidth / 100 -
+        paddingSize}px`
     } else {
       parentWidth = `${parsedWidth - paddingSize}px`
     }
@@ -206,7 +209,9 @@ export default class MjColumn extends BodyComponent {
     return `
       <table
         ${this.htmlAttributes({
-          background: this.hasGutter() ? null : this.getAttribute('background-color'),
+          background: this.hasGutter()
+            ? null
+            : this.getAttribute('background-color'),
           border: '0',
           cellpadding: '0',
           cellspacing: '0',
@@ -217,7 +222,9 @@ export default class MjColumn extends BodyComponent {
       >
         <tbody>
           ${this.renderChildren(children, {
-            renderer: component => // eslint-disable-line no-confusing-arrow
+            renderer: (
+              component, // eslint-disable-line no-confusing-arrow
+            ) =>
               component.rawElement
                 ? component.render()
                 : `
@@ -225,15 +232,21 @@ export default class MjColumn extends BodyComponent {
                 <td
                   ${component.htmlAttributes({
                     align: component.getAttribute('align'),
-                    background: component.getAttribute('container-background-color'),
+                    background: component.getAttribute(
+                      'container-background-color',
+                    ),
                     class: component.getAttribute('css-class'),
                     style: {
-                      background: component.getAttribute('container-background-color'),
+                      background: component.getAttribute(
+                        'container-background-color',
+                      ),
                       'font-size': '0px',
                       padding: component.getAttribute('padding'),
                       'padding-top': component.getAttribute('padding-top'),
                       'padding-right': component.getAttribute('padding-right'),
-                      'padding-bottom': component.getAttribute('padding-bottom'),
+                      'padding-bottom': component.getAttribute(
+                        'padding-bottom',
+                      ),
                       'padding-left': component.getAttribute('padding-left'),
                       'word-break': 'break-word',
                     },

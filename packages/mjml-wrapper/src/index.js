@@ -2,30 +2,30 @@ import MjSection from 'mjml-section'
 
 export default class MjWrapper extends MjSection {
   renderWrappedChildren() {
-    const {
-      children,
-    } = this.props
+    const { children } = this.props
 
-    const {
-      containerWidth,
-    } = this.context
+    const { containerWidth } = this.context
 
     return `
       ${this.renderChildren(children, {
-    renderer: component => (component.rawElement ? component.render() : `
+        renderer: component =>
+          component.rawElement
+            ? component.render()
+            : `
           <!--[if mso | IE]>
             <tr>
               <td
                 ${component.htmlAttributes({
-        align: component.getAttribute('align'),
-        class: component.getAttribute('css-class') ?
-          component.getAttribute('css-class')
-            .split(' ')
-            .map(c => `${c}-outlook`)
-            .join(' ')
-          : null,
-        width: containerWidth,
-      })}
+                  align: component.getAttribute('align'),
+                  class: component.getAttribute('css-class')
+                    ? component
+                        .getAttribute('css-class')
+                        .split(' ')
+                        .map(c => `${c}-outlook`)
+                        .join(' ')
+                    : null,
+                  width: containerWidth,
+                })}
               >
           <![endif]-->
             ${component.render()}
@@ -33,9 +33,8 @@ export default class MjWrapper extends MjSection {
               </td>
             </tr>
           <![endif]-->
-        `),
-  })}
+        `,
+      })}
     `
   }
 }
-

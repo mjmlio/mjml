@@ -26,25 +26,22 @@ export default class MjGroup extends BodyComponent {
   }
 
   getChildContext() {
-    const {
-      containerWidth,
-    } = this.context
-    const {
-      sibling,
-    } = this.props
-    const paddingSize = this.getShorthandAttrValue('padding', 'left') + this.getShorthandAttrValue('padding', 'right')
+    const { containerWidth } = this.context
+    const { sibling } = this.props
+    const paddingSize =
+      this.getShorthandAttrValue('padding', 'left') +
+      this.getShorthandAttrValue('padding', 'right')
 
-    let parentWidth = this.getAttribute('width') || `${parseFloat(containerWidth) / sibling}px`
+    let parentWidth =
+      this.getAttribute('width') || `${parseFloat(containerWidth) / sibling}px`
 
-    const {
-      unit,
-      parsedWidth,
-    } = widthParser(parentWidth, {
+    const { unit, parsedWidth } = widthParser(parentWidth, {
       parseFloatToInt: false,
     })
 
     if (unit === '%') {
-      parentWidth = `${(parseFloat(containerWidth) * parsedWidth / 100) - paddingSize}px`
+      parentWidth = `${parseFloat(containerWidth) * parsedWidth / 100 -
+        paddingSize}px`
     } else {
       parentWidth = `${parsedWidth - paddingSize}px`
     }
@@ -84,16 +81,11 @@ export default class MjGroup extends BodyComponent {
   }
 
   getParsedWidth(toString) {
-    const {
-      sibling,
-    } = this.props
+    const { sibling } = this.props
 
     const width = this.getAttribute('width') || `${100 / sibling}%`
 
-    const {
-      unit,
-      parsedWidth,
-    } = widthParser(width, {
+    const { unit, parsedWidth } = widthParser(width, {
       parseFloatToInt: false,
     })
 
@@ -108,34 +100,24 @@ export default class MjGroup extends BodyComponent {
   }
 
   getWidthAsPixel() {
-    const {
-      containerWidth,
-    } = this.context
+    const { containerWidth } = this.context
 
-    const {
-      unit,
-      parsedWidth,
-    } = widthParser(this.getParsedWidth(true), {
+    const { unit, parsedWidth } = widthParser(this.getParsedWidth(true), {
       parseFloatToInt: false,
     })
 
     if (unit === '%') {
-      return `${(parseFloat(containerWidth) * parsedWidth / 100)}px`
+      return `${parseFloat(containerWidth) * parsedWidth / 100}px`
     }
     return `${parsedWidth}px`
   }
 
   getColumnClass() {
-    const {
-      addMediaQuery,
-    } = this.context
+    const { addMediaQuery } = this.context
 
     let className = ''
 
-    const {
-      parsedWidth,
-      unit,
-    } = this.getParsedWidth()
+    const { parsedWidth, unit } = this.getParsedWidth()
 
     switch (unit) {
       case '%':
@@ -158,28 +140,18 @@ export default class MjGroup extends BodyComponent {
   }
 
   render() {
-    const {
-      children,
-      sibling,
-    } = this.props
+    const { children, sibling } = this.props
 
-    const {
-      containerWidth: groupWidth,
-    } = this.getChildContext()
+    const { containerWidth: groupWidth } = this.getChildContext()
 
-    const {
-      containerWidth,
-    } = this.context
+    const { containerWidth } = this.context
 
-    const getElementWidth = (width) => {
+    const getElementWidth = width => {
       if (!width) {
         return `${parseInt(containerWidth, 10) / parseInt(sibling, 10)}px`
       }
 
-      const {
-        unit,
-        parsedWidth,
-      } = widthParser(width, {
+      const { unit, parsedWidth } = widthParser(width, {
         parseFloatToInt: false,
       })
 
@@ -208,7 +180,10 @@ export default class MjGroup extends BodyComponent {
         <![endif]-->
           ${this.renderChildren(children, {
             attributes: { mobileWidth: 'mobileWidth' },
-            renderer: component => (component.rawElement ? component.render() : `
+            renderer: component =>
+              component.rawElement
+                ? component.render()
+                : `
               <!--[if mso | IE]>
               <td
                 ${component.htmlAttributes({
@@ -223,7 +198,8 @@ export default class MjGroup extends BodyComponent {
               <!--[if mso | IE]>
               </td>
               <![endif]-->
-          `) })}
+          `,
+          })}
         <!--[if mso | IE]>
           </tr>
           </table>
@@ -232,4 +208,3 @@ export default class MjGroup extends BodyComponent {
     `
   }
 }
-

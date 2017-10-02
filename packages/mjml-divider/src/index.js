@@ -16,7 +16,9 @@ export default class MjDivider extends BodyComponent {
   getStyles() {
     return {
       p: {
-        'border-top': `${this.getAttribute('border-width')} ${this.getAttribute('border-style')} ${this.getAttribute('border-color')}`,
+        'border-top': `${this.getAttribute('border-width')} ${this.getAttribute(
+          'border-style',
+        )} ${this.getAttribute('border-color')}`,
         'font-size': 1,
         margin: '0px auto',
         width: this.getAttribute('width'),
@@ -25,16 +27,11 @@ export default class MjDivider extends BodyComponent {
   }
 
   getOutlookWidth() {
-    const {
-      columnWidth,
-    } = this.context
+    const { columnWidth } = this.context
 
     const width = this.getAttribute('width')
 
-    const {
-      parsedWidth,
-      unit,
-    } = widthParser(width)
+    const { parsedWidth, unit } = widthParser(width)
 
     switch (unit) {
       case '%':
@@ -48,7 +45,9 @@ export default class MjDivider extends BodyComponent {
   renderAfter() {
     return `
       <!--[if mso | IE]>
-        <table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0" style="${this.styles('p')}" width="${this.getOutlookWidth()}"><tr><td style="height:0;line-height:0;">&nbsp;</td></tr></table>
+        <table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0" style="${this.styles(
+          'p',
+        )}" width="${this.getOutlookWidth()}"><tr><td style="height:0;line-height:0;">&nbsp;</td></tr></table>
       <![endif]-->
     `
   }
@@ -57,8 +56,8 @@ export default class MjDivider extends BodyComponent {
     return `
       <p
         ${this.htmlAttributes({
-    style: 'p',
-  })}
+          style: 'p',
+        })}
       >
       </p>
       ${this.renderAfter()}

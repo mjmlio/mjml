@@ -39,11 +39,13 @@ export default class MjSocial extends BodyComponent {
   getStyles() {
     return {
       tableVertical: {
+        'line-height': this.getAttribute('line-height'),
         margin: '0px',
       },
       tableHorizontal: {
         float: 'none',
         display: 'inline-table',
+        'line-height': this.getAttribute('line-height'),
       },
     }
   }
@@ -134,7 +136,7 @@ export default class MjSocial extends BodyComponent {
 
   render() {
     return `
-      ${this.getAttribute('mode') == 'horizontal' ? this.renderHorizontal() : this.renderVertical()}
+      ${this.getAttribute('mode') === 'horizontal' ? this.renderHorizontal() : this.renderVertical()}
     `
   }
 }

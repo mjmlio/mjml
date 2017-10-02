@@ -77,12 +77,12 @@ export default function MJMLParser(xml, options = {}) {
       return
     }
 
-    content = content.indexOf('<mjml>') == -1 ? `<mjml><mj-body>${content}</mj-body></mjml>` : content
+    content = content.indexOf('<mjml>') === -1 ? `<mjml><mj-body>${content}</mj-body></mjml>` : content
 
     const partialMjml = MJMLParser(content, { ...options, filePath: partialPath })
     const bindToTree = (children, tree = cur) => children.map(c => ({ ...c, parent: tree }))
 
-    if (partialMjml.tagName != 'mjml') {
+    if (partialMjml.tagName !== 'mjml') {
       return
     }
 
@@ -113,10 +113,10 @@ export default function MJMLParser(xml, options = {}) {
   }
 
   const parser = new htmlparser.Parser({
-    onopentag: (name, attrs) => {
+    onopentag: (name, attrs) => { // eslint-disable-line consistent-return
       const line = findLastIndex(lineIndexes, i => i <= parser.startIndex) + 1
 
-      if (name == 'mj-include') {
+      if (name === 'mj-include') {
         inInclude = true
 
         return handleInclude(decodeURIComponent(attrs.path), line)

@@ -48,7 +48,7 @@ export default class MjImage extends BodyComponent {
     const { containerWidth } = this.context
 
     const width = this.getAttribute('width')
-      ? min([parseInt(this.getAttribute('width')), containerWidth])
+      ? min([parseInt(this.getAttribute('width'), 10), containerWidth])
       : containerWidth
 
     const paddingRight = this.getShorthandAttrValue('padding', 'right')

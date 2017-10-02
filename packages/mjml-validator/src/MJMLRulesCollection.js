@@ -14,6 +14,8 @@ export function registerRule(rule, name) {
   } else {
     MJMLRulesCollection[rule.name] = rule
   }
+
+  return true
 }
 
 

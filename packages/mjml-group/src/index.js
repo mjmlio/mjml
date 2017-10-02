@@ -139,12 +139,12 @@ export default class MjGroup extends BodyComponent {
 
     switch (unit) {
       case '%':
-        className = `mj-column-per-${parseInt(parsedWidth)}`
+        className = `mj-column-per-${parseInt(parsedWidth, 10)}`
         break
 
       case 'px':
       default:
-        className = `mj-column-px-${parseInt(parsedWidth)}`
+        className = `mj-column-px-${parseInt(parsedWidth, 10)}`
         break
     }
 
@@ -173,7 +173,7 @@ export default class MjGroup extends BodyComponent {
 
     const getElementWidth = (width) => {
       if (!width) {
-        return `${parseInt(containerWidth) / parseInt(sibling)}px`
+        return `${parseInt(containerWidth, 10) / parseInt(sibling, 10)}px`
       }
 
       const {
@@ -183,7 +183,7 @@ export default class MjGroup extends BodyComponent {
         parseFloatToInt: false,
       })
 
-      if (unit == '%') {
+      if (unit === '%') {
         return `${100 * parsedWidth / groupWidth}px`
       }
       return `${parsedWidth}${unit}`
@@ -198,25 +198,25 @@ export default class MjGroup extends BodyComponent {
     return `
       <div
         ${this.htmlAttributes({
-    class: classesName,
-    style: 'div',
-  })}
+          class: classesName,
+          style: 'div',
+        })}
       >
         <!--[if mso | IE]>
         <table  role="presentation" border="0" cellpadding="0" cellspacing="0">
           <tr>
         <![endif]-->
           ${this.renderChildren(children, {
-    attributes: { mobileWidth: 'mobileWidth' },
-    renderer: component => (component.rawElement ? component.render() : `
+            attributes: { mobileWidth: 'mobileWidth' },
+            renderer: component => (component.rawElement ? component.render() : `
               <!--[if mso | IE]>
               <td
                 ${component.htmlAttributes({
-        style: {
-          align: component.getAttribute('align'),
-          width: getElementWidth(component.getAttribute('width')),
-        },
-      })}
+                  style: {
+                    align: component.getAttribute('align'),
+                    width: getElementWidth(component.getAttribute('width')),
+                  },
+                })}
               >
               <![endif]-->
                 ${component.render()}

@@ -1,8 +1,9 @@
+/* eslint-disable no-console */
 import chokidar from 'chokidar'
 import glob from 'glob'
 import path from 'path'
 import mjml2html from 'mjml-core'
-import { flow, pickBy, zipObject, flatMap, uniq, difference } from 'lodash/fp'
+import { flow, pickBy, flatMap, uniq, difference, remove } from 'lodash/fp'
 
 import readFile from './readFile'
 import makeOutputToFile from './outputToFile'
@@ -18,7 +19,7 @@ const flatMapKeyAndValues = flow(
 )
 
 export default (input, options) => {
-  console.log(`Now watching: ${input}`) // eslint-disable-line no-console
+  console.log(`Now watching: ${input}`)
 
   const dependencies = {}
   const outputToFile = makeOutputToFile(options.o)
@@ -41,11 +42,15 @@ export default (input, options) => {
 
     const files = {
       toWatch: flatMapKeyAndValues(dependencies),
-      watched: flatMapAndJoin(watcher.getWatched()),
+      watched: flatMapAndJoin(watcher.getWatched()), // eslint-disable-line no-use-before-define
     }
 
-    watcher.add(difference(files.toWatch, files.watched))
-    watcher.unwatch(difference(files.watched, files.toWatch))
+    watcher.add( // eslint-disable-line no-use-before-define
+      difference(files.toWatch, files.watched)
+    )
+    watcher.unwatch( // eslint-disable-line no-use-before-define
+      difference(files.watched, files.toWatch)
+    )
   }
   const readAndCompile = flow(
     file => ({ file, content: readFile(file).mjml }),
@@ -92,6 +97,8 @@ export default (input, options) => {
 
       delete dependencies[path.resolve(filePath)]
 
+      remove(dirty, f => f === filePath)
+
       synchronyzeWatcher(filePath)
     })
 
@@ -102,7 +109,7 @@ export default (input, options) => {
         try {
           readAndCompile(f)
         } catch (e) {
-
+          console.log(`${f} - Error while rendering the file : `, e)
         }
       })
       dirty = []
@@ -112,3 +119,4 @@ export default (input, options) => {
 
   return []
 }
+/* eslint-enable no-console */

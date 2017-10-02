@@ -130,27 +130,27 @@ export default class MjSocialElement extends BodyComponent {
         <td ${this.htmlAttributes({ style: 'td' })}>
           <table
             ${this.htmlAttributes({
-    border: '0',
-    cellpadding: '0',
-    cellspacing: '0',
-    role: 'presentation',
-    style: 'table',
-  })}
+              border: '0',
+              cellpadding: '0',
+              cellspacing: '0',
+              role: 'presentation',
+              style: 'table',
+            })}
           >
             <tr>
               <td ${this.htmlAttributes({ style: 'icon' })}>
                 <a ${this.htmlAttributes({
-    href,
-    rel: this.getAttribute('rel'),
-  })}>
+                      href,
+                      rel: this.getAttribute('rel'),
+                    })}>
                     <img
                       ${this.htmlAttributes({
-    alt: this.getAttribute('alt'),
-    height: parseInt(iconSize),
-    src,
-    style: 'img',
-    width: parseInt(iconSize),
-  })}
+                        alt: this.getAttribute('alt'),
+                        height: parseInt(iconSize, 10),
+                        src,
+                        style: 'img',
+                        width: parseInt(iconSize, 10),
+                      })}
                     />
                   </a>
                 </td>
@@ -158,10 +158,10 @@ export default class MjSocialElement extends BodyComponent {
                   <td>
                     <a
                       ${this.htmlAttributes({
-    href,
-    style: 'text',
-    rel: this.getAttribute('rel'),
-  })}>
+                        href,
+                        style: 'text',
+                        rel: this.getAttribute('rel'),
+                      })}>
                       ${this.getContent()}
                     </a>
                   </td>

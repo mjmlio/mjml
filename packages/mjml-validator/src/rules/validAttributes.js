@@ -37,7 +37,7 @@ export default function validateAttribute(element, { components }) {
 
   const { attribute, illegal } = {
     attribute: unknownAttributes.length > 1 ? 'Attributes' : 'Attribute',
-    illegal: unknownAttributes.length > 1 ? 'are illegal' : 'is illegal'
+    illegal: unknownAttributes.length > 1 ? 'are illegal' : 'is illegal',
   }
 
   return ruleError(`${attribute} ${unknownAttributes.join(', ')} ${illegal}`, element)

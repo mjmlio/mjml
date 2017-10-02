@@ -43,10 +43,7 @@ export default class MjSection extends BodyComponent {
 
     const paddingSize = this.getShorthandAttrValue('padding', 'left') + this.getShorthandAttrValue('padding', 'right')
 
-    const {
-      unit,
-      parsedWidth,
-    } = widthParser(containerWidth, {
+    const { parsedWidth } = widthParser(containerWidth, {
       parseFloatToInt: false,
     })
 
@@ -148,7 +145,7 @@ export default class MjSection extends BodyComponent {
     `
   }
 
-  renderAfter() {
+  renderAfter() { // eslint-disable-line class-methods-use-this
     return `
       <!--[if mso | IE]>
           </td>

@@ -37,7 +37,6 @@ export default function mjml2html(mjml, options = {}) {
       Roboto: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700',
       Ubuntu: 'https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700',
     },
-    inlineCSS = true,
     keepComments,
     minify = false,
     validationLevel = 'soft',
@@ -106,7 +105,7 @@ export default function mjml2html(mjml, options = {}) {
       }
 
       if ('render' in component) {
-        return component.render()
+        return component.render() // eslint-disable-line consistent-return
       }
     }
   }
@@ -146,7 +145,7 @@ export default function mjml2html(mjml, options = {}) {
     add(attr, ...params) {
       if (Array.isArray(globalDatas[attr])) {
         globalDatas[attr].push(...params)
-      } else if (globalDatas.hasOwnProperty(attr)) {
+      } else if (globalDatas[attr]) {
         if (params.length > 1) {
           globalDatas[attr][params[0]] = params[1]
         } else {

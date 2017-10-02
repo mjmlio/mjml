@@ -91,14 +91,14 @@ export default class MjColumn extends BodyComponent {
   }
 
   getMobileWidth() {
-    const { sibling } = this.props
+    const { sibling, containerWidth } = this.props
     const width = this.getAttribute('width')
     const mobileWidth = this.getAttribute('mobileWidth')
 
-    if (mobileWidth != 'mobileWidth') {
+    if (mobileWidth !== 'mobileWidth') {
       return '100%'
-    } else if (width == undefined) {
-      return `${parseInt(100 / sibling)}%`
+    } else if (width === undefined) {
+      return `${parseInt(100 / sibling, 100)}%`
     }
 
     const { unit, parsedWidth } = widthParser(width, {
@@ -110,7 +110,7 @@ export default class MjColumn extends BodyComponent {
         return width
       case 'px':
       default:
-        return `${parsedWidth / parentWidth}%`
+        return `${parsedWidth / parseInt(containerWidth, 10)}%`
     }
   }
 
@@ -155,12 +155,12 @@ export default class MjColumn extends BodyComponent {
 
     switch (unit) {
       case '%':
-        className = `mj-column-per-${parseInt(parsedWidth)}`
+        className = `mj-column-per-${parseInt(parsedWidth, 10)}`
         break
 
       case 'px':
       default:
-        className = `mj-column-px-${parseInt(parsedWidth)}`
+        className = `mj-column-px-${parseInt(parsedWidth, 10)}`
         break
     }
 
@@ -217,7 +217,7 @@ export default class MjColumn extends BodyComponent {
       >
         <tbody>
           ${this.renderChildren(children, {
-            renderer: component =>
+            renderer: component => // eslint-disable-line no-confusing-arrow
               component.rawElement
                 ? component.render()
                 : `

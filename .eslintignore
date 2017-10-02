@@ -1,2 +1,5 @@
 node_modules
 lib
+packages/mjml-core/src/types*
+type.js
+test.js

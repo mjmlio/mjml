@@ -7,7 +7,6 @@ export const isDirectory = (file) => {
 
     return fs.statSync(outputPath).isDirectory()
   } catch (e) {
-
     return false
   }
 }

@@ -16,7 +16,7 @@ export default function validChildren(element, { components }) {
     return null
   }
 
-  if (!children || children.length == 0) {
+  if (!children || children.length === 0) {
     return null
   }
 

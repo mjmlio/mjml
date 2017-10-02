@@ -1,4 +1,4 @@
-const unitRegex = /[\d\.,]*(\D*)$/
+const unitRegex = /[\d.,]*(\D*)$/
 
 export default function widthParser(width, options = {}) {
   const {

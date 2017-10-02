@@ -70,11 +70,11 @@ class Button extends Component {
         cursor: 'auto',
         fontStyle: mjAttribute('font-style'),
         height: mjAttribute('height'),
-        padding: defaultUnit(mjAttribute('inner-padding'), "px"),
         textAlign: mjAttribute('text-align')
       },
       a: {
         background: mjAttribute('background-color'),
+        borderRadius: defaultUnit(mjAttribute('border-radius'), "px"),
         color: mjAttribute('color'),
         fontFamily: mjAttribute('font-family'),
         fontSize: defaultUnit(mjAttribute('font-size')),
@@ -83,6 +83,8 @@ class Button extends Component {
         lineHeight: mjAttribute('line-height'),
         textDecoration: mjAttribute('text-decoration'),
         textTransform: mjAttribute('text-transform'),
+        padding: defaultUnit(mjAttribute('inner-padding'), "px"),
+        display: "inline-block",
         margin: "0px"
       }
     })

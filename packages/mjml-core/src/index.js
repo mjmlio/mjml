@@ -1,7 +1,4 @@
-import identity from 'lodash/identity'
-import map from 'lodash/map'
-import omit from 'lodash/omit'
-import reduce from 'lodash/reduce'
+import { get, identity, map, omit, reduce } from 'lodash'
 
 import juice from 'juice'
 import { html as htmlBeautify } from 'js-beautify'
@@ -47,6 +44,7 @@ export default function mjml2html(mjml, options = {}) {
   const globalDatas = {
     breakpoint: '480px',
     classes: {},
+    classesDefault: {},
     defaultAttributes: {},
     fonts,
     inlineStyle: [],
@@ -116,30 +114,43 @@ export default function mjml2html(mjml, options = {}) {
       }
     }
   }
-
   const applyAttributes = mjml => {
-    const parse = mjml => {
-      const classes = mjml.attributes && mjml.attributes['mj-class']
-      const attributesClasses = classes
-        ? reduce(
-            classes.split(' '),
-            (result, value) => ({
-              ...result,
-              ...globalDatas.classes[value],
-            }),
-            {},
-          )
-        : {}
+    const parse = (mjml, parentMjClass='') => {
+      const { attributes, tagName, children } = mjml
+      const classes = get(mjml.attributes, 'mj-class', '').split(' ')
+      const attributesClasses = reduce(
+        classes,
+        (acc, value) => ({
+          ...acc,
+          ...globalDatas.classes[value],
+        }),
+        {},
+      )
+      const defaultAttributesForClasses = reduce(
+        parentMjClass.split(' '),
+        (acc, value) => ({
+          ...acc,
+          ...get(globalDatas.classesDefault, `${value}.${tagName}`),
+        }),
+        {}
+      )
+      const nextParentMjClass = get(attributes, 'mj-class', parentMjClass)
 
       return {
         ...mjml,
         attributes: {
-          ...globalDatas.defaultAttributes[mjml.tagName],
+          ...globalDatas.defaultAttributes[tagName],
           ...globalDatas.defaultAttributes['mj-all'],
           ...attributesClasses,
-          ...omit(mjml.attributes, ['mj-class']),
+          ...defaultAttributesForClasses,
+          ...omit(attributes, ['mj-class']),
         },
-        children: mjml.children && map(mjml.children, parse),
+        children: map(
+          children, (mjml) => parse(
+            mjml,
+            nextParentMjClass
+          )
+        ),
       }
     }
 

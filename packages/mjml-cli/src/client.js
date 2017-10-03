@@ -139,8 +139,8 @@ failedStream.forEach(({ error, file }) => {
   console.error(`${file ? `File: ${file}\n` : null}${error}`) // eslint-disable-line no-console
 
   if (config.stack) {
-    console.error(error.stack)
-  } // eslint-disable-line no-console
+    console.error(error.stack) // eslint-disable-line no-console
+  }
 })
 
 if (!KEEP_OPEN && convertedStream.length === 0) {

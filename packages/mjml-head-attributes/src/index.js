@@ -10,10 +10,19 @@ export default class MjAttributes extends HeadComponent {
     const { children } = this.props
 
     forEach(children, child => {
-      const { tagName, attributes } = child
+      const { tagName, attributes, children } = child
 
       if (tagName === 'mj-class') {
         add('classes', attributes.name, omit(attributes, ['name']))
+
+        add(
+          'classesDefault',
+          attributes.name,
+          children.reduce(
+            (acc, { tagName, attributes }) => ({...acc, [tagName]: attributes}),
+            {}
+          )
+        )
       } else {
         add('defaultAttributes', tagName, attributes)
       }

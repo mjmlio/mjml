@@ -8,6 +8,7 @@ const defaultMJMLDefinition = {
   attributes: {
     'background-color': null,
     'background-url': null,
+    'background-position': 'top center',
     'background-repeat': 'repeat',
     'background-size': 'auto',
     'border': null,
@@ -125,7 +126,7 @@ class Section extends Component {
     const { mjAttribute, parentWidth, defaultUnit } = this.props
 
     const background = mjAttribute('background-url') ? {
-      background: `${mjAttribute('background-color') || ''} url(${mjAttribute('background-url')}) top center / ${mjAttribute('background-size') || ''} ${mjAttribute('background-repeat') || ''}`.trim()
+      background: `${mjAttribute('background-color') || ''} url(${mjAttribute('background-url')}) ${mjAttribute('background-position')} / ${mjAttribute('background-size') || ''} ${mjAttribute('background-repeat') || ''}`.trim()
     } : {
       background: mjAttribute('background-color')
     }

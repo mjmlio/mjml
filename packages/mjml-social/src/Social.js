@@ -59,54 +59,52 @@ export default class MjSocial extends BodyComponent {
       'font-weight',
       'icon-size',
       'inner-padding',
-      'line-height'].reduce((res, attr) => {
+      'line-height',
+    ].reduce((res, attr) => {
       res[attr] = this.getAttribute(attr)
       return res
     }, {})
   }
 
   renderHorizontal() {
-    const {
-      children,
-    } = this.props
+    const { children } = this.props
 
     return `
      <!--[if mso | IE]>
       <table
         ${this.htmlAttributes({
-    align: this.getAttribute('align'),
-    border: '0',
-    cellpadding: '0',
-    cellspacing: '0',
-    role: 'presentation',
-  })}
+          align: this.getAttribute('align'),
+          border: '0',
+          cellpadding: '0',
+          cellspacing: '0',
+          role: 'presentation',
+        })}
       >
         <tr>
       <![endif]-->
       ${this.renderChildren(children, {
-    attributes: this.getSocialElementAttributes(),
-    renderer: component => (`
+        attributes: this.getSocialElementAttributes(),
+        renderer: component => `
             <!--[if mso | IE]>
               <td>
             <![endif]-->
               <table
                 ${component.htmlAttributes({
-        align: component.getAttribute('align'),
-        border: '0',
-        cellpadding: '0',
-        cellspacing: '0',
-        role: 'presentation',
-        style: 'tableHorizontal',
-      })}
+                  align: component.getAttribute('align'),
+                  border: '0',
+                  cellpadding: '0',
+                  cellspacing: '0',
+                  role: 'presentation',
+                  style: 'tableHorizontal',
+                })}
               >
                 ${component.render()}
               </table>
             <!--[if mso | IE]>
               </td>
             <![endif]-->
-          `
-    ),
-  })}
+          `,
+      })}
       <!--[if mso | IE]>
           </tr>
         </table>
@@ -115,28 +113,30 @@ export default class MjSocial extends BodyComponent {
   }
 
   renderVertical() {
-    const {
-      children,
-    } = this.props
+    const { children } = this.props
 
     return `
       <table
         ${this.htmlAttributes({
-    border: '0',
-    cellpadding: '0',
-    cellspacing: '0',
-    role: 'presentation',
-    style: 'tableVertical',
-  })}
+          border: '0',
+          cellpadding: '0',
+          cellspacing: '0',
+          role: 'presentation',
+          style: 'tableVertical',
+        })}
       >
-        ${this.renderChildren(children, { attributes: this.getSocialElementAttributes() })}
+        ${this.renderChildren(children, {
+          attributes: this.getSocialElementAttributes(),
+        })}
       </table>
     `
   }
 
   render() {
     return `
-      ${this.getAttribute('mode') === 'horizontal' ? this.renderHorizontal() : this.renderVertical()}
+      ${this.getAttribute('mode') === 'horizontal'
+        ? this.renderHorizontal()
+        : this.renderVertical()}
     `
   }
 }

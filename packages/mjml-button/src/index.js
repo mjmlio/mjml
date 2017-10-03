@@ -91,31 +91,34 @@ export default class MjButton extends BodyComponent {
     return `
       <table
         ${this.htmlAttributes({
-    align: this.getAttribute('align'),
-    border: '0',
-    cellpadding: '0',
-    cellspacing: '0',
-    role: 'presentation',
-    style: 'table',
-  })}
+          align: this.getAttribute('align'),
+          border: '0',
+          cellpadding: '0',
+          cellspacing: '0',
+          role: 'presentation',
+          style: 'table',
+        })}
       >
         <tr>
           <td
             ${this.htmlAttributes({
-    align: 'center',
-    bgcolor: this.getAttribute('background-color') === 'none' ? undefined : this.getAttribute('background-color'),
-    role: 'presentation',
-    style: 'td',
-    valign: this.getAttribute('vertical-align'),
-  })}
+              align: 'center',
+              bgcolor:
+                this.getAttribute('background-color') === 'none'
+                  ? undefined
+                  : this.getAttribute('background-color'),
+              role: 'presentation',
+              style: 'td',
+              valign: this.getAttribute('vertical-align'),
+            })}
           >
             <${tag}
               ${this.htmlAttributes({
-    href: this.getAttribute('href'),
-    rel: this.getAttribute('rel'),
-    style: 'content',
-    target: tag === 'a' ? '_blank' : undefined,
-  })}
+                href: this.getAttribute('href'),
+                rel: this.getAttribute('rel'),
+                style: 'content',
+                target: tag === 'a' ? '_blank' : undefined,
+              })}
             >
               ${this.getContent()}
             </${tag}>

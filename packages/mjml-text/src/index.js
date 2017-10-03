@@ -56,8 +56,8 @@ export default class MjText extends BodyComponent {
     return `
       <div
         ${this.htmlAttributes({
-    style: 'text',
-  })}
+          style: 'text',
+        })}
       >
         ${this.getContent()}
       </div>

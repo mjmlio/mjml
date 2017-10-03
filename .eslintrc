@@ -1,5 +1,8 @@
 {
-  "extends": "airbnb-base",
+  "extends": [
+    "airbnb-base",
+    "prettier"
+  ],
   "parser": "babel-eslint",
   "rules": {
     "comma-dangle": [ 2, "always-multiline" ],

@@ -16,7 +16,7 @@ import convertBooleansOnAttrs from './helpers/convertBooleansOnAttrs'
 import addCDATASection from './helpers/addCDATASection'
 import setEmptyAttributes from './helpers/setEmptyAttributes'
 
-const indexesForNewLine = (xml) => {
+const indexesForNewLine = xml => {
   const regex = /\n/gi
   const indexes = [0]
 
@@ -38,7 +38,7 @@ export default function MJMLParser(xml, options = {}) {
 
   const CDATASections = flow(
     filter(component => component.endingTag),
-    map(component => component.getTagName())
+    map(component => component.getTagName()),
   )({ ...components })
 
   const cwd = filePath ? path.dirname(filePath) : process.cwd()
@@ -77,10 +77,17 @@ export default function MJMLParser(xml, options = {}) {
       return
     }
 
-    content = content.indexOf('<mjml>') === -1 ? `<mjml><mj-body>${content}</mj-body></mjml>` : content
+    content =
+      content.indexOf('<mjml>') === -1
+        ? `<mjml><mj-body>${content}</mj-body></mjml>`
+        : content
 
-    const partialMjml = MJMLParser(content, { ...options, filePath: partialPath })
-    const bindToTree = (children, tree = cur) => children.map(c => ({ ...c, parent: tree }))
+    const partialMjml = MJMLParser(content, {
+      ...options,
+      filePath: partialPath,
+    })
+    const bindToTree = (children, tree = cur) =>
+      children.map(c => ({ ...c, parent: tree }))
 
     if (partialMjml.tagName !== 'mjml') {
       return
@@ -108,74 +115,83 @@ export default function MJMLParser(xml, options = {}) {
         curHead = findTag('mj-head', mjml)
       }
 
-      curHead.children = [...curHead.children, ...bindToTree(head.children, curHead)]
+      curHead.children = [
+        ...curHead.children,
+        ...bindToTree(head.children, curHead),
+      ]
     }
   }
 
-  const parser = new htmlparser.Parser({
-    onopentag: (name, attrs) => { // eslint-disable-line consistent-return
-      const line = findLastIndex(lineIndexes, i => i <= parser.startIndex) + 1
+  const parser = new htmlparser.Parser(
+    {
+      onopentag: (name, attrs) => {
+        // eslint-disable-line consistent-return
+        const line = findLastIndex(lineIndexes, i => i <= parser.startIndex) + 1
 
-      if (name === 'mj-include') {
-        inInclude = true
+        if (name === 'mj-include') {
+          inInclude = true
 
-        return handleInclude(decodeURIComponent(attrs.path), line)
-      }
+          return handleInclude(decodeURIComponent(attrs.path), line)
+        }
 
-      if (convertBooleans) {
-        // "true" and "false" will be converted to bools
-        attrs = convertBooleansOnAttrs(attrs)
-      }
+        if (convertBooleans) {
+          // "true" and "false" will be converted to bools
+          attrs = convertBooleansOnAttrs(attrs)
+        }
 
-      attrs = mapValues(attrs, val => decodeURIComponent(val))
+        attrs = mapValues(attrs, val => decodeURIComponent(val))
 
-      const newNode = {
-        file: filePath,
-        absoluteFilePath: path.resolve(cwd, filePath),
-        line,
-        parent: cur,
-        tagName: name,
-        attributes: attrs,
-        children: [],
-      }
+        const newNode = {
+          file: filePath,
+          absoluteFilePath: path.resolve(cwd, filePath),
+          line,
+          parent: cur,
+          tagName: name,
+          attributes: attrs,
+          children: [],
+        }
 
-      if (cur) {
-        cur.children.push(newNode)
-      } else {
-        mjml = newNode
-      }
+        if (cur) {
+          cur.children.push(newNode)
+        } else {
+          mjml = newNode
+        }
 
-      cur = newNode
+        cur = newNode
+      },
+      onclosetag: () => {
+        if (inInclude) {
+          inInclude = false
+          return
+        }
+
+        cur = (cur && cur.parent) || null
+      },
+      ontext: text => {
+        if (!text) {
+          return
+        }
+
+        const val = `${(cur && cur.content) || ''}${text}`.trim()
+
+        if (val) {
+          cur.content = decodeAttributes(val)
+        }
+      },
+      oncomment: data => {
+        if (cur && keepComments) {
+          cur.children.push({
+            line: findLastIndex(lineIndexes, i => i <= parser.startIndex) + 1,
+            tagName: 'mj-raw',
+            content: `<!-- ${data.trim()} -->`,
+          })
+        }
+      },
     },
-    onclosetag: () => {
-      if (inInclude) {
-        inInclude = false
-        return
-      }
-
-      cur = (cur && cur.parent) || null
+    {
+      xmlMode: true,
     },
-    ontext: (text) => {
-      if (!text) { return }
-
-      const val = `${((cur && cur.content) || '')}${text}`.trim()
-
-      if (val) {
-        cur.content = decodeAttributes(val)
-      }
-    },
-    oncomment: (data) => {
-      if (cur && keepComments) {
-        cur.children.push({
-          line: findLastIndex(lineIndexes, i => i <= parser.startIndex) + 1,
-          tagName: 'mj-raw',
-          content: `<!-- ${data.trim()} -->`,
-        })
-      }
-    },
-  }, {
-    xmlMode: true,
-  })
+  )
 
   parser.write(safeXml)
   parser.end()

@@ -37,11 +37,11 @@ export default class MjSection extends BodyComponent {
   }
 
   getChildContext() {
-    const {
-      containerWidth,
-    } = this.context
+    const { containerWidth } = this.context
 
-    const paddingSize = this.getShorthandAttrValue('padding', 'left') + this.getShorthandAttrValue('padding', 'right')
+    const paddingSize =
+      this.getShorthandAttrValue('padding', 'left') +
+      this.getShorthandAttrValue('padding', 'right')
 
     const { parsedWidth } = widthParser(containerWidth, {
       parseFloatToInt: false,
@@ -54,19 +54,23 @@ export default class MjSection extends BodyComponent {
   }
 
   getStyles() {
-    const {
-      containerWidth,
-    } = this.context
+    const { containerWidth } = this.context
 
     const fullWidth = this.isFullWidth()
 
-    const background = this.getAttribute('background-url') ? {
-      background: `${this.getAttribute('background-color') || ''} url(${this.getAttribute('background-url')}) top center / ${this.getAttribute('background-size') || ''} ${this.getAttribute('background-repeat') || ''}`.trim(),
-      'background-color': this.getAttribute('background-color'),
-    } : {
-      background: this.getAttribute('background-color'),
-      'background-color': this.getAttribute('background-color'),
-    }
+    const background = this.getAttribute('background-url')
+      ? {
+          background: `${this.getAttribute('background-color') ||
+            ''} url(${this.getAttribute(
+            'background-url',
+          )}) top center / ${this.getAttribute('background-size') ||
+            ''} ${this.getAttribute('background-repeat') || ''}`.trim(),
+          'background-color': this.getAttribute('background-color'),
+        }
+      : {
+          background: this.getAttribute('background-color'),
+          'background-color': this.getAttribute('background-color'),
+        }
 
     return {
       tableFullwidth: {
@@ -117,27 +121,25 @@ export default class MjSection extends BodyComponent {
   }
 
   renderBefore() {
-    const {
-      containerWidth,
-    } = this.context
+    const { containerWidth } = this.context
 
     return `
       <!--[if mso | IE]>
       <table
         ${this.htmlAttributes({
-    align: 'center',
-    border: '0',
-    cellpadding: '0',
-    cellspacing: '0',
-    class: this.getAttribute('css-class') ?
-      this.getAttribute('css-class')
-        .split(' ')
-        .map(c => `${c}-outlook`)
-        .join(' ')
-      : null,
-    style: { width: `${containerWidth}` },
-    width: parseInt(containerWidth, 10),
-  })}
+          align: 'center',
+          border: '0',
+          cellpadding: '0',
+          cellspacing: '0',
+          class: this.getAttribute('css-class')
+            ? this.getAttribute('css-class')
+                .split(' ')
+                .map(c => `${c}-outlook`)
+                .join(' ')
+            : null,
+          style: { width: `${containerWidth}` },
+          width: parseInt(containerWidth, 10),
+        })}
       >
         <tr>
           <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
@@ -145,7 +147,8 @@ export default class MjSection extends BodyComponent {
     `
   }
 
-  renderAfter() { // eslint-disable-line class-methods-use-this
+  renderAfter() {
+    // eslint-disable-line class-methods-use-this
     return `
       <!--[if mso | IE]>
           </td>
@@ -156,36 +159,38 @@ export default class MjSection extends BodyComponent {
   }
 
   renderWrappedChildren() {
-    const {
-      children,
-    } = this.props
+    const { children } = this.props
 
     return `
       <!--[if mso | IE]>
         <tr>
       <![endif]-->
       ${this.renderChildren(children, {
-    renderer: component => (component.rawElement ? component.render() : `
+        renderer: component =>
+          component.rawElement
+            ? component.render()
+            : `
           <!--[if mso | IE]>
             <td
               ${component.htmlAttributes({
-        align: component.getAttribute('align'),
-        class: component.getAttribute('css-class') ?
-          component.getAttribute('css-class')
-            .split(' ')
-            .map(c => `${c}-outlook`)
-            .join(' ')
-          : null,
-        style: 'tdOutlook',
-      })}
+                align: component.getAttribute('align'),
+                class: component.getAttribute('css-class')
+                  ? component
+                      .getAttribute('css-class')
+                      .split(' ')
+                      .map(c => `${c}-outlook`)
+                      .join(' ')
+                  : null,
+                style: 'tdOutlook',
+              })}
             >
           <![endif]-->
             ${component.render()}
           <!--[if mso | IE]>
             </td>
           <![endif]-->
-    `),
-  })}
+    `,
+      })}
 
       <!--[if mso | IE]>
         </tr>
@@ -196,29 +201,29 @@ export default class MjSection extends BodyComponent {
   renderWithBackground(content) {
     const fullWidth = this.isFullWidth()
 
-    const {
-      containerWidth,
-    } = this.context
+    const { containerWidth } = this.context
 
     return `
       <!--[if mso | IE]>
         <v:rect ${this.htmlAttributes({
-    style: fullWidth ? { 'mso-width-percent': '1000' } : { width: containerWidth },
-    'xmlns:v': 'urn:schemas-microsoft-com:vml',
-    fill: 'true',
-    stroke: 'false',
-  })}>
+          style: fullWidth
+            ? { 'mso-width-percent': '1000' }
+            : { width: containerWidth },
+          'xmlns:v': 'urn:schemas-microsoft-com:vml',
+          fill: 'true',
+          stroke: 'false',
+        })}>
         <v:fill ${this.htmlAttributes({
-    origin: '0.5, 0',
-    position: '0.5, 0',
-    src: this.getAttribute('background-url'),
-    color: this.getAttribute('background-color'),
-    type: 'tile',
-  })} />
+          origin: '0.5, 0',
+          position: '0.5, 0',
+          src: this.getAttribute('background-url'),
+          color: this.getAttribute('background-color'),
+          type: 'tile',
+        })} />
         <v:textbox style="mso-fit-shape-to-text:true" inset="0,0,0,0">
       <![endif]-->
           ${content}
-    <!--[if mso | IE]>
+        <!--[if mso | IE]>
         </v:textbox>
       </v:rect>
     <![endif]-->
@@ -230,27 +235,31 @@ export default class MjSection extends BodyComponent {
 
     return `
       <div ${this.htmlAttributes({
-    class: this.isFullWidth() ? null : this.getAttribute('css-class'),
-    style: 'div',
-  })}>
-        ${hasBackground ? `<div ${this.htmlAttributes({ style: 'innerDiv' })}>` : ''}
+        class: this.isFullWidth() ? null : this.getAttribute('css-class'),
+        style: 'div',
+      })}>
+        ${hasBackground
+          ? `<div ${this.htmlAttributes({ style: 'innerDiv' })}>`
+          : ''}
         <table
           ${this.htmlAttributes({
-    align: 'center',
-    background: this.isFullWidth() ? null : this.getAttribute('background-url'),
-    border: '0',
-    cellpadding: '0',
-    cellspacing: '0',
-    role: 'presentation',
-    style: 'table',
-  })}
+            align: 'center',
+            background: this.isFullWidth()
+              ? null
+              : this.getAttribute('background-url'),
+            border: '0',
+            cellpadding: '0',
+            cellspacing: '0',
+            role: 'presentation',
+            style: 'table',
+          })}
         >
           <tbody>
             <tr>
               <td
                 ${this.htmlAttributes({
-    style: 'td',
-  })}
+                  style: 'td',
+                })}
               >
                 <!--[if mso | IE]>
                   <table role="presentation" border="0" cellpadding="0" cellspacing="0">
@@ -269,31 +278,35 @@ export default class MjSection extends BodyComponent {
   }
 
   renderFullWidth() {
+    const content = this.hasBackground()
+      ? this.renderWithBackground(`
+        ${this.renderBefore()}
+        ${this.renderSection()}
+        ${this.renderAfter()}
+      `)
+      : `
+        ${this.renderBefore()}
+        ${this.renderSection()}
+        ${this.renderAfter()}
+      `
+
     return `
       <table
         ${this.htmlAttributes({
-    align: 'center',
-    class: this.getAttribute('css-class'),
-    background: this.getAttribute('background-url'),
-    border: '0',
-    cellpadding: '0',
-    cellspacing: '0',
-    role: 'presentation',
-    style: 'tableFullwidth',
-  })}
+          align: 'center',
+          class: this.getAttribute('css-class'),
+          background: this.getAttribute('background-url'),
+          border: '0',
+          cellpadding: '0',
+          cellspacing: '0',
+          role: 'presentation',
+          style: 'tableFullwidth',
+        })}
       >
         <tbody>
           <tr>
             <td>
-              ${this.hasBackground() ? this.renderWithBackground(`
-                ${this.renderBefore()}
-                ${this.renderSection()}
-                ${this.renderAfter()}
-    `) : `
-                ${this.renderBefore()}
-                ${this.renderSection()}
-                ${this.renderAfter()}
-  `}
+              ${content}
             </td>
           </tr>
         </tbody>

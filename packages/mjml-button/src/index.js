@@ -60,17 +60,7 @@ class Button extends Component {
         width: mjAttribute('width')
       },
       td: {
-        border: mjAttribute('border'),
-        borderBottom: mjAttribute('border-bottom'),
-        borderLeft: mjAttribute('border-left'),
-        borderRadius: defaultUnit(mjAttribute('border-radius'), "px"),
-        borderRight: mjAttribute('border-right'),
-        borderTop: mjAttribute('border-top'),
-        color: mjAttribute('color'),
-        cursor: 'auto',
-        fontStyle: mjAttribute('font-style'),
         height: mjAttribute('height'),
-        padding: defaultUnit(mjAttribute('inner-padding'), "px"),
         textAlign: mjAttribute('text-align')
       },
       a: {
@@ -81,8 +71,17 @@ class Button extends Component {
         fontStyle: mjAttribute('font-style'),
         fontWeight: mjAttribute('font-weight'),
         lineHeight: mjAttribute('line-height'),
+        height: mjAttribute('height'),
+        border: mjAttribute('border'),
+        borderBottom: mjAttribute('border-bottom'),
+        borderLeft: mjAttribute('border-left'),
+        borderRadius: defaultUnit(mjAttribute('border-radius'), "px"),
+        borderRight: mjAttribute('border-right'),
+        borderTop: mjAttribute('border-top'),
+        cursor: 'auto',
         textDecoration: mjAttribute('text-decoration'),
         textTransform: mjAttribute('text-transform'),
+        padding: defaultUnit(mjAttribute('inner-padding'), "px"),
         margin: "0px"
       }
     })

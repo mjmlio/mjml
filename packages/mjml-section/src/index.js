@@ -189,16 +189,10 @@ class Section extends Component {
   renderSection () {
     const { renderWrappedOutlookChildren, mjAttribute, children, parentWidth } = this.props
     const fullWidth = this.isFullWidth()
-    const divProps = fullWidth ? {} : {
-      "className": mjAttribute('css-class'),
-      "data-class": mjAttribute('css-class')
-    }
 
     return (
       <div
-        style={this.styles.div}
-        {...divProps}
-      >
+        style={this.styles.div}>
         <table
           role="presentation"
           cellPadding="0"

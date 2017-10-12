@@ -9,7 +9,7 @@ The final result will look like this
 </p>
 
 <p align="center">
-  <a href="/try-it-live/templates/newsletter"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>
+  <a href="/try-it-live/templates/newsletter"><img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="sexy" /></a>
 </p>
 
 ## Structuring

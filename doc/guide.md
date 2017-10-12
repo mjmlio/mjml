@@ -1,5 +1,5 @@
 ---
-title: API Reference
+title: Documentation for MJML - The Responsive Email Framework
 
 language_tabs:
   - html : MJML

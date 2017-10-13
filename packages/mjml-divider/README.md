@@ -17,7 +17,7 @@ Displays a horizontal divider that can be customized like a HTML border.
 ```
 
 <p align="center">
-  <a href="https://mjml.io/try-it-live/components/divider">
+  <a target="_blank" href="/try-it-live/components/divider">
     <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
   </a>
 </p>

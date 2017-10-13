@@ -5,11 +5,11 @@ In this section, you're going to build a newsletter template.
 The final result will look like this
 
 <p align="center">
-  <a href="/try-it-live/templates/hello-world"><img width="350px" src="https://cloud.githubusercontent.com/assets/6558790/12789753/6fd35f3e-ca9f-11e5-8ff0-a1e090a9bede.png" alt="try it live"></a>
+  <a target="_blank" href="/try-it-live/templates/hello-world"><img width="350px" src="https://cloud.githubusercontent.com/assets/6558790/12789753/6fd35f3e-ca9f-11e5-8ff0-a1e090a9bede.png" alt="try it live"></a>
 </p>
 
 <p align="center">
-  <a href="/try-it-live/templates/newsletter"><img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" /></a>
+  <a target="_blank" href="/try-it-live/templates/newsletter"><img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" /></a>
 </p>
 
 ## Structuring

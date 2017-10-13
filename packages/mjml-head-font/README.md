@@ -22,7 +22,7 @@ This tag allows you to import fonts if used in your MJML document
  ```
 
 <p align="center">
-  <a href="https://mjml.io/try-it-live/components/head-font">
+  <a target="_blank" href="/try-it-live/components/head-font">
     <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
   </a>
 </p>

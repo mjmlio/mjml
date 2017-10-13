@@ -24,7 +24,7 @@ Display a table of items with calculated total price.
 ```
 
 <p align="center">
-  <a href="https://mjml.io/try-it-live/components/invoice">
+  <a target="_blank" href="/try-it-live/components/invoice">
     <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
   </a>
 </p>

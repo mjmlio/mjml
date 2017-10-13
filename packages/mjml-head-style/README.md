@@ -40,7 +40,7 @@ This tag allows you to set CSS styles that will be applied to the <b>HTML</b> in
    ```
 
   <p align="center">
-    <a href="https://mjml.io/try-it-live/components/head-style">
+    <a target="_blank" href="/try-it-live/components/head-style">
       <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
     </a>
   </p>

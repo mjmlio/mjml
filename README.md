@@ -148,7 +148,7 @@ To learn how to create your own component, follow this [step-by-step guide](http
 Get your hands dirty by trying the MJML online editor! Write awesome code on the left side and preview your email on the right. You can also get the rendered HTML directly from the online editor.
 
 <p align="center">
-  <a href="https://mjml.io/try-it-live"><img src="https://cloud.githubusercontent.com/assets/6558790/12195421/58a40618-b5f7-11e5-9ed3-80463874ab14.png" alt="try it live" width="75%"></a>
+  <a target="_blank" href="/try-it-live"><img src="https://cloud.githubusercontent.com/assets/6558790/12195421/58a40618-b5f7-11e5-9ed3-80463874ab14.png" alt="try it live" width="75%"></a>
 </p>
 <br>
 

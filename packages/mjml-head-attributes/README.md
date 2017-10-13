@@ -27,7 +27,7 @@ This tag allows you to modify default attributes on a `mj-tag` and add `mj-class
  ```
 
 <p align="center">
-  <a href="https://mjml.io/try-it-live/components/head-attributes">
+  <a target="_blank" href="/try-it-live/components/head-attributes">
     <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
   </a>
 </p>

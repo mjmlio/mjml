@@ -57,7 +57,9 @@ class Button extends Component {
 
     return helpers.merge({}, baseStyles, {
       table: {
-        width: mjAttribute('width')
+        width: mjAttribute('width'),
+        // Ensure that wrong line-height wouldn't be inherited
+        lineHeight: '100%'
       },
       td: {
         border: mjAttribute('border'),

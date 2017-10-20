@@ -56,6 +56,7 @@ export default class MjButton extends BodyComponent {
       table: {
         'border-collapse': 'separate',
         width: this.getAttribute('width'),
+        'line-height': '100%',
       },
       td: {
         border: this.getAttribute('border'),

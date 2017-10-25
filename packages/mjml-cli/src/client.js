@@ -1,4 +1,6 @@
 import { mjml2html, version, documentParser, MJMLValidator } from 'mjml-core'
+import configParser from 'mjml-core/lib/parsers/config'
+import isBrowser from 'mjml-core/lib/helpers/isBrowser'
 import fs from 'fs'
 import glob from 'glob'
 import path from 'path'
@@ -124,6 +126,9 @@ export const renderStream = options => {
  * Validate an MJML document
  */
 export const validate = (input, { format }) => {
+  if (!isBrowser()) {
+    configParser({ filePath: input })
+  }
   return read(input)
     .then(content => {
       const MJMLDocument = documentParser(content.toString())

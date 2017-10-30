@@ -170,7 +170,7 @@ export default function mjml2html(mjml, options = {}) {
     add(attr, ...params) {
       if (Array.isArray(globalDatas[attr])) {
         globalDatas[attr].push(...params)
-      } else if (globalDatas[attr]) {
+      } else if (Object.prototype.hasOwnProperty.call(globalDatas, attr)) {
         if (params.length > 1) {
           globalDatas[attr][params[0]] = params[1]
         } else {

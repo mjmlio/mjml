@@ -13,165 +13,169 @@ import outputToConsole from './commands/outputToConsole'
 import { version as coreVersion } from 'mjml-core/package.json' // eslint-disable-line import/first
 import { version as cliVersion } from '../package.json'
 
-const DEFAULT_OPTIONS = {
-  beautify: true,
-  minify: false,
-}
-let EXIT_CODE = 0
-let KEEP_OPEN = false
+export default async () => {
 
-const error = msg => {
-  console.error(msg) // eslint-disable-line no-console
+  const DEFAULT_OPTIONS = {
+    beautify: true,
+    minify: false,
+  }
+  let EXIT_CODE = 0
+  let KEEP_OPEN = false
 
-  return process.exit(1)
-}
+  const error = msg => {
+    console.error(msg) // eslint-disable-line no-console
 
-const pickArgs = args =>
-  flow(pick(args), pickBy(e => negate(isNil)(e) && !(isArray(e) && isEmpty(e))))
+    return process.exit(1)
+  }
 
-const argv = yargs
-  .options({
-    r: {
-      alias: 'read',
-      describe: 'Compile MJML File(s)',
-      type: 'array',
-    },
-    w: {
-      alias: 'watch',
-      type: 'array',
-      describe: 'Watch and compile MJML File(s) when modified',
-    },
-    i: {
-      alias: 'stdin',
-      describe: 'Compiles MJML from input stream',
-    },
-    s: {
-      alias: 'stdout',
-      describe: 'Output HTML to stdout',
-    },
-    o: {
-      alias: 'output',
-      type: 'string',
-      describe: 'Filename/Directory to output compiled files',
-    },
-    c: {
-      alias: 'config',
-      type: 'object',
-      describe: 'Option to pass to mjml-core',
-    },
-    version: {
-      alias: 'V',
-    },
-  })
-  .help()
-  .version(`mjml-core: ${coreVersion}\nmjml-cli: ${cliVersion}`).argv
+  const pickArgs = args =>
+    flow(pick(args), pickBy(e => negate(isNil)(e) && !(isArray(e) && isEmpty(e))))
 
-const config = Object.assign(DEFAULT_OPTIONS, argv.c)
-const inputArgs = pickArgs(['r', 'w', 'i', '_'])(argv)
-const outputArgs = pickArgs(['o', 's'])(argv)
-
-// implies (until yargs pr is accepted)
-;[
-  [Object.keys(inputArgs).length > 1, 'No input arguments received'],
-  [Object.keys(inputArgs).length === 0, 'Too much input arguments received'],
-  [Object.keys(outputArgs).length > 1, 'Too much output arguments received'],
-  [
-    argv.w && argv.w.length > 1 && !argv.o,
-    'Need an output option when watching files',
-  ],
-  [
-    argv.w &&
-      argv.w.length > 1 &&
-      argv.o &&
-      !isDirectory(argv.o) &&
-      argv.o !== '',
-    'Need an output option when watching files',
-  ],
-].forEach(v => (v[0] ? error(v[1]) : null))
-
-const inputOpt = Object.keys(inputArgs)[0]
-const outputOpt = Object.keys(outputArgs)[0] || 's'
-
-const inputFiles = isArray(inputArgs[inputOpt])
-  ? inputArgs[inputOpt]
-  : [inputArgs[inputOpt]]
-const inputs = []
-
-switch (inputOpt) {
-  case 'r':
-  case '_': {
-    flatMapPaths(inputFiles).forEach(file => {
-      inputs.push(readFile(file))
+  const argv = yargs
+    .options({
+      r: {
+        alias: 'read',
+        describe: 'Compile MJML File(s)',
+        type: 'array',
+      },
+      w: {
+        alias: 'watch',
+        type: 'array',
+        describe: 'Watch and compile MJML File(s) when modified',
+      },
+      i: {
+        alias: 'stdin',
+        describe: 'Compiles MJML from input stream',
+      },
+      s: {
+        alias: 'stdout',
+        describe: 'Output HTML to stdout',
+      },
+      o: {
+        alias: 'output',
+        type: 'string',
+        describe: 'Filename/Directory to output compiled files',
+      },
+      c: {
+        alias: 'config',
+        type: 'object',
+        describe: 'Option to pass to mjml-core',
+      },
+      version: {
+        alias: 'V',
+      },
     })
-    break
-  }
-  case 'w':
-    watchFiles(inputFiles, argv)
-    KEEP_OPEN = true
-    break
-  case 'i':
-    inputs.push(readStream())
-    break
-  default:
-    error('Cli error !')
-}
+    .help()
+    .version(`mjml-core: ${coreVersion}\nmjml-cli: ${cliVersion}`).argv
 
-const convertedStream = []
-const failedStream = []
+  const config = Object.assign(DEFAULT_OPTIONS, argv.c)
+  const inputArgs = pickArgs(['r', 'w', 'i', '_'])(argv)
+  const outputArgs = pickArgs(['o', 's'])(argv)
 
-inputs.forEach(i => {
-  // eslint-disable-line array-callback-return
-  try {
-    convertedStream.push(
-      Object.assign({}, i, {
-        compiled: mjml2html(i.mjml, { ...config, filePath: i.file }),
-      }),
-    )
-  } catch (e) {
-    EXIT_CODE = 2
+  // implies (until yargs pr is accepted)
+  ;[
+    [Object.keys(inputArgs).length > 1, 'No input arguments received'],
+    [Object.keys(inputArgs).length === 0, 'Too much input arguments received'],
+    [Object.keys(outputArgs).length > 1, 'Too much output arguments received'],
+    [
+      argv.w && argv.w.length > 1 && !argv.o,
+      'Need an output option when watching files',
+    ],
+    [
+      argv.w &&
+        argv.w.length > 1 &&
+        argv.o &&
+        !isDirectory(argv.o) &&
+        argv.o !== '',
+      'Need an output option when watching files',
+    ],
+  ].forEach(v => (v[0] ? error(v[1]) : null))
 
-    failedStream.push({ file: i.file, error: e })
-  }
-})
+  const inputOpt = Object.keys(inputArgs)[0]
+  const outputOpt = Object.keys(outputArgs)[0] || 's'
 
-failedStream.forEach(({ error, file }) => {
-  // eslint-disable-line array-callback-return
-  console.error(`${file ? `File: ${file}\n` : null}${error}`) // eslint-disable-line no-console
+  const inputFiles = isArray(inputArgs[inputOpt])
+    ? inputArgs[inputOpt]
+    : [inputArgs[inputOpt]]
+  const inputs = []
 
-  if (config.stack) {
-    console.error(error.stack) // eslint-disable-line no-console
-  }
-})
-
-if (!KEEP_OPEN && convertedStream.length === 0) {
-  error('Input file(s) failed to render')
-}
-
-switch (outputOpt) {
-  case 'o':
-    if (inputs.length > 1 && (!isDirectory(argv.o) && argv.o !== '')) {
-      error(
-        `Multiple input files, but output option should be either a directory or an empty string: ${argv.o} given`,
-      )
+  switch (inputOpt) {
+    case 'r':
+    case '_': {
+      flatMapPaths(inputFiles).forEach(file => {
+        inputs.push(readFile(file))
+      })
+      break
     }
+    case 'w':
+      watchFiles(inputFiles, argv)
+      KEEP_OPEN = true
+      break
+    case 'i':
+      const stream = await readStream()
+      inputs.push(stream)
+      break
+    default:
+      error('Cli error !')
+  }
 
-    Promise.all(convertedStream.map(outputToFile(argv.o)))
-      .then(() => {
-        if (!KEEP_OPEN) {
-          process.exit(EXIT_CODE)
-        }
-      })
-      .catch(() => {
-        if (!KEEP_OPEN) {
-          process.exit(1)
-        }
-      })
-    break
-  case 's':
-    Promise.all(convertedStream.map(outputToConsole))
-      .then(() => process.exit(EXIT_CODE))
-      .catch(() => process.exit(1))
-    break
-  default:
-    error('Cli error ! (No output option available)')
+  const convertedStream = []
+  const failedStream = []
+
+  inputs.forEach(i => {
+    // eslint-disable-line array-callback-return
+    try {
+      convertedStream.push(
+        Object.assign({}, i, {
+          compiled: mjml2html(i.mjml, { ...config, filePath: i.file }),
+        }),
+      )
+    } catch (e) {
+      EXIT_CODE = 2
+
+      failedStream.push({ file: i.file, error: e })
+    }
+  })
+
+  failedStream.forEach(({ error, file }) => {
+    // eslint-disable-line array-callback-return
+    console.error(`${file ? `File: ${file}\n` : null}${error}`) // eslint-disable-line no-console
+
+    if (config.stack) {
+      console.error(error.stack) // eslint-disable-line no-console
+    }
+  })
+
+  if (!KEEP_OPEN && convertedStream.length === 0) {
+    error('Input file(s) failed to render')
+  }
+
+  switch (outputOpt) {
+    case 'o':
+      if (inputs.length > 1 && (!isDirectory(argv.o) && argv.o !== '')) {
+        error(
+          `Multiple input files, but output option should be either a directory or an empty string: ${argv.o} given`,
+        )
+      }
+
+      Promise.all(convertedStream.map(outputToFile(argv.o)))
+        .then(() => {
+          if (!KEEP_OPEN) {
+            process.exit(EXIT_CODE)
+          }
+        })
+        .catch(() => {
+          if (!KEEP_OPEN) {
+            process.exit(1)
+          }
+        })
+      break
+    case 's':
+      Promise.all(convertedStream.map(outputToConsole))
+        .then(() => process.exit(EXIT_CODE))
+        .catch(() => process.exit(1))
+      break
+    default:
+      error('Cli error ! (No output option available)')
+  }
 }

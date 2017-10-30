@@ -1,7 +1,4 @@
-import identity from 'lodash/identity'
-import map from 'lodash/map'
-import omit from 'lodash/omit'
-import reduce from 'lodash/reduce'
+import { get, identity, map, omit, reduce } from 'lodash'
 
 import juice from 'juice'
 import { html as htmlBeautify } from 'js-beautify'
@@ -31,13 +28,14 @@ export default function mjml2html(mjml, options = {}) {
   const {
     beautify = false,
     fonts = {
-      'Open Sans': 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,700',
-      'Droid Sans': 'https://fonts.googleapis.com/css?family=Droid+Sans:300,400,500,700',
+      'Open Sans':
+        'https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,700',
+      'Droid Sans':
+        'https://fonts.googleapis.com/css?family=Droid+Sans:300,400,500,700',
       Lato: 'https://fonts.googleapis.com/css?family=Lato:300,400,500,700',
       Roboto: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700',
       Ubuntu: 'https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700',
     },
-    inlineCSS = true,
     keepComments,
     minify = false,
     validationLevel = 'soft',
@@ -46,6 +44,7 @@ export default function mjml2html(mjml, options = {}) {
   const globalDatas = {
     breakpoint: '480px',
     classes: {},
+    classesDefault: {},
     defaultAttributes: {},
     fonts,
     inlineStyle: [],
@@ -74,7 +73,12 @@ export default function mjml2html(mjml, options = {}) {
       errors = MJMLValidator(mjml, validatorOptions)
 
       if (errors.length > 0) {
-        throw new ValidationError(`ValidationError: \n ${errors.map(e => e.formattedMessage).join('\n')}`, errors)
+        throw new ValidationError(
+          `ValidationError: \n ${errors
+            .map(e => e.formattedMessage)
+            .join('\n')}`,
+          errors,
+        )
       }
       break
 
@@ -106,29 +110,47 @@ export default function mjml2html(mjml, options = {}) {
       }
 
       if ('render' in component) {
-        return component.render()
+        return component.render() // eslint-disable-line consistent-return
       }
     }
   }
-
-  const applyAttributes = (mjml) => {
-    const parse = (mjml) => {
-      const classes = mjml.attributes && mjml.attributes['mj-class']
-      const attributesClasses = classes ?
-        reduce(classes.split(' '), (result, value) => ({
-          ...result,
+  const applyAttributes = mjml => {
+    const parse = (mjml, parentMjClass='') => {
+      const { attributes, tagName, children } = mjml
+      const classes = get(mjml.attributes, 'mj-class', '').split(' ')
+      const attributesClasses = reduce(
+        classes,
+        (acc, value) => ({
+          ...acc,
           ...globalDatas.classes[value],
-        }), {}) : {}
+        }),
+        {},
+      )
+      const defaultAttributesForClasses = reduce(
+        parentMjClass.split(' '),
+        (acc, value) => ({
+          ...acc,
+          ...get(globalDatas.classesDefault, `${value}.${tagName}`),
+        }),
+        {}
+      )
+      const nextParentMjClass = get(attributes, 'mj-class', parentMjClass)
 
       return {
         ...mjml,
         attributes: {
-          ...globalDatas.defaultAttributes[mjml.tagName],
+          ...globalDatas.defaultAttributes[tagName],
           ...globalDatas.defaultAttributes['mj-all'],
           ...attributesClasses,
-          ...omit(mjml.attributes, ['mj-class']),
+          ...defaultAttributesForClasses,
+          ...omit(attributes, ['mj-class']),
         },
-        children: mjml.children && map(mjml.children, parse),
+        children: map(
+          children, (mjml) => parse(
+            mjml,
+            nextParentMjClass
+          )
+        ),
       }
     }
 
@@ -137,7 +159,9 @@ export default function mjml2html(mjml, options = {}) {
 
   const bodyHelpers = {
     addMediaQuery(className, { parsedWidth, unit }) {
-      globalDatas.mediaQueries[className] = `{ width:${parsedWidth}${unit} !important; }`
+      globalDatas.mediaQueries[
+        className
+      ] = `{ width:${parsedWidth}${unit} !important; }`
     },
     processing: (node, context) => processing(node, context, applyAttributes),
   }
@@ -146,14 +170,20 @@ export default function mjml2html(mjml, options = {}) {
     add(attr, ...params) {
       if (Array.isArray(globalDatas[attr])) {
         globalDatas[attr].push(...params)
-      } else if (globalDatas.hasOwnProperty(attr)) {
+      } else if (globalDatas[attr]) {
         if (params.length > 1) {
           globalDatas[attr][params[0]] = params[1]
         } else {
           globalDatas[attr] = params[0]
         }
       } else {
-        throw Error(`An mj-head element add an unkown head attribute : ${attr} with params ${Array.isArray(params) ? params.join('') : params}`)
+        throw Error(
+          `An mj-head element add an unkown head attribute : ${attr} with params ${Array.isArray(
+            params,
+          )
+            ? params.join('')
+            : params}`,
+        )
       }
     },
   }
@@ -176,18 +206,22 @@ export default function mjml2html(mjml, options = {}) {
     ...globalDatas,
   })
 
-  content = beautify ? htmlBeautify(content, {
-    indent_size: 2,
-    wrap_attributes_indent_size: 2,
-    max_preserve_newline: 0,
-    preserve_newlines: false,
-  }) : content
+  content = beautify
+    ? htmlBeautify(content, {
+        indent_size: 2,
+        wrap_attributes_indent_size: 2,
+        max_preserve_newline: 0,
+        preserve_newlines: false,
+      })
+    : content
 
-  content = minify ? htmlMinify(content, {
-    collapseWhitespace: true,
-    minifyCSS: true,
-    removeEmptyAttributes: true,
-  }) : content
+  content = minify
+    ? htmlMinify(content, {
+        collapseWhitespace: true,
+        minifyCSS: true,
+        removeEmptyAttributes: true,
+      })
+    : content
 
   content = mergeOutlookConditionnals(content)
 
@@ -197,13 +231,6 @@ export default function mjml2html(mjml, options = {}) {
   }
 }
 
-export {
-  components,
-  initComponent,
-  registerComponent,
-}
+export { components, initComponent, registerComponent }
 
-export {
-  BodyComponent,
-  HeadComponent,
-} from './createComponent'
+export { BodyComponent, HeadComponent } from './createComponent'

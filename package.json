@@ -2,10 +2,11 @@
   "name": "mjml-master",
   "private": true,
   "scripts": {
-    "build": "lerna run build --parallel",
     "build:watch": "lerna run build --parallel -- -- -w",
+    "build": "lerna run build --parallel",
     "lint": "eslint .",
-    "postinstall": "lerna bootstrap"
+    "postinstall": "lerna bootstrap",
+    "prettier": "prettier --write \"packages/**/{src,bin}/**/*.?(js|json)\""
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -19,9 +20,11 @@
     "es6-promisify": "^5.0.0",
     "eslint": "^4.5.0",
     "eslint-config-airbnb-base": "^11.3.2",
+    "eslint-config-prettier": "^2.6.0",
     "eslint-plugin-import": "^2.7.0",
     "lerna": "^2.0.0",
     "opn": "^5.1.0",
+    "prettier": "^1.7.3",
     "rimraf": "^2.6.1"
   }
 }

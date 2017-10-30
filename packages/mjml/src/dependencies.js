@@ -1,22 +1,11 @@
 export default {
-  mjml: [
-    'mj-body',
-    'mj-head',
-  ],
+  mjml: ['mj-body', 'mj-head'],
   'mj-accordion': ['mj-accordion-element'],
-  'mj-accordion-element': [
-    'mj-accordion-title',
-    'mj-accordion-text',
-  ],
+  'mj-accordion-element': ['mj-accordion-title', 'mj-accordion-text'],
   'mj-accordion-title': [],
   'mj-accordion-text': [],
-  'mj-attributes': [
-    /^.*^/,
-  ],
-  'mj-body': [
-    'mj-container',
-    'mj-raw',
-  ],
+  'mj-attributes': [/^.*^/],
+  'mj-body': ['mj-container', 'mj-raw'],
   'mj-button': [],
   'mj-carousel': ['mj-carousel-image'],
   'mj-carousel-image': [],
@@ -45,10 +34,7 @@ export default {
     'mj-wrapper',
   ],
   'mj-divider': [],
-  'mj-group': [
-    'mj-column',
-    'mj-raw',
-  ],
+  'mj-group': ['mj-column', 'mj-raw'],
   'mj-head': [
     'mj-attributes',
     'mj-breakpoint',
@@ -80,25 +66,12 @@ export default {
   'mj-link': [],
   'mj-list': [],
   'mj-location': [],
-  'mj-navbar': [
-    'mj-column',
-    'mj-group',
-    'mj-raw',
-  ],
+  'mj-navbar': ['mj-column', 'mj-group', 'mj-raw'],
   'mj-raw': [],
-  'mj-section': [
-    'mj-column',
-    'mj-group',
-    'mj-raw',
-  ],
+  'mj-section': ['mj-column', 'mj-group', 'mj-raw'],
   'mj-social': [],
   'mj-spacer': [],
   'mj-table': [],
   'mj-text': [],
-  'mj-wrapper': [
-    'mj-hero',
-    'mj-navbar',
-    'mj-raw',
-    'mj-section',
-  ],
+  'mj-wrapper': ['mj-hero', 'mj-navbar', 'mj-raw', 'mj-section'],
 }

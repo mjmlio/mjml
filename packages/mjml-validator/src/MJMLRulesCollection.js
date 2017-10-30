@@ -6,7 +6,10 @@ const MJMLRulesCollection = rules
 
 export function registerRule(rule, name) {
   if (typeof rule !== 'function' || rule.length !== 1) {
-    return warning(false, 'Your rule must be a function and must have one parameter which is the element to validate')
+    return warning(
+      false,
+      'Your rule must be a function and must have one parameter which is the element to validate',
+    )
   }
 
   if (name) {
@@ -14,7 +17,8 @@ export function registerRule(rule, name) {
   } else {
     MJMLRulesCollection[rule.name] = rule
   }
-}
 
+  return true
+}
 
 export default MJMLRulesCollection

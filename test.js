@@ -4,12 +4,23 @@ const mjml2html = require('./packages/mjml/src/index')
 
 const xml = `
 <mjml>
+  <mj-head>
+    <mj-attributes>
+      <mj-class name="such-class">
+        <mj-text color="idkwhatcoloristhis" />
+        <mj-divider width="300px" />
+      </mj-class>
+      <mj-class name="many-class">
+        <mj-divider width="50%" />
+      </mj-class>
+    </mj-attributes>
+  </mj-head>
   <mj-body>
-    <mj-section>
+    <mj-section mj-class="such-class many-class">
       <mj-column>
-        <mj-image width="100" src="https://mjml.io/assets/img/logo-small.png" />
-        <mj-divider border-color="#F45E43" />
         <mj-text font-size="20px" color="#F45E43" font-family="helvetica">Hello World</mj-text>
+        <mj-divider border-color="#F45E43" />
+        <mj-text font-size="20px" font-family="helvetica">Hello World idk</mj-text>
       </mj-column>
     </mj-section>
   </mj-body>

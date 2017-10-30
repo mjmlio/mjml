@@ -1,17 +1,23 @@
-import { mjIncludeRegexp } from 'mjml-core'
 import fs from 'fs'
 import path from 'path'
 
-const ensureMJMLFile = file => file.trim().match(/.mjml/) && file || `${file}.mjml`
-const error = e => console.log(e.stack || e) // eslint-disable-line no-console
+const includeRegexp = /<mj-include\s+path=['"](.*[.mjml]?)['"]\s*(\/>|>\s*<\/mj-include>)/g
 
-export default (baseFile) => {
-  const filesIncluded = [path.resolve(baseFile)]
+const ensureIncludeIsMJMLFile = file =>
+  (file.trim().match(/.mjml/) && file) || `${file}.mjml`
+const error = e => console.error(e.stack || e) // eslint-disable-line no-console
+
+export default baseFile => {
+  const filesIncluded = []
 
   const readIncludes = (dir, file, base) => {
-    const currentFile = path.resolve(path.join(dir, ensureMJMLFile(file)))
+    const currentFile = path.resolve(
+      dir
+        ? path.join(dir, ensureIncludeIsMJMLFile(file))
+        : ensureIncludeIsMJMLFile(file),
+    )
     const currentDirectory = path.dirname(currentFile)
-    const includeRegexp = new RegExp(mjIncludeRegexp)
+    const includes = new RegExp(includeRegexp)
 
     let content
     try {
@@ -21,19 +27,21 @@ export default (baseFile) => {
       return
     }
 
-    let matchgroup = includeRegexp.exec(content)
+    let matchgroup = includes.exec(content)
     while (matchgroup != null) {
-      const includedFile = ensureMJMLFile(matchgroup[1])
-      const includedFilePath = path.resolve(path.join(currentDirectory, includedFile))
+      const includedFile = ensureIncludeIsMJMLFile(matchgroup[1])
+      const includedFilePath = path.resolve(
+        path.join(currentDirectory, includedFile),
+      )
 
       filesIncluded.push(includedFilePath)
 
       readIncludes(path.dirname(currentFile), includedFile, currentFile)
-      matchgroup = includeRegexp.exec(content)
+      matchgroup = includes.exec(content)
     }
   }
 
-  readIncludes('.', baseFile, baseFile)
+  readIncludes(null, baseFile, baseFile)
 
   return filesIncluded
 }

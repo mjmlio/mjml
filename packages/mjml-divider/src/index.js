@@ -14,41 +14,60 @@ export default class MjDivider extends BodyComponent {
   }
 
   getStyles() {
+    const p = {
+      'border-top': ['style', 'width', 'color']
+        .map(attr => this.getAttribute(`border-${attr}`))
+        .join(' '),
+      'font-size': 1,
+      margin: '0px auto',
+      width: this.getAttribute('width'),
+    }
+
     return {
-      p: {
-        'border-top': `${this.getAttribute('border-width')} ${this.getAttribute('border-style')} ${this.getAttribute('border-color')}`,
-        'font-size': 1,
-        margin: '0px auto',
-        width: this.getAttribute('width'),
-      },
+      p,
+      outlook: {
+        ...p,
+        width: this.getOutlookWidth()
+      }
     }
   }
 
   getOutlookWidth() {
-    const {
-      columnWidth,
-    } = this.context
+    const { containerWidth } = this.context
 
     const width = this.getAttribute('width')
 
-    const {
-      parsedWidth,
-      unit,
-    } = widthParser(width)
+    const { parsedWidth, unit } = widthParser(width)
 
     switch (unit) {
       case '%':
-        return `${columnWidth * parsedWidth / 100}%`
+        return `${parseInt(containerWidth, 10) * parseInt(parsedWidth, 10) / 100}px`
 
       default:
-        return columnWidth
+        return containerWidth
     }
   }
 
   renderAfter() {
     return `
       <!--[if mso | IE]>
-        <table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0" style="${this.styles('p')}" width="${this.getOutlookWidth()}"><tr><td style="height:0;line-height:0;">&nbsp;</td></tr></table>
+        <table
+          ${this.htmlAttributes({
+            align: 'center',
+            border: '0',
+            cellpadding: '0',
+            cellspacing: '0',
+            style: 'outlook',
+            role: 'presentation',
+            width: this.getOutlookWidth()
+          })}
+        >
+          <tr>
+            <td style="height:0;line-height:0;">
+              &nbsp;
+            </td>
+          </tr>
+        </table>
       <![endif]-->
     `
   }
@@ -57,8 +76,8 @@ export default class MjDivider extends BodyComponent {
     return `
       <p
         ${this.htmlAttributes({
-    style: 'p',
-  })}
+          style: 'p',
+        })}
       >
       </p>
       ${this.renderAfter()}

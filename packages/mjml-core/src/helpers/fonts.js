@@ -15,7 +15,10 @@ export function buildFontsTags(content, fonts = {}) {
   if (toImport.length > 0) {
     return `
       <!--[if !mso]><!-->
-        ${map(toImport, url => `<link href="${url}" rel="stylesheet" type="text/css">`).join('\n')}
+        ${map(
+          toImport,
+          url => `<link href="${url}" rel="stylesheet" type="text/css">`,
+        ).join('\n')}
         <style type="text/css">
           ${map(toImport, url => `@import url(${url});`).join('\n')}
         </style>

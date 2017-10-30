@@ -4,7 +4,8 @@ const defaultSocialNetworks = {
   facebook: {
     'share-url': 'https://www.facebook.com/sharer/sharer.php?u=[[URL]]',
     'background-color': '#3b5998',
-    src: 'https://www.mailjet.com/images/theme/v1/icons/ico-social/facebook.png',
+    src:
+      'https://www.mailjet.com/images/theme/v1/icons/ico-social/facebook.png',
   },
   twitter: {
     'share-url': 'https://twitter.com/home?status=[[URL]]',
@@ -14,21 +15,27 @@ const defaultSocialNetworks = {
   google: {
     'share-url': 'https://plus.google.com/share?url=[[URL]]',
     'background-color': '#dc4e41',
-    src: 'https://www.mailjet.com/images/theme/v1/icons/ico-social/google-plus.png',
+    src:
+      'https://www.mailjet.com/images/theme/v1/icons/ico-social/google-plus.png',
   },
   pinterest: {
-    'share-url': 'https://pinterest.com/pin/create/button/?url=[[URL]]&media=&description=',
+    'share-url':
+      'https://pinterest.com/pin/create/button/?url=[[URL]]&media=&description=',
     'background-color': '#bd081c',
-    src: 'https://www.mailjet.com/images/theme/v1/icons/ico-social/pinterest.png',
+    src:
+      'https://www.mailjet.com/images/theme/v1/icons/ico-social/pinterest.png',
   },
   linkedin: {
-    'share-url': 'https://www.linkedin.com/shareArticle?mini=true&url=[[URL]]&title=&summary=&source=',
+    'share-url':
+      'https://www.linkedin.com/shareArticle?mini=true&url=[[URL]]&title=&summary=&source=',
     'background-color': '#0077b5',
-    src: 'https://www.mailjet.com/images/theme/v1/icons/ico-social/linkedin.png',
+    src:
+      'https://www.mailjet.com/images/theme/v1/icons/ico-social/linkedin.png',
   },
   instagram: {
     'background-color': '#3f729b',
-    src: 'https://www.mailjet.com/images/theme/v1/icons/ico-social/instagram.png',
+    src:
+      'https://www.mailjet.com/images/theme/v1/icons/ico-social/instagram.png',
   },
 }
 
@@ -101,72 +108,79 @@ export default class MjSocialElement extends BodyComponent {
   }
 
   getSocialAttributes() {
-    const socialNetwork = { ...defaultSocialNetworks[this.getAttribute('name')] }
-
-    if (socialNetwork['share-url']) {
-      socialNetwork.href = socialNetwork['share-url'].replace('[[URL]]', this.getAttribute('href'))
+    const socialNetwork = {
+      ...defaultSocialNetworks[this.getAttribute('name')],
     }
 
-    return ['icon-size', 'href', 'src', 'background-color'].reduce((r, attr) => {
-      r[attr] = (socialNetwork[attr] || this.getAttribute(attr))
+    if (socialNetwork['share-url']) {
+      socialNetwork.href = socialNetwork['share-url'].replace(
+        '[[URL]]',
+        this.getAttribute('href'),
+      )
+    }
+
+    return [
+      'icon-size',
+      'href',
+      'src',
+      'background-color',
+    ].reduce((r, attr) => {
+      r[attr] = socialNetwork[attr] || this.getAttribute(attr)
 
       return r
     }, {})
   }
 
   render() {
-    const {
-      src,
-      href,
-      'icon-size': iconSize,
-    } = this.getSocialAttributes()
+    const { src, href, 'icon-size': iconSize } = this.getSocialAttributes()
 
     return `
       <tr
         ${this.htmlAttributes({
-    class: this.getAttribute('css-class'),
-  })}
+          class: this.getAttribute('css-class'),
+        })}
       >
         <td ${this.htmlAttributes({ style: 'td' })}>
           <table
             ${this.htmlAttributes({
-    border: '0',
-    cellpadding: '0',
-    cellspacing: '0',
-    role: 'presentation',
-    style: 'table',
-  })}
+              border: '0',
+              cellpadding: '0',
+              cellspacing: '0',
+              role: 'presentation',
+              style: 'table',
+            })}
           >
             <tr>
               <td ${this.htmlAttributes({ style: 'icon' })}>
                 <a ${this.htmlAttributes({
-    href,
-    rel: this.getAttribute('rel'),
-  })}>
+                  href,
+                  rel: this.getAttribute('rel'),
+                })}>
                     <img
                       ${this.htmlAttributes({
-    alt: this.getAttribute('alt'),
-    height: parseInt(iconSize),
-    src,
-    style: 'img',
-    width: parseInt(iconSize),
-  })}
+                        alt: this.getAttribute('alt'),
+                        height: parseInt(iconSize, 10),
+                        src,
+                        style: 'img',
+                        width: parseInt(iconSize, 10),
+                      })}
                     />
                   </a>
                 </td>
-                ${this.getContent() ? `
+                ${this.getContent()
+                  ? `
                   <td>
                     <a
                       ${this.htmlAttributes({
-    href,
-    style: 'text',
-    rel: this.getAttribute('rel'),
-  })}>
+                        href,
+                        style: 'text',
+                        rel: this.getAttribute('rel'),
+                      })}>
                       ${this.getContent()}
                     </a>
                   </td>
-                  ` : ''
-}
+                  `
+                  : ''}
               </tr>
           </table>
         </td>

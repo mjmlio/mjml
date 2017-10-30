@@ -1,11 +1,8 @@
-export default function (cssValue, direction) {
+export default function(cssValue, direction) {
   const splittedCssValue = cssValue.split(' ')
   let directions = {}
 
   switch (splittedCssValue.length) {
-    case 1:
-      return parseInt(cssValue)
-
     case 2:
       directions = { top: 0, bottom: 0, left: 1, right: 1 }
       break
@@ -17,7 +14,10 @@ export default function (cssValue, direction) {
     case 4:
       directions = { top: 0, right: 1, bottom: 2, left: 3 }
       break
+    case 1:
+    default:
+      return parseInt(cssValue, 10)
   }
 
-  return parseInt(splittedCssValue[directions[direction]] || 0)
+  return parseInt(splittedCssValue[directions[direction]] || 0, 10)
 }

@@ -36,12 +36,15 @@ export default class MjSpacer extends BodyComponent {
 
     return `
       ${conditionalTag(`
-        <table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td height="${parseInt(height)}" style="vertical-align:top;height:${height};">
+        <table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td height="${parseInt(
+          height,
+          10,
+        )}" style="vertical-align:top;height:${height};">
       `)}
       <div
         ${this.htmlAttributes({
-    style: 'div',
-  })}
+          style: 'div',
+        })}
       >
         &nbsp;
       </div>
@@ -51,4 +54,3 @@ export default class MjSpacer extends BodyComponent {
     `
   }
 }
-

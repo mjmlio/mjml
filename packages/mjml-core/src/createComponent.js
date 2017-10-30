@@ -1,9 +1,4 @@
-import forEach from 'lodash/forEach'
-import identity from 'lodash/identity'
-import reduce from 'lodash/reduce'
-import kebabCase from 'lodash/kebabCase'
-
-import objectPath from 'object-path'
+import { get, forEach, identity, reduce, kebabCase } from 'lodash'
 
 import MJMLParser from 'mjml-parser-xml'
 
@@ -69,6 +64,7 @@ class Component {
 
 export class BodyComponent extends Component {
   getStyles() {
+    // eslint-disable-line class-methods-use-this
     return {}
   }
 
@@ -77,7 +73,7 @@ export class BodyComponent extends Component {
     const mjAttribute = this.getAttribute(attribute)
 
     if (mjAttributeDirection) {
-      return parseInt(mjAttributeDirection)
+      return parseInt(mjAttributeDirection, 10)
     }
 
     if (!mjAttribute) {
@@ -93,33 +89,42 @@ export class BodyComponent extends Component {
       default: identity,
     }
 
-    return reduce(attributes, (output, v, name) => {
-      const value = (specialAttributes[name] || specialAttributes.default)(v)
+    return reduce(
+      attributes,
+      (output, v, name) => {
+        const value = (specialAttributes[name] || specialAttributes.default)(v)
 
-      if (value) {
-        return output += ` ${name}="${value}"`
-      }
+        if (value) {
+          return `${output} ${name}="${value}"`
+        }
 
-      return output
-    }, '')
+        return output
+      },
+      '',
+    )
   }
 
   styles(styles) {
-    styles = styles
-      ? typeof styles === 'string'
-        ? objectPath.get(this.getStyles(), styles)
-        : styles
-      : this.getStyles()
+    let stylesObject = this.getStyles
 
-    let output = ''
-
-    forEach(styles, (value, name) => {
-      if (value) {
-        output += `${name}:${value};`
+    if (styles) {
+      if (typeof styles === 'string') {
+        stylesObject = get(this.getStyles(), styles)
+      } else {
+        stylesObject = styles
       }
-    })
+    }
 
-    return output
+    return reduce(
+      stylesObject,
+      (output, value, name) => {
+        if (value) {
+          return `${output}${name}:${value};`
+        }
+        return output
+      },
+      '',
+    )
   }
 
   renderChildren(childrens, options = {}) {
@@ -136,7 +141,7 @@ export class BodyComponent extends Component {
     let output = ''
     let index = 0
 
-    forEach(childrens, (children) => {
+    forEach(childrens, children => {
       const component = initComponent({
         name: children.tagName,
         initialDatas: {
@@ -160,7 +165,7 @@ export class BodyComponent extends Component {
         output += renderer(component)
       }
 
-      index++
+      index++ // eslint-disable-line no-plusplus
     })
 
     return output
@@ -175,7 +180,7 @@ export class HeadComponent extends Component {
   handlerChildren() {
     const childrens = this.props.children
 
-    forEach(childrens, (children) => {
+    forEach(childrens, children => {
       const component = initComponent({
         name: children.tagName,
         initialDatas: {

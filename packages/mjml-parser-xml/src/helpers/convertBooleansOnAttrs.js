@@ -6,9 +6,13 @@ import mapValues from 'lodash/mapValues'
  */
 
 export default function convertBooleansOnAttrs(attrs) {
-  return mapValues(attrs, (val) => {
-    if (val === 'true') { return true }
-    if (val === 'false') { return false }
+  return mapValues(attrs, val => {
+    if (val === 'true') {
+      return true
+    }
+    if (val === 'false') {
+      return false
+    }
 
     return val
   })

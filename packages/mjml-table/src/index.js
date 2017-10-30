@@ -52,15 +52,17 @@ export default class MjTable extends BodyComponent {
   }
 
   render() {
-    const tableAttributes = ['cellpading', 'cellspacing', 'width'].map(v => ({ [v]: this.getAttribute(v) }))
+    const tableAttributes = ['cellpading', 'cellspacing', 'width'].map(v => ({
+      [v]: this.getAttribute(v),
+    }))
 
     return `
       <table
         ${this.htmlAttributes({
-    ...tableAttributes,
-    border: '0',
-    style: 'table',
-  })}
+          ...tableAttributes,
+          border: '0',
+          style: 'table',
+        })}
       >
         ${this.getContent()}
       </table>

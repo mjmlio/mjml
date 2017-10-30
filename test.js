@@ -4,26 +4,63 @@ const mjml2html = require('./packages/mjml/src/index')
 
 const xml = `
 <mjml>
-  <mj-head>
+<mj-head>
+    <mj-title>aezaze</mj-title>
     <mj-attributes>
-      <mj-class name="such-class">
-        <mj-text color="idkwhatcoloristhis" />
-        <mj-divider width="300px" />
-      </mj-class>
-      <mj-class name="many-class">
-        <mj-divider width="50%" />
-      </mj-class>
+        <mj-text     color="#FFF"
+                    align="center"
+                    line-height="110%" />
+        <mj-image    align="center" />
+        <mj-section vertical-align="top"
+                    text-align="center"
+                    padding="0" />
+        <mj-all font-family="Lato, Verdana, Helvetica, Arial, sans-serif" />
     </mj-attributes>
-  </mj-head>
-  <mj-body>
-    <mj-section mj-class="such-class many-class">
-      <mj-column>
-        <mj-text font-size="20px" color="#F45E43" font-family="helvetica">Hello World</mj-text>
-        <mj-divider border-color="#F45E43" />
-        <mj-text font-size="20px" font-family="helvetica">Hello World idk</mj-text>
-      </mj-column>
-    </mj-section>
-  </mj-body>
+    <!-- <mj-style inline='inline'>
+        .mj-mw {
+            max-width: 600px !important;
+            margin: 0 auto !important;
+        }
+    </mj-style> -->
+</mj-head>
+<mj-body background-color="#4a6477">
+
+            <!-- CIRCLE / LINKS -->
+            <mj-section padding-right="15%"
+                        padding-left="15%">
+                <mj-group>
+                    <mj-column>
+                        <mj-image    width="80px"
+                                    padding="2px"
+                                    href="https://www.webmd.com/dna/retirement-health-guide#10WAYSTOBEYOU"
+                                    src="https://joystick.cachefly.net/webmd/mailer/ensure/i_circle1.gif">
+                        </mj-image>
+                    </mj-column>
+                    <mj-column>
+                        <mj-image    width="80px"
+                                    padding="2px"
+                                    href="https://www.webmd.com/dna/retirement-health-guide#NUTRIENTSYOUNEED"
+                                    src="https://joystick.cachefly.net/webmd/mailer/ensure/i_circle2.gif">
+                        </mj-image>
+                    </mj-column>
+                    <mj-column>
+                        <mj-image    width="80px"
+                                    padding="2px"
+                                    href="https://www.webmd.com/dna/retirement-health-guide#PROTEINCALCULATOR"
+                                    src="https://joystick.cachefly.net/webmd/mailer/ensure/i_circle3.gif">
+                        </mj-image>
+                    </mj-column>
+                    <mj-column>
+                        <mj-image    width="80px"
+                                    padding="2px"
+                                    href="https://www.webmd.com/dna/retirement-health-guide#EXERCISECHALLENGES"
+                                    src="https://joystick.cachefly.net/webmd/mailer/ensure/i_circle4.gif">
+                        </mj-image>
+                    </mj-column>
+                </mj-group>
+            </mj-section>
+
+</mj-body>
 </mjml>
 `
 

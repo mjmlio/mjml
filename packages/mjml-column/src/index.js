@@ -94,14 +94,14 @@ export default class MjColumn extends BodyComponent {
   }
 
   getMobileWidth() {
-    const { sibling, containerWidth } = this.props
+    const { sibling, containerWidth } = this.context
     const width = this.getAttribute('width')
     const mobileWidth = this.getAttribute('mobileWidth')
 
     if (mobileWidth !== 'mobileWidth') {
       return '100%'
     } else if (width === undefined) {
-      return `${parseInt(100 / sibling, 100)}%`
+      return `${parseInt(100 / sibling, 10)}%`
     }
 
     const { unit, parsedWidth } = widthParser(width, {

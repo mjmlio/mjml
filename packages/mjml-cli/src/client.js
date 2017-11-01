@@ -9,8 +9,6 @@ import outputToFile, { isDirectory } from './commands/outputToFile'
 import outputToConsole from './commands/outputToConsole'
 import cliOptions from './cliOptions'
 
-console.log('all the things')
-
 const DEFAULT_OPTIONS = {
   beautify: true,
   minify: false,

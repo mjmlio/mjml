@@ -2,7 +2,7 @@ import yargs from 'yargs'
 import { version as coreVersion } from 'mjml-core/package.json' // eslint-disable-line import/first
 import { version as cliVersion } from '../package.json'
 
-const cliOptions = yargs
+export const cliOptions = yargs
   .options({
     r: {
       alias: 'read',
@@ -39,4 +39,6 @@ const cliOptions = yargs
   .help()
   .version(`mjml-core: ${coreVersion}\nmjml-cli: ${cliVersion}`)
 
-export default cliOptions
+export function cliParse(){
+ return cliOptions.argv 
+}

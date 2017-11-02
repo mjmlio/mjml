@@ -40,5 +40,5 @@ export const cliOptions = yargs
   .version(`mjml-core: ${coreVersion}\nmjml-cli: ${cliVersion}`)
 
 export function cliParse(){
- return cliOptions.argv 
+ return cliOptions.argv
 }

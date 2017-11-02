@@ -25,7 +25,7 @@ const error = msg => {
 const pickArgs = args =>
   flow(pick(args), pickBy(e => negate(isNil)(e) && !(isArray(e) && isEmpty(e))))
 
-const argv = cliOptions.argv
+export const argv = cliOptions.argv
 
 const config = Object.assign(DEFAULT_OPTIONS, argv.c)
 const inputArgs = pickArgs(['r', 'w', 'i', '_'])(argv)

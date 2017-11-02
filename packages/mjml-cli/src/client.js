@@ -7,7 +7,7 @@ import watchFiles from './commands/watchFiles'
 import readStream from './commands/readStream'
 import outputToFile, { isDirectory } from './commands/outputToFile'
 import outputToConsole from './commands/outputToConsole'
-import cliOptions from './cliOptions'
+import { cliParse } from './cliOptions'
 
 const DEFAULT_OPTIONS = {
   beautify: true,
@@ -25,7 +25,7 @@ const error = msg => {
 const pickArgs = args =>
   flow(pick(args), pickBy(e => negate(isNil)(e) && !(isArray(e) && isEmpty(e))))
 
-export const argv = cliOptions.argv
+export const argv = cliParse()
 
 const config = Object.assign(DEFAULT_OPTIONS, argv.c)
 const inputArgs = pickArgs(['r', 'w', 'i', '_'])(argv)

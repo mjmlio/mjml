@@ -54,6 +54,8 @@ class Image extends Component {
     const { mjAttribute, getPadding } = this.props
     const parentWidth = mjAttribute('parentWidth')
 
+    if (!mjAttribute( 'width' ).match(/\d+(px|%)?/)) return mjAttribute('width');
+
     const width = mjAttribute('width') ? min([parseInt(mjAttribute('width')), parseInt(parentWidth)]) : parseInt(parentWidth)
 
     const paddingRight = getPadding('right')

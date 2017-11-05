@@ -2,7 +2,7 @@ import buildPreview from './preview'
 import { buildFontsTags } from './fonts'
 import { buildMediaQueriesTags } from './mediaQueries'
 
-export let template = ({
+let template = ({
   breakpoint = '480px',
   content = '',
   fonts = {},

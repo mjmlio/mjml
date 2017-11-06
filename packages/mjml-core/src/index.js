@@ -26,7 +26,7 @@ export default function mjml2html(mjml, options = {}) {
   let errors = []
 
   if(typeof options.skeleton === 'string') {
-    options.skeleton = (opt) => require(options.skeleton)
+    options.skeleton = require(options.skeleton)
   }
   
   const {
@@ -42,7 +42,7 @@ export default function mjml2html(mjml, options = {}) {
     },
     keepComments,
     minify = false,
-    skeleton = (opt) => defaultSkeleton,
+    skeleton = defaultSkeleton,
     validationLevel = 'soft',
   } = options
 

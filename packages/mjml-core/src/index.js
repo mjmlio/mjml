@@ -10,7 +10,7 @@ import MJMLValidator from 'mjml-validator'
 import components, { initComponent, registerComponent } from './components'
 
 import mergeOutlookConditionnals from './helpers/mergeOutlookConditionnals'
-import skeleton from './helpers/skeleton'
+import defaultSkeleton from './helpers/skeleton'
 import traverseMJML from './helpers/traverseMJML'
 
 class ValidationError extends Error {
@@ -38,6 +38,7 @@ export default function mjml2html(mjml, options = {}) {
     },
     keepComments,
     minify = false,
+    skeleton = (opt) => defaultSkeleton(opt),
     validationLevel = 'soft',
   } = options
 

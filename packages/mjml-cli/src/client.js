@@ -56,7 +56,8 @@ const argv = yargs
     },
     c: {
       alias: 'config',
-      type: 'object',
+      coerce: JSON.parse,
+      type: 'string',
       describe: 'Option to pass to mjml-core',
     },
     version: {

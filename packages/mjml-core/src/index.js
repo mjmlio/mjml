@@ -25,6 +25,10 @@ export default function mjml2html(mjml, options = {}) {
   let content = ''
   let errors = []
 
+  if(typeof options.skeleton === 'string') {
+    options.skeleton = (opt) => require(options.skeleton)
+  }
+  
   const {
     beautify = false,
     fonts = {
@@ -38,7 +42,7 @@ export default function mjml2html(mjml, options = {}) {
     },
     keepComments,
     minify = false,
-    skeleton = (opt) => defaultSkeleton(opt),
+    skeleton = (opt) => defaultSkeleton,
     validationLevel = 'soft',
   } = options
 
@@ -61,7 +65,7 @@ export default function mjml2html(mjml, options = {}) {
       components,
     })
   }
-
+  
   const validatorOptions = {
     components,
   }

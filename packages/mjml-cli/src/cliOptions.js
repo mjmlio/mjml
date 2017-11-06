@@ -1,5 +1,5 @@
 import yargs from 'yargs'
-import { version as coreVersion } from 'mjml-core/package.json' // eslint-disable-line import/first
+import { version as coreVersion } from 'dhc-mjml-core/package.json' // eslint-disable-line import/first
 import { version as cliVersion } from '../package.json'
 
 export const cliOptions = yargs
@@ -32,13 +32,17 @@ export const cliOptions = yargs
       type: 'object',
       describe: 'Option to pass to mjml-core',
     },
-    version: {
-      alias: 'V',
+    V: {
+      alias: 'version',
     },
+    h: {
+      alias: 'help'
+    }
   })
   .help()
   .version(`mjml-core: ${coreVersion}\nmjml-cli: ${cliVersion}`)
 
 export function cliParse(){
+  console.log('parsing cli options')
  return cliOptions.argv
 }

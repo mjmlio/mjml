@@ -1,5 +1,5 @@
 import { get, identity, map, omit, reduce } from 'lodash'
-
+import path from 'path'
 import juice from 'juice'
 import { html as htmlBeautify } from 'js-beautify'
 import { minify as htmlMinify } from 'html-minifier'
@@ -26,7 +26,7 @@ export default function mjml2html(mjml, options = {}) {
   let errors = []
 
   if(typeof options.skeleton === 'string') {
-    options.skeleton = require(options.skeleton)
+    options.skeleton = require(options.skeleton.charAt(0)=='.' ? path.resolve(process.cwd(), options.skeleton) : options.skeleton)
   }
   
   const {

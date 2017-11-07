@@ -46,6 +46,13 @@ export default function mjml2html(mjml, options = {}) {
     validationLevel = 'soft',
   } = options
 
+  if (typeof mjml === 'string') {
+    mjml = MJMLParser(mjml, {
+      keepComments,
+      components,
+    })
+  }
+
   const globalDatas = {
     breakpoint: '480px',
     classes: {},
@@ -57,14 +64,9 @@ export default function mjml2html(mjml, options = {}) {
     preview: '',
     style: [],
     title: '',
+    forceOWADesktop: get(mjml, 'attributes.owa', "mobile") === "desktop",
   }
 
-  if (typeof mjml === 'string') {
-    mjml = MJMLParser(mjml, {
-      keepComments,
-      components,
-    })
-  }
 
   const validatorOptions = {
     components,
@@ -175,7 +177,7 @@ export default function mjml2html(mjml, options = {}) {
     add(attr, ...params) {
       if (Array.isArray(globalDatas[attr])) {
         globalDatas[attr].push(...params)
-      } else if (globalDatas[attr]) {
+      } else if (Object.prototype.hasOwnProperty.call(globalDatas, attr)) {
         if (params.length > 1) {
           globalDatas[attr][params[0]] = params[1]
         } else {

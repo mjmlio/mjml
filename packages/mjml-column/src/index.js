@@ -94,14 +94,14 @@ export default class MjColumn extends BodyComponent {
   }
 
   getMobileWidth() {
-    const { sibling, containerWidth } = this.props
+    const { sibling, containerWidth } = this.context
     const width = this.getAttribute('width')
     const mobileWidth = this.getAttribute('mobileWidth')
 
     if (mobileWidth !== 'mobileWidth') {
       return '100%'
     } else if (width === undefined) {
-      return `${parseInt(100 / sibling, 100)}%`
+      return `${parseInt(100 / sibling, 10)}%`
     }
 
     const { unit, parsedWidth } = widthParser(width, {
@@ -220,44 +220,42 @@ export default class MjColumn extends BodyComponent {
           width: '100%',
         })}
       >
-        <tbody>
-          ${this.renderChildren(children, {
-            renderer: (
-              component, // eslint-disable-line no-confusing-arrow
-            ) =>
-              component.rawElement
-                ? component.render()
-                : `
-              <tr>
-                <td
-                  ${component.htmlAttributes({
-                    align: component.getAttribute('align'),
+        ${this.renderChildren(children, {
+          renderer: (
+            component, // eslint-disable-line no-confusing-arrow
+          ) =>
+            component.rawElement
+              ? component.render()
+              : `
+            <tr>
+              <td
+                ${component.htmlAttributes({
+                  align: component.getAttribute('align'),
+                  background: component.getAttribute(
+                    'container-background-color',
+                  ),
+                  class: component.getAttribute('css-class'),
+                  style: {
                     background: component.getAttribute(
                       'container-background-color',
                     ),
-                    class: component.getAttribute('css-class'),
-                    style: {
-                      background: component.getAttribute(
-                        'container-background-color',
-                      ),
-                      'font-size': '0px',
-                      padding: component.getAttribute('padding'),
-                      'padding-top': component.getAttribute('padding-top'),
-                      'padding-right': component.getAttribute('padding-right'),
-                      'padding-bottom': component.getAttribute(
-                        'padding-bottom',
-                      ),
-                      'padding-left': component.getAttribute('padding-left'),
-                      'word-break': 'break-word',
-                    },
-                  })}
-                >
-                  ${component.render()}
-                </td>
-              </tr>
-            `,
-          })}
-        </tbody>
+                    'font-size': '0px',
+                    padding: component.getAttribute('padding'),
+                    'padding-top': component.getAttribute('padding-top'),
+                    'padding-right': component.getAttribute('padding-right'),
+                    'padding-bottom': component.getAttribute(
+                      'padding-bottom',
+                    ),
+                    'padding-left': component.getAttribute('padding-left'),
+                    'word-break': 'break-word',
+                  },
+                })}
+              >
+                ${component.render()}
+              </td>
+            </tr>
+          `,
+        })}
       </table>
     `
   }

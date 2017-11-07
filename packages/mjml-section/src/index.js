@@ -1,7 +1,12 @@
 import { BodyComponent } from 'mjml-core'
+import { flow, identity, join, filter } from 'lodash/fp'
 
 import widthParser from 'mjml-core/lib/helpers/widthParser'
 
+const makeBackgroundString = flow(
+  filter(identity),
+  join(' ')
+)
 export default class MjSection extends BodyComponent {
   static allowedAttributes = {
     'background-color': 'color',
@@ -58,19 +63,10 @@ export default class MjSection extends BodyComponent {
 
     const fullWidth = this.isFullWidth()
 
-    const background = this.getAttribute('background-url')
-      ? {
-          background: `${this.getAttribute('background-color') ||
-            ''} url(${this.getAttribute(
-            'background-url',
-          )}) top center / ${this.getAttribute('background-size') ||
-            ''} ${this.getAttribute('background-repeat') || ''}`.trim(),
-          'background-color': this.getAttribute('background-color'),
-        }
-      : {
-          background: this.getAttribute('background-color'),
-          'background-color': this.getAttribute('background-color'),
-        }
+    const background = this.getAttribute('background-url') ? this.getBackground() : {
+      background: this.getAttribute('background-color'),
+      'background-color': this.getAttribute('background-color'),
+    }
 
     return {
       tableFullwidth: {
@@ -112,6 +108,17 @@ export default class MjSection extends BodyComponent {
     }
   }
 
+  getBackground = () =>
+    makeBackgroundString([
+      this.getAttribute('background-color'),
+      ...(this.hasBackground() ? [
+          `url(${this.getAttribute('background-url')})`,
+          `top center / ${this.getAttribute('background-size')}`,
+          this.getAttribute('background-repeat'),
+        ] : []
+      ),
+    ])
+
   hasBackground() {
     return this.getAttribute('background-url') != null
   }
@@ -147,8 +154,7 @@ export default class MjSection extends BodyComponent {
     `
   }
 
-  renderAfter() {
-    // eslint-disable-line class-methods-use-this
+  renderAfter() { // eslint-disable-line class-methods-use-this
     return `
       <!--[if mso | IE]>
           </td>

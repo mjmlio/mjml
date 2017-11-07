@@ -112,8 +112,7 @@ export default async () => {
       KEEP_OPEN = true
       break
     case 'i':
-      const stream = await readStream()
-      inputs.push(stream)
+      inputs.push(await readStream())
       break
     default:
       error('Cli error !')

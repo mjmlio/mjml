@@ -5,6 +5,8 @@
   ],
   "plugins": [
     "add-module-exports",
-    "transform-decorators-legacy"
+    "transform-regenerator",
+    "transform-decorators-legacy",
+    "transform-async-to-generator"
   ]
 }

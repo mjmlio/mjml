@@ -8,12 +8,9 @@ const makeBackgroundString = flow(
   join(' ')
 )
 
-const makeGetPadding = padding => dir => `${this.getShorthandAttrValue(padding, dir)}px`
-
 export default class MjHero extends BodyComponent {
   static allowedAttributes = {
   }
-
 
   static defaultAttributes = {
     'mode': 'fixed-height',
@@ -61,6 +58,9 @@ export default class MjHero extends BodyComponent {
 
   getStyles () {
     const { containerWidth } = this.context
+    const backgroundRatio = Math.round(
+      parseInt(this.getAttribute('background-height'), 10) / parseInt(this.getAttribute('background-width'), 10) * 100
+    )
 
     return {
       div: {
@@ -74,7 +74,9 @@ export default class MjHero extends BodyComponent {
         'vertical-align': 'top',
       },
       'td-fluid': {
-        width: '0.01%',
+        width: `0.01%`,
+        'padding-bottom': `${backgroundRatio}%`,
+        'mso-padding-bottom-alt': '0',
       },
       hero: {
         background: this.getBackground(),
@@ -232,19 +234,16 @@ export default class MjHero extends BodyComponent {
     `
   }
 
-  renderModeAttributes() {
+  renderMode() {
     const commonAttributes = {
       background: this.getAttribute('background-url'),
       style: 'hero',
     }
 
-
     /* eslint-disable no-alert, no-case-declarations */
     switch (this.getAttribute('mode')) {
       case 'fluid-height':
-        const magicTd = this.htmlAttributes({
-          style: `td-fluid`
-        })
+        const magicTd = this.htmlAttributes({ style: `td-fluid` })
 
         return `
           <td ${magicTd} />
@@ -260,10 +259,11 @@ export default class MjHero extends BodyComponent {
           - this.getShorthandAttrValue('padding', 'bottom')
 
         return `
-          <td ${this.htmlAttributes({
-            ...commonAttributes,
-            height,
-          })}
+          <td
+            ${this.htmlAttributes({
+              ...commonAttributes,
+              height,
+            })}
           >
             ${this.renderContent()}
           </td>

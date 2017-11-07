@@ -3,63 +3,30 @@ require('babel-register')
 const mjml2html = require('./packages/mjml/src/index')
 
 const xml = `
-<mjml>
-<mj-head>
-    <mj-title>aezaze</mj-title>
-    <mj-attributes>
-        <mj-text     color="#FFF"
-                    align="center"
-                    line-height="110%" />
-        <mj-image    align="center" />
-        <mj-section vertical-align="top"
-                    text-align="center"
-                    padding="0" />
-        <mj-all font-family="Lato, Verdana, Helvetica, Arial, sans-serif" />
-    </mj-attributes>
-    <!-- <mj-style inline='inline'>
-        .mj-mw {
-            max-width: 600px !important;
-            margin: 0 auto !important;
-        }
-    </mj-style> -->
-</mj-head>
-<mj-body background-color="#4a6477">
-
-            <!-- CIRCLE / LINKS -->
-            <mj-section padding-right="15%"
-                        padding-left="15%">
-                <mj-group>
-                    <mj-column>
-                        <mj-image    width="80px"
-                                    padding="2px"
-                                    href="https://www.webmd.com/dna/retirement-health-guide#10WAYSTOBEYOU"
-                                    src="https://joystick.cachefly.net/webmd/mailer/ensure/i_circle1.gif">
-                        </mj-image>
-                    </mj-column>
-                    <mj-column>
-                        <mj-image    width="80px"
-                                    padding="2px"
-                                    href="https://www.webmd.com/dna/retirement-health-guide#NUTRIENTSYOUNEED"
-                                    src="https://joystick.cachefly.net/webmd/mailer/ensure/i_circle2.gif">
-                        </mj-image>
-                    </mj-column>
-                    <mj-column>
-                        <mj-image    width="80px"
-                                    padding="2px"
-                                    href="https://www.webmd.com/dna/retirement-health-guide#PROTEINCALCULATOR"
-                                    src="https://joystick.cachefly.net/webmd/mailer/ensure/i_circle3.gif">
-                        </mj-image>
-                    </mj-column>
-                    <mj-column>
-                        <mj-image    width="80px"
-                                    padding="2px"
-                                    href="https://www.webmd.com/dna/retirement-health-guide#EXERCISECHALLENGES"
-                                    src="https://joystick.cachefly.net/webmd/mailer/ensure/i_circle4.gif">
-                        </mj-image>
-                    </mj-column>
-                </mj-group>
-            </mj-section>
-
+<mjml owa_desktop="true">
+<mj-body>
+<mj-hero
+mode="fluid-height"
+background-width="600px"
+background-height="469px"
+background-url="https://cloud.githubusercontent.com/assets/1830348/15354890/1442159a-1cf0-11e6-92b1-b861dadf1750.jpg"
+background-color="#2a3448"
+padding="100px 0px">
+<!-- To add content like mj-image, mj-text, mj-button ... use the mj-hero-content component -->
+  <mj-text
+  padding="20px"
+  color="#ffffff"
+  font-family="Helvetica"
+  align="center"
+  font-size="45px"
+  line-height="45px"
+  font-weight="900">
+    GO TO SPACE
+  </mj-text>
+  <mj-button href="https://mjml.io/" align="center">
+    ORDER YOUR TICKET NOW
+  </mj-button>
+</mj-hero>
 </mj-body>
 </mjml>
 `

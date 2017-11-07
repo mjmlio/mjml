@@ -41,6 +41,13 @@ export default function mjml2html(mjml, options = {}) {
     validationLevel = 'soft',
   } = options
 
+  if (typeof mjml === 'string') {
+    mjml = MJMLParser(mjml, {
+      keepComments,
+      components,
+    })
+  }
+
   const globalDatas = {
     breakpoint: '480px',
     classes: {},
@@ -52,14 +59,9 @@ export default function mjml2html(mjml, options = {}) {
     preview: '',
     style: [],
     title: '',
+    forceOWADesktop: get(mjml, 'attributes.owa', "mobile") === "desktop",
   }
 
-  if (typeof mjml === 'string') {
-    mjml = MJMLParser(mjml, {
-      keepComments,
-      components,
-    })
-  }
 
   const validatorOptions = {
     components,

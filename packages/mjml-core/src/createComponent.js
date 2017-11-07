@@ -63,8 +63,7 @@ class Component {
 }
 
 export class BodyComponent extends Component {
-  getStyles() {
-    // eslint-disable-line class-methods-use-this
+  getStyles() { // eslint-disable-line class-methods-use-this
     return {}
   }
 

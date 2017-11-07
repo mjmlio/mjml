@@ -3,27 +3,31 @@ require('babel-register')
 const mjml2html = require('./packages/mjml/src/index')
 
 const xml = `
-<mjml>
-  <mj-head>
-    <mj-attributes>
-      <mj-class name="such-class">
-        <mj-text color="idkwhatcoloristhis" />
-        <mj-divider width="300px" />
-      </mj-class>
-      <mj-class name="many-class">
-        <mj-divider width="50%" />
-      </mj-class>
-    </mj-attributes>
-  </mj-head>
-  <mj-body>
-    <mj-section mj-class="such-class many-class">
-      <mj-column>
-        <mj-text font-size="20px" color="#F45E43" font-family="helvetica">Hello World</mj-text>
-        <mj-divider border-color="#F45E43" />
-        <mj-text font-size="20px" font-family="helvetica">Hello World idk</mj-text>
-      </mj-column>
-    </mj-section>
-  </mj-body>
+<mjml owa_desktop="true">
+<mj-body>
+<mj-hero
+mode="fluid-height"
+background-width="600px"
+background-height="469px"
+background-url="https://cloud.githubusercontent.com/assets/1830348/15354890/1442159a-1cf0-11e6-92b1-b861dadf1750.jpg"
+background-color="#2a3448"
+padding="100px 0px">
+<!-- To add content like mj-image, mj-text, mj-button ... use the mj-hero-content component -->
+  <mj-text
+  padding="20px"
+  color="#ffffff"
+  font-family="Helvetica"
+  align="center"
+  font-size="45px"
+  line-height="45px"
+  font-weight="900">
+    GO TO SPACE
+  </mj-text>
+  <mj-button href="https://mjml.io/" align="center">
+    ORDER YOUR TICKET NOW
+  </mj-button>
+</mj-hero>
+</mj-body>
 </mjml>
 `
 

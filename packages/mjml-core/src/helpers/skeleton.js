@@ -11,6 +11,7 @@ export default function skeleton(options) {
     preview,
     title = '',
     style,
+    forceOWADesktop,
   } = options
 
   return `
@@ -56,8 +57,8 @@ export default function skeleton(options) {
         </style>
         <![endif]-->
         ${buildFontsTags(content, fonts)}
-        ${buildMediaQueriesTags(breakpoint, mediaQueries)}
-        ${style ? `<style type="text/css">${style.join('')}</style>` : ''}
+        ${buildMediaQueriesTags(breakpoint, mediaQueries, forceOWADesktop)}
+        ${style && style.length > 0 ? `<style type="text/css">${style.join('')}</style>` : ''}
       </head>
       <body>
         ${buildPreview(preview)}

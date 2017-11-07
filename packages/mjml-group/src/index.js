@@ -27,7 +27,7 @@ export default class MjGroup extends BodyComponent {
 
   getChildContext() {
     const { containerWidth } = this.context
-    const { sibling } = this.props
+    const { sibling, children } = this.props
     const paddingSize =
       this.getShorthandAttrValue('padding', 'left') +
       this.getShorthandAttrValue('padding', 'right')
@@ -49,6 +49,7 @@ export default class MjGroup extends BodyComponent {
     return {
       ...this.context,
       containerWidth,
+      sibling: children.length
     }
   }
 
@@ -189,7 +190,7 @@ export default class MjGroup extends BodyComponent {
                 ${component.htmlAttributes({
                   style: {
                     align: component.getAttribute('align'),
-                    width: getElementWidth(component.getAttribute('width')),
+                    width: getElementWidth(component.getWidthAsPixel ? component.getWidthAsPixel() : component.getAttribute('width')),
                   },
                 })}
               >

@@ -1,5 +1,5 @@
 import { get, identity, map, omit, reduce } from 'lodash'
-
+import path from 'path'
 import juice from 'juice'
 import { html as htmlBeautify } from 'js-beautify'
 import { minify as htmlMinify } from 'html-minifier'
@@ -10,7 +10,7 @@ import MJMLValidator from 'mjml-validator'
 import components, { initComponent, registerComponent } from './components'
 
 import mergeOutlookConditionnals from './helpers/mergeOutlookConditionnals'
-import skeleton from './helpers/skeleton'
+import defaultSkeleton from './helpers/skeleton'
 import traverseMJML from './helpers/traverseMJML'
 
 class ValidationError extends Error {
@@ -25,6 +25,10 @@ export default function mjml2html(mjml, options = {}) {
   let content = ''
   let errors = []
 
+  if(typeof options.skeleton === 'string') {
+    options.skeleton = require(options.skeleton.charAt(0)=='.' ? path.resolve(process.cwd(), options.skeleton) : options.skeleton)
+  }
+  
   const {
     beautify = false,
     fonts = {
@@ -38,6 +42,7 @@ export default function mjml2html(mjml, options = {}) {
     },
     keepComments,
     minify = false,
+    skeleton = defaultSkeleton,
     validationLevel = 'soft',
   } = options
 

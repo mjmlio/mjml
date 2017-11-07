@@ -12,13 +12,9 @@ import outputToConsole from './commands/outputToConsole'
 
 import { version as coreVersion } from 'mjml-core/package.json' // eslint-disable-line import/first
 import { version as cliVersion } from '../package.json'
+import { DEFAULT_OPTIONS } from './helpers/defaultOptions'
 
 export default async () => {
-
-  const DEFAULT_OPTIONS = {
-    beautify: true,
-    minify: false,
-  }
   let EXIT_CODE = 0
   let KEEP_OPEN = false
 

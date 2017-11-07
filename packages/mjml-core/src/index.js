@@ -65,7 +65,7 @@ export default function mjml2html(mjml, options = {}) {
       components,
     })
   }
- 
+
   const validatorOptions = {
     components,
   }

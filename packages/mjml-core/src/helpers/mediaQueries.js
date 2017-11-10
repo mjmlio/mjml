@@ -1,6 +1,10 @@
 import { map, isEmpty } from 'lodash'
 
-export function buildMediaQueriesTags(breakpoint, mediaQueries = {}, forceOWADesktop = false) {
+export function buildMediaQueriesTags(
+  breakpoint,
+  mediaQueries = {},
+  forceOWADesktop = false,
+) {
   if (isEmpty(mediaQueries)) {
     return ''
   }
@@ -17,6 +21,8 @@ export function buildMediaQueriesTags(breakpoint, mediaQueries = {}, forceOWADes
         ${baseMediaQueries.join('\n')}
       }
     </style>
-    ${forceOWADesktop ? `<style type="text/css">zzz\n${owaQueries.join('\n')}\n</script>` : ``}
+    ${forceOWADesktop
+      ? `<style type="text/css">zzz\n${owaQueries.join('\n')}\n</script>`
+      : ``}
   `
 }

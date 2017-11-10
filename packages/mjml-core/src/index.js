@@ -25,10 +25,12 @@ export default function mjml2html(mjml, options = {}) {
   let content = ''
   let errors = []
 
-  if(typeof options.skeleton === 'string') {
-    options.skeleton = require(options.skeleton.charAt(0)=='.' ? path.resolve(process.cwd(), options.skeleton) : options.skeleton)
+  if (typeof options.skeleton === 'string') {
+    options.skeleton = require(options.skeleton.charAt(0) === '.'
+      ? path.resolve(process.cwd(), options.skeleton)
+      : options.skeleton)
   }
-  
+
   const {
     beautify = false,
     fonts = {
@@ -64,9 +66,8 @@ export default function mjml2html(mjml, options = {}) {
     preview: '',
     style: [],
     title: '',
-    forceOWADesktop: get(mjml, 'attributes.owa', "mobile") === "desktop",
+    forceOWADesktop: get(mjml, 'attributes.owa', 'mobile') === 'desktop',
   }
-
 
   const validatorOptions = {
     components,
@@ -122,7 +123,7 @@ export default function mjml2html(mjml, options = {}) {
     }
   }
   const applyAttributes = mjml => {
-    const parse = (mjml, parentMjClass='') => {
+    const parse = (mjml, parentMjClass = '') => {
       const { attributes, tagName, children } = mjml
       const classes = get(mjml.attributes, 'mj-class', '').split(' ')
       const attributesClasses = reduce(
@@ -139,7 +140,7 @@ export default function mjml2html(mjml, options = {}) {
           ...acc,
           ...get(globalDatas.classesDefault, `${value}.${tagName}`),
         }),
-        {}
+        {},
       )
       const nextParentMjClass = get(attributes, 'mj-class', parentMjClass)
 
@@ -152,12 +153,7 @@ export default function mjml2html(mjml, options = {}) {
           ...defaultAttributesForClasses,
           ...omit(attributes, ['mj-class']),
         },
-        children: map(
-          children, (mjml) => parse(
-            mjml,
-            nextParentMjClass
-          )
-        ),
+        children: map(children, mjml => parse(mjml, nextParentMjClass)),
       }
     }
 

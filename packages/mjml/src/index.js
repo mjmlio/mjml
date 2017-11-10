@@ -24,7 +24,6 @@ registerComponent(require('mjml-text'))
 registerComponent(require('mjml-table'))
 registerComponent(require('mjml-wrapper'))
 
-
 registerComponent(Social)
 registerComponent(SocialElement)
 

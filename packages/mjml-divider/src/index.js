@@ -27,8 +27,8 @@ export default class MjDivider extends BodyComponent {
       p,
       outlook: {
         ...p,
-        width: this.getOutlookWidth()
-      }
+        width: this.getOutlookWidth(),
+      },
     }
   }
 
@@ -41,7 +41,9 @@ export default class MjDivider extends BodyComponent {
 
     switch (unit) {
       case '%':
-        return `${parseInt(containerWidth, 10) * parseInt(parsedWidth, 10) / 100}px`
+        return `${parseInt(containerWidth, 10) *
+          parseInt(parsedWidth, 10) /
+          100}px`
 
       default:
         return containerWidth
@@ -59,7 +61,7 @@ export default class MjDivider extends BodyComponent {
             cellspacing: '0',
             style: 'outlook',
             role: 'presentation',
-            width: this.getOutlookWidth()
+            width: this.getOutlookWidth(),
           })}
         >
           <tr>

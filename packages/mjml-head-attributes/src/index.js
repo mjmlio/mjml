@@ -19,9 +19,12 @@ export default class MjAttributes extends HeadComponent {
           'classesDefault',
           attributes.name,
           children.reduce(
-            (acc, { tagName, attributes }) => ({...acc, [tagName]: attributes}),
-            {}
-          )
+            (acc, { tagName, attributes }) => ({
+              ...acc,
+              [tagName]: attributes,
+            }),
+            {},
+          ),
         )
       } else {
         add('defaultAttributes', tagName, attributes)

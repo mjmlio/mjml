@@ -3,23 +3,19 @@ import { flow, identity, join, filter } from 'lodash/fp'
 
 import widthParser from 'mjml-core/lib/helpers/widthParser'
 
-const makeBackgroundString = flow(
-  filter(identity),
-  join(' ')
-)
+const makeBackgroundString = flow(filter(identity), join(' '))
 
 export default class MjHero extends BodyComponent {
-  static allowedAttributes = {
-  }
+  static allowedAttributes = {}
 
   static defaultAttributes = {
-    'mode': 'fixed-height',
-    'height': '0px',
+    mode: 'fixed-height',
+    height: '0px',
     'background-url': null,
     'background-width': '0px',
     'background-height': '0px',
     'background-position': 'center center',
-    'padding': '0px',
+    padding: '0px',
     'padding-bottom': null,
     'padding-left': null,
     'padding-right': null,
@@ -44,7 +40,9 @@ export default class MjHero extends BodyComponent {
     })
 
     if (unit === '%') {
-      currentContainerWidth = `${parseFloat(containerWidth) * parsedWidth / 100 -
+      currentContainerWidth = `${parseFloat(containerWidth) *
+        parsedWidth /
+        100 -
         paddingSize}px`
     } else {
       currentContainerWidth = `${parsedWidth - paddingSize}px`
@@ -56,10 +54,12 @@ export default class MjHero extends BodyComponent {
     }
   }
 
-  getStyles () {
+  getStyles() {
     const { containerWidth } = this.context
     const backgroundRatio = Math.round(
-      parseInt(this.getAttribute('background-height'), 10) / parseInt(this.getAttribute('background-width'), 10) * 100
+      parseInt(this.getAttribute('background-height'), 10) /
+        parseInt(this.getAttribute('background-width'), 10) *
+        100,
     )
 
     return {
@@ -82,7 +82,7 @@ export default class MjHero extends BodyComponent {
         background: this.getBackground(),
         'background-position': this.getAttribute('background-position'),
         'background-repeat': 'no-repeat',
-        'padding': this.getAttribute('padding'),
+        padding: this.getAttribute('padding'),
         'padding-top': this.getAttribute('padding-top'),
         'padding-left': this.getAttribute('padding-left'),
         'padding-right': this.getAttribute('padding-right'),
@@ -110,7 +110,7 @@ export default class MjHero extends BodyComponent {
       },
       'outlook-inner-td': {
         'background-color': this.getAttribute('inner-background-color'),
-        'padding': this.getAttribute('inner-padding'),
+        padding: this.getAttribute('inner-padding'),
         'padding-top': this.getAttribute('inner-padding-top'),
         'padding-left': this.getAttribute('inner-padding-left'),
         'padding-right': this.getAttribute('inner-padding-right'),
@@ -129,17 +129,17 @@ export default class MjHero extends BodyComponent {
     }
   }
 
-  getBackground = () => (
+  getBackground = () =>
     makeBackgroundString([
       this.getAttribute('background-color'),
-      ...(this.getAttribute('background-url') ? [
-          `url(${this.getAttribute('background-url')})`,
-          'no-repeat',
-          `${this.getAttribute('background-position')} / cover`,
-        ] : []
-      ),
+      ...(this.getAttribute('background-url')
+        ? [
+            `url(${this.getAttribute('background-url')})`,
+            'no-repeat',
+            `${this.getAttribute('background-position')} / cover`,
+          ]
+        : []),
     ])
-  )
 
   renderContent() {
     const { containerWidth } = this.context
@@ -158,7 +158,7 @@ export default class MjHero extends BodyComponent {
           })}
         >
           <tr>
-            <td ${this.htmlAttributes({style: 'outlook-inner-td'})}>
+            <td ${this.htmlAttributes({ style: 'outlook-inner-td' })}>
       <![endif]-->
       <div
         ${this.htmlAttributes({
@@ -208,10 +208,18 @@ export default class MjHero extends BodyComponent {
                             ),
                             'font-size': '0px',
                             padding: component.getAttribute('padding'),
-                            'padding-top': component.getAttribute('padding-top'),
-                            'padding-right': component.getAttribute('padding-right'),
-                            'padding-bottom': component.getAttribute('padding-bottom'),
-                            'padding-left': component.getAttribute('padding-left'),
+                            'padding-top': component.getAttribute(
+                              'padding-top',
+                            ),
+                            'padding-right': component.getAttribute(
+                              'padding-right',
+                            ),
+                            'padding-bottom': component.getAttribute(
+                              'padding-bottom',
+                            ),
+                            'padding-left': component.getAttribute(
+                              'padding-left',
+                            ),
                             'word-break': 'break-word',
                           },
                         })}
@@ -247,16 +255,17 @@ export default class MjHero extends BodyComponent {
 
         return `
           <td ${magicTd} />
-          <td ${this.htmlAttributes({...commonAttributes})}>
+          <td ${this.htmlAttributes({ ...commonAttributes })}>
             ${this.renderContent()}
           </td>
           <td ${magicTd} />
         `
       case 'fixed-height':
       default:
-        const height = parseInt(this.getAttribute('height'), 10)
-          - this.getShorthandAttrValue('padding', 'top')
-          - this.getShorthandAttrValue('padding', 'bottom')
+        const height =
+          parseInt(this.getAttribute('height'), 10) -
+          this.getShorthandAttrValue('padding', 'top') -
+          this.getShorthandAttrValue('padding', 'bottom')
 
         return `
           <td

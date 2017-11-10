@@ -101,7 +101,7 @@ export default class MjSocialElement extends BodyComponent {
       },
       tdText: {
         'vertical-align': 'middle',
-        'padding': '4px 4px 4px 0',
+        padding: '4px 4px 4px 0',
       },
       text: {
         color: this.getAttribute('color'),
@@ -125,15 +125,13 @@ export default class MjSocialElement extends BodyComponent {
       )
     }
 
-    return [
-      'icon-size',
-      'href',
-      'src',
-      'background-color',
-    ].reduce((r, attr) => ({
-      ...r,
-      [attr]: socialNetwork[attr] || this.getAttribute(attr),
-    }), {})
+    return ['icon-size', 'href', 'src', 'background-color'].reduce(
+      (r, attr) => ({
+        ...r,
+        [attr]: socialNetwork[attr] || this.getAttribute(attr),
+      }),
+      {},
+    )
   }
 
   render() {
@@ -176,7 +174,7 @@ export default class MjSocialElement extends BodyComponent {
           </table>
           ${this.getContent()
             ? `
-            <td ${this.htmlAttributes({style: 'tdText'})} >
+            <td ${this.htmlAttributes({ style: 'tdText' })} >
               <a
                 ${this.htmlAttributes({
                   href,

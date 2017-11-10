@@ -49,7 +49,7 @@ export default class MjGroup extends BodyComponent {
     return {
       ...this.context,
       containerWidth,
-      sibling: children.length
+      sibling: children.length,
     }
   }
 
@@ -190,7 +190,11 @@ export default class MjGroup extends BodyComponent {
                 ${component.htmlAttributes({
                   style: {
                     align: component.getAttribute('align'),
-                    width: getElementWidth(component.getWidthAsPixel ? component.getWidthAsPixel() : component.getAttribute('width')),
+                    width: getElementWidth(
+                      component.getWidthAsPixel
+                        ? component.getWidthAsPixel()
+                        : component.getAttribute('width'),
+                    ),
                   },
                 })}
               >

@@ -25,7 +25,10 @@ export default async () => {
   }
 
   const pickArgs = args =>
-    flow(pick(args), pickBy(e => negate(isNil)(e) && !(isArray(e) && isEmpty(e))))
+    flow(
+      pick(args),
+      pickBy(e => negate(isNil)(e) && !(isArray(e) && isEmpty(e))),
+    )
 
   const argv = yargs
     .options({

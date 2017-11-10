@@ -42,11 +42,6 @@ export default class MjSocial extends BodyComponent {
         'line-height': this.getAttribute('line-height'),
         margin: '0px',
       },
-      tableHorizontal: {
-        float: 'none',
-        display: 'inline-table',
-        'line-height': this.getAttribute('line-height'),
-      },
     }
   }
 
@@ -90,12 +85,15 @@ export default class MjSocial extends BodyComponent {
             <![endif]-->
               <table
                 ${component.htmlAttributes({
-                  align: component.getAttribute('align'),
+                  align: this.getAttribute('align'),
                   border: '0',
                   cellpadding: '0',
                   cellspacing: '0',
                   role: 'presentation',
-                  style: 'tableHorizontal',
+                  style: {
+                    float: 'none',
+                    display: 'inline-table',
+                  },
                 })}
               >
                 ${component.render()}

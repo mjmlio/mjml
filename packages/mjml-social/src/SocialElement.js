@@ -68,7 +68,7 @@ export default class MjSocialElement extends BodyComponent {
     'border-radius': '3px',
     'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
     'font-size': '13px',
-    'line-height': '22px',
+    'line-height': '1',
     padding: '10px 25px',
     target: '_blank',
     'text-decoration': 'none',
@@ -83,7 +83,7 @@ export default class MjSocialElement extends BodyComponent {
 
     return {
       td: {
-        padding: this.getAttribute('inner-padding'),
+        padding: this.getAttribute('padding'),
       },
       table: {
         background: backgroundColor,
@@ -91,11 +91,16 @@ export default class MjSocialElement extends BodyComponent {
         width: iconSize,
       },
       icon: {
-        width: iconSize,
+        'font-size': '0',
         height: iconSize,
+        'vertical-align': 'middle',
+        width: iconSize,
       },
       img: {
         'border-radius': this.getAttribute('border-radius'),
+      },
+      tdText: {
+        'vertical-align': 'middle',
       },
       text: {
         color: this.getAttribute('color'),
@@ -167,22 +172,22 @@ export default class MjSocialElement extends BodyComponent {
                     />
                   </a>
                 </td>
-                ${this.getContent()
-                  ? `
-                  <td>
-                    <a
-                      ${this.htmlAttributes({
-                        href,
-                        style: 'text',
-                        rel: this.getAttribute('rel'),
-                      })}>
-                      ${this.getContent()}
-                    </a>
-                  </td>
-                  `
-                  : ''}
               </tr>
           </table>
+          ${this.getContent()
+            ? `
+            <td ${this.htmlAttributes({style: 'tdText'})} >
+              <a
+                ${this.htmlAttributes({
+                  href,
+                  style: 'text',
+                  rel: this.getAttribute('rel'),
+                })}>
+                ${this.getContent()}
+              </a>
+            </td>
+            `
+            : ''}
         </td>
       </tr>
     `

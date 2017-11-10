@@ -69,7 +69,7 @@ export default class MjSocialElement extends BodyComponent {
     'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
     'font-size': '13px',
     'line-height': '1',
-    padding: '10px 25px',
+    padding: '4px',
     target: '_blank',
     'text-decoration': 'none',
     width: '100%',
@@ -101,6 +101,7 @@ export default class MjSocialElement extends BodyComponent {
       },
       tdText: {
         'vertical-align': 'middle',
+        'padding': '4px 4px 4px 0',
       },
       text: {
         color: this.getAttribute('color'),
@@ -129,11 +130,10 @@ export default class MjSocialElement extends BodyComponent {
       'href',
       'src',
       'background-color',
-    ].reduce((r, attr) => {
-      r[attr] = socialNetwork[attr] || this.getAttribute(attr)
-
-      return r
-    }, {})
+    ].reduce((r, attr) => ({
+      ...r,
+      [attr]: socialNetwork[attr] || this.getAttribute(attr),
+    }), {})
   }
 
   render() {

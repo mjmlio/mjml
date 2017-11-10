@@ -47,6 +47,7 @@ export default class MjTable extends BodyComponent {
         'font-size': this.getAttribute('font-size'),
         'line-height': this.getAttribute('line-height'),
         'table-layout': this.getAttribute('table-layout'),
+        'width': this.getAttribute('width'),
       },
     }
   }

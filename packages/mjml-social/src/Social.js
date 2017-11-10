@@ -39,7 +39,6 @@ export default class MjSocial extends BodyComponent {
   getStyles() {
     return {
       tableVertical: {
-        'line-height': this.getAttribute('line-height'),
         margin: '0px',
       },
     }

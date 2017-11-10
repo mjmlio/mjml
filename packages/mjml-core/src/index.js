@@ -56,6 +56,7 @@ export default function mjml2html(mjml, options = {}) {
   }
 
   const globalDatas = {
+    backgroundColor: '',
     breakpoint: '480px',
     classes: {},
     classesDefault: {},
@@ -165,6 +166,9 @@ export default function mjml2html(mjml, options = {}) {
       globalDatas.mediaQueries[
         className
       ] = `{ width:${parsedWidth}${unit} !important; }`
+    },
+    setBackgroundColor: color => {
+      globalDatas.backgroundColor = color
     },
     processing: (node, context) => processing(node, context, applyAttributes),
   }

@@ -4,6 +4,7 @@ import { buildMediaQueriesTags } from './mediaQueries'
 
 export default function skeleton(options) {
   const {
+    backgroundColor = '',
     breakpoint = '480px',
     content = '',
     fonts = {},
@@ -62,7 +63,7 @@ export default function skeleton(options) {
           ? `<style type="text/css">${style.join('')}</style>`
           : ''}
       </head>
-      <body>
+      <body style="background-color:${backgroundColor};">
         ${buildPreview(preview)}
         ${content}
       </body>

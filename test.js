@@ -5,28 +5,80 @@ const mjml2html = require('./packages/mjml/src/index')
 const xml = `
 <mjml owa_desktop="true">
 <mj-body>
-<mj-hero
-mode="fluid-height"
-background-width="600px"
-background-height="469px"
-background-url="https://cloud.githubusercontent.com/assets/1830348/15354890/1442159a-1cf0-11e6-92b1-b861dadf1750.jpg"
-background-color="#2a3448"
-padding="100px 0px">
-<!-- To add content like mj-image, mj-text, mj-button ... use the mj-hero-content component -->
-  <mj-text
-  padding="20px"
-  color="#ffffff"
-  font-family="Helvetica"
-  align="center"
-  font-size="45px"
-  line-height="45px"
-  font-weight="900">
-    GO TO SPACE
-  </mj-text>
-  <mj-button href="https://mjml.io/" align="center">
-    ORDER YOUR TICKET NOW
-  </mj-button>
-</mj-hero>
+<mj-section>
+<mj-column>
+  <mj-social mode="horizontal">
+    <mj-social-element href="https://mjml.io/" name="facebook"></mj-social-element>
+    <mj-social-element href="https://mjml.io/" name="google"></mj-social-element>
+    <mj-social-element href="https://mjml.io/" name="instagram"></mj-social-element>
+    <mj-social-element href="https://mjml.io/" name="pinterest"></mj-social-element>
+    <mj-social-element href="https://mjml.io/" name="linkedin"></mj-social-element>
+    <mj-social-element href="https://mjml.io/" name="twitter"></mj-social-element>
+  </mj-social>
+</mj-column>
+</mj-section>
+<mj-section>
+<mj-column>
+  <mj-social font-size="15px" icon-size="30px" mode="horizontal">
+    <mj-social-element content="Facebook" href="https://mjml.io/" icon-color="#4d4d4d" name="facebook">
+      Facebook
+    </mj-social-element>
+    <mj-social-element content="Google" href="https://mjml.io/" icon-color="#4d4d4d" name="google">
+      Google
+    </mj-social-element>
+    <mj-social-element content="Instagram" href="https://mjml.io/" icon-color="#4d4d4d" name="instagram">
+      Instagram
+    </mj-social-element>
+  </mj-social>
+</mj-column>
+</mj-section>
+<mj-section>
+<mj-column>
+  <mj-social font-size="11px" icon-size="15px" mode="horizontal">
+    <mj-social-element content="Pinterest" href="https://mjml.io/" icon-color="#4d4d4d" name="pinterest">
+      Pinterest
+    </mj-social-element>
+    <mj-social-element content="Linkedin" href="https://mjml.io/" icon-color="#4d4d4d" name="linkedin">
+      Linkedin
+    </mj-social-element>
+    <mj-social-element content="Twitter" href="https://mjml.io/" icon-color="#4d4d4d" name="twitter">
+      Twitter
+    </mj-social-element>
+  </mj-social>
+</mj-column>
+</mj-section>
+<mj-section>
+<mj-column>
+  <mj-social align="right" container-background-color="#AAA" mode="vertical" text-mode="false">
+    <mj-social-element href="https://mjml.io/" name="facebook"></mj-social-element>
+    <mj-social-element href="https://mjml.io/" name="google"></mj-social-element>
+    <mj-social-element href="https://mjml.io/" name="instagram"></mj-social-element>
+    <mj-social-element href="https://mjml.io/" name="pinterest"></mj-social-element>
+    <mj-social-element href="https://mjml.io/" name="linkedin"></mj-social-element>
+    <mj-social-element href="https://mjml.io/" name="twitter"></mj-social-element>
+  </mj-social>
+</mj-column>
+<mj-column>
+  <mj-social color="#f45e43" container-background-color="#CCC" line-height="25px" mode="vertical" text-decoration="underline">
+    <mj-social-element href="https://mjml.io/" name="facebook"></mj-social-element>
+    <mj-social-element href="https://mjml.io/" name="google"></mj-social-element>
+    <mj-social-element href="https://mjml.io/" name="instagram"></mj-social-element>
+    <mj-social-element href="https://mjml.io/" name="pinterest"></mj-social-element>
+    <mj-social-element href="https://mjml.io/" name="linkedin"></mj-social-element>
+    <mj-social-element href="https://mjml.io/" name="twitter"></mj-social-element>
+  </mj-social>
+</mj-column>
+<mj-column>
+  <mj-social align="left" color="#f45e43" container-background-color="#AAA" line-height="30px" mode="vertical" text-decoration="overline">
+    <mj-social-element href="https://mjml.io/" name="facebook"></mj-social-element>
+    <mj-social-element href="https://mjml.io/" name="google"></mj-social-element>
+    <mj-social-element href="https://mjml.io/" name="instagram"></mj-social-element>
+    <mj-social-element href="https://mjml.io/" name="pinterest"></mj-social-element>
+    <mj-social-element href="https://mjml.io/" name="linkedin"></mj-social-element>
+    <mj-social-element href="https://mjml.io/" name="twitter"></mj-social-element>
+  </mj-social>
+</mj-column>
+</mj-section>
 </mj-body>
 </mjml>
 `

@@ -34,6 +34,9 @@ export default class MjDivider extends BodyComponent {
 
   getOutlookWidth() {
     const { containerWidth } = this.context
+    const paddingSize =
+      this.getShorthandAttrValue('padding', 'left') +
+      this.getShorthandAttrValue('padding', 'right')
 
     const width = this.getAttribute('width')
 
@@ -43,10 +46,10 @@ export default class MjDivider extends BodyComponent {
       case '%':
         return `${parseInt(containerWidth, 10) *
           parseInt(parsedWidth, 10) /
-          100}px`
+          100 - paddingSize}px`
 
       default:
-        return containerWidth
+        return `${parseInt(containerWidth, 10) - paddingSize}px`
     }
   }
 

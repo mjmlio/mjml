@@ -23,10 +23,11 @@ export default class MjColumn extends BodyComponent {
 
   static defaultAttributes = {
     direction: 'ltr',
+    'vertical-align': 'bottom',
   }
 
   getChildContext() {
-    const { containerWidth } = this.context
+    const { containerWidth: parentWidth } = this.context
 
     const { sibling } = this.props
 
@@ -34,23 +35,23 @@ export default class MjColumn extends BodyComponent {
       this.getShorthandAttrValue('padding', 'left') +
       this.getShorthandAttrValue('padding', 'right')
 
-    let parentWidth =
-      this.getAttribute('width') || `${parseFloat(containerWidth) / sibling}px`
+    let containerWidth =
+      this.getAttribute('width') || `${parseFloat(parentWidth) / sibling}px`
 
-    const { unit, parsedWidth } = widthParser(parentWidth, {
+    const { unit, parsedWidth } = widthParser(containerWidth, {
       parseFloatToInt: false,
     })
 
     if (unit === '%') {
-      parentWidth = `${parseFloat(containerWidth) * parsedWidth / 100 -
+      containerWidth = `${parseFloat(parentWidth) * parsedWidth / 100 -
         paddingSize}px`
     } else {
-      parentWidth = `${parsedWidth - paddingSize}px`
+      containerWidth = `${parsedWidth - paddingSize}px`
     }
 
     return {
       ...this.context,
-      parentWidth,
+      containerWidth,
     }
   }
 

@@ -67,7 +67,7 @@ export default function MJMLParser(xml, options = {}) {
         absoluteFilePath: path.resolve(cwd, filePath),
         parent: cur,
         tagName: 'mj-raw',
-        content: `<!-- mj-include fails with file : ${file} at ${partialPath} -->`,
+        content: `<!-- mj-include fails to read file : ${file} at ${partialPath} -->`,
         children: [],
       }
 

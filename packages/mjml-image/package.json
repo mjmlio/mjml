@@ -1,7 +1,7 @@
 {
   "name": "mjml-image",
   "description": "mjml-image",
-  "version": "4.0.0-alpha.3",
+  "version": "4.0.0-alpha.4",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -18,6 +18,6 @@
   },
   "dependencies": {
     "lodash": "^4.17.2",
-    "mjml-core": "^4.0.0-alpha.3"
+    "mjml-core": "^4.0.0-alpha.4"
   }
 }

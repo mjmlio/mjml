@@ -1,3 +1,9 @@
+# Legacy branch
+
+MJML 3.3.X will only receive patch from major breaking bug introduced in 3.3.X. Please start to switch on MJML4 branch for  PRs
+
+---
+
 <p align="center">
   <a href="https://mjml.io" target="_blank">
     <img width="250"src="https://cloud.githubusercontent.com/assets/6558790/12672296/7b66d8cc-c675-11e5-805d-c6d196320537.png">

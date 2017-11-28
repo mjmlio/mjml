@@ -1,3 +1,5 @@
+To help us help you, provide as much information as you can. You'll find below a template you can use to submit your issue, but feel free to remove any part that wouldn't be relevant here.      
+      
       [Short description of problem here]
 
       **Reproduction Steps:**

@@ -1,29 +1,29 @@
-To help us help you, provide as much information as you can. You'll find below a template you can use to submit your issue, but feel free to remove any part that wouldn't be relevant here.      
+To help us help you, provide as much information as you can. You'll find below a template you can use to submit your issue, but feel free to remove any part that wouldn't be relevant here.
       
-      [Short description of problem here]
+[Short description of problem here]
 
-      **Reproduction Steps:**
+**Reproduction Steps:**
 
-      1. [First Step]
-      2. [Second Step]
-      3. [Other Steps...]
+1. [First Step]
+2. [Second Step]
+3. [Other Steps...]
 
-      **Expected behavior:**
+**Expected behavior:**
 
-      [Describe expected behavior here]
+[Describe expected behavior here]
 
-      **Observed behavior:**
+**Observed behavior:**
 
-      [Describe observed behavior here]
+[Describe observed behavior here]
 
-      **Screenshots and GIFs**
+**Screenshots and GIFs**
 
-      ![Screenshots and GIFs which follow reproduction steps to demonstrate the problem](url)
+![Screenshots and GIFs which follow reproduction steps to demonstrate the problem](url)
 
-      **MJML version:**
+**MJML version:**
 
-      [Enter MJML version here]
+[Enter MJML version here]
 
-      **Email clients the bug is seen on:**
+**Email clients the bug is seen on:**
 
-      [Enter email clients names and versions here]
+[Enter email clients names and versions here]

@@ -63,6 +63,7 @@ export default function mjml2html(mjml, options = {}) {
     defaultAttributes: {},
     fonts,
     inlineStyle: [],
+    componentsHeadStyle: {},
     mediaQueries: {},
     preview: '',
     style: [],
@@ -105,13 +106,17 @@ export default function mjml2html(mjml, options = {}) {
       return
     }
 
+    const name = node.tagName
+
     const component = initComponent({
-      name: node.tagName,
+      name,
       initialDatas: {
         ...parseMJML(node),
         context,
       },
     })
+
+
 
     if (component !== null) {
       if ('handler' in component) {
@@ -166,6 +171,9 @@ export default function mjml2html(mjml, options = {}) {
       globalDatas.mediaQueries[
         className
       ] = `{ width:${parsedWidth}${unit} !important; }`
+    },
+    addHeadSyle(componentName, headStyle) {
+      globalDatas.componentsHeadStyle[componentName] = headStyle
     },
     setBackgroundColor: color => {
       globalDatas.backgroundColor = color

@@ -106,17 +106,13 @@ export default function mjml2html(mjml, options = {}) {
       return
     }
 
-    const name = node.tagName
-
     const component = initComponent({
-      name,
+      name: node.tagName,
       initialDatas: {
         ...parseMJML(node),
         context,
       },
     })
-
-
 
     if (component !== null) {
       if ('handler' in component) {

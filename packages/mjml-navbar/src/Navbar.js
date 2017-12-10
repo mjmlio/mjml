@@ -79,8 +79,6 @@ export default class MjNavbar extends BodyComponent {
   `
 
   getStyles () {
-    const { mjAttribute, defaultUnit, getPadding } = this.props
-
     return merge({}, baseStyles, {
       div: {
         'align': this.getAttribute('align'),

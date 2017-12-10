@@ -4,33 +4,6 @@ import crypto from 'crypto'
 
 import conditionalTag, { msoConditionalTag } from 'mjml-core/lib/helpers/conditionalTag'
 
-const baseStyles = {
-  div: {
-    'width': '100%'
-  },
-  trigger: {
-    display: 'none',
-    'max-height': '0px',
-    'max-width': '0px',
-    'font-size': '0px',
-    overflow: 'hidden'
-  },
-  label: {
-    display: 'block',
-    cursor: 'pointer',
-    'mso-hide': 'all',
-    '-moz-user-select': 'none',
-    'user-select': 'none'
-  },
-  icoOpen: {
-    'mso-hide': 'all'
-  },
-  icoClose: {
-    display: 'none',
-    'mso-hide': 'all'
-  }
-}
-
 export default class MjNavbar extends BodyComponent {
 
   static allowedAttributes = {
@@ -79,11 +52,17 @@ export default class MjNavbar extends BodyComponent {
   `
 
   getStyles () {
-    return merge({}, baseStyles, {
+    return {
       div: {
         'align': this.getAttribute('align'),
+        'width': '100%'
       },
       label: {
+        display: 'block',
+        cursor: 'pointer',
+        'mso-hide': 'all',
+        '-moz-user-select': 'none',
+        'user-select': 'none',
         'align': this.getAttribute('ico-align'),
         'color': this.getAttribute('ico-color'),
         'font-size': this.getAttribute('ico-font-size'),
@@ -96,10 +75,23 @@ export default class MjNavbar extends BodyComponent {
         'padding-bottom': this.getAttribute('ico-padding-bottom'),
         'padding-left': this.getAttribute('ico-padding-left'),
         padding: this.getAttribute('ico-padding')
+      },
+      trigger: {
+        display: 'none',
+        'max-height': '0px',
+        'max-width': '0px',
+        'font-size': '0px',
+        overflow: 'hidden'
+      },
+      icoOpen: {
+        'mso-hide': 'all'
+      },
+      icoClose: {
+        display: 'none',
+        'mso-hide': 'all'
       }
-    })
+    }
   }
-
 
   renderHamburger () {
     const { mjAttribute } = this.props
@@ -143,37 +135,30 @@ export default class MjNavbar extends BodyComponent {
     `
   }
 
-
   render () {
     return `
-      <div>
         ${ this.getAttribute('hamburger') === 'hamburger'
           ? this.renderHamburger()
           : '' }
         ${conditionalTag(`
           <table role="presentation" border="0" cellpadding="0" cellspacing="0" align="${this.getAttribute('align')}">
-            <tr>
+            <tr><td>
         `)}
         <div
           ${this.htmlAttributes({
-            class: "mj-inline-links",
-            style: this.htmlAttributes('div'),
-            'data-align': this.getAttribute('align')
+            class: 'mj-inline-links',
+            style: this.htmlAttributes('div')
           })}
         >
-        ${conditionalTag(`
-            </tr>
-          </table>
-        `)}
-
-        ${this.renderChildren(this.props.children, {
-          attributes: {
-            navbarBaseUrl: this.getAttribute('base-url')
-          }
-        })}
-
+          ${this.renderChildren(this.props.children, {
+            attributes: {
+              navbarBaseUrl: this.getAttribute('base-url')
+            }
+          })}
         </div>
-      </div>
+        ${conditionalTag(`
+            </td></tr></table>
+        `)}
     `
   }
 }

@@ -4,14 +4,6 @@ import { merge } from 'lodash'
 
 import conditionalTag from 'mjml-core/lib/helpers/conditionalTag'
 
-const baseStyles = {
-  a: {
-    display: 'inline-block',
-    'text-decoration': 'none',
-    'text-transform': 'uppercase'
-  }
-}
-
 export default class MjNavbarLink extends BodyComponent {
   static endingTag = true
 
@@ -38,12 +30,15 @@ export default class MjNavbarLink extends BodyComponent {
     'font-size': '13px',
     'font-weight': 'normal',
     'line-height': '22px',
-    'padding': '15px 10px'
+    'padding': '15px 10px',
+    'text-decoration': 'none',
+    'text-transform': 'uppercase'
   }
 
-  getStyles () {
-    return merge({}, baseStyles, {
+  getStyles() {
+    return {
       a: {
+        display: 'inline-block',
         color: this.getAttribute('color'),
         'font-family': this.getAttribute('font-family'),
         'font-size': this.getAttribute('font-size'),
@@ -57,7 +52,7 @@ export default class MjNavbarLink extends BodyComponent {
         'padding-right': this.getAttribute('padding-right'),
         'padding-bottom': this.getAttribute('padding-bottom')
       }
-    })
+    }
   }
 
   renderContent() {
@@ -71,6 +66,7 @@ export default class MjNavbarLink extends BodyComponent {
     return `
       <a
         ${this.htmlAttributes({
+          class: 'mj-link',
           href: link,
           rel,
           style: 'a'
@@ -83,10 +79,8 @@ export default class MjNavbarLink extends BodyComponent {
 
   render() {
     const padding = this.getAttribute('padding')
-    const height = this.getAttribute('height')
 
-    return height
-      ? `
+    return `
         ${conditionalTag(`
           <td style="padding: ${padding}">
         `)}
@@ -95,7 +89,5 @@ export default class MjNavbarLink extends BodyComponent {
           </td>
         `)}
       `
-      : this.renderContent()
   }
-
 }

@@ -13,7 +13,7 @@ export default function conditionalTag(content, negation = false) {
   `
 }
 
-export const msoConditionalTag = (content, negation = false) => {
+export function msoConditionalTag(content, negation = false) {
   return `
     ${negation ? startMsoNegationConditionalTag : startMsoConditionalTag}
     ${content}

@@ -2,6 +2,7 @@ import mjml2html, { registerComponent } from 'mjml-core'
 import { registerDependencies } from 'mjml-validator'
 
 import { Social, SocialElement } from 'mjml-social'
+import { Navbar, NavbarLink } from 'mjml-navbar'
 
 registerComponent(require('mjml-body'))
 registerComponent(require('mjml-head'))
@@ -17,6 +18,7 @@ registerComponent(require('mjml-column'))
 registerComponent(require('mjml-divider'))
 registerComponent(require('mjml-group'))
 registerComponent(require('mjml-image'))
+
 registerComponent(require('mjml-raw'))
 registerComponent(require('mjml-section'))
 registerComponent(require('mjml-spacer'))
@@ -26,6 +28,8 @@ registerComponent(require('mjml-wrapper'))
 
 registerComponent(Social)
 registerComponent(SocialElement)
+registerComponent(Navbar)
+registerComponent(NavbarLink)
 
 registerDependencies(require('./dependencies'))
 

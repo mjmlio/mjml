@@ -1,5 +1,4 @@
 import { BodyComponent } from 'mjml-core'
-import { merge } from 'lodash'
 import crypto from 'crypto'
 
 import conditionalTag, { msoConditionalTag } from 'mjml-core/lib/helpers/conditionalTag'
@@ -140,25 +139,25 @@ export default class MjNavbar extends BodyComponent {
         ${ this.getAttribute('hamburger') === 'hamburger'
           ? this.renderHamburger()
           : '' }
-        ${conditionalTag(`
-          <table role="presentation" border="0" cellpadding="0" cellspacing="0" align="${this.getAttribute('align')}">
-            <tr><td>
-        `)}
         <div
           ${this.htmlAttributes({
             class: 'mj-inline-links',
             style: this.htmlAttributes('div')
           })}
         >
+        ${conditionalTag(`
+          <table role="presentation" border="0" cellpadding="0" cellspacing="0" align="${this.getAttribute('align')}">
+            <tr>
+        `)}
           ${this.renderChildren(this.props.children, {
             attributes: {
               navbarBaseUrl: this.getAttribute('base-url')
             }
           })}
+          ${conditionalTag(`
+            </tr></table>
+          `)}
         </div>
-        ${conditionalTag(`
-            </td></tr></table>
-        `)}
     `
   }
 }

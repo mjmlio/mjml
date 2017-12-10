@@ -1,6 +1,5 @@
 import { BodyComponent } from 'mjml-core'
 import url from 'url'
-import { merge } from 'lodash'
 
 import conditionalTag from 'mjml-core/lib/helpers/conditionalTag'
 

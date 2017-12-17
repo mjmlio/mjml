@@ -2,7 +2,7 @@ import { MJMLElement } from 'mjml-core'
 import React, { Component } from 'react'
 
 const tagName = 'mj-raw'
-const parentTag = ['mj-body', 'mj-container', 'mj-wrapper', 'mj-section', 'mj-column']
+const parentTag = ['mj-body', 'mj-container', 'mj-wrapper', 'mj-section', 'mj-column', 'mj-group']
 const endingTag = true
 const rawElement = true
 const defaultMJMLDefinition = {

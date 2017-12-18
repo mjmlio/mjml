@@ -81,7 +81,15 @@ export default class MjNavbarLink extends BodyComponent {
 
     return `
         ${conditionalTag(`
-          <td style="padding: ${padding}">
+          <td
+            ${this.htmlAttributes({
+              padding: this.getAttribute('padding'),
+              'padding-top': this.getAttribute('padding-top'),
+              'padding-left': this.getAttribute('padding-left'),
+              'padding-right': this.getAttribute('padding-right'),
+              'padding-bottom': this.getAttribute('padding-bottom')
+            })}
+          >
         `)}
         ${this.renderContent()}
         ${conditionalTag(`

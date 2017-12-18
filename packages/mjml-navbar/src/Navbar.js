@@ -93,7 +93,6 @@ export default class MjNavbar extends BodyComponent {
   }
 
   renderHamburger () {
-    const { mjAttribute } = this.props
     const key = crypto.randomBytes(8).toString('hex')
 
     return `

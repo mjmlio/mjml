@@ -105,7 +105,7 @@ export class BodyComponent extends Component {
   }
 
   styles(styles) {
-    let stylesObject = null
+    let stylesObject
 
     if (styles) {
       if (typeof styles === 'string') {

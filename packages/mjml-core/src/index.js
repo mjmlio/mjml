@@ -63,6 +63,7 @@ export default function mjml2html(mjml, options = {}) {
     defaultAttributes: {},
     fonts,
     inlineStyle: [],
+    componentsHeadStyle: {},
     mediaQueries: {},
     preview: '',
     style: [],
@@ -166,6 +167,9 @@ export default function mjml2html(mjml, options = {}) {
       globalDatas.mediaQueries[
         className
       ] = `{ width:${parsedWidth}${unit} !important; }`
+    },
+    addHeadSyle(componentName, headStyle) {
+      globalDatas.componentsHeadStyle[componentName] = headStyle
     },
     setBackgroundColor: color => {
       globalDatas.backgroundColor = color

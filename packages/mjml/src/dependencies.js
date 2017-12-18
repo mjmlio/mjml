@@ -66,7 +66,7 @@ export default {
   'mj-link': [],
   'mj-list': [],
   'mj-location': [],
-  'mj-navbar': ['mj-column', 'mj-group', 'mj-raw'],
+  'mj-navbar': ['mj-navbar-link'],
   'mj-raw': [],
   'mj-section': ['mj-column', 'mj-group', 'mj-raw'],
   'mj-social': [],

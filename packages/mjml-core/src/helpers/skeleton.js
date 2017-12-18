@@ -1,3 +1,4 @@
+import { reduce } from 'lodash'
 import buildPreview from './preview'
 import { buildFontsTags } from './fonts'
 import { buildMediaQueriesTags } from './mediaQueries'
@@ -9,6 +10,7 @@ export default function skeleton(options) {
     content = '',
     fonts = {},
     mediaQueries = {},
+    componentsHeadStyle = {},
     preview,
     title = '',
     style,
@@ -59,6 +61,15 @@ export default function skeleton(options) {
         <![endif]-->
         ${buildFontsTags(content, fonts)}
         ${buildMediaQueriesTags(breakpoint, mediaQueries, forceOWADesktop)}
+        <style type="text/css">
+        ${
+          reduce(
+            componentsHeadStyle,
+            (result, headStyle) => `${result}\n${headStyle(breakpoint)}`,
+            ''
+          )
+        }
+        </style>
         ${style && style.length > 0
           ? `<style type="text/css">${style.join('')}</style>`
           : ''}

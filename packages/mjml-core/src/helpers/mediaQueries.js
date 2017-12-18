@@ -22,7 +22,7 @@ export function buildMediaQueriesTags(
       }
     </style>
     ${forceOWADesktop
-      ? `<style type="text/css">zzz\n${owaQueries.join('\n')}\n</script>`
+      ? `<style type="text/css">\n${owaQueries.join('\n')}\n</style>`
       : ``}
   `
 }

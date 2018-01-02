@@ -1,7 +1,5 @@
 import { BodyComponent } from 'mjml-core'
 
-// const parentTag = ['mj-column', 'mj-hero-content']
-
 export default class MjAccordion extends BodyComponent {
 
   static allowedAttributes = {

@@ -64,13 +64,19 @@ export default class MjAccordionElement extends BodyComponent {
     const result = []
 
     if (!find(children, {tagName: 'mj-accordion-title'})) {
-      result.push((new AccordionTitle({ attributes: childrenAttr })).render())
+      result.push((new AccordionTitle({
+        attributes: childrenAttr,
+        context: this.getChildContext()
+      })).render())
     }
 
     result.push(this.renderChildren(children, { attributes: childrenAttr }))
 
     if (!find(children, {tagName: 'mj-accordion-text'})) {
-      result.push((new AccordionText({ attributes: childrenAttr })).render())
+      result.push((new AccordionText({
+        attributes: childrenAttr,
+        context: this.getChildContext()
+      })).render())
     }
 
     return result.join('\n')

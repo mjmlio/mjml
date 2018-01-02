@@ -169,7 +169,19 @@ export default function mjml2html(mjml, options = {}) {
       ] = `{ width:${parsedWidth}${unit} !important; }`
     },
     addHeadSyle(identifier, headStyle) {
-      globalDatas.componentsHeadStyle[identifier] = headStyle
+      const { style, cumulateStyles } = headStyle
+
+      if (cumulateStyles) {
+        const existingStyle = globalDatas.componentsHeadStyle[identifier]
+        if (existingStyle) {
+          globalDatas.componentsHeadStyle[identifier] = breakpoint => {
+            return `${existingStyle(breakpoint)}\n${style(breakpoint)}`
+          }
+          return
+        }
+      }
+
+      globalDatas.componentsHeadStyle[identifier] = style
     },
     setBackgroundColor: color => {
       globalDatas.backgroundColor = color

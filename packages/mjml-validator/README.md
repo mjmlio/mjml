@@ -14,13 +14,13 @@ When using the `mjml` command line, you can add the option `-l` or `--level` wit
 > Validates the file without rendering it
 
 ```bash
-$> mjml --validate template.mjml
+mjml --validate template.mjml
 ```
 
 > Sets the validation level to `skip` (so that the file is not validated) and renders the file
 
 ```bash
-$> mjml -l skip -r template.mjml
+mjml -l skip -r template.mjml
 ```
 
 ## In Javascript

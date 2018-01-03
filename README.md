@@ -53,19 +53,19 @@ MJML is a markup language designed to reduce the pain of coding a responsive ema
 
 We recommend installing and using MJML locally, in a project folder where you'll use MJML: 
 ```bash
-$> npm install mjml
+npm install mjml
 ```
 In the folder where you installed MJML you can now run:
 ```bash
-$> ./node_modules/.bin/mjml input.mjml
+./node_modules/.bin/mjml input.mjml
 ```
 To avoid typing `./node_modules/.bin/`, add it to your PATH:
 ```bash
-$> export PATH="$PATH:./node_modules/.bin"
+export PATH="$PATH:./node_modules/.bin"
 ```
 You can now run MJML directly, in that folder:
 ```bash
-$> mjml input.mjml
+mjml input.mjml
 ```
 <a href="https://github.com/mjmlio/mjml/releases" target="_blank">
   <strong align="left">Via... click: </strong>
@@ -84,25 +84,25 @@ $> mjml input.mjml
 > Compiles the file and outputs the HTML generated in `input.html`
 
 ```bash
-$> mjml -r input.mjml
+mjml -r input.mjml
 ```
 
 > Redirects the HTML generated to a file named output.html
 
 ```bash
-$> mjml -r input.mjml -o output.html
+mjml -r input.mjml -o output.html
 ```
 
 > Sets the validation rule to `skip` so that the file is rendered without being validated
 
 ```bash
-$> mjml -l skip -r input.mjml
+mjml -l skip -r input.mjml
 ```
 
 > Watches a file and compiles every time the file changes
 
 ```bash
-$> mjml -w input.mjml -o output.html
+mjml -w input.mjml -o output.html
 ```
 
 ### Inside Node.js

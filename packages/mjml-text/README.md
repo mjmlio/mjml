@@ -42,7 +42,7 @@ This tag allows you to display text in your email.
  height                       | px            | The height of the element                   | n/a
  text-decoration              | string        | underline/overline/line-through/none        | n/a
  text-transform               | string        | uppercase/lowercase/capitalize              | n/a
- align                        | string        | left/right/center                           | left
+ align                        | string        | left/right/center/justify                   | left
  container-background-color   | color         | inner element background color              | n/a
  padding                      | px            | supports up to 4 parameters                 | 10px 25px
  padding-top                  | px            | top offset                                  | n/a

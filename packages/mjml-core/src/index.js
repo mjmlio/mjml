@@ -63,7 +63,8 @@ export default function mjml2html(mjml, options = {}) {
     defaultAttributes: {},
     fonts,
     inlineStyle: [],
-    componentsHeadStyle: {},
+    headStyle: {},
+    componentsHeadStyle: [],
     mediaQueries: {},
     preview: '',
     style: [],
@@ -169,19 +170,10 @@ export default function mjml2html(mjml, options = {}) {
       ] = `{ width:${parsedWidth}${unit} !important; }`
     },
     addHeadSyle(identifier, headStyle) {
-      const { style, cumulateStyles } = headStyle
-
-      if (cumulateStyles) {
-        const existingStyle = globalDatas.componentsHeadStyle[identifier]
-        if (existingStyle) {
-          globalDatas.componentsHeadStyle[identifier] = breakpoint => {
-            return `${existingStyle(breakpoint)}\n${style(breakpoint)}`
-          }
-          return
-        }
-      }
-
-      globalDatas.componentsHeadStyle[identifier] = style
+      globalDatas.headStyle[identifier] = headStyle
+    },
+    addComponentHeadSyle(headStyle) {
+      globalDatas.componentsHeadStyle.push(headStyle)
     },
     setBackgroundColor: color => {
       globalDatas.backgroundColor = color

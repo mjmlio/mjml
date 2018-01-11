@@ -16,8 +16,8 @@
   },
   "homepage": "https://mjml.io",
   "scripts": {
-    "clean": "../../node_modules/.bin/rimraf lib",
-    "build": "../../node_modules/.bin/babel src --out-dir lib"
+    "clean": "cross-env ../../node_modules/.bin/rimraf lib",
+    "build": "cross-env ../../node_modules/.bin/babel src --out-dir lib"
   },
   "dependencies": {
     "babel-runtime": "^6.26.0",

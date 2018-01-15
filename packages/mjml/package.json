@@ -38,6 +38,7 @@
     "mjml-head-title": "^4.0.0-alpha.5",
     "mjml-hero": "^4.0.0-alpha.5",
     "mjml-image": "^4.0.0-alpha.5",
+    "mjml-migrate": "^1.0.0",
     "mjml-navbar": "^4.0.0-alpha.5",
     "mjml-raw": "^4.0.0-alpha.5",
     "mjml-section": "^4.0.0-alpha.5",

@@ -18,7 +18,7 @@ In addition to the translation engine, which converts MJML to email HTML, we've 
 
 ```
 
-$> mjml input.mjml
+mjml input.mjml
 
 ```
 
@@ -28,11 +28,11 @@ It will output an HTML file called `a.html`.
 
 ```
 
-$> mjml input.mjml -o my-email.html
+mjml input.mjml -o my-email.html
 
 # or
 
-$> mjml input.mjml --output my-email.html
+mjml input.mjml --output my-email.html
 
 ```
 
@@ -42,11 +42,11 @@ You can output the resulting email responsive HTML in a file. If the file does n
 
 ```
 
-$> mjml -w input.mjml
+mjml -w input.mjml
 
 # or
 
-$> mjml --watch input.mjml
+mjml --watch input.mjml
 
 ```
 

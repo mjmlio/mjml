@@ -168,8 +168,8 @@ export default function mjml2html(mjml, options = {}) {
         className
       ] = `{ width:${parsedWidth}${unit} !important; }`
     },
-    addHeadSyle(componentName, headStyle) {
-      globalDatas.componentsHeadStyle[componentName] = headStyle
+    addHeadSyle(identifier, headStyle) {
+      globalDatas.componentsHeadStyle[identifier] = headStyle
     },
     setBackgroundColor: color => {
       globalDatas.backgroundColor = color

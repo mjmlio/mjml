@@ -20,6 +20,7 @@
     "build": "../../node_modules/.bin/babel src --out-dir lib"
   },
   "dependencies": {
+    "mjml-accordion": "^4.0.0-alpha.5",
     "mjml-body": "^4.0.0-alpha.5",
     "mjml-button": "^4.0.0-alpha.5",
     "mjml-cli": "^4.0.0-alpha.5",

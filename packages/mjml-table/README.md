@@ -5,7 +5,7 @@ This tag allows you to display table and filled it with data. It only accepts pl
 ```xml
 <mjml>
   <mj-body>
-      <mj-section>
+    <mj-section>
       <mj-column>
         <mj-table>
           <tr style="border-bottom:1px solid #ecedee;text-align:left;padding:15px 0;">

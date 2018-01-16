@@ -81,9 +81,7 @@ tags to make it easier to preview outside the main template
 <!-- main.mjml -->
 <mjml>
   <mj-body>
-    <mj-container>
-      <mj-include path="./header" /> <!-- or 'header.mjml' -->
-    </mj-container>
+    <mj-include path="./header" /> <!-- or 'header.mjml' -->
   </mj-body>
 </mjml>
 ```

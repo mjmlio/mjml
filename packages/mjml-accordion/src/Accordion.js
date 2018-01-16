@@ -35,26 +35,23 @@ export default class MjAccordion extends BodyComponent {
     padding: '10px 25px'
   }
 
-  headStyle() {
-    return {
-      style: () => `
-        noinput.mj-accordion-checkbox { display:block!important; }
+  headStyle = () => {
+    return `
+      noinput.mj-accordion-checkbox { display:block!important; }
 
-        @media yahoo, only screen and (min-width:0) {
-          .mj-accordion-element { display:block; }
-          input.mj-accordion-checkbox, .mj-accordion-less { display:none!important; }
-          input.mj-accordion-checkbox + * .mj-accordion-title { cursor:pointer; touch-action:manipulation; -webkit-user-select:none; -moz-user-select:none; user-select:none; }
-          input.mj-accordion-checkbox + * .mj-accordion-content { overflow:hidden; display:none; }
-          input.mj-accordion-checkbox + * .mj-accordion-more { display:block!important; }
-          input.mj-accordion-checkbox:checked + * .mj-accordion-content { display:block; }
-          input.mj-accordion-checkbox:checked + * .mj-accordion-more { display:none!important; }
-          input.mj-accordion-checkbox:checked + * .mj-accordion-less { display:block!important; }
-        }
+      @media yahoo, only screen and (min-width:0) {
+        .mj-accordion-element { display:block; }
+        input.mj-accordion-checkbox, .mj-accordion-less { display:none!important; }
+        input.mj-accordion-checkbox + * .mj-accordion-title { cursor:pointer; touch-action:manipulation; -webkit-user-select:none; -moz-user-select:none; user-select:none; }
+        input.mj-accordion-checkbox + * .mj-accordion-content { overflow:hidden; display:none; }
+        input.mj-accordion-checkbox + * .mj-accordion-more { display:block!important; }
+        input.mj-accordion-checkbox:checked + * .mj-accordion-content { display:block; }
+        input.mj-accordion-checkbox:checked + * .mj-accordion-more { display:none!important; }
+        input.mj-accordion-checkbox:checked + * .mj-accordion-less { display:block!important; }
+      }
 
-        @goodbye { @gmail }
-      `,
-      cumulateStyles: false
-    }
+      @goodbye { @gmail }
+    `
   }
 
   getStyles() {

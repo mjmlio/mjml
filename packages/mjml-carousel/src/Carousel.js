@@ -46,7 +46,7 @@ export default class MjCarousel extends BodyComponent {
     this.carouselId = crypto.randomBytes(6).toString('hex')
   }
 
-  headStyle() {
+  componentHeadStyle = () => {
     const length = this.props.children.length
     const { carouselId } = this
 
@@ -134,10 +134,7 @@ export default class MjCarousel extends BodyComponent {
       }
     `
 
-    return {
-      style: () => `${carouselCss}\n${fallback}`,
-      cumulateStyles: true
-    }
+    return `${carouselCss}\n${fallback}`
   }
 
   getStyles () {

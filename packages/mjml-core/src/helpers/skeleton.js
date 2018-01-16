@@ -10,6 +10,7 @@ export default function skeleton(options) {
     content = '',
     fonts = {},
     mediaQueries = {},
+    headStyle = [],
     componentsHeadStyle = {},
     preview,
     title = '',
@@ -65,6 +66,13 @@ export default function skeleton(options) {
         ${
           reduce(
             componentsHeadStyle,
+            (result, compHeadStyle) => `${result}\n${compHeadStyle(breakpoint)}`,
+            ''
+          )
+        }
+        ${
+          reduce(
+            headStyle,
             (result, headStyle) => `${result}\n${headStyle(breakpoint)}`,
             ''
           )

@@ -27,7 +27,7 @@ const indexesForNewLine = xml => {
   return indexes
 }
 
-export default function MJMLParser(xml, options = {}) {
+export default function MJMLParser(xml, options = {}, includedIn = []) {
   const {
     addEmptyAttributes = true,
     components = {},
@@ -50,12 +50,17 @@ export default function MJMLParser(xml, options = {}) {
 
   let mjml = null
   let cur = null
-  let inInclude = false
+  let inInclude = !!includedIn.length
 
   const findTag = (tagName, tree) => find(tree.children, { tagName })
   const lineIndexes = indexesForNewLine(safeXml)
+
   const handleInclude = (file, line) => {
     const partialPath = path.resolve(cwd, file)
+
+    if (find(cur.includedIn, {file: partialPath}))
+      throw new Error(`Circular inclusion detected on file : ${partialPath}`)
+
     let content
 
     try {
@@ -82,10 +87,17 @@ export default function MJMLParser(xml, options = {}) {
         ? `<mjml><mj-body>${content}</mj-body></mjml>`
         : content
 
-    const partialMjml = MJMLParser(content, {
-      ...options,
-      filePath: partialPath,
-    })
+    const partialMjml = MJMLParser(content,
+      {
+        ...options,
+        filePath: partialPath,
+      },
+      [...cur.includedIn, {
+        file: cur.absoluteFilePath,
+        line
+      }]
+    )
+
     const bindToTree = (children, tree = cur) =>
       children.map(c => ({ ...c, parent: tree }))
 
@@ -130,7 +142,6 @@ export default function MJMLParser(xml, options = {}) {
 
         if (name === 'mj-include') {
           inInclude = true
-
           return handleInclude(decodeURIComponent(attrs.path), line)
         }
 
@@ -145,6 +156,7 @@ export default function MJMLParser(xml, options = {}) {
           file: filePath,
           absoluteFilePath: path.resolve(cwd, filePath),
           line,
+          includedIn,
           parent: cur,
           tagName: name,
           attributes: attrs,

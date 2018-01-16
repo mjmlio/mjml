@@ -23,6 +23,7 @@
     "lodash": "^4.17.3",
     "mjml-parser-xml": "^4.0.0-alpha.4",
     "mjml-validator": "^4.0.0-alpha.4",
+    "mjml-migrate": "^1.0.0",
     "object-path": "^0.11.3"
   }
 }

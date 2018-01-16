@@ -1,6 +1,6 @@
 {
-  "name": "mjml-core",
-  "description": "mjml-core",
+  "name": "mjml-carousel",
+  "description": "mjml-carousel",
   "version": "4.0.0-alpha.5",
   "main": "lib/index.js",
   "repository": {
@@ -17,13 +17,7 @@
     "build": "../../node_modules/.bin/babel src --out-dir lib"
   },
   "dependencies": {
-    "html-minifier": "^3.5.3",
-    "js-beautify": "^1.6.14",
-    "juice": "^4.1.0",
-    "lodash": "^4.17.3",
-    "mjml-parser-xml": "^4.0.0-alpha.4",
-    "mjml-validator": "^4.0.0-alpha.4",
-    "mjml-migrate": "^1.0.0",
-    "object-path": "^0.11.3"
+    "lodash": "^4.17.2",
+    "mjml-core": "^4.0.0-alpha.5"
   }
 }

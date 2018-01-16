@@ -620,7 +620,7 @@ minimist@0.0.8:
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.0.8.tgz#857fcabfc3397d2625b8228262e86aa7a011b05d"
 
-mjml-core@~3.3.4, mjml-core@~3.3.5:
+mjml-core@~3.3.4:
   version "3.3.5"
   resolved "https://registry.yarnpkg.com/mjml-core/-/mjml-core-3.3.5.tgz#52113ee20790b9d9b0b5f43c088887c93ceb2580"
   dependencies:
@@ -639,14 +639,6 @@ mjml-core@~3.3.4, mjml-core@~3.3.5:
     react "^15.4.2"
     react-dom "^15.4.2"
     warning "^3.0.0"
-
-mjml-section@~3.3.3:
-  version "3.3.5"
-  resolved "https://registry.yarnpkg.com/mjml-section/-/mjml-section-3.3.5.tgz#dc2ce846ad0bd55579babdbb2d9635a47956f90c"
-  dependencies:
-    lodash "^4.17.4"
-    mjml-core "~3.3.5"
-    react "^15.4.2"
 
 mjml-validator@~3.3.3:
   version "3.3.5"

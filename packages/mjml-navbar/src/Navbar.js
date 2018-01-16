@@ -37,18 +37,20 @@ export default class MjNavbar extends BodyComponent {
     'ico-line-height': '30px'
   }
 
-  static headStyle = breakpoint => `
-    noinput.mj-menu-checkbox { display:block!important; max-height:none!important; visibility:visible!important; }
+  headStyle = breakpoint => {
+    return `
+      noinput.mj-menu-checkbox { display:block!important; max-height:none!important; visibility:visible!important; }
 
-    @media only screen and (max-width:${breakpoint}) {
-      .mj-menu-checkbox[type="checkbox"] ~ .mj-inline-links { display:none!important; }
-      .mj-menu-checkbox[type="checkbox"]:checked ~ .mj-inline-links,
-      .mj-menu-checkbox[type="checkbox"] ~ .mj-menu-trigger { display:block!important; max-width:none!important; max-height:none!important; font-size:inherit!important; }
-      .mj-menu-checkbox[type="checkbox"] ~ .mj-inline-links > a { display:block!important; }
-      .mj-menu-checkbox[type="checkbox"]:checked ~ .mj-menu-trigger .mj-menu-icon-close { display:block!important; }
-      .mj-menu-checkbox[type="checkbox"]:checked ~ .mj-menu-trigger .mj-menu-icon-open { display:none!important; }
-    }
-  `
+      @media only screen and (max-width:${breakpoint}) {
+        .mj-menu-checkbox[type="checkbox"] ~ .mj-inline-links { display:none!important; }
+        .mj-menu-checkbox[type="checkbox"]:checked ~ .mj-inline-links,
+        .mj-menu-checkbox[type="checkbox"] ~ .mj-menu-trigger { display:block!important; max-width:none!important; max-height:none!important; font-size:inherit!important; }
+        .mj-menu-checkbox[type="checkbox"] ~ .mj-inline-links > a { display:block!important; }
+        .mj-menu-checkbox[type="checkbox"]:checked ~ .mj-menu-trigger .mj-menu-icon-close { display:block!important; }
+        .mj-menu-checkbox[type="checkbox"]:checked ~ .mj-menu-trigger .mj-menu-icon-open { display:none!important; }
+      }
+    `
+  }
 
   getStyles () {
     return {

@@ -37,7 +37,7 @@ export default class MjNavbar extends BodyComponent {
     'ico-line-height': '30px'
   }
 
-  headStyle(breakpoint) {
+  headStyle = breakpoint => {
     return `
       noinput.mj-menu-checkbox { display:block!important; max-height:none!important; visibility:visible!important; }
 

@@ -46,7 +46,7 @@ export default class MjCarousel extends BodyComponent {
     this.carouselId = crypto.randomBytes(6).toString('hex')
   }
 
-  componentHeadStyle() {
+  componentHeadStyle = () => {
     const length = this.props.children.length
     const { carouselId } = this
 

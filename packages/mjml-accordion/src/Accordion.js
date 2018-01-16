@@ -35,7 +35,7 @@ export default class MjAccordion extends BodyComponent {
     padding: '10px 25px'
   }
 
-  headStyle() {
+  headStyle = () => {
     return `
       noinput.mj-accordion-checkbox { display:block!important; }
 

@@ -2,7 +2,7 @@
 
 # Installation
 
-We recommend installing and using MJML locally, in a project folder where you'll use MJML: 
+We recommend installing and using MJML locally, in a project folder where you'll use MJML:
 ```bash
 $> npm install mjml
 ```
@@ -34,6 +34,14 @@ $> mjml input.mjml
 
 It will output a HTML file called `input.html`.
 
+### Migrate MJML3 to MJML4
+
+```bash
+$> mjml -m input.mjml -o result.mjml
+```
+
+It will output a HTML file called `input.html`.
+
 ### Render and redirect the result to stdout
 
 ```bash
@@ -44,17 +52,13 @@ $> mjml -s input.mjml
 $> mjml --stdout input.mjml
 ```
 
-### Render and minify the output HTML
+### Minify and beautify the output HTML
 
 ```bash
-$> mjml -m input.mjml
-
-# or
-
-$> mjml --min input.mjml
+$> mjml input.mjml --config.beautify true --config.minify false
 ```
 
-It will output a HTML file called `input.html`.
+These are the default options.
 
 ### Render and redirect the result to a file
 

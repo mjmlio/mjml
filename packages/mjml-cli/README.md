@@ -4,19 +4,19 @@
 
 We recommend installing and using MJML locally, in a project folder where you'll use MJML:
 ```bash
-$> npm install mjml
+npm install mjml
 ```
 In the folder where you installed MJML you can now run:
 ```bash
-$> ./node_modules/.bin/mjml input.mjml
+./node_modules/.bin/mjml input.mjml
 ```
 To avoid typing `./node_modules/.bin/`, add it to your PATH:
 ```bash
-$> export PATH="$PATH:./node_modules/.bin"
+export PATH="$PATH:./node_modules/.bin"
 ```
 You can now run MJML directly, in that folder:
 ```bash
-$> mjml input.mjml
+mjml input.mjml
 ```
 
 MJML is written with [NodeJS](https://nodejs.org/en/)
@@ -29,7 +29,7 @@ In addition to the translation engine, which converts MJML to email HTML, we've 
 ### Render MJML to HTML
 
 ```bash
-$> mjml input.mjml
+mjml input.mjml
 ```
 
 It will output a HTML file called `input.html`.
@@ -45,11 +45,11 @@ It will output a HTML file called `input.html`.
 ### Render and redirect the result to stdout
 
 ```bash
-$> mjml -s input.mjml
+mjml -s input.mjml
 
 # or
 
-$> mjml --stdout input.mjml
+mjml --stdout input.mjml
 ```
 
 ### Minify and beautify the output HTML
@@ -63,11 +63,11 @@ These are the default options.
 ### Render and redirect the result to a file
 
 ```bash
-$> mjml input.mjml -o my-email.html
+mjml input.mjml -o my-email.html
 
 # or
 
-$> mjml input.mjml --output my-email.html
+mjml input.mjml --output my-email.html
 ```
 
 You can output the resulting email responsive HTML in a file. If the file does not exist, it will be created.
@@ -75,17 +75,17 @@ You can output the resulting email responsive HTML in a file. If the file does n
 ### Set the validation rule to `skip` so that the file is rendered without being validated.
 
 ```bash
-$> mjml -l skip -r input.mjml
+mjml -l skip -r input.mjml
 ```
 
 ### Watch changes on a file
 
 ```bash
-$> mjml -w input.mjml
+mjml -w input.mjml
 
 # or
 
-$> mjml --watch input.mjml
+mjml --watch input.mjml
 ```
 
 If you like live-coding, you might want to use the `-w` option that enables you to re-render your file every time you save it.

@@ -40,6 +40,7 @@ export default class MjText extends BodyComponent {
       text: {
         'font-family': this.getAttribute('font-family'),
         'font-size': this.getAttribute('font-size'),
+        'font-style': this.getAttribute('font-style'),
         'font-weight': this.getAttribute('font-weight'),
         'letter-spacing': this.getAttribute('letter-spacing'),
         'line-height': this.getAttribute('line-height'),

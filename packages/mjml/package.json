@@ -20,6 +20,7 @@
     "build": "../../node_modules/.bin/babel src --out-dir lib"
   },
   "dependencies": {
+    "mjml-accordion": "^4.0.0-alpha.5",
     "mjml-body": "^4.0.0-alpha.5",
     "mjml-button": "^4.0.0-alpha.5",
     "mjml-cli": "^4.0.0-alpha.5",
@@ -36,6 +37,7 @@
     "mjml-head-title": "^4.0.0-alpha.5",
     "mjml-hero": "^4.0.0-alpha.5",
     "mjml-image": "^4.0.0-alpha.5",
+    "mjml-navbar": "^4.0.0-alpha.5",
     "mjml-raw": "^4.0.0-alpha.5",
     "mjml-section": "^4.0.0-alpha.5",
     "mjml-social": "^4.0.0-alpha.5",

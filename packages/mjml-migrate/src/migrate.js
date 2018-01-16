@@ -141,6 +141,7 @@ function loopThrough(tree) {
       }
     }
   }
+  return tree
 }
 
 function checkV3Through(node) {

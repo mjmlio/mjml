@@ -155,7 +155,7 @@ export function handleMjml3(mjml) {
   const isV3Synthax = checkV3Through(mjml)
   if (!isV3Synthax) return mjml
 
-  console.log('Mjml3 detected, migrating to mjml4.')
+  console.log('MJML v3 syntax detected, migrating to MJML v4 syntax. Use mjml -m to get the migrated MJML.')
   return migrate(mjml)
 }
 

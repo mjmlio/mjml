@@ -18,28 +18,28 @@
   </mj-head>
 
   <mj-body>
-    <mj-container background-color="#f5f5f5" width="650px">
-        <mj-section padding="20px" background-color="#ffffff">
-          <mj-column background-color="#dededd">
-            <mj-accordion>
-              <mj-accordion-element>
-                <mj-accordion-title>Why use an accordion?</mj-accordion-title>
-                <mj-accordion-text>
-                  <span style="line-height:20px">Because emails with a lot of content are most of the time a very bad experience on mobile, mj-accordion comes handy when you want to deliver a lot of information in a concise way.
-                  </span>
-                </mj-accordion-text>
-              </mj-accordion-element>
-              <mj-accordion-element>
-                <mj-accordion-title>How it works</mj-accordion-title>
-                <mj-accordion-text>
-                  <span style="line-height:20px">
-                Content is stacked into tabs and users can expand them at will. If responsive styles are not supported (mostly on desktop clients), tabs are then expanded and your content is readable at once.</span>
-                </mj-accordion-text>
-              </mj-accordion-element>
-            </mj-accordion>
-          </mj-column>
-        </mj-section>
-    </mj-container>
+    <mj-section padding="20px" background-color="#ffffff">
+      <mj-column background-color="#dededd">
+        <mj-accordion>
+          <mj-accordion-element>
+            <mj-accordion-title>Why use an accordion?</mj-accordion-title>
+            <mj-accordion-text>
+              <span style="line-height:20px">
+                Because emails with a lot of content are most of the time a very bad experience on mobile, mj-accordion comes handy when you want to deliver a lot of information in a concise way.
+              </span>
+            </mj-accordion-text>
+          </mj-accordion-element>
+          <mj-accordion-element>
+            <mj-accordion-title>How it works</mj-accordion-title>
+            <mj-accordion-text>
+              <span style="line-height:20px">
+                Content is stacked into tabs and users can expand them at will. If responsive styles are not supported (mostly on desktop clients), tabs are then expanded and your content is readable at once.
+              </span>
+            </mj-accordion-text>
+          </mj-accordion-element>
+        </mj-accordion>
+      </mj-column>
+    </mj-section>
   </mj-body>
 </mjml>
 ```

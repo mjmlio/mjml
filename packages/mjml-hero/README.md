@@ -15,27 +15,26 @@ Fixed height
       <mj-hero
         mode="fixed-height"
         height="469px"
+        width="100%"
         background-width="600px"
         background-height="469px"
         background-url="https://cloud.githubusercontent.com/assets/1830348/15354890/1442159a-1cf0-11e6-92b1-b861dadf1750.jpg"
         background-color="#2a3448"
         padding="100px 0px">
         <!-- To add content like mj-image, mj-text, mj-button ... use the mj-hero-content component -->
-        <mj-hero-content width="100%">
-          <mj-text
-            padding="20px"
-            color="#ffffff"
-            font-family="Helvetica"
-            align="center"
-            font-size="45"
-            line-height="45px"
-            font-weight="900">
-            GO TO SPACE
-          </mj-text>
-          <mj-button href="https://mjml.io/" align="center">
-            ORDER YOUR TICKET NOW
-          </mj-button>
-        </mj-hero-content>
+        <mj-text
+          padding="20px"
+          color="#ffffff"
+          font-family="Helvetica"
+          align="center"
+          font-size="45"
+          line-height="45px"
+          font-weight="900">
+          GO TO SPACE
+        </mj-text>
+        <mj-button href="https://mjml.io/" align="center">
+          ORDER YOUR TICKET NOW
+        </mj-button>
       </mj-hero>
     </mj-container>
   </mj-body>
@@ -44,7 +43,7 @@ Fixed height
 
  <p align="center">
    <a href="https://mjml.io/try-it-live/components/hero">
-     <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
+     <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
    </a>
  </p>
 
@@ -64,10 +63,10 @@ Fluid height
         background-height="469px"
         background-url="https://cloud.githubusercontent.com/assets/1830348/15354890/1442159a-1cf0-11e6-92b1-b861dadf1750.jpg"
         background-color="#2a3448"
-        padding="100px 0px">
+        padding="100px 0px"
+        width="100%">
         <!-- To add content like mj-image, mj-text, mj-button ... use the mj-hero-content component -->
-        <mj-hero-content width="100%">
-          <mj-text
+        <mj-text
           padding="20px"
           color="#ffffff"
           font-family="Helvetica"
@@ -76,11 +75,10 @@ Fluid height
           line-height="45px"
           font-weight="900">
             GO TO SPACE
-          </mj-text>
-          <mj-button href="https://mjml.io/" align="center">
-            ORDER YOUR TICKET NOW
-          </mj-button>
-        </mj-hero-content>
+        </mj-text>
+        <mj-button href="https://mjml.io/" align="center">
+          ORDER YOUR TICKET NOW
+        </mj-button>
       </mj-hero>
     </mj-container>
   </mj-body>
@@ -89,7 +87,7 @@ Fluid height
 
 <p align="center">
   <a href="https://mjml.io/try-it-live/components/hero/1">
-    <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
+    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
   </a>
 </p>
 
@@ -126,23 +124,3 @@ padding-left        | px                                  | left offset         
 padding-bottom      | px                                  | bottom offset                                                        | 0px
 vertical-align      | top/middle/bottom                   | content vertical alignment                                           | top
 css-class | string | class name, added to the root HTML element created | n/a
-
-### mjml-hero-content
-
-Display some content in an `mj-hero` component
-
-<aside class="notice">
-Use only one mj-hero-content component inside a mj-hero component
-</aside>
-
-attribute        | unit              | description                                    | default value
------------------|-------------------|------------------------------------------------|------------------------------
-width            | px/percent        | content width                                  | 100%
-align            | left/center/right | horizontal alignment                           | center
-background-color | color             | content background color                       | transparent
-padding          | px                | supports up to 4 parameters                    | 0px
-padding-top      | px                | top offset                                     | 0px
-padding-right    | px                | right offset                                   | 0px
-padding-left     | px                | left offset                                    | 0px
-padding-bottom   | px                | bottom offset                                  | 0px
-css-class        | string            | class name, added to the root HTML element created | n/a

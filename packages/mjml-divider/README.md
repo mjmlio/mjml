@@ -5,20 +5,18 @@ Displays a horizontal divider that can be customized like a HTML border.
 ```xml
 <mjml>
   <mj-body>
-    <mj-container>
-      <mj-section>
-        <mj-column>
-          <mj-divider border-width="1px" border-style="dashed" border-color="lightgrey" />
-        </mj-column>
-      </mj-section>
-    </mj-container>
+    <mj-section>
+      <mj-column>
+        <mj-divider border-width="1px" border-style="dashed" border-color="lightgrey" />
+      </mj-column>
+    </mj-section>
   </mj-body>
 </mjml>
 ```
 
 <p align="center">
   <a href="https://mjml.io/try-it-live/components/divider">
-    <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
+    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
   </a>
 </p>
 

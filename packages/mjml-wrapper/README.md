@@ -9,30 +9,27 @@ Wrapper enables to wrap multiple sections together. It's especially useful to ac
 ```xml
 <mjml>
   <mj-body>
-    <mj-container>
-      <mj-section></mj-section>
-      <mj-wrapper border="1px solid #000000" padding="50px 30px">
-        <mj-section border-top="1px solid #aaaaaa" border-left="1px solid #aaaaaa" border-right="1px solid #aaaaaa" padding="20px">
-          <mj-column>
-            <mj-image padding="0" src="https://placeholdit.imgix.net/~text?&w=350&h=150" />
-          </mj-column>
-        </mj-section>
-        <mj-section border-left="1px solid #aaaaaa" border-right="1px solid #aaaaaa" padding="20px" border-bottom="1px solid #aaaaaa">
-          <mj-column border="1px solid #dddddd">
-            <mj-text padding="20px"> First line of text </mj-text>
-           <mj-divider border-width="1px" border-style="dashed" border-color="lightgrey" padding="0 20px" />
-            <mj-text padding="20px"> Second line of text </mj-text>
-          </mj-column>
-        </mj-section>
-      </mj-wrapper>
-    </mj-container>
+    <mj-wrapper border="1px solid #000000" padding="50px 30px">
+      <mj-section border-top="1px solid #aaaaaa" border-left="1px solid #aaaaaa" border-right="1px solid #aaaaaa" padding="20px">
+        <mj-column>
+          <mj-image padding="0" src="https://placeholdit.imgix.net/~text?&w=350&h=150" />
+        </mj-column>
+      </mj-section>
+      <mj-section border-left="1px solid #aaaaaa" border-right="1px solid #aaaaaa" padding="20px" border-bottom="1px solid #aaaaaa">
+        <mj-column border="1px solid #dddddd">
+          <mj-text padding="20px"> First line of text </mj-text>
+          <mj-divider border-width="1px" border-style="dashed" border-color="lightgrey" padding="0 20px" />
+          <mj-text padding="20px"> Second line of text </mj-text>
+        </mj-column>
+      </mj-section>
+    </mj-wrapper>
   </mj-body>
 </mjml>
 ```
 
 <p align="center">
   <a href="https://mjml.io/try-it-live/components/wrapper">
-    <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
+    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
   </a>
 </p>
 

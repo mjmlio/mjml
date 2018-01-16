@@ -6,20 +6,18 @@ Note that if no width is provided, the image will use the parent column width.
 ```xml
 <mjml>
   <mj-body>
-    <mj-container>
-      <mj-section>
-        <mj-column>
-          <mj-image width="300" src="http://www.online-image-editor.com//styles/2014/images/example_image.png" />
-        </mj-column>
-      </mj-section>
-    </mj-container>
+    <mj-section>
+      <mj-column>
+        <mj-image width="300" src="http://www.online-image-editor.com//styles/2014/images/example_image.png" />
+      </mj-column>
+    </mj-section>
   </mj-body>
 </mjml>
 ```
 
 <p align="center">
   <a href="https://mjml.io/try-it-live/components/image">
-    <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
+    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
   </a>
 </p>
 

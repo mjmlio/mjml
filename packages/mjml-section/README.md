@@ -6,18 +6,16 @@ They will be used to structure the layout.
 ```xml
 <mjml>
   <mj-body>
-    <mj-container>
-      <mj-section full-width="full-width" background-color="red">
-        <!-- Your columns go here -->
-      </mj-section>
-    </mj-container>   
+    <mj-section full-width="full-width" background-color="red">
+      <!-- Your columns go here -->
+    </mj-section>
   </mj-body>
 </mjml>
 ```
 
 <p align="center">
   <a href="https://mjml.io/try-it-live/components/section">
-    <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
+    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
   </a>
 </p>
 

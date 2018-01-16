@@ -10,7 +10,7 @@ Displays a menu for navigation with an optional hamburger mode for mobile device
 <mjml>
   <mj-body>
     <mj-section background-color="#ef6451">
-      <mj-column width="80%">
+      <mj-column>
         <mj-navbar base-url="https://mjml.io" hamburger="hamburger" ico-color="#ffffff">
             <mj-navbar-link href="/gettings-started-onboard" color="#ffffff">Getting started</mj-navbar-link>
             <mj-navbar-link href="/try-it-live" color="#ffffff">Try it live</mj-navbar-link>
@@ -19,21 +19,6 @@ Displays a menu for navigation with an optional hamburger mode for mobile device
         </mj-navbar>
       </mj-column>
     </mj-section>
-    <mj-container>
-      <mj-section full-width="full-width" background-color="#ef6451">
-        <mj-column width="20%">
-          <mj-image width="150px" src="https://mjml.io/assets/img/logo-white-small.png"></mj-image>
-        </mj-column>
-        <mj-column width="80%">
-          <mj-navbar base-url="https://mjml.io" hamburger="hamburger" ico-color="#ffffff">
-            <mj-link href="/gettings-started-onboard" color="#ffffff">Getting started</mj-link>
-            <mj-link href="/try-it-live" color="#ffffff">Try it live</mj-link>
-            <mj-link href="/templates" color="#ffffff">Templates</mj-link>
-            <mj-link href="/components" color="#ffffff">Components</mj-link>
-          </mj-navbar>
-        </mj-column>
-      </mj-section>
-    </mj-container>
   </mj-body>
 </mjml>
 ```

@@ -59,7 +59,7 @@ export default class MjCarousel extends BodyComponent {
       user-select: none;
     }
 
-    .mj-carousel-icons-cell {
+    .mj-carousel-${this.carouselId}-icons-cell {
       display: table-cell !important;
       width: ${this.getAttribute('icon-width')} !important;
     }
@@ -122,7 +122,7 @@ export default class MjCarousel extends BodyComponent {
       [owa] .mj-carousel-thumbnail { display: none !important; }
 
       @media screen yahoo {
-          .mj-carousel-icons-cell,
+          .mj-carousel-${this.carouselId}-icons-cell,
           .mj-carousel-previous-icons,
           .mj-carousel-next-icons {
               display: none !important;
@@ -213,7 +213,7 @@ export default class MjCarousel extends BodyComponent {
     return `
       <td
         ${this.htmlAttributes({
-          class: 'mj-carousel-icons-cell',
+          class: `mj-carousel-${this.carouselId}-icons-cell`,
           style: 'controls.td'
         })}
       >

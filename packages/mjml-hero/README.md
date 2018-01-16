@@ -11,32 +11,30 @@ Fixed height
 ```xml
 <mjml>
   <mj-body>
-    <mj-container>
-      <mj-hero
-        mode="fixed-height"
-        height="469px"
-        width="100%"
-        background-width="600px"
-        background-height="469px"
-        background-url="https://cloud.githubusercontent.com/assets/1830348/15354890/1442159a-1cf0-11e6-92b1-b861dadf1750.jpg"
-        background-color="#2a3448"
-        padding="100px 0px">
-        <!-- To add content like mj-image, mj-text, mj-button ... use the mj-hero-content component -->
-        <mj-text
-          padding="20px"
-          color="#ffffff"
-          font-family="Helvetica"
-          align="center"
-          font-size="45"
-          line-height="45px"
-          font-weight="900">
-          GO TO SPACE
-        </mj-text>
-        <mj-button href="https://mjml.io/" align="center">
-          ORDER YOUR TICKET NOW
-        </mj-button>
-      </mj-hero>
-    </mj-container>
+    <mj-hero
+      mode="fixed-height"
+      height="469px"
+      width="100%"
+      background-width="600px"
+      background-height="469px"
+      background-url="https://cloud.githubusercontent.com/assets/1830348/15354890/1442159a-1cf0-11e6-92b1-b861dadf1750.jpg"
+      background-color="#2a3448"
+      padding="100px 0px">
+      <!-- To add content like mj-image, mj-text, mj-button ... use the mj-hero-content component -->
+      <mj-text
+        padding="20px"
+        color="#ffffff"
+        font-family="Helvetica"
+        align="center"
+        font-size="45"
+        line-height="45px"
+        font-weight="900">
+        GO TO SPACE
+      </mj-text>
+      <mj-button href="https://mjml.io/" align="center">
+        ORDER YOUR TICKET NOW
+      </mj-button>
+    </mj-hero>
   </mj-body>
 </mjml>
  ```
@@ -56,31 +54,29 @@ Fluid height
 ```xml
 <mjml>
   <mj-body>
-    <mj-container>
-      <mj-hero
-        mode="fluid-height"
-        background-width="600px"
-        background-height="469px"
-        background-url="https://cloud.githubusercontent.com/assets/1830348/15354890/1442159a-1cf0-11e6-92b1-b861dadf1750.jpg"
-        background-color="#2a3448"
-        padding="100px 0px"
-        width="100%">
-        <!-- To add content like mj-image, mj-text, mj-button ... use the mj-hero-content component -->
-        <mj-text
-          padding="20px"
-          color="#ffffff"
-          font-family="Helvetica"
-          align="center"
-          font-size="45"
-          line-height="45px"
-          font-weight="900">
-            GO TO SPACE
-        </mj-text>
-        <mj-button href="https://mjml.io/" align="center">
-          ORDER YOUR TICKET NOW
-        </mj-button>
-      </mj-hero>
-    </mj-container>
+    <mj-hero
+      mode="fluid-height"
+      background-width="600px"
+      background-height="469px"
+      background-url="https://cloud.githubusercontent.com/assets/1830348/15354890/1442159a-1cf0-11e6-92b1-b861dadf1750.jpg"
+      background-color="#2a3448"
+      padding="100px 0px"
+      width="100%">
+      <!-- To add content like mj-image, mj-text, mj-button ... use the mj-hero-content component -->
+      <mj-text
+        padding="20px"
+        color="#ffffff"
+        font-family="Helvetica"
+        align="center"
+        font-size="45"
+        line-height="45px"
+        font-weight="900">
+        GO TO SPACE
+      </mj-text>
+      <mj-button href="https://mjml.io/" align="center">
+        ORDER YOUR TICKET NOW
+      </mj-button>
+    </mj-hero>
   </mj-body>
 </mjml>
 ```

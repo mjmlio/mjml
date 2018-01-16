@@ -30,7 +30,7 @@ Displays calls-to-action for various social networks with their associated logo.
 
 <p align="center">
   <a href="https://mjml.io/try-it-live/components/social">
-    <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
+    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
   </a>
 </p>
 

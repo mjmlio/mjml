@@ -116,15 +116,13 @@ import { mjml2html } from 'mjml'
 const htmlOutput = mjml2html(`
   <mjml>
     <mj-body>
-      <mj-container>
-        <mj-section>
-          <mj-column>
-            <mj-text>
-              Hello World!
-            </mj-text>
-          </mj-column>
-        </mj-section>
-      </mj-container>
+      <mj-section>
+        <mj-column>
+          <mj-text>
+            Hello World!
+          </mj-text>
+        </mj-column>
+      </mj-section>
     </mj-body>
   </mjml>
 `)

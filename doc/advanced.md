@@ -9,7 +9,7 @@ The final result will look like this
 </p>
 
 <p align="center">
-  <a href="/try-it-live/templates/newsletter"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>
+  <a href="/try-it-live/templates/newsletter"><img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" /></a>
 </p>
 
 ## Structuring
@@ -17,30 +17,28 @@ The final result will look like this
 ``` html
 <mjml>
   <mj-body>
-    <mj-container>
 
-      <!-- Header -->
-      <mj-section></mj-section>
+    <!-- Header -->
+    <mj-section></mj-section>
 
-      <!-- Banner -->
-      <mj-section></mj-section>
+    <!-- Banner -->
+    <mj-section></mj-section>
 
-      <!-- Article -->
-      <mj-section></mj-section>
+    <!-- Article -->
+    <mj-section></mj-section>
 
-      <!-- Editor Header -->
-      <mj-section></mj-section>
+    <!-- Editor Header -->
+    <mj-section></mj-section>
 
-      <!-- Editor Image -->
-      <mj-section></mj-section>
+    <!-- Editor Image -->
+    <mj-section></mj-section>
 
-      <!-- Article -->
-      <mj-section></mj-section>
+    <!-- Article -->
+    <mj-section></mj-section>
 
-      <!-- Social -->
-      <mj-section></mj-section>
+    <!-- Social -->
+    <mj-section></mj-section>
 
-    </mj-container>
   </mj-body>
 </mjml>
 ```

@@ -4,24 +4,22 @@
   <img src="http://i.imgur.com/wHqIzgd.gif" alt="desktop" />
 </p>
 
-`mjml-carousel` is the first MJML interactive component, it displays a gallery of images or "carousel". Readers can interact by hovering and clicking on thumbnails depending on the email client they use.
+`mjml-carousel` displays a gallery of images or "carousel". Readers can interact by hovering and clicking on thumbnails depending on the email client they use.
 
 This component enables you to set the styles of the carousel elements.
 
 ```xml
 <mjml>
   <mj-body>
-    <mj-container>
-      <mj-section>
-        <mj-column>
-          <mj-carousel>
-            <mj-carousel-image src="https://www.mailjet.com/wp-content/uploads/2016/11/ecommerce-guide.jpg" />
-            <mj-carousel-image src="https://www.mailjet.com/wp-content/uploads/2016/09/3@1x.png" />
-            <mj-carousel-image src="https://www.mailjet.com/wp-content/uploads/2016/09/1@1x.png" />
-          </mj-carousel>
-        </mj-column>
-      </mj-section>
-    </mj-container>
+    <mj-section>
+      <mj-column>
+        <mj-carousel>
+          <mj-carousel-image src="https://www.mailjet.com/wp-content/uploads/2016/11/ecommerce-guide.jpg" />
+          <mj-carousel-image src="https://www.mailjet.com/wp-content/uploads/2016/09/3@1x.png" />
+          <mj-carousel-image src="https://www.mailjet.com/wp-content/uploads/2016/09/1@1x.png" />
+        </mj-carousel>
+      </mj-column>
+    </mj-section>
   </mj-body>
 </mjml>
 ```

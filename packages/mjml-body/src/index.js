@@ -22,7 +22,6 @@ export default class MjBody extends BodyComponent {
 
   render() {
     const { setBackgroundColor } = this.context
-
     setBackgroundColor(this.getAttribute('background-color'))
 
     return `

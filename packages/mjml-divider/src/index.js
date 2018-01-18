@@ -5,6 +5,14 @@ import widthParser from 'mjml-core/lib/helpers/widthParser'
 export default class MjDivider extends BodyComponent {
   static tagOmission = true
 
+  static allowedAttributes = {
+    'border-color': 'color',
+    'border-style': 'string',
+    'border-width': 'unit(px)',
+    padding: 'unit(px,%){1,4}',
+    width: 'unit(px,%)',
+  }
+
   static defaultAttributes = {
     'border-color': '#000000',
     'border-style': 'solid',

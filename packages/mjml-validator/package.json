@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "lodash": "^4.17.4",
+    "mjml-core": "^4.0.0-alpha.4",
     "warning": "^3.0.0"
   }
 }

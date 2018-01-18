@@ -1,5 +1,6 @@
 import filter from 'lodash/filter'
 import includes from 'lodash/includes'
+import keys from 'lodash/keys'
 
 import dependencies from '../dependencies'
 import ruleError from './ruleError'
@@ -31,8 +32,14 @@ export default function validChildren(element, { components }) {
         return null
       }
 
+      if (parentDependencies.some(dep => dep instanceof RegExp && dep.test(childTagName))) {
+        return true
+      }
+
+      const allowedDependencies = keys(dependencies).filter(key => includes(dependencies[key], childTagName))
+
       return ruleError(
-        `${childTagName} cannot be used inside ${tagName}, only inside: ${parentDependencies.join(
+        `${childTagName} cannot be used inside ${tagName}, only inside: ${allowedDependencies.join(
           ', ',
         )}`,
         child,

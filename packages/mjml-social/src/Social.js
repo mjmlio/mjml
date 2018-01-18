@@ -1,26 +1,26 @@
 import { BodyComponent } from 'mjml-core'
 
 export default class MjSocial extends BodyComponent {
-  // static allowedAttributes = {
-  //   align: 'enum(left,right,center)',
-  //   'border-radius': 'unit(px)',
-  //   'container-background-color': 'color',
-  //   color: 'color',
-  //   'font-family': 'string',
-  //   'font-size': 'unit(px,%)',
-  //   'font-style': 'string',
-  //   'font-weight': 'string',
-  //   'inner-padding': 'unit(px,%)',
-  //   'line-height': 'unit(px,%)',
-  //   mode: 'enum(horizontal,vertical)',
-  //   'padding-bottom': 'unit(px,%)',
-  //   'padding-left': 'unit(px,%)',
-  //   'padding-right': 'unit(px,%)',
-  //   'padding-top': 'unit(px,%)',
-  //   padding: 'unit(px,%){1,4}',
-  //   'table-layout': 'enum(auto,fixed)',
-  //   'vertical-align': 'enum(top,bottom,middle)',
-  // }
+  static allowedAttributes = {
+    align: 'enum(left,right,center)',
+    'border-radius': 'unit(px)',
+    'container-background-color': 'color',
+    color: 'color',
+    'font-family': 'string',
+    'font-size': 'unit(px,%)',
+    'font-style': 'string',
+    'font-weight': 'string',
+    'inner-padding': 'unit(px,%)',
+    'line-height': 'unit(px,%)',
+    mode: 'enum(horizontal,vertical)',
+    'padding-bottom': 'unit(px,%)',
+    'padding-left': 'unit(px,%)',
+    'padding-right': 'unit(px,%)',
+    'padding-top': 'unit(px,%)',
+    padding: 'unit(px,%){1,4}',
+    'table-layout': 'enum(auto,fixed)',
+    'vertical-align': 'enum(top,bottom,middle)',
+  }
 
   static defaultAttributes = {
     align: 'center',

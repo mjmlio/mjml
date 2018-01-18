@@ -7,6 +7,23 @@ import widthParser from 'mjml-core/lib/helpers/widthParser'
 export default class MjImage extends BodyComponent {
   static tagOmission = true
 
+  static allowedAttributes = {
+    'alt': 'string',
+    'href': 'string',
+    'src': 'string',
+    'padding-bottom': 'unit(px,%)',
+    'padding-left': 'unit(px,%)',
+    'padding-right': 'unit(px,%)',
+    'padding-top': 'unit(px,%)',
+    padding: 'unit(px,%){1,4}',
+    border: 'string',
+    'border-bottom': 'string',
+    'border-left': 'string',
+    'border-right': 'string',
+    'border-top': 'string',
+    align: 'enum(left,center,right)',
+  }
+
   static defaultAttributes = {
     align: 'center',
     border: '0',

@@ -1,7 +1,7 @@
 import yargs from 'yargs'
 import { html as htmlBeautify } from 'js-beautify'
 import { flow, pick, isNil, negate, pickBy } from 'lodash/fp'
-import { isArray, isEmpty } from 'lodash'
+import { isArray, isEmpty, map } from 'lodash'
 
 import mjml2html from 'mjml-core'
 import migrate from 'mjml-migrate'
@@ -149,6 +149,12 @@ export default async () => {
       EXIT_CODE = 2
 
       failedStream.push({ file: i.file, error: e })
+    }
+  })
+
+  convertedStream.forEach(s => {
+    if (s.compiled && s.compiled.errors && s.compiled.errors.length) {
+      console.log(map(s.compiled.errors, 'formattedMessage').join('\n'))
     }
   })
 

@@ -1,7 +1,15 @@
+import { includes } from 'lodash'
 import ruleError from './ruleError'
+
+// Tags that have no associated components but are allowed even so
+const componentLessTags = [
+  'mj-all'
+]
 
 export default function validateTag(element, { components }) {
   const { tagName } = element
+
+  if (includes(componentLessTags, tagName)) return null
 
   const Component = components[tagName]
 

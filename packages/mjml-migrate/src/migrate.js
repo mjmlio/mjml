@@ -42,15 +42,16 @@ function cleanAttributes(attributes) {
   return attributes
 }
 
+const DEFAULT_SOCIAL_DISPLAY = 'facebook twitter google'
+
 function migrateSocialSyntax(socialTag) {
   const listAllNetworks = (tag) => {
-    let attributes = tag.attributes['display'].split(' ')
+    let attributes = (tag.attributes['display'] || DEFAULT_SOCIAL_DISPLAY).split(' ')
     delete(tag.attributes['display'])
     return attributes
   }
 
   const attributes = listAttributes(socialTag)
-  delete(attributes['display'])
 
   const networks = listAllNetworks(socialTag)
   socialTag.children = []

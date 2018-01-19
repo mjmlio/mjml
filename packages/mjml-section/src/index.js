@@ -74,7 +74,7 @@ export default class MjSection extends BodyComponent {
         'border-radius': this.getAttribute('border-radius'),
       },
       table: {
-        ...(fullWidth ? {} : background ),
+        ...(fullWidth ? {} : background),
         width: '100%',
         'border-radius': this.getAttribute('border-radius'),
       },

@@ -69,12 +69,12 @@ export default class MjSection extends BodyComponent {
 
     return {
       tableFullwidth: {
-        ...(fullWidth ? background : {}),
+        ...(fullWidth ? { background } : {}),
         width: '100%',
         'border-radius': this.getAttribute('border-radius'),
       },
       table: {
-        ...(fullWidth ? {} : background),
+        ...(fullWidth ? {} : { background }),
         width: '100%',
         'border-radius': this.getAttribute('border-radius'),
       },
@@ -95,7 +95,7 @@ export default class MjSection extends BodyComponent {
         'vertical-align': this.getAttribute('vertical-align'),
       },
       div: {
-        ...(fullWidth ? {} : background),
+        ...(fullWidth ? {} : { background }),
         Margin: '0px auto',
         'border-radius': this.getAttribute('border-radius'),
         'max-width': containerWidth,

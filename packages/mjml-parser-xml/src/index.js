@@ -174,7 +174,6 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
       onclosetag: () => {
         if (inInclude) {
           inInclude = false
-          return
         }
 
         cur = (cur && cur.parent) || null

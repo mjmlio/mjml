@@ -26,5 +26,4 @@ attribute            | unit          | description                    | default 
 ---------------------|---------------|--------------------------------|---------------
 width                | px            | email's width                  | 600px
 background-color     | color formats | the general background color   | n/a
-owa_desktop          | boolean       | set the layout for Outlook.com to desktop/mobile | false
 css-class            | string        | class name, added to the root HTML element created | n/a

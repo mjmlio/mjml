@@ -50,6 +50,8 @@ export default class MjSocialElement extends BodyComponent {
     'font-size': 'unit(px,%)',
     'font-style': 'string',
     'font-weight': 'string',
+    href: 'string',
+    'icon-color': 'color',
     'line-height': 'unit(px,%)',
     name: 'string',
     'padding-bottom': 'unit(px,%)',

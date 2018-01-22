@@ -1,5 +1,5 @@
 export default function ruleError(message, element) {
-  const { line, tagName, includedIn, absoluteFilePath } = element
+  const { line, tagName, absoluteFilePath } = element
 
   return {
     line,
@@ -11,7 +11,7 @@ export default function ruleError(message, element) {
 
 function formatInclude(element) {
   const { includedIn } = element
-  if (!includedIn.length) return ''
+  if (!(includedIn && includedIn.length)) return ''
 
   const formattedIncluded = includedIn.slice().reverse().map(({line, file}) => {
     return `line ${line} of file ${file}`

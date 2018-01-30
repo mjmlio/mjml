@@ -75,7 +75,6 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
         content: `<!-- mj-include fails to read file : ${file} at ${partialPath} -->`,
         children: [],
       }
-
       cur.children.push(newNode)
       cur = newNode
 
@@ -109,7 +108,10 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
     const head = findTag('mj-head', partialMjml)
 
     if (body) {
-      cur.children = [...cur.children, ...bindToTree(body.children)]
+      const boundChildren = bindToTree(body.children)
+      cur.children = [...cur.children, ...boundChildren]
+
+      cur = boundChildren[boundChildren.length - 1]
     }
 
     if (head) {
@@ -127,11 +129,15 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
         curHead = findTag('mj-head', mjml)
       }
 
+      const boundChildren = bindToTree(head.children, curHead)
       curHead.children = [
         ...curHead.children,
-        ...bindToTree(head.children, curHead),
+        ...boundChildren,
       ]
+
+      cur = boundChildren[boundChildren.length - 1]
     }
+
   }
 
   const parser = new htmlparser.Parser(

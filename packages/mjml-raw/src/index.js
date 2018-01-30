@@ -1,8 +1,10 @@
 import { BodyComponent } from 'mjml-core'
 
 export default class MjRaw extends BodyComponent {
-  static endingTag = true
-  static rawElement = true
+  constructor(props) {
+    super(props)
+    this.rawElement = true
+  }
 
   render() {
     return this.getContent()

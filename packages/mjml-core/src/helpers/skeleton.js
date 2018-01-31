@@ -83,7 +83,7 @@ export default function skeleton(options) {
           ? `<style type="text/css">${style.join('')}</style>`
           : ''}
       </head>
-      <body style="background-color:${backgroundColor};">
+      <body${backgroundColor === '' ? '' : ` style="background-color:${backgroundColor};"`}>
         ${buildPreview(preview)}
         ${content}
       </body>

@@ -62,10 +62,14 @@ export default class MjNavbarLink extends BodyComponent {
                ? url.resolve(navbarBaseUrl, href)
                : href
 
+    const cssClass = this.getAttribute('css-class')
+                   ? ` ${this.getAttribute('css-class')}`
+                   : ''
+
     return `
       <a
         ${this.htmlAttributes({
-          class: 'mj-link',
+          class: `mj-link${cssClass}`,
           href: link,
           rel,
           style: 'a'
@@ -87,7 +91,13 @@ export default class MjNavbarLink extends BodyComponent {
               'padding-top': this.getAttribute('padding-top'),
               'padding-left': this.getAttribute('padding-left'),
               'padding-right': this.getAttribute('padding-right'),
-              'padding-bottom': this.getAttribute('padding-bottom')
+              'padding-bottom': this.getAttribute('padding-bottom'),
+              class: this.getAttribute('css-class')
+                ? this.getAttribute('css-class')
+                    .split(' ')
+                    .map(c => `${c}-outlook`)
+                    .join(' ')
+                : null
             })}
           >
         `)}

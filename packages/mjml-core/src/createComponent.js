@@ -3,6 +3,7 @@ import { get, forEach, identity, reduce, kebabCase } from 'lodash'
 import MJMLParser from 'mjml-parser-xml'
 
 import shorthandParser from './helpers/shorthandParser'
+import jsonToXML from './helpers/jsonToXML'
 
 import components, { initComponent } from './components'
 
@@ -132,7 +133,12 @@ export class BodyComponent extends Component {
       props = {},
       renderer = component => component.render(),
       attributes = {},
+      rawXML = false
     } = options
+
+    if (rawXML) {
+      return children.map(child => jsonToXML(child)).join('\n')
+    }
 
     childrens = childrens || this.props.children
 

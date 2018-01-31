@@ -19,6 +19,7 @@ export default class MjSpacer extends BodyComponent {
     padding: 'unit(px,%){1,4}',
     'vertical-align': 'string',
     width: 'unit(px,%)',
+    height: 'unit(px,%)',
   }
 
   static defaultAttributes = {}

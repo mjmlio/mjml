@@ -9,6 +9,7 @@ export default class MjText extends BodyComponent {
     align: 'enum(left,right,center)',
     'background-color': 'color',
     color: 'color',
+    'container-background-color': 'color',
     'font-family': 'string',
     'font-size': 'unit(px,%)',
     'font-style': 'string',

@@ -47,12 +47,14 @@ export default function mjml2html(mjml, options = {}) {
     minify = false,
     skeleton = defaultSkeleton,
     validationLevel = 'soft',
+    filePath = '.'
   } = options
 
   if (typeof mjml === 'string') {
     mjml = MJMLParser(mjml, {
       keepComments,
       components,
+      filePath
     })
   }
 
@@ -224,7 +226,7 @@ export default function mjml2html(mjml, options = {}) {
     ...globalDatas,
   })
 
-  content = beautify
+  content = (beautify && beautify !== 'false')
     ? htmlBeautify(content, {
         indent_size: 2,
         wrap_attributes_indent_size: 2,
@@ -233,7 +235,7 @@ export default function mjml2html(mjml, options = {}) {
       })
     : content
 
-  content = minify
+  content = (minify && minify !== 'false')
     ? htmlMinify(content, {
         collapseWhitespace: true,
         minifyCSS: true,

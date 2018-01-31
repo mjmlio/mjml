@@ -3,7 +3,8 @@ import ruleError from './ruleError'
 
 // Tags that have no associated components but are allowed even so
 const componentLessTags = [
-  'mj-all'
+  'mj-all',
+  'mj-class'
 ]
 
 export default function validateTag(element, { components }) {

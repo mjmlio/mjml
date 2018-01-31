@@ -212,7 +212,7 @@ export default class MjHero extends BodyComponent {
                   renderer: (
                     component, // eslint-disable-line no-confusing-arrow
                   ) =>
-                    component.rawElement
+                    component.constructor.isRawElement()
                       ? component.render()
                       : `
                     <tr>

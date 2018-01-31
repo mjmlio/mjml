@@ -182,7 +182,7 @@ export default class MjGroup extends BodyComponent {
           ${this.renderChildren(children, {
             attributes: { mobileWidth: 'mobileWidth' },
             renderer: component =>
-              component.rawElement
+              component.constructor.isRawElement()
                 ? component.render()
                 : `
               <!--[if mso | IE]>

@@ -225,7 +225,7 @@ export default class MjColumn extends BodyComponent {
           renderer: (
             component, // eslint-disable-line no-confusing-arrow
           ) =>
-            component.rawElement
+            component.constructor.isRawElement()
               ? component.render()
               : `
             <tr>

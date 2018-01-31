@@ -11,6 +11,9 @@ class Component {
   static getTagName() {
     return kebabCase(this.name)
   }
+  static isRawElement() {
+    return !!this.rawElement
+  }
 
   static defaultAttributes = {}
 
@@ -133,7 +136,7 @@ export class BodyComponent extends Component {
       props = {},
       renderer = component => component.render(),
       attributes = {},
-      rawXML = false
+      rawXML = false,
     } = options
 
     if (rawXML) {

@@ -174,7 +174,7 @@ export default class MjSection extends BodyComponent {
       <![endif]-->
       ${this.renderChildren(children, {
         renderer: component =>
-          component.rawElement
+          component.constructor.isRawElement()
             ? component.render()
             : `
           <!--[if mso | IE]>

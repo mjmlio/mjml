@@ -5,6 +5,7 @@ export default class MjRaw extends BodyComponent {
     super(props)
     this.rawElement = true
   }
+  static endingTag = true
 
   render() {
     return this.getContent()

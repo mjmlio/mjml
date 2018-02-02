@@ -52,7 +52,7 @@ npm install mjml
 Download and install [yarn](https://yarnpkg.com/lang/en/docs/install/) for easy development.
 
 ```bash
-yarn add mjml
+git clone https://github.com/mjmlio/mjml.git
 yarn 
 yarn build
 ```

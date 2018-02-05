@@ -64,7 +64,6 @@ export default class MjSocialElement extends BodyComponent {
     src: 'string',
     target: 'string',
     'text-decoration': 'string',
-    width: 'integer',
   }
 
   static defaultAttributes = {
@@ -77,7 +76,6 @@ export default class MjSocialElement extends BodyComponent {
     padding: '4px',
     target: '_blank',
     'text-decoration': 'none',
-    width: '100%',
   }
 
   getStyles() {

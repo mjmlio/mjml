@@ -28,6 +28,16 @@ Displays calls-to-action for various social networks with their associated logo.
 </mjml>
 ```
 
+<aside class="notice">
+  You can add any unsupported network like this:
+
+```xml
+    <mj-social-element href="url" background-color="#FF00FF" src="path-to-your-icon">
+      Optional label
+    </mj-social-element>
+```
+</aside>
+
 <p align="center">
   <a href="https://mjml.io/try-it-live/components/social">
     <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
@@ -40,6 +50,7 @@ Displays calls-to-action for various social networks with their associated logo.
   Example: <code class="prettyprint">&lt;mj-social display="facebook" /&gt;</code> will render <code class="prettyprint">https://www.facebook.com/sharer/sharer.php?u=[[facebook-href]]</code> url, and <code class="prettyprint">&lt;mj-social display="facebook:url" /&gt;</code> will render <code class="prettyprint">[[facebook-href]]</code> url
 </aside>
 -->
+
 
 attribute                   | unit        | description                   | default value
 ----------------------------|-------------|-------------------------------|---------------------------
@@ -62,7 +73,7 @@ container-background-color  | color       | inner element background color      
 
 ### mj-social-element
 
-This component enables you to display a given social network inside `mj-social`.
+This component enables you to display a given social network inside `mj-social`.  
 Note that default icons are transparent, which allows `background-color` to actually be the icon color.
 
 attribute                   | unit        | description                   | default value
@@ -87,13 +98,4 @@ padding-top                 | px          | top offset                         |
 padding-bottom              | px          | bottom offset                    | n/a
 padding-left                | px          | left offset                      | n/a
 padding-right               | px          | right offset                       | n/a
-
-<aside class="notice">
-  You can add any unsupported network inside <code class="prettyprint">mj-social</code> like this:
-
-```xml
-    <mj-social-element href="url" background-color="#FF00FF" src="path-to-your-icon">
-      Optional label
-    </mj-social-element>
-```
-</aside>
+target                      | string      | usual html link target              | \_blank

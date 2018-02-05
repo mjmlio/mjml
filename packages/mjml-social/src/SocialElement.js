@@ -44,6 +44,7 @@ export default class MjSocialElement extends BodyComponent {
 
   static allowedAttributes = {
     align: 'enum(left,center,right)',
+    'background-color': 'color',
     color: 'color',
     'border-radius': 'unit(px)',
     'font-family': 'string',
@@ -52,6 +53,7 @@ export default class MjSocialElement extends BodyComponent {
     'font-weight': 'string',
     href: 'string',
     'icon-color': 'color',
+    'icon-size': 'unit(px,%)',
     'line-height': 'unit(px,%)',
     name: 'string',
     'padding-bottom': 'unit(px,%)',
@@ -59,6 +61,7 @@ export default class MjSocialElement extends BodyComponent {
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
     padding: 'unit(px,%){1,4}',
+    src: 'string',
     target: 'string',
     'text-decoration': 'string',
     width: 'integer',

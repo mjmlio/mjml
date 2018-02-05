@@ -41,23 +41,11 @@ Displays calls-to-action for various social networks with their associated logo.
 </aside>
 -->
 
-<aside class="notice">
-  You can add any unsupported network inside <code class="prettyprint">mj-social</code> like this:
-
-```xml
-    <mj-social-element href="url" icon-color="#FF00FF" icon="path-to-your-icon">
-      Optional label
-    </mj-social-element>
-```
-</aside>
-
-
 attribute                   | unit        | description                   | default value
 ----------------------------|-------------|-------------------------------|---------------------------
 border-radius               | px          | border radius                 | 3px
 font-family                 | string      | font name                     | Ubuntu, Helvetica, Arial, sans-serif
 font-size                   | px/em       | font size                     | 13px
-icon-color                  | color       | icon color                    | #dc4e41
 icon-size                   | percent/px  | icon size                     | 20px
 line-height                 | percent/px  | space between lines           | 22px
 mode                        | string      | vertical/horizontal           | horizontal
@@ -75,12 +63,13 @@ container-background-color  | color       | inner element background color      
 ### mj-social-element
 
 This component enables you to display a given social network inside `mj-social`.
+Note that default icons are transparent, which allows `background-color` to actually be the icon color.
 
 attribute                   | unit        | description                   | default value
 ----------------------------|-------------|-------------------------------|---------------------------
 border-radius               | px          | border radius                 | 3px
 href                        | url         | button redirection url        | [[SHORT_PERMALINK]]
-icon-color                  | color       | icon color                    | #3b5998
+background-color            | color       | icon color                    | #3b5998
 font-family                 | string      | font name                     | Ubuntu, Helvetica, Arial, sans-serif
 font-size                   | px/em       | font size                     | 13px
 icon-size                   | percent/px  | icon size                     | 20px
@@ -91,6 +80,7 @@ text-mode                   | string      | display social network name   | true
 align                       | string      | left/right/center             | center
 color                       | color       | text color                    | #333333
 name                        | string      | `facebook google instagram pinterest linkedin twitter` | N/A
+src                         | url         | image source                  | Each social `name` has its own default
 inner-padding               | px          | social network surrounding padding                 | 4px
 padding                     | px          | supports up to 4 parameters                       | 10px 25px
 padding-top                 | px          | top offset                         | n/a
@@ -98,3 +88,12 @@ padding-bottom              | px          | bottom offset                    | n
 padding-left                | px          | left offset                      | n/a
 padding-right               | px          | right offset                       | n/a
 
+<aside class="notice">
+  You can add any unsupported network inside <code class="prettyprint">mj-social</code> like this:
+
+```xml
+    <mj-social-element href="url" background-color="#FF00FF" src="path-to-your-icon">
+      Optional label
+    </mj-social-element>
+```
+</aside>

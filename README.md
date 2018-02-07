@@ -41,71 +41,64 @@ MJML is a markup language designed to reduce the pain of coding a responsive ema
 
 # Installation
 
-### Requirements
- - Node >= 4.2.x
-
-<p>
-  <a href="https://www.npmjs.com/package/mjml" target="_blank">
-    <strong align="left">Via NPM: </strong>
-    <img align="right" width="30" src="https://www.npmjs.com/static/images/npm-logo.svg">
-  </a>
-</p>
-
-We recommend installing and using MJML locally, in a project folder where you'll use MJML: 
+If you don't have it already, download and install [Node.js](https://nodejs.org/en/).
+ 
 ```bash
 npm install mjml
 ```
-In the folder where you installed MJML you can now run:
+
+# Development
+
+Download and install [yarn](https://yarnpkg.com/lang/en/docs/install/) for easy development.
+
 ```bash
-./node_modules/.bin/mjml input.mjml
+git clone https://github.com/mjmlio/mjml.git && cd mjml
+yarn 
+yarn build
 ```
-To avoid typing `./node_modules/.bin/`, add it to your PATH:
-```bash
-export PATH="$PATH:./node_modules/.bin"
-```
-You can now run MJML directly, in that folder:
-```bash
-mjml input.mjml
-```
-<a href="https://github.com/mjmlio/mjml/releases" target="_blank">
-  <strong align="left">Via... click: </strong>
-</a>
+
+You can also run `yarn build:watch` to rebuild the package as you code.
+
+# Usage
+
+## Online
+
+Don't want to install anything? Use the free online editor!
 
 <p align="center">
-  <a href="https://github.com/mjmlio/mjml/releases" target="_blank">
-    <img width="100" src="https://cloud.githubusercontent.com/assets/6558790/12175323/cdc78a78-b561-11e5-99e2-23abd893879a.png">
-  </a>
+  <a href="http://mjml.io/try-it-live" target="_blank"><img src="https://cloud.githubusercontent.com/assets/6558790/12195421/58a40618-b5f7-11e5-9ed3-80463874ab14.png" alt="try it live" width="75%"></a>
 </p>
+<br>
 
-# Show me the code!
+## Applications and plugins
 
-### Command line
+MJML comes with an ecosystem of tools and plugins, check out:
+- The [MJML App](https://mjmlio.github.io/mjml-app/) (MJML is included)
+- [Visual Studio Code plugin] (https://github.com/attilabuti/vscode-mjml) (MJML is included)
+- [Atom plugin](https://atom.io/users/mjmlio) (MJML needs to be installed separately)
+- [Sublime Text plugin](https://packagecontrol.io/packages/MJML-syntax) (MJML needs to be installed separately)
+
+For more tools, check the [Community](https://mjml.io/community) page.
+
+## Command line interface
 
 > Compiles the file and outputs the HTML generated in `input.html`
 
 ```bash
-mjml -r input.mjml
+mjml input.mjml
 ```
 
-> Redirects the HTML generated to a file named output.html
+You can pass optional `arguments` to the CLI, following the `mjml` command.
 
-```bash
-mjml -r input.mjml -o output.html
-```
+argument | description | default value
+---------|--------|--------------
+`mjml -m [input]` | Migrates a v3 MJML file to the v4 syntax | NA
+`mjml [input] -o [output]` | Writes the output to [output] | NA
+`mjml [input] -s` | Writes the output to `stdout` | NA
+`mjml [input] --config.beautify` | Beautifies the output (`true` or `false`) | true
+`mjml [input] --config.minify` | Minifies the output (`true` or `false`) | false
 
-> Sets the validation rule to `skip` so that the file is rendered without being validated
-
-```bash
-mjml -l skip -r input.mjml
-```
-
-> Watches a file and compiles every time the file changes
-
-```bash
-mjml -w input.mjml -o output.html
-```
-
-### Inside Node.js
+## Inside Node.js
 
 ```javascript
 import { mjml2html } from 'mjml'
@@ -125,7 +118,8 @@ const htmlOutput = mjml2html(`
       </mj-section>
     </mj-body>
   </mjml>
-`)
+`, options)
+
 
 /*
   Print the responsive HTML generated and MJML errors if any
@@ -133,55 +127,36 @@ const htmlOutput = mjml2html(`
 console.log(htmlOutput)
 ```
 
-### Create your component
+You can pass optional `options` as an object to the `mjml2html` function:
 
-One of the great advantages of MJML is that it's component based. Components abstract complex patterns and can easily be reused. Added to the standard library of components, it is also possible to create your own components!
+option   | unit   | description  | default value
+-------------|--------|--------------|---------------
+fonts  | object | Default fonts imported in the HTML rendered by HTML | See in [index.js](https://github.com/mjmlio/mjml/blob/master/packages/mjml-core/src/index.js#L36-L44)
+keepComments | boolean | Option to keep comments in the HTML output | true 
+beautify | boolean | Option to beautify the HTML output | false
+minify | boolean | Option to minify the HTML output | false
+validationLevel | string | Available values for the [validator](https://github.com/mjmlio/mjml/tree/master/packages/mjml-validator#validating-mjml): 'strict', 'soft', 'skip'  | 'soft'
+filePath | boolean | Option to beautify the HTML output | false
 
-To learn how to create your own component, follow this [step-by-step guide](https://medium.com/mjml-making-responsive-email-easy/tutorial-creating-your-own-mjml-component-d3a236ab7093#.pz0ebb537) which also includes a ready-to-use boilerplate.
+## API
 
+A free-to-use MJML API is available to make it easy to integrate MJML in your application. Head over [here](https://mjml.io/api) to learn more about the API.
 
-# Try it live
+# MJML Slack
 
-Get your hands dirty by trying the MJML online editor! Write awesome code on the left side and preview your email on the right. You can also get the rendered HTML directly from the online editor.
-
-<p align="center">
-  <a href="http://mjml.io/try-it-live"><img src="https://cloud.githubusercontent.com/assets/6558790/12195421/58a40618-b5f7-11e5-9ed3-80463874ab14.png" alt="try it live" width="75%"></a>
-</p>
-<br>
+MJML wouldn't be as cool without its amazing community. Head over the [Community Slack](https://slack.mjml.io/) to meet fellow MJML'ers.
 
 # Contributors
 
-<table cellpadding="0">
-  <tr>
-    <th><a href="https://github.com/iRyusa"><img src="https://avatars2.githubusercontent.com/u/570317?v=3&s=192" alt="Maxime" width="100px"></a></th>
-    <th><a href="https://github.com/robink"><img src="https://avatars0.githubusercontent.com/u/116530?v=3&s=192" alt="Robin" width="100px"></a></th>
-    <th><a href="https://github.com/lohek"><img src="https://avatars1.githubusercontent.com/u/582703?v=3&s=192" alt="Loeck" width="100px"></a></th>
-    <th><a href="https://github.com/GuillaumeBadi"><img src="https://avatars3.githubusercontent.com/u/6558790?v=3&s=192" alt="Guillaume" width="100px"></a></th>
-    <th><a href="https://github.com/meriadec"><img src="https://avatars1.githubusercontent.com/u/315259?v=3&s=192" alt="Meriadec" width="100px"></a></th>
-     <th><a href="https://github.com/ngarnier"><img src="https://avatars3.githubusercontent.com/u/4700883?v=3&s=400" alt="Nicolas" width="100px"></a></th>
-    <th><a href="https://github.com/arnaudbreton"><img src="https://avatars0.githubusercontent.com/u/1361191?v=3&s=192" alt="Arnaud" width="100px"></a></th>
-     <th><a href="https://github.com/hteumeuleu"><img src="https://avatars2.githubusercontent.com/u/3451753?v=3&s=460" alt="HTeuMeuLeu" width="100px"></a></th>
-     <th><a href="https://github.com/epayet"><img src="https://avatars1.githubusercontent.com/u/3276179?v=3&s=460" alt="Emmanuel Payer" width="100px"></a></th>
-     <th><a href="https://github.com/swibge"><img src="https://avatars1.githubusercontent.com/u/2217014?v=3&s=96" alt="Matthieu" width="100px"></a></th>
-  </tr>
-  <tr>
-    <td><a href="https://github.com/iRyusa">Maxime</a></td>
-    <td><a href="https://github.com/robink">Robin</a></td>
-    <td><a href="https://github.com/lohek">Loeck</a></td>
-    <td><a href="https://github.com/GuillaumeBadi">Guillaume</a></td>
-    <td><a href="https://github.com/meriadec">Meriadec</a></td>
-    <td><a href="https://github.com/ngarnier">Nicolas</a></td>
-    <td><a href="https://github.com/arnaudbreton">Arnaud</a></td>    
-    <td><a href="https://github.com/hteumeuleu">HTeuMeuLeu</a></td>
-    <td><a href="https://github.com/epayet">Emmanuel Payet</a></td>
-    <td><a href="https://github.com/swibge">Matthieu</a></td>
-  </tr>
-</table>
-
-
-# Contribute
-
- - [ ] Fork the repository
- - [x] Code an awesome feature (we are confident about that)
- - [ ] Make your pull request
- - [ ] Add your github profile here
+- [Maxime]("https://github.com/iRyusa")
+- [Nicolas]("https://github.com/ngarnier")
+- [Cedric]("https://github.com/kmcb777")
+- [Loeck]("https://github.com/lohek")
+- [Robin]("https://github.com/robink")
+- [Guillaume]("https://github.com/GuillaumeBadi")
+- [Meriadec]("https://github.com/meriadec")
+- [Arnaud]("https://github.com/arnaudbreton")
+- [HTeuMeuLeu]("https://github.com/hteumeuleu")
+- [Emmanuel Payet]("https://github.com/epayet")
+- [Matthieu]("https://github.com/swibge")
+- ["Rogier"]("https://github.com/rogierslag")

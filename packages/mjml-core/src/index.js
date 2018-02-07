@@ -238,7 +238,7 @@ export default function mjml2html(mjml, options = {}) {
   content = (minify && minify !== 'false')
     ? htmlMinify(content, {
         collapseWhitespace: true,
-        minifyCSS: true,
+        minifyCSS: false,
         removeEmptyAttributes: true,
       })
     : content

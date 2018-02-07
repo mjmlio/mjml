@@ -18,11 +18,14 @@ export default class MjImage extends BodyComponent {
     'border-left': 'string',
     'border-right': 'string',
     'border-top': 'string',
+    'border-radius': 'unit(px,%)',
+    'container-background-color': 'string',
     padding: 'unit(px,%){1,4}',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
+    height: 'unit(px,%)',
     width: 'unit(px,%)',
   }
 

@@ -10,6 +10,7 @@ export default class MjSocial extends BodyComponent {
     'font-size': 'unit(px,%)',
     'font-style': 'string',
     'font-weight': 'string',
+    'icon-size': 'unit(px,%)',
     'inner-padding': 'unit(px,%)',
     'line-height': 'unit(px,%)',
     mode: 'enum(horizontal,vertical)',

@@ -130,9 +130,14 @@ Note here that colors can be expressed using different formats (rgb, hsl, hex et
 <mj-section background-color="#f3f3f3">
   <mj-column>
     <mj-text>Stay in touch!</mj-text>
-      <mj-social
-          mode="vertical"
-          display="twitter facebook" />
+    <mj-social mode="vertical">
+      <mj-social-element name="facebook">
+        Share
+      </mj-social-element>
+      <mj-social-element name="twitter">
+        Tweet
+      </mj-social-element>
+    </mj-social>
   </mj-column>
 </mj-section>
 

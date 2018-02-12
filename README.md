@@ -41,7 +41,7 @@ MJML is a markup language designed to reduce the pain of coding a responsive ema
 
 # Installation
 
-If you don't have it already, download and install [Node.js](https://nodejs.org/en/).
+You can install MJML with NPM to use it with NodeJS or the Command Line Interface. If you're not sure what those are, head over to <a href="#usage">Usage</a> for other ways to use MJML.
  
 ```bash
 npm install mjml
@@ -49,7 +49,7 @@ npm install mjml
 
 # Development
 
-Download and install [yarn](https://yarnpkg.com/lang/en/docs/install/) for easy development.
+To work on MJML, make changes and create merge requests, download and install [yarn](https://yarnpkg.com/lang/en/docs/install/) for easy development.
 
 ```bash
 git clone https://github.com/mjmlio/mjml.git && cd mjml

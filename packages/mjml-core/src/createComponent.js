@@ -198,7 +198,7 @@ export class HeadComponent extends Component {
         },
       })
 
-      if (component.handler) {
+      if (component && component.handler) {
         component.handler()
       }
     })

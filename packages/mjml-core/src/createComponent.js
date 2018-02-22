@@ -198,7 +198,12 @@ export class HeadComponent extends Component {
         },
       })
 
-      if (component && component.handler) {
+      if (!component) {
+        console.log(`No matching component for tag : ${children.tagName}`)
+        return
+      }
+
+      if (component.handler) {
         component.handler()
       }
     })

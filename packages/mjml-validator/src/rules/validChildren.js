@@ -33,7 +33,7 @@ export default function validChildren(element, { components }) {
       }
 
       if (parentDependencies.some(dep => dep instanceof RegExp && dep.test(childTagName))) {
-        return true
+        return null
       }
 
       const allowedDependencies = keys(dependencies).filter(key => {

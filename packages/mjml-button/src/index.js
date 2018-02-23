@@ -47,6 +47,7 @@ export default class MjButton extends BodyComponent {
     'inner-padding': '10px 25px',
     'line-height': '120%',
     padding: '10px 25px',
+    target: '_blank',
     'text-decoration': 'none',
     'text-transform': 'none',
     'vertical-align': 'middle',
@@ -120,7 +121,7 @@ export default class MjButton extends BodyComponent {
                 rel: this.getAttribute('rel'),
                 style: 'content',
                 target: tag === 'a'
-                        ? (this.getAttribute('target') || '_blank')
+                        ? this.getAttribute('target')
                         : undefined,
               })}
             >

@@ -16,6 +16,10 @@ export default class MjCarouselImage extends BodyComponent {
     'tb-border-radius': 'unit(px,%){1,4}'
   }
 
+  static defaultAttributes = {
+    target: '_blank'
+  }
+
   getStyles() {
     return {
       images: {
@@ -56,7 +60,7 @@ export default class MjCarouselImage extends BodyComponent {
   }
 
   renderThumbnail() {
-    const { carouselId, src, alt, 'tb-width': width } = this.attributes
+    const { carouselId, src, alt, 'tb-width': width, target } = this.attributes
     const imgIndex = this.props.index + 1
 
     return `
@@ -64,6 +68,7 @@ export default class MjCarouselImage extends BodyComponent {
         ${this.htmlAttributes({
           style: 'thumbnails.a',
           href: `#${imgIndex}`,
+          target,
           class: `mj-carousel-thumbnail mj-carousel-${carouselId}-thumbnail mj-carousel-${carouselId}-thumbnail-${imgIndex}`
         })}
       >

@@ -12,6 +12,7 @@ export default class MjNavbarLink extends BodyComponent {
     'font-size': 'unit(px,%)',
     'font-weight': 'string',
     href: 'string',
+    target: 'string',
     rel: 'string',
     'line-height': 'unit(px,%)',
     'padding-bottom': 'unit(px,%)',
@@ -30,6 +31,7 @@ export default class MjNavbarLink extends BodyComponent {
     'font-weight': 'normal',
     'line-height': '22px',
     'padding': '15px 10px',
+    target: '_blank',
     'text-decoration': 'none',
     'text-transform': 'uppercase'
   }
@@ -56,7 +58,6 @@ export default class MjNavbarLink extends BodyComponent {
 
   renderContent() {
     const href = this.getAttribute('href')
-    const rel = this.getAttribute('rel')
     const navbarBaseUrl = this.getAttribute('navbarBaseUrl')
     const link = navbarBaseUrl
                ? url.resolve(navbarBaseUrl, href)
@@ -71,7 +72,8 @@ export default class MjNavbarLink extends BodyComponent {
         ${this.htmlAttributes({
           class: `mj-link${cssClass}`,
           href: link,
-          rel,
+          rel: this.getAttribute('rel'),
+          target: this.getAttribute('target'),
           style: 'a'
         })}
       >

@@ -136,12 +136,24 @@ export default function mjml2html(mjml, options = {}) {
       const classes = get(mjml.attributes, 'mj-class', '').split(' ')
       const attributesClasses = reduce(
         classes,
-        (acc, value) => ({
-          ...acc,
-          ...globalDatas.classes[value],
-        }),
+        (acc, value) => {
+          const mjClassValues = globalDatas.classes[value]
+          let multipleClasses = {}
+          if (acc['css-class'] && mjClassValues && mjClassValues['css-class']) {
+            multipleClasses = {
+              'css-class': `${acc['css-class']} ${mjClassValues['css-class']}`
+            }
+          }
+
+          return {
+            ...acc,
+            ...mjClassValues,
+            ...multipleClasses
+          }
+        },
         {},
       )
+
       const defaultAttributesForClasses = reduce(
         parentMjClass.split(' '),
         (acc, value) => ({

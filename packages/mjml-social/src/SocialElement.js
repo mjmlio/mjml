@@ -161,6 +161,7 @@ export default class MjSocialElement extends BodyComponent {
                 <a ${this.htmlAttributes({
                   href,
                   rel: this.getAttribute('rel'),
+                  target: this.getAttribute('target'),
                 })}>
                     <img
                       ${this.htmlAttributes({

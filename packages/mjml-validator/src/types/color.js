@@ -1,5 +1,5 @@
 import Type from './type'
-import colors from '../helpers/colors'
+import colors from './helpers/colors'
 
 export const matcher = /^color/gim
 

@@ -39,7 +39,7 @@ mj-group allows you to prevent columns from stacking on mobile. To do so, wrap t
 ```
 
 <p align="center">
-  <a href="/try-it-live/components/group"><img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" /></a>
+  <a href="https://mjml.io/try-it-live/components/group"><img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" /></a>
 </p>
 
 <aside class="notice">

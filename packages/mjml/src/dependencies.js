@@ -25,10 +25,10 @@ export default {
     'mj-spacer',
     'mj-table',
     'mj-text',
+    'mj-navbar'
   ],
   'mj-container': [
     'mj-hero',
-    'mj-navbar',
     'mj-raw',
     'mj-section',
     'mj-wrapper',
@@ -43,8 +43,7 @@ export default {
     'mj-style',
     'mj-title',
   ],
-  'mj-hero': ['mj-hero-content'],
-  'mj-hero-content': [
+  'mj-hero': [
     'mj-accordion',
     'mj-button',
     'mj-carousel',
@@ -57,6 +56,7 @@ export default {
     'mj-spacer',
     'mj-table',
     'mj-text',
+    'mj-navbar'
   ],
   'mj-html': [],
   'mj-image': [],
@@ -66,12 +66,13 @@ export default {
   'mj-link': [],
   'mj-list': [],
   'mj-location': [],
-  'mj-navbar': ['mj-column', 'mj-group', 'mj-raw'],
+  'mj-navbar': ['mj-navbar-link'],
   'mj-raw': [],
   'mj-section': ['mj-column', 'mj-group', 'mj-raw'],
-  'mj-social': [],
+  'mj-social': ['mj-social-element'],
+  'mj-social-element': [],
   'mj-spacer': [],
   'mj-table': [],
   'mj-text': [],
-  'mj-wrapper': ['mj-hero', 'mj-navbar', 'mj-raw', 'mj-section'],
+  'mj-wrapper': ['mj-hero', 'mj-raw', 'mj-section'],
 }

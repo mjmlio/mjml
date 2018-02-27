@@ -61,7 +61,7 @@ export default class MjSection extends BodyComponent {
     const fullWidth = this.isFullWidth()
 
     const background = this.getAttribute('background-url')
-      ? this.getBackground()
+      ? { background: this.getBackground() }
       : {
           background: this.getAttribute('background-color'),
           'background-color': this.getAttribute('background-color'),
@@ -174,7 +174,7 @@ export default class MjSection extends BodyComponent {
       <![endif]-->
       ${this.renderChildren(children, {
         renderer: component =>
-          component.rawElement
+          component.constructor.isRawElement()
             ? component.render()
             : `
           <!--[if mso | IE]>

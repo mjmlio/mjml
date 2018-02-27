@@ -27,7 +27,7 @@ const indexesForNewLine = xml => {
   return indexes
 }
 
-export default function MJMLParser(xml, options = {}) {
+export default function MJMLParser(xml, options = {}, includedIn = []) {
   const {
     addEmptyAttributes = true,
     components = {},
@@ -50,12 +50,17 @@ export default function MJMLParser(xml, options = {}) {
 
   let mjml = null
   let cur = null
-  let inInclude = false
+  let inInclude = !!includedIn.length
 
   const findTag = (tagName, tree) => find(tree.children, { tagName })
   const lineIndexes = indexesForNewLine(safeXml)
+
   const handleInclude = (file, line) => {
     const partialPath = path.resolve(cwd, file)
+
+    if (find(cur.includedIn, {file: partialPath}))
+      throw new Error(`Circular inclusion detected on file : ${partialPath}`)
+
     let content
 
     try {
@@ -70,7 +75,6 @@ export default function MJMLParser(xml, options = {}) {
         content: `<!-- mj-include fails to read file : ${file} at ${partialPath} -->`,
         children: [],
       }
-
       cur.children.push(newNode)
       cur = newNode
 
@@ -82,10 +86,17 @@ export default function MJMLParser(xml, options = {}) {
         ? `<mjml><mj-body>${content}</mj-body></mjml>`
         : content
 
-    const partialMjml = MJMLParser(content, {
-      ...options,
-      filePath: partialPath,
-    })
+    const partialMjml = MJMLParser(content,
+      {
+        ...options,
+        filePath: partialPath,
+      },
+      [...cur.includedIn, {
+        file: cur.absoluteFilePath,
+        line
+      }]
+    )
+
     const bindToTree = (children, tree = cur) =>
       children.map(c => ({ ...c, parent: tree }))
 
@@ -97,7 +108,10 @@ export default function MJMLParser(xml, options = {}) {
     const head = findTag('mj-head', partialMjml)
 
     if (body) {
-      cur.children = [...cur.children, ...bindToTree(body.children)]
+      const boundChildren = bindToTree(body.children)
+      cur.children = [...cur.children, ...boundChildren]
+
+      cur = boundChildren[boundChildren.length - 1]
     }
 
     if (head) {
@@ -115,11 +129,15 @@ export default function MJMLParser(xml, options = {}) {
         curHead = findTag('mj-head', mjml)
       }
 
+      const boundChildren = bindToTree(head.children, curHead)
       curHead.children = [
         ...curHead.children,
-        ...bindToTree(head.children, curHead),
+        ...boundChildren,
       ]
+
+      cur = boundChildren[boundChildren.length - 1]
     }
+
   }
 
   const parser = new htmlparser.Parser(
@@ -130,7 +148,6 @@ export default function MJMLParser(xml, options = {}) {
 
         if (name === 'mj-include') {
           inInclude = true
-
           return handleInclude(decodeURIComponent(attrs.path), line)
         }
 
@@ -145,6 +162,7 @@ export default function MJMLParser(xml, options = {}) {
           file: filePath,
           absoluteFilePath: path.resolve(cwd, filePath),
           line,
+          includedIn,
           parent: cur,
           tagName: name,
           attributes: attrs,
@@ -162,7 +180,6 @@ export default function MJMLParser(xml, options = {}) {
       onclosetag: () => {
         if (inInclude) {
           inInclude = false
-          return
         }
 
         cur = (cur && cur.parent) || null

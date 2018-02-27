@@ -1,8 +1,10 @@
 import yargs from 'yargs'
-
+import { html as htmlBeautify } from 'js-beautify'
 import { flow, pick, isNil, negate, pickBy } from 'lodash/fp'
-import { isArray, isEmpty } from 'lodash'
+import { isArray, isEmpty, map } from 'lodash'
+
 import mjml2html from 'mjml-core'
+import migrate from 'mjml-migrate'
 
 import readFile, { flatMapPaths } from './commands/readFile'
 import watchFiles from './commands/watchFiles'
@@ -13,6 +15,13 @@ import outputToConsole from './commands/outputToConsole'
 import { version as coreVersion } from 'mjml-core/package.json' // eslint-disable-line import/first
 import { version as cliVersion } from '../package.json'
 import { DEFAULT_OPTIONS } from './helpers/defaultOptions'
+
+const beautifyOptions = {
+  indent_size: 2,
+  wrap_attributes_indent_size: 2,
+  max_preserve_newline: 0,
+  preserve_newlines: false,
+}
 
 export default async () => {
   let EXIT_CODE = 0
@@ -35,6 +44,11 @@ export default async () => {
       r: {
         alias: 'read',
         describe: 'Compile MJML File(s)',
+        type: 'array',
+      },
+      m: {
+        alias: 'migrate',
+        describe: 'Migrate MJML3 File(s)',
         type: 'array',
       },
       w: {
@@ -68,7 +82,7 @@ export default async () => {
     .version(`mjml-core: ${coreVersion}\nmjml-cli: ${cliVersion}`).argv
 
   const config = Object.assign(DEFAULT_OPTIONS, argv.c)
-  const inputArgs = pickArgs(['r', 'w', 'i', '_'])(argv)
+  const inputArgs = pickArgs(['r', 'w', 'i', '_', 'm'])(argv)
   const outputArgs = pickArgs(['o', 's'])(argv)
 
   // implies (until yargs pr is accepted)
@@ -100,6 +114,7 @@ export default async () => {
 
   switch (inputOpt) {
     case 'r':
+    case 'm':
     case '_': {
       flatMapPaths(inputFiles).forEach(file => {
         inputs.push(readFile(file))
@@ -125,13 +140,21 @@ export default async () => {
     try {
       convertedStream.push(
         Object.assign({}, i, {
-          compiled: mjml2html(i.mjml, { ...config, filePath: i.file }),
+          compiled: inputOpt === 'm'
+                    ? { html: htmlBeautify(migrate(i.mjml), beautifyOptions) }
+                    : mjml2html(i.mjml, { ...config, filePath: i.file })
         }),
       )
     } catch (e) {
       EXIT_CODE = 2
 
       failedStream.push({ file: i.file, error: e })
+    }
+  })
+
+  convertedStream.forEach(s => {
+    if (s.compiled && s.compiled.errors && s.compiled.errors.length) {
+      console.log(map(s.compiled.errors, 'formattedMessage').join('\n'))
     }
   })
 

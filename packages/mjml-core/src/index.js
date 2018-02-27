@@ -6,6 +6,7 @@ import { minify as htmlMinify } from 'html-minifier'
 
 import MJMLParser from 'mjml-parser-xml'
 import MJMLValidator from 'mjml-validator'
+import { handleMjml3 } from 'mjml-migrate'
 
 import components, { initComponent, registerComponent } from './components'
 
@@ -46,14 +47,18 @@ export default function mjml2html(mjml, options = {}) {
     minify = false,
     skeleton = defaultSkeleton,
     validationLevel = 'soft',
+    filePath = '.'
   } = options
 
   if (typeof mjml === 'string') {
     mjml = MJMLParser(mjml, {
       keepComments,
       components,
+      filePath
     })
   }
+
+  mjml = handleMjml3(mjml)
 
   const globalDatas = {
     backgroundColor: '',
@@ -63,6 +68,8 @@ export default function mjml2html(mjml, options = {}) {
     defaultAttributes: {},
     fonts,
     inlineStyle: [],
+    headStyle: {},
+    componentsHeadStyle: [],
     mediaQueries: {},
     preview: '',
     style: [],
@@ -167,6 +174,12 @@ export default function mjml2html(mjml, options = {}) {
         className
       ] = `{ width:${parsedWidth}${unit} !important; }`
     },
+    addHeadSyle(identifier, headStyle) {
+      globalDatas.headStyle[identifier] = headStyle
+    },
+    addComponentHeadSyle(headStyle) {
+      globalDatas.componentsHeadStyle.push(headStyle)
+    },
     setBackgroundColor: color => {
       globalDatas.backgroundColor = color
     },
@@ -213,7 +226,7 @@ export default function mjml2html(mjml, options = {}) {
     ...globalDatas,
   })
 
-  content = beautify
+  content = (beautify && beautify !== 'false')
     ? htmlBeautify(content, {
         indent_size: 2,
         wrap_attributes_indent_size: 2,
@@ -222,10 +235,10 @@ export default function mjml2html(mjml, options = {}) {
       })
     : content
 
-  content = minify
+  content = (minify && minify !== 'false')
     ? htmlMinify(content, {
         collapseWhitespace: true,
-        minifyCSS: true,
+        minifyCSS: false,
         removeEmptyAttributes: true,
       })
     : content

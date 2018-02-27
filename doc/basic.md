@@ -10,7 +10,7 @@ Here is the final render we want to end with:
 </p>
 
 <p align="center">
-  <a href="/try-it-live/templates/basic"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>
+  <a href="/try-it-live/templates/basic"><img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" /></a>
 </p>
 
 Looks cool, right?
@@ -20,27 +20,25 @@ Looks cool, right?
 ``` html
 <mjml>
   <mj-body>
-    <mj-container>
 
-      <!-- Company Header -->
-      <mj-section background-color="#f0f0f0"></mj-section>
+    <!-- Company Header -->
+    <mj-section background-color="#f0f0f0"></mj-section>
 
-      <!-- Image Header -->
-      <mj-section background-color="#f0f0f0"></mj-section>
+    <!-- Image Header -->
+    <mj-section background-color="#f0f0f0"></mj-section>
 
-      <!-- Introduction Text -->
-      <mj-section background-color="#fafafa"></mj-section>
+    <!-- Introduction Text -->
+    <mj-section background-color="#fafafa"></mj-section>
 
-      <!-- 2 columns section -->
-      <mj-section background-color="white"></mj-section>
+    <!-- 2 columns section -->
+    <mj-section background-color="white"></mj-section>
 
-      <!-- Icons -->
-      <mj-section background-color="#fbfbfb"></mj-section>
+    <!-- Icons -->
+    <mj-section background-color="#fbfbfb"></mj-section>
 
-      <!-- Social icons -->
-      <mj-section background-color="#f0f0f0"></mj-section>
+    <!-- Social icons -->
+    <mj-section background-color="#f0f0f0"></mj-section>
 
-    </mj-container>
   </mj-body>
 </mjml>
 ```
@@ -192,7 +190,9 @@ This section is a 3-columns-based section. Please notice you can make the paddin
 
 <mj-section background-color="#e7e7e7">
   <mj-column>
-      <mj-social display="facebook" />
+    <mj-social>
+      <mj-social-element name="facebook" />
+    </mj-social>
   </mj-column>
 </mj-section>
 

@@ -5,6 +5,19 @@ import widthParser from 'mjml-core/lib/helpers/widthParser'
 export default class MjDivider extends BodyComponent {
   static tagOmission = true
 
+  static allowedAttributes = {
+    'border-color': 'color',
+    'border-style': 'string',
+    'border-width': 'unit(px)',
+    'container-background-color': 'color',
+    padding: 'unit(px,%){1,4}',
+    'padding-bottom': 'unit(px,%)',
+    'padding-left': 'unit(px,%)',
+    'padding-right': 'unit(px,%)',
+    'padding-top': 'unit(px,%)',
+    width: 'unit(px,%)',
+  }
+
   static defaultAttributes = {
     'border-color': '#000000',
     'border-style': 'solid',

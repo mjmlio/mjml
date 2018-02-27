@@ -1,3 +1,4 @@
+import { reduce } from 'lodash'
 import buildPreview from './preview'
 import { buildFontsTags } from './fonts'
 import { buildMediaQueriesTags } from './mediaQueries'
@@ -9,6 +10,8 @@ export default function skeleton(options) {
     content = '',
     fonts = {},
     mediaQueries = {},
+    headStyle = [],
+    componentsHeadStyle = {},
     preview,
     title = '',
     style,
@@ -26,6 +29,7 @@ export default function skeleton(options) {
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <!--<![endif]-->
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <style type="text/css">
           #outlook a { padding:0; }
           .ReadMsgBody { width:100%; }
@@ -59,11 +63,27 @@ export default function skeleton(options) {
         <![endif]-->
         ${buildFontsTags(content, fonts)}
         ${buildMediaQueriesTags(breakpoint, mediaQueries, forceOWADesktop)}
+        <style type="text/css">
+        ${
+          reduce(
+            componentsHeadStyle,
+            (result, compHeadStyle) => `${result}\n${compHeadStyle(breakpoint)}`,
+            ''
+          )
+        }
+        ${
+          reduce(
+            headStyle,
+            (result, headStyle) => `${result}\n${headStyle(breakpoint)}`,
+            ''
+          )
+        }
+        </style>
         ${style && style.length > 0
           ? `<style type="text/css">${style.join('')}</style>`
           : ''}
       </head>
-      <body style="background-color:${backgroundColor};">
+      <body${backgroundColor === '' ? '' : ` style="background-color:${backgroundColor};"`}>
         ${buildPreview(preview)}
         ${content}
       </body>

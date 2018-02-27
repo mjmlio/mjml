@@ -48,16 +48,14 @@ Let's take the following layout to illustrate this:
 ```html
 <mjml>
   <mj-body>
-    <mj-container>
-      <mj-section>
-        <mj-column>
-          <!-- First column content -->
-        </mj-column>
-        <mj-column>
-          <!-- Second column content -->
-        </mj-column>
-      </mj-section>
-    </mj-container>
+    <mj-section>
+      <mj-column>
+        <!-- First column content -->
+      </mj-column>
+      <mj-column>
+        <!-- Second column content -->
+      </mj-column>
+    </mj-section>
   </mj-body>
 </mjml>
 ```
@@ -71,16 +69,14 @@ Let's take the following layout to illustrate this:
 ```html
 <mjml>
   <mj-body>
-    <mj-container>
-      <mj-section>
-        <mj-column width="300px">
-          <!-- First column content -->
-        </mj-column>
-        <mj-column>
-          <!-- Second column content -->
-        </mj-column>
-      </mj-section>
-    </mj-container>
+    <mj-section>
+      <mj-column width="300px">
+        <!-- First column content -->
+      </mj-column>
+      <mj-column>
+        <!-- Second column content -->
+      </mj-column>
+    </mj-section>
   </mj-body>
 </mjml>
 ```
@@ -91,13 +87,11 @@ In that case, the engine won't set the second column width to 300px as one could
 ```html
 <mjml>
   <mj-body>
-    <mj-container>
-      <mj-section>
-        <mj-column>
-          <!-- Column content -->
-        </mj-column>
-      </mj-section>
-    </mj-container>
+    <mj-section>
+      <mj-column>
+        <!-- Column content -->
+      </mj-column>
+    </mj-section>
   </mj-body>
 </mjml>
 ```

@@ -9,7 +9,7 @@ export default class MjWrapper extends MjSection {
     return `
       ${this.renderChildren(children, {
         renderer: component =>
-          component.rawElement
+          component.constructor.isRawElement()
             ? component.render()
             : `
           <!--[if mso | IE]>

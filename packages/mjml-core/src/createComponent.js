@@ -3,12 +3,16 @@ import { get, forEach, identity, reduce, kebabCase } from 'lodash'
 import MJMLParser from 'mjml-parser-xml'
 
 import shorthandParser from './helpers/shorthandParser'
+import jsonToXML from './helpers/jsonToXML'
 
 import components, { initComponent } from './components'
 
 class Component {
   static getTagName() {
     return kebabCase(this.name)
+  }
+  static isRawElement() {
+    return !!this.rawElement
   }
 
   static defaultAttributes = {}
@@ -105,7 +109,7 @@ export class BodyComponent extends Component {
   }
 
   styles(styles) {
-    let stylesObject = this.getStyles
+    let stylesObject
 
     if (styles) {
       if (typeof styles === 'string') {
@@ -132,7 +136,12 @@ export class BodyComponent extends Component {
       props = {},
       renderer = component => component.render(),
       attributes = {},
+      rawXML = false,
     } = options
+
+    if (rawXML) {
+      return children.map(child => jsonToXML(child)).join('\n')
+    }
 
     childrens = childrens || this.props.children
 
@@ -188,6 +197,11 @@ export class HeadComponent extends Component {
           context: this.getChildContext(),
         },
       })
+
+      if (!component) {
+        console.log(`No matching component for tag : ${children.tagName}`)
+        return
+      }
 
       if (component.handler) {
         component.handler()

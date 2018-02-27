@@ -5,36 +5,34 @@ This tag allows you to display table and filled it with data. It only accepts pl
 ```xml
 <mjml>
   <mj-body>
-    <mj-container>
-      <mj-section>
-        <mj-column>
-          <mj-table>
-            <tr style="border-bottom:1px solid #ecedee;text-align:left;padding:15px 0;">
-              <th style="padding: 0 15px 0 0;">Year</th>
-              <th style="padding: 0 15px;">Language</th>
-              <th style="padding: 0 0 0 15px;">Inspired from</th>
-            </tr>
-            <tr>
-              <td style="padding: 0 15px 0 0;">1995</td>
-              <td style="padding: 0 15px;">PHP</td>
-              <td style="padding: 0 0 0 15px;">C, Shell Unix</td>
-            </tr>
-            <tr>
-              <td style="padding: 0 15px 0 0;">1995</td>
-              <td style="padding: 0 15px;">JavaScript</td>
-              <td style="padding: 0 0 0 15px;">Scheme, Self</td>
-            </tr>
-          </mj-table>
-        </mj-column>
-      </mj-section>
-    </mj-container>
+    <mj-section>
+      <mj-column>
+        <mj-table>
+          <tr style="border-bottom:1px solid #ecedee;text-align:left;padding:15px 0;">
+            <th style="padding: 0 15px 0 0;">Year</th>
+            <th style="padding: 0 15px;">Language</th>
+            <th style="padding: 0 0 0 15px;">Inspired from</th>
+          </tr>
+          <tr>
+            <td style="padding: 0 15px 0 0;">1995</td>
+            <td style="padding: 0 15px;">PHP</td>
+            <td style="padding: 0 0 0 15px;">C, Shell Unix</td>
+          </tr>
+          <tr>
+            <td style="padding: 0 15px 0 0;">1995</td>
+            <td style="padding: 0 15px;">JavaScript</td>
+            <td style="padding: 0 0 0 15px;">Scheme, Self</td>
+          </tr>
+        </mj-table>
+      </mj-column>
+    </mj-section>
   </mj-body>
 </mjml>
 ```
 
 <p align="center">
   <a href="https://mjml.io/try-it-live/components/table">
-    <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
+    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
   </a>
 </p>
 

@@ -5,9 +5,7 @@ This is the starting point of your email.
 ```xml
 <mjml>
   <mj-body>
-    <mj-body>
-      <!-- Your email goes here -->
-    </mj-body>
+    <!-- Your email goes here -->
   </mj-body>
 </mjml>
 ```

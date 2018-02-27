@@ -1,7 +1,7 @@
 {
   "name": "mjml-core",
   "description": "mjml-core",
-  "version": "4.0.0-beta.2",
+  "version": "4.0.0",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -21,8 +21,8 @@
     "js-beautify": "^1.6.14",
     "juice": "^4.1.0",
     "lodash": "^4.17.3",
-    "mjml-migrate": "^4.0.0-beta.2",
+    "mjml-migrate": "^4.0.0",
     "mjml-parser-xml": "^4.0.0-beta.2",
-    "mjml-validator": "^4.0.0-beta.2"
+    "mjml-validator": "^4.0.0"
   }
 }

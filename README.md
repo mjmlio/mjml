@@ -82,10 +82,10 @@ For more tools, check the [Community](https://mjml.io/community) page.
 
 ## Command line interface
 
-> Compiles the file and outputs the HTML generated in `input.html`
+> Compiles the file and outputs the HTML generated in `output.html`
 
 ```bash
-mjml input.mjml -o output.mjml
+mjml input.mjml -o output.html
 ```
 
 You can pass optional `arguments` to the CLI and combine them.

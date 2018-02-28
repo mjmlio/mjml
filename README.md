@@ -85,10 +85,10 @@ For more tools, check the [Community](https://mjml.io/community) page.
 > Compiles the file and outputs the HTML generated in `input.html`
 
 ```bash
-mjml input.mjml
+mjml input.mjml -o output.mjml
 ```
 
-You can pass optional `arguments` to the CLI, following the `mjml` command.
+You can pass optional `arguments` to the CLI and combine them.
 
 argument | description | default value
 ---------|--------|--------------

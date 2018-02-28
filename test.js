@@ -3,7 +3,7 @@ require('babel-register')
 const mjml2html = require('./packages/mjml/src/index')
 
 const xml = `
-<mjml owa_desktop="true">
+<mjml owa="desktop">
 <mj-body>
 <mj-section>
 <mj-column>

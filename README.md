@@ -102,7 +102,7 @@ argument | description | default value
 ## Inside Node.js
 
 ```javascript
-import { mjml2html } from 'mjml'
+import mjml2html from 'mjml'
 
 /*
   Compile an mjml string

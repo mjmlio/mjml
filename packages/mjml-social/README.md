@@ -92,7 +92,6 @@ align                       | string      | left/right/center             | cent
 color                       | color       | text color                    | #333333
 name                        | string      | `facebook google instagram pinterest linkedin twitter` | N/A
 src                         | url         | image source                  | Each social `name` has its own default
-inner-padding               | px          | social network surrounding padding                 | 4px
 padding                     | px          | supports up to 4 parameters                       | 10px 25px
 padding-top                 | px          | top offset                         | n/a
 padding-bottom              | px          | bottom offset                    | n/a

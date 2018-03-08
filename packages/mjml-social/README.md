@@ -12,13 +12,13 @@ Displays calls-to-action for various social networks with their associated logo.
     <mj-section>
       <mj-column>
         <mj-social font-size="15px" icon-size="30px" mode="horizontal">
-          <mj-social-element name="facebook" href="https://mjml.io/" icon-color="#4d4d4d">
+          <mj-social-element name="facebook" href="https://mjml.io/">
             Facebook
           </mj-social-element>
-          <mj-social-element name="google" href="https://mjml.io/" icon-color="#4d4d4d">
+          <mj-social-element name="google" href="https://mjml.io/">
             Google
           </mj-social-element>
-          <mj-social-element  name="instagram" href="https://mjml.io/" icon-color="#4d4d4d">
+          <mj-social-element  name="instagram" href="https://mjml.io/">
             Instagram
           </mj-social-element>
         </mj-social>

@@ -52,7 +52,6 @@ export default class MjSocialElement extends BodyComponent {
     'font-style': 'string',
     'font-weight': 'string',
     href: 'string',
-    'icon-color': 'color',
     'icon-size': 'unit(px,%)',
     'line-height': 'unit(px,%)',
     name: 'string',

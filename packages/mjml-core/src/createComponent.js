@@ -140,7 +140,7 @@ export class BodyComponent extends Component {
     } = options
 
     if (rawXML) {
-      return children.map(child => jsonToXML(child)).join('\n')
+      return childrens.map(child => jsonToXML(child)).join('\n')
     }
 
     childrens = childrens || this.props.children

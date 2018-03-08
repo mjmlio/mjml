@@ -59,12 +59,10 @@ export default class MjGroup extends BodyComponent {
         'font-size': '0',
         'line-height': '0',
         'text-align': 'left',
-        direction: this.getAttribute('direction'),
         display: 'inline-block',
-        'vertical-align': this.getAttribute('vertical-align'),
         width: '100%',
-      },
-      table: {
+        direction: this.getAttribute('direction'),
+        'vertical-align': this.getAttribute('vertical-align'),
         'background-color': this.getAttribute('background-color'),
         border: this.getAttribute('border'),
         'border-bottom': this.getAttribute('border-bottom'),
@@ -72,7 +70,6 @@ export default class MjGroup extends BodyComponent {
         'border-radius': this.getAttribute('border-radius'),
         'border-right': this.getAttribute('border-right'),
         'border-top': this.getAttribute('border-top'),
-        'vertical-align': this.getAttribute('vertical-align'),
       },
       tdOutlook: {
         'vertical-align': this.getAttribute('vertical-align'),

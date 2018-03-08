@@ -104,7 +104,7 @@ export default function mjml2html(mjml, options = {}) {
       break
   }
 
-  const mjBody = traverseMJML(mjml, child => child.tagName === 'mj-body')
+  const mjBody = traverseMJML(mjml, child => child.tagName === 'mj-body', 'mj-attributes')
   const mjHead = traverseMJML(mjml, child => child.tagName === 'mj-head')
 
   const processing = (node, context, parseMJML = identity) => {

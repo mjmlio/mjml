@@ -46,6 +46,11 @@ export default class MjSocial extends BodyComponent {
   }
 
   getSocialElementAttributes() {
+    const base = {}
+    if (this.getAttribute('inner-padding')) {
+      base.padding = this.getAttribute('inner-padding')
+    }
+
     return [
       'border-radius',
       'color',
@@ -53,12 +58,11 @@ export default class MjSocial extends BodyComponent {
       'font-size',
       'font-weight',
       'icon-size',
-      'inner-padding',
       'line-height',
     ].reduce((res, attr) => {
       res[attr] = this.getAttribute(attr)
       return res
-    }, {})
+    }, base)
   }
 
   renderHorizontal() {

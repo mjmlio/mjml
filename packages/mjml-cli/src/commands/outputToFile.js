@@ -7,6 +7,7 @@ export const isDirectory = file => {
 
     return fs.statSync(outputPath).isDirectory()
   } catch (e) {
+    console.log('Error: Output directory not found. It needs to be already created.')
     return false
   }
 }
@@ -17,14 +18,17 @@ const replaceExtension = input =>
     input.replace('.mjml', '').match(/(.)*\.(.)+$/g) ? '' : '.html',
   )
 
+const stripPath = input => input.match(/\w+(?:\.\w+)*$/g)[0]
+
 const makeGuessOutputName = outputPath => {
   if (isDirectory(outputPath)) {
-    return input => path.join(outputPath, replaceExtension(input))
+    return input => path.join(outputPath, replaceExtension(stripPath(input)))
+
   }
 
   return input => {
     if (!outputPath) {
-      return replaceExtension(input)
+      return replaceExtension(stripPath(input))
     }
 
     return outputPath

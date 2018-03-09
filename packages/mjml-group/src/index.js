@@ -5,18 +5,7 @@ import widthParser from 'mjml-core/lib/helpers/widthParser'
 export default class MjGroup extends BodyComponent {
   static allowedAttributes = {
     'background-color': 'color',
-    border: 'unit(px)',
-    'border-bottom': 'unit(px)',
-    'border-left': 'unit(px)',
-    'border-radius': 'unit(px)',
-    'border-right': 'unit(px)',
-    'border-top': 'unit(px)',
     direction: 'enum(ltr,rtl)',
-    'padding-bottom': 'unit(px,%)',
-    'padding-left': 'unit(px,%)',
-    'padding-right': 'unit(px,%)',
-    'padding-top': 'unit(px,%)',
-    padding: 'unit(px,%){1,4}',
     'vertical-align': 'string',
     width: 'unit(px,%)',
   }
@@ -64,12 +53,6 @@ export default class MjGroup extends BodyComponent {
         direction: this.getAttribute('direction'),
         'vertical-align': this.getAttribute('vertical-align'),
         'background-color': this.getAttribute('background-color'),
-        border: this.getAttribute('border'),
-        'border-bottom': this.getAttribute('border-bottom'),
-        'border-left': this.getAttribute('border-left'),
-        'border-radius': this.getAttribute('border-radius'),
-        'border-right': this.getAttribute('border-right'),
-        'border-top': this.getAttribute('border-top'),
       },
       tdOutlook: {
         'vertical-align': this.getAttribute('vertical-align'),

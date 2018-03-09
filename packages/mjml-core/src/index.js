@@ -139,7 +139,7 @@ export default function mjml2html(mjml, options = {}) {
         (acc, value) => {
           const mjClassValues = globalDatas.classes[value]
           let multipleClasses = {}
-          if (acc['css-class'] && mjClassValues && mjClassValues['css-class']) {
+          if (acc['css-class'] && get(mjClassValues, 'css-class')) {
             multipleClasses = {
               'css-class': `${acc['css-class']} ${mjClassValues['css-class']}`
             }

@@ -3,13 +3,9 @@ import head from 'lodash/head'
 import map from 'lodash/map'
 import noop from 'lodash/noop'
 
-export default function traverseMJML(mjml, predicate = noop, ignoreTagContent = null) {
+export default function traverseMJML(mjml, predicate = noop) {
   const traverse = mjml =>
     map(mjml.children, child => {
-      if (ignoreTagContent && child.tagName === ignoreTagContent) {
-        return []
-      }
-
       if (predicate(child)) {
         return child
       }

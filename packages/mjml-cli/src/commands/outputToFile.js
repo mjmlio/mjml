@@ -7,7 +7,6 @@ export const isDirectory = file => {
 
     return fs.statSync(outputPath).isDirectory()
   } catch (e) {
-    console.log('Error: Output directory not found. It needs to be already created.')
     return false
   }
 }

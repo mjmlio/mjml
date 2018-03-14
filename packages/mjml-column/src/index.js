@@ -232,6 +232,7 @@ export default class MjColumn extends BodyComponent {
               <td
                 ${component.htmlAttributes({
                   align: component.getAttribute('align'),
+                  'vertical-align': component.getAttribute('vertical-align'),
                   background: component.getAttribute(
                     'container-background-color',
                   ),

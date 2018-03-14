@@ -170,6 +170,7 @@ export default class MjGroup extends BodyComponent {
                 ${component.htmlAttributes({
                   style: {
                     align: component.getAttribute('align'),
+                    'vertical-align': component.getAttribute('vertical-align'),
                     width: getElementWidth(
                       component.getWidthAsPixel
                         ? component.getWidthAsPixel()

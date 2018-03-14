@@ -4,7 +4,12 @@ import { registerDependencies } from 'mjml-validator'
 import { Social, SocialElement } from 'mjml-social'
 import { Navbar, NavbarLink } from 'mjml-navbar'
 import { Carousel, CarouselImage } from 'mjml-carousel'
-import { Accordion, AccordionElement, AccordionText, AccordionTitle } from 'mjml-accordion'
+import {
+  Accordion,
+  AccordionElement,
+  AccordionText,
+  AccordionTitle,
+} from 'mjml-accordion'
 
 registerComponent(require('mjml-body'))
 registerComponent(require('mjml-head'))

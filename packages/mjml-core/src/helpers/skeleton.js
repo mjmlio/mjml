@@ -64,26 +64,24 @@ export default function skeleton(options) {
         ${buildFontsTags(content, fonts)}
         ${buildMediaQueriesTags(breakpoint, mediaQueries, forceOWADesktop)}
         <style type="text/css">
-        ${
-          reduce(
-            componentsHeadStyle,
-            (result, compHeadStyle) => `${result}\n${compHeadStyle(breakpoint)}`,
-            ''
-          )
-        }
-        ${
-          reduce(
-            headStyle,
-            (result, headStyle) => `${result}\n${headStyle(breakpoint)}`,
-            ''
-          )
-        }
+        ${reduce(
+          componentsHeadStyle,
+          (result, compHeadStyle) => `${result}\n${compHeadStyle(breakpoint)}`,
+          '',
+        )}
+        ${reduce(
+          headStyle,
+          (result, headStyle) => `${result}\n${headStyle(breakpoint)}`,
+          '',
+        )}
         </style>
         ${style && style.length > 0
           ? `<style type="text/css">${style.join('')}</style>`
           : ''}
       </head>
-      <body${backgroundColor === '' ? '' : ` style="background-color:${backgroundColor};"`}>
+      <body${backgroundColor === ''
+        ? ''
+        : ` style="background-color:${backgroundColor};"`}>
         ${buildPreview(preview)}
         ${content}
       </body>

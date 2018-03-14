@@ -4,7 +4,7 @@ export default class MjStyle extends HeadComponent {
   static endingTag = true
 
   static allowedAttributes = {
-    inline: 'string'
+    inline: 'string',
   }
 
   handler() {

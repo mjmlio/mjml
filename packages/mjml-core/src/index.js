@@ -46,14 +46,14 @@ export default function mjml2html(mjml, options = {}) {
     minify = false,
     skeleton = defaultSkeleton,
     validationLevel = 'soft',
-    filePath = '.'
+    filePath = '.',
   } = options
 
   if (typeof mjml === 'string') {
     mjml = MJMLParser(mjml, {
       keepComments,
       components,
-      filePath
+      filePath,
     })
   }
 
@@ -103,8 +103,8 @@ export default function mjml2html(mjml, options = {}) {
       break
   }
 
-  const mjBody = find(mjml.children, {tagName: 'mj-body'})
-  const mjHead = find(mjml.children, {tagName: 'mj-head'})
+  const mjBody = find(mjml.children, { tagName: 'mj-body' })
+  const mjHead = find(mjml.children, { tagName: 'mj-head' })
 
   const processing = (node, context, parseMJML = identity) => {
     if (!node) {
@@ -226,22 +226,24 @@ export default function mjml2html(mjml, options = {}) {
     ...globalDatas,
   })
 
-  content = (beautify && beautify !== 'false')
-    ? htmlBeautify(content, {
-        indent_size: 2,
-        wrap_attributes_indent_size: 2,
-        max_preserve_newline: 0,
-        preserve_newlines: false,
-      })
-    : content
+  content =
+    beautify && beautify !== 'false'
+      ? htmlBeautify(content, {
+          indent_size: 2,
+          wrap_attributes_indent_size: 2,
+          max_preserve_newline: 0,
+          preserve_newlines: false,
+        })
+      : content
 
-  content = (minify && minify !== 'false')
-    ? htmlMinify(content, {
-        collapseWhitespace: true,
-        minifyCSS: false,
-        removeEmptyAttributes: true,
-      })
-    : content
+  content =
+    minify && minify !== 'false'
+      ? htmlMinify(content, {
+          collapseWhitespace: true,
+          minifyCSS: false,
+          removeEmptyAttributes: true,
+        })
+      : content
 
   content = mergeOutlookConditionnals(content)
 

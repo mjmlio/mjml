@@ -1,7 +1,6 @@
 import { BodyComponent } from 'mjml-core'
 
 export default class MjAccordion extends BodyComponent {
-
   static allowedAttributes = {
     'container-background-color': null,
     border: 'string',
@@ -32,7 +31,7 @@ export default class MjAccordion extends BodyComponent {
     'icon-position': 'right',
     'icon-height': '32px',
     'icon-width': '32px',
-    padding: '10px 25px'
+    padding: '10px 25px',
   }
 
   headStyle = () => {
@@ -61,8 +60,8 @@ export default class MjAccordion extends BodyComponent {
         'border-collapse': 'collapse',
         border: this.getAttribute('border'),
         'border-bottom': 'none',
-        'font-family': this.getAttribute('font-family')
-      }
+        'font-family': this.getAttribute('font-family'),
+      },
     }
   }
 
@@ -77,10 +76,13 @@ export default class MjAccordion extends BodyComponent {
       'icon-wrapped-alt',
       'icon-unwrapped-url',
       'icon-unwrapped-alt',
-    ].reduce((res, val) => ({
-      ...res,
-      [val]: this.getAttribute(val)
-    }), {})
+    ].reduce(
+      (res, val) => ({
+        ...res,
+        [val]: this.getAttribute(val),
+      }),
+      {},
+    )
 
     return `
       <table
@@ -88,11 +90,13 @@ export default class MjAccordion extends BodyComponent {
           'cell-spacing': '0',
           'cell-padding': '0',
           class: 'mj-accordion',
-          style: 'table'
+          style: 'table',
         })}
       >
         <tbody>
-          ${this.renderChildren(this.props.children, { attributes: childrenAttr })}
+          ${this.renderChildren(this.props.children, {
+            attributes: childrenAttr,
+          })}
         </tbody>
       </table>
     `

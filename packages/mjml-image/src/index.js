@@ -8,10 +8,10 @@ export default class MjImage extends BodyComponent {
   static tagOmission = true
 
   static allowedAttributes = {
-    'alt': 'string',
-    'href': 'string',
-    'src': 'string',
-    'title': 'string',
+    alt: 'string',
+    href: 'string',
+    src: 'string',
+    title: 'string',
     align: 'enum(left,center,right)',
     border: 'string',
     'border-bottom': 'string',
@@ -70,14 +70,20 @@ export default class MjImage extends BodyComponent {
     const { containerWidth } = this.context
 
     const width = this.getAttribute('width')
-      ? min([parseInt(this.getAttribute('width'), 10), parseInt(containerWidth, 10)])
+      ? min([
+          parseInt(this.getAttribute('width'), 10),
+          parseInt(containerWidth, 10),
+        ])
       : parseInt(containerWidth, 10)
 
     const paddingRight = this.getShorthandAttrValue('padding', 'right')
     const paddingLeft = this.getShorthandAttrValue('padding', 'left')
 
     const widthOverflow =
-      paddingLeft + paddingRight + parseFloat(width) - parseInt(containerWidth, 10)
+      paddingLeft +
+      paddingRight +
+      parseFloat(width) -
+      parseInt(containerWidth, 10)
 
     return widthOverflow > 0
       ? parseFloat(width - widthOverflow)

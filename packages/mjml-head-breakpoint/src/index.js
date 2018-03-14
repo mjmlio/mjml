@@ -4,7 +4,7 @@ export default class MjBreakpoint extends HeadComponent {
   static endingTag = true
 
   static allowedAttributes = {
-    width: 'unit(px)'
+    width: 'unit(px)',
   }
 
   handler() {

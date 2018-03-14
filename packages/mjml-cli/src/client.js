@@ -140,9 +140,10 @@ export default async () => {
     try {
       convertedStream.push(
         Object.assign({}, i, {
-          compiled: inputOpt === 'm'
-                    ? { html: htmlBeautify(migrate(i.mjml), beautifyOptions) }
-                    : mjml2html(i.mjml, { ...config, filePath: i.file })
+          compiled:
+            inputOpt === 'm'
+              ? { html: htmlBeautify(migrate(i.mjml), beautifyOptions) }
+              : mjml2html(i.mjml, { ...config, filePath: i.file }),
         }),
       )
     } catch (e) {

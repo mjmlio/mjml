@@ -1,12 +1,14 @@
 export default ({ tagName, attributes, children, content }) => {
   const subNode =
     children && children.length > 0
-      ? children.map(jsonToXML).join("\n")
-      : content ? content : '';
+      ? children.map(jsonToXML).join('\n')
+      : content ? content : ''
 
   const stringAttrs = Object.keys(attributes)
     .map(attr => `${attr}="${attributes[attr]}"`)
-    .join(" ");
+    .join(' ')
 
-  return `<${tagName}${stringAttrs === '' ? '>' : ` ${stringAttrs}>`}${subNode}</${tagName}>`;
+  return `<${tagName}${stringAttrs === ''
+    ? '>'
+    : ` ${stringAttrs}>`}${subNode}</${tagName}>`
 }

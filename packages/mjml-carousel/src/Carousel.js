@@ -8,37 +8,36 @@ import crypto from 'crypto'
 import { msoConditionalTag } from 'mjml-core/lib/helpers/conditionalTag'
 
 export default class MjCarousel extends BodyComponent {
-
   static allowedAttributes = {
-    'align': 'enum(left,center,right)',
+    align: 'enum(left,center,right)',
     'border-radius': 'unit(px,%)',
     'icon-width': 'unit(px,%)',
     'left-icon': 'string',
-    'padding': 'unit(px,%){1,4}',
+    padding: 'unit(px,%){1,4}',
     'padding-top': 'unit(px,%)',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
     'right-icon': 'string',
-    'thumbnails': 'enum(visible,hidden)',
+    thumbnails: 'enum(visible,hidden)',
     'tb-border': 'string',
     'tb-border-radius': 'unit(px,%)',
     'tb-hover-border-color': 'color',
     'tb-selected-border-color': 'color',
-    'tb-width': 'unit(px,%)'
+    'tb-width': 'unit(px,%)',
   }
 
   static defaultAttributes = {
-    'align': 'center',
+    align: 'center',
     'border-radius': '6px',
     'icon-width': '44px',
     'left-icon': 'http://i.imgur.com/xTh3hln.png',
     'right-icon': 'http://i.imgur.com/os7o9kz.png',
-    'thumbnails': 'visible',
+    thumbnails: 'visible',
     'tb-border': '2px solid transparent',
     'tb-border-radius': '6px',
     'tb-hover-border-color': '#fead0d',
-    'tb-selected-border-color': '#ccc'
+    'tb-selected-border-color': '#ccc',
   }
 
   constructor(initialDatas = {}) {
@@ -76,22 +75,65 @@ export default class MjCarousel extends BodyComponent {
       touch-action: manipulation;
     }
 
-    ${range(0, length).map(i => `.mj-carousel-${carouselId}-radio:checked ${repeat('+ * ', i)}+ .mj-carousel-content .mj-carousel-image` ).join(',')} {
+    ${range(0, length)
+      .map(
+        i =>
+          `.mj-carousel-${carouselId}-radio:checked ${repeat(
+            '+ * ',
+            i,
+          )}+ .mj-carousel-content .mj-carousel-image`,
+      )
+      .join(',')} {
       display: none !important;
     }
 
-    ${range(0, length).map(i => `.mj-carousel-${carouselId}-radio-${i + 1}:checked ${repeat('+ * ', length - i - 1)}+ .mj-carousel-content .mj-carousel-image-${i + 1}` ).join(',')} {
+    ${range(0, length)
+      .map(
+        i =>
+          `.mj-carousel-${carouselId}-radio-${i + 1}:checked ${repeat(
+            '+ * ',
+            length - i - 1,
+          )}+ .mj-carousel-content .mj-carousel-image-${i + 1}`,
+      )
+      .join(',')} {
       display: block !important;
     }
 
     .mj-carousel-previous-icons,
     .mj-carousel-next-icons,
-    ${range(0, length).map(i => `.mj-carousel-${carouselId}-radio-${i + 1}:checked ${repeat('+ * ', length - i - 1)}+ .mj-carousel-content .mj-carousel-next-${((i + 1 % length) + length) % length + 1}`)},
-    ${range(0, length).map(i => `.mj-carousel-${carouselId}-radio-${i + 1}:checked ${repeat('+ * ', length - i - 1)}+ .mj-carousel-content .mj-carousel-previous-${((i - 1 % length) + length) % length + 1}`)} {
+    ${range(0, length).map(
+      i =>
+        `.mj-carousel-${carouselId}-radio-${i + 1}:checked ${repeat(
+          '+ * ',
+          length - i - 1,
+        )}+ .mj-carousel-content .mj-carousel-next-${(i + 1 % length + length) %
+          length +
+          1}`,
+    )},
+    ${range(0, length).map(
+      i =>
+        `.mj-carousel-${carouselId}-radio-${i + 1}:checked ${repeat(
+          '+ * ',
+          length - i - 1,
+        )}+ .mj-carousel-content .mj-carousel-previous-${(i -
+          1 % length +
+          length) %
+          length +
+          1}`,
+    )} {
       display: block !important;
     }
 
-    ${range(0, length).map(i => `.mj-carousel-${carouselId}-radio-${i + 1}:checked ${repeat('+ * ', length - i - 1)}+ .mj-carousel-content .mj-carousel-${carouselId}-thumbnail-${i + 1}` ).join(',')} {
+    ${range(0, length)
+      .map(
+        i =>
+          `.mj-carousel-${carouselId}-radio-${i + 1}:checked ${repeat(
+            '+ * ',
+            length - i - 1,
+          )}+ .mj-carousel-content .mj-carousel-${carouselId}-thumbnail-${i +
+            1}`,
+      )
+      .join(',')} {
       border-color: ${this.getAttribute('tb-selected-border-color')} !important;
     }
 
@@ -100,7 +142,15 @@ export default class MjCarousel extends BodyComponent {
       display: none !important;
     }
 
-    ${range(0, length).map(i => `.mj-carousel-${carouselId}-thumbnail:hover ${repeat('+ * ', length - i - 1)}+ .mj-carousel-main .mj-carousel-image`).join(',')} {
+    ${range(0, length)
+      .map(
+        i =>
+          `.mj-carousel-${carouselId}-thumbnail:hover ${repeat(
+            '+ * ',
+            length - i - 1,
+          )}+ .mj-carousel-main .mj-carousel-image`,
+      )
+      .join(',')} {
       display: none !important;
     }
 
@@ -108,7 +158,15 @@ export default class MjCarousel extends BodyComponent {
       border-color: ${this.getAttribute('tb-hover-border-color')} !important;
     }
 
-    ${range(0, length).map(i => `.mj-carousel-${carouselId}-thumbnail-${i + 1}:hover ${repeat('+ * ', length - i - 1)}+ .mj-carousel-main .mj-carousel-image-${i + 1}` ).join(',')} {
+    ${range(0, length)
+      .map(
+        i =>
+          `.mj-carousel-${carouselId}-thumbnail-${i + 1}:hover ${repeat(
+            '+ * ',
+            length - i - 1,
+          )}+ .mj-carousel-main .mj-carousel-image-${i + 1}`,
+      )
+      .join(',')} {
       display: block !important;
     }
     `
@@ -128,7 +186,10 @@ export default class MjCarousel extends BodyComponent {
               display: none !important;
           }
 
-          .mj-carousel-${carouselId}-radio-1:checked ${repeat('+ *', length - 1)}+ .mj-carousel-content .mj-carousel-${carouselId}-thumbnail-1 {
+          .mj-carousel-${carouselId}-radio-1:checked ${repeat(
+      '+ *',
+      length - 1,
+    )}+ .mj-carousel-content .mj-carousel-${carouselId}-thumbnail-1 {
               border-color: transparent;
           }
       }
@@ -137,60 +198,63 @@ export default class MjCarousel extends BodyComponent {
     return `${carouselCss}\n${fallback}`
   }
 
-  getStyles () {
+  getStyles() {
     return {
       carousel: {
         div: {
           display: 'table',
-          width:' 100%',
+          width: ' 100%',
           'table-layout': 'fixed',
           'text-align': 'center',
-          'font-size': '0'
+          'font-size': '0',
         },
         table: {
           'caption-side': 'top',
           display: 'table-caption',
           'table-layout': 'fixed',
-          width: '100%'
-        }
+          width: '100%',
+        },
       },
       controls: {
         div: {
           display: 'none',
-          'mso-hide': 'all'
+          'mso-hide': 'all',
         },
         img: {
           display: 'block',
           width: '100%',
-          height: 'auto'
+          height: 'auto',
         },
         td: {
           display: 'none',
-          'mso-hide': 'all'
-        }
-      }
+          'mso-hide': 'all',
+        },
+      },
     }
   }
 
-  thumbnailsWidth () {
+  thumbnailsWidth() {
     if (!this.props.children.length) return 0
-    return this.getAttribute('tb-width') || `${min([this.context.parentWidth / this.props.children.length, 110])}px`
+    return (
+      this.getAttribute('tb-width') ||
+      `${min([this.context.parentWidth / this.props.children.length, 110])}px`
+    )
   }
 
   imagesAttributes() {
     return map(this.children, 'attributes')
   }
 
-  generateRadios () {
+  generateRadios() {
     return this.renderChildren(this.props.children, {
       renderer: component => component.renderRadio(),
       attributes: {
-        carouselId: this.carouselId
-      }
+        carouselId: this.carouselId,
+      },
     })
   }
 
-  generateThumbnails () {
+  generateThumbnails() {
     if (this.getAttribute('thumbnails') !== 'visible') return ''
 
     return this.renderChildren(this.props.children, {
@@ -198,9 +262,9 @@ export default class MjCarousel extends BodyComponent {
         'tb-border': this.getAttribute('tb-border'),
         'tb-border-radius': this.getAttribute('tb-border-radius'),
         'tb-width': this.thumbnailsWidth(),
-        carouselId: this.carouselId
+        carouselId: this.carouselId,
       },
-      renderer: component => component.renderThumbnail()
+      renderer: component => component.renderThumbnail(),
     })
   }
 
@@ -211,20 +275,21 @@ export default class MjCarousel extends BodyComponent {
       <td
         ${this.htmlAttributes({
           class: `mj-carousel-${this.carouselId}-icons-cell`,
-          style: 'controls.td'
+          style: 'controls.td',
         })}
       >
         <div
           ${this.htmlAttributes({
             class: `mj-carousel-${direction}-icons`,
-            style: 'controls.div'
+            style: 'controls.div',
           })}
         >
-          ${ range(1, this.props.children.length + 1).map(i => `
+          ${range(1, this.props.children.length + 1).map(
+            i => `
               <label
                 ${this.htmlAttributes({
                   for: `mj-carousel-${this.carouselId}-radio-${i}`,
-                  class: `mj-carousel-${direction} mj-carousel-${direction}-${i}`
+                  class: `mj-carousel-${direction} mj-carousel-${direction}-${i}`,
                 })}
               >
                 <img
@@ -236,33 +301,33 @@ export default class MjCarousel extends BodyComponent {
                   })}
                 />
               </label>
-            `
+            `,
           )}
         </div>
       </td>
     `
   }
 
-  generateImages () {
+  generateImages() {
     return `
       <td>
         <div
           ${this.htmlAttributes({
             class: 'mj-carousel-images',
-            style: 'images.div'
+            style: 'images.div',
           })}
         >
           ${this.renderChildren(this.props.children, {
             attributes: {
-              'border-radius': this.getAttribute('border-radius')
-            }
+              'border-radius': this.getAttribute('border-radius'),
+            },
           })}
         </div>
       </td>
     `
   }
 
-  generateCarousel () {
+  generateCarousel() {
     return `
       <table
         ${this.htmlAttributes({
@@ -271,8 +336,8 @@ export default class MjCarousel extends BodyComponent {
           'cell-padding': '0',
           'cell-spacing': '0',
           width: '100%',
-          role: "presentation",
-          class: 'mj-carousel-main'
+          role: 'presentation',
+          class: 'mj-carousel-main',
         })}
       >
         <tbody>
@@ -290,33 +355,39 @@ export default class MjCarousel extends BodyComponent {
     const { children } = this.props
     if (children.length === 0) return ''
 
-    return msoConditionalTag(this.renderChildren([children[0]], {
-      attributes: {
-        'border-radius': this.getAttribute('border-radius')
-      }
-    }))
+    return msoConditionalTag(
+      this.renderChildren([children[0]], {
+        attributes: {
+          'border-radius': this.getAttribute('border-radius'),
+        },
+      }),
+    )
   }
 
   render() {
     return `
-      ${msoConditionalTag(`
+      ${msoConditionalTag(
+        `
         <div
           ${this.htmlAttributes({
-            class: 'mj-carousel'
+            class: 'mj-carousel',
           })}
         >
           ${this.generateRadios()}
           <div
             ${this.htmlAttributes({
-              class: `mj-carousel-content mj-carousel-${this.carouselId}-content`,
-              style: 'carousel.div'
+              class: `mj-carousel-content mj-carousel-${this
+                .carouselId}-content`,
+              style: 'carousel.div',
             })}
           >
             ${this.generateThumbnails()}
             ${this.generateCarousel()}
           </div>
         </div>
-      `, true)}
+      `,
+        true,
+      )}
       ${this.renderFallback()}
     `
   }

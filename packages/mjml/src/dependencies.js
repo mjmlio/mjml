@@ -24,14 +24,9 @@ export default {
     'mj-spacer',
     'mj-table',
     'mj-text',
-    'mj-navbar'
+    'mj-navbar',
   ],
-  'mj-container': [
-    'mj-hero',
-    'mj-raw',
-    'mj-section',
-    'mj-wrapper',
-  ],
+  'mj-container': ['mj-hero', 'mj-raw', 'mj-section', 'mj-wrapper'],
   'mj-divider': [],
   'mj-group': ['mj-column', 'mj-raw'],
   'mj-head': [
@@ -55,7 +50,7 @@ export default {
     'mj-spacer',
     'mj-table',
     'mj-text',
-    'mj-navbar'
+    'mj-navbar',
   ],
   'mj-html': [],
   'mj-image': [],

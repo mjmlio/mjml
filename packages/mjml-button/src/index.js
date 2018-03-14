@@ -4,22 +4,22 @@ export default class MjButton extends BodyComponent {
   static endingTag = true
 
   static allowedAttributes = {
-    'align': 'enum(left,center,right)',
+    align: 'enum(left,center,right)',
     'background-color': 'color',
     'border-bottom': 'string',
     'border-left': 'string',
     'border-radius': 'string',
     'border-right': 'string',
     'border-top': 'string',
-    'border': 'string',
-    'color': 'color',
+    border: 'string',
+    color: 'color',
     'container-background-color': 'color',
     'font-family': 'string',
     'font-size': 'unit(px,%)',
     'font-style': 'string',
     'font-weight': 'string',
-    'height': 'unit(px,%)',
-    'href': 'string',
+    height: 'unit(px,%)',
+    href: 'string',
     'inner-padding': 'unit(px,%)',
     'line-height': 'unit(px,%)',
     'padding-bottom': 'unit(px,%)',
@@ -27,12 +27,12 @@ export default class MjButton extends BodyComponent {
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
     padding: 'unit(px,%){1,4}',
-    'rel': 'string',
-    'target': 'string',
+    rel: 'string',
+    target: 'string',
     'text-decoration': 'string',
     'text-transform': 'string',
     'vertical-align': 'string',
-    'width': 'unit(px,%)',
+    width: 'unit(px,%)',
   }
 
   static defaultAttributes = {
@@ -120,9 +120,7 @@ export default class MjButton extends BodyComponent {
                 href: this.getAttribute('href'),
                 rel: this.getAttribute('rel'),
                 style: 'content',
-                target: tag === 'a'
-                        ? this.getAttribute('target')
-                        : undefined,
+                target: tag === 'a' ? this.getAttribute('target') : undefined,
               })}
             >
               ${this.getContent()}

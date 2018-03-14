@@ -5,7 +5,7 @@ export default class MjFont extends HeadComponent {
 
   static allowedAttributes = {
     name: 'string',
-    href: 'string'
+    href: 'string',
   }
 
   handler() {

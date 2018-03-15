@@ -1,7 +1,7 @@
 {
   "name": "mjml-image",
   "description": "mjml-image",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "main": "lib/index.js",
   "repository": {
     "type": "git",

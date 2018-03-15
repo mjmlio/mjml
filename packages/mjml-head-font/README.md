@@ -36,7 +36,7 @@ This tag allows you to import fonts if used in your MJML document
 <<<<<<< HEAD
     <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
 =======
-    <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
+    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="sexy" />
 >>>>>>> 1294c3cbdcc8be8c571685b6805f5ec918e429a4
   </a>
 </p>

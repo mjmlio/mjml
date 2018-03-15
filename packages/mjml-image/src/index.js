@@ -8,10 +8,13 @@ export default class MjImage extends BodyComponent {
   static tagOmission = true
 
   static allowedAttributes = {
-    alt: 'string',
-    href: 'string',
-    src: 'string',
-    title: 'string',
+    'alt': 'string',
+    'href': 'string',
+    'src': 'string',
+    '
+    
+    ': 'string',
+    'title': 'string',
     align: 'enum(left,center,right)',
     border: 'string',
     'border-bottom': 'string',
@@ -94,9 +97,10 @@ export default class MjImage extends BodyComponent {
     const img = `
       <img
         ${this.htmlAttributes({
-          alt: this.getAttribute('href'),
+          alt: this.getAttribute('alt'),
           height: this.getAttribute('height'),
           src: this.getAttribute('src'),
+          srcset: this.getAttribute('srcset'),
           style: 'img',
           title: this.getAttribute('title'),
           width: this.getContentWidth(),

@@ -82,13 +82,13 @@ For more tools, check the [Community](https://mjml.io/community) page.
 
 ## Command line interface
 
-> Compiles the file and outputs the HTML generated in `input.html`
+> Compiles the file and outputs the HTML generated in `output.html`
 
 ```bash
-mjml input.mjml
+mjml input.mjml -o output.html
 ```
 
-You can pass optional `arguments` to the CLI, following the `mjml` command.
+You can pass optional `arguments` to the CLI and combine them.
 
 argument | description | default value
 ---------|--------|--------------
@@ -102,7 +102,7 @@ argument | description | default value
 ## Inside Node.js
 
 ```javascript
-import { mjml2html } from 'mjml'
+import mjml2html from 'mjml'
 
 /*
   Compile an mjml string

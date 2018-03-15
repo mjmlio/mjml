@@ -106,3 +106,5 @@ padding-bottom   | px            | bottom offset                         | n/a
 padding-left     | px            | left offset                           | n/a
 padding-right    | px            | right offset                          | n/a
 rel              | string        | specify the rel attribute             | n/a
+href             | string        | link to redirect to on click          | n/a
+target           | string        | link target on click                  | n/a

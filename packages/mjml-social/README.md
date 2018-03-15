@@ -80,6 +80,7 @@ attribute                   | unit        | description                   | defa
 ----------------------------|-------------|-------------------------------|---------------------------
 border-radius               | px          | border radius                 | 3px
 href                        | url         | button redirection url        | [[SHORT_PERMALINK]]
+target                      | string      | link target                   | \_blank
 background-color            | color       | icon color                    | Each social `name` has its own default
 font-family                 | string      | font name                     | Ubuntu, Helvetica, Arial, sans-serif
 font-size                   | px/em       | font size                     | 13px

@@ -7,17 +7,17 @@ export default class MjAccordionText extends BodyComponent {
     'background-color': 'color',
     'font-size': 'unit(px,%)',
     'font-family': 'string',
-    'color': 'color',
+    color: 'color',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
-    padding: 'unit(px,%){1,4}'
+    padding: 'unit(px,%){1,4}',
   }
 
   static defaultAttributes = {
     'font-size': '13px',
-    padding: '16px'
+    padding: '16px',
   }
 
   getStyles() {
@@ -31,12 +31,12 @@ export default class MjAccordionText extends BodyComponent {
         'padding-left': this.getAttribute('padding-left'),
         'padding-right': this.getAttribute('padding-right'),
         'padding-top': this.getAttribute('padding-top'),
-        padding: this.getAttribute('padding')
+        padding: this.getAttribute('padding'),
       },
       table: {
         width: '100%',
-        'border-bottom': this.getAttribute('border')
-      }
+        'border-bottom': this.getAttribute('border'),
+      },
     }
   }
 
@@ -45,7 +45,7 @@ export default class MjAccordionText extends BodyComponent {
       <td
         ${this.htmlAttributes({
           class: this.getAttribute('css-class'),
-          style: 'td'
+          style: 'td',
         })}
       >
         ${this.getContent()}
@@ -53,18 +53,18 @@ export default class MjAccordionText extends BodyComponent {
     `
   }
 
-  render () {
+  render() {
     return `
       <div
         ${this.htmlAttributes({
-          class: 'mj-accordion-content'
+          class: 'mj-accordion-content',
         })}
       >
         <table
           ${this.htmlAttributes({
             'cell-spacing': '0',
             'cell-padding': '0',
-            style: 'table'
+            style: 'table',
           })}
         >
           <tbody>

@@ -20,7 +20,7 @@ export default class MjAccordionTitle extends BodyComponent {
 
   static defaultAttributes = {
     'font-size': '13px',
-    padding: '16px'
+    padding: '16px',
   }
 
   getStyles() {
@@ -35,22 +35,22 @@ export default class MjAccordionTitle extends BodyComponent {
         'padding-left': this.getAttribute('padding-left'),
         'padding-right': this.getAttribute('padding-right'),
         'padding-top': this.getAttribute('padding-top'),
-        padding: this.getAttribute('padding')
+        padding: this.getAttribute('padding'),
       },
       table: {
         width: '100%',
-        'border-bottom': this.getAttribute('border')
+        'border-bottom': this.getAttribute('border'),
       },
       td2: {
         padding: '16px',
         background: this.getAttribute('background-color'),
-        'vertical-align': this.getAttribute('icon-align')
+        'vertical-align': this.getAttribute('icon-align'),
       },
       img: {
         display: 'none',
         width: this.getAttribute('icon-width'),
-        height: this.getAttribute('icon-height')
-      }
+        height: this.getAttribute('icon-height'),
+      },
     }
   }
 
@@ -59,7 +59,7 @@ export default class MjAccordionTitle extends BodyComponent {
       <td
         ${this.htmlAttributes({
           class: this.getAttribute('css-class'),
-          style: 'td'
+          style: 'td',
         })}
       >
         ${this.getContent()}
@@ -68,11 +68,12 @@ export default class MjAccordionTitle extends BodyComponent {
   }
 
   renderIcons() {
-    return conditionalTag(`
+    return conditionalTag(
+      `
       <td
         ${this.htmlAttributes({
           class: 'mj-accordion-ico',
-          style: 'td2'
+          style: 'td2',
         })}
       >
         <img
@@ -80,7 +81,7 @@ export default class MjAccordionTitle extends BodyComponent {
             src: this.getAttribute('icon-wrapped-url'),
             alt: this.getAttribute('icon-wrapped-alt'),
             class: 'mj-accordion-more',
-            style: 'img'
+            style: 'img',
           })}
         />
         <img
@@ -88,19 +89,20 @@ export default class MjAccordionTitle extends BodyComponent {
             src: this.getAttribute('icon-unwrapped-url'),
             alt: this.getAttribute('icon-unwrapped-alt'),
             class: 'mj-accordion-less',
-            style: 'img'
+            style: 'img',
           })}
         />
       </td>
-    `, true)
+    `,
+      true,
+    )
   }
 
-  render () {
+  render() {
     const contentElements = [this.renderTitle(), this.renderIcons()]
-    const content = (
-      this.getAttribute('icon-position') == 'right'
-        ? contentElements
-        : contentElements.reverse()
+    const content = (this.getAttribute('icon-position') == 'right'
+      ? contentElements
+      : contentElements.reverse()
     ).join('\n')
 
     return `
@@ -109,7 +111,7 @@ export default class MjAccordionTitle extends BodyComponent {
           ${this.htmlAttributes({
             'cell-spacing': '0',
             'cell-padding': '0',
-            style: 'table'
+            style: 'table',
           })}
         >
           <tbody>

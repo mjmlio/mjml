@@ -1,4 +1,4 @@
-import { get, identity, map, omit, reduce } from 'lodash'
+import { find, get, identity, map, omit, reduce } from 'lodash'
 import path from 'path'
 import juice from 'juice'
 import { html as htmlBeautify } from 'js-beautify'
@@ -12,7 +12,6 @@ import components, { initComponent, registerComponent } from './components'
 
 import mergeOutlookConditionnals from './helpers/mergeOutlookConditionnals'
 import defaultSkeleton from './helpers/skeleton'
-import traverseMJML from './helpers/traverseMJML'
 
 class ValidationError extends Error {
   constructor(message, errors) {
@@ -47,14 +46,14 @@ export default function mjml2html(mjml, options = {}) {
     minify = false,
     skeleton = defaultSkeleton,
     validationLevel = 'soft',
-    filePath = '.'
+    filePath = '.',
   } = options
 
   if (typeof mjml === 'string') {
     mjml = MJMLParser(mjml, {
       keepComments,
       components,
-      filePath
+      filePath,
     })
   }
 
@@ -104,8 +103,8 @@ export default function mjml2html(mjml, options = {}) {
       break
   }
 
-  const mjBody = traverseMJML(mjml, child => child.tagName === 'mj-body')
-  const mjHead = traverseMJML(mjml, child => child.tagName === 'mj-head')
+  const mjBody = find(mjml.children, { tagName: 'mj-body' })
+  const mjHead = find(mjml.children, { tagName: 'mj-head' })
 
   const processing = (node, context, parseMJML = identity) => {
     if (!node) {
@@ -130,6 +129,7 @@ export default function mjml2html(mjml, options = {}) {
       }
     }
   }
+
   const applyAttributes = mjml => {
     const parse = (mjml, parentMjClass = '') => {
       const { attributes, tagName, children } = mjml
@@ -155,8 +155,8 @@ export default function mjml2html(mjml, options = {}) {
       return {
         ...mjml,
         attributes: {
-          ...globalDatas.defaultAttributes[tagName],
           ...globalDatas.defaultAttributes['mj-all'],
+          ...globalDatas.defaultAttributes[tagName],
           ...attributesClasses,
           ...defaultAttributesForClasses,
           ...omit(attributes, ['mj-class']),
@@ -226,22 +226,24 @@ export default function mjml2html(mjml, options = {}) {
     ...globalDatas,
   })
 
-  content = (beautify && beautify !== 'false')
-    ? htmlBeautify(content, {
-        indent_size: 2,
-        wrap_attributes_indent_size: 2,
-        max_preserve_newline: 0,
-        preserve_newlines: false,
-      })
-    : content
+  content =
+    beautify && beautify !== 'false'
+      ? htmlBeautify(content, {
+          indent_size: 2,
+          wrap_attributes_indent_size: 2,
+          max_preserve_newline: 0,
+          preserve_newlines: false,
+        })
+      : content
 
-  content = (minify && minify !== 'false')
-    ? htmlMinify(content, {
-        collapseWhitespace: true,
-        minifyCSS: false,
-        removeEmptyAttributes: true,
-      })
-    : content
+  content =
+    minify && minify !== 'false'
+      ? htmlMinify(content, {
+          collapseWhitespace: true,
+          minifyCSS: false,
+          removeEmptyAttributes: true,
+        })
+      : content
 
   content = mergeOutlookConditionnals(content)
 

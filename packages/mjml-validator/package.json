@@ -1,7 +1,7 @@
 {
   "name": "mjml-validator",
   "description": "mjml-validator",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "lodash": "^4.17.4",
-    "mjml-core": "^4.0.0",
+    "mjml-core": "^4.0.1",
     "warning": "^3.0.0"
   }
 }

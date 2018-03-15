@@ -58,7 +58,7 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
   const handleInclude = (file, line) => {
     const partialPath = path.resolve(cwd, file)
 
-    if (find(cur.includedIn, {file: partialPath}))
+    if (find(cur.includedIn, { file: partialPath }))
       throw new Error(`Circular inclusion detected on file : ${partialPath}`)
 
     let content
@@ -86,15 +86,19 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
         ? `<mjml><mj-body>${content}</mj-body></mjml>`
         : content
 
-    const partialMjml = MJMLParser(content,
+    const partialMjml = MJMLParser(
+      content,
       {
         ...options,
         filePath: partialPath,
       },
-      [...cur.includedIn, {
-        file: cur.absoluteFilePath,
-        line
-      }]
+      [
+        ...cur.includedIn,
+        {
+          file: cur.absoluteFilePath,
+          line,
+        },
+      ],
     )
 
     const bindToTree = (children, tree = cur) =>
@@ -130,14 +134,10 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
       }
 
       const boundChildren = bindToTree(head.children, curHead)
-      curHead.children = [
-        ...curHead.children,
-        ...boundChildren,
-      ]
+      curHead.children = [...curHead.children, ...boundChildren]
 
       cur = boundChildren[boundChildren.length - 1]
     }
-
   }
 
   const parser = new htmlparser.Parser(

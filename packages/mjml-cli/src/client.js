@@ -140,9 +140,10 @@ export default async () => {
     try {
       convertedStream.push(
         Object.assign({}, i, {
-          compiled: inputOpt === 'm'
-                    ? { html: htmlBeautify(migrate(i.mjml), beautifyOptions) }
-                    : mjml2html(i.mjml, { ...config, filePath: i.file })
+          compiled:
+            inputOpt === 'm'
+              ? { html: htmlBeautify(migrate(i.mjml), beautifyOptions) }
+              : mjml2html(i.mjml, { ...config, filePath: i.file }),
         }),
       )
     } catch (e) {
@@ -175,7 +176,7 @@ export default async () => {
     case 'o':
       if (inputs.length > 1 && (!isDirectory(argv.o) && argv.o !== '')) {
         error(
-          `Multiple input files, but output option should be either a directory or an empty string: ${argv.o} given`,
+          `Multiple input files, but output option should be either an existing directory or an empty string: ${argv.o} given`,
         )
       }
 

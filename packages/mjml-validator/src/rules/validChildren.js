@@ -32,13 +32,21 @@ export default function validChildren(element, { components }) {
         return null
       }
 
-      if (parentDependencies.some(dep => dep instanceof RegExp && dep.test(childTagName))) {
+      if (
+        parentDependencies.some(
+          dep => dep instanceof RegExp && dep.test(childTagName),
+        )
+      ) {
         return null
       }
 
       const allowedDependencies = keys(dependencies).filter(key => {
-        return includes(dependencies[key], childTagName)
-            || dependencies[key].some(dep => dep instanceof RegExp && dep.test(childTagName))
+        return (
+          includes(dependencies[key], childTagName) ||
+          dependencies[key].some(
+            dep => dep instanceof RegExp && dep.test(childTagName),
+          )
+        )
       })
 
       return ruleError(

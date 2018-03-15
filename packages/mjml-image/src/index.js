@@ -89,7 +89,8 @@ export default class MjImage extends BodyComponent {
     const img = `
       <img
         ${this.htmlAttributes({
-          alt: this.getAttribute('href'),
+          alt: this.getAttribute('alt'),
+          href: this.getAttribute('href'),
           height: this.getAttribute('height'),
           src: this.getAttribute('src'),
           srcset: this.getAttribute('srcset'),

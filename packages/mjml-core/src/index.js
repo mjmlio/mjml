@@ -26,6 +26,7 @@ export default function mjml2html(mjml, options = {}) {
   let errors = []
 
   if (typeof options.skeleton === 'string') {
+    // eslint-disable-next-line global-require,import/no-dynamic-require
     options.skeleton = require(options.skeleton.charAt(0) === '.'
       ? path.resolve(process.cwd(), options.skeleton)
       : options.skeleton)

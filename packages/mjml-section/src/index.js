@@ -154,8 +154,7 @@ export default class MjSection extends BodyComponent {
     `
   }
 
-  renderAfter() {
-    // eslint-disable-line class-methods-use-this
+  static renderAfter() {
     return `
       <!--[if mso | IE]>
           </td>

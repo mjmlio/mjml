@@ -174,7 +174,7 @@ export class BodyComponent extends Component {
         output += renderer(component)
       }
 
-      index++ // eslint-disable-line no-plusplus
+      index += 1
     })
 
     return output
@@ -199,6 +199,7 @@ export class HeadComponent extends Component {
       })
 
       if (!component) {
+        // eslint-disable-next-line no-console
         console.log(`No matching component for tag : ${children.tagName}`)
         return
       }

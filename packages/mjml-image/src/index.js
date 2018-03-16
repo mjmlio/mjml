@@ -11,9 +11,6 @@ export default class MjImage extends BodyComponent {
     'alt': 'string',
     'href': 'string',
     'src': 'string',
-    '
-    
-    ': 'string',
     'title': 'string',
     align: 'enum(left,center,right)',
     border: 'string',

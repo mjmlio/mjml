@@ -4,6 +4,7 @@ function mergeArrays(objValue, srcValue) {
   if (isArray(objValue) && isArray(srcValue)) {
     return objValue.concat(srcValue)
   }
+  return null
 }
 
 const dependencies = {}

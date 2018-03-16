@@ -46,6 +46,7 @@ background-repeat   | string      | css background repeat          | repeat
 background-size     | percent/px  | css background size            | auto
 vertical-align      | string      | css vertical-align             | top
 text-align          | string      | css text-align                 | center
+align               | string      | horizontally align section     | center
 padding             | px          | supports up to 4 parameters    | 20px 0
 padding-top         | px          | section top offset             | n/a
 padding-bottom      | px          | section bottom offset          | n/a

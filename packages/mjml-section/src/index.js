@@ -131,16 +131,16 @@ export default class MjSection extends BodyComponent {
     return this.getAttribute('full-width') === 'full-width'
   }
 
-  getMarginAlignment {
-    return switch (this.getAttribute('align')) {
+  getMarginAlignment() {
+    switch (this.getAttribute('align')) {
       case 'left':
-        '0px auto 0px 0px'
+        return '0px auto 0px 0px'
         break;
       case 'left':
-        '0px 0px 0px auto'
+        return '0px 0px 0px auto'
         break;
       default:
-        '0px auto'
+        return '0px auto'
     }
   }
 

@@ -6,7 +6,6 @@ import widthParser from 'mjml-core/lib/helpers/widthParser'
 const makeBackgroundString = flow(filter(identity), join(' '))
 export default class MjSection extends BodyComponent {
   static allowedAttributes = {
-    'align': 'enum(left,center,right)',
     'background-color': 'color',
     'background-url': 'string',
     'background-repeat': 'enum(repeat/no-repeat)',
@@ -30,7 +29,6 @@ export default class MjSection extends BodyComponent {
   }
 
   static defaultAttributes = {
-    'align': 'center',
     'background-repeat': 'repeat',
     'background-size': 'auto',
     direction: 'ltr',
@@ -69,8 +67,6 @@ export default class MjSection extends BodyComponent {
           'background-color': this.getAttribute('background-color'),
         }
 
-    const marginAlignment = this.getMarginAlignment()
-
     return {
       tableFullwidth: {
         ...(fullWidth ? background : {}),
@@ -100,7 +96,7 @@ export default class MjSection extends BodyComponent {
       },
       div: {
         ...(fullWidth ? {} : background),
-        Margin: marginAlignment,
+        Margin: '0px auto',
         'border-radius': this.getAttribute('border-radius'),
         'max-width': containerWidth,
       },
@@ -131,19 +127,6 @@ export default class MjSection extends BodyComponent {
     return this.getAttribute('full-width') === 'full-width'
   }
 
-  getMarginAlignment() {
-    switch (this.getAttribute('align')) {
-      case 'left':
-        return '0px auto 0px 0px'
-        break;
-      case 'left':
-        return '0px 0px 0px auto'
-        break;
-      default:
-        return '0px auto'
-    }
-  }
-
   renderBefore() {
     const { containerWidth } = this.context
 
@@ -151,7 +134,7 @@ export default class MjSection extends BodyComponent {
       <!--[if mso | IE]>
       <table
         ${this.htmlAttributes({
-          align: this.getAttribute('align'),
+          align: 'center',
           border: '0',
           cellpadding: '0',
           cellspacing: '0',
@@ -267,7 +250,7 @@ export default class MjSection extends BodyComponent {
           : ''}
         <table
           ${this.htmlAttributes({
-            align: component.getAttribute('align'),
+            align: 'center',
             background: this.isFullWidth()
               ? null
               : this.getAttribute('background-url'),

@@ -47,6 +47,7 @@ export default class MjImage extends BodyComponent {
     return {
       img: {
         border: this.getAttribute('border'),
+        'border-radius': this.getAttribute('border-radius'),
         display: 'block',
         outline: 'none',
         'text-decoration': 'none',

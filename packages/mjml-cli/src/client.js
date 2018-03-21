@@ -87,9 +87,9 @@ export default async () => {
 
   // implies (until yargs pr is accepted)
   ;[
-    [Object.keys(inputArgs).length > 1, 'No input arguments received'],
-    [Object.keys(inputArgs).length === 0, 'Too much input arguments received'],
-    [Object.keys(outputArgs).length > 1, 'Too much output arguments received'],
+    [Object.keys(inputArgs).length === 0, 'No input argument received'],
+    [Object.keys(inputArgs).length > 1, 'Too many input arguments received'],
+    [Object.keys(outputArgs).length > 1, 'Too many output arguments received'],
     [
       argv.w && argv.w.length > 1 && !argv.o,
       'Need an output option when watching files',

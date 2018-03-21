@@ -135,10 +135,8 @@ export default class MjSection extends BodyComponent {
     switch (this.getAttribute('align')) {
       case 'left':
         return '0px auto 0px 0px'
-        break;
-      case 'left':
+      case 'right':
         return '0px 0px 0px auto'
-        break;
       default:
         return '0px auto'
     }
@@ -267,7 +265,7 @@ export default class MjSection extends BodyComponent {
           : ''}
         <table
           ${this.htmlAttributes({
-            align: component.getAttribute('align'),
+            align: this.getAttribute('align'),
             background: this.isFullWidth()
               ? null
               : this.getAttribute('background-url'),

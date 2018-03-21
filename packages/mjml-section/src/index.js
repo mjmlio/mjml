@@ -146,6 +146,10 @@ export default class MjSection extends BodyComponent {
     const { containerWidth } = this.context
 
     return `
+      <table align="left" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+        <tbody>
+          <tr>
+            <td>
       <!--[if mso | IE]>
       <table
         ${this.htmlAttributes({
@@ -172,12 +176,14 @@ export default class MjSection extends BodyComponent {
   renderAfter() {
     // eslint-disable-line class-methods-use-this
     return `
-      <!--[if mso | IE]>
-          </td>
-        </tr>
-      </table>
-      <![endif]-->
-    `
+    <!--[if mso | IE]>
+        </td>
+      </tr>
+    </table>
+    <![endif]-->
+        </td>
+      </tr>
+    </table>`
   }
 
   renderWrappedChildren() {

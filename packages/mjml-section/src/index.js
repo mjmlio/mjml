@@ -100,7 +100,7 @@ export default class MjSection extends BodyComponent {
       },
       div: {
         ...(fullWidth ? {} : background),
-        Margin: marginAlignment,
+        margin: marginAlignment,
         'border-radius': this.getAttribute('border-radius'),
         'max-width': containerWidth,
       },

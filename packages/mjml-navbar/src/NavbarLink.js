@@ -53,6 +53,13 @@ export default class MjNavbarLink extends BodyComponent {
         'padding-right': this.getAttribute('padding-right'),
         'padding-bottom': this.getAttribute('padding-bottom'),
       },
+      td: {
+        padding: this.getAttribute('padding'),
+        'padding-top': this.getAttribute('padding-top'),
+        'padding-left': this.getAttribute('padding-left'),
+        'padding-right': this.getAttribute('padding-right'),
+        'padding-bottom': this.getAttribute('padding-bottom'),
+      }
     }
   }
 
@@ -87,11 +94,7 @@ export default class MjNavbarLink extends BodyComponent {
         ${conditionalTag(`
           <td
             ${this.htmlAttributes({
-              padding: this.getAttribute('padding'),
-              'padding-top': this.getAttribute('padding-top'),
-              'padding-left': this.getAttribute('padding-left'),
-              'padding-right': this.getAttribute('padding-right'),
-              'padding-bottom': this.getAttribute('padding-bottom'),
+              style: 'td',
               class: this.getAttribute('css-class')
                 ? this.getAttribute('css-class')
                     .split(' ')

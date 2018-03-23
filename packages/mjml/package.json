@@ -1,7 +1,7 @@
 {
   "name": "mjml",
   "description": "MJML: the only framework that makes responsive-email easy",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "main": "lib/index.js",
   "bin": {
     "mjml": "bin/mjml"
@@ -24,8 +24,8 @@
     "mjml-body": "^4.0.2",
     "mjml-button": "^4.0.1",
     "mjml-carousel": "^4.0.2",
-    "mjml-cli": "^4.0.1",
-    "mjml-column": "^4.0.1",
+    "mjml-cli": "^4.0.3",
+    "mjml-column": "^4.0.3",
     "mjml-core": "^4.0.1",
     "mjml-divider": "^4.0.1",
     "mjml-group": "^4.0.2",
@@ -37,15 +37,15 @@
     "mjml-head-style": "^4.0.1",
     "mjml-head-title": "^4.0.1",
     "mjml-hero": "^4.0.1",
-    "mjml-image": "^4.0.2",
+    "mjml-image": "^4.0.3",
     "mjml-migrate": "^4.0.1",
-    "mjml-navbar": "^4.0.2",
+    "mjml-navbar": "^4.0.3",
     "mjml-raw": "^4.0.2",
     "mjml-section": "^4.0.1",
     "mjml-social": "^4.0.2",
     "mjml-spacer": "^4.0.1",
     "mjml-table": "^4.0.1",
-    "mjml-text": "^4.0.1",
+    "mjml-text": "^4.0.3",
     "mjml-validator": "^4.0.1",
     "mjml-wrapper": "^4.0.1"
   }

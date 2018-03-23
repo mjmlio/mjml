@@ -11,9 +11,7 @@ export default class MjImage extends BodyComponent {
     'alt': 'string',
     'href': 'string',
     'src': 'string',
-    '
-    
-    ': 'string',
+    'srcset': 'string',
     'title': 'string',
     align: 'enum(left,center,right)',
     border: 'string',
@@ -49,6 +47,7 @@ export default class MjImage extends BodyComponent {
     return {
       img: {
         border: this.getAttribute('border'),
+        'border-radius': this.getAttribute('border-radius'),
         display: 'block',
         outline: 'none',
         'text-decoration': 'none',

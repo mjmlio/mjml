@@ -23,7 +23,7 @@ export default class MjColumn extends BodyComponent {
 
   static defaultAttributes = {
     direction: 'ltr',
-    'vertical-align': 'bottom',
+    'vertical-align': 'top',
   }
 
   getChildContext() {

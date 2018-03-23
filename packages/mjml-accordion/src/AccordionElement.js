@@ -1,8 +1,8 @@
 import { BodyComponent } from 'mjml-core'
-import AccordionText from './AccordionText'
-import AccordionTitle from './AccordionTitle'
 import conditionalTag from 'mjml-core/lib/helpers/conditionalTag'
 import { find } from 'lodash'
+import AccordionText from './AccordionText'
+import AccordionTitle from './AccordionTitle'
 
 export default class MjAccordionElement extends BodyComponent {
   static allowedAttributes = {

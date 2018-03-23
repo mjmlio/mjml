@@ -18,6 +18,7 @@ const flatMapKeyAndValues = flow(_flatMap((v, k) => [k, ...v]), uniq)
 export default (input, options) => {
   console.log(`Now watching: ${input}`)
 
+  let watcher
   const dependencies = {}
   const outputToFile = makeOutputToFile(options.o)
   const getRelatedFiles = file =>
@@ -35,15 +36,13 @@ export default (input, options) => {
 
     const files = {
       toWatch: flatMapKeyAndValues(dependencies),
-      watched: flatMapAndJoin(watcher.getWatched()), // eslint-disable-line no-use-before-define
+      watched: flatMapAndJoin(watcher.getWatched()),
     }
 
     watcher.add(
-      // eslint-disable-line no-use-before-define
       difference(files.toWatch, files.watched),
     )
     watcher.unwatch(
-      // eslint-disable-line no-use-before-define
       difference(files.watched, files.toWatch),
     )
   }
@@ -69,7 +68,7 @@ export default (input, options) => {
         .catch(() => console.log(`${args.file} - Error while compiling file`)),
   )
 
-  const watcher = chokidar
+  watcher = chokidar
     .watch(input)
     .on('change', file => synchronyzeWatcher(path.resolve(file)))
     .on('add', file => {

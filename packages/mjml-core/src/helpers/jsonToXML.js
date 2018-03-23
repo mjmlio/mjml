@@ -2,7 +2,7 @@ export default ({ tagName, attributes, children, content }) => {
   const subNode =
     children && children.length > 0
       ? children.map(jsonToXML).join('\n')
-      : content ? content : ''
+      : content || ''
 
   const stringAttrs = Object.keys(attributes)
     .map(attr => `${attr}="${attributes[attr]}"`)

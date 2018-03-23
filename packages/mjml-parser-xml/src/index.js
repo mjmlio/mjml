@@ -143,12 +143,12 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
   const parser = new htmlparser.Parser(
     {
       onopentag: (name, attrs) => {
-        // eslint-disable-line consistent-return
         const line = findLastIndex(lineIndexes, i => i <= parser.startIndex) + 1
 
         if (name === 'mj-include') {
           inInclude = true
-          return handleInclude(decodeURIComponent(attrs.path), line)
+          handleInclude(decodeURIComponent(attrs.path), line)
+          return
         }
 
         if (convertBooleans) {

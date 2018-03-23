@@ -28,3 +28,7 @@ export function buildFontsTags(content, fonts = {}) {
 
   return ''
 }
+
+export default {
+  buildFontsTags,
+}

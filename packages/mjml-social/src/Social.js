@@ -37,7 +37,7 @@ export default class MjSocial extends BodyComponent {
     'text-decoration': 'none',
   }
 
-  getStyles() {
+  static getStyles() {
     return {
       tableVertical: {
         margin: '0px',

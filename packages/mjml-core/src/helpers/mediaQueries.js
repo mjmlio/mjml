@@ -26,3 +26,7 @@ export function buildMediaQueriesTags(
       : ``}
   `
 }
+
+export default {
+  buildMediaQueriesTags,
+}

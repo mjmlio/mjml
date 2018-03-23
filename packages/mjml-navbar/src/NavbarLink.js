@@ -88,8 +88,6 @@ export default class MjNavbarLink extends BodyComponent {
   }
 
   render() {
-    const padding = this.getAttribute('padding')
-
     return `
         ${conditionalTag(`
           <td

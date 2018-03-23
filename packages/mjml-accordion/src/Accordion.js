@@ -34,8 +34,7 @@ export default class MjAccordion extends BodyComponent {
     padding: '10px 25px',
   }
 
-  headStyle = () => {
-    return `
+  headStyle = () => `
       noinput.mj-accordion-checkbox { display:block!important; }
 
       @media yahoo, only screen and (min-width:0) {
@@ -51,7 +50,6 @@ export default class MjAccordion extends BodyComponent {
 
       @goodbye { @gmail }
     `
-  }
 
   getStyles() {
     return {

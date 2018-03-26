@@ -8,11 +8,11 @@ export default class MjImage extends BodyComponent {
   static tagOmission = true
 
   static allowedAttributes = {
-    'alt': 'string',
-    'href': 'string',
-    'src': 'string',
-    'srcset': 'string',
-    'title': 'string',
+    alt: 'string',
+    href: 'string',
+    src: 'string',
+    srcset: 'string',
+    title: 'string',
     align: 'enum(left,center,right)',
     border: 'string',
     'border-bottom': 'string',

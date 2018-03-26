@@ -59,7 +59,7 @@ export default class MjNavbarLink extends BodyComponent {
         'padding-left': this.getAttribute('padding-left'),
         'padding-right': this.getAttribute('padding-right'),
         'padding-bottom': this.getAttribute('padding-bottom'),
-      }
+      },
     }
   }
 

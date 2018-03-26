@@ -10,7 +10,6 @@ import filter from 'lodash/fp/filter'
 import map from 'lodash/fp/map'
 import flow from 'lodash/fp/flow'
 
-import parseAttributes, { decodeAttributes } from './helpers/parseAttributes'
 import cleanNode from './helpers/cleanNode'
 import convertBooleansOnAttrs from './helpers/convertBooleansOnAttrs'
 import addCDATASection from './helpers/addCDATASection'
@@ -45,7 +44,6 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
 
   let safeXml = xml
 
-  safeXml = parseAttributes(safeXml)
   safeXml = addCDATASection(CDATASections, safeXml)
 
   let mjml = null
@@ -156,8 +154,6 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
           attrs = convertBooleansOnAttrs(attrs)
         }
 
-        attrs = mapValues(attrs, val => decodeURIComponent(val))
-
         const newNode = {
           file: filePath,
           absoluteFilePath: path.resolve(cwd, filePath),
@@ -192,7 +188,7 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
         const val = `${(cur && cur.content) || ''}${text}`.trim()
 
         if (val) {
-          cur.content = decodeAttributes(val)
+          cur.content = val
         }
       },
       oncomment: data => {
@@ -206,7 +202,8 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
       },
     },
     {
-      xmlMode: true,
+      recognizeCDATA: true,
+      decodeEntities: false,
     },
   )
 

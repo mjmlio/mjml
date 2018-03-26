@@ -129,7 +129,13 @@ export default class MjSocialElement extends BodyComponent {
       )
     }
 
-    return ['icon-size', 'icon-height', 'href', 'src', 'background-color'].reduce(
+    return [
+      'icon-size',
+      'icon-height',
+      'href',
+      'src',
+      'background-color',
+    ].reduce(
       (r, attr) => ({
         ...r,
         [attr]: socialNetwork[attr] || this.getAttribute(attr),
@@ -139,7 +145,12 @@ export default class MjSocialElement extends BodyComponent {
   }
 
   render() {
-    const { src, href, 'icon-size': iconSize, 'icon-height': iconHeight } = this.getSocialAttributes()
+    const {
+      src,
+      href,
+      'icon-size': iconSize,
+      'icon-height': iconHeight,
+    } = this.getSocialAttributes()
 
     return `
       <tr

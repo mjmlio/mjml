@@ -172,7 +172,7 @@ export default function mjml2html(mjml, options = {}) {
     addMediaQuery(className, { parsedWidth, unit }) {
       globalDatas.mediaQueries[
         className
-      ] = `{ width:${parsedWidth}${unit} !important; }`
+      ] = `{ width:${parsedWidth}${unit} !important; max-width: ${parsedWidth}${unit}; }`
     },
     addHeadSyle(identifier, headStyle) {
       globalDatas.headStyle[identifier] = headStyle

@@ -57,7 +57,8 @@ attribute                   | unit        | description                   | defa
 border-radius               | px          | border radius                 | 3px
 font-family                 | string      | font name                     | Ubuntu, Helvetica, Arial, sans-serif
 font-size                   | px/em       | font size                     | 13px
-icon-size                   | percent/px  | icon size                     | 20px
+icon-size                   | percent/px  | icon size (width and height)  | 20px
+icon-height                 | percent/px  | icon height, overrides icon-size | icon-size
 line-height                 | percent/px  | space between lines           | 22px
 mode                        | string      | vertical/horizontal           | horizontal
 text-decoration             | string      | underline/overline/none       | none
@@ -84,7 +85,8 @@ target                      | string      | link target                   | \_bl
 background-color            | color       | icon color                    | Each social `name` has its own default
 font-family                 | string      | font name                     | Ubuntu, Helvetica, Arial, sans-serif
 font-size                   | px/em       | font size                     | 13px
-icon-size                   | percent/px  | icon size                     | 20px
+icon-size                   | percent/px  | icon size (width and height)  | 20px
+icon-height                 | percent/px  | icon height, overrides icon-size | icon-size
 line-height                 | percent/px  | space between lines           | 22px
 mode                        | string      | vertical/horizontal           | horizontal
 text-decoration             | string      | underline/overline/none       | none

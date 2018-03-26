@@ -53,6 +53,7 @@ export default class MjSocialElement extends BodyComponent {
     'font-weight': 'string',
     href: 'string',
     'icon-size': 'unit(px,%)',
+    'icon-height': 'unit(px,%)',
     'line-height': 'unit(px,%)',
     name: 'string',
     'padding-bottom': 'unit(px,%)',
@@ -80,6 +81,7 @@ export default class MjSocialElement extends BodyComponent {
   getStyles() {
     const {
       'icon-size': iconSize,
+      'icon-height': iconHeight,
       'background-color': backgroundColor,
     } = this.getSocialAttributes()
 
@@ -94,7 +96,7 @@ export default class MjSocialElement extends BodyComponent {
       },
       icon: {
         'font-size': '0',
-        height: iconSize,
+        height: iconHeight || iconSize,
         'vertical-align': 'middle',
         width: iconSize,
       },
@@ -127,7 +129,7 @@ export default class MjSocialElement extends BodyComponent {
       )
     }
 
-    return ['icon-size', 'href', 'src', 'background-color'].reduce(
+    return ['icon-size', 'icon-height', 'href', 'src', 'background-color'].reduce(
       (r, attr) => ({
         ...r,
         [attr]: socialNetwork[attr] || this.getAttribute(attr),
@@ -137,7 +139,7 @@ export default class MjSocialElement extends BodyComponent {
   }
 
   render() {
-    const { src, href, 'icon-size': iconSize } = this.getSocialAttributes()
+    const { src, href, 'icon-size': iconSize, 'icon-height': iconHeight } = this.getSocialAttributes()
 
     return `
       <tr
@@ -165,7 +167,7 @@ export default class MjSocialElement extends BodyComponent {
                     <img
                       ${this.htmlAttributes({
                         alt: this.getAttribute('alt'),
-                        height: parseInt(iconSize, 10),
+                        height: parseInt(iconHeight || iconSize, 10),
                         src,
                         style: 'img',
                         width: parseInt(iconSize, 10),

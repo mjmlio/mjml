@@ -18,12 +18,7 @@ script:
  - npm install
  - gulp build
  - npm run lint
- - cd packages/mjml-validator
- - npm link mjml-core
+ - cd packages/mjml-parser-xml
  - npm link
  - npm install
- - cd ../mjml-core
- - npm link mjml-validator
- - npm install
- - npm link
  - npm test

@@ -14,10 +14,16 @@
   "homepage": "https://mjml.io",
   "scripts": {
     "clean": "../../node_modules/.bin/rimraf lib",
-    "build": "../../node_modules/.bin/babel src --out-dir lib"
+    "build": "../../node_modules/.bin/babel src --out-dir lib",
+    "test": "node ./test/test.js"
   },
   "dependencies": {
     "htmlparser2": "^3.9.2",
     "lodash": "^4.17.2"
+  },
+  "devDependencies": {
+    "mjml-core": "^4.0.0",
+    "lodash": "^4.17.2",
+    "chai": "^4.1.1"
   }
 }

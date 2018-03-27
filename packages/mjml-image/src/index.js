@@ -8,11 +8,11 @@ export default class MjImage extends BodyComponent {
   static tagOmission = true
 
   static allowedAttributes = {
-    'alt': 'string',
-    'href': 'string',
-    'src': 'string',
-    'srcset': 'string',
-    'title': 'string',
+    alt: 'string',
+    href: 'string',
+    src: 'string',
+    srcset: 'string',
+    title: 'string',
     align: 'enum(left,center,right)',
     border: 'string',
     'border-bottom': 'string',
@@ -41,7 +41,8 @@ export default class MjImage extends BodyComponent {
   getStyles() {
     const width = this.getContentWidth()
     const fullWidth = this.getAttribute('full-width') === 'full-width'
-    const fixCentering = this.getAttribute('align') === 'center' ? { margin: '0px auto' } : {}
+    const fixCentering =
+      this.getAttribute('align') === 'center' ? { margin: '0px auto' } : {}
 
     const { parsedWidth, unit } = widthParser(width)
 

@@ -17,6 +17,7 @@
     "build": "cross-env ../../node_modules/.bin/babel src --out-dir lib"
   },
   "dependencies": {
+    "cross-env": "^5.1.4",
     "html-minifier": "^3.5.3",
     "js-beautify": "^1.6.14",
     "juice": "^4.1.0",

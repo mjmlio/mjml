@@ -41,6 +41,7 @@ export default class MjImage extends BodyComponent {
   getStyles() {
     const width = this.getContentWidth()
     const fullWidth = this.getAttribute('full-width') === 'full-width'
+    const fixCentering = this.getAttribute('align') === 'center' ? { margin: '0px auto' } : {}
 
     const { parsedWidth, unit } = widthParser(width)
 
@@ -64,6 +65,7 @@ export default class MjImage extends BodyComponent {
         width: fullWidth ? `${parsedWidth}${unit}` : null,
         'border-collapse': 'collapse',
         'border-spacing': '0px',
+        ...fixCentering,
       },
     }
   }

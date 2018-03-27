@@ -15,6 +15,7 @@ node_js:
  - 5
  - 6
 script:
+ - npm install -g gulp-cli
  - npm install
  - gulp build
  - npm run lint

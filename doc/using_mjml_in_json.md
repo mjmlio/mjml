@@ -9,7 +9,7 @@ With the JSON format, a MJML component is defined as an `object` with the follow
 * a list of attributes as an `object`
 * either a `content` as a `string` or a list of `children` tags as an `array`.
 
-Exactly like using MJML as a markup, the JSON definition can be passed as an object to `mjml.mjml2html()`.
+Exactly like using MJML as a markup, the JSON definition can be passed as an object to the `mjml2html` function.
 Here is working example:
 
 ```javascript

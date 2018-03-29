@@ -1,3 +1,4 @@
+import path from 'path'
 import yargs from 'yargs'
 import { html as htmlBeautify } from 'js-beautify'
 import { flow, pick, isNil, negate, pickBy } from 'lodash/fp'
@@ -28,6 +29,7 @@ export default async () => {
   let KEEP_OPEN = false
 
   const error = msg => {
+    console.log('Cli returned an error message :')
     console.error(msg) // eslint-disable-line no-console
 
     return process.exit(1)
@@ -74,6 +76,10 @@ export default async () => {
         type: 'object',
         describe: 'Option to pass to mjml-core',
       },
+      verb: {
+        alias: 'verbose',
+        describe: 'Display debug information',
+      },
       version: {
         alias: 'V',
       },
@@ -84,6 +90,9 @@ export default async () => {
   const config = Object.assign(DEFAULT_OPTIONS, argv.c)
   const inputArgs = pickArgs(['r', 'w', 'i', '_', 'm'])(argv)
   const outputArgs = pickArgs(['o', 's'])(argv)
+
+  const verboseArg = pickArgs(['verb'])(argv)
+  const verbose = verboseArg && !!verboseArg.verb
 
   // implies (until yargs pr is accepted)
   ;[
@@ -129,7 +138,12 @@ export default async () => {
       inputs.push(await readStream())
       break
     default:
-      error('Cli error !')
+      error('Cli error ! Incorrect input options')
+  }
+
+  if (!inputs.length) {
+    error('No input files found')
+    return
   }
 
   const convertedStream = []
@@ -148,7 +162,6 @@ export default async () => {
       )
     } catch (e) {
       EXIT_CODE = 2
-
       failedStream.push({ file: i.file, error: e })
     }
   })
@@ -163,7 +176,7 @@ export default async () => {
     // eslint-disable-line array-callback-return
     console.error(`${file ? `File: ${file}\n` : null}${error}`) // eslint-disable-line no-console
 
-    if (config.stack) {
+    if (config.stack || verbose) {
       console.error(error.stack) // eslint-disable-line no-console
     }
   })
@@ -177,6 +190,18 @@ export default async () => {
       if (inputs.length > 1 && (!isDirectory(argv.o) && argv.o !== '')) {
         error(
           `Multiple input files, but output option should be either an existing directory or an empty string: ${argv.o} given`,
+        )
+      }
+
+      const fullOutputPath = path.parse(path.resolve(process.cwd(), argv.o))
+      const isFolder = fullOutputPath.ext === ''
+
+      if (inputs.length === 1 && (
+          (isFolder && !isDirectory(argv.o) && argv.o !== '')
+       || !isDirectory(fullOutputPath.dir)
+      )) {
+        error(
+          `Output directory doesn’t exist: ${argv.o}`,
         )
       }
 

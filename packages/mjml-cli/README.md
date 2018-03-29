@@ -60,6 +60,12 @@ $> mjml input.mjml --config.beautify true --config.minify false
 
 These are the default options.
 
+### Log debug information
+
+```bash
+$> mjml input.mjml --verbose
+```
+
 ### Render and redirect the result to a file
 
 ```bash

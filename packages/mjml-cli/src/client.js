@@ -29,7 +29,7 @@ export default async () => {
   let KEEP_OPEN = false
 
   const error = msg => {
-    console.log('Cli returned an error message :')
+    console.log('\nCli returned an error message :') // eslint-disable-line no-console
     console.error(msg) // eslint-disable-line no-console
 
     return process.exit(1)
@@ -196,13 +196,12 @@ export default async () => {
       const fullOutputPath = path.parse(path.resolve(process.cwd(), argv.o))
       const isFolder = fullOutputPath.ext === ''
 
-      if (inputs.length === 1 && (
-          (isFolder && !isDirectory(argv.o) && argv.o !== '')
-       || !isDirectory(fullOutputPath.dir)
-      )) {
-        error(
-          `Output directory doesn’t exist: ${argv.o}`,
-        )
+      if (
+        inputs.length === 1 &&
+        ((isFolder && !isDirectory(argv.o) && argv.o !== '') ||
+          !isDirectory(fullOutputPath.dir))
+      ) {
+        error(`Output directory doesn’t exist for path : ${argv.o}`)
       }
 
       Promise.all(convertedStream.map(outputToFile(argv.o)))
@@ -211,9 +210,9 @@ export default async () => {
             process.exit(EXIT_CODE)
           }
         })
-        .catch(() => {
+        .catch(({ outputName, err }) => {
           if (!KEEP_OPEN) {
-            process.exit(1)
+            error(`Error writing file - ${outputName} : ${err}`)
           }
         })
       break

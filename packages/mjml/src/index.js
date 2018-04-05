@@ -55,7 +55,8 @@ try {
   const custom_comps = JSON.parse(mjmlConfig).packages
 
   custom_comps.forEach((compPath) => {
-    registerComponent(require(path.join(process.cwd(), compPath)));
+    const requiredComp = require(path.join(process.cwd(), compPath))
+    registerComponent(requiredComp.default || requiredComp)
   })
 } catch(e) {
   if (e.code !== 'ENOENT') {

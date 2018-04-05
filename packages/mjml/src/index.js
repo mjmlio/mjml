@@ -1,3 +1,6 @@
+import path from 'path'
+import fs from 'fs'
+
 import mjml2html, { registerComponent } from 'mjml-core'
 import { registerDependencies } from 'mjml-validator'
 
@@ -45,5 +48,19 @@ registerComponent(Carousel)
 registerComponent(CarouselImage)
 
 registerDependencies(require('./dependencies'))
+
+
+try {
+  const mjmlConfig = fs.readFileSync(path.join(process.cwd(), '.mjmlconfig'));
+  const custom_comps = JSON.parse(mjmlConfig).packages
+
+  custom_comps.forEach((compPath) => {
+    registerComponent(require(path.join(process.cwd(), compPath)));
+  })
+} catch(e) {
+  if (e.code !== 'ENOENT') {
+    console.log('Error when registering custom components : ', e)
+  }
+}
 
 export default mjml2html

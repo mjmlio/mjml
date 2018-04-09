@@ -16,10 +16,11 @@
   },
   "homepage": "https://mjml.io",
   "scripts": {
-    "clean": "../../node_modules/.bin/rimraf lib",
-    "build": "../../node_modules/.bin/babel src --out-dir lib"
+    "clean": "cross-env ../../node_modules/.bin/rimraf lib",
+    "build": "cross-env ../../node_modules/.bin/babel src --out-dir lib"
   },
   "dependencies": {
+    "cross-env": "^5.1.4",
     "mjml-accordion": "^4.0.2",
     "mjml-body": "^4.0.2",
     "mjml-button": "^4.0.1",

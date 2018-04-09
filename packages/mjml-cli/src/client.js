@@ -76,10 +76,6 @@ export default async () => {
         type: 'object',
         describe: 'Option to pass to mjml-core',
       },
-      verb: {
-        alias: 'verbose',
-        describe: 'Display debug information',
-      },
       version: {
         alias: 'V',
       },
@@ -90,9 +86,6 @@ export default async () => {
   const config = Object.assign(DEFAULT_OPTIONS, argv.c)
   const inputArgs = pickArgs(['r', 'w', 'i', '_', 'm'])(argv)
   const outputArgs = pickArgs(['o', 's'])(argv)
-
-  const verboseArg = pickArgs(['verb'])(argv)
-  const verbose = verboseArg && !!verboseArg.verb
 
   // implies (until yargs pr is accepted)
   ;[
@@ -176,7 +169,7 @@ export default async () => {
     // eslint-disable-line array-callback-return
     console.error(`${file ? `File: ${file}\n` : null}${error}`) // eslint-disable-line no-console
 
-    if (config.stack || verbose) {
+    if (config.stack) {
       console.error(error.stack) // eslint-disable-line no-console
     }
   })

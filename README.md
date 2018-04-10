@@ -4,7 +4,7 @@ If you're looking for MJML 3.3.X check [this branch](https://github.com/mjmlio/m
 
 <p align="center">
   <a href="http://mjml.io" target="_blank">
-    <img width="250"src="https://cloud.githubusercontent.com/assets/6558790/12672296/7b66d8cc-c675-11e5-805d-c6d196320537.png">
+    <img width="250"src="https://mjml.io/assets/img/litmus/mjmlbymailjet.png">
 
   </a>
 </p>
@@ -30,7 +30,7 @@ If you're looking for MJML 3.3.X check [this branch](https://github.com/mjmlio/m
 
 # Introduction
 
-MJML is a markup language designed to reduce the pain of coding a responsive email. Its semantic syntax makes it easy and straightforward while its rich standard components library fastens your development time and lightens your email codebase. MJML’s open-source engine takes care of translating the MJML you wrote into responsive HTML.
+MJML is a markup language created by [Mailjet](https://www.mailjet.com/) and designed to reduce the pain of coding a responsive email. Its semantic syntax makes it easy and straightforward while its rich standard components library fastens your development time and lightens your email codebase. MJML’s open-source engine takes care of translating the MJML you wrote into responsive HTML.
 
 <p align="center">
   <a href="http://mjml.io" target="_blank">

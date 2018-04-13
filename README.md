@@ -55,6 +55,7 @@ To work on MJML, make changes and create merge requests, download and install [y
 git clone https://github.com/mjmlio/mjml.git && cd mjml
 yarn 
 yarn build
+./packages/mjml/bin/mjml yourfile.mjml
 ```
 
 You can also run `yarn build:watch` to rebuild the package as you code.

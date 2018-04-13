@@ -212,6 +212,11 @@ export default function mjml2html(mjml, options = {}) {
 
   content = processing(mjBody, bodyHelpers, applyAttributes)
 
+  content = skeleton({
+    content,
+    ...globalDatas,
+  })
+
   if (globalDatas.inlineStyle.length > 0) {
     content = juice(content, {
       applyStyleTags: false,
@@ -220,11 +225,6 @@ export default function mjml2html(mjml, options = {}) {
       removeStyleTags: false,
     })
   }
-
-  content = skeleton({
-    content,
-    ...globalDatas,
-  })
 
   content =
     beautify && beautify !== 'false'

@@ -75,6 +75,7 @@ export default class MjSocialElement extends BodyComponent {
     padding: '4px',
     target: '_blank',
     'text-decoration': 'none',
+    href: '[[SHORT_PERMALINK]]',
   }
 
   getStyles() {

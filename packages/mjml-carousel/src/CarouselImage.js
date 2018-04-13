@@ -62,6 +62,9 @@ export default class MjCarouselImage extends BodyComponent {
   renderThumbnail() {
     const { carouselId, src, alt, 'tb-width': width, target } = this.attributes
     const imgIndex = this.props.index + 1
+    const cssClass = this.getAttribute('css-class')
+                   ? `${this.getAttribute('css-class')}-thumbnail`
+                   : ''
 
     return `
       <a
@@ -69,7 +72,7 @@ export default class MjCarouselImage extends BodyComponent {
           style: 'thumbnails.a',
           href: `#${imgIndex}`,
           target,
-          class: `mj-carousel-thumbnail mj-carousel-${carouselId}-thumbnail mj-carousel-${carouselId}-thumbnail-${imgIndex}`,
+          class: `mj-carousel-thumbnail mj-carousel-${carouselId}-thumbnail mj-carousel-${carouselId}-thumbnail-${imgIndex} ${cssClass}`,
         })}
       >
         <label ${this.htmlAttributes({
@@ -123,10 +126,12 @@ export default class MjCarouselImage extends BodyComponent {
         })} />
     `
 
+    const cssClass = this.getAttribute('css-class') || ''
+
     return `
       <div
         ${this.htmlAttributes({
-          class: `mj-carousel-image mj-carousel-image-${index + 1}`,
+          class: `mj-carousel-image mj-carousel-image-${index + 1} ${cssClass}`,
           style: index === 0 ? 'images.firstImageDiv' : 'images.otherImageDiv',
         })}
       >

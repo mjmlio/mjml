@@ -60,6 +60,12 @@ $> mjml input.mjml --config.beautify true --config.minify false
 
 These are the default options.
 
+### Log error stack
+
+```bash
+$> mjml input.mjml --config.stack true
+```
+
 ### Render and redirect the result to a file
 
 ```bash

@@ -42,7 +42,7 @@ export default outputPath => {
 
       fs.writeFile(outputName, html, err => {
         if (err) {
-          return reject(outputName)
+          return reject({ outputName, err })
         }
 
         return resolve(outputName)

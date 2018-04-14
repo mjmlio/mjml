@@ -16,7 +16,7 @@ node_js:
  - 6
 script:
  - npm install
- - gulp build
+ - npm run build
  - npm run lint
  - cd packages/mjml-parser-xml
  - npm link

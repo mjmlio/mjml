@@ -11,6 +11,7 @@ export default class MjSocial extends BodyComponent {
     'font-style': 'string',
     'font-weight': 'string',
     'icon-size': 'unit(px,%)',
+    'icon-height': 'unit(px,%)',
     'inner-padding': 'unit(px,%)',
     'line-height': 'unit(px,%)',
     mode: 'enum(horizontal,vertical)',
@@ -58,6 +59,7 @@ export default class MjSocial extends BodyComponent {
       'font-size',
       'font-weight',
       'icon-size',
+      'icon-height',
       'line-height',
     ].reduce((res, attr) => {
       res[attr] = this.getAttribute(attr)

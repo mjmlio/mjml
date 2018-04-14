@@ -1,3 +1,4 @@
+import path from 'path'
 import yargs from 'yargs'
 import { html as htmlBeautify } from 'js-beautify'
 import { flow, pick, isNil, negate, pickBy } from 'lodash/fp'
@@ -28,6 +29,7 @@ export default async () => {
   let KEEP_OPEN = false
 
   const error = msg => {
+    console.log('\nCli returned an error message :') // eslint-disable-line no-console
     console.error(msg) // eslint-disable-line no-console
 
     return process.exit(1)
@@ -129,7 +131,12 @@ export default async () => {
       inputs.push(await readStream())
       break
     default:
-      error('Cli error !')
+      error('Cli error ! Incorrect input options')
+  }
+
+  if (!inputs.length) {
+    error('No input files found')
+    return
   }
 
   const convertedStream = []
@@ -148,7 +155,6 @@ export default async () => {
       )
     } catch (e) {
       EXIT_CODE = 2
-
       failedStream.push({ file: i.file, error: e })
     }
   })
@@ -180,15 +186,26 @@ export default async () => {
         )
       }
 
+      const fullOutputPath = path.parse(path.resolve(process.cwd(), argv.o))
+      const isFolder = fullOutputPath.ext === ''
+
+      if (
+        inputs.length === 1 &&
+        ((isFolder && !isDirectory(argv.o) && argv.o !== '') ||
+          !isDirectory(fullOutputPath.dir))
+      ) {
+        error(`Output directory doesn’t exist for path : ${argv.o}`)
+      }
+
       Promise.all(convertedStream.map(outputToFile(argv.o)))
         .then(() => {
           if (!KEEP_OPEN) {
             process.exit(EXIT_CODE)
           }
         })
-        .catch(() => {
+        .catch(({ outputName, err }) => {
           if (!KEEP_OPEN) {
-            process.exit(1)
+            error(`Error writing file - ${outputName} : ${err}`)
           }
         })
       break

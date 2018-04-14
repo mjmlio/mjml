@@ -13,11 +13,12 @@
   },
   "homepage": "https://mjml.io",
   "scripts": {
-    "clean": "../../node_modules/.bin/rimraf lib",
-    "build": "../../node_modules/.bin/babel src --out-dir lib",
+    "clean": "cross-env ../../node_modules/.bin/rimraf lib",
+    "build": "cross-env ../../node_modules/.bin/babel src --out-dir lib",
     "test": "node ./test/test.js"
   },
   "dependencies": {
+    "cross-env": "^5.1.4",
     "htmlparser2": "^3.9.2",
     "lodash": "^4.17.2"
   },

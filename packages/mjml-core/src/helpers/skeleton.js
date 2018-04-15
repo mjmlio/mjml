@@ -1,7 +1,7 @@
 import { reduce } from 'lodash'
 import buildPreview from './preview'
 import { buildFontsTags } from './fonts'
-import { buildMediaQueriesTags } from './mediaQueries'
+import  buildMediaQueriesTags from './mediaQueries'
 
 export default function skeleton(options) {
   const {

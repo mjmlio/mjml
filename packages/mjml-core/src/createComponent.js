@@ -199,7 +199,7 @@ export class HeadComponent extends Component {
       })
 
       if (!component) {
-        console.log(`No matching component for tag : ${children.tagName}`)
+        console.log(`No matching component for tag : ${children.tagName}`) /* eslint-disable-line no-console */
         return
       }
 

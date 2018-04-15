@@ -179,7 +179,7 @@ export default async () => {
   }
 
   switch (outputOpt) {
-    case 'o':
+    case "o": {
       if (inputs.length > 1 && (!isDirectory(argv.o) && argv.o !== '')) {
         error(
           `Multiple input files, but output option should be either an existing directory or an empty string: ${argv.o} given`,
@@ -209,11 +209,13 @@ export default async () => {
           }
         })
       break
-    case 's':
+    }
+    case 's': {
       Promise.all(convertedStream.map(outputToConsole))
         .then(() => process.exit(EXIT_CODE))
         .catch(() => process.exit(1))
       break
+    }
     default:
       error('Cli error ! (No output option available)')
   }

@@ -15,7 +15,7 @@ import outputToConsole from './commands/outputToConsole'
 
 import { version as coreVersion } from 'mjml-core/package.json' // eslint-disable-line import/first
 import { version as cliVersion } from '../package.json'
-import { DEFAULT_OPTIONS } from './helpers/defaultOptions'
+import DEFAULT_OPTIONS from './helpers/defaultOptions'
 
 const beautifyOptions = {
   indent_size: 2,
@@ -161,7 +161,7 @@ export default async () => {
 
   convertedStream.forEach(s => {
     if (s.compiled && s.compiled.errors && s.compiled.errors.length) {
-      console.log(map(s.compiled.errors, 'formattedMessage').join('\n'))
+      console.log(map(s.compiled.errors, 'formattedMessage').join('\n')) // eslint-disable-line no-console
     }
   })
 

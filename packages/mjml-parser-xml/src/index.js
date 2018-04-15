@@ -3,7 +3,6 @@ import htmlparser from 'htmlparser2'
 import isObject from 'lodash/isObject'
 import findLastIndex from 'lodash/findLastIndex'
 import find from 'lodash/find'
-import mapValues from 'lodash/mapValues'
 import path from 'path'
 import fs from 'fs'
 import filter from 'lodash/fp/filter'
@@ -140,8 +139,7 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
 
   const parser = new htmlparser.Parser(
     {
-      onopentag: (name, attrs) => {
-        // eslint-disable-line consistent-return
+      onopentag: (name, attrs) => { // eslint-disable-line consistent-return
         const line = findLastIndex(lineIndexes, i => i <= parser.startIndex) + 1
 
         if (name === 'mj-include') {

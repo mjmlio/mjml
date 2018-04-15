@@ -1,6 +1,7 @@
 import forEach from 'lodash/forEach'
 import map from 'lodash/map'
 
+// eslint-disable-next-line import/prefer-default-export
 export function buildFontsTags(content, fonts = {}) {
   const toImport = []
 

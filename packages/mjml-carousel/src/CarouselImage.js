@@ -1,5 +1,4 @@
 import { BodyComponent } from 'mjml-core'
-import { mapValues } from 'lodash'
 
 export default class MjCarouselImage extends BodyComponent {
   static endingTag = true
@@ -80,7 +79,7 @@ export default class MjCarouselImage extends BodyComponent {
               style: 'thumbnails.img',
               src: this.getAttribute('thumbnails-src') || src,
               alt,
-              width: parseInt(width),
+              width: parseInt(width, 10),
             })}
           />
         </label>
@@ -131,7 +130,7 @@ export default class MjCarouselImage extends BodyComponent {
         })}
       >
         ${href
-          ? `<a href={href} rel={rel} target="_blank">${image}</a>`
+          ? `<a href=${href} rel=${rel} target="_blank">${image}</a>`
           : image}
       </div>
     `

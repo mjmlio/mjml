@@ -18,9 +18,7 @@ function formatInclude(element) {
   const formattedIncluded = includedIn
     .slice()
     .reverse()
-    .map(({ line, file }) => {
-      return `line ${line} of file ${file}`
-    })
+    .map(({ line, file }) => `line ${line} of file ${file}`)
     .join(', itself included at ')
 
   return `, included at ${formattedIncluded}`

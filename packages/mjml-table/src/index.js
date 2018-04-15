@@ -56,7 +56,7 @@ export default class MjTable extends BodyComponent {
   render() {
     const tableAttributes = reduce(['cellpadding', 'cellspacing', 'width'], (acc, v) => ({
       ...acc,
-      [v]: this.getAttribute(v)
+      [v]: this.getAttribute(v),
     }), {})
 
     return `

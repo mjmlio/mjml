@@ -1,5 +1,6 @@
 import { map, isEmpty } from 'lodash'
 
+// eslint-disable-next-line import/prefer-default-export
 export function buildMediaQueriesTags(
   breakpoint,
   mediaQueries = {},

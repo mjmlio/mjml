@@ -38,7 +38,7 @@ export default class MjSocial extends BodyComponent {
     'text-decoration': 'none',
   }
 
-  getStyles() {
+  getStyles() { // eslint-disable-line class-methods-use-this
     return {
       tableVertical: {
         margin: '0px',

@@ -129,9 +129,11 @@ export default class MjCarouselImage extends BodyComponent {
           style: index === 0 ? 'images.firstImageDiv' : 'images.otherImageDiv',
         })}
       >
-        ${href
-          ? `<a href=${href} rel=${rel} target="_blank">${image}</a>`
-          : image}
+        ${
+          href
+            ? `<a href=${href} rel=${rel} target="_blank">${image}</a>`
+            : image
+        }
       </div>
     `
   }

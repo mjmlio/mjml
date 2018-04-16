@@ -182,7 +182,9 @@ export default async () => {
     case 'o': {
       if (inputs.length > 1 && (!isDirectory(argv.o) && argv.o !== '')) {
         error(
-          `Multiple input files, but output option should be either an existing directory or an empty string: ${argv.o} given`,
+          `Multiple input files, but output option should be either an existing directory or an empty string: ${
+            argv.o
+          } given`,
         )
       }
 

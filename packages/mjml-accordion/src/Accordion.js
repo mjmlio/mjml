@@ -34,7 +34,7 @@ export default class MjAccordion extends BodyComponent {
     padding: '10px 25px',
   }
 
-  headStyle = () => (
+  headStyle = () =>
     `
       noinput.mj-accordion-checkbox { display:block!important; }
 
@@ -51,7 +51,6 @@ export default class MjAccordion extends BodyComponent {
 
       @goodbye { @gmail }
     `
-  )
 
   getStyles() {
     return {

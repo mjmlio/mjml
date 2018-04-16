@@ -1,7 +1,7 @@
 import { reduce } from 'lodash'
 import buildPreview from './preview'
 import { buildFontsTags } from './fonts'
-import  buildMediaQueriesTags from './mediaQueries'
+import buildMediaQueriesTags from './mediaQueries'
 
 export default function skeleton(options) {
   const {
@@ -75,13 +75,17 @@ export default function skeleton(options) {
           '',
         )}
         </style>
-        ${style && style.length > 0
-          ? `<style type="text/css">${style.join('')}</style>`
-          : ''}
+        ${
+          style && style.length > 0
+            ? `<style type="text/css">${style.join('')}</style>`
+            : ''
+        }
       </head>
-      <body${backgroundColor === ''
-        ? ''
-        : ` style="background-color:${backgroundColor};"`}>
+      <body${
+        backgroundColor === ''
+          ? ''
+          : ` style="background-color:${backgroundColor};"`
+      }>
         ${buildPreview(preview)}
         ${content}
       </body>

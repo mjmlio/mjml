@@ -1,4 +1,3 @@
-
 function formatInclude(element) {
   const { includedIn } = element
   if (!(includedIn && includedIn.length)) return ''
@@ -24,4 +23,3 @@ export default function ruleError(message, element) {
     )} (${tagName}) — ${message}`,
   }
 }
-

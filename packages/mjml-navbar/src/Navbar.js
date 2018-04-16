@@ -38,7 +38,7 @@ export default class MjNavbar extends BodyComponent {
     'ico-line-height': '30px',
   }
 
-  headStyle = breakpoint => (
+  headStyle = breakpoint =>
     `
       noinput.mj-menu-checkbox { display:block!important; max-height:none!important; visibility:visible!important; }
 
@@ -51,7 +51,6 @@ export default class MjNavbar extends BodyComponent {
         .mj-menu-checkbox[type="checkbox"]:checked ~ .mj-menu-trigger .mj-menu-icon-open { display:none!important; }
       }
     `
-  )
 
   getStyles() {
     return {
@@ -141,9 +140,11 @@ export default class MjNavbar extends BodyComponent {
 
   render() {
     return `
-        ${this.getAttribute('hamburger') === 'hamburger'
-          ? this.renderHamburger()
-          : ''}
+        ${
+          this.getAttribute('hamburger') === 'hamburger'
+            ? this.renderHamburger()
+            : ''
+        }
         <div
           ${this.htmlAttributes({
             class: 'mj-inline-links',

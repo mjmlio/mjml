@@ -22,8 +22,10 @@ export default function buildMediaQueriesTags(
         ${baseMediaQueries.join('\n')}
       }
     </style>
-    ${forceOWADesktop
-      ? `<style type="text/css">\n${owaQueries.join('\n')}\n</style>`
-      : ``}
+    ${
+      forceOWADesktop
+        ? `<style type="text/css">\n${owaQueries.join('\n')}\n</style>`
+        : ``
+    }
   `
 }

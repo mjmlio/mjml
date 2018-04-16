@@ -1,5 +1,6 @@
 import { find, get, identity, map, omit, reduce } from 'lodash'
 import path from 'path'
+import fs from 'fs'
 import juice from 'juice'
 import { html as htmlBeautify } from 'js-beautify'
 import { minify as htmlMinify } from 'html-minifier'
@@ -250,6 +251,21 @@ export default function mjml2html(mjml, options = {}) {
   return {
     html: content,
     errors,
+  }
+}
+
+// register components from mjmlconfig
+try {
+  const mjmlConfig = fs.readFileSync(path.join(process.cwd(), '.mjmlconfig'))
+  const customComps = JSON.parse(mjmlConfig).packages
+
+  customComps.forEach(compPath => {
+    const requiredComp = require(path.join(process.cwd(), compPath))
+    registerComponent(requiredComp.default || requiredComp)
+  })
+} catch (e) {
+  if (e.code !== 'ENOENT') {
+    console.log('Error when registering custom components : ', e)
   }
 }
 

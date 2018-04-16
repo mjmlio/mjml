@@ -1,6 +1,3 @@
-// import fs from 'fs'
-// unused
-
 import MJMLParser from 'mjml-parser-xml'
 import { components } from 'mjml-core'
 

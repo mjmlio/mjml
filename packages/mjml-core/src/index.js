@@ -10,6 +10,7 @@ import { handleMjml3 } from 'mjml-migrate'
 
 import components, { initComponent, registerComponent } from './components'
 
+import suffixCssClasses from './helpers/suffixCssClasses'
 import mergeOutlookConditionnals from './helpers/mergeOutlookConditionnals'
 import defaultSkeleton from './helpers/skeleton'
 
@@ -253,6 +254,6 @@ export default function mjml2html(mjml, options = {}) {
   }
 }
 
-export { components, initComponent, registerComponent }
+export { components, initComponent, registerComponent, suffixCssClasses }
 
 export { BodyComponent, HeadComponent } from './createComponent'

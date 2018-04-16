@@ -1,4 +1,4 @@
-import { BodyComponent } from 'mjml-core'
+import { BodyComponent, suffixCssClasses } from 'mjml-core'
 import { mapValues } from 'lodash'
 
 export default class MjCarouselImage extends BodyComponent {
@@ -62,9 +62,7 @@ export default class MjCarouselImage extends BodyComponent {
   renderThumbnail() {
     const { carouselId, src, alt, 'tb-width': width, target } = this.attributes
     const imgIndex = this.props.index + 1
-    const cssClass = this.getAttribute('css-class')
-                   ? `${this.getAttribute('css-class')}-thumbnail`
-                   : ''
+    const cssClass = suffixCssClasses(this.getAttribute('css-class'), 'thumbnail')
 
     return `
       <a

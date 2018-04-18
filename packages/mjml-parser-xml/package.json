@@ -1,7 +1,7 @@
 {
   "name": "mjml-parser-xml",
   "description": "mjml-parser-xml",
-  "version": "4.0.1",
+  "version": "4.0.4",
   "main": "lib/index.js",
   "repository": {
     "type": "git",

@@ -1,6 +1,6 @@
 {
   "name": "mjml-migrate",
-  "version": "4.0.1",
+  "version": "4.0.4",
   "description": "A tool to migrate a template from MJML 3 to MJML 4",
   "main": "lib/migrate.js",
   "bin": {
@@ -22,9 +22,9 @@
     "babel-preset-stage-3": "^6.24.1"
   },
   "dependencies": {
-    "cross-env": "^5.1.4",
     "commander": "^2.11.0",
-    "mjml-core": "^4.0.1",
-    "mjml-parser-xml": "^4.0.1"
+    "cross-env": "^5.1.4",
+    "mjml-core": "^4.0.4",
+    "mjml-parser-xml": "^4.0.4"
   }
 }

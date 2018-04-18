@@ -1,9 +1,11 @@
 const MJMLParser = require('../lib/index.js')
+require('mjml')
 const { components } = require('mjml-core')
 const chai = require('chai')
 const { displayDiff, omitDeepLodash } = require('./test-utils')
 
-const mjml = `
+
+const mjml1 = `
 <mjml>
   <mj-body>
     <mj-section background-color="#CCCCCC" full-width="full-width">
@@ -25,7 +27,7 @@ const mjml = `
 </mjml>
 `
 
-const validJson = {
+const validJson1 = {
   "file": ".",
   "line": 2,
   "includedIn": [],
@@ -56,16 +58,7 @@ const validJson = {
                 "href": "<% dynamic %>",
                 "pouf": "$2"
               },
-              "children": [
-                {
-                  "file": ".",
-                  "line": 6,
-                  "includedIn": [],
-                  "tagName": "br",
-                  "attributes": {}
-                }
-              ],
-              "content": "&end\n        Blu & end $1\n        &amp;\n        lorem"
+              "content": "&end<br />\n        Blu & end $1\n        &amp;\n        lorem"
             },
             {
               "file": ".",
@@ -92,18 +85,7 @@ const validJson = {
               "line": 15,
               "includedIn": [],
               "tagName": "mj-raw",
-              "children": [
-                {
-                  "file": ".",
-                  "line": 16,
-                  "includedIn": [],
-                  "tagName": "coin",
-                  "attributes": {
-                    "color": "#CCCCCC"
-                  },
-                  "content": "bla"
-                }
-              ],
+              "content": "<coin color=\"#CCCCCC\">bla</coin>",
               "attributes": {}
             }
           ]
@@ -115,13 +97,109 @@ const validJson = {
   "attributes": {}
 }
 
-const json = MJMLParser(mjml, {
+const mjml2 = `
+<mjml>
+  <mj-body>
+    <mj-text-test-wrapper>
+      <mj-text>MJML</mj-text>
+      <mj-text attr="val">FTW</mj-text>
+    </mj-text-test-wrapper>
+    <mj-text-test-wrapper>
+      <mj-text attr="val">FTW</mj-text>
+      <mj-text>MJML</mj-text>
+    </mj-text-test-wrapper>
+  </mj-body>
+</mjml>
+`
+
+const validJson2 = {
+  "file": ".",
+  "line": 2,
+  "includedIn": [],
+  "tagName": "mjml",
+  "children": [
+    {
+      "file": ".",
+      "line": 3,
+      "includedIn": [],
+      "tagName": "mj-body",
+      "children": [
+        {
+          "file": ".",
+          "line": 4,
+          "includedIn": [],
+          "tagName": "mj-text-test-wrapper",
+          "children": [
+            {
+              "file": ".",
+              "line": 5,
+              "includedIn": [],
+              "tagName": "mj-text",
+              "content": "MJML",
+              "attributes": {}
+            },
+            {
+              "file": ".",
+              "line": 6,
+              "includedIn": [],
+              "tagName": "mj-text",
+              "attributes": {
+                "attr": "val"
+              },
+              "content": "FTW"
+            }
+          ],
+          "attributes": {}
+        },
+        {
+          "file": ".",
+          "line": 8,
+          "includedIn": [],
+          "tagName": "mj-text-test-wrapper",
+          "children": [
+            {
+              "file": ".",
+              "line": 9,
+              "includedIn": [],
+              "tagName": "mj-text",
+              "attributes": {
+                "attr": "val"
+              },
+              "content": "FTW"
+            },
+            {
+              "file": ".",
+              "line": 10,
+              "includedIn": [],
+              "tagName": "mj-text",
+              "content": "MJML",
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        }
+      ],
+      "attributes": {}
+    }
+  ],
+  "attributes": {}
+}
+
+const parse = mjml => MJMLParser(mjml, {
   keepComments: true,
   components,
   filePath: '.'
 })
 
-displayDiff(validJson, omitDeepLodash(json, 'absoluteFilePath'))
 
-chai.expect(validJson)
-    .to.deep.equal(omitDeepLodash(json, 'absoluteFilePath'))
+if (process.argv.indexOf('--debug') !== -1) {
+  displayDiff(validJson1, omitDeepLodash(parse(mjml1), 'absoluteFilePath'))
+  displayDiff(validJson2, omitDeepLodash(parse(mjml2), 'absoluteFilePath'))
+}
+
+
+chai.expect(validJson1, 'Special characters test failed')
+    .to.deep.equal(omitDeepLodash(parse(mjml1), 'absoluteFilePath'))
+
+chai.expect(validJson2, 'Similar tags test failed')
+    .to.deep.equal(omitDeepLodash(parse(mjml2), 'absoluteFilePath'))

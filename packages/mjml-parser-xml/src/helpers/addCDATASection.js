@@ -2,7 +2,7 @@ import _ from 'lodash'
 
 const regexTag = tag =>
   new RegExp(
-    `<${tag}((?:(?:"[^"]*?")*(?:'[^']*?')*[^>]*?)*?)>([^]*?)</${tag}>`,
+    `<${tag}((?: (?:(?:"[^"]*?")*(?:'[^']*?')*[^>]*?)*?)|)>([^]*?)</${tag}>`,
     'gmi',
   )
 const replaceTag = tag => `<${tag}$1><![CDATA[$2]]></${tag}>`

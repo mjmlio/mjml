@@ -2,10 +2,12 @@ import path from 'path'
 import yargs from 'yargs'
 import { html as htmlBeautify } from 'js-beautify'
 import { flow, pick, isNil, negate, pickBy } from 'lodash/fp'
-import { isArray, isEmpty, map } from 'lodash'
+import { isArray, isEmpty, map, get } from 'lodash'
 
-import mjml2html from 'mjml-core'
+import mjml2html, { components } from 'mjml-core'
 import migrate from 'mjml-migrate'
+import validate from 'mjml-validator'
+import MJMLParser from 'mjml-parser-xml'
 
 import readFile, { flatMapPaths } from './commands/readFile'
 import watchFiles from './commands/watchFiles'
@@ -53,6 +55,11 @@ export default async () => {
         describe: 'Migrate MJML3 File(s)',
         type: 'array',
       },
+      v: {
+        alias: 'validate',
+        describe: 'Run validator on File(s)',
+        type: 'array',
+      },
       w: {
         alias: 'watch',
         type: 'array',
@@ -84,7 +91,7 @@ export default async () => {
     .version(`mjml-core: ${coreVersion}\nmjml-cli: ${cliVersion}`).argv
 
   const config = Object.assign(DEFAULT_OPTIONS, argv.c)
-  const inputArgs = pickArgs(['r', 'w', 'i', '_', 'm'])(argv)
+  const inputArgs = pickArgs(['r', 'w', 'i', '_', 'm', 'v'])(argv)
   const outputArgs = pickArgs(['o', 's'])(argv)
 
   // implies (until yargs pr is accepted)
@@ -116,6 +123,7 @@ export default async () => {
 
   switch (inputOpt) {
     case 'r':
+    case 'v':
     case 'm':
     case '_': {
       flatMapPaths(inputFiles).forEach(file => {
@@ -145,14 +153,20 @@ export default async () => {
   inputs.forEach(i => {
     // eslint-disable-line array-callback-return
     try {
-      convertedStream.push(
-        Object.assign({}, i, {
-          compiled:
-            inputOpt === 'm'
-              ? { html: htmlBeautify(migrate(i.mjml), beautifyOptions) }
-              : mjml2html(i.mjml, { ...config, filePath: i.file }),
-        }),
-      )
+      let compiled
+      switch (inputOpt) {
+        case 'm':
+          compiled = { html: htmlBeautify(migrate(i.mjml), beautifyOptions) }
+          break
+        case 'v':
+          const mjmlJson = MJMLParser(i.mjml, { components })
+          compiled = { errors: validate(mjmlJson, { components }) }
+          break
+        default:
+          compiled = mjml2html(i.mjml, { ...config, filePath: i.file })
+      }
+
+      convertedStream.push({ ...i, compiled })
     } catch (e) {
       EXIT_CODE = 2
       failedStream.push({ file: i.file, error: e })
@@ -160,7 +174,7 @@ export default async () => {
   })
 
   convertedStream.forEach(s => {
-    if (s.compiled && s.compiled.errors && s.compiled.errors.length) {
+    if (get(s, 'compiled.errors.length')) {
       console.log(map(s.compiled.errors, 'formattedMessage').join('\n'))
     }
   })
@@ -173,6 +187,17 @@ export default async () => {
       console.error(error.stack) // eslint-disable-line no-console
     }
   })
+
+  if (inputOpt === 'v') {
+    const isInvalid = failedStream.length
+                   || convertedStream.some(s => !!get(s, 'compiled.errors.length'))
+
+    if (isInvalid) {
+      error('Validation failed')
+      return
+    }
+    process.exit(0)
+  }
 
   if (!KEEP_OPEN && convertedStream.length === 0) {
     error('Input file(s) failed to render')

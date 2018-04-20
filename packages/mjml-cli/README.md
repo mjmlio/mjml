@@ -42,6 +42,14 @@ $> mjml -m input.mjml -o result.mjml
 
 It will output a HTML file called `input.html`.
 
+### Validate MJML
+
+```bash
+$> mjml -v input.mjml
+```
+
+It will log validation errors. If there are errors, exits with code 1. Otherwise, exits with code 0.
+
 ### Render and redirect the result to stdout
 
 ```bash

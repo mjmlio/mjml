@@ -26,8 +26,8 @@ export default class MjImage extends BodyComponent {
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
-    height: 'unit(px,%)',
-    width: 'unit(px,%)',
+    height: 'unit(px)',
+    width: 'unit(px)',
   }
 
   static defaultAttributes = {
@@ -51,6 +51,7 @@ export default class MjImage extends BodyComponent {
         display: 'block',
         outline: 'none',
         'text-decoration': 'none',
+        height: this.getAttribute('height'),
         'min-width': fullWidth ? '100%' : null,
         width: fullWidth ? `${parsedWidth}${unit}` : '100%',
         'max-width': fullWidth ? '100%' : null,
@@ -93,11 +94,12 @@ export default class MjImage extends BodyComponent {
   }
 
   renderImage() {
+    const height = this.getAttribute('height')
     const img = `
       <img
         ${this.htmlAttributes({
           alt: this.getAttribute('alt'),
-          height: this.getAttribute('height'),
+          height: height && parseInt(height, 10),
           src: this.getAttribute('src'),
           srcset: this.getAttribute('srcset'),
           style: 'img',

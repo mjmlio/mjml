@@ -10,7 +10,7 @@ Every single column has to contain something because they are responsive contain
   <mj-body>
     <mj-section>
       <mj-column>
-        <!-- Your first column --> 
+        <!-- Your first column -->
       </mj-column>
       <mj-column>
         <!-- Your second column -->
@@ -43,7 +43,7 @@ border-left         | string      | css border format              | n/a
 border-right        | string      | css border format              | n/a
 border-top          | string      | css border format              | n/a
 border-radius       | px          | border radius                  | n/a
-width               | percent/px  | column width                   | (100 / number of columns in section)%
+width               | percent/px  | column width                   | (100 / number of columns or groups in section)%
 vertical-align      | string      | middle/top/bottom              | top
 padding             | px          | supports up to 4 parameters    | 20px 0
 padding-top         | px          | section top offset             | n/a

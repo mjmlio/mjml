@@ -146,6 +146,9 @@ export class BodyComponent extends Component {
     childrens = childrens || this.props.children
 
     const sibling = childrens.length
+    const columnSiblings = childrens.filter(child => (
+      child.tagName === 'mj-column' || child.tagName === 'mj-group'
+    )).length
 
     let output = ''
     let index = 0
@@ -166,6 +169,7 @@ export class BodyComponent extends Component {
             index,
             last: index + 1 === sibling,
             sibling,
+            columnSiblings,
           },
         },
       })

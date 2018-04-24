@@ -1,4 +1,4 @@
-import { get, forEach, identity, reduce, kebabCase } from 'lodash'
+import { get, forEach, identity, reduce, kebabCase, find, filter } from 'lodash'
 
 import MJMLParser from 'mjml-parser-xml'
 
@@ -139,15 +139,17 @@ export class BodyComponent extends Component {
       rawXML = false,
     } = options
 
+    childrens = childrens || this.props.children
+
     if (rawXML) {
       return childrens.map(child => jsonToXML(child)).join('\n')
     }
 
-    childrens = childrens || this.props.children
-
     const sibling = childrens.length
-    const columnSiblings = childrens.filter(child => (
-      child.tagName === 'mj-column' || child.tagName === 'mj-group'
+
+    const rawComponents = filter(components, c => c.isRawElement())
+    const nonRawSiblings = childrens.filter(child => (
+      !find(rawComponents, c => c.getTagName() === child.tagName)
     )).length
 
     let output = ''
@@ -169,7 +171,7 @@ export class BodyComponent extends Component {
             index,
             last: index + 1 === sibling,
             sibling,
-            columnSiblings,
+            nonRawSiblings,
           },
         },
       })

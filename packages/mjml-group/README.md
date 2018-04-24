@@ -58,7 +58,7 @@ mj-group allows you to prevent columns from stacking on mobile. To do so, wrap t
 
 attribute           | unit        | description                    | default attributes
 --------------------|-------------|--------------------------------|--------------------------------------
-width               | percent/px  | group width                    | (100 / number of columns or groups in section)%
+width               | percent/px  | group width                    | (100 / number of non-raw elements in section)%
 vertical-align      | string      | middle/top/bottom              | top
 background-color    | string      | background color for a group   | n/a
 css-class           | string      | class name, added to the root HTML element created | n/a

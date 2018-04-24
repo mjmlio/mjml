@@ -1,4 +1,5 @@
 import { BodyComponent } from 'mjml-core'
+import { get } from 'lodash'
 
 const defaultSocialNetworks = {
   facebook: {
@@ -53,6 +54,7 @@ export default class MjSocialElement extends BodyComponent {
     'font-weight': 'string',
     href: 'string',
     'icon-size': 'unit(px,%)',
+    'icon-height': 'unit(px,%)',
     'line-height': 'unit(px,%)',
     name: 'string',
     'padding-bottom': 'unit(px,%)',
@@ -75,11 +77,13 @@ export default class MjSocialElement extends BodyComponent {
     padding: '4px',
     target: '_blank',
     'text-decoration': 'none',
+    href: '[[SHORT_PERMALINK]]',
   }
 
   getStyles() {
     const {
       'icon-size': iconSize,
+      'icon-height': iconHeight,
       'background-color': backgroundColor,
     } = this.getSocialAttributes()
 
@@ -94,7 +98,7 @@ export default class MjSocialElement extends BodyComponent {
       },
       icon: {
         'font-size': '0',
-        height: iconSize,
+        height: iconHeight || iconSize,
         'vertical-align': 'middle',
         width: iconSize,
       },
@@ -116,28 +120,42 @@ export default class MjSocialElement extends BodyComponent {
   }
 
   getSocialAttributes() {
-    const socialNetwork = {
-      ...defaultSocialNetworks[this.getAttribute('name')],
-    }
+    const socialNetwork = defaultSocialNetworks[this.getAttribute('name')]
+    let href = this.getAttribute('href')
 
-    if (socialNetwork['share-url']) {
-      socialNetwork.href = socialNetwork['share-url'].replace(
+    if (get(socialNetwork, 'share-url')) {
+      href = socialNetwork['share-url'].replace(
         '[[URL]]',
-        this.getAttribute('href'),
+        href,
       )
     }
 
-    return ['icon-size', 'href', 'src', 'background-color'].reduce(
+    const attrs = [
+      'icon-size',
+      'icon-height',
+      'src',
+      'background-color',
+    ].reduce(
       (r, attr) => ({
         ...r,
-        [attr]: socialNetwork[attr] || this.getAttribute(attr),
+        [attr]: this.getAttribute(attr) || socialNetwork[attr],
       }),
       {},
     )
+
+    return {
+      href,
+      ...attrs,
+    }
   }
 
   render() {
-    const { src, href, 'icon-size': iconSize } = this.getSocialAttributes()
+    const {
+      src,
+      href,
+      'icon-size': iconSize,
+      'icon-height': iconHeight,
+    } = this.getSocialAttributes()
 
     return `
       <tr
@@ -165,7 +183,7 @@ export default class MjSocialElement extends BodyComponent {
                     <img
                       ${this.htmlAttributes({
                         alt: this.getAttribute('alt'),
-                        height: parseInt(iconSize, 10),
+                        height: parseInt(iconHeight || iconSize, 10),
                         src,
                         style: 'img',
                         width: parseInt(iconSize, 10),

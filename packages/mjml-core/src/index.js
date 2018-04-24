@@ -172,7 +172,7 @@ export default function mjml2html(mjml, options = {}) {
     addMediaQuery(className, { parsedWidth, unit }) {
       globalDatas.mediaQueries[
         className
-      ] = `{ width:${parsedWidth}${unit} !important; }`
+      ] = `{ width:${parsedWidth}${unit} !important; max-width: ${parsedWidth}${unit}; }`
     },
     addHeadSyle(identifier, headStyle) {
       globalDatas.headStyle[identifier] = headStyle
@@ -212,6 +212,11 @@ export default function mjml2html(mjml, options = {}) {
 
   content = processing(mjBody, bodyHelpers, applyAttributes)
 
+  content = skeleton({
+    content,
+    ...globalDatas,
+  })
+
   if (globalDatas.inlineStyle.length > 0) {
     content = juice(content, {
       applyStyleTags: false,
@@ -220,11 +225,6 @@ export default function mjml2html(mjml, options = {}) {
       removeStyleTags: false,
     })
   }
-
-  content = skeleton({
-    content,
-    ...globalDatas,
-  })
 
   content =
     beautify && beautify !== 'false'
@@ -242,6 +242,7 @@ export default function mjml2html(mjml, options = {}) {
           collapseWhitespace: true,
           minifyCSS: false,
           removeEmptyAttributes: true,
+          processConditionalComments: true,
         })
       : content
 

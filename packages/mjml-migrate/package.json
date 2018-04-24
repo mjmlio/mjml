@@ -1,14 +1,14 @@
 {
   "name": "mjml-migrate",
-  "version": "4.0.1",
+  "version": "4.0.4",
   "description": "A tool to migrate a template from MJML 3 to MJML 4",
   "main": "lib/migrate.js",
   "bin": {
     "migrate": "lib/cli.js"
   },
   "scripts": {
-    "clean": "../../node_modules/.bin/rimraf lib",
-    "build": "../../node_modules/.bin/babel src --out-dir lib"
+    "clean": "cross-env ../../node_modules/.bin/rimraf lib",
+    "build": "cross-env ../../node_modules/.bin/babel src --out-dir lib"
   },
   "repository": {
     "type": "git",
@@ -23,7 +23,8 @@
   },
   "dependencies": {
     "commander": "^2.11.0",
-    "mjml-core": "^4.0.1",
-    "mjml-parser-xml": "^4.0.1"
+    "cross-env": "^5.1.4",
+    "mjml-core": "^4.0.4",
+    "mjml-parser-xml": "^4.0.4"
   }
 }

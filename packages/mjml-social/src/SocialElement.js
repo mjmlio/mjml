@@ -193,6 +193,7 @@ export default class MjSocialElement extends BodyComponent {
                 </td>
               </tr>
           </table>
+        </td>
           ${this.getContent()
             ? `
             <td ${this.htmlAttributes({ style: 'tdText' })} >
@@ -207,7 +208,6 @@ export default class MjSocialElement extends BodyComponent {
             </td>
             `
             : ''}
-        </td>
       </tr>
     `
   }

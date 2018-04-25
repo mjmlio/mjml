@@ -120,14 +120,11 @@ export default class MjSocialElement extends BodyComponent {
   }
 
   getSocialAttributes() {
-    const socialNetwork = defaultSocialNetworks[this.getAttribute('name')]
+    const socialNetwork = defaultSocialNetworks[this.getAttribute('name')] || {}
     let href = this.getAttribute('href')
 
     if (get(socialNetwork, 'share-url')) {
-      href = socialNetwork['share-url'].replace(
-        '[[URL]]',
-        href,
-      )
+      href = socialNetwork['share-url'].replace('[[URL]]', href)
     }
 
     const attrs = [

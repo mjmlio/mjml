@@ -83,7 +83,7 @@ export default class MjImage extends BodyComponent {
 
     const contentWidth = min([
       parseInt(containerWidth, 10) - allPaddings,
-      width + allPaddings
+      width + paddingLeft + paddingRight
     ])
 
     return `${contentWidth}px`

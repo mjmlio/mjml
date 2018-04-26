@@ -132,6 +132,9 @@ function loopThrough(tree) {
             case 'mj-inline-links':
               tree.children[i].tagName = 'mj-navbar'
               break
+            case 'mj-link':
+              tree.children[i].tagName = 'mj-navbar-link'
+              break
             case 'mj-hero':
               tree.children[i] = migrateHeroSyntax(tree.children[i])
               break

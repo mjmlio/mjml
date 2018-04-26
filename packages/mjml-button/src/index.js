@@ -67,7 +67,6 @@ export default class MjButton extends BodyComponent {
         'border-radius': this.getAttribute('border-radius'),
         'border-right': this.getAttribute('border-right'),
         'border-top': this.getAttribute('border-top'),
-        color: this.getAttribute('color'),
         cursor: 'auto',
         'font-style': this.getAttribute('font-style'),
         height: this.getAttribute('height'),

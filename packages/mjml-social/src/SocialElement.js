@@ -1,4 +1,5 @@
 import { BodyComponent } from 'mjml-core'
+import { get } from 'lodash'
 
 const defaultSocialNetworks = {
   facebook: {
@@ -119,30 +120,30 @@ export default class MjSocialElement extends BodyComponent {
   }
 
   getSocialAttributes() {
-    const socialNetwork = {
-      ...defaultSocialNetworks[this.getAttribute('name')],
+    const socialNetwork = defaultSocialNetworks[this.getAttribute('name')] || {}
+    let href = this.getAttribute('href')
+
+    if (get(socialNetwork, 'share-url')) {
+      href = socialNetwork['share-url'].replace('[[URL]]', href)
     }
 
-    if (socialNetwork['share-url']) {
-      socialNetwork.href = socialNetwork['share-url'].replace(
-        '[[URL]]',
-        this.getAttribute('href'),
-      )
-    }
-
-    return [
+    const attrs = [
       'icon-size',
       'icon-height',
-      'href',
       'src',
       'background-color',
     ].reduce(
       (r, attr) => ({
         ...r,
-        [attr]: socialNetwork[attr] || this.getAttribute(attr),
+        [attr]: this.getAttribute(attr) || socialNetwork[attr],
       }),
       {},
     )
+
+    return {
+      href,
+      ...attrs,
+    }
   }
 
   render() {
@@ -189,6 +190,7 @@ export default class MjSocialElement extends BodyComponent {
                 </td>
               </tr>
           </table>
+        </td>
           ${this.getContent()
             ? `
             <td ${this.htmlAttributes({ style: 'tdText' })} >
@@ -203,7 +205,6 @@ export default class MjSocialElement extends BodyComponent {
             </td>
             `
             : ''}
-        </td>
       </tr>
     `
   }

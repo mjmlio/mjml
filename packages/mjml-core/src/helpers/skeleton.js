@@ -16,6 +16,7 @@ export default function skeleton(options) {
     title = '',
     style,
     forceOWADesktop,
+    inlineStyle,
   } = options
 
   return `
@@ -61,7 +62,7 @@ export default function skeleton(options) {
           .outlook-group-fix { width:100% !important; }
         </style>
         <![endif]-->
-        ${buildFontsTags(content, fonts)}
+        ${buildFontsTags(content, inlineStyle, fonts)}
         ${buildMediaQueriesTags(breakpoint, mediaQueries, forceOWADesktop)}
         <style type="text/css">
         ${reduce(

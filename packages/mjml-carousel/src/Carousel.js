@@ -215,6 +215,11 @@ export default class MjCarousel extends BodyComponent {
           width: '100%',
         },
       },
+      images: {
+        td: {
+          padding: '0px',
+        },
+      },
       controls: {
         div: {
           display: 'none',
@@ -229,6 +234,7 @@ export default class MjCarousel extends BodyComponent {
           'font-size': '0px',
           display: 'none',
           'mso-hide': 'all',
+          padding: '0px',
         },
       },
     }
@@ -311,11 +317,14 @@ export default class MjCarousel extends BodyComponent {
 
   generateImages() {
     return `
-      <td>
+      <td
+        ${this.htmlAttributes({
+          style: 'images.td',
+        })}
+      >
         <div
           ${this.htmlAttributes({
             class: 'mj-carousel-images',
-            style: 'images.div',
           })}
         >
           ${this.renderChildren(this.props.children, {

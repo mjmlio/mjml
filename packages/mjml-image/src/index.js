@@ -53,7 +53,7 @@ export default class MjImage extends BodyComponent {
         'text-decoration': 'none',
         height: this.getAttribute('height'),
         'min-width': fullWidth ? '100%' : null,
-        width: fullWidth ? `${parsedWidth}${unit}` : '100%',
+        width,
         'max-width': fullWidth ? '100%' : null,
       },
       td: {
@@ -71,26 +71,22 @@ export default class MjImage extends BodyComponent {
 
   getContentWidth() {
     const { containerWidth } = this.context
-
     const width = this.getAttribute('width')
-      ? min([
-          parseInt(this.getAttribute('width'), 10),
-          parseInt(containerWidth, 10),
-        ])
-      : parseInt(containerWidth, 10)
+                ? parseInt(this.getAttribute('width'), 10)
+                : Infinity
 
     const paddingRight = this.getShorthandAttrValue('padding', 'right')
     const paddingLeft = this.getShorthandAttrValue('padding', 'left')
+    const borderRight = this.getShorthandBorderValue('right')
+    const borderLeft = this.getShorthandBorderValue('left')
+    const allPaddings = paddingLeft + paddingRight + borderLeft + borderRight
 
-    const widthOverflow =
-      paddingLeft +
-      paddingRight +
-      parseFloat(width) -
-      parseInt(containerWidth, 10)
+    const contentWidth = min([
+      parseInt(containerWidth, 10) - allPaddings,
+      width + allPaddings
+    ])
 
-    return widthOverflow > 0
-      ? parseFloat(width - widthOverflow)
-      : parseFloat(width)
+    return `${contentWidth}px`
   }
 
   renderImage() {

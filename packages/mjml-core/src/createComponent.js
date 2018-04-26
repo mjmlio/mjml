@@ -87,6 +87,13 @@ export class BodyComponent extends Component {
     return shorthandParser(mjAttribute, direction)
   }
 
+  getShorthandBorderValue(direction) {
+    const borderDirection = this.getAttribute(`border-${direction}`)
+    const border = this.getAttribute('border')
+
+    return parseInt(borderDirection || border || 0, 10)
+  }
+
   htmlAttributes(attributes) {
     const specialAttributes = {
       style: v => this.styles(v),

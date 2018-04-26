@@ -203,10 +203,10 @@ export default class MjCarousel extends BodyComponent {
       carousel: {
         div: {
           display: 'table',
-          width: ' 100%',
+          width: '100%',
           'table-layout': 'fixed',
           'text-align': 'center',
-          'font-size': '0',
+          'font-size': '0px',
         },
         table: {
           'caption-side': 'top',
@@ -222,10 +222,11 @@ export default class MjCarousel extends BodyComponent {
         },
         img: {
           display: 'block',
-          width: '100%',
+          width: this.getAttribute('icon-width'),
           height: 'auto',
         },
         td: {
+          'font-size': '0px',
           display: 'none',
           'mso-hide': 'all',
         },

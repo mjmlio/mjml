@@ -251,7 +251,7 @@ export default class MjSection extends BodyComponent {
         <table
           ${this.htmlAttributes({
             align: 'center',
-            background: this.isFullWidth()
+            background: this.isFullWidth() // TODO: <table background="..." is not valid and we need to put image bacground there through style, see https://developer.mozilla.org/cs/docs/Web/HTML/Element/table
               ? null
               : this.getAttribute('background-url'),
             border: '0',
@@ -302,7 +302,7 @@ export default class MjSection extends BodyComponent {
         ${this.htmlAttributes({
           align: 'center',
           class: this.getAttribute('css-class'),
-          background: this.getAttribute('background-url'),
+          background: this.getAttribute('background-url'), // TODO: <table background="..." is not valid and we need to put image bacground there through style, see https://developer.mozilla.org/cs/docs/Web/HTML/Element/table
           border: '0',
           cellpadding: '0',
           cellspacing: '0',

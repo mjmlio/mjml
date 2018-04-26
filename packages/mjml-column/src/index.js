@@ -191,7 +191,7 @@ export default class MjColumn extends BodyComponent {
     return `
       <table
         ${this.htmlAttributes({
-          background: this.getAttribute('background-color'),
+          bgcolor: this.getAttribute('background-color'), // TODO: move this attribute into css style as recommended in https://developer.mozilla.org/cs/docs/Web/HTML/Element/table
           border: '0',
           cellpadding: '0',
           cellspacing: '0',

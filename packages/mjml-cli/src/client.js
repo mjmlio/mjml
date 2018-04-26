@@ -187,13 +187,8 @@ export default async () => {
       }
 
       const fullOutputPath = path.parse(path.resolve(process.cwd(), argv.o))
-      const isFolder = fullOutputPath.ext === ''
 
-      if (
-        inputs.length === 1 &&
-        ((isFolder && !isDirectory(argv.o) && argv.o !== '') ||
-          !isDirectory(fullOutputPath.dir))
-      ) {
+      if (inputs.length === 1 && !isDirectory(fullOutputPath.dir)) {
         error(`Output directory doesn’t exist for path : ${argv.o}`)
       }
 

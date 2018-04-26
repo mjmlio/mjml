@@ -120,14 +120,11 @@ export default class MjSocialElement extends BodyComponent {
   }
 
   getSocialAttributes() {
-    const socialNetwork = defaultSocialNetworks[this.getAttribute('name')]
+    const socialNetwork = defaultSocialNetworks[this.getAttribute('name')] || {}
     let href = this.getAttribute('href')
 
     if (get(socialNetwork, 'share-url')) {
-      href = socialNetwork['share-url'].replace(
-        '[[URL]]',
-        href,
-      )
+      href = socialNetwork['share-url'].replace('[[URL]]', href)
     }
 
     const attrs = [
@@ -193,6 +190,7 @@ export default class MjSocialElement extends BodyComponent {
                 </td>
               </tr>
           </table>
+        </td>
           ${this.getContent()
             ? `
             <td ${this.htmlAttributes({ style: 'tdText' })} >
@@ -207,7 +205,6 @@ export default class MjSocialElement extends BodyComponent {
             </td>
             `
             : ''}
-        </td>
       </tr>
     `
   }

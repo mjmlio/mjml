@@ -98,7 +98,7 @@ export class BodyComponent extends Component {
       (output, v, name) => {
         const value = (specialAttributes[name] || specialAttributes.default)(v)
 
-        if (value) {
+        if (value || value === 0) {
           return `${output} ${name}="${value}"`
         }
 

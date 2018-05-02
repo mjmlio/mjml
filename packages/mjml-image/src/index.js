@@ -15,10 +15,6 @@ export default class MjImage extends BodyComponent {
     title: 'string',
     align: 'enum(left,center,right)',
     border: 'string',
-    'border-bottom': 'string',
-    'border-left': 'string',
-    'border-right': 'string',
-    'border-top': 'string',
     'border-radius': 'unit(px,%)',
     'container-background-color': 'string',
     padding: 'unit(px,%){1,4}',
@@ -77,9 +73,8 @@ export default class MjImage extends BodyComponent {
 
     const paddingRight = this.getShorthandAttrValue('padding', 'right')
     const paddingLeft = this.getShorthandAttrValue('padding', 'left')
-    const borderRight = this.getShorthandBorderValue('right')
-    const borderLeft = this.getShorthandBorderValue('left')
-    const allPaddings = paddingLeft + paddingRight + borderLeft + borderRight
+    const border = this.getShorthandBorderValue()
+    const allPaddings = paddingLeft + paddingRight + border * 2
 
     const contentWidth = min([
       parseInt(containerWidth, 10) - allPaddings,

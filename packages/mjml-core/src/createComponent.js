@@ -2,7 +2,7 @@ import { get, forEach, identity, reduce, kebabCase } from 'lodash'
 
 import MJMLParser from 'mjml-parser-xml'
 
-import shorthandParser from './helpers/shorthandParser'
+import shorthandParser, { borderParser } from './helpers/shorthandParser'
 import jsonToXML from './helpers/jsonToXML'
 
 import components, { initComponent } from './components'
@@ -88,10 +88,10 @@ export class BodyComponent extends Component {
   }
 
   getShorthandBorderValue(direction) {
-    const borderDirection = this.getAttribute(`border-${direction}`)
+    const borderDirection = direction && this.getAttribute(`border-${direction}`)
     const border = this.getAttribute('border')
 
-    return parseInt(borderDirection || border || 0, 10)
+    return borderParser(borderDirection || border || 0, 10)
   }
 
   htmlAttributes(attributes) {

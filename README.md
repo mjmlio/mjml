@@ -1,4 +1,4 @@
-# MJML 4 
+# MJML 4
 
 If you're looking for MJML 3.3.X check [this branch](https://github.com/mjmlio/mjml/tree/3.3.x)
 
@@ -42,7 +42,7 @@ MJML is a markup language created by [Mailjet](https://www.mailjet.com/) and des
 # Installation
 
 You can install MJML with NPM to use it with NodeJS or the Command Line Interface. If you're not sure what those are, head over to <a href="#usage">Usage</a> for other ways to use MJML.
- 
+
 ```bash
 npm install mjml
 ```
@@ -53,7 +53,7 @@ To work on MJML, make changes and create merge requests, download and install [y
 
 ```bash
 git clone https://github.com/mjmlio/mjml.git && cd mjml
-yarn 
+yarn
 yarn build
 ```
 
@@ -133,11 +133,11 @@ You can pass optional `options` as an object to the `mjml2html` function:
 option   | unit   | description  | default value
 -------------|--------|--------------|---------------
 fonts  | object | Default fonts imported in the HTML rendered by HTML | See in [index.js](https://github.com/mjmlio/mjml/blob/master/packages/mjml-core/src/index.js#L36-L44)
-keepComments | boolean | Option to keep comments in the HTML output | true 
+keepComments | boolean | Option to keep comments in the HTML output | true
 beautify | boolean | Option to beautify the HTML output | false
 minify | boolean | Option to minify the HTML output | false
 validationLevel | string | Available values for the [validator](https://github.com/mjmlio/mjml/tree/master/packages/mjml-validator#validating-mjml): 'strict', 'soft', 'skip'  | 'soft'
-filePath | boolean | Option to beautify the HTML output | false
+filePath | boolean | Path of file, used for relative paths in mj-includes | '.'
 
 ## API
 

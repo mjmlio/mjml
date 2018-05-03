@@ -202,6 +202,7 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
     {
       recognizeCDATA: true,
       decodeEntities: false,
+      recognizeSelfClosing: true,
     },
   )
 

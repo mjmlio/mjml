@@ -29,7 +29,7 @@ export default async () => {
   let KEEP_OPEN = false
 
   const error = msg => {
-    console.log('\nCli returned an error message :') // eslint-disable-line no-console
+    console.log('\nCommand line error:') // eslint-disable-line no-console
     console.error(msg) // eslint-disable-line no-console
 
     return process.exit(1)
@@ -131,7 +131,7 @@ export default async () => {
       inputs.push(await readStream())
       break
     default:
-      error('Cli error ! Incorrect input options')
+      error('Command line error: Incorrect input options')
   }
 
   if (!inputs.length) {
@@ -189,13 +189,8 @@ export default async () => {
       }
 
       const fullOutputPath = path.parse(path.resolve(process.cwd(), argv.o))
-      const isFolder = fullOutputPath.ext === ''
 
-      if (
-        inputs.length === 1 &&
-        ((isFolder && !isDirectory(argv.o) && argv.o !== '') ||
-          !isDirectory(fullOutputPath.dir))
-      ) {
+      if (inputs.length === 1 && !isDirectory(fullOutputPath.dir)) {
         error(`Output directory doesn’t exist for path : ${argv.o}`)
       }
 
@@ -219,6 +214,6 @@ export default async () => {
       break
     }
     default:
-      error('Cli error ! (No output option available)')
+      error('Command line error: No output option available')
   }
 }

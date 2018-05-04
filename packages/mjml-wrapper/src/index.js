@@ -18,7 +18,10 @@ export default class MjWrapper extends MjSection {
               <td
                 ${component.htmlAttributes({
                   align: component.getAttribute('align'),
-                  class: suffixCssClasses(component.getAttribute('css-class'), 'outlook')
+                  class: suffixCssClasses(
+                    component.getAttribute('css-class'),
+                    'outlook',
+                  ),
                   width: containerWidth,
                 })}
               >

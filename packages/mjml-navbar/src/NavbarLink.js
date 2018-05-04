@@ -59,7 +59,7 @@ export default class MjNavbarLink extends BodyComponent {
         'padding-left': this.getAttribute('padding-left'),
         'padding-right': this.getAttribute('padding-right'),
         'padding-bottom': this.getAttribute('padding-bottom'),
-      }
+      },
     }
   }
 
@@ -95,7 +95,10 @@ export default class MjNavbarLink extends BodyComponent {
           <td
             ${this.htmlAttributes({
               style: 'td',
-              class: suffixCssClasses(this.getAttribute('css-class'), 'outlook')
+              class: suffixCssClasses(
+                this.getAttribute('css-class'),
+                'outlook',
+              ),
             })}
           >
         `)}

@@ -1,4 +1,4 @@
-import { BodyComponent } from 'mjml-core'
+import { BodyComponent, suffixCssClasses } from 'mjml-core'
 import url from 'url'
 
 import conditionalTag from 'mjml-core/lib/helpers/conditionalTag'
@@ -59,7 +59,7 @@ export default class MjNavbarLink extends BodyComponent {
         'padding-left': this.getAttribute('padding-left'),
         'padding-right': this.getAttribute('padding-right'),
         'padding-bottom': this.getAttribute('padding-bottom'),
-      }
+      },
     }
   }
 
@@ -95,12 +95,10 @@ export default class MjNavbarLink extends BodyComponent {
           <td
             ${this.htmlAttributes({
               style: 'td',
-              class: this.getAttribute('css-class')
-                ? this.getAttribute('css-class')
-                    .split(' ')
-                    .map(c => `${c}-outlook`)
-                    .join(' ')
-                : null,
+              class: suffixCssClasses(
+                this.getAttribute('css-class'),
+                'outlook',
+              ),
             })}
           >
         `)}

@@ -1,5 +1,5 @@
 
-# Basic Layout
+# Basic layout example
 
 In this section, you're going to learn how to code a basic email template using MJML.
 

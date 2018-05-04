@@ -33,6 +33,7 @@ mjml input.mjml
 ```
 
 It will output a HTML file called `input.html`.
+Input can also be a directory.
 
 ### Migrate MJML3 to MJML4
 
@@ -40,7 +41,7 @@ It will output a HTML file called `input.html`.
 $> mjml -m input.mjml -o result.mjml
 ```
 
-It will output a HTML file called `input.html`.
+It will output a MJML file called `result.mjml`.
 
 ### Render and redirect the result to stdout
 
@@ -60,6 +61,12 @@ $> mjml input.mjml --config.beautify true --config.minify false
 
 These are the default options.
 
+### Log error stack
+
+```bash
+$> mjml input.mjml --config.stack true
+```
+
 ### Render and redirect the result to a file
 
 ```bash
@@ -70,7 +77,9 @@ mjml input.mjml -o my-email.html
 mjml input.mjml --output my-email.html
 ```
 
-You can output the resulting email responsive HTML in a file. If the file does not exist, it will be created.
+You can output the resulting email responsive HTML in a file.
+If the output file does not exist it will be created, but output directories must already exist.
+If output is a directory, output file(s) will be `output/input-file-name.html`
 
 ### Set the validation rule to `skip` so that the file is rendered without being validated.
 

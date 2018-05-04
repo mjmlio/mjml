@@ -26,7 +26,7 @@ This component enables you to set the styles of the carousel elements.
 
 <p align="center">
   <a href="https://mjml.io/try-it-live/components/carousel">
-    <img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" />
+    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="sexy" />
   </a>
 </p>
 
@@ -56,6 +56,7 @@ attribute | unit | description | default value
 src | url | image source | n/a
 thumbnails-src | url | image source to have a thumbnail different than the image it's linked to | null
 href | url | link to redirect to on click | n/a
+target | string | link target on click | \_blank
 rel | string | specify the rel attribute | n/a
 alt | string | image description | n/a
 title | string | tooltip & accessibility | n/a

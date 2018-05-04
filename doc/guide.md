@@ -7,7 +7,7 @@ language_tabs:
 toc_footers:
   - <a href='https://github.com/mjmlio/mjml'>Fork me on Github</a>
   - <a href='https://github.com/mjmlio/mjml/issues'>Submit an Issue</a>
-  - MJML v3.0.2
+  - MJML v4.0.2
 
 search: true
 ---
@@ -73,7 +73,7 @@ The mjml-core package allows you to include external mjml files to build your em
 </mj-section>
 ```
 
-You can wrap your external mjml files inside the default `mjml > mj-body > mj-container`
+You can wrap your external mjml files inside the default `mjml > mj-body`
 tags to make it easier to preview outside the main template
 
 

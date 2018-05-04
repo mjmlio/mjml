@@ -72,7 +72,7 @@ export default class MjText extends BodyComponent {
     return height
       ? `
         ${conditionalTag(`
-          <table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td height="${height}" style="vertical-align:top;height:${height}px;">
+          <table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td height="${height}" style="vertical-align:top;height:${height};">
         `)}
         ${this.renderContent()}
         ${conditionalTag(`

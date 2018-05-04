@@ -1,14 +1,15 @@
 import { BodyComponent } from 'mjml-core'
 import crypto from 'crypto'
 
-import conditionalTag, { msoConditionalTag } from 'mjml-core/lib/helpers/conditionalTag'
+import conditionalTag, {
+  msoConditionalTag,
+} from 'mjml-core/lib/helpers/conditionalTag'
 
 export default class MjNavbar extends BodyComponent {
-
   static allowedAttributes = {
     align: 'enum(left,center,right)',
     'base-url': 'string',
-    'hamburger': 'string',
+    hamburger: 'string',
     'ico-align': 'enum(left,center,right)',
     'ico-open': 'string',
     'ico-close': 'string',
@@ -18,13 +19,13 @@ export default class MjNavbar extends BodyComponent {
     'ico-text-transform': 'string',
     'ico-padding': 'unit(px,%)',
     'ico-text-decoration': 'string',
-    'ico-line-height': 'unit(px,%)'
+    'ico-line-height': 'unit(px,%)',
   }
 
   static defaultAttributes = {
-    'align': 'center',
+    align: 'center',
     'base-url': null,
-    'hamburger': null,
+    hamburger: null,
     'ico-align': 'center',
     'ico-open': '9776',
     'ico-close': '8855',
@@ -34,7 +35,7 @@ export default class MjNavbar extends BodyComponent {
     'ico-text-transform': 'uppercase',
     'ico-padding': '10px',
     'ico-text-decoration': 'none',
-    'ico-line-height': '30px'
+    'ico-line-height': '30px',
   }
 
   headStyle = breakpoint => {
@@ -52,11 +53,11 @@ export default class MjNavbar extends BodyComponent {
     `
   }
 
-  getStyles () {
+  getStyles() {
     return {
       div: {
-        'align': this.getAttribute('align'),
-        'width': '100%'
+        align: this.getAttribute('align'),
+        width: '100%',
       },
       label: {
         display: 'block',
@@ -64,8 +65,8 @@ export default class MjNavbar extends BodyComponent {
         'mso-hide': 'all',
         '-moz-user-select': 'none',
         'user-select': 'none',
-        'align': this.getAttribute('ico-align'),
-        'color': this.getAttribute('ico-color'),
+        align: this.getAttribute('ico-align'),
+        color: this.getAttribute('ico-color'),
         'font-size': this.getAttribute('ico-font-size'),
         'font-family': this.getAttribute('ico-font-family'),
         'text-transform': this.getAttribute('ico-text-transform'),
@@ -75,49 +76,52 @@ export default class MjNavbar extends BodyComponent {
         'padding-right': this.getAttribute('ico-padding-right'),
         'padding-bottom': this.getAttribute('ico-padding-bottom'),
         'padding-left': this.getAttribute('ico-padding-left'),
-        padding: this.getAttribute('ico-padding')
+        padding: this.getAttribute('ico-padding'),
       },
       trigger: {
         display: 'none',
         'max-height': '0px',
         'max-width': '0px',
         'font-size': '0px',
-        overflow: 'hidden'
+        overflow: 'hidden',
       },
       icoOpen: {
-        'mso-hide': 'all'
+        'mso-hide': 'all',
       },
       icoClose: {
         display: 'none',
-        'mso-hide': 'all'
-      }
+        'mso-hide': 'all',
+      },
     }
   }
 
-  renderHamburger () {
+  renderHamburger() {
     const key = crypto.randomBytes(8).toString('hex')
 
     return `
-      ${msoConditionalTag(`
+      ${msoConditionalTag(
+        `
         <input type="checkbox" id="${key}" class="mj-menu-checkbox" style="display:none !important; max-height:0; visibility:hidden;" />
-      `, true)}
+      `,
+        true,
+      )}
       <div
         ${this.htmlAttributes({
           class: 'mj-menu-trigger',
-          style: 'trigger'
+          style: 'trigger',
         })}
       >
         <label
           ${this.htmlAttributes({
             for: key,
             class: 'mj-menu-label',
-            style: 'label'
+            style: 'label',
           })}
         >
           <span
             ${this.htmlAttributes({
               class: 'mj-menu-icon-open',
-              style: 'icoOpen'
+              style: 'icoOpen',
             })}
           >
             ${String.fromCharCode(this.getAttribute('ico-open'))}
@@ -125,7 +129,7 @@ export default class MjNavbar extends BodyComponent {
           <span
             ${this.htmlAttributes({
               class: 'mj-menu-icon-close',
-              style: 'icoClose'
+              style: 'icoClose',
             })}
           >
             ${String.fromCharCode(this.getAttribute('ico-close'))}
@@ -135,25 +139,27 @@ export default class MjNavbar extends BodyComponent {
     `
   }
 
-  render () {
+  render() {
     return `
-        ${ this.getAttribute('hamburger') === 'hamburger'
+        ${this.getAttribute('hamburger') === 'hamburger'
           ? this.renderHamburger()
-          : '' }
+          : ''}
         <div
           ${this.htmlAttributes({
             class: 'mj-inline-links',
-            style: this.htmlAttributes('div')
+            style: this.htmlAttributes('div'),
           })}
         >
         ${conditionalTag(`
-          <table role="presentation" border="0" cellpadding="0" cellspacing="0" align="${this.getAttribute('align')}">
+          <table role="presentation" border="0" cellpadding="0" cellspacing="0" align="${this.getAttribute(
+            'align',
+          )}">
             <tr>
         `)}
           ${this.renderChildren(this.props.children, {
             attributes: {
-              navbarBaseUrl: this.getAttribute('base-url')
-            }
+              navbarBaseUrl: this.getAttribute('base-url'),
+            },
           })}
           ${conditionalTag(`
             </tr></table>

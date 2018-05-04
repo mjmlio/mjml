@@ -37,6 +37,7 @@ height                        | px            | image height                   |
 src                           | url           | image source                   | n/a
 srcset                        | url & width   | enables to set a different image source based on the viewport | n/a
 href                          | url           | link to redirect to on click   | n/a
+target                        | string        | link target on click           | \_blank
 rel                           | string        | specify the rel attribute      | n/a
 alt                           | string        | image description              | n/a
 align                         | position      | image alignment                | center

@@ -5,15 +5,13 @@ This is the starting point of your email.
 ```xml
 <mjml>
   <mj-body>
-    <mj-body>
-      <!-- Your email goes here -->
-    </mj-body>
+    <!-- Your email goes here -->
   </mj-body>
 </mjml>
 ```
 
 <p align="center">
-  <a target="_blank" href="/try-it-live/components/body">
+  <a target="_blank" href="https://mjml.io/try-it-live/components/body">
     <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
   </a>
 </p>

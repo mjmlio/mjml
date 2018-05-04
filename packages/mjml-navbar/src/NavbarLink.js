@@ -12,6 +12,7 @@ export default class MjNavbarLink extends BodyComponent {
     'font-size': 'unit(px,%)',
     'font-weight': 'string',
     href: 'string',
+    target: 'string',
     rel: 'string',
     'line-height': 'unit(px,%)',
     'padding-bottom': 'unit(px,%)',
@@ -20,18 +21,19 @@ export default class MjNavbarLink extends BodyComponent {
     'padding-top': 'unit(px,%)',
     padding: 'unit(px,%){1,4}',
     'text-decoration': 'string',
-    'text-transform': 'string'
+    'text-transform': 'string',
   }
 
   static defaultAttributes = {
-    'color': '#000000',
+    color: '#000000',
     'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
     'font-size': '13px',
     'font-weight': 'normal',
     'line-height': '22px',
-    'padding': '15px 10px',
+    padding: '15px 10px',
+    target: '_blank',
     'text-decoration': 'none',
-    'text-transform': 'uppercase'
+    'text-transform': 'uppercase',
   }
 
   getStyles() {
@@ -49,30 +51,35 @@ export default class MjNavbarLink extends BodyComponent {
         'padding-top': this.getAttribute('padding-top'),
         'padding-left': this.getAttribute('padding-left'),
         'padding-right': this.getAttribute('padding-right'),
-        'padding-bottom': this.getAttribute('padding-bottom')
+        'padding-bottom': this.getAttribute('padding-bottom'),
+      },
+      td: {
+        padding: this.getAttribute('padding'),
+        'padding-top': this.getAttribute('padding-top'),
+        'padding-left': this.getAttribute('padding-left'),
+        'padding-right': this.getAttribute('padding-right'),
+        'padding-bottom': this.getAttribute('padding-bottom'),
       }
     }
   }
 
   renderContent() {
     const href = this.getAttribute('href')
-    const rel = this.getAttribute('rel')
     const navbarBaseUrl = this.getAttribute('navbarBaseUrl')
-    const link = navbarBaseUrl
-               ? url.resolve(navbarBaseUrl, href)
-               : href
+    const link = navbarBaseUrl ? url.resolve(navbarBaseUrl, href) : href
 
     const cssClass = this.getAttribute('css-class')
-                   ? ` ${this.getAttribute('css-class')}`
-                   : ''
+      ? ` ${this.getAttribute('css-class')}`
+      : ''
 
     return `
       <a
         ${this.htmlAttributes({
           class: `mj-link${cssClass}`,
           href: link,
-          rel,
-          style: 'a'
+          rel: this.getAttribute('rel'),
+          target: this.getAttribute('target'),
+          style: 'a',
         })}
       >
         ${this.getContent()}
@@ -87,17 +94,13 @@ export default class MjNavbarLink extends BodyComponent {
         ${conditionalTag(`
           <td
             ${this.htmlAttributes({
-              padding: this.getAttribute('padding'),
-              'padding-top': this.getAttribute('padding-top'),
-              'padding-left': this.getAttribute('padding-left'),
-              'padding-right': this.getAttribute('padding-right'),
-              'padding-bottom': this.getAttribute('padding-bottom'),
+              style: 'td',
               class: this.getAttribute('css-class')
                 ? this.getAttribute('css-class')
                     .split(' ')
                     .map(c => `${c}-outlook`)
                     .join(' ')
-                : null
+                : null,
             })}
           >
         `)}

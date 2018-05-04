@@ -1,3 +1,4 @@
+import path from 'path'
 import yargs from 'yargs'
 import { html as htmlBeautify } from 'js-beautify'
 import { flow, pick, isNil, negate, pickBy } from 'lodash/fp'
@@ -28,6 +29,7 @@ export default async () => {
   let KEEP_OPEN = false
 
   const error = msg => {
+    console.log('\nCommand line error:') // eslint-disable-line no-console
     console.error(msg) // eslint-disable-line no-console
 
     return process.exit(1)
@@ -87,9 +89,9 @@ export default async () => {
 
   // implies (until yargs pr is accepted)
   ;[
-    [Object.keys(inputArgs).length > 1, 'No input arguments received'],
-    [Object.keys(inputArgs).length === 0, 'Too much input arguments received'],
-    [Object.keys(outputArgs).length > 1, 'Too much output arguments received'],
+    [Object.keys(inputArgs).length === 0, 'No input argument received'],
+    [Object.keys(inputArgs).length > 1, 'Too many input arguments received'],
+    [Object.keys(outputArgs).length > 1, 'Too many output arguments received'],
     [
       argv.w && argv.w.length > 1 && !argv.o,
       'Need an output option when watching files',
@@ -129,7 +131,12 @@ export default async () => {
       inputs.push(await readStream())
       break
     default:
-      error('Cli error !')
+      error('Command line error: Incorrect input options')
+  }
+
+  if (!inputs.length) {
+    error('No input files found')
+    return
   }
 
   const convertedStream = []
@@ -140,14 +147,14 @@ export default async () => {
     try {
       convertedStream.push(
         Object.assign({}, i, {
-          compiled: inputOpt === 'm'
-                    ? { html: htmlBeautify(migrate(i.mjml), beautifyOptions) }
-                    : mjml2html(i.mjml, { ...config, filePath: i.file })
+          compiled:
+            inputOpt === 'm'
+              ? { html: htmlBeautify(migrate(i.mjml), beautifyOptions) }
+              : mjml2html(i.mjml, { ...config, filePath: i.file }),
         }),
       )
     } catch (e) {
       EXIT_CODE = 2
-
       failedStream.push({ file: i.file, error: e })
     }
   })
@@ -175,8 +182,14 @@ export default async () => {
     case 'o':
       if (inputs.length > 1 && (!isDirectory(argv.o) && argv.o !== '')) {
         error(
-          `Multiple input files, but output option should be either a directory or an empty string: ${argv.o} given`,
+          `Multiple input files, but output option should be either an existing directory or an empty string: ${argv.o} given`,
         )
+      }
+
+      const fullOutputPath = path.parse(path.resolve(process.cwd(), argv.o))
+
+      if (inputs.length === 1 && !isDirectory(fullOutputPath.dir)) {
+        error(`Output directory doesn’t exist for path : ${argv.o}`)
       }
 
       Promise.all(convertedStream.map(outputToFile(argv.o)))
@@ -185,9 +198,9 @@ export default async () => {
             process.exit(EXIT_CODE)
           }
         })
-        .catch(() => {
+        .catch(({ outputName, err }) => {
           if (!KEEP_OPEN) {
-            process.exit(1)
+            error(`Error writing file - ${outputName} : ${err}`)
           }
         })
       break
@@ -197,6 +210,6 @@ export default async () => {
         .catch(() => process.exit(1))
       break
     default:
-      error('Cli error ! (No output option available)')
+      error('Command line error: No output option available')
   }
 }

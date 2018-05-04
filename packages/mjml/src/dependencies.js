@@ -16,7 +16,6 @@ export default {
     'mj-divider',
     'mj-html',
     'mj-image',
-    'mj-inline-links',
     'mj-invoice',
     'mj-list',
     'mj-location',
@@ -25,14 +24,9 @@ export default {
     'mj-spacer',
     'mj-table',
     'mj-text',
-    'mj-navbar'
+    'mj-navbar',
   ],
-  'mj-container': [
-    'mj-hero',
-    'mj-raw',
-    'mj-section',
-    'mj-wrapper',
-  ],
+  'mj-container': ['mj-hero', 'mj-raw', 'mj-section', 'mj-wrapper'],
   'mj-divider': [],
   'mj-group': ['mj-column', 'mj-raw'],
   'mj-head': [
@@ -56,11 +50,10 @@ export default {
     'mj-spacer',
     'mj-table',
     'mj-text',
-    'mj-navbar'
+    'mj-navbar',
   ],
   'mj-html': [],
   'mj-image': [],
-  'mj-inline-links': ['mj-link'],
   'mj-invoice': ['mj-invoice-item'],
   'mj-invoice-item': [],
   'mj-link': [],

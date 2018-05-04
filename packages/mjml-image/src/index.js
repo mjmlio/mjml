@@ -8,10 +8,11 @@ export default class MjImage extends BodyComponent {
   static tagOmission = true
 
   static allowedAttributes = {
-    'alt': 'string',
-    'href': 'string',
-    'src': 'string',
-    'title': 'string',
+    alt: 'string',
+    href: 'string',
+    src: 'string',
+    srcset: 'string',
+    title: 'string',
     align: 'enum(left,center,right)',
     border: 'string',
     'border-bottom': 'string',
@@ -29,6 +30,7 @@ export default class MjImage extends BodyComponent {
     'padding-top': 'unit(px,%)',
     target: 'string',
     width: 'unit(px,%)',
+    height: 'unit(px)',
   }
 
   static defaultAttributes = {
@@ -48,9 +50,11 @@ export default class MjImage extends BodyComponent {
     return {
       img: {
         border: this.getAttribute('border'),
+        'border-radius': this.getAttribute('border-radius'),
         display: 'block',
         outline: 'none',
         'text-decoration': 'none',
+        height: this.getAttribute('height'),
         'min-width': fullWidth ? '100%' : null,
         width: fullWidth ? `${parsedWidth}${unit}` : '100%',
         'max-width': fullWidth ? '100%' : null,
@@ -72,14 +76,20 @@ export default class MjImage extends BodyComponent {
     const { containerWidth } = this.context
 
     const width = this.getAttribute('width')
-      ? min([parseInt(this.getAttribute('width'), 10), parseInt(containerWidth, 10)])
+      ? min([
+          parseInt(this.getAttribute('width'), 10),
+          parseInt(containerWidth, 10),
+        ])
       : parseInt(containerWidth, 10)
 
     const paddingRight = this.getShorthandAttrValue('padding', 'right')
     const paddingLeft = this.getShorthandAttrValue('padding', 'left')
 
     const widthOverflow =
-      paddingLeft + paddingRight + parseFloat(width) - parseInt(containerWidth, 10)
+      paddingLeft +
+      paddingRight +
+      parseFloat(width) -
+      parseInt(containerWidth, 10)
 
     return widthOverflow > 0
       ? parseFloat(width - widthOverflow)
@@ -87,12 +97,15 @@ export default class MjImage extends BodyComponent {
   }
 
   renderImage() {
+    const height = this.getAttribute('height')
+
     const img = `
       <img
         ${this.htmlAttributes({
-          alt: this.getAttribute('href'),
-          height: this.getAttribute('height'),
+          alt: this.getAttribute('alt'),
+          height: height && (height === 'auto' ? height : parseInt(height, 10)),
           src: this.getAttribute('src'),
+          srcset: this.getAttribute('srcset'),
           style: 'img',
           title: this.getAttribute('title'),
           width: this.getContentWidth(),

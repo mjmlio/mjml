@@ -49,6 +49,7 @@ vertical-align              | string      | vertical alignment                  
 line-height                 | px/%/none   | line-height on link                              | 120%
 href                        | link        | link to be triggered when the button is clicked  | n/a
 rel                         | string      | specify the rel attribute for the button link    | n/a
+target                      | string      | specify the target attribute for the button link | \_blank
 inner-padding               | px          | inner button padding                             | 10px 25px
 padding                     | px          | supports up to 4 parameters                      | 10px 25px
 padding-top                 | px          | top offset                                       | n/a

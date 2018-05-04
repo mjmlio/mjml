@@ -5,15 +5,19 @@ export default class MjCarouselImage extends BodyComponent {
   static endingTag = true
 
   static allowedAttributes = {
-    'alt': 'string',
-    'href': 'string',
-    'rel': 'string',
-    'title': 'string',
-    'src': 'string',
+    alt: 'string',
+    href: 'string',
+    rel: 'string',
+    title: 'string',
+    src: 'string',
     'thumbnails-src': 'string',
     'border-radius': 'unit(px,%){1,4}',
     'tb-border': 'string',
-    'tb-border-radius': 'unit(px,%){1,4}'
+    'tb-border-radius': 'unit(px,%){1,4}',
+  }
+
+  static defaultAttributes = {
+    target: '_blank',
   }
 
   getStyles() {
@@ -24,19 +28,19 @@ export default class MjCarouselImage extends BodyComponent {
           display: 'block',
           width: '600px',
           'max-width': '100%',
-          height: 'auto'
+          height: 'auto',
         },
         firstImageDiv: {},
         otherImageDiv: {
           display: 'none',
-          'mso-hide': 'all'
-        }
+          'mso-hide': 'all',
+        },
       },
       radio: {
         input: {
           display: 'none',
-          'mso-hide': 'all'
-        }
+          'mso-hide': 'all',
+        },
       },
       thumbnails: {
         a: {
@@ -44,19 +48,19 @@ export default class MjCarouselImage extends BodyComponent {
           'border-radius': this.getAttribute('tb-border-radius'),
           display: 'inline-block',
           overflow: 'hidden',
-          width: this.getAttribute('tb-width')
+          width: this.getAttribute('tb-width'),
         },
         img: {
           display: 'block',
           width: '100%',
-          height: 'auto'
-        }
-      }
+          height: 'auto',
+        },
+      },
     }
   }
 
   renderThumbnail() {
-    const { carouselId, src, alt, 'tb-width': width } = this.attributes
+    const { carouselId, src, alt, 'tb-width': width, target } = this.attributes
     const imgIndex = this.props.index + 1
 
     return `
@@ -64,16 +68,19 @@ export default class MjCarouselImage extends BodyComponent {
         ${this.htmlAttributes({
           style: 'thumbnails.a',
           href: `#${imgIndex}`,
-          class: `mj-carousel-thumbnail mj-carousel-${carouselId}-thumbnail mj-carousel-${carouselId}-thumbnail-${imgIndex}`
+          target,
+          class: `mj-carousel-thumbnail mj-carousel-${carouselId}-thumbnail mj-carousel-${carouselId}-thumbnail-${imgIndex}`,
         })}
       >
-        <label ${this.htmlAttributes({for: `mj-carousel-${carouselId}-radio-${imgIndex}`})}>
+        <label ${this.htmlAttributes({
+          for: `mj-carousel-${carouselId}-radio-${imgIndex}`,
+        })}>
           <img
             ${this.htmlAttributes({
               style: 'thumbnails.img',
               src: this.getAttribute('thumbnails-src') || src,
               alt,
-              width: parseInt(width)
+              width: parseInt(width),
             })}
           />
         </label>
@@ -88,12 +95,13 @@ export default class MjCarouselImage extends BodyComponent {
     return `
       <input
         ${this.htmlAttributes({
-          class: `mj-carousel-radio mj-carousel-${carouselId}-radio mj-carousel-${carouselId}-radio-${index + 1}`,
+          class: `mj-carousel-radio mj-carousel-${carouselId}-radio mj-carousel-${carouselId}-radio-${index +
+            1}`,
           checked: index === 0 ? 'checked' : null,
           type: 'radio',
           name: `mj-carousel-radio-${carouselId}`,
           id: `mj-carousel-${carouselId}-radio-${index + 1}`,
-          style: 'radio.input'
+          style: 'radio.input',
         })}
       />
     `
@@ -111,7 +119,7 @@ export default class MjCarouselImage extends BodyComponent {
           alt,
           style: 'images.img',
           width: '400',
-          border: '0'
+          border: '0',
         })} />
     `
 
@@ -119,12 +127,12 @@ export default class MjCarouselImage extends BodyComponent {
       <div
         ${this.htmlAttributes({
           class: `mj-carousel-image mj-carousel-image-${index + 1}`,
-          style: index === 0 ? 'images.firstImageDiv' : 'images.otherImageDiv'
+          style: index === 0 ? 'images.firstImageDiv' : 'images.otherImageDiv',
         })}
       >
-        ${ href
+        ${href
           ? `<a href={href} rel={rel} target="_blank">${image}</a>`
-          : image }
+          : image}
       </div>
     `
   }

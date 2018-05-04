@@ -140,7 +140,7 @@ export class BodyComponent extends Component {
     } = options
 
     if (rawXML) {
-      return children.map(child => jsonToXML(child)).join('\n')
+      return childrens.map(child => jsonToXML(child)).join('\n')
     }
 
     childrens = childrens || this.props.children
@@ -197,6 +197,11 @@ export class HeadComponent extends Component {
           context: this.getChildContext(),
         },
       })
+
+      if (!component) {
+        console.log(`No matching component for tag : ${children.tagName}`)
+        return
+      }
 
       if (component.handler) {
         component.handler()

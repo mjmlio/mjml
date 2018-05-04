@@ -1,10 +1,10 @@
-# MJML 4 
+# MJML 4
 
 If you're looking for MJML 3.3.X check [this branch](https://github.com/mjmlio/mjml/tree/3.3.x)
 
 <p align="center">
   <a href="http://mjml.io" target="_blank">
-    <img width="250"src="https://cloud.githubusercontent.com/assets/6558790/12672296/7b66d8cc-c675-11e5-805d-c6d196320537.png">
+    <img width="250"src="https://mjml.io/assets/img/litmus/mjmlbymailjet.png">
 
   </a>
 </p>
@@ -30,7 +30,7 @@ If you're looking for MJML 3.3.X check [this branch](https://github.com/mjmlio/m
 
 # Introduction
 
-MJML is a markup language designed to reduce the pain of coding a responsive email. Its semantic syntax makes it easy and straightforward while its rich standard components library fastens your development time and lightens your email codebase. MJML’s open-source engine takes care of translating the MJML you wrote into responsive HTML.
+MJML is a markup language created by [Mailjet](https://www.mailjet.com/) and designed to reduce the pain of coding a responsive email. Its semantic syntax makes it easy and straightforward while its rich standard components library fastens your development time and lightens your email codebase. MJML’s open-source engine takes care of translating the MJML you wrote into responsive HTML.
 
 <p align="center">
   <a href="http://mjml.io" target="_blank">
@@ -42,7 +42,7 @@ MJML is a markup language designed to reduce the pain of coding a responsive ema
 # Installation
 
 You can install MJML with NPM to use it with NodeJS or the Command Line Interface. If you're not sure what those are, head over to <a href="#usage">Usage</a> for other ways to use MJML.
- 
+
 ```bash
 npm install mjml
 ```
@@ -53,7 +53,7 @@ To work on MJML, make changes and create merge requests, download and install [y
 
 ```bash
 git clone https://github.com/mjmlio/mjml.git && cd mjml
-yarn 
+yarn
 yarn build
 ```
 
@@ -82,26 +82,27 @@ For more tools, check the [Community](https://mjml.io/community) page.
 
 ## Command line interface
 
-> Compiles the file and outputs the HTML generated in `input.html`
+> Compiles the file and outputs the HTML generated in `output.html`
 
 ```bash
-mjml input.mjml
+mjml input.mjml -o output.html
 ```
 
-You can pass optional `arguments` to the CLI, following the `mjml` command.
+You can pass optional `arguments` to the CLI and combine them.
 
 argument | description | default value
 ---------|--------|--------------
 `mjml -m [input]` | Migrates a v3 MJML file to the v4 syntax | NA
 `mjml [input] -o [output]` | Writes the output to [output] | NA
 `mjml [input] -s` | Writes the output to `stdout` | NA
+`mjml -w [input]` | Watches the changes made to [input] (file or folder) | NA
 `mjml [input] --config.beautify` | Beautifies the output (`true` or `false`) | true
 `mjml [input] --config.minify` | Minifies the output (`true` or `false`) | false
 
 ## Inside Node.js
 
 ```javascript
-import { mjml2html } from 'mjml'
+import mjml2html from 'mjml'
 
 /*
   Compile an mjml string
@@ -132,11 +133,11 @@ You can pass optional `options` as an object to the `mjml2html` function:
 option   | unit   | description  | default value
 -------------|--------|--------------|---------------
 fonts  | object | Default fonts imported in the HTML rendered by HTML | See in [index.js](https://github.com/mjmlio/mjml/blob/master/packages/mjml-core/src/index.js#L36-L44)
-keepComments | boolean | Option to keep comments in the HTML output | true 
+keepComments | boolean | Option to keep comments in the HTML output | true
 beautify | boolean | Option to beautify the HTML output | false
 minify | boolean | Option to minify the HTML output | false
 validationLevel | string | Available values for the [validator](https://github.com/mjmlio/mjml/tree/master/packages/mjml-validator#validating-mjml): 'strict', 'soft', 'skip'  | 'soft'
-filePath | boolean | Option to beautify the HTML output | false
+filePath | boolean | Path of file, used for relative paths in mj-includes | '.'
 
 ## API
 

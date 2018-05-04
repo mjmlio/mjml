@@ -24,7 +24,7 @@ Displays a menu for navigation with an optional hamburger mode for mobile device
 ```
 
 <p align="center">
-  <a target="_blank" href="/try-it-live/components/navbar">
+  <a target="_blank" href="https://mjml.io/try-it-live/components/navbar">
     <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
   </a>
 </p>
@@ -106,3 +106,5 @@ padding-bottom   | px            | bottom offset                         | n/a
 padding-left     | px            | left offset                           | n/a
 padding-right    | px            | right offset                          | n/a
 rel              | string        | specify the rel attribute             | n/a
+href             | string        | link to redirect to on click          | n/a
+target           | string        | link target on click                  | n/a

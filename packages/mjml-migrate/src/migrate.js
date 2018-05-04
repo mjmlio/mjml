@@ -12,7 +12,7 @@ function removeContainerTag(bodyTag) {
   return bodyTag
 }
 
-const listAttributes = (tag) => {
+const listAttributes = tag => {
   return tag.attributes
 }
 
@@ -29,8 +29,7 @@ function fixUnits(attribute, value) {
 function addPx(value) {
   if (!isNaN(value)) {
     return value + 'px'
-  }
-  else {
+  } else {
     return value
   }
 }
@@ -45,9 +44,10 @@ function cleanAttributes(attributes) {
 const DEFAULT_SOCIAL_DISPLAY = 'facebook twitter google'
 
 function migrateSocialSyntax(socialTag) {
-  const listAllNetworks = (tag) => {
-    let attributes = (tag.attributes['display'] || DEFAULT_SOCIAL_DISPLAY).split(' ')
-    delete(tag.attributes['display'])
+  const listAllNetworks = tag => {
+    let attributes = (tag.attributes['display'] || DEFAULT_SOCIAL_DISPLAY
+    ).split(' ')
+    delete tag.attributes['display']
     return attributes
   }
 
@@ -60,14 +60,19 @@ function migrateSocialSyntax(socialTag) {
   for (let network in networks) {
     socialTag.children.push({
       tagName: `mj-social-element`,
-      attributes: {"name": networks[network]},
-      content: attributes[`${networks[network]}-content`] ? attributes[`${networks[network]}-content`] : ''
+      attributes: { name: networks[network] },
+      content: attributes[`${networks[network]}-content`]
+        ? attributes[`${networks[network]}-content`]
+        : '',
     })
 
     for (let attribute in attributes) {
       if (attribute.match(networks[network]) && !attribute.match('content')) {
-        socialTag.children[network].attributes[attribute.replace(`${networks[network]}-`,'')] = socialTag.attributes[attribute]
-        delete(socialTag.attributes[attribute])
+        socialTag.children[network].attributes[
+          attribute.replace(`${networks[network]}-`, '')
+        ] =
+          socialTag.attributes[attribute]
+        delete socialTag.attributes[attribute]
       }
     }
   }
@@ -75,7 +80,7 @@ function migrateSocialSyntax(socialTag) {
   // delete all content attributes from the root tag after they've been migrated
   for (let attribute in attributes) {
     if (attribute.match('content')) {
-      delete(attributes[attribute])
+      delete attributes[attribute]
     }
   }
 
@@ -127,17 +132,24 @@ function loopThrough(tree) {
             case 'mj-inline-links':
               tree.children[i].tagName = 'mj-navbar'
               break
+            case 'mj-link':
+              tree.children[i].tagName = 'mj-navbar-link'
+              break
             case 'mj-hero':
               tree.children[i] = migrateHeroSyntax(tree.children[i])
               break
           }
 
-          tree.children[i].attributes = cleanAttributes(tree.children[i].attributes)
+          tree.children[i].attributes = cleanAttributes(
+            tree.children[i].attributes,
+          )
           loopThrough(tree.children[i])
-        }
-        else {
-          console.log(`Ignoring unsupported tag : ${tree.children[i].tagName} on line ${tree.children[i].line}`)
-          delete(tree.children[i])
+        } else {
+          console.log(
+            `Ignoring unsupported tag : ${tree.children[i]
+              .tagName} on line ${tree.children[i].line}`,
+          )
+          delete tree.children[i]
         }
       }
     }
@@ -156,21 +168,25 @@ export function handleMjml3(mjml) {
   const isV3Synthax = checkV3Through(mjml)
   if (!isV3Synthax) return mjml
 
-  console.log('MJML v3 syntax detected, migrating to MJML v4 syntax. Use mjml -m to get the migrated MJML.')
+  console.log(
+    'MJML v3 syntax detected, migrating to MJML v4 syntax. Use mjml -m to get the migrated MJML.',
+  )
   return migrate(mjml)
 }
 
 const jsonToXML = ({ tagName, attributes, children, content }) => {
   const subNode =
     children && children.length > 0
-      ? children.map(jsonToXML).join("\n")
-      : content ? content : '';
+      ? children.map(jsonToXML).join('\n')
+      : content ? content : ''
 
   const stringAttrs = Object.keys(attributes)
     .map(attr => `${attr}="${attributes[attr]}"`)
-    .join(" ");
+    .join(' ')
 
-  return `<${tagName}${stringAttrs === '' ? '>' : ` ${stringAttrs}>`}${subNode}</${tagName}>`;
+  return `<${tagName}${stringAttrs === ''
+    ? '>'
+    : ` ${stringAttrs}>`}${subNode}</${tagName}>`
 }
 
 export default function migrate(input) {

@@ -1,4 +1,4 @@
-import { get, forEach, identity, reduce, kebabCase } from 'lodash'
+import { get, forEach, identity, reduce, kebabCase, isNil } from 'lodash'
 
 import MJMLParser from 'mjml-parser-xml'
 
@@ -98,7 +98,7 @@ export class BodyComponent extends Component {
       (output, v, name) => {
         const value = (specialAttributes[name] || specialAttributes.default)(v)
 
-        if (value || value === 0) {
+        if (!isNil(value)) {
           return `${output} ${name}="${value}"`
         }
 

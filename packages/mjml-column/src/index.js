@@ -29,14 +29,14 @@ export default class MjColumn extends BodyComponent {
   getChildContext() {
     const { containerWidth: parentWidth } = this.context
 
-    const { sibling } = this.props
+    const { nonRawSiblings } = this.props
 
     const paddingSize =
       this.getShorthandAttrValue('padding', 'left') +
       this.getShorthandAttrValue('padding', 'right')
 
     let containerWidth =
-      this.getAttribute('width') || `${parseFloat(parentWidth) / sibling}px`
+      this.getAttribute('width') || `${parseFloat(parentWidth) / nonRawSiblings}px`
 
     const { unit, parsedWidth } = widthParser(containerWidth, {
       parseFloatToInt: false,
@@ -95,14 +95,14 @@ export default class MjColumn extends BodyComponent {
   }
 
   getMobileWidth() {
-    const { sibling, containerWidth } = this.context
+    const { nonRawSiblings, containerWidth } = this.context
     const width = this.getAttribute('width')
     const mobileWidth = this.getAttribute('mobileWidth')
 
     if (mobileWidth !== 'mobileWidth') {
       return '100%'
     } else if (width === undefined) {
-      return `${parseInt(100 / sibling, 10)}%`
+      return `${parseInt(100 / nonRawSiblings, 10)}%`
     }
 
     const { unit, parsedWidth } = widthParser(width, {
@@ -132,9 +132,9 @@ export default class MjColumn extends BodyComponent {
   }
 
   getParsedWidth(toString) {
-    const { sibling } = this.props
+    const { nonRawSiblings } = this.props
 
-    const width = this.getAttribute('width') || `${100 / sibling}%`
+    const width = this.getAttribute('width') || `${100 / nonRawSiblings}%`
 
     const { unit, parsedWidth } = widthParser(width, {
       parseFloatToInt: false,

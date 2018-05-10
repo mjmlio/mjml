@@ -283,21 +283,6 @@ export default function mjml2html(mjml, options = {}) {
   }
 }
 
-// register components from mjmlconfig
-try {
-  const mjmlConfig = fs.readFileSync(path.join(process.cwd(), '.mjmlconfig'))
-  const customComps = JSON.parse(mjmlConfig).packages
-
-  customComps.forEach(compPath => {
-    const requiredComp = require(path.join(process.cwd(), compPath)) // eslint-disable-line global-require, import/no-dynamic-require
-    registerComponent(requiredComp.default || requiredComp)
-  })
-} catch (e) {
-  if (e.code !== 'ENOENT') {
-    console.log('Error when registering custom components : ', e) // eslint-disable-line no-console
-  }
-}
-
 export { components, initComponent, registerComponent, suffixCssClasses }
 
 export { BodyComponent, HeadComponent } from './createComponent'

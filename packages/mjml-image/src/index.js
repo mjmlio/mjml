@@ -49,7 +49,7 @@ export default class MjImage extends BodyComponent {
         'text-decoration': 'none',
         height: this.getAttribute('height'),
         'min-width': fullWidth ? '100%' : null,
-        width,
+        width: `${width}px`,
         'max-width': fullWidth ? '100%' : null,
       },
       td: {
@@ -76,12 +76,10 @@ export default class MjImage extends BodyComponent {
     const border = this.getShorthandBorderValue()
     const allPaddings = paddingLeft + paddingRight + border * 2
 
-    const contentWidth = min([
+    return min([
       parseInt(containerWidth, 10) - allPaddings,
       width
     ])
-
-    return `${contentWidth}px`
   }
 
   renderImage() {

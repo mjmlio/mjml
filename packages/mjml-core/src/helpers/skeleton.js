@@ -1,4 +1,4 @@
-import { reduce } from 'lodash'
+import { reduce, negate, isNil } from 'lodash'
 import buildPreview from './preview'
 import { buildFontsTags } from './fonts'
 import { buildMediaQueriesTags } from './mediaQueries'
@@ -12,6 +12,7 @@ export default function skeleton(options) {
     mediaQueries = {},
     headStyle = [],
     componentsHeadStyle = {},
+    headRaw = [],
     preview,
     title = '',
     style,
@@ -31,6 +32,7 @@ export default function skeleton(options) {
         <!--<![endif]-->
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        ${headRaw.filter(negate(isNil)).join('\n')}
         <style type="text/css">
           #outlook a { padding:0; }
           .ReadMsgBody { width:100%; }

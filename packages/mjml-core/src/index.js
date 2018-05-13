@@ -70,6 +70,7 @@ export default function mjml2html(mjml, options = {}) {
     inlineStyle: [],
     headStyle: {},
     componentsHeadStyle: [],
+    headRaw: [],
     mediaQueries: {},
     preview: '',
     style: [],
@@ -122,7 +123,7 @@ export default function mjml2html(mjml, options = {}) {
 
     if (component !== null) {
       if ('handler' in component) {
-        component.handler()
+        return component.handler()
       }
 
       if ('render' in component) {
@@ -221,7 +222,7 @@ export default function mjml2html(mjml, options = {}) {
     },
   }
 
-  processing(mjHead, headHelpers)
+  globalDatas.headRaw = processing(mjHead, headHelpers)
 
   content = processing(mjBody, bodyHelpers, applyAttributes)
 
@@ -260,6 +261,8 @@ export default function mjml2html(mjml, options = {}) {
       : content
 
   content = mergeOutlookConditionnals(content)
+
+
 
   return {
     html: content,

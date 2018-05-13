@@ -195,7 +195,7 @@ export class HeadComponent extends Component {
   handlerChildren() {
     const childrens = this.props.children
 
-    forEach(childrens, children => {
+    return childrens.map(children => {
       const component = initComponent({
         name: children.tagName,
         initialDatas: {
@@ -211,6 +211,10 @@ export class HeadComponent extends Component {
 
       if (component.handler) {
         component.handler()
+      }
+
+      if (component.render) {
+        return component.render()
       }
     })
   }

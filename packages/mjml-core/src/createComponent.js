@@ -148,9 +148,9 @@ export class BodyComponent extends Component {
     const sibling = childrens.length
 
     const rawComponents = filter(components, c => c.isRawElement())
-    const nonRawSiblings = childrens.filter(child => (
-      !find(rawComponents, c => c.getTagName() === child.tagName)
-    )).length
+    const nonRawSiblings = childrens.filter(
+      child => !find(rawComponents, c => c.getTagName() === child.tagName),
+    ).length
 
     let output = ''
     let index = 0

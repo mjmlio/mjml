@@ -191,20 +191,22 @@ export default class MjSocialElement extends BodyComponent {
               </tr>
           </table>
         </td>
-          ${this.getContent()
-            ? `
-            <td ${this.htmlAttributes({ style: 'tdText' })} >
-              <a
-                ${this.htmlAttributes({
-                  href,
-                  style: 'text',
-                  rel: this.getAttribute('rel'),
-                })}>
-                ${this.getContent()}
-              </a>
-            </td>
-            `
-            : ''}
+        ${
+          this.getContent()
+          ? `
+          <td ${this.htmlAttributes({ style: 'tdText' })}>
+            <a
+              ${this.htmlAttributes({
+                href,
+                style: 'text',
+                rel: this.getAttribute('rel'),
+              })}>
+              ${this.getContent()}
+            </a>
+          </td>
+          `
+          : ''
+        }
       </tr>
     `
   }

@@ -5,7 +5,6 @@ import { components } from 'mjml-core'
 import * as rules from './rules'
 
 const MJMLRulesCollection = {}
-mapKeys(rules, (func, name) => registerRule(func, name, { components }))
 
 export function registerRule(rule, name) {
   if (typeof rule !== 'function' || rule.length !== 2) {
@@ -23,5 +22,7 @@ export function registerRule(rule, name) {
 
   return true
 }
+
+mapKeys(rules, (func, name) => registerRule(func, name, { components }))
 
 export default MJMLRulesCollection

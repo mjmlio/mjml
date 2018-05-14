@@ -1,16 +1,3 @@
-export default function ruleError(message, element) {
-  const { line, tagName, absoluteFilePath } = element
-
-  return {
-    line,
-    message,
-    tagName,
-    formattedMessage: `Line ${line} of ${absoluteFilePath}${formatInclude(
-      element,
-    )} (${tagName}) — ${message}`,
-  }
-}
-
 function formatInclude(element) {
   const { includedIn } = element
   if (!(includedIn && includedIn.length)) return ''
@@ -22,4 +9,17 @@ function formatInclude(element) {
     .join(', itself included at ')
 
   return `, included at ${formattedIncluded}`
+}
+
+export default function ruleError(message, element) {
+  const { line, tagName, absoluteFilePath } = element
+
+  return {
+    line,
+    message,
+    tagName,
+    formattedMessage: `Line ${line} of ${absoluteFilePath}${formatInclude(
+      element,
+    )} (${tagName}) — ${message}`,
+  }
 }

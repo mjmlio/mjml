@@ -121,6 +121,11 @@ export default async () => {
       flatMapPaths(inputFiles).forEach(file => {
         inputs.push(readFile(file))
       })
+
+      if (!inputs.length) {
+        error('No input files found')
+        return
+      }
       break
     }
     case 'w':
@@ -132,11 +137,6 @@ export default async () => {
       break
     default:
       error('Command line error: Incorrect input options')
-  }
-
-  if (!inputs.length) {
-    error('No input files found')
-    return
   }
 
   const convertedStream = []

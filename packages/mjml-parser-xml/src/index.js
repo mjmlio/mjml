@@ -32,6 +32,7 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
     convertBooleans = true,
     keepComments = true,
     filePath = '.',
+    ignoreIncludes = false,
   } = options
 
   const CDATASections = flow(
@@ -142,7 +143,7 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
       onopentag: (name, attrs) => { // eslint-disable-line consistent-return
         const line = findLastIndex(lineIndexes, i => i <= parser.startIndex) + 1
 
-        if (name === 'mj-include') {
+        if (name === 'mj-include' && !ignoreIncludes) {
           inInclude = true
           return handleInclude(decodeURIComponent(attrs.path), line)
         }

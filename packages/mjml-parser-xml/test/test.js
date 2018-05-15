@@ -5,6 +5,9 @@ const chai = require('chai')
 const displayDiff = require('./test-utils').displayDiff
 const omitDeepLodash = require('./test-utils').omitDeepLodash
 
+/*
+  If test fails, run it with --debug to log the details of the diff
+*/
 
 const mjml1 = `
 <mjml>
@@ -186,21 +189,124 @@ const validJson2 = {
   "attributes": {}
 }
 
+const mjml3 = `
+<mjml>
+  <mj-head>
+    <mj-attributes>
+      <mj-text color="blue" />
+      <mj-text font-size="40px" />
+    </mj-attributes>
+  </mj-head>
+  <mj-body>
+    <mj-section>
+      <mj-column>
+        <mj-text>
+          Hello !
+        </mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>
+`
+
+const validJson3 = {
+  "file": ".",
+  "line": 2,
+  "includedIn": [],
+  "tagName": "mjml",
+  "children": [
+    {
+      "file": ".",
+      "line": 3,
+      "includedIn": [],
+      "tagName": "mj-head",
+      "children": [
+        {
+          "file": ".",
+          "line": 4,
+          "includedIn": [],
+          "tagName": "mj-attributes",
+          "children": [
+            {
+              "file": ".",
+              "line": 5,
+              "includedIn": [],
+              "tagName": "mj-text",
+              "attributes": {
+                "color": "blue"
+              }
+            },
+            {
+              "file": ".",
+              "line": 6,
+              "includedIn": [],
+              "tagName": "mj-text",
+              "attributes": {
+                "font-size": "40px"
+              }
+            }
+          ],
+          "attributes": {}
+        }
+      ],
+      "attributes": {}
+    },
+    {
+      "file": ".",
+      "line": 9,
+      "includedIn": [],
+      "tagName": "mj-body",
+      "children": [
+        {
+          "file": ".",
+          "line": 10,
+          "includedIn": [],
+          "tagName": "mj-section",
+          "children": [
+            {
+              "file": ".",
+              "line": 11,
+              "includedIn": [],
+              "tagName": "mj-column",
+              "children": [
+                {
+                  "file": ".",
+                  "line": 12,
+                  "includedIn": [],
+                  "tagName": "mj-text",
+                  "content": "Hello !",
+                  "attributes": {}
+                }
+              ],
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        }
+      ],
+      "attributes": {}
+    }
+  ],
+  "attributes": {}
+}
+
 const parse = mjml => MJMLParser(mjml, {
   keepComments: true,
   components,
   filePath: '.'
 })
 
-
 if (process.argv.indexOf('--debug') !== -1) {
   displayDiff(validJson1, omitDeepLodash(parse(mjml1), 'absoluteFilePath'))
   displayDiff(validJson2, omitDeepLodash(parse(mjml2), 'absoluteFilePath'))
+  displayDiff(validJson3, omitDeepLodash(parse(mjml3), 'absoluteFilePath'))
 }
-
 
 chai.expect(validJson1, 'Special characters test failed')
     .to.deep.equal(omitDeepLodash(parse(mjml1), 'absoluteFilePath'))
 
 chai.expect(validJson2, 'Similar tags test failed')
     .to.deep.equal(omitDeepLodash(parse(mjml2), 'absoluteFilePath'))
+
+chai.expect(validJson3, 'Self closing tags test failed')
+    .to.deep.equal(omitDeepLodash(parse(mjml3), 'absoluteFilePath'))

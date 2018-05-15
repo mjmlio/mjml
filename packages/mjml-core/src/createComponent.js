@@ -199,9 +199,8 @@ export class HeadComponent extends Component {
       })
 
       if (!component) {
-        console.log( /* eslint-disable-line no-console */
-          `No matching component for tag : ${children.tagName}`,
-        ) 
+        // eslint-disable-next-line no-console
+        console.log(`No matching component for tag : ${children.tagName}`)
         return
       }
 

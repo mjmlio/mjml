@@ -24,7 +24,5 @@ export default params => {
         ),
       ]
     }
-
-    convertAs(unit = 'px', base) {}
   }
 }

@@ -3,7 +3,7 @@ import colors from './helpers/colors'
 
 export const matcher = /^color/gim
 
-export default params =>
+export default () =>
   class Color extends Type {
     constructor(color) {
       super(color)

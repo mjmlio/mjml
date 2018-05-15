@@ -146,14 +146,14 @@ export default function mjml2html(mjml, options = {}) {
           let multipleClasses = {}
           if (acc['css-class'] && get(mjClassValues, 'css-class')) {
             multipleClasses = {
-              'css-class': `${acc['css-class']} ${mjClassValues['css-class']}`
+              'css-class': `${acc['css-class']} ${mjClassValues['css-class']}`,
             }
           }
 
           return {
             ...acc,
             ...mjClassValues,
-            ...multipleClasses
+            ...multipleClasses,
           }
         },
         {},

@@ -19,5 +19,6 @@ script:
  - npm run build
  - npm run lint
  - cd packages/mjml-parser-xml
+ - npm rebuild
  - npm install
  - npm test

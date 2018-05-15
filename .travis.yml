@@ -15,10 +15,9 @@ node_js:
  - 8
  - 9
 script:
- - npm install
- - npm run build
- - npm run lint
+ - yarn install
+ - yarn build
+ - yarn lint
  - cd packages/mjml-parser-xml
- - npm rebuild
- - npm install
- - npm test
+ - yarn install
+ - yarn test

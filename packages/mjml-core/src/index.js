@@ -13,6 +13,7 @@ import components, { initComponent, registerComponent } from './components'
 
 import suffixCssClasses from './helpers/suffixCssClasses'
 import mergeOutlookConditionnals from './helpers/mergeOutlookConditionnals'
+import minifyOutlookConditionnals from './helpers/minifyOutlookConditionnals'
 import defaultSkeleton from './helpers/skeleton'
 
 class ValidationError extends Error {
@@ -238,6 +239,10 @@ export default function mjml2html(mjml, options = {}) {
 
   content = processing(mjBody, bodyHelpers, applyAttributes)
 
+  if (minify && minify !== 'false') {
+    content = minifyOutlookConditionnals(content)
+  }
+
   content = skeleton({
     content,
     ...globalDatas,
@@ -262,15 +267,13 @@ export default function mjml2html(mjml, options = {}) {
         })
       : content
 
-  content =
-    minify && minify !== 'false'
-      ? htmlMinify(content, {
-          collapseWhitespace: true,
-          minifyCSS: false,
-          removeEmptyAttributes: true,
-          processConditionalComments: true,
-        })
-      : content
+  if (minify && minify !== 'false') {
+    content = htmlMinify(content, {
+      collapseWhitespace: true,
+      minifyCSS: false,
+      removeEmptyAttributes: true,
+    })
+  }
 
   content = mergeOutlookConditionnals(content)
 

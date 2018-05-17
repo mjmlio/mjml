@@ -255,7 +255,6 @@ export default function mjml2html(mjml, options = {}) {
           collapseWhitespace: true,
           minifyCSS: false,
           removeEmptyAttributes: true,
-          processConditionalComments: true,
         })
       : content
 

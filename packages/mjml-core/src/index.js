@@ -143,14 +143,14 @@ export default function mjml2html(mjml, options = {}) {
           let multipleClasses = {}
           if (acc['css-class'] && get(mjClassValues, 'css-class')) {
             multipleClasses = {
-              'css-class': `${acc['css-class']} ${mjClassValues['css-class']}`
+              'css-class': `${acc['css-class']} ${mjClassValues['css-class']}`,
             }
           }
 
           return {
             ...acc,
             ...mjClassValues,
-            ...multipleClasses
+            ...multipleClasses,
           }
         },
         {},
@@ -226,6 +226,10 @@ export default function mjml2html(mjml, options = {}) {
 
   content = processing(mjBody, bodyHelpers, applyAttributes)
 
+  if (minify && minify !== 'false') {
+    content = minifyOutlookConditionnals(content)
+  }
+
   content = skeleton({
     content,
     ...globalDatas,
@@ -256,8 +260,6 @@ export default function mjml2html(mjml, options = {}) {
       minifyCSS: false,
       removeEmptyAttributes: true,
     })
-
-    content = minifyOutlookConditionnals(content)
   }
 
   content = mergeOutlookConditionnals(content)

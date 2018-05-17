@@ -26,7 +26,7 @@ export default class MjCarouselImage extends BodyComponent {
         img: {
           'border-radius': this.getAttribute('border-radius'),
           display: 'block',
-          width: '600px',
+          width: '100%',
           'max-width': '100%',
           height: 'auto',
         },
@@ -119,7 +119,7 @@ export default class MjCarouselImage extends BodyComponent {
           src,
           alt,
           style: 'images.img',
-          width: '400',
+          width: '100%',
           border: '0',
         })} />
     `

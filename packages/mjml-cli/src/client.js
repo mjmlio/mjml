@@ -17,7 +17,7 @@ import outputToConsole from './commands/outputToConsole'
 
 import { version as coreVersion } from 'mjml-core/package.json' // eslint-disable-line import/first
 import { version as cliVersion } from '../package.json'
-import { DEFAULT_OPTIONS } from './helpers/defaultOptions'
+import DEFAULT_OPTIONS from './helpers/defaultOptions'
 
 const beautifyOptions = {
   indent_size: 2,
@@ -175,7 +175,7 @@ export default async () => {
 
   convertedStream.forEach(s => {
     if (get(s, 'compiled.errors.length')) {
-      console.log(map(s.compiled.errors, 'formattedMessage').join('\n'))
+      console.log(map(s.compiled.errors, 'formattedMessage').join('\n')) // eslint-disable-line no-console
     }
   })
 
@@ -204,10 +204,12 @@ export default async () => {
   }
 
   switch (outputOpt) {
-    case 'o':
+    case 'o': {
       if (inputs.length > 1 && (!isDirectory(argv.o) && argv.o !== '')) {
         error(
-          `Multiple input files, but output option should be either an existing directory or an empty string: ${argv.o} given`,
+          `Multiple input files, but output option should be either an existing directory or an empty string: ${
+            argv.o
+          } given`,
         )
       }
 
@@ -229,11 +231,13 @@ export default async () => {
           }
         })
       break
-    case 's':
+    }
+    case 's': {
       Promise.all(convertedStream.map(outputToConsole))
         .then(() => process.exit(EXIT_CODE))
         .catch(() => process.exit(1))
       break
+    }
     default:
       error('Command line error: No output option available')
   }

@@ -22,6 +22,7 @@ const output = migrate(input)
 
 fs.writeFileSync(outputFilename, output)
 
+// eslint-disable-next-line no-console
 console.log(
   `${inputFilename} was converted to the MJML 4 syntax in ${outputFilename}`,
-) // eslint-disable-line no-console
+)

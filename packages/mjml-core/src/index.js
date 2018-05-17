@@ -1,4 +1,4 @@
-import { find, get, identity, map, omit, reduce } from 'lodash'
+import { find, get, identity, map, omit, reduce, isObject } from 'lodash'
 import path from 'path'
 import juice from 'juice'
 import { html as htmlBeautify } from 'js-beautify'
@@ -27,9 +27,13 @@ export default function mjml2html(mjml, options = {}) {
   let errors = []
 
   if (typeof options.skeleton === 'string') {
+    /* eslint-disable global-require */
+    /* eslint-disable import/no-dynamic-require */
     options.skeleton = require(options.skeleton.charAt(0) === '.'
       ? path.resolve(process.cwd(), options.skeleton)
       : options.skeleton)
+    /* eslint-enable global-require */
+    /* eslint-enable import/no-dynamic-require */
   }
 
   const {
@@ -143,14 +147,14 @@ export default function mjml2html(mjml, options = {}) {
           let multipleClasses = {}
           if (acc['css-class'] && get(mjClassValues, 'css-class')) {
             multipleClasses = {
-              'css-class': `${acc['css-class']} ${mjClassValues['css-class']}`
+              'css-class': `${acc['css-class']} ${mjClassValues['css-class']}`,
             }
           }
 
           return {
             ...acc,
             ...mjClassValues,
-            ...multipleClasses
+            ...multipleClasses,
           }
         },
         {},
@@ -206,21 +210,28 @@ export default function mjml2html(mjml, options = {}) {
         globalDatas[attr].push(...params)
       } else if (Object.prototype.hasOwnProperty.call(globalDatas, attr)) {
         if (params.length > 1) {
-          globalDatas[attr][params[0]] = params[1]
+          if (isObject(globalDatas[attr][params[0]])) {
+            globalDatas[attr][params[0]] = {
+              ...globalDatas[attr][params[0]],
+              ...params[1],
+            }
+          } else {
+            globalDatas[attr][params[0]] = params[1]
+          }
         } else {
           globalDatas[attr] = params[0]
         }
       } else {
         throw Error(
-          `An mj-head element add an unkown head attribute : ${attr} with params ${Array.isArray(
-            params,
-          )
-            ? params.join('')
-            : params}`,
+          `An mj-head element add an unkown head attribute : ${attr} with params ${
+            Array.isArray(params) ? params.join('') : params
+          }`,
         )
       }
     },
   }
+
+
 
   processing(mjHead, headHelpers)
 

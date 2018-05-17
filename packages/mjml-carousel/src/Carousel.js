@@ -198,7 +198,7 @@ export default class MjCarousel extends BodyComponent {
     return `${carouselCss}\n${fallback}`
   }
 
-  getStyles() {
+  getStyles() { // eslint-disable-line class-methods-use-this
     return {
       carousel: {
         div: {
@@ -276,7 +276,7 @@ export default class MjCarousel extends BodyComponent {
   }
 
   generateControls(direction, icon) {
-    const iconWidth = parseInt(this.getAttribute('icon-width'))
+    const iconWidth = parseInt(this.getAttribute('icon-width'), 10)
 
     return `
       <td

@@ -1,13 +1,15 @@
 import forEach from 'lodash/forEach'
 import map from 'lodash/map'
 
-export function buildFontsTags(content, fonts = {}) {
+// eslint-disable-next-line import/prefer-default-export
+export function buildFontsTags(content, inlineStyle, fonts = {}) {
   const toImport = []
 
   forEach(fonts, (url, name) => {
     const regex = new RegExp(`"[^"]*font-family:[^"]*${name}[^"]*"`, 'gmi')
+    const inlineRegex = new RegExp(`font-family:[^;}]*${name}`, 'gmi')
 
-    if (content.match(regex)) {
+    if (content.match(regex) || inlineStyle.some(s => s.match(inlineRegex))) {
       toImport.push(url)
     }
   })

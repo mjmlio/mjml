@@ -1,4 +1,4 @@
-export const DEFAULT_OPTIONS = {
+export default {
   beautify: true,
   minify: false,
 }

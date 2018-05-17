@@ -1,4 +1,5 @@
 import MjSection from 'mjml-section'
+import { suffixCssClasses } from 'mjml-core'
 
 export default class MjWrapper extends MjSection {
   renderWrappedChildren() {
@@ -17,13 +18,10 @@ export default class MjWrapper extends MjSection {
               <td
                 ${component.htmlAttributes({
                   align: component.getAttribute('align'),
-                  class: component.getAttribute('css-class')
-                    ? component
-                        .getAttribute('css-class')
-                        .split(' ')
-                        .map(c => `${c}-outlook`)
-                        .join(' ')
-                    : null,
+                  class: suffixCssClasses(
+                    component.getAttribute('css-class'),
+                    'outlook',
+                  ),
                   width: containerWidth,
                 })}
               >

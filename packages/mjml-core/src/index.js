@@ -1,4 +1,4 @@
-import { find, get, identity, map, omit, reduce } from 'lodash'
+import { find, get, identity, map, omit, reduce, isObject } from 'lodash'
 import path from 'path'
 import fs from 'fs'
 import juice from 'juice'
@@ -11,6 +11,7 @@ import { handleMjml3 } from 'mjml-migrate'
 
 import components, { initComponent, registerComponent } from './components'
 
+import suffixCssClasses from './helpers/suffixCssClasses'
 import mergeOutlookConditionnals from './helpers/mergeOutlookConditionnals'
 import defaultSkeleton from './helpers/skeleton'
 
@@ -27,9 +28,13 @@ export default function mjml2html(mjml, options = {}) {
   let errors = []
 
   if (typeof options.skeleton === 'string') {
+    /* eslint-disable global-require */
+    /* eslint-disable import/no-dynamic-require */
     options.skeleton = require(options.skeleton.charAt(0) === '.'
       ? path.resolve(process.cwd(), options.skeleton)
       : options.skeleton)
+    /* eslint-enable global-require */
+    /* eslint-enable import/no-dynamic-require */
   }
 
   const {
@@ -75,6 +80,7 @@ export default function mjml2html(mjml, options = {}) {
     style: [],
     title: '',
     forceOWADesktop: get(mjml, 'attributes.owa', 'mobile') === 'desktop',
+    lang: get(mjml, 'attributes.lang'),
   }
 
   const validatorOptions = {
@@ -137,12 +143,24 @@ export default function mjml2html(mjml, options = {}) {
       const classes = get(mjml.attributes, 'mj-class', '').split(' ')
       const attributesClasses = reduce(
         classes,
-        (acc, value) => ({
-          ...acc,
-          ...globalDatas.classes[value],
-        }),
+        (acc, value) => {
+          const mjClassValues = globalDatas.classes[value]
+          let multipleClasses = {}
+          if (acc['css-class'] && get(mjClassValues, 'css-class')) {
+            multipleClasses = {
+              'css-class': `${acc['css-class']} ${mjClassValues['css-class']}`,
+            }
+          }
+
+          return {
+            ...acc,
+            ...mjClassValues,
+            ...multipleClasses,
+          }
+        },
         {},
       )
+
       const defaultAttributesForClasses = reduce(
         parentMjClass.split(' '),
         (acc, value) => ({
@@ -173,7 +191,7 @@ export default function mjml2html(mjml, options = {}) {
     addMediaQuery(className, { parsedWidth, unit }) {
       globalDatas.mediaQueries[
         className
-      ] = `{ width:${parsedWidth}${unit} !important; }`
+      ] = `{ width:${parsedWidth}${unit} !important; max-width: ${parsedWidth}${unit}; }`
     },
     addHeadSyle(identifier, headStyle) {
       globalDatas.headStyle[identifier] = headStyle
@@ -193,25 +211,37 @@ export default function mjml2html(mjml, options = {}) {
         globalDatas[attr].push(...params)
       } else if (Object.prototype.hasOwnProperty.call(globalDatas, attr)) {
         if (params.length > 1) {
-          globalDatas[attr][params[0]] = params[1]
+          if (isObject(globalDatas[attr][params[0]])) {
+            globalDatas[attr][params[0]] = {
+              ...globalDatas[attr][params[0]],
+              ...params[1],
+            }
+          } else {
+            globalDatas[attr][params[0]] = params[1]
+          }
         } else {
           globalDatas[attr] = params[0]
         }
       } else {
         throw Error(
-          `An mj-head element add an unkown head attribute : ${attr} with params ${Array.isArray(
-            params,
-          )
-            ? params.join('')
-            : params}`,
+          `An mj-head element add an unkown head attribute : ${attr} with params ${
+            Array.isArray(params) ? params.join('') : params
+          }`,
         )
       }
     },
   }
 
+
+
   processing(mjHead, headHelpers)
 
   content = processing(mjBody, bodyHelpers, applyAttributes)
+
+  content = skeleton({
+    content,
+    ...globalDatas,
+  })
 
   if (globalDatas.inlineStyle.length > 0) {
     content = juice(content, {
@@ -221,11 +251,6 @@ export default function mjml2html(mjml, options = {}) {
       removeStyleTags: false,
     })
   }
-
-  content = skeleton({
-    content,
-    ...globalDatas,
-  })
 
   content =
     beautify && beautify !== 'false'
@@ -243,6 +268,7 @@ export default function mjml2html(mjml, options = {}) {
           collapseWhitespace: true,
           minifyCSS: false,
           removeEmptyAttributes: true,
+          processConditionalComments: true,
         })
       : content
 
@@ -269,6 +295,6 @@ try {
   }
 }
 
-export { components, initComponent, registerComponent }
+export { components, initComponent, registerComponent, suffixCssClasses }
 
 export { BodyComponent, HeadComponent } from './createComponent'

@@ -17,7 +17,7 @@ const replaceExtension = input =>
     input.replace('.mjml', '').match(/(.)*\.(.)+$/g) ? '' : '.html',
   )
 
-const stripPath = input => input.match(/[^\/]+$/g)[0]
+const stripPath = input => input.match(/[^/]+$/g)[0]
 
 const makeGuessOutputName = outputPath => {
   if (isDirectory(outputPath)) {
@@ -42,7 +42,7 @@ export default outputPath => {
 
       fs.writeFile(outputName, html, err => {
         if (err) {
-          return reject(outputName)
+          return reject({ outputName, err })
         }
 
         return resolve(outputName)

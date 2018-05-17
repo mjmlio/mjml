@@ -1,10 +1,13 @@
+import path from 'path'
 import yargs from 'yargs'
 import { html as htmlBeautify } from 'js-beautify'
 import { flow, pick, isNil, negate, pickBy } from 'lodash/fp'
-import { isArray, isEmpty, map } from 'lodash'
+import { isArray, isEmpty, map, get } from 'lodash'
 
-import mjml2html from 'mjml-core'
+import mjml2html, { components } from 'mjml-core'
 import migrate from 'mjml-migrate'
+import validate from 'mjml-validator'
+import MJMLParser from 'mjml-parser-xml'
 
 import readFile, { flatMapPaths } from './commands/readFile'
 import watchFiles from './commands/watchFiles'
@@ -14,7 +17,7 @@ import outputToConsole from './commands/outputToConsole'
 
 import { version as coreVersion } from 'mjml-core/package.json' // eslint-disable-line import/first
 import { version as cliVersion } from '../package.json'
-import { DEFAULT_OPTIONS } from './helpers/defaultOptions'
+import DEFAULT_OPTIONS from './helpers/defaultOptions'
 
 const beautifyOptions = {
   indent_size: 2,
@@ -28,6 +31,7 @@ export default async () => {
   let KEEP_OPEN = false
 
   const error = msg => {
+    console.log('\nCommand line error:') // eslint-disable-line no-console
     console.error(msg) // eslint-disable-line no-console
 
     return process.exit(1)
@@ -49,6 +53,11 @@ export default async () => {
       m: {
         alias: 'migrate',
         describe: 'Migrate MJML3 File(s)',
+        type: 'array',
+      },
+      v: {
+        alias: 'validate',
+        describe: 'Run validator on File(s)',
         type: 'array',
       },
       w: {
@@ -82,7 +91,7 @@ export default async () => {
     .version(`mjml-core: ${coreVersion}\nmjml-cli: ${cliVersion}`).argv
 
   const config = Object.assign(DEFAULT_OPTIONS, argv.c)
-  const inputArgs = pickArgs(['r', 'w', 'i', '_', 'm'])(argv)
+  const inputArgs = pickArgs(['r', 'w', 'i', '_', 'm', 'v'])(argv)
   const outputArgs = pickArgs(['o', 's'])(argv)
 
   // implies (until yargs pr is accepted)
@@ -114,11 +123,17 @@ export default async () => {
 
   switch (inputOpt) {
     case 'r':
+    case 'v':
     case 'm':
     case '_': {
       flatMapPaths(inputFiles).forEach(file => {
         inputs.push(readFile(file))
       })
+
+      if (!inputs.length) {
+        error('No input files found')
+        return
+      }
       break
     }
     case 'w':
@@ -129,7 +144,7 @@ export default async () => {
       inputs.push(await readStream())
       break
     default:
-      error('Cli error !')
+      error('Command line error: Incorrect input options')
   }
 
   const convertedStream = []
@@ -138,24 +153,29 @@ export default async () => {
   inputs.forEach(i => {
     // eslint-disable-line array-callback-return
     try {
-      convertedStream.push(
-        Object.assign({}, i, {
-          compiled:
-            inputOpt === 'm'
-              ? { html: htmlBeautify(migrate(i.mjml), beautifyOptions) }
-              : mjml2html(i.mjml, { ...config, filePath: i.file }),
-        }),
-      )
+      let compiled
+      switch (inputOpt) {
+        case 'm':
+          compiled = { html: htmlBeautify(migrate(i.mjml), beautifyOptions) }
+          break
+        case 'v':
+          const mjmlJson = MJMLParser(i.mjml, { components })
+          compiled = { errors: validate(mjmlJson, { components }) }
+          break
+        default:
+          compiled = mjml2html(i.mjml, { ...config, filePath: i.file })
+      }
+
+      convertedStream.push({ ...i, compiled })
     } catch (e) {
       EXIT_CODE = 2
-
       failedStream.push({ file: i.file, error: e })
     }
   })
 
   convertedStream.forEach(s => {
-    if (s.compiled && s.compiled.errors && s.compiled.errors.length) {
-      console.log(map(s.compiled.errors, 'formattedMessage').join('\n'))
+    if (get(s, 'compiled.errors.length')) {
+      console.log(map(s.compiled.errors, 'formattedMessage').join('\n')) // eslint-disable-line no-console
     }
   })
 
@@ -168,16 +188,35 @@ export default async () => {
     }
   })
 
+  if (inputOpt === 'v') {
+    const isInvalid = failedStream.length
+                   || convertedStream.some(s => !!get(s, 'compiled.errors.length'))
+
+    if (isInvalid) {
+      error('Validation failed')
+      return
+    }
+    process.exit(0)
+  }
+
   if (!KEEP_OPEN && convertedStream.length === 0) {
     error('Input file(s) failed to render')
   }
 
   switch (outputOpt) {
-    case 'o':
+    case 'o': {
       if (inputs.length > 1 && (!isDirectory(argv.o) && argv.o !== '')) {
         error(
-          `Multiple input files, but output option should be either an existing directory or an empty string: ${argv.o} given`,
+          `Multiple input files, but output option should be either an existing directory or an empty string: ${
+            argv.o
+          } given`,
         )
+      }
+
+      const fullOutputPath = path.parse(path.resolve(process.cwd(), argv.o))
+
+      if (inputs.length === 1 && !isDirectory(fullOutputPath.dir)) {
+        error(`Output directory doesn’t exist for path : ${argv.o}`)
       }
 
       Promise.all(convertedStream.map(outputToFile(argv.o)))
@@ -186,18 +225,20 @@ export default async () => {
             process.exit(EXIT_CODE)
           }
         })
-        .catch(() => {
+        .catch(({ outputName, err }) => {
           if (!KEEP_OPEN) {
-            process.exit(1)
+            error(`Error writing file - ${outputName} : ${err}`)
           }
         })
       break
-    case 's':
+    }
+    case 's': {
       Promise.all(convertedStream.map(outputToConsole))
         .then(() => process.exit(EXIT_CODE))
         .catch(() => process.exit(1))
       break
+    }
     default:
-      error('Cli error ! (No output option available)')
+      error('Command line error: No output option available')
   }
 }

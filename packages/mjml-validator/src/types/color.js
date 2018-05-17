@@ -1,9 +1,9 @@
 import Type from './type'
-import colors from '../helpers/colors'
+import colors from './helpers/colors'
 
 export const matcher = /^color/gim
 
-export default params =>
+export default () =>
   class Color extends Type {
     constructor(color) {
       super(color)

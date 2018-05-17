@@ -1,4 +1,4 @@
-import { BodyComponent } from 'mjml-core'
+import { BodyComponent, suffixCssClasses } from 'mjml-core'
 import { flow, identity, join, filter } from 'lodash/fp'
 
 import widthParser from 'mjml-core/lib/helpers/widthParser'
@@ -138,12 +138,7 @@ export default class MjSection extends BodyComponent {
           border: '0',
           cellpadding: '0',
           cellspacing: '0',
-          class: this.getAttribute('css-class')
-            ? this.getAttribute('css-class')
-                .split(' ')
-                .map(c => `${c}-outlook`)
-                .join(' ')
-            : null,
+          class: suffixCssClasses(this.getAttribute('css-class'), 'outlook'),
           style: { width: `${containerWidth}` },
           width: parseInt(containerWidth, 10),
         })}
@@ -154,8 +149,8 @@ export default class MjSection extends BodyComponent {
     `
   }
 
+  // eslint-disable-next-line class-methods-use-this
   renderAfter() {
-    // eslint-disable-line class-methods-use-this
     return `
       <!--[if mso | IE]>
           </td>
@@ -181,13 +176,10 @@ export default class MjSection extends BodyComponent {
             <td
               ${component.htmlAttributes({
                 align: component.getAttribute('align'),
-                class: component.getAttribute('css-class')
-                  ? component
-                      .getAttribute('css-class')
-                      .split(' ')
-                      .map(c => `${c}-outlook`)
-                      .join(' ')
-                  : null,
+                class: suffixCssClasses(
+                  component.getAttribute('css-class'),
+                  'outlook',
+                ),
                 style: 'tdOutlook',
               })}
             >
@@ -245,9 +237,11 @@ export default class MjSection extends BodyComponent {
         class: this.isFullWidth() ? null : this.getAttribute('css-class'),
         style: 'div',
       })}>
-        ${hasBackground
-          ? `<div ${this.htmlAttributes({ style: 'innerDiv' })}>`
-          : ''}
+        ${
+          hasBackground
+            ? `<div ${this.htmlAttributes({ style: 'innerDiv' })}>`
+            : ''
+        }
         <table
           ${this.htmlAttributes({
             align: 'center',

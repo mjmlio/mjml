@@ -1,7 +1,7 @@
 import { reduce } from 'lodash'
 import buildPreview from './preview'
 import { buildFontsTags } from './fonts'
-import { buildMediaQueriesTags } from './mediaQueries'
+import buildMediaQueriesTags from './mediaQueries'
 
 export default function skeleton(options) {
   const {
@@ -16,11 +16,15 @@ export default function skeleton(options) {
     title = '',
     style,
     forceOWADesktop,
+    inlineStyle,
+    lang,
   } = options
+
+  const langAttribute = lang ? `lang="${lang}" ` : ''
 
   return `
     <!doctype html>
-    <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+    <html ${langAttribute}xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
       <head>
         <title>
           ${title}
@@ -61,7 +65,7 @@ export default function skeleton(options) {
           .outlook-group-fix { width:100% !important; }
         </style>
         <![endif]-->
-        ${buildFontsTags(content, fonts)}
+        ${buildFontsTags(content, inlineStyle, fonts)}
         ${buildMediaQueriesTags(breakpoint, mediaQueries, forceOWADesktop)}
         <style type="text/css">
         ${reduce(
@@ -75,13 +79,17 @@ export default function skeleton(options) {
           '',
         )}
         </style>
-        ${style && style.length > 0
-          ? `<style type="text/css">${style.join('')}</style>`
-          : ''}
+        ${
+          style && style.length > 0
+            ? `<style type="text/css">${style.join('')}</style>`
+            : ''
+        }
       </head>
-      <body${backgroundColor === ''
-        ? ''
-        : ` style="background-color:${backgroundColor};"`}>
+      <body${
+        backgroundColor === ''
+          ? ''
+          : ` style="background-color:${backgroundColor};"`
+      }>
         ${buildPreview(preview)}
         ${content}
       </body>

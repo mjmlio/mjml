@@ -1,4 +1,5 @@
 import { BodyComponent } from 'mjml-core'
+import { reduce } from 'lodash'
 
 export default class MjTable extends BodyComponent {
   static endingTag = true
@@ -28,7 +29,7 @@ export default class MjTable extends BodyComponent {
     align: 'left',
     cellpadding: '0',
     cellspacing: '0',
-    color: '#000',
+    color: '#000000',
     'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
     'font-size': '13px',
     'line-height': '22px',
@@ -53,9 +54,14 @@ export default class MjTable extends BodyComponent {
   }
 
   render() {
-    const tableAttributes = ['cellpading', 'cellspacing', 'width'].map(v => ({
-      [v]: this.getAttribute(v),
-    }))
+    const tableAttributes = reduce(
+      ['cellpadding', 'cellspacing', 'width'],
+      (acc, v) => ({
+        ...acc,
+        [v]: this.getAttribute(v),
+      }),
+      {},
+    )
 
     return `
       <table

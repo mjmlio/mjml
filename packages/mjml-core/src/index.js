@@ -1,4 +1,4 @@
-import { find, get, identity, map, omit, reduce } from 'lodash'
+import { find, get, identity, map, omit, reduce, isObject } from 'lodash'
 import path from 'path'
 import juice from 'juice'
 import { html as htmlBeautify } from 'js-beautify'
@@ -209,7 +209,14 @@ export default function mjml2html(mjml, options = {}) {
         globalDatas[attr].push(...params)
       } else if (Object.prototype.hasOwnProperty.call(globalDatas, attr)) {
         if (params.length > 1) {
-          globalDatas[attr][params[0]] = params[1]
+          if (isObject(globalDatas[attr][params[0]])) {
+            globalDatas[attr][params[0]] = {
+              ...globalDatas[attr][params[0]],
+              ...params[1],
+            }
+          } else {
+            globalDatas[attr][params[0]] = params[1]
+          }
         } else {
           globalDatas[attr] = params[0]
         }
@@ -222,6 +229,8 @@ export default function mjml2html(mjml, options = {}) {
       }
     },
   }
+
+
 
   processing(mjHead, headHelpers)
 

@@ -225,15 +225,15 @@ export default function mjml2html(mjml, options = {}) {
         }
       } else {
         throw Error(
-          `An mj-head element add an unkown head attribute : ${attr} with params ${
-            Array.isArray(params) ? params.join('') : params
-          }`,
+          `An mj-head element add an unkown head attribute : ${attr} with params ${Array.isArray(
+            params,
+          )
+            ? params.join('')
+            : params}`,
         )
       }
     },
   }
-
-
 
   processing(mjHead, headHelpers)
 
@@ -289,12 +289,12 @@ try {
   const customComps = JSON.parse(mjmlConfig).packages
 
   customComps.forEach(compPath => {
-    const requiredComp = require(path.join(process.cwd(), compPath))
+    const requiredComp = require(path.join(process.cwd(), compPath)) // eslint-disable-line global-require, import/no-dynamic-require
     registerComponent(requiredComp.default || requiredComp)
   })
 } catch (e) {
   if (e.code !== 'ENOENT') {
-    console.log('Error when registering custom components : ', e)
+    console.log('Error when registering custom components : ', e) // eslint-disable-line no-console
   }
 }
 

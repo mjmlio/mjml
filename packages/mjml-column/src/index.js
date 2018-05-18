@@ -36,7 +36,8 @@ export default class MjColumn extends BodyComponent {
       this.getShorthandAttrValue('padding', 'right')
 
     let containerWidth =
-      this.getAttribute('width') || `${parseFloat(parentWidth) / nonRawSiblings}px`
+      this.getAttribute('width') ||
+      `${parseFloat(parentWidth) / nonRawSiblings}px`
 
     const { unit, parsedWidth } = widthParser(containerWidth, {
       parseFloatToInt: false,

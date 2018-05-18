@@ -237,11 +237,9 @@ export default class MjSection extends BodyComponent {
         class: this.isFullWidth() ? null : this.getAttribute('css-class'),
         style: 'div',
       })}>
-        ${
-          hasBackground
-            ? `<div ${this.htmlAttributes({ style: 'innerDiv' })}>`
-            : ''
-        }
+        ${hasBackground
+          ? `<div ${this.htmlAttributes({ style: 'innerDiv' })}>`
+          : ''}
         <table
           ${this.htmlAttributes({
             align: 'center',

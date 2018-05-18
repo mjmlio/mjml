@@ -151,14 +151,13 @@ export default async () => {
   const failedStream = []
 
   inputs.forEach(i => {
-    // eslint-disable-line array-callback-return
     try {
       let compiled
       switch (inputOpt) {
-        case 'm':
+        case 'm': // eslint-disable-line no-case-declarations
           compiled = { html: htmlBeautify(migrate(i.mjml), beautifyOptions) }
           break
-        case 'v':
+        case 'v': // eslint-disable-line no-case-declarations
           const mjmlJson = MJMLParser(i.mjml, { components })
           compiled = { errors: validate(mjmlJson, { components }) }
           break
@@ -189,8 +188,9 @@ export default async () => {
   })
 
   if (inputOpt === 'v') {
-    const isInvalid = failedStream.length
-                   || convertedStream.some(s => !!get(s, 'compiled.errors.length'))
+    const isInvalid =
+      failedStream.length ||
+      convertedStream.some(s => !!get(s, 'compiled.errors.length'))
 
     if (isInvalid) {
       error('Validation failed')
@@ -207,9 +207,7 @@ export default async () => {
     case 'o': {
       if (inputs.length > 1 && (!isDirectory(argv.o) && argv.o !== '')) {
         error(
-          `Multiple input files, but output option should be either an existing directory or an empty string: ${
-            argv.o
-          } given`,
+          `Multiple input files, but output option should be either an existing directory or an empty string: ${argv.o} given`,
         )
       }
 

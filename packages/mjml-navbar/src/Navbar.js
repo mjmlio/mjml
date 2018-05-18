@@ -140,11 +140,9 @@ export default class MjNavbar extends BodyComponent {
 
   render() {
     return `
-        ${
-          this.getAttribute('hamburger') === 'hamburger'
-            ? this.renderHamburger()
-            : ''
-        }
+        ${this.getAttribute('hamburger') === 'hamburger'
+          ? this.renderHamburger()
+          : ''}
         <div
           ${this.htmlAttributes({
             class: 'mj-inline-links',

@@ -145,18 +145,20 @@ export default class MjImage extends BodyComponent {
           cellspacing: '0',
           role: 'presentation',
           style: 'table',
-          class: this.getAttribute('fluid-on-mobile') === 'true'
-               ? 'full-width-mobile'
-               : null,
+          class:
+            this.getAttribute('fluid-on-mobile') === 'true'
+              ? 'full-width-mobile'
+              : null,
         })}
       >
         <tbody>
           <tr>
             <td ${this.htmlAttributes({
               style: 'td',
-              class: this.getAttribute('fluid-on-mobile') === 'true'
-                   ? 'full-width-mobile'
-                   : null,
+              class:
+                this.getAttribute('fluid-on-mobile') === 'true'
+                  ? 'full-width-mobile'
+                  : null,
             })}>
               ${this.renderImage()}
             </td>

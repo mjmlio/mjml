@@ -55,7 +55,7 @@ export default function mjml2html(mjml, options = {}) {
     skeleton = defaultSkeleton,
     validationLevel = 'soft',
     filePath = '.',
-    configPath,
+    configPath = process.cwd(),
   } = options
 
   registerCustomComponents(configPath, registerComponent)

@@ -34,8 +34,14 @@ export function resolveComponentPath(compPath, componentRootPath) {
         console.log('Error resolving custom component path : ', e) // eslint-disable-line no-console
         return null
       }
-      // if we get a 'MODULE_NOT_FOUND' error try again with relative path:
-      return resolveComponentPath(`./${compPath}`, componentRootPath)
+      // we got a 'MODULE_NOT_FOUND' error
+      try {
+        // try again as relative path to node_modules: (this may be necessary if mjml is intalled globally or by npm link)
+        return resolveComponentPath(`./node_modules/${compPath}`, componentRootPath)
+      } catch (e) {
+        //  try again as a plain local path:
+        return resolveComponentPath(`./${compPath}`, componentRootPath)
+      }
     }
   }
   return require.resolve(path.resolve(componentRootPath, compPath))
@@ -55,17 +61,18 @@ export function registerCustomComponent(comp, registerCompFn = registerComponent
 export default function registerCustomComponents(configPathOrDir = process.cwd(), registerCompFn = registerComponent) {
   const { mjmlConfig: { packages }, componentRootPath } = readMjmlConfig(configPathOrDir)
   packages.forEach(compPath => {
-    const resolvedPath = resolveComponentPath(compPath, componentRootPath)
-    if (resolvedPath) {
-      try {
+    let resolvedPath = compPath
+    try {
+      resolvedPath = resolveComponentPath(compPath, componentRootPath)
+      if (resolvedPath) {
         const requiredComp = require(resolvedPath) // eslint-disable-line global-require, import/no-dynamic-require
         registerCustomComponent(requiredComp.default || requiredComp, registerCompFn)
-      } catch (e) {
-        if (e.code !== 'ENOENT') {
-          console.log('Error when registering custom component : ', resolvedPath, e) // eslint-disable-line no-console
-        } else {
-          console.log('Missing or unreadable custom component : ', resolvedPath) // eslint-disable-line no-console
-        }
+      }
+    } catch (e) {
+      if (e.code === 'ENOENT' || e.code !== 'MODULE_NOT_FOUND') {
+        console.log('Missing or unreadable custom component : ', resolvedPath) // eslint-disable-line no-console
+      } else {
+        console.log('Error when registering custom component : ', resolvedPath, e) // eslint-disable-line no-console
       }
     }
   })

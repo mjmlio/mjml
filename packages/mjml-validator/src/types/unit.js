@@ -18,7 +18,7 @@ export default params => {
 
       this.matchers = [
         new RegExp(
-          `^(((\\d|,|\.){1,}(${units.map(escapeRegExp).join('|')})|0)( )?){${args.join(
+          `^(((\\d|,|.){1,}(${units.map(escapeRegExp).join('|')})|0)( )?){${args.join(
             ',',
           )}}$`,
         ),

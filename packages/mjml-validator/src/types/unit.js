@@ -9,7 +9,7 @@ export default params => {
   const args = (argsMatch && argsMatch[1] && argsMatch[1].split(',')) || ['1'] // defaults to 1
 
   return class Unit extends Type {
-    static errorMessage = `Invalid value: $value for type Unit, only accepts (${units.join(
+    static errorMessage = `has invalid value: $value for type Unit, only accepts (${units.join(
       ', ',
     )}) units and ${args.join(' to ')} member(s)`
 
@@ -18,7 +18,7 @@ export default params => {
 
       this.matchers = [
         new RegExp(
-          `^((\\d){1,}(${units.map(escapeRegExp).join('|')})( )?){${args.join(
+          `^(((\\d|,|\.){1,}(${units.map(escapeRegExp).join('|')})|0)( )?){${args.join(
             ',',
           )}}$`,
         ),

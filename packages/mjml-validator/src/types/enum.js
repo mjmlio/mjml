@@ -7,7 +7,7 @@ export default params => {
   const matchers = params.match(/\(([^)]+)\)/)[1].split(',')
 
   return class Enum extends Type {
-    static errorMessage = `Invalid value: $value for type Enum, only accepts ${matchers.join(
+    static errorMessage = `has invalid value: $value for type Enum, only accepts ${matchers.join(
       ', ',
     )}`
 

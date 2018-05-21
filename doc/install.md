@@ -57,7 +57,7 @@ argument | description | default value
 `mjml -w [input]` | Watches the changes made to [input] (file or folder) | NA
 `mjml [input] --config.beautify` | Beautifies the output (`true` or `false`) | true
 `mjml [input] --config.minify` | Minifies the output (`true` or `false`) | false
-`mjml [input] --configPath [mjmlconfigPath]` | Uses the `.mjmlconfig` file in the specified path or directory to include custom components | *The `.mjmlconfig` file in the current working directory, if any*
+`mjml [input] --config.configPath [mjmlconfigPath]` | Uses the `.mjmlconfig` file in the specified path or directory to include custom components | *The `.mjmlconfig` file in the current working directory, if any*
 
 ## Inside Node.js
 

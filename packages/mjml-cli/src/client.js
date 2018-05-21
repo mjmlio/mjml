@@ -83,11 +83,6 @@ export default async () => {
         type: 'object',
         describe: 'Option to pass to mjml-core',
       },
-      cp: {
-        alias: 'configPath',
-        type: 'string',
-        describe: 'Path to the .mjmlconfig file (for including custom components; defaults to the mjmlconfig file in the working directory)',
-      },
       version: {
         alias: 'V',
       },
@@ -95,7 +90,7 @@ export default async () => {
     .help()
     .version(`mjml-core: ${coreVersion}\nmjml-cli: ${cliVersion}`).argv
 
-  const config = Object.assign(DEFAULT_OPTIONS, { configPath: argv.configPath }, argv.c)
+  const config = Object.assign(DEFAULT_OPTIONS, argv.c)
   const inputArgs = pickArgs(['r', 'w', 'i', '_', 'm', 'v'])(argv)
   const outputArgs = pickArgs(['o', 's'])(argv)
 

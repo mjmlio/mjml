@@ -36,7 +36,7 @@ export function resolveComponentPath(compPath, componentRootPath) {
       }
       // we got a 'MODULE_NOT_FOUND' error
       try {
-        // try again as relative path to node_modules: (this may be necessary if mjml is intalled globally or by npm link)
+        // try again as relative path to node_modules: (this may be necessary if mjml is installed globally or by npm link)
         return resolveComponentPath(`./node_modules/${compPath}`, componentRootPath)
       } catch (e) {
         //  try again as a plain local path:

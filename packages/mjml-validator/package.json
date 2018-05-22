@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "cross-env": "^5.1.4",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.2",
     "mjml-core": "^4.0.5",
     "warning": "^3.0.0"
   }

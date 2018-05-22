@@ -5,12 +5,12 @@ import widthParser from 'mjml-core/lib/helpers/widthParser'
 export default class MjColumn extends BodyComponent {
   static allowedAttributes = {
     'background-color': 'color',
-    border: 'unit(px)',
-    'border-bottom': 'unit(px)',
-    'border-left': 'unit(px)',
-    'border-radius': 'unit(px)',
-    'border-right': 'unit(px)',
-    'border-top': 'unit(px)',
+    border: 'string',
+    'border-bottom': 'string',
+    'border-left': 'string',
+    'border-radius': 'unit(px,%)',
+    'border-right': 'string',
+    'border-top': 'string',
     direction: 'enum(ltr,rtl)',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',

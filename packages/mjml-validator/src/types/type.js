@@ -38,7 +38,7 @@ export default class Type {
 
     const errorMessage =
       this.constructor.errorMessage ||
-      `Invalid value: ${this.value} for type ${this.constructor.name} `
+      `has invalid value: ${this.value} for type ${this.constructor.name} `
 
     return errorMessage.replace(/\$value/g, this.value)
   }

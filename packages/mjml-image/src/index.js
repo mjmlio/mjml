@@ -13,6 +13,7 @@ export default class MjImage extends BodyComponent {
     src: 'string',
     srcset: 'string',
     title: 'string',
+    rel: 'string',
     align: 'enum(left,center,right)',
     border: 'string',
     'border-bottom': 'string',
@@ -118,6 +119,7 @@ export default class MjImage extends BodyComponent {
           ${this.htmlAttributes({
             href: this.getAttribute('href'),
             target: this.getAttribute('target'),
+            rel: this.getAttribute('rel'),
           })}
         >
           ${img}

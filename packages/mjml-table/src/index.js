@@ -59,7 +59,7 @@ export default class MjTable extends BodyComponent {
     const width = this.getAttribute('width')
     const { parsedWidth, unit } = widthParser(width)
 
-    return unit === '%' ? width : parseInt(width, 10)
+    return unit === '%' ? width : parsedWidth
   }
 
   render() {

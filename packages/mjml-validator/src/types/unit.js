@@ -11,7 +11,7 @@ export default params => {
   return class Unit extends Type {
     static errorMessage = `has invalid value: $value for type Unit, only accepts (${units.join(
       ', ',
-    )}) units and ${args.join(' to ')} member(s)`
+    )}) units and ${args.join(' to ')} value(s)`
 
     constructor(value) {
       super(value)

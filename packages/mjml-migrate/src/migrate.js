@@ -186,8 +186,9 @@ export function handleMjml3(mjml) {
   if (!isV3Synthax) return mjml
 
   console.log(
-    /* eslint-disable-line no-console */
     'MJML v3 syntax detected, migrating to MJML v4 syntax. Use mjml -m to get the migrated MJML.',
   )
   return migrate(mjml)
 }
+
+/* eslint-enable no-console */

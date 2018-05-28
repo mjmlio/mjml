@@ -100,4 +100,3 @@ padding-top                 | px          | top offset                         |
 padding-bottom              | px          | bottom offset                    | n/a
 padding-left                | px          | left offset                      | n/a
 padding-right               | px          | right offset                       | n/a
-target                      | string      | usual html link target              | \_blank

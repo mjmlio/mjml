@@ -42,7 +42,6 @@ export default class MjBody extends BodyComponent {
       >
         ${conditionalTag(`
           <table ${this.htmlAttributes({
-            align: this.getAttribute('align'),
             border: '0',
             cellpadding: '0',
             cellspacing: '0',
@@ -50,7 +49,7 @@ export default class MjBody extends BodyComponent {
             width: '100%',
             style: 'outlookTable',
             align: 'center',
-            bgcolor: this.getAttribute('background-color')
+            bgcolor: this.getAttribute('background-color'),
           })}>
             <tr>
               <td ${this.htmlAttributes({ style: 'outlookTd' })}>

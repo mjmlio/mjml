@@ -173,7 +173,10 @@ const jsonToXML = ({ tagName, attributes, children, content }) => {
 }
 
 export default function migrate(input) {
-  if (typeof input === 'object') return loopThrough(input)
+  if (typeof input === 'object') {
+    loopThrough(input)
+    return input
+  }
 
   const mjmlJson = MJMLParser(input, { components, ignoreIncludes: true })
   loopThrough(mjmlJson)

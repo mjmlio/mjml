@@ -4,5 +4,5 @@
     "packages/*"
   ],
   "npmClient": "yarn",
-  "version": "4.0.5"
+  "version": "4.1.0-beta.1"
 }

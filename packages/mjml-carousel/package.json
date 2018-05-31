@@ -1,7 +1,7 @@
 {
   "name": "mjml-carousel",
   "description": "mjml-carousel",
-  "version": "4.1.0-beta.2",
+  "version": "4.1.0-beta.3",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -19,6 +19,6 @@
   "dependencies": {
     "cross-env": "^5.1.4",
     "lodash": "^4.17.2",
-    "mjml-core": "^4.1.0-beta.2"
+    "mjml-core": "^4.1.0-beta.3"
   }
 }

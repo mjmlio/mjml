@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 module.exports = [
   {
     test: 'Special characters',
@@ -431,3 +432,4 @@ module.exports = [
     }
   }
 ]
+/* eslint-enable comma-dangle */

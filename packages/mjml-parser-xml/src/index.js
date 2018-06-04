@@ -12,7 +12,7 @@ import flow from 'lodash/fp/flow'
 import cleanNode from './helpers/cleanNode'
 import convertBooleansOnAttrs from './helpers/convertBooleansOnAttrs'
 import setEmptyAttributes from './helpers/setEmptyAttributes'
-import tagToXML from './helpers/tagToXML'
+import tagToXml from './helpers/tagToXml'
 
 const indexesForNewLine = xml => {
   const regex = /\n/gi
@@ -139,27 +139,27 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
   const parser = new htmlparser.Parser(
     {
       onopentag: (name, attrs) => {
-        // eslint-disable-line consistent-return
         const isAnEndingTag = endingTags.indexOf(name) !== -1
         currentIndexes.startIndex = parser.startIndex
         currentIndexes.endIndex = parser.endIndex
 
         if (inEndingTag) {
-          cur.content = `${(cur && cur.content) || ''}${tagToXML(
+          cur.content = `${(cur && cur.content) || ''}${tagToXml(
             name,
             attrs,
           )}`.trim()
-          if (isAnEndingTag) inEndingTag++
+          if (isAnEndingTag) inEndingTag += 1
           return
         }
 
-        if (isAnEndingTag) inEndingTag++
+        if (isAnEndingTag) inEndingTag += 1
 
         const line = findLastIndex(lineIndexes, i => i <= parser.startIndex) + 1
 
         if (name === 'mj-include' && !ignoreIncludes) {
           inInclude = true
-          return handleInclude(decodeURIComponent(attrs.path), line)
+          handleInclude(decodeURIComponent(attrs.path), line)
+          return
         }
 
         if (convertBooleans) {
@@ -188,7 +188,7 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
       },
       onclosetag: name => {
         if (endingTags.indexOf(name) !== -1) {
-          inEndingTag--
+          inEndingTag -= 1
         }
         if (inEndingTag) {
           // handle self-closing tags

@@ -11,7 +11,6 @@ import flow from 'lodash/fp/flow'
 
 import cleanNode from './helpers/cleanNode'
 import convertBooleansOnAttrs from './helpers/convertBooleansOnAttrs'
-import addCDATASection from './helpers/addCDATASection'
 import setEmptyAttributes from './helpers/setEmptyAttributes'
 import tagToXML from './helpers/tagToXML'
 
@@ -40,7 +39,6 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
     filter(component => component.endingTag),
     map(component => component.getTagName()),
   )({ ...components })
-
 
   const cwd = filePath ? path.dirname(filePath) : process.cwd()
 
@@ -140,13 +138,17 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
 
   const parser = new htmlparser.Parser(
     {
-      onopentag: (name, attrs) => { // eslint-disable-line consistent-return
+      onopentag: (name, attrs) => {
+        // eslint-disable-line consistent-return
         const isAnEndingTag = endingTags.indexOf(name) !== -1
         currentIndexes.startIndex = parser.startIndex
         currentIndexes.endIndex = parser.endIndex
 
         if (inEndingTag) {
-          cur.content = `${(cur && cur.content) || ''}${tagToXML(name, attrs)}`.trim()
+          cur.content = `${(cur && cur.content) || ''}${tagToXML(
+            name,
+            attrs,
+          )}`.trim()
           if (isAnEndingTag) inEndingTag++
           return
         }
@@ -184,14 +186,16 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
 
         cur = newNode
       },
-      onclosetag: (name) => {
+      onclosetag: name => {
         if (endingTags.indexOf(name) !== -1) {
           inEndingTag--
         }
         if (inEndingTag) {
           // handle self-closing tags
-          if (currentIndexes.startIndex === parser.startIndex
-          && currentIndexes.endIndex === parser.endIndex) {
+          if (
+            currentIndexes.startIndex === parser.startIndex &&
+            currentIndexes.endIndex === parser.endIndex
+          ) {
             const index = cur.content.lastIndexOf('>')
             cur.content = `${cur.content.slice(0, index)}/>`
             return

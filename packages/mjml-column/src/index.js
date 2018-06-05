@@ -17,7 +17,7 @@ export default class MjColumn extends BodyComponent {
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
     padding: 'unit(px,%){1,4}',
-    'vertical-align': 'string',
+    'vertical-align': 'enum(top,bottom,middle)',
     width: 'unit(px,%)',
   }
 

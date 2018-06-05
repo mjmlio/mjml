@@ -7,7 +7,7 @@ export default class MjAccordionTitle extends BodyComponent {
   static allowedAttributes = {
     'background-color': 'color',
     color: 'color',
-    'font-size': 'unit(px,%)',
+    'font-size': 'unit(px)',
     'font-family': 'string',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',

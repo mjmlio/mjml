@@ -17,7 +17,11 @@ export default class MjNavbar extends BodyComponent {
     'ico-font-size': 'unit(px,%)',
     'ico-font-family': 'string',
     'ico-text-transform': 'string',
-    'ico-padding': 'unit(px,%)',
+    'ico-padding': 'unit(px,%){1,4}',
+    'ico-padding-left': 'unit(px,%)',
+    'ico-padding-top': 'unit(px,%)',
+    'ico-padding-right': 'unit(px,%)',
+    'ico-padding-bottom': 'unit(px,%)',
     'ico-text-decoration': 'string',
     'ico-line-height': 'unit(px,%)',
   }

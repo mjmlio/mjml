@@ -9,7 +9,7 @@ export default class MjNavbarLink extends BodyComponent {
   static allowedAttributes = {
     color: 'color',
     'font-family': 'string',
-    'font-size': 'unit(px,%)',
+    'font-size': 'unit(px)',
     'font-weight': 'string',
     href: 'string',
     target: 'string',

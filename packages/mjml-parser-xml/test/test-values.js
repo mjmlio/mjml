@@ -430,6 +430,62 @@ module.exports = [
            attributes: {} } ],
       attributes: {}
     }
+  },
+  {
+    test: 'Include',
+    mjml: `
+      <mjml>
+        <mj-body>
+          <mj-section>
+            <mj-include path="./test/incl.mjml" />
+          </mj-section>
+        </mj-body>
+      </mjml>
+    `,
+    validJson: {
+      file: '.',
+      line: 2,
+      includedIn: [],
+      tagName: 'mjml',
+      children:
+       [ { file: '.',
+           line: 3,
+           includedIn: [],
+           tagName: 'mj-body',
+           children:
+            [ { file: '.',
+                line: 4,
+                includedIn: [],
+                tagName: 'mj-section',
+                children:
+                 [ { file: '/Users/kmcb/sites/mjml4/mjml/packages/mjml-parser-xml/test/incl.mjml',
+                     line: 1,
+                     includedIn:
+                      [ { file: '/Users/kmcb/sites/mjml4/mjml/packages/mjml-parser-xml',
+                          line: 5 } ],
+                     tagName: 'mj-column',
+                     children:
+                      [ { file: '/Users/kmcb/sites/mjml4/mjml/packages/mjml-parser-xml/test/incl.mjml',
+                          line: 2,
+                          includedIn:
+                           [ { file: '/Users/kmcb/sites/mjml4/mjml/packages/mjml-parser-xml',
+                               line: 5 } ],
+                          tagName: 'mj-text',
+                          attributes: { 'font-size': '22px' },
+                          content: 'COIN\n    <a src="test">aze</a>' },
+                        { file: '/Users/kmcb/sites/mjml4/mjml/packages/mjml-parser-xml/test/incl.mjml',
+                          line: 6,
+                          includedIn:
+                           [ { file: '/Users/kmcb/sites/mjml4/mjml/packages/mjml-parser-xml',
+                               line: 5 } ],
+                          tagName: 'mj-text',
+                          attributes: { 'font-size': '22px' },
+                          content: 'COIN2\n    <a src="test">aze2</a>' } ],
+                     attributes: {} } ],
+                attributes: {} } ],
+           attributes: {} } ],
+      attributes: {}
+    }
   }
 ]
 /* eslint-enable comma-dangle */

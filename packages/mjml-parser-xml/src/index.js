@@ -141,7 +141,7 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
       onopentag: (name, attrs) => {
         const isAnEndingTag = endingTags.indexOf(name) !== -1
 
-        if (inEndingTag) {
+        if (inEndingTag > 0) {
           if (isAnEndingTag) inEndingTag += 1
           return
         }
@@ -204,7 +204,7 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
           }
         }
 
-        if (inEndingTag) return
+        if (inEndingTag > 0) return
 
         if (inInclude) {
           inInclude = false
@@ -213,14 +213,14 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
         cur = (cur && cur.parent) || null
       },
       ontext: text => {
-        if (inEndingTag) return
+        if (inEndingTag > 0) return
 
         if (text && text.trim() && cur) {
           cur.content = `${(cur && cur.content) || ''}${text.trim()}`.trim()
         }
       },
       oncomment: data => {
-        if (inEndingTag) return
+        if (inEndingTag > 0) return
 
         if (cur && keepComments) {
           cur.children.push({

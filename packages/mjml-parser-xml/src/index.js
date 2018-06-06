@@ -12,7 +12,6 @@ import flow from 'lodash/fp/flow'
 import cleanNode from './helpers/cleanNode'
 import convertBooleansOnAttrs from './helpers/convertBooleansOnAttrs'
 import setEmptyAttributes from './helpers/setEmptyAttributes'
-import tagToXml from './helpers/tagToXml'
 
 const indexesForNewLine = xml => {
   const regex = /\n/gi

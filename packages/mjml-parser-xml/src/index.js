@@ -46,7 +46,7 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
   let cur = null
   let inInclude = !!includedIn.length
   let inEndingTag = 0
-  const currentIndexes = { startIndex: 0, endIndex: 0 }
+  const currentEndingTagIndexes = { startIndex: 0, endIndex: 0 }
 
   const findTag = (tagName, tree) => find(tree.children, { tagName })
   const lineIndexes = indexesForNewLine(xml)
@@ -140,19 +140,20 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
     {
       onopentag: (name, attrs) => {
         const isAnEndingTag = endingTags.indexOf(name) !== -1
-        currentIndexes.startIndex = parser.startIndex
-        currentIndexes.endIndex = parser.endIndex
 
         if (inEndingTag) {
-          cur.content = `${(cur && cur.content) || ''}${tagToXml(
-            name,
-            attrs,
-          )}`.trim()
           if (isAnEndingTag) inEndingTag += 1
           return
         }
 
-        if (isAnEndingTag) inEndingTag += 1
+        if (isAnEndingTag) {
+          inEndingTag += 1
+
+          if (inEndingTag === 1) { // we're entering endingTag
+            currentEndingTagIndexes.startIndex = parser.startIndex
+            currentEndingTagIndexes.endIndex = parser.endIndex
+          }
+        }
 
         const line = findLastIndex(lineIndexes, i => i <= parser.startIndex) + 1
 
@@ -187,23 +188,24 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
         cur = newNode
       },
       onclosetag: name => {
+
         if (endingTags.indexOf(name) !== -1) {
           inEndingTag -= 1
-        }
-        if (inEndingTag) {
-          // handle self-closing tags
-          if (
-            currentIndexes.startIndex === parser.startIndex &&
-            currentIndexes.endIndex === parser.endIndex
-          ) {
-            const index = cur.content.lastIndexOf('>')
-            cur.content = `${cur.content.slice(0, index)}/>`
-            return
-          }
 
-          cur.content = `${(cur && cur.content) || ''}</${name}>`.trim()
-          return
+          if (!inEndingTag) { // we're getting out of endingTag
+            // if not self-closing tags (in which case we don't get the content)
+            if (
+              currentEndingTagIndexes.startIndex !== parser.startIndex &&
+              currentEndingTagIndexes.endIndex !== parser.endIndex
+            ) {
+              const val = xml.substring(currentEndingTagIndexes.endIndex + 1, parser.startIndex).trim()
+              if (val) cur.content = val
+            }
+          }
         }
+
+        if (inEndingTag) return
+
         if (inInclude) {
           inInclude = false
         }
@@ -211,11 +213,15 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
         cur = (cur && cur.parent) || null
       },
       ontext: text => {
+        if (inEndingTag) return
+
         if (text && text.trim() && cur) {
           cur.content = `${(cur && cur.content) || ''}${text.trim()}`.trim()
         }
       },
       oncomment: data => {
+        if (inEndingTag) return
+
         if (cur && keepComments) {
           cur.children.push({
             line: findLastIndex(lineIndexes, i => i <= parser.startIndex) + 1,

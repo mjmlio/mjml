@@ -54,7 +54,7 @@ module.exports = [
                     "href": "<% dynamic %>",
                     "pouf": "$2"
                   },
-                  "content": "&end<br/>Blu & end $1\n        &amp;\n        lorem"
+                  "content": "&end<br />\n        Blu & end $1\n        &amp;\n        lorem"
                 },
                 {
                   "file": ".",
@@ -329,7 +329,7 @@ module.exports = [
     padding-left="16px"
 
     padding-right="16px">
-    <a href="https://www.hubba.com" style="color: #60788c">View blog ]]post</a>
+    <a href="https://www.test.com" style="color: #60788c">View blog ]]post</a>
 </mj-text>
     `,
     validJson: {
@@ -341,7 +341,7 @@ module.exports = [
         "padding-left": "16px",
         "padding-right": "16px"
       },
-      "content": "<a href=\"https://www.hubba.com\" style=\"color: #60788c\">View blog ]]post</a>"
+      "content": "<a href=\"https://www.test.com\" style=\"color: #60788c\">View blog ]]post</a>"
     }
   },
   {
@@ -359,9 +359,9 @@ module.exports = [
             <mj-column width="65%">
               <mj-text mj-class="small" align="left" font-family="Helvetica" color="#000000" padding-top="20px">
                 coin
-                <a href="https://admission.tulane.edu/academics/majors-minors" style="text-decoration:underline;color:#336666;font-weight:bold" class="mobile-small-letters">Majors and Minors</a>
+                <a href="https://test" style="text-decoration:underline;color:#336666;font-weight:bold" class="mobile-small-letters">Majors and Minors</a>
                 bla
-                <a href="https://admission.tulane.edu/academics/majors-minors" style="text-decoration:underline;color:#336666;font-weight:bold" class="mobile-small-letters">Majors and Minors</a>
+                <a href="https://test" style="text-decoration:underline;color:#336666;font-weight:bold" class="mobile-small-letters">Majors and Minors</a>
                 <mj-raw>
                   coin
                 </mj-raw>
@@ -425,7 +425,7 @@ module.exports = [
                              'font-family': 'Helvetica',
                              color: '#000000',
                              'padding-top': '20px' },
-                          content: 'coin<a href="https://admission.tulane.edu/academics/majors-minors" style="text-decoration:underline;color:#336666;font-weight:bold" class="mobile-small-letters">Majors and Minors</a>bla<a href="https://admission.tulane.edu/academics/majors-minors" style="text-decoration:underline;color:#336666;font-weight:bold" class="mobile-small-letters">Majors and Minors</a><mj-raw>coin</mj-raw>' } ] } ],
+                          content: 'coin\n                <a href="https://test" style="text-decoration:underline;color:#336666;font-weight:bold" class="mobile-small-letters">Majors and Minors</a>\n                bla\n                <a href="https://test" style="text-decoration:underline;color:#336666;font-weight:bold" class="mobile-small-letters">Majors and Minors</a>\n                <mj-raw>\n                  coin\n                </mj-raw>' } ] } ],
                 attributes: {} } ],
            attributes: {} } ],
       attributes: {}

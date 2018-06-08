@@ -458,25 +458,25 @@ module.exports = [
                 includedIn: [],
                 tagName: 'mj-section',
                 children:
-                 [ { file: '/Users/kmcb/sites/mjml4/mjml/packages/mjml-parser-xml/test/incl.mjml',
+                 [ { file: '.',
                      line: 1,
                      includedIn:
-                      [ { file: '/Users/kmcb/sites/mjml4/mjml/packages/mjml-parser-xml',
+                      [ { file: '.',
                           line: 5 } ],
                      tagName: 'mj-column',
                      children:
-                      [ { file: '/Users/kmcb/sites/mjml4/mjml/packages/mjml-parser-xml/test/incl.mjml',
+                      [ { file: '.',
                           line: 2,
                           includedIn:
-                           [ { file: '/Users/kmcb/sites/mjml4/mjml/packages/mjml-parser-xml',
+                           [ { file: '.',
                                line: 5 } ],
                           tagName: 'mj-text',
                           attributes: { 'font-size': '22px' },
                           content: 'COIN\n    <a src="test">aze</a>' },
-                        { file: '/Users/kmcb/sites/mjml4/mjml/packages/mjml-parser-xml/test/incl.mjml',
+                        { file: '.',
                           line: 6,
                           includedIn:
-                           [ { file: '/Users/kmcb/sites/mjml4/mjml/packages/mjml-parser-xml',
+                           [ { file: '.',
                                line: 5 } ],
                           tagName: 'mj-text',
                           attributes: { 'font-size': '22px' },

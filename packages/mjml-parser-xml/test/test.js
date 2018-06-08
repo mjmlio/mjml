@@ -20,9 +20,9 @@ testValues.forEach(testUnit => {
   const { test, mjml, validJson } = testUnit
 
   if (process.argv.indexOf('--debug') !== -1) {
-    displayDiff(validJson, omitDeepLodash(parse(mjml), 'absoluteFilePath'))
+    displayDiff(omitDeepLodash(validJson, 'file'), omitDeepLodash(parse(mjml), ['absoluteFilePath', 'file']))
   }
 
-  chai.expect(validJson, `${test} test failed`)
-      .to.deep.equal(omitDeepLodash(parse(mjml), 'absoluteFilePath'))
+  chai.expect(omitDeepLodash(validJson, 'file'), `${test} test failed`)
+      .to.deep.equal(omitDeepLodash(parse(mjml), ['absoluteFilePath', 'file']))
 })

@@ -3,7 +3,7 @@ import { compact, map } from 'lodash'
 import { initializeType } from '../types/type'
 import ruleError from './ruleError'
 
-export default function validateAttribute(element, { components }) {
+export default function validateType(element, { components }) {
   const { attributes, tagName } = element
 
   const Component = components[tagName]
@@ -21,7 +21,7 @@ export default function validateAttribute(element, { components }) {
       const TypeChecker = initializeType(attrType)
       const result = new TypeChecker(value)
       if (result.isValid()) return null
-      return ruleError(result.getErrorMessage(), element)
+      return ruleError(`Attribute ${attr} ${result.getErrorMessage()}`, element)
     }),
   )
 }

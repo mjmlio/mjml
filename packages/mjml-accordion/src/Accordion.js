@@ -2,7 +2,7 @@ import { BodyComponent } from 'mjml-core'
 
 export default class MjAccordion extends BodyComponent {
   static allowedAttributes = {
-    'container-background-color': null,
+    'container-background-color': 'color',
     border: 'string',
     'font-family': 'string',
     'icon-align': 'enum(top,middle,bottom)',

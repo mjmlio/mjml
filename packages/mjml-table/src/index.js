@@ -1,3 +1,5 @@
+import widthParser from 'mjml-core/lib/helpers/widthParser'
+
 import { BodyComponent } from 'mjml-core'
 import { reduce } from 'lodash'
 
@@ -11,8 +13,7 @@ export default class MjTable extends BodyComponent {
     'container-background-color': 'color',
     color: 'color',
     'font-family': 'string',
-    'font-size': 'unit(px,%)',
-    'font-style': 'string',
+    'font-size': 'unit(px)',
     'font-weight': 'string',
     'line-height': 'unit(px,%)',
     'padding-bottom': 'unit(px,%)',
@@ -20,9 +21,9 @@ export default class MjTable extends BodyComponent {
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
     padding: 'unit(px,%){1,4}',
-    'table-layout': 'enum(auto,fixed)',
+    'table-layout': 'enum(auto/fixed/initial/inherit)',
     'vertical-align': 'enum(top,bottom,middle)',
-    width: 'integer',
+    width: 'unit(px,%)',
   }
 
   static defaultAttributes = {
@@ -53,9 +54,16 @@ export default class MjTable extends BodyComponent {
     }
   }
 
+  getWidth() {
+    const width = this.getAttribute('width')
+    const { parsedWidth, unit } = widthParser(width)
+
+    return unit === '%' ? width : parsedWidth
+  }
+
   render() {
     const tableAttributes = reduce(
-      ['cellpadding', 'cellspacing', 'width'],
+      ['cellpadding', 'cellspacing'],
       (acc, v) => ({
         ...acc,
         [v]: this.getAttribute(v),
@@ -67,6 +75,7 @@ export default class MjTable extends BodyComponent {
       <table
         ${this.htmlAttributes({
           ...tableAttributes,
+          width: this.getWidth(),
           border: '0',
           style: 'table',
         })}

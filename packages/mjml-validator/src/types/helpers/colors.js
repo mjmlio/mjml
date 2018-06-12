@@ -140,6 +140,7 @@ export default [
   'teal',
   'thistle',
   'tomato',
+  'transparent',
   'turquoise',
   'violet',
   'wheat',

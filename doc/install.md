@@ -1,7 +1,7 @@
 # Installation
 
 You can install MJML with NPM to use it with NodeJS or the Command Line Interface. If you're not sure what those are, head over to <a href="#usage">Usage</a> for other ways to use MJML.
- 
+
 ```bash
 npm install mjml
 ```
@@ -12,7 +12,7 @@ To work on MJML, make changes and create merge requests, download and install [y
 
 ```bash
 git clone https://github.com/mjmlio/mjml.git && cd mjml
-yarn 
+yarn
 yarn build
 ```
 
@@ -97,7 +97,7 @@ keepComments | boolean | Option to keep comments in the HTML output | true
 beautify | boolean | Option to beautify the HTML output | false
 minify | boolean | Option to minify the HTML output | false
 validationLevel | string | Available values for the [validator](https://github.com/mjmlio/mjml/tree/master/packages/mjml-validator#validating-mjml): 'strict', 'soft', 'skip'  | 'soft'
-filePath | string | The path to use when resolving paths from [`mj-include` components](#mj-include) | '.'
+filePath | string | Full path of the specified file to use when resolving paths from [`mj-include` components](#mj-include) | '.'
 configPath | string | The path or directory of the [`.mjmlconfig` file](#community-components) | `process.cwd()`
 
 ## API

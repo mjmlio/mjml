@@ -13,15 +13,16 @@ export default class MjImage extends BodyComponent {
     src: 'string',
     srcset: 'string',
     title: 'string',
+    rel: 'string',
     align: 'enum(left,center,right)',
     border: 'string',
     'border-bottom': 'string',
     'border-left': 'string',
     'border-right': 'string',
     'border-top': 'string',
-    'border-radius': 'unit(px,%)',
-    'container-background-color': 'string',
-    'fluid-on-mobile': 'string',
+    'border-radius': 'unit(px,%){1,4}',
+    'container-background-color': 'color',
+    'fluid-on-mobile': 'boolean',
     padding: 'unit(px,%){1,4}',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
@@ -118,6 +119,7 @@ export default class MjImage extends BodyComponent {
           ${this.htmlAttributes({
             href: this.getAttribute('href'),
             target: this.getAttribute('target'),
+            rel: this.getAttribute('rel'),
           })}
         >
           ${img}
@@ -146,7 +148,7 @@ export default class MjImage extends BodyComponent {
           role: 'presentation',
           style: 'table',
           class:
-            this.getAttribute('fluid-on-mobile') === 'true'
+            this.getAttribute('fluid-on-mobile')
               ? 'full-width-mobile'
               : null,
         })}
@@ -156,7 +158,7 @@ export default class MjImage extends BodyComponent {
             <td ${this.htmlAttributes({
               style: 'td',
               class:
-                this.getAttribute('fluid-on-mobile') === 'true'
+                this.getAttribute('fluid-on-mobile')
                   ? 'full-width-mobile'
                   : null,
             })}>

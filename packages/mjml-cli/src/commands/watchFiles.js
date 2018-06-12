@@ -38,39 +38,11 @@ export default (input, options) => {
       watched: flatMapAndJoin(watcher.getWatched()), // eslint-disable-line no-use-before-define
     }
 
-    const watcher = chokidar
-      .watch(input)
-      .on('change', file => synchronyzeWatcher(path.resolve(file)))
-      .on('add', file => {
-        const filePath = path.resolve(file)
-        const matchInputOption = input.reduce(
-          (found, file) =>
-            found || glob(path.resolve(file)).minimatch.match(filePath),
-          false,
-        )
 
-        if (matchInputOption) {
-          dependencies[filePath] = getRelatedFiles(filePath)
-        }
-
-        synchronyzeWatcher(filePath)
-      })
-      .on('unlink', file => {
-        const filePath = path.resolve(file)
-
-        delete dependencies[path.resolve(filePath)]
-
-        remove(dirty, f => f === filePath)
-
-        synchronyzeWatcher(filePath)
-      })
-
-    watcher.add(
-      // eslint-disable-line no-use-before-define
+    watcher.add( // eslint-disable-line no-use-before-define
       difference(files.toWatch, files.watched),
     )
-    watcher.unwatch(
-      // eslint-disable-line no-use-before-define
+    watcher.unwatch( // eslint-disable-line no-use-before-define
       difference(files.watched, files.toWatch),
     )
   }
@@ -95,6 +67,34 @@ export default (input, options) => {
         .then(() => console.log(`${args.file} - Successfully compiled`))
         .catch(() => console.log(`${args.file} - Error while compiling file`)),
   )
+
+  const watcher = chokidar
+    .watch(input)
+    .on('change', file => synchronyzeWatcher(path.resolve(file)))
+    .on('add', file => {
+      const filePath = path.resolve(file)
+
+      const matchInputOption = input.reduce(
+        (found, file) =>
+          found || glob(path.resolve(file)).minimatch.match(filePath),
+        false,
+      )
+
+      if (matchInputOption) {
+        dependencies[filePath] = getRelatedFiles(filePath)
+      }
+
+      synchronyzeWatcher(filePath)
+    })
+    .on('unlink', file => {
+      const filePath = path.resolve(file)
+
+      delete dependencies[path.resolve(filePath)]
+
+      remove(dirty, f => f === filePath)
+
+      synchronyzeWatcher(filePath)
+    })
 
   setInterval(() => {
     dirty.forEach(f => {

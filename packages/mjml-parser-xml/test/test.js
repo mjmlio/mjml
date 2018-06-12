@@ -290,6 +290,43 @@ const validJson3 = {
   "attributes": {}
 }
 
+// Input that matches most of the CDATAs regex but not all, potentially resulting in regex timeout
+const mjml4 = `
+<mj-section>
+  <mj-text font-family="Arial" />
+  <mj-column background-color="#ffffff" css-class="column1"></mj-column>
+</mj-section>
+`
+
+const validJson4 = {
+  "file": ".",
+  "line": 2,
+  "includedIn": [],
+  "tagName": "mj-section",
+  "children": [
+    {
+      "file": ".",
+      "line": 3,
+      "includedIn": [],
+      "tagName": "mj-text",
+      "attributes": {
+        "font-family": "Arial"
+      }
+    },
+    {
+      "file": ".",
+      "line": 4,
+      "includedIn": [],
+      "tagName": "mj-column",
+      "attributes": {
+        "background-color": "#ffffff",
+        "css-class": "column1"
+      }
+    }
+  ],
+  "attributes": {}
+}
+
 const parse = mjml => MJMLParser(mjml, {
   keepComments: true,
   components,
@@ -300,6 +337,7 @@ if (process.argv.indexOf('--debug') !== -1) {
   displayDiff(validJson1, omitDeepLodash(parse(mjml1), 'absoluteFilePath'))
   displayDiff(validJson2, omitDeepLodash(parse(mjml2), 'absoluteFilePath'))
   displayDiff(validJson3, omitDeepLodash(parse(mjml3), 'absoluteFilePath'))
+  displayDiff(validJson4, omitDeepLodash(parse(mjml4), 'absoluteFilePath'))
 }
 
 chai.expect(validJson1, 'Special characters test failed')
@@ -310,3 +348,6 @@ chai.expect(validJson2, 'Similar tags test failed')
 
 chai.expect(validJson3, 'Self closing tags test failed')
     .to.deep.equal(omitDeepLodash(parse(mjml3), 'absoluteFilePath'))
+
+chai.expect(validJson4, 'Regex timeout test failed')
+    .to.deep.equal(omitDeepLodash(parse(mjml4), 'absoluteFilePath'))

@@ -14,9 +14,11 @@
   "homepage": "https://mjml.io",
   "scripts": {
     "clean": "cross-env ../../node_modules/.bin/rimraf lib",
-    "build": "cross-env ../../node_modules/.bin/babel src --out-dir lib"
+    "build": "cross-env ../../node_modules/.bin/babel src --out-dir lib",
+    "test": "node ./tests/index.js"
   },
   "dependencies": {
+    "chai": "^4.1.1",
     "cross-env": "^5.1.4",
     "html-minifier": "^3.5.3",
     "js-beautify": "^1.6.14",
@@ -25,5 +27,8 @@
     "mjml-migrate": "^4.1.0-beta.3",
     "mjml-parser-xml": "^4.1.0-beta.3",
     "mjml-validator": "^4.1.0-beta.3"
+  },
+  "devDependencies": {
+    "mjml": "^4.1.0-beta.3"
   }
 }

@@ -24,10 +24,9 @@ const indexesForNewLine = xml => {
   return indexes
 }
 
-const isSelfClosing = (indexes, parser) => {
-  return indexes.startIndex === parser.startIndex &&
-         indexes.endIndex === parser.endIndex
-}
+const isSelfClosing = (indexes, parser) =>
+  indexes.startIndex === parser.startIndex &&
+  indexes.endIndex === parser.endIndex
 
 export default function MJMLParser(xml, options = {}, includedIn = []) {
   const {

@@ -20,4 +20,4 @@ script:
  - yarn lint
  - cd packages/mjml-parser-xml
  - yarn install
- - yarn test
+ - yarn test --debug

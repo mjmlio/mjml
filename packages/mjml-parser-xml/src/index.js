@@ -24,6 +24,10 @@ const indexesForNewLine = xml => {
   return indexes
 }
 
+const isSelfClosing = (indexes, parser) =>
+  indexes.startIndex === parser.startIndex &&
+  indexes.endIndex === parser.endIndex
+
 export default function MJMLParser(xml, options = {}, includedIn = []) {
   const {
     addEmptyAttributes = true,
@@ -187,16 +191,12 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
         cur = newNode
       },
       onclosetag: name => {
-
         if (endingTags.indexOf(name) !== -1) {
           inEndingTag -= 1
 
           if (!inEndingTag) { // we're getting out of endingTag
-            // if not self-closing tags (in which case we don't get the content)
-            if (
-              currentEndingTagIndexes.startIndex !== parser.startIndex &&
-              currentEndingTagIndexes.endIndex !== parser.endIndex
-            ) {
+            // if self-closing tag we don't get the content
+            if (!isSelfClosing(currentEndingTagIndexes, parser)) {
               const val = xml.substring(currentEndingTagIndexes.endIndex + 1, parser.startIndex).trim()
               if (val) cur.content = val
             }

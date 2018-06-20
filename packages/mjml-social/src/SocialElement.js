@@ -49,7 +49,7 @@ export default class MjSocialElement extends BodyComponent {
     color: 'color',
     'border-radius': 'unit(px)',
     'font-family': 'string',
-    'font-size': 'unit(px,%)',
+    'font-size': 'unit(px)',
     'font-style': 'string',
     'font-weight': 'string',
     href: 'string',

@@ -15,7 +15,7 @@ export default class MjButton extends BodyComponent {
     color: 'color',
     'container-background-color': 'color',
     'font-family': 'string',
-    'font-size': 'unit(px,%)',
+    'font-size': 'unit(px)',
     'font-style': 'string',
     'font-weight': 'string',
     height: 'unit(px,%)',

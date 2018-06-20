@@ -6,7 +6,7 @@ export default class MjGroup extends BodyComponent {
   static allowedAttributes = {
     'background-color': 'color',
     direction: 'enum(ltr,rtl)',
-    'vertical-align': 'string',
+    'vertical-align': 'enum(top,bottom,middle)',
     width: 'unit(px,%)',
   }
 

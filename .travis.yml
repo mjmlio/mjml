@@ -22,5 +22,4 @@ script:
  - yarn install
  - yarn test --debug
  - cd ../../packages/mjml-core
- - yarn install
  - yarn test --debug

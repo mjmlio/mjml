@@ -11,6 +11,7 @@ import flow from 'lodash/fp/flow'
 
 import cleanNode from './helpers/cleanNode'
 import convertBooleansOnAttrs from './helpers/convertBooleansOnAttrs'
+import convertColorShorthands from './helpers/convertColorShorthands'
 import setEmptyAttributes from './helpers/setEmptyAttributes'
 
 const indexesForNewLine = xml => {
@@ -170,6 +171,8 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
           // "true" and "false" will be converted to bools
           attrs = convertBooleansOnAttrs(attrs)
         }
+
+        attrs = convertColorShorthands(attrs)
 
         const newNode = {
           file: filePath,

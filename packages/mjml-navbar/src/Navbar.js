@@ -31,8 +31,8 @@ export default class MjNavbar extends BodyComponent {
     'base-url': null,
     hamburger: null,
     'ico-align': 'center',
-    'ico-open': '9776',
-    'ico-close': '8855',
+    'ico-open': '&#9776',
+    'ico-close': '&#8855',
     'ico-color': '#000000',
     'ico-font-size': '30px',
     'ico-font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
@@ -127,7 +127,7 @@ export default class MjNavbar extends BodyComponent {
               style: 'icoOpen',
             })}
           >
-            ${String.fromCharCode(this.getAttribute('ico-open'))}
+            ${this.getAttribute('ico-open')}
           </span>
           <span
             ${this.htmlAttributes({
@@ -135,7 +135,7 @@ export default class MjNavbar extends BodyComponent {
               style: 'icoClose',
             })}
           >
-            ${String.fromCharCode(this.getAttribute('ico-close'))}
+            ${this.getAttribute('ico-close')}
           </span>
         </label>
       </div>

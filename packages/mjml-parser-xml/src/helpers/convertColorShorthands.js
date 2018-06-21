@@ -11,6 +11,6 @@ export default attrs => reduce(attrs, (acc, val, attr) => {
   }
   return {
     ...acc,
-    [attr]: value
+    [attr]: value,
   }
 }, {})

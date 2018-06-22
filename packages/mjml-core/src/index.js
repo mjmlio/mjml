@@ -15,6 +15,7 @@ import suffixCssClasses from './helpers/suffixCssClasses'
 import mergeOutlookConditionnals from './helpers/mergeOutlookConditionnals'
 import minifyOutlookConditionnals from './helpers/minifyOutlookConditionnals'
 import defaultSkeleton from './helpers/skeleton'
+import { initializeType } from './types/type'
 
 class ValidationError extends Error {
   constructor(message, errors) {
@@ -86,6 +87,7 @@ export default function mjml2html(mjml, options = {}) {
 
   const validatorOptions = {
     components,
+    initializeType,
   }
 
   switch (validationLevel) {

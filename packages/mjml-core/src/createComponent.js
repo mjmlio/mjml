@@ -12,6 +12,7 @@ import {
 import MJMLParser from 'mjml-parser-xml'
 
 import shorthandParser from './helpers/shorthandParser'
+import formatAttributes from './helpers/formatAttributes'
 import jsonToXML from './helpers/jsonToXML'
 
 import components, { initComponent } from './components'
@@ -41,10 +42,10 @@ class Component {
       content,
     }
 
-    this.attributes = {
+    this.attributes = formatAttributes({
       ...this.constructor.defaultAttributes,
       ...attributes,
-    }
+    }, this.constructor.allowedAttributes)
     this.context = context
 
     return this

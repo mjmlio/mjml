@@ -28,16 +28,6 @@ Displays calls-to-action for various social networks with their associated logo.
 </mjml>
 ```
 
-<aside class="notice">
-  You can add any unsupported network like this:
-
-```xml
-    <mj-social-element href="url" background-color="#FF00FF" src="path-to-your-icon">
-      Optional label
-    </mj-social-element>
-```
-</aside>
-
 <p align="center">
   <a href="https://mjml.io/try-it-live/components/social">
     <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
@@ -101,3 +91,14 @@ padding-bottom              | px          | bottom offset                    | n
 padding-left                | px          | left offset                      | n/a
 padding-right               | px          | right offset                       | n/a
 target                      | string      | usual html link target              | \_blank
+
+
+```xml
+    <mj-social-element href="url" background-color="#FF00FF" src="path-to-your-icon">
+      Optional label
+    </mj-social-element>
+```
+
+<aside class="notice">
+  You can also add any unsupported network like this:
+</aside>

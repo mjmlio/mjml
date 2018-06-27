@@ -93,12 +93,12 @@ padding-right               | px          | right offset                       |
 target                      | string      | usual html link target              | \_blank
 
 
+<aside class="notice">
+  You can also add any unsupported network like this:
+</aside>
+
 ```xml
     <mj-social-element href="url" background-color="#FF00FF" src="path-to-your-icon">
       Optional label
     </mj-social-element>
 ```
-
-<aside class="notice">
-  You can also add any unsupported network like this:
-</aside>

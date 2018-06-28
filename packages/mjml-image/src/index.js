@@ -20,15 +20,17 @@ export default class MjImage extends BodyComponent {
     'border-left': 'string',
     'border-right': 'string',
     'border-top': 'string',
-    'border-radius': 'unit(px,%)',
-    'container-background-color': 'string',
+    'border-radius': 'unit(px,%){1,4}',
+    'container-background-color': 'color',
+    'fluid-on-mobile': 'boolean',
     padding: 'unit(px,%){1,4}',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
-    height: 'unit(px)',
+    target: 'string',
     width: 'unit(px)',
+    height: 'unit(px)',
   }
 
   static defaultAttributes = {
@@ -128,6 +130,13 @@ export default class MjImage extends BodyComponent {
     return img
   }
 
+  headStyle = breakpoint => `
+    @media only screen and (max-width:${breakpoint}) {
+      table.full-width-mobile { width: 100% !important; }
+      td.full-width-mobile { width: auto !important; }
+    }
+  `
+
   render() {
     return `
       <table
@@ -138,11 +147,21 @@ export default class MjImage extends BodyComponent {
           cellspacing: '0',
           role: 'presentation',
           style: 'table',
+          class:
+            this.getAttribute('fluid-on-mobile')
+              ? 'full-width-mobile'
+              : null,
         })}
       >
         <tbody>
           <tr>
-            <td ${this.htmlAttributes({ style: 'td' })}>
+            <td ${this.htmlAttributes({
+              style: 'td',
+              class:
+                this.getAttribute('fluid-on-mobile')
+                  ? 'full-width-mobile'
+                  : null,
+            })}>
               ${this.renderImage()}
             </td>
           </tr>

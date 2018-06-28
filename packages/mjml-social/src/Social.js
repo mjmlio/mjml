@@ -7,7 +7,7 @@ export default class MjSocial extends BodyComponent {
     'container-background-color': 'color',
     color: 'color',
     'font-family': 'string',
-    'font-size': 'unit(px,%)',
+    'font-size': 'unit(px)',
     'font-style': 'string',
     'font-weight': 'string',
     'icon-size': 'unit(px,%)',
@@ -38,7 +38,7 @@ export default class MjSocial extends BodyComponent {
     'text-decoration': 'none',
   }
 
-  getStyles() {
+  getStyles() { // eslint-disable-line class-methods-use-this
     return {
       tableVertical: {
         margin: '0px',

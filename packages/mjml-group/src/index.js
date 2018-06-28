@@ -6,7 +6,7 @@ export default class MjGroup extends BodyComponent {
   static allowedAttributes = {
     'background-color': 'color',
     direction: 'enum(ltr,rtl)',
-    'vertical-align': 'string',
+    'vertical-align': 'enum(top,bottom,middle)',
     width: 'unit(px,%)',
   }
 
@@ -16,13 +16,14 @@ export default class MjGroup extends BodyComponent {
 
   getChildContext() {
     const { containerWidth: parentWidth } = this.context
-    const { sibling, children } = this.props
+    const { nonRawSiblings, children } = this.props
     const paddingSize =
       this.getShorthandAttrValue('padding', 'left') +
       this.getShorthandAttrValue('padding', 'right')
 
     let containerWidth =
-      this.getAttribute('width') || `${parseFloat(parentWidth) / sibling}px`
+      this.getAttribute('width') ||
+      `${parseFloat(parentWidth) / nonRawSiblings}px`
 
     const { unit, parsedWidth } = widthParser(containerWidth, {
       parseFloatToInt: false,
@@ -38,7 +39,7 @@ export default class MjGroup extends BodyComponent {
     return {
       ...this.context,
       containerWidth,
-      sibling: children.length,
+      nonRawSiblings: children.length,
     }
   }
 
@@ -62,9 +63,9 @@ export default class MjGroup extends BodyComponent {
   }
 
   getParsedWidth(toString) {
-    const { sibling } = this.props
+    const { nonRawSiblings } = this.props
 
-    const width = this.getAttribute('width') || `${100 / sibling}%`
+    const width = this.getAttribute('width') || `${100 / nonRawSiblings}%`
 
     const { unit, parsedWidth } = widthParser(width, {
       parseFloatToInt: false,
@@ -121,7 +122,7 @@ export default class MjGroup extends BodyComponent {
   }
 
   render() {
-    const { children, sibling } = this.props
+    const { children, nonRawSiblings } = this.props
 
     const { containerWidth: groupWidth } = this.getChildContext()
 
@@ -129,7 +130,8 @@ export default class MjGroup extends BodyComponent {
 
     const getElementWidth = width => {
       if (!width) {
-        return `${parseInt(containerWidth, 10) / parseInt(sibling, 10)}px`
+        return `${parseInt(containerWidth, 10) /
+          parseInt(nonRawSiblings, 10)}px`
       }
 
       const { unit, parsedWidth } = widthParser(width, {

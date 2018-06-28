@@ -11,19 +11,13 @@ addons:
       - g++-4.8
 language: node_js
 node_js:
- - 4
- - 5
  - 6
+ - 8
+ - 9
 script:
- - npm install
- - npm run build
- - npm run lint
- - cd packages/mjml-validator
- - npm link mjml-core
- - npm link
- - npm install
- - cd ../mjml-core
- - npm link mjml-validator
- - npm install
- - npm link
- - npm test
+ - yarn install
+ - yarn build
+ - yarn lint
+ - cd packages/mjml-parser-xml
+ - yarn install
+ - yarn test --debug

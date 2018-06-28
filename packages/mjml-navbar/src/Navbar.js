@@ -17,7 +17,11 @@ export default class MjNavbar extends BodyComponent {
     'ico-font-size': 'unit(px,%)',
     'ico-font-family': 'string',
     'ico-text-transform': 'string',
-    'ico-padding': 'unit(px,%)',
+    'ico-padding': 'unit(px,%){1,4}',
+    'ico-padding-left': 'unit(px,%)',
+    'ico-padding-top': 'unit(px,%)',
+    'ico-padding-right': 'unit(px,%)',
+    'ico-padding-bottom': 'unit(px,%)',
     'ico-text-decoration': 'string',
     'ico-line-height': 'unit(px,%)',
   }
@@ -38,8 +42,8 @@ export default class MjNavbar extends BodyComponent {
     'ico-line-height': '30px',
   }
 
-  headStyle = breakpoint => {
-    return `
+  headStyle = breakpoint =>
+    `
       noinput.mj-menu-checkbox { display:block!important; max-height:none!important; visibility:visible!important; }
 
       @media only screen and (max-width:${breakpoint}) {
@@ -51,7 +55,6 @@ export default class MjNavbar extends BodyComponent {
         .mj-menu-checkbox[type="checkbox"]:checked ~ .mj-menu-trigger .mj-menu-icon-open { display:none!important; }
       }
     `
-  }
 
   getStyles() {
     return {

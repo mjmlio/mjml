@@ -1,5 +1,6 @@
-import fs from 'fs'
+/* eslint-disable no-console */
 
+import { keys, find } from 'lodash'
 import MJMLParser from 'mjml-parser-xml'
 import { components } from 'mjml-core'
 
@@ -12,13 +13,18 @@ function removeContainerTag(bodyTag) {
   return bodyTag
 }
 
-const listAttributes = tag => {
-  return tag.attributes
+const listAttributes = tag => tag.attributes
+
+function addPx(value) {
+  if (!isNaN(value)) {
+    return `${value}px`
+  }
+  return value
 }
 
 function fixUnits(attribute, value) {
-  let length = attributesWithUnit.length
-  for (let i = 0; i < length; i++) {
+  const length = attributesWithUnit.length
+  for (let i = 0; i < length; i += 1) {
     if (attributesWithUnit[i] === attribute) {
       return addPx(value)
     }
@@ -26,18 +32,10 @@ function fixUnits(attribute, value) {
   return value
 }
 
-function addPx(value) {
-  if (!isNaN(value)) {
-    return value + 'px'
-  } else {
-    return value
-  }
-}
-
 function cleanAttributes(attributes) {
-  for (let key in attributes) {
+  keys(attributes).forEach(key => {
     attributes[key] = fixUnits(key, attributes[key])
-  }
+  })
   return attributes
 }
 
@@ -45,28 +43,27 @@ const DEFAULT_SOCIAL_DISPLAY = 'facebook twitter google'
 
 function migrateSocialSyntax(socialTag) {
   const listAllNetworks = tag => {
-    let attributes = (tag.attributes['display'] || DEFAULT_SOCIAL_DISPLAY
-    ).split(' ')
-    delete tag.attributes['display']
+    const attributes = (tag.attributes.display || DEFAULT_SOCIAL_DISPLAY).split(
+      ' ',
+    )
+    delete tag.attributes.display
     return attributes
   }
 
   const attributes = listAttributes(socialTag)
-
   const networks = listAllNetworks(socialTag)
+
   socialTag.children = []
 
   // migrate all attributes to their child attributes
-  for (let network in networks) {
+  keys(networks).forEach(network => {
     socialTag.children.push({
       tagName: `mj-social-element`,
       attributes: { name: networks[network] },
-      content: attributes[`${networks[network]}-content`]
-        ? attributes[`${networks[network]}-content`]
-        : '',
+      content: attributes[`${networks[network]}-content`] || '',
     })
 
-    for (let attribute in attributes) {
+    keys(attributes).forEach(attribute => {
       if (attribute.match(networks[network]) && !attribute.match('content')) {
         socialTag.children[network].attributes[
           attribute.replace(`${networks[network]}-`, '')
@@ -74,15 +71,15 @@ function migrateSocialSyntax(socialTag) {
           socialTag.attributes[attribute]
         delete socialTag.attributes[attribute]
       }
-    }
-  }
+    })
+  })
 
   // delete all content attributes from the root tag after they've been migrated
-  for (let attribute in attributes) {
+  keys(attributes).forEach(attribute => {
     if (attribute.match('content')) {
       delete attributes[attribute]
     }
-  }
+  })
 
   return socialTag
 }
@@ -94,30 +91,26 @@ function migrateNavbarSyntax(navbarTag) {
 }
 
 function migrateHeroSyntax(heroTag) {
-  const contentAttributes = listAttributes(heroTag.children[0])
+  const child = find(heroTag.children, { tagName: 'mj-hero-content' })
 
-  for (let attribute in contentAttributes) {
-    heroTag.attributes[attribute] = heroTag.children[0].attributes[attribute]
+  return {
+    ...heroTag,
+    children: child.children,
+    attributes: {
+      ...heroTag.attributes,
+      ...child.attributes,
+    },
   }
-
-  heroTag.children = heroTag.children[0].children
-  return heroTag
 }
 
 function isSupportedTag(tag) {
-  const length = unavailableTags.length
-  for (let i = 0; i < length; i++) {
-    if (tag === unavailableTags[i]) {
-      return false
-    }
-  }
-  return true
+  return unavailableTags.indexOf(tag) === -1
 }
 
 function loopThrough(tree) {
-  for (let key in tree) {
+  keys(tree).forEach(key => {
     if (key === 'children') {
-      for (let i = 0; i < tree.children.length; i++) {
+      for (let i = 0; i < tree.children.length; i += 1) {
         if (isSupportedTag(tree.children[i].tagName)) {
           switch (tree.children[i].tagName) {
             case 'mj-body':
@@ -138,6 +131,7 @@ function loopThrough(tree) {
             case 'mj-hero':
               tree.children[i] = migrateHeroSyntax(tree.children[i])
               break
+            // no default
           }
 
           tree.children[i].attributes = cleanAttributes(
@@ -153,8 +147,7 @@ function loopThrough(tree) {
         }
       }
     }
-  }
-  return tree
+  })
 }
 
 function checkV3Through(node) {
@@ -164,21 +157,11 @@ function checkV3Through(node) {
   return node.children.some(checkV3Through)
 }
 
-export function handleMjml3(mjml) {
-  const isV3Synthax = checkV3Through(mjml)
-  if (!isV3Synthax) return mjml
-
-  console.log(
-    'MJML v3 syntax detected, migrating to MJML v4 syntax. Use mjml -m to get the migrated MJML.',
-  )
-  return migrate(mjml)
-}
-
 const jsonToXML = ({ tagName, attributes, children, content }) => {
   const subNode =
     children && children.length > 0
       ? children.map(jsonToXML).join('\n')
-      : content ? content : ''
+      : content || ''
 
   const stringAttrs = Object.keys(attributes)
     .map(attr => `${attr}="${attributes[attr]}"`)
@@ -192,8 +175,20 @@ const jsonToXML = ({ tagName, attributes, children, content }) => {
 export default function migrate(input) {
   if (typeof input === 'object') return loopThrough(input)
 
-  const mjmlJson = MJMLParser(input, { components })
+  const mjmlJson = MJMLParser(input, { components, ignoreIncludes: true })
   loopThrough(mjmlJson)
 
   return jsonToXML(mjmlJson)
 }
+
+export function handleMjml3(mjml) {
+  const isV3Synthax = checkV3Through(mjml)
+  if (!isV3Synthax) return mjml
+
+  console.log(
+    'MJML v3 syntax detected, migrating to MJML v4 syntax. Use mjml -m to get the migrated MJML.',
+  )
+  return migrate(mjml)
+}
+
+/* eslint-enable no-console */

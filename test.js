@@ -2,6 +2,8 @@ require('babel-register')
 
 const mjml2html = require('./packages/mjml/src/index')
 
+const data = { hello: 'hi', 'how': 'are you' }
+
 const xml = `
 <mjml>
     <mj-head>
@@ -19,6 +21,9 @@ const xml = `
         <mj-wrapper>
             <mj-section>
                 <mj-column>
+                    <mj-button data='{ "hello": "world" }'>
+                      Hello
+                    </mj-button>
                     <mj-text>
                         lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem
                     </mj-text>

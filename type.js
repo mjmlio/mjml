@@ -5,6 +5,7 @@ const colortype = types.initializeType('color')
 const booleantype = types.initializeType('boolean')
 const unittype = types.initializeType('unit(px,%){1,3}')
 const stringtype = types.initializeType('string')
+const objecttype = types.initializeType('object')
 
 console.log(stringtype)
 
@@ -24,5 +25,5 @@ const output = (t) => { console.log(`Type: ${t.constructor.name} — Value: ${t.
   new unittype('10px 10px'),
   new unittype('0'),
   new stringtype('hello world'),
+  new objecttype('{ "hello": "world" }'),
 ].map(output)
-

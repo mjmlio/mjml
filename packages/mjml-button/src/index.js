@@ -14,6 +14,7 @@ export default class MjButton extends BodyComponent {
     border: 'string',
     color: 'color',
     'container-background-color': 'color',
+    data: 'object',
     'font-family': 'string',
     'font-size': 'unit(px)',
     'font-style': 'string',
@@ -42,6 +43,7 @@ export default class MjButton extends BodyComponent {
     border: 'none',
     'border-radius': '3px',
     color: '#ffffff',
+    data: {},
     'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
     'font-size': '13px',
     'font-weight': 'normal',
@@ -91,6 +93,7 @@ export default class MjButton extends BodyComponent {
 
   render() {
     const tag = this.getAttribute('href') ? 'a' : 'p'
+    const data = JSON.parse(this.getAttribute('data'))
 
     return `
       <table
@@ -102,6 +105,7 @@ export default class MjButton extends BodyComponent {
           role: 'presentation',
           style: 'table',
         })}
+        ${this.htmlAttributes(data)}
       >
         <tr>
           <td

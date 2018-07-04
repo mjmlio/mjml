@@ -33,6 +33,7 @@ class Component {
       content = '',
       context = {},
       props = {},
+      globalAttributes = {},
     } = initialDatas
 
     this.props = {
@@ -41,8 +42,10 @@ class Component {
       content,
     }
 
+
     this.attributes = {
       ...this.constructor.defaultAttributes,
+      ...globalAttributes,
       ...attributes,
     }
     this.context = context

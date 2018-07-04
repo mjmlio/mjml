@@ -175,11 +175,13 @@ export default function mjml2html(mjml, options = {}) {
       return {
         ...mjml,
         attributes: {
-          ...globalDatas.defaultAttributes['mj-all'],
           ...globalDatas.defaultAttributes[tagName],
           ...attributesClasses,
           ...defaultAttributesForClasses,
           ...omit(attributes, ['mj-class']),
+        },
+        globalAttributes: {
+          ...globalDatas.defaultAttributes['mj-all'],
         },
         children: map(children, mjml => parse(mjml, nextParentMjClass)),
       }

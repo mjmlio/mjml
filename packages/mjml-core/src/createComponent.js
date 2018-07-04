@@ -42,7 +42,6 @@ class Component {
       content,
     }
 
-
     this.attributes = {
       ...this.constructor.defaultAttributes,
       ...globalAttributes,

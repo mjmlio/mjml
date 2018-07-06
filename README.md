@@ -93,7 +93,7 @@ You can pass optional `arguments` to the CLI and combine them.
 argument | description | default value
 ---------|--------|--------------
 `mjml -m [input]` | Migrates a v3 MJML file to the v4 syntax | NA
-`mjml [input] -o [output]` | Writes the output to [output] | NA
+`mjml [input] -o [output]` | Writes the output to [output] <br> (output directory must already exist) | NA
 `mjml [input] -s` | Writes the output to `stdout` | NA
 `mjml -w [input]` | Watches the changes made to [input] (file or folder) | NA
 `mjml [input] --config.beautify` | Beautifies the output (`true` or `false`) | true

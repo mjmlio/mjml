@@ -199,6 +199,7 @@ export default class MjSocialElement extends BodyComponent {
                 href,
                 style: 'text',
                 rel: this.getAttribute('rel'),
+                target: this.getAttribute('target'),
               })}>
               ${this.getContent()}
             </a>

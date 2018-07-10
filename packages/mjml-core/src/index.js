@@ -107,6 +107,8 @@ export default function mjml2html(mjml, options = {}) {
 
     case 'soft':
     default:
+    console.log('mjml ------------------------------------------>')
+    console.log(mjml)
       errors = MJMLValidator(mjml, validatorOptions)
       break
   }

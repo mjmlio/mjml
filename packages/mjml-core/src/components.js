@@ -10,6 +10,7 @@ export function initComponent({ initialDatas, name }) {
   const Component = components[name]
 
   if (Component) {
+    console.log(name)
     const component = new Component(initialDatas)
 
     if (component.headStyle) {

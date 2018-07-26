@@ -1,17 +1,20 @@
-import { get, identity, map, omit, reduce } from 'lodash'
+import { find, get, identity, map, omit, reduce, isObject } from 'lodash'
 import path from 'path'
+import fs from 'fs'
 import juice from 'juice'
 import { html as htmlBeautify } from 'js-beautify'
 import { minify as htmlMinify } from 'html-minifier'
 
 import MJMLParser from 'mjml-parser-xml'
 import MJMLValidator from 'mjml-validator'
+import { handleMjml3 } from 'mjml-migrate'
 
 import components, { initComponent, registerComponent } from './components'
 
+import suffixCssClasses from './helpers/suffixCssClasses'
 import mergeOutlookConditionnals from './helpers/mergeOutlookConditionnals'
+import minifyOutlookConditionnals from './helpers/minifyOutlookConditionnals'
 import defaultSkeleton from './helpers/skeleton'
-import traverseMJML from './helpers/traverseMJML'
 
 class ValidationError extends Error {
   constructor(message, errors) {
@@ -26,9 +29,13 @@ export default function mjml2html(mjml, options = {}) {
   let errors = []
 
   if (typeof options.skeleton === 'string') {
+    /* eslint-disable global-require */
+    /* eslint-disable import/no-dynamic-require */
     options.skeleton = require(options.skeleton.charAt(0) === '.'
       ? path.resolve(process.cwd(), options.skeleton)
       : options.skeleton)
+    /* eslint-enable global-require */
+    /* eslint-enable import/no-dynamic-require */
   }
 
   const {
@@ -46,14 +53,18 @@ export default function mjml2html(mjml, options = {}) {
     minify = false,
     skeleton = defaultSkeleton,
     validationLevel = 'soft',
+    filePath = '.',
   } = options
 
   if (typeof mjml === 'string') {
     mjml = MJMLParser(mjml, {
       keepComments,
       components,
+      filePath,
     })
   }
+
+  mjml = handleMjml3(mjml)
 
   const globalDatas = {
     backgroundColor: '',
@@ -63,11 +74,14 @@ export default function mjml2html(mjml, options = {}) {
     defaultAttributes: {},
     fonts,
     inlineStyle: [],
+    headStyle: {},
+    componentsHeadStyle: [],
     mediaQueries: {},
     preview: '',
     style: [],
     title: '',
     forceOWADesktop: get(mjml, 'attributes.owa', 'mobile') === 'desktop',
+    lang: get(mjml, 'attributes.lang'),
   }
 
   const validatorOptions = {
@@ -97,8 +111,8 @@ export default function mjml2html(mjml, options = {}) {
       break
   }
 
-  const mjBody = traverseMJML(mjml, child => child.tagName === 'mj-body')
-  const mjHead = traverseMJML(mjml, child => child.tagName === 'mj-head')
+  const mjBody = find(mjml.children, { tagName: 'mj-body' })
+  const mjHead = find(mjml.children, { tagName: 'mj-head' })
 
   const processing = (node, context, parseMJML = identity) => {
     if (!node) {
@@ -123,18 +137,31 @@ export default function mjml2html(mjml, options = {}) {
       }
     }
   }
+
   const applyAttributes = mjml => {
     const parse = (mjml, parentMjClass = '') => {
       const { attributes, tagName, children } = mjml
       const classes = get(mjml.attributes, 'mj-class', '').split(' ')
       const attributesClasses = reduce(
         classes,
-        (acc, value) => ({
-          ...acc,
-          ...globalDatas.classes[value],
-        }),
+        (acc, value) => {
+          const mjClassValues = globalDatas.classes[value]
+          let multipleClasses = {}
+          if (acc['css-class'] && get(mjClassValues, 'css-class')) {
+            multipleClasses = {
+              'css-class': `${acc['css-class']} ${mjClassValues['css-class']}`,
+            }
+          }
+
+          return {
+            ...acc,
+            ...mjClassValues,
+            ...multipleClasses,
+          }
+        },
         {},
       )
+
       const defaultAttributesForClasses = reduce(
         parentMjClass.split(' '),
         (acc, value) => ({
@@ -148,8 +175,8 @@ export default function mjml2html(mjml, options = {}) {
       return {
         ...mjml,
         attributes: {
-          ...globalDatas.defaultAttributes[tagName],
           ...globalDatas.defaultAttributes['mj-all'],
+          ...globalDatas.defaultAttributes[tagName],
           ...attributesClasses,
           ...defaultAttributesForClasses,
           ...omit(attributes, ['mj-class']),
@@ -165,7 +192,13 @@ export default function mjml2html(mjml, options = {}) {
     addMediaQuery(className, { parsedWidth, unit }) {
       globalDatas.mediaQueries[
         className
-      ] = `{ width:${parsedWidth}${unit} !important; }`
+      ] = `{ width:${parsedWidth}${unit} !important; max-width: ${parsedWidth}${unit}; }`
+    },
+    addHeadSyle(identifier, headStyle) {
+      globalDatas.headStyle[identifier] = headStyle
+    },
+    addComponentHeadSyle(headStyle) {
+      globalDatas.componentsHeadStyle.push(headStyle)
     },
     setBackgroundColor: color => {
       globalDatas.backgroundColor = color
@@ -179,7 +212,14 @@ export default function mjml2html(mjml, options = {}) {
         globalDatas[attr].push(...params)
       } else if (Object.prototype.hasOwnProperty.call(globalDatas, attr)) {
         if (params.length > 1) {
-          globalDatas[attr][params[0]] = params[1]
+          if (isObject(globalDatas[attr][params[0]])) {
+            globalDatas[attr][params[0]] = {
+              ...globalDatas[attr][params[0]],
+              ...params[1],
+            }
+          } else {
+            globalDatas[attr][params[0]] = params[1]
+          }
         } else {
           globalDatas[attr] = params[0]
         }
@@ -199,6 +239,15 @@ export default function mjml2html(mjml, options = {}) {
 
   content = processing(mjBody, bodyHelpers, applyAttributes)
 
+  if (minify && minify !== 'false') {
+    content = minifyOutlookConditionnals(content)
+  }
+
+  content = skeleton({
+    content,
+    ...globalDatas,
+  })
+
   if (globalDatas.inlineStyle.length > 0) {
     content = juice(content, {
       applyStyleTags: false,
@@ -208,27 +257,23 @@ export default function mjml2html(mjml, options = {}) {
     })
   }
 
-  content = skeleton({
-    content,
-    ...globalDatas,
-  })
+  content =
+    beautify && beautify !== 'false'
+      ? htmlBeautify(content, {
+          indent_size: 2,
+          wrap_attributes_indent_size: 2,
+          max_preserve_newline: 0,
+          preserve_newlines: false,
+        })
+      : content
 
-  content = beautify
-    ? htmlBeautify(content, {
-        indent_size: 2,
-        wrap_attributes_indent_size: 2,
-        max_preserve_newline: 0,
-        preserve_newlines: false,
-      })
-    : content
-
-  content = minify
-    ? htmlMinify(content, {
-        collapseWhitespace: true,
-        minifyCSS: true,
-        removeEmptyAttributes: true,
-      })
-    : content
+  if (minify && minify !== 'false') {
+    content = htmlMinify(content, {
+      collapseWhitespace: true,
+      minifyCSS: false,
+      removeEmptyAttributes: true,
+    })
+  }
 
   content = mergeOutlookConditionnals(content)
 
@@ -238,6 +283,21 @@ export default function mjml2html(mjml, options = {}) {
   }
 }
 
-export { components, initComponent, registerComponent }
+// register components from mjmlconfig
+try {
+  const mjmlConfig = fs.readFileSync(path.join(process.cwd(), '.mjmlconfig'))
+  const customComps = JSON.parse(mjmlConfig).packages
+
+  customComps.forEach(compPath => {
+    const requiredComp = require(path.join(process.cwd(), compPath)) // eslint-disable-line global-require, import/no-dynamic-require
+    registerComponent(requiredComp.default || requiredComp)
+  })
+} catch (e) {
+  if (e.code !== 'ENOENT') {
+    console.log('Error when registering custom components : ', e) // eslint-disable-line no-console
+  }
+}
+
+export { components, initComponent, registerComponent, suffixCssClasses }
 
 export { BodyComponent, HeadComponent } from './createComponent'

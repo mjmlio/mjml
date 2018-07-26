@@ -9,8 +9,9 @@ export default class MjText extends BodyComponent {
     align: 'enum(left,right,center)',
     'background-color': 'color',
     color: 'color',
+    'container-background-color': 'color',
     'font-family': 'string',
-    'font-size': 'unit(px,%)',
+    'font-size': 'unit(px)',
     'font-style': 'string',
     'font-weight': 'string',
     height: 'unit(px,%)',
@@ -23,7 +24,7 @@ export default class MjText extends BodyComponent {
     padding: 'unit(px,%){1,4}',
     'text-decoration': 'string',
     'text-transform': 'string',
-    'vertical-align': 'string',
+    'vertical-align': 'enum(top,bottom,middle)',
   }
 
   static defaultAttributes = {
@@ -40,6 +41,7 @@ export default class MjText extends BodyComponent {
       text: {
         'font-family': this.getAttribute('font-family'),
         'font-size': this.getAttribute('font-size'),
+        'font-style': this.getAttribute('font-style'),
         'font-weight': this.getAttribute('font-weight'),
         'letter-spacing': this.getAttribute('letter-spacing'),
         'line-height': this.getAttribute('line-height'),
@@ -70,7 +72,7 @@ export default class MjText extends BodyComponent {
     return height
       ? `
         ${conditionalTag(`
-          <table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td height="${height}" style="vertical-align:top;height:${height}px;">
+          <table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td height="${height}" style="vertical-align:top;height:${height};">
         `)}
         ${this.renderContent()}
         ${conditionalTag(`

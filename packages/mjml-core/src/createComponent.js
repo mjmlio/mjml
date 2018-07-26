@@ -1,14 +1,27 @@
-import { get, forEach, identity, reduce, kebabCase } from 'lodash'
+import {
+  get,
+  forEach,
+  identity,
+  reduce,
+  kebabCase,
+  find,
+  filter,
+  isNil,
+} from 'lodash'
 
 import MJMLParser from 'mjml-parser-xml'
 
 import shorthandParser from './helpers/shorthandParser'
+import jsonToXML from './helpers/jsonToXML'
 
 import components, { initComponent } from './components'
 
 class Component {
   static getTagName() {
     return kebabCase(this.name)
+  }
+  static isRawElement() {
+    return !!this.rawElement
   }
 
   static defaultAttributes = {}
@@ -94,7 +107,7 @@ export class BodyComponent extends Component {
       (output, v, name) => {
         const value = (specialAttributes[name] || specialAttributes.default)(v)
 
-        if (value) {
+        if (!isNil(value)) {
           return `${output} ${name}="${value}"`
         }
 
@@ -105,7 +118,7 @@ export class BodyComponent extends Component {
   }
 
   styles(styles) {
-    let stylesObject = this.getStyles
+    let stylesObject
 
     if (styles) {
       if (typeof styles === 'string') {
@@ -132,11 +145,21 @@ export class BodyComponent extends Component {
       props = {},
       renderer = component => component.render(),
       attributes = {},
+      rawXML = false,
     } = options
 
     childrens = childrens || this.props.children
 
+    if (rawXML) {
+      return childrens.map(child => jsonToXML(child)).join('\n')
+    }
+
     const sibling = childrens.length
+
+    const rawComponents = filter(components, c => c.isRawElement())
+    const nonRawSiblings = childrens.filter(
+      child => !find(rawComponents, c => c.getTagName() === child.tagName),
+    ).length
 
     let output = ''
     let index = 0
@@ -157,6 +180,7 @@ export class BodyComponent extends Component {
             index,
             last: index + 1 === sibling,
             sibling,
+            nonRawSiblings,
           },
         },
       })
@@ -188,6 +212,12 @@ export class HeadComponent extends Component {
           context: this.getChildContext(),
         },
       })
+
+      if (!component) {
+        // eslint-disable-next-line no-console
+        console.log(`No matching component for tag : ${children.tagName}`)
+        return
+      }
 
       if (component.handler) {
         component.handler()

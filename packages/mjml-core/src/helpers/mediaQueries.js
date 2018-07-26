@@ -1,6 +1,7 @@
 import { map, isEmpty } from 'lodash'
 
-export function buildMediaQueriesTags(
+// eslint-disable-next-line import/prefer-default-export
+export default function buildMediaQueriesTags(
   breakpoint,
   mediaQueries = {},
   forceOWADesktop = false,
@@ -22,7 +23,7 @@ export function buildMediaQueriesTags(
       }
     </style>
     ${forceOWADesktop
-      ? `<style type="text/css">zzz\n${owaQueries.join('\n')}\n</script>`
+      ? `<style type="text/css">\n${owaQueries.join('\n')}\n</style>`
       : ``}
   `
 }

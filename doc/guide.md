@@ -7,7 +7,7 @@ language_tabs:
 toc_footers:
   - <a href='https://github.com/mjmlio/mjml'>Fork me on Github</a>
   - <a href='https://github.com/mjmlio/mjml/issues'>Submit an Issue</a>
-  - MJML v3.0.2
+  - MJML v4.0.2
 
 search: true
 ---
@@ -29,13 +29,11 @@ MJML has been designed with responsiveness in mind. The abstraction it offers gu
 
 <mjml>
   <mj-body>
-    <mj-container>
-      <mj-section>
-        <mj-column>
-          <mj-text>Hi sexy!</mj-text>
-        </mj-column>
-      </mj-section>
-    </mj-container>
+    <mj-section>
+      <mj-column>
+        <mj-text>Hi sexy!</mj-text>
+      </mj-column>
+    </mj-section>
   </mj-body>
 </mjml>
 
@@ -44,7 +42,7 @@ MJML has been designed with responsiveness in mind. The abstraction it offers gu
   <br />
   <br />
   <br />
-  <a href="/try-it-live/intro"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>
+  <a href="/try-it-live/intro"><img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" /></a>
 </p>
 
 
@@ -75,7 +73,7 @@ The mjml-core package allows you to include external mjml files to build your em
 </mj-section>
 ```
 
-You can wrap your external mjml files inside the default `mjml > mj-body > mj-container`
+You can wrap your external mjml files inside the default `mjml > mj-body`
 tags to make it easier to preview outside the main template
 
 
@@ -83,9 +81,7 @@ tags to make it easier to preview outside the main template
 <!-- main.mjml -->
 <mjml>
   <mj-body>
-    <mj-container>
-      <mj-include path="./header" /> <!-- or 'header.mjml' -->
-    </mj-container>
+    <mj-include path="./header" /> <!-- or 'header.mjml' -->
   </mj-body>
 </mjml>
 ```

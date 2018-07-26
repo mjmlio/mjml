@@ -1,0 +1,24 @@
+{
+  "name": "mjml-carousel",
+  "description": "mjml-carousel",
+  "version": "4.1.1",
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mjmlio/mjml.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mjmlio/mjml/issues"
+  },
+  "homepage": "https://mjml.io",
+  "scripts": {
+    "clean": "cross-env ../../node_modules/.bin/rimraf lib",
+    "build": "cross-env ../../node_modules/.bin/babel src --out-dir lib"
+  },
+  "dependencies": {
+    "cross-env": "^5.1.4",
+    "lodash": "^4.17.2",
+    "mjml-core": "^4.1.1"
+  }
+}

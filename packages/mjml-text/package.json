@@ -1,7 +1,7 @@
 {
   "name": "mjml-text",
   "description": "mjml-text",
-  "version": "4.0.0-alpha.5",
+  "version": "4.1.1",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -13,11 +13,12 @@
   },
   "homepage": "https://mjml.io",
   "scripts": {
-    "clean": "../../node_modules/.bin/rimraf lib",
-    "build": "../../node_modules/.bin/babel src --out-dir lib"
+    "clean": "cross-env ../../node_modules/.bin/rimraf lib",
+    "build": "cross-env ../../node_modules/.bin/babel src --out-dir lib"
   },
   "dependencies": {
+    "cross-env": "^5.1.4",
     "lodash": "^4.17.2",
-    "mjml-core": "^4.0.0-alpha.5"
+    "mjml-core": "^4.1.1"
   }
 }

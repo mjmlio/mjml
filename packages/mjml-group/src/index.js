@@ -5,19 +5,8 @@ import widthParser from 'mjml-core/lib/helpers/widthParser'
 export default class MjGroup extends BodyComponent {
   static allowedAttributes = {
     'background-color': 'color',
-    border: 'unit(px)',
-    'border-bottom': 'unit(px)',
-    'border-left': 'unit(px)',
-    'border-radius': 'unit(px)',
-    'border-right': 'unit(px)',
-    'border-top': 'unit(px)',
     direction: 'enum(ltr,rtl)',
-    'padding-bottom': 'unit(px,%)',
-    'padding-left': 'unit(px,%)',
-    'padding-right': 'unit(px,%)',
-    'padding-top': 'unit(px,%)',
-    padding: 'unit(px,%){1,4}',
-    'vertical-align': 'string',
+    'vertical-align': 'enum(top,bottom,middle)',
     width: 'unit(px,%)',
   }
 
@@ -27,13 +16,14 @@ export default class MjGroup extends BodyComponent {
 
   getChildContext() {
     const { containerWidth: parentWidth } = this.context
-    const { sibling, children } = this.props
+    const { nonRawSiblings, children } = this.props
     const paddingSize =
       this.getShorthandAttrValue('padding', 'left') +
       this.getShorthandAttrValue('padding', 'right')
 
     let containerWidth =
-      this.getAttribute('width') || `${parseFloat(parentWidth) / sibling}px`
+      this.getAttribute('width') ||
+      `${parseFloat(parentWidth) / nonRawSiblings}px`
 
     const { unit, parsedWidth } = widthParser(containerWidth, {
       parseFloatToInt: false,
@@ -49,7 +39,7 @@ export default class MjGroup extends BodyComponent {
     return {
       ...this.context,
       containerWidth,
-      sibling: children.length,
+      nonRawSiblings: children.length,
     }
   }
 
@@ -59,20 +49,11 @@ export default class MjGroup extends BodyComponent {
         'font-size': '0',
         'line-height': '0',
         'text-align': 'left',
-        direction: this.getAttribute('direction'),
         display: 'inline-block',
-        'vertical-align': this.getAttribute('vertical-align'),
         width: '100%',
-      },
-      table: {
-        'background-color': this.getAttribute('background-color'),
-        border: this.getAttribute('border'),
-        'border-bottom': this.getAttribute('border-bottom'),
-        'border-left': this.getAttribute('border-left'),
-        'border-radius': this.getAttribute('border-radius'),
-        'border-right': this.getAttribute('border-right'),
-        'border-top': this.getAttribute('border-top'),
+        direction: this.getAttribute('direction'),
         'vertical-align': this.getAttribute('vertical-align'),
+        'background-color': this.getAttribute('background-color'),
       },
       tdOutlook: {
         'vertical-align': this.getAttribute('vertical-align'),
@@ -82,9 +63,9 @@ export default class MjGroup extends BodyComponent {
   }
 
   getParsedWidth(toString) {
-    const { sibling } = this.props
+    const { nonRawSiblings } = this.props
 
-    const width = this.getAttribute('width') || `${100 / sibling}%`
+    const width = this.getAttribute('width') || `${100 / nonRawSiblings}%`
 
     const { unit, parsedWidth } = widthParser(width, {
       parseFloatToInt: false,
@@ -141,7 +122,7 @@ export default class MjGroup extends BodyComponent {
   }
 
   render() {
-    const { children, sibling } = this.props
+    const { children, nonRawSiblings } = this.props
 
     const { containerWidth: groupWidth } = this.getChildContext()
 
@@ -149,7 +130,8 @@ export default class MjGroup extends BodyComponent {
 
     const getElementWidth = width => {
       if (!width) {
-        return `${parseInt(containerWidth, 10) / parseInt(sibling, 10)}px`
+        return `${parseInt(containerWidth, 10) /
+          parseInt(nonRawSiblings, 10)}px`
       }
 
       const { unit, parsedWidth } = widthParser(width, {
@@ -182,7 +164,7 @@ export default class MjGroup extends BodyComponent {
           ${this.renderChildren(children, {
             attributes: { mobileWidth: 'mobileWidth' },
             renderer: component =>
-              component.rawElement
+              component.constructor.isRawElement()
                 ? component.render()
                 : `
               <!--[if mso | IE]>
@@ -190,6 +172,7 @@ export default class MjGroup extends BodyComponent {
                 ${component.htmlAttributes({
                   style: {
                     align: component.getAttribute('align'),
+                    'vertical-align': component.getAttribute('vertical-align'),
                     width: getElementWidth(
                       component.getWidthAsPixel
                         ? component.getWidthAsPixel()

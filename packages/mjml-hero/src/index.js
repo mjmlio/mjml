@@ -6,7 +6,28 @@ import widthParser from 'mjml-core/lib/helpers/widthParser'
 const makeBackgroundString = flow(filter(identity), join(' '))
 
 export default class MjHero extends BodyComponent {
-  static allowedAttributes = {}
+  static allowedAttributes = {
+    mode: 'string',
+    height: 'unit(px,%)',
+    'background-url': 'string',
+    'background-width': 'unit(px,%)',
+    'background-height': 'unit(px,%)',
+    'background-position': 'string',
+    'container-background-color': 'color',
+    'inner-background-color': 'color',
+    'inner-padding': 'unit(px,%){1,4}',
+    'inner-padding-top': 'unit(px,%)',
+    'inner-padding-left': 'unit(px,%)',
+    'inner-padding-right': 'unit(px,%)',
+    'inner-padding-bottom': 'unit(px,%)',
+    padding: 'unit(px,%){1,4}',
+    'padding-bottom': 'unit(px,%)',
+    'padding-left': 'unit(px,%)',
+    'padding-right': 'unit(px,%)',
+    'padding-top': 'unit(px,%)',
+    'background-color': 'color',
+    'vertical-align': 'enum(top,bottom,middle)',
+  }
 
   static defaultAttributes = {
     mode: 'fixed-height',
@@ -191,7 +212,7 @@ export default class MjHero extends BodyComponent {
                   renderer: (
                     component, // eslint-disable-line no-confusing-arrow
                   ) =>
-                    component.rawElement
+                    component.constructor.isRawElement()
                       ? component.render()
                       : `
                     <tr>

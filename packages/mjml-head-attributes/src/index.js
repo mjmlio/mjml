@@ -1,5 +1,6 @@
 import forEach from 'lodash/forEach'
 import omit from 'lodash/omit'
+import reduce from 'lodash/reduce'
 
 import { HeadComponent } from 'mjml-core'
 
@@ -18,7 +19,8 @@ export default class MjAttributes extends HeadComponent {
         add(
           'classesDefault',
           attributes.name,
-          children.reduce(
+          reduce(
+            children,
             (acc, { tagName, attributes }) => ({
               ...acc,
               [tagName]: attributes,

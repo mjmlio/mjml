@@ -5,38 +5,39 @@ import widthParser from 'mjml-core/lib/helpers/widthParser'
 export default class MjColumn extends BodyComponent {
   static allowedAttributes = {
     'background-color': 'color',
-    border: 'unit(px)',
-    'border-bottom': 'unit(px)',
-    'border-left': 'unit(px)',
-    'border-radius': 'unit(px)',
-    'border-right': 'unit(px)',
-    'border-top': 'unit(px)',
+    border: 'string',
+    'border-bottom': 'string',
+    'border-left': 'string',
+    'border-radius': 'unit(px,%)',
+    'border-right': 'string',
+    'border-top': 'string',
     direction: 'enum(ltr,rtl)',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
     padding: 'unit(px,%){1,4}',
-    'vertical-align': 'string',
+    'vertical-align': 'enum(top,bottom,middle)',
     width: 'unit(px,%)',
   }
 
   static defaultAttributes = {
     direction: 'ltr',
-    'vertical-align': 'bottom',
+    'vertical-align': 'top',
   }
 
   getChildContext() {
     const { containerWidth: parentWidth } = this.context
 
-    const { sibling } = this.props
+    const { nonRawSiblings } = this.props
 
     const paddingSize =
       this.getShorthandAttrValue('padding', 'left') +
       this.getShorthandAttrValue('padding', 'right')
 
     let containerWidth =
-      this.getAttribute('width') || `${parseFloat(parentWidth) / sibling}px`
+      this.getAttribute('width') ||
+      `${parseFloat(parentWidth) / nonRawSiblings}px`
 
     const { unit, parsedWidth } = widthParser(containerWidth, {
       parseFloatToInt: false,
@@ -95,14 +96,14 @@ export default class MjColumn extends BodyComponent {
   }
 
   getMobileWidth() {
-    const { sibling, containerWidth } = this.context
+    const { nonRawSiblings, containerWidth } = this.context
     const width = this.getAttribute('width')
     const mobileWidth = this.getAttribute('mobileWidth')
 
     if (mobileWidth !== 'mobileWidth') {
       return '100%'
     } else if (width === undefined) {
-      return `${parseInt(100 / sibling, 10)}%`
+      return `${parseInt(100 / nonRawSiblings, 10)}%`
     }
 
     const { unit, parsedWidth } = widthParser(width, {
@@ -132,9 +133,9 @@ export default class MjColumn extends BodyComponent {
   }
 
   getParsedWidth(toString) {
-    const { sibling } = this.props
+    const { nonRawSiblings } = this.props
 
-    const width = this.getAttribute('width') || `${100 / sibling}%`
+    const width = this.getAttribute('width') || `${100 / nonRawSiblings}%`
 
     const { unit, parsedWidth } = widthParser(width, {
       parseFloatToInt: false,
@@ -178,7 +179,13 @@ export default class MjColumn extends BodyComponent {
   }
 
   hasGutter() {
-    return this.getAttribute('padding') != null
+    return [
+      'padding',
+      'padding-bottom',
+      'padding-left',
+      'padding-right',
+      'padding-top',
+    ].some(attr => this.getAttribute(attr) != null)
   }
 
   renderGutter() {
@@ -210,9 +217,6 @@ export default class MjColumn extends BodyComponent {
     return `
       <table
         ${this.htmlAttributes({
-          background: this.hasGutter()
-            ? null
-            : this.getAttribute('background-color'),
           border: '0',
           cellpadding: '0',
           cellspacing: '0',
@@ -225,16 +229,14 @@ export default class MjColumn extends BodyComponent {
           renderer: (
             component, // eslint-disable-line no-confusing-arrow
           ) =>
-            component.rawElement
+            component.constructor.isRawElement()
               ? component.render()
               : `
             <tr>
               <td
                 ${component.htmlAttributes({
                   align: component.getAttribute('align'),
-                  background: component.getAttribute(
-                    'container-background-color',
-                  ),
+                  'vertical-align': component.getAttribute('vertical-align'),
                   class: component.getAttribute('css-class'),
                   style: {
                     background: component.getAttribute(

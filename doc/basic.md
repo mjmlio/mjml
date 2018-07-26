@@ -1,5 +1,5 @@
 
-# Basic Layout
+# Basic layout example
 
 In this section, you're going to learn how to code a basic email template using MJML.
 
@@ -10,7 +10,7 @@ Here is the final render we want to end with:
 </p>
 
 <p align="center">
-  <a href="/try-it-live/templates/basic"><img width="100px" src="http://imgh.us/TRYITLIVE.svg" alt="sexy" /></a>
+  <a href="/try-it-live/templates/basic"><img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" /></a>
 </p>
 
 Looks cool, right?
@@ -20,27 +20,25 @@ Looks cool, right?
 ``` html
 <mjml>
   <mj-body>
-    <mj-container>
 
-      <!-- Company Header -->
-      <mj-section background-color="#f0f0f0"></mj-section>
+    <!-- Company Header -->
+    <mj-section background-color="#f0f0f0"></mj-section>
 
-      <!-- Image Header -->
-      <mj-section background-color="#f0f0f0"></mj-section>
+    <!-- Image Header -->
+    <mj-section background-color="#f0f0f0"></mj-section>
 
-      <!-- Introduction Text -->
-      <mj-section background-color="#fafafa"></mj-section>
+    <!-- Introduction Text -->
+    <mj-section background-color="#fafafa"></mj-section>
 
-      <!-- 2 columns section -->
-      <mj-section background-color="white"></mj-section>
+    <!-- 2 columns section -->
+    <mj-section background-color="white"></mj-section>
 
-      <!-- Icons -->
-      <mj-section background-color="#fbfbfb"></mj-section>
+    <!-- Icons -->
+    <mj-section background-color="#fbfbfb"></mj-section>
 
-      <!-- Social icons -->
-      <mj-section background-color="#f0f0f0"></mj-section>
+    <!-- Social icons -->
+    <mj-section background-color="#f0f0f0"></mj-section>
 
-    </mj-container>
   </mj-body>
 </mjml>
 ```
@@ -54,7 +52,7 @@ First, we will implement the skeleton which are the sections. Here, our email is
 <mj-section background-color="#f0f0f0">
   <mj-column>
     <mj-text  font-style="italic"
-              font-size="20"
+              font-size="20px"
               color="#626262">
       My Company
     </mj-text>
@@ -82,7 +80,7 @@ The text padding represents the inner space around the content within the `mj-te
 
 		  <mj-text  align="center"
                 color="#fff"
-                font-size="40"
+                font-size="40px"
                 font-family="Helvetica Neue">Slogan here</mj-text>
 
       <mj-button background-color="#F63A4D"
@@ -112,7 +110,7 @@ In order to have the background rendered full-width in the column, set the colum
     	<mj-column width="400">
 
           <mj-text font-style="italic"
-                   font-size="20"
+                   font-size="20px"
                    font-family="Helvetica Neue"
                    color="#626262">My Awesome Text</mj-text>
 
@@ -147,7 +145,7 @@ The title is a regular `mj-text` that can be customized.
   <!-- right paragraph -->
   <mj-column>
     <mj-text font-style="italic"
-             font-size="20"
+             font-size="20px"
              font-family="Helvetica Neue"
              color="#626262">
         Find amazing places
@@ -192,7 +190,9 @@ This section is a 3-columns-based section. Please notice you can make the paddin
 
 <mj-section background-color="#e7e7e7">
   <mj-column>
-      <mj-social display="facebook" />
+    <mj-social>
+      <mj-social-element name="facebook" />
+    </mj-social>
   </mj-column>
 </mj-section>
 

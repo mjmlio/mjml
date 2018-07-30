@@ -28,7 +28,7 @@ export default class Type {
   }
 
   isValid() {
-    return some(this.matchers, matcher => this.value.match(matcher))
+    return some(this.matchers, matcher => `${this.value}`.match(matcher))
   }
 
   getErrorMessage() {

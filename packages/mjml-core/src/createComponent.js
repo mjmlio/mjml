@@ -131,7 +131,7 @@ export class BodyComponent extends Component {
     return reduce(
       stylesObject,
       (output, value, name) => {
-        if (value) {
+        if (!isNil(value)) {
           return `${output}${name}:${value};`
         }
         return output

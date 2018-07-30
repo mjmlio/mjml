@@ -24,8 +24,6 @@ Alternatively, you can just validate file without rendering it by add ing the `-
 mjml --validate template.mjml
 ```
 
-
-
 ## In Javascript
 
 In Javascript, you can provide the level through the `options` parameters on `MJMLRenderer`. Ex: `new MJMLRenderer(inputMJML, { level: strict })`

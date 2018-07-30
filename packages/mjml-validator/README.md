@@ -10,18 +10,18 @@ By default, the level is set to `soft`.
 
 ## In CLI
 
-When using the `mjml` command line, you can add the option `-l` or `--level` with the validation level you want.
+When using the `mjml` command line, you can add the option `-c.validationLevel` or `--config.validationLevel` with the validation level you want.
 
-> Validates the file without rendering it
+> Set the validation level to `skip` (so that the file is not validated) and render the file
+
+```bash
+mjml --config.validationLevel=skip template.mjml
+```
+
+Alternatively, you can just validate file without rendering it by add ing the `--validate` option
 
 ```bash
 mjml --validate template.mjml
-```
-
-> Sets the validation level to `skip` (so that the file is not validated) and renders the file
-
-```bash
-mjml -l skip -r template.mjml
 ```
 
 ## In Javascript

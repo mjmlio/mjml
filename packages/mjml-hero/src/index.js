@@ -126,6 +126,7 @@ export default class MjHero extends BodyComponent {
         height: this.getAttribute('background-height'),
         'mso-position-horizontal': 'center',
         position: 'absolute',
+        top: 0,
         width: this.getAttribute('background-width'),
         'z-index': '-3',
       },

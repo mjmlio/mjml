@@ -34,7 +34,8 @@ export default async () => {
     console.log('\nCommand line error:') // eslint-disable-line no-console
     console.error(msg) // eslint-disable-line no-console
 
-    return process.exitCode = 1
+    process.exitCode = 1
+    return
   }
 
   const pickArgs = args =>
@@ -233,8 +234,8 @@ export default async () => {
     }
     case 's': {
       Promise.all(convertedStream.map(outputToConsole))
-        .then(() => process.exitCode = EXIT_CODE)
-        .catch(() => process.exitCode = 1)
+        .then(() => process.exitCode = EXIT_CODE) // eslint-disable-line no-return-assign
+        .catch(() => process.exitCode = 1) // eslint-disable-line no-return-assign
       break
     }
     default:

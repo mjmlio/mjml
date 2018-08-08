@@ -58,7 +58,7 @@ export default function mjml2html(mjml, options = {}) {
   } = options
 
   // if mjmlConfigPath is specified then we need to handle it on each call
-  if (mjmlConfigPath) handleMjmlConfig(mjmlConfigPath)
+  if (mjmlConfigPath) handleMjmlConfig(mjmlConfigPath) // eslint-disable-line no-use-before-define
 
   if (typeof mjml === 'string') {
     mjml = MJMLParser(mjml, {
@@ -289,7 +289,12 @@ export default function mjml2html(mjml, options = {}) {
 
 // register components from mjmlconfig
 const handleMjmlConfig = (mjmlConfigPath) => {
+  const res = {
+    result: null,
+    error: null,
+  }
   let customComps
+
   try {
     const configPath = mjmlConfigPath || path.join(process.cwd(), '.mjmlconfig')
     const mjmlConfig = fs.readFileSync(configPath)
@@ -301,14 +306,18 @@ const handleMjmlConfig = (mjmlConfigPath) => {
       registerComponent(requirableComp)
       registerDependencies(requirableComp.dependencies)
     })
+
+    res.result = `${customComps.length} component(s) successfully registered`
   } catch (e) {
     if (e.code === 'ENOENT') {
-      return { error: 'ENOENT' }
+      res.error = 'ENOENT'
+    } else {
+      console.log('Error when registering custom components : ', e) // eslint-disable-line no-console
+      res.error = e
     }
-    console.log('Error when registering custom components : ', e) // eslint-disable-line no-console
-    return { error: e }
   }
-  return { result: `${customComps.length} component(s) successfully registered` }
+
+  return res
 }
 
 handleMjmlConfig()

@@ -6,7 +6,7 @@ import { html as htmlBeautify } from 'js-beautify'
 import { minify as htmlMinify } from 'html-minifier'
 
 import MJMLParser from 'mjml-parser-xml'
-import MJMLValidator from 'mjml-validator'
+import MJMLValidator, { registerDependencies } from 'mjml-validator'
 import { handleMjml3 } from 'mjml-migrate'
 
 import components, { initComponent, registerComponent } from './components'
@@ -54,7 +54,11 @@ export default function mjml2html(mjml, options = {}) {
     skeleton = defaultSkeleton,
     validationLevel = 'soft',
     filePath = '.',
+    mjmlConfigPath = null,
   } = options
+
+  // if mjmlConfigPath is specified then we need to handle it on each call
+  if (mjmlConfigPath) handleMjmlConfig(mjmlConfigPath)
 
   if (typeof mjml === 'string') {
     mjml = MJMLParser(mjml, {
@@ -284,20 +288,31 @@ export default function mjml2html(mjml, options = {}) {
 }
 
 // register components from mjmlconfig
-try {
-  const mjmlConfig = fs.readFileSync(path.join(process.cwd(), '.mjmlconfig'))
-  const customComps = JSON.parse(mjmlConfig).packages
+const handleMjmlConfig = (mjmlConfigPath) => {
+  let customComps
+  try {
+    const configPath = mjmlConfigPath || path.join(process.cwd(), '.mjmlconfig')
+    const mjmlConfig = fs.readFileSync(configPath)
+    customComps = JSON.parse(mjmlConfig).packages
 
-  customComps.forEach(compPath => {
-    const requiredComp = require(path.join(process.cwd(), compPath)) // eslint-disable-line global-require, import/no-dynamic-require
-    registerComponent(requiredComp.default || requiredComp)
-  })
-} catch (e) {
-  if (e.code !== 'ENOENT') {
+    customComps.forEach(compPath => {
+      const requiredComp = require(path.join(configPath.replace(/\.mjmlconfig$/, ''), compPath)) // eslint-disable-line global-require, import/no-dynamic-require
+      const requirableComp = requiredComp.default || requiredComp
+      registerComponent(requirableComp)
+      registerDependencies(requirableComp.dependencies)
+    })
+  } catch (e) {
+    if (e.code === 'ENOENT') {
+      return { error: 'ENOENT' }
+    }
     console.log('Error when registering custom components : ', e) // eslint-disable-line no-console
+    return { error: e }
   }
+  return { result: `${customComps.length} component(s) successfully registered` }
 }
 
-export { components, initComponent, registerComponent, suffixCssClasses }
+handleMjmlConfig()
+
+export { components, initComponent, registerComponent, suffixCssClasses, handleMjmlConfig }
 
 export { BodyComponent, HeadComponent } from './createComponent'

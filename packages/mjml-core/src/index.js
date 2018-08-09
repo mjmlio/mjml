@@ -117,7 +117,7 @@ export default function mjml2html(mjml, options = {}) {
 
   const processing = (node, context, parseMJML = identity) => {
     if (!node) {
-      return
+      return null
     }
 
     const component = initComponent({
@@ -134,9 +134,10 @@ export default function mjml2html(mjml, options = {}) {
       }
 
       if ('render' in component) {
-        return component.render() // eslint-disable-line consistent-return
+        return component.render()
       }
     }
+    return null
   }
 
   const applyAttributes = mjml => {

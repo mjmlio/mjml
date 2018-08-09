@@ -218,7 +218,7 @@ export class HeadComponent extends Component {
       if (!component) {
         // eslint-disable-next-line no-console
         console.log(`No matching component for tag : ${children.tagName}`)
-        return
+        return null
       }
 
       if (component.handler) {
@@ -228,6 +228,7 @@ export class HeadComponent extends Component {
       if (component.render) {
         return component.render()
       }
+      return null
     })
   }
 }

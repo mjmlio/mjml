@@ -85,7 +85,7 @@ export default class MjImage extends BodyComponent {
 
     return min([
       parseInt(containerWidth, 10) - allPaddings,
-      width
+      width,
     ])
   }
 

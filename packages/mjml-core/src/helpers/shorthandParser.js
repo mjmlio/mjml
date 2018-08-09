@@ -25,5 +25,5 @@ export default function(cssValue, direction) {
 }
 
 export function borderParser(border) {
-  return parseInt(get(border.match(/(?:(?:^| )(\d+))/), 1)) || 0
+  return parseInt(get(border.match(/(?:(?:^| )(\d+))/), 1), 10) || 0
 }

@@ -95,7 +95,6 @@ export default class MjButton extends BodyComponent {
     return `
       <table
         ${this.htmlAttributes({
-          align: this.getAttribute('align'),
           border: '0',
           cellpadding: '0',
           cellspacing: '0',

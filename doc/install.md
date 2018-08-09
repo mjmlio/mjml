@@ -57,6 +57,7 @@ argument | description | default value
 `mjml -w [input]` | Watches the changes made to [input] (file or folder) | NA
 `mjml [input] --config.beautify` | Beautifies the output (`true` or `false`) | true
 `mjml [input] --config.minify` | Minifies the output (`true` or `false`) | false
+`mjml [input] --config.validationLevel` | [Validation level](https://github.com/mjmlio/mjml/tree/master/packages/mjml-validator#validating-mjml): 'strict', 'soft' or 'skip' | 'soft'
 
 ## Inside Node.js
 

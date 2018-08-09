@@ -34,8 +34,7 @@ export default async () => {
     console.log('\nCommand line error:') // eslint-disable-line no-console
     console.error(msg) // eslint-disable-line no-console
 
-    process.exitCode = 1
-    return
+    process.exit(1)
   }
 
   const pickArgs = args =>

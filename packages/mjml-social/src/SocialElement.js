@@ -43,7 +43,7 @@ const defaultSocialNetworks = {
 each(defaultSocialNetworks, (val, key) => {
   defaultSocialNetworks[`${key}-noshare`] = {
     ...val,
-    'share-url': '[[URL]]'
+    'share-url': '[[URL]]',
   }
 })
 

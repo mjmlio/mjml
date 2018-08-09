@@ -1,5 +1,4 @@
 import { BodyComponent, suffixCssClasses } from 'mjml-core'
-import { mapValues } from 'lodash'
 
 export default class MjCarouselImage extends BodyComponent {
   static endingTag = true
@@ -26,7 +25,7 @@ export default class MjCarouselImage extends BodyComponent {
         img: {
           'border-radius': this.getAttribute('border-radius'),
           display: 'block',
-          width: '600px',
+          width: this.context.containerWidth,
           'max-width': '100%',
           height: 'auto',
         },
@@ -62,7 +61,10 @@ export default class MjCarouselImage extends BodyComponent {
   renderThumbnail() {
     const { carouselId, src, alt, 'tb-width': width, target } = this.attributes
     const imgIndex = this.props.index + 1
-    const cssClass = suffixCssClasses(this.getAttribute('css-class'), 'thumbnail')
+    const cssClass = suffixCssClasses(
+      this.getAttribute('css-class'),
+      'thumbnail',
+    )
 
     return `
       <a
@@ -81,7 +83,7 @@ export default class MjCarouselImage extends BodyComponent {
               style: 'thumbnails.img',
               src: this.getAttribute('thumbnails-src') || src,
               alt,
-              width: parseInt(width),
+              width: parseInt(width, 10),
             })}
           />
         </label>
@@ -119,7 +121,7 @@ export default class MjCarouselImage extends BodyComponent {
           src,
           alt,
           style: 'images.img',
-          width: '400',
+          width: parseInt(this.context.containerWidth, 10),
           border: '0',
         })} />
     `
@@ -134,7 +136,7 @@ export default class MjCarouselImage extends BodyComponent {
         })}
       >
         ${href
-          ? `<a href={href} rel={rel} target="_blank">${image}</a>`
+          ? `<a href=${href} rel=${rel} target="_blank">${image}</a>`
           : image}
       </div>
     `

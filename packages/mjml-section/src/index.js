@@ -8,7 +8,7 @@ export default class MjSection extends BodyComponent {
   static allowedAttributes = {
     'background-color': 'color',
     'background-url': 'string',
-    'background-repeat': 'enum(repeat/no-repeat)',
+    'background-repeat': 'enum(repeat,no-repeat)',
     'background-size': 'string',
     border: 'string',
     'border-bottom': 'string',
@@ -149,8 +149,8 @@ export default class MjSection extends BodyComponent {
     `
   }
 
+  // eslint-disable-next-line class-methods-use-this
   renderAfter() {
-    // eslint-disable-line class-methods-use-this
     return `
       <!--[if mso | IE]>
           </td>

@@ -1,5 +1,6 @@
-import { find, get, identity, map, omit, reduce } from 'lodash'
+import { find, get, identity, map, omit, reduce, isObject } from 'lodash'
 import path from 'path'
+import fs from 'fs'
 import juice from 'juice'
 import { html as htmlBeautify } from 'js-beautify'
 import { minify as htmlMinify } from 'html-minifier'
@@ -12,6 +13,7 @@ import components, { initComponent, registerComponent } from './components'
 
 import suffixCssClasses from './helpers/suffixCssClasses'
 import mergeOutlookConditionnals from './helpers/mergeOutlookConditionnals'
+import minifyOutlookConditionnals from './helpers/minifyOutlookConditionnals'
 import defaultSkeleton from './helpers/skeleton'
 
 class ValidationError extends Error {
@@ -27,9 +29,13 @@ export default function mjml2html(mjml, options = {}) {
   let errors = []
 
   if (typeof options.skeleton === 'string') {
+    /* eslint-disable global-require */
+    /* eslint-disable import/no-dynamic-require */
     options.skeleton = require(options.skeleton.charAt(0) === '.'
       ? path.resolve(process.cwd(), options.skeleton)
       : options.skeleton)
+    /* eslint-enable global-require */
+    /* eslint-enable import/no-dynamic-require */
   }
 
   const {
@@ -76,6 +82,7 @@ export default function mjml2html(mjml, options = {}) {
     style: [],
     title: '',
     forceOWADesktop: get(mjml, 'attributes.owa', 'mobile') === 'desktop',
+    lang: get(mjml, 'attributes.lang'),
   }
 
   const validatorOptions = {
@@ -169,11 +176,13 @@ export default function mjml2html(mjml, options = {}) {
       return {
         ...mjml,
         attributes: {
-          ...globalDatas.defaultAttributes['mj-all'],
           ...globalDatas.defaultAttributes[tagName],
           ...attributesClasses,
           ...defaultAttributesForClasses,
           ...omit(attributes, ['mj-class']),
+        },
+        globalAttributes: {
+          ...globalDatas.defaultAttributes['mj-all'],
         },
         children: map(children, mjml => parse(mjml, nextParentMjClass)),
       }
@@ -206,7 +215,14 @@ export default function mjml2html(mjml, options = {}) {
         globalDatas[attr].push(...params)
       } else if (Object.prototype.hasOwnProperty.call(globalDatas, attr)) {
         if (params.length > 1) {
-          globalDatas[attr][params[0]] = params[1]
+          if (isObject(globalDatas[attr][params[0]])) {
+            globalDatas[attr][params[0]] = {
+              ...globalDatas[attr][params[0]],
+              ...params[1],
+            }
+          } else {
+            globalDatas[attr][params[0]] = params[1]
+          }
         } else {
           globalDatas[attr] = params[0]
         }
@@ -225,6 +241,10 @@ export default function mjml2html(mjml, options = {}) {
   globalDatas.headRaw = processing(mjHead, headHelpers)
 
   content = processing(mjBody, bodyHelpers, applyAttributes)
+
+  if (minify && minify !== 'false') {
+    content = minifyOutlookConditionnals(content)
+  }
 
   content = skeleton({
     content,
@@ -250,21 +270,34 @@ export default function mjml2html(mjml, options = {}) {
         })
       : content
 
-  content =
-    minify && minify !== 'false'
-      ? htmlMinify(content, {
-          collapseWhitespace: true,
-          minifyCSS: false,
-          removeEmptyAttributes: true,
-          processConditionalComments: true,
-        })
-      : content
+  if (minify && minify !== 'false') {
+    content = htmlMinify(content, {
+      collapseWhitespace: true,
+      minifyCSS: false,
+      removeEmptyAttributes: true,
+    })
+  }
 
   content = mergeOutlookConditionnals(content)
 
   return {
     html: content,
     errors,
+  }
+}
+
+// register components from mjmlconfig
+try {
+  const mjmlConfig = fs.readFileSync(path.join(process.cwd(), '.mjmlconfig'))
+  const customComps = JSON.parse(mjmlConfig).packages
+
+  customComps.forEach(compPath => {
+    const requiredComp = require(path.join(process.cwd(), compPath)) // eslint-disable-line global-require, import/no-dynamic-require
+    registerComponent(requiredComp.default || requiredComp)
+  })
+} catch (e) {
+  if (e.code !== 'ENOENT') {
+    console.log('Error when registering custom components : ', e) // eslint-disable-line no-console
   }
 }
 

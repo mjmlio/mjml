@@ -6,7 +6,7 @@ export default class MjGroup extends BodyComponent {
   static allowedAttributes = {
     'background-color': 'color',
     direction: 'enum(ltr,rtl)',
-    'vertical-align': 'string',
+    'vertical-align': 'enum(top,bottom,middle)',
     width: 'unit(px,%)',
   }
 
@@ -22,7 +22,8 @@ export default class MjGroup extends BodyComponent {
       this.getShorthandAttrValue('padding', 'right')
 
     let containerWidth =
-      this.getAttribute('width') || `${parseFloat(parentWidth) / nonRawSiblings}px`
+      this.getAttribute('width') ||
+      `${parseFloat(parentWidth) / nonRawSiblings}px`
 
     const { unit, parsedWidth } = widthParser(containerWidth, {
       parseFloatToInt: false,
@@ -129,7 +130,8 @@ export default class MjGroup extends BodyComponent {
 
     const getElementWidth = width => {
       if (!width) {
-        return `${parseInt(containerWidth, 10) / parseInt(nonRawSiblings, 10)}px`
+        return `${parseInt(containerWidth, 10) /
+          parseInt(nonRawSiblings, 10)}px`
       }
 
       const { unit, parsedWidth } = widthParser(width, {

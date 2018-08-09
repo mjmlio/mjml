@@ -4,20 +4,18 @@ import conditionalTag from 'mjml-core/lib/helpers/conditionalTag'
 
 export default class MjSpacer extends BodyComponent {
   static allowedAttributes = {
-    border: 'unit(px)',
-    'border-bottom': 'unit(px)',
-    'border-left': 'unit(px)',
-    'border-radius': 'unit(px)',
-    'border-right': 'unit(px)',
-    'border-top': 'unit(px)',
+    border: 'string',
+    'border-bottom': 'string',
+    'border-left': 'string',
+    'border-right': 'string',
+    'border-top': 'string',
     'container-background-color': 'color',
-    direction: 'enum(ltr,rtl)',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
     padding: 'unit(px,%){1,4}',
-    'vertical-align': 'string',
+    'vertical-align': 'enum(top,bottom,middle)',
     width: 'unit(px,%)',
     height: 'unit(px,%)',
   }

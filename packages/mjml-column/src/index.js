@@ -5,19 +5,19 @@ import widthParser from 'mjml-core/lib/helpers/widthParser'
 export default class MjColumn extends BodyComponent {
   static allowedAttributes = {
     'background-color': 'color',
-    border: 'unit(px)',
-    'border-bottom': 'unit(px)',
-    'border-left': 'unit(px)',
-    'border-radius': 'unit(px)',
-    'border-right': 'unit(px)',
-    'border-top': 'unit(px)',
+    border: 'string',
+    'border-bottom': 'string',
+    'border-left': 'string',
+    'border-radius': 'unit(px,%)',
+    'border-right': 'string',
+    'border-top': 'string',
     direction: 'enum(ltr,rtl)',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
     padding: 'unit(px,%){1,4}',
-    'vertical-align': 'string',
+    'vertical-align': 'enum(top,bottom,middle)',
     width: 'unit(px,%)',
   }
 
@@ -36,7 +36,8 @@ export default class MjColumn extends BodyComponent {
       this.getShorthandAttrValue('padding', 'right')
 
     let containerWidth =
-      this.getAttribute('width') || `${parseFloat(parentWidth) / nonRawSiblings}px`
+      this.getAttribute('width') ||
+      `${parseFloat(parentWidth) / nonRawSiblings}px`
 
     const { unit, parsedWidth } = widthParser(containerWidth, {
       parseFloatToInt: false,

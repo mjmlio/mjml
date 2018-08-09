@@ -3,17 +3,14 @@ import htmlparser from 'htmlparser2'
 import isObject from 'lodash/isObject'
 import findLastIndex from 'lodash/findLastIndex'
 import find from 'lodash/find'
-import mapValues from 'lodash/mapValues'
 import path from 'path'
 import fs from 'fs'
 import filter from 'lodash/fp/filter'
 import map from 'lodash/fp/map'
 import flow from 'lodash/fp/flow'
 
-import parseAttributes, { decodeAttributes } from './helpers/parseAttributes'
 import cleanNode from './helpers/cleanNode'
 import convertBooleansOnAttrs from './helpers/convertBooleansOnAttrs'
-import addCDATASection from './helpers/addCDATASection'
 import setEmptyAttributes from './helpers/setEmptyAttributes'
 
 const indexesForNewLine = xml => {
@@ -27,6 +24,10 @@ const indexesForNewLine = xml => {
   return indexes
 }
 
+const isSelfClosing = (indexes, parser) =>
+  indexes.startIndex === parser.startIndex &&
+  indexes.endIndex === parser.endIndex
+
 export default function MJMLParser(xml, options = {}, includedIn = []) {
   const {
     addEmptyAttributes = true,
@@ -37,24 +38,21 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
     ignoreIncludes = false,
   } = options
 
-  const CDATASections = flow(
+  const endingTags = flow(
     filter(component => component.endingTag),
     map(component => component.getTagName()),
   )({ ...components })
 
   const cwd = filePath ? path.dirname(filePath) : process.cwd()
 
-  let safeXml = xml
-
-  safeXml = parseAttributes(safeXml)
-  safeXml = addCDATASection(CDATASections, safeXml)
-
   let mjml = null
   let cur = null
   let inInclude = !!includedIn.length
+  let inEndingTag = 0
+  const currentEndingTagIndexes = { startIndex: 0, endIndex: 0 }
 
   const findTag = (tagName, tree) => find(tree.children, { tagName })
-  const lineIndexes = indexesForNewLine(safeXml)
+  const lineIndexes = indexesForNewLine(xml)
 
   const handleInclude = (file, line) => {
     const partialPath = path.resolve(cwd, file)
@@ -144,20 +142,34 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
   const parser = new htmlparser.Parser(
     {
       onopentag: (name, attrs) => {
-        // eslint-disable-line consistent-return
+        const isAnEndingTag = endingTags.indexOf(name) !== -1
+
+        if (inEndingTag > 0) {
+          if (isAnEndingTag) inEndingTag += 1
+          return
+        }
+
+        if (isAnEndingTag) {
+          inEndingTag += 1
+
+          if (inEndingTag === 1) { // we're entering endingTag
+            currentEndingTagIndexes.startIndex = parser.startIndex
+            currentEndingTagIndexes.endIndex = parser.endIndex
+          }
+        }
+
         const line = findLastIndex(lineIndexes, i => i <= parser.startIndex) + 1
 
         if (name === 'mj-include' && !ignoreIncludes) {
           inInclude = true
-          return handleInclude(decodeURIComponent(attrs.path), line)
+          handleInclude(decodeURIComponent(attrs.path), line)
+          return
         }
 
         if (convertBooleans) {
           // "true" and "false" will be converted to bools
           attrs = convertBooleansOnAttrs(attrs)
         }
-
-        attrs = mapValues(attrs, val => decodeURIComponent(val))
 
         const newNode = {
           file: filePath,
@@ -178,7 +190,21 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
 
         cur = newNode
       },
-      onclosetag: () => {
+      onclosetag: name => {
+        if (endingTags.indexOf(name) !== -1) {
+          inEndingTag -= 1
+
+          if (!inEndingTag) { // we're getting out of endingTag
+            // if self-closing tag we don't get the content
+            if (!isSelfClosing(currentEndingTagIndexes, parser)) {
+              const val = xml.substring(currentEndingTagIndexes.endIndex + 1, parser.startIndex).trim()
+              if (val) cur.content = val
+            }
+          }
+        }
+
+        if (inEndingTag > 0) return
+
         if (inInclude) {
           inInclude = false
         }
@@ -186,17 +212,15 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
         cur = (cur && cur.parent) || null
       },
       ontext: text => {
-        if (!text) {
-          return
-        }
+        if (inEndingTag > 0) return
 
-        const val = `${(cur && cur.content) || ''}${text}`.trim()
-
-        if (val) {
-          cur.content = decodeAttributes(val)
+        if (text && text.trim() && cur) {
+          cur.content = `${(cur && cur.content) || ''}${text.trim()}`.trim()
         }
       },
       oncomment: data => {
+        if (inEndingTag > 0) return
+
         if (cur && keepComments) {
           cur.children.push({
             line: findLastIndex(lineIndexes, i => i <= parser.startIndex) + 1,
@@ -207,11 +231,14 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
       },
     },
     {
-      xmlMode: true,
+      recognizeCDATA: true,
+      decodeEntities: false,
+      recognizeSelfClosing: true,
+      lowerCaseAttributeNames: false,
     },
   )
 
-  parser.write(safeXml)
+  parser.write(xml)
   parser.end()
 
   if (!isObject(mjml)) {

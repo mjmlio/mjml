@@ -1,10 +1,9 @@
 import MjSection from 'mjml-section'
-import { BodyComponent, suffixCssClasses } from 'mjml-core'
+import { suffixCssClasses } from 'mjml-core'
 
 export default class MjWrapper extends MjSection {
   renderWrappedChildren() {
     const { children } = this.props
-
     const { containerWidth } = this.context
 
     return `

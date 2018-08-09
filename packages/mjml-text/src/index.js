@@ -6,12 +6,12 @@ export default class MjText extends BodyComponent {
   static endingTag = true
 
   static allowedAttributes = {
-    align: 'enum(left,right,center)',
+    align: 'enum(left,right,center,justify)',
     'background-color': 'color',
     color: 'color',
     'container-background-color': 'color',
     'font-family': 'string',
-    'font-size': 'unit(px,%)',
+    'font-size': 'unit(px)',
     'font-style': 'string',
     'font-weight': 'string',
     height: 'unit(px,%)',
@@ -24,7 +24,7 @@ export default class MjText extends BodyComponent {
     padding: 'unit(px,%){1,4}',
     'text-decoration': 'string',
     'text-transform': 'string',
-    'vertical-align': 'string',
+    'vertical-align': 'enum(top,bottom,middle)',
   }
 
   static defaultAttributes = {

@@ -1,8 +1,7 @@
-export default (classes, suffix) => {
-  return classes
+export default (classes, suffix) =>
+  classes
     ? classes
         .split(' ')
         .map(c => `${c}-${suffix}`)
         .join(' ')
     : ''
-}

@@ -16,17 +16,18 @@ export default function MJMLValidator(element, options = {}) {
   let errors
 
   if (!includes(SKIP_ELEMENTS, tagName)) {
-    errors = flatten(concat(
-      errors,
-      ...values(rulesCollection).map(rule => rule(element, options)),
-    ))
+    errors = flatten(
+      concat(
+        errors,
+        ...values(rulesCollection).map(rule => rule(element, options)),
+      ),
+    )
   }
 
   if (children && children.length > 0) {
-    errors = flatten(concat(
-      errors,
-      ...children.map(child => MJMLValidator(child, options)),
-    ))
+    errors = flatten(
+      concat(errors, ...children.map(child => MJMLValidator(child, options))),
+    )
   }
 
   return filter(errors)

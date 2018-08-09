@@ -1,12 +1,12 @@
 import Type from './type'
 
-export const matcher = /^string/gim
+export const matcher = /^integer/gim
 
 export default () =>
-  class NString extends Type {
+  class NInteger extends Type {
     constructor(value) {
       super(value)
 
-      this.matchers = [/.*/]
+      this.matchers = [/\d+/]
     }
   }

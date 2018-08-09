@@ -1,4 +1,13 @@
-import { get, forEach, identity, reduce, kebabCase, find, filter } from 'lodash'
+import {
+  get,
+  forEach,
+  identity,
+  reduce,
+  kebabCase,
+  find,
+  filter,
+  isNil,
+} from 'lodash'
 
 import MJMLParser from 'mjml-parser-xml'
 
@@ -24,6 +33,7 @@ class Component {
       content = '',
       context = {},
       props = {},
+      globalAttributes = {},
     } = initialDatas
 
     this.props = {
@@ -34,6 +44,7 @@ class Component {
 
     this.attributes = {
       ...this.constructor.defaultAttributes,
+      ...globalAttributes,
       ...attributes,
     }
     this.context = context
@@ -98,7 +109,7 @@ export class BodyComponent extends Component {
       (output, v, name) => {
         const value = (specialAttributes[name] || specialAttributes.default)(v)
 
-        if (value) {
+        if (!isNil(value)) {
           return `${output} ${name}="${value}"`
         }
 
@@ -122,7 +133,7 @@ export class BodyComponent extends Component {
     return reduce(
       stylesObject,
       (output, value, name) => {
-        if (value) {
+        if (!isNil(value)) {
           return `${output}${name}:${value};`
         }
         return output
@@ -205,6 +216,7 @@ export class HeadComponent extends Component {
       })
 
       if (!component) {
+        // eslint-disable-next-line no-console
         console.log(`No matching component for tag : ${children.tagName}`)
         return
       }

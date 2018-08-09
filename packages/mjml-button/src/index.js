@@ -73,7 +73,6 @@ export default class MjButton extends BodyComponent {
         height: this.getAttribute('height'),
         padding: this.getAttribute('inner-padding'),
         'text-align': this.getAttribute('text-align'),
-        'text-align': this.getAttribute('text-align'),
         background: this.getAttribute('background-color'),
       },
       content: {

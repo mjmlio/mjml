@@ -137,7 +137,7 @@ keepComments | boolean | Option to keep comments in the HTML output | true
 beautify | boolean | Option to beautify the HTML output | false
 minify | boolean | Option to minify the HTML output | false
 validationLevel | string | Available values for the [validator](https://github.com/mjmlio/mjml/tree/master/packages/mjml-validator#validating-mjml): 'strict', 'soft', 'skip'  | 'soft'
-filePath | boolean | Path of file, used for relative paths in mj-includes | '.'
+filePath | string | Path of file, used for relative paths in mj-includes | '.'
 
 ## API
 

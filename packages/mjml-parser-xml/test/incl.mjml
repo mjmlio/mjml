@@ -1,0 +1,10 @@
+<mj-column>
+  <mj-text font-size="22px">
+    COIN
+    <a src="test">aze</a>
+  </mj-text>
+  <mj-text font-size="22px">
+    COIN2
+    <a src="test">aze2</a>
+  </mj-text>
+</mj-column>

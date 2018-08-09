@@ -1,7 +1,7 @@
 {
   "name": "mjml-head",
   "description": "mjml-head",
-  "version": "4.0.5",
+  "version": "4.1.2",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -17,8 +17,9 @@
     "build": "cross-env ../../node_modules/.bin/babel src --out-dir lib"
   },
   "dependencies": {
+    "babel-runtime": "^6.26.0",
     "cross-env": "^5.1.4",
     "lodash": "^4.17.2",
-    "mjml-core": "^4.0.5"
+    "mjml-core": "^4.1.2"
   }
 }

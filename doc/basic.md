@@ -52,7 +52,7 @@ First, we will implement the skeleton which are the sections. Here, our email is
 <mj-section background-color="#f0f0f0">
   <mj-column>
     <mj-text  font-style="italic"
-              font-size="20"
+              font-size="20px"
               color="#626262">
       My Company
     </mj-text>
@@ -80,7 +80,7 @@ The text padding represents the inner space around the content within the `mj-te
 
 		  <mj-text  align="center"
                 color="#fff"
-                font-size="40"
+                font-size="40px"
                 font-family="Helvetica Neue">Slogan here</mj-text>
 
       <mj-button background-color="#F63A4D"
@@ -110,7 +110,7 @@ In order to have the background rendered full-width in the column, set the colum
     	<mj-column width="400">
 
           <mj-text font-style="italic"
-                   font-size="20"
+                   font-size="20px"
                    font-family="Helvetica Neue"
                    color="#626262">My Awesome Text</mj-text>
 
@@ -145,7 +145,7 @@ The title is a regular `mj-text` that can be customized.
   <!-- right paragraph -->
   <mj-column>
     <mj-text font-style="italic"
-             font-size="20"
+             font-size="20px"
              font-family="Helvetica Neue"
              color="#626262">
         Find amazing places

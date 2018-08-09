@@ -43,3 +43,4 @@ alt                           | string        | image description              |
 align                         | position      | image alignment                | center
 title                         | string        | tooltip & accessibility        | n/a
 css-class                     | string        | class name, added to the root HTML element created | n/a
+fluid-on-mobile               | string        | if "true", will be full width on mobile even if width is set | n/a

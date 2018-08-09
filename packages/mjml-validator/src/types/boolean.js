@@ -2,7 +2,7 @@ import Type from './type'
 
 export const matcher = /^boolean/gim
 
-export default params =>
+export default () =>
   class Boolean extends Type {
     constructor(boolean) {
       super(boolean)
@@ -10,7 +10,7 @@ export default params =>
       this.matchers = [/^true$/i, /^false$/i]
     }
 
-    getValue() {
-      return !!boolean.match(/^true$/i)
+    isValid() {
+      return this.value === true || this.value === false
     }
   }

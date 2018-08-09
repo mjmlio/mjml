@@ -1,7 +1,7 @@
 import { reduce } from 'lodash'
 import buildPreview from './preview'
 import { buildFontsTags } from './fonts'
-import { buildMediaQueriesTags } from './mediaQueries'
+import buildMediaQueriesTags from './mediaQueries'
 
 export default function skeleton(options) {
   const {
@@ -17,11 +17,14 @@ export default function skeleton(options) {
     style,
     forceOWADesktop,
     inlineStyle,
+    lang,
   } = options
+
+  const langAttribute = lang ? `lang="${lang}" ` : ''
 
   return `
     <!doctype html>
-    <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+    <html ${langAttribute}xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
       <head>
         <title>
           ${title}

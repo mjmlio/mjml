@@ -49,7 +49,7 @@ export default class MjSocialElement extends BodyComponent {
     color: 'color',
     'border-radius': 'unit(px)',
     'font-family': 'string',
-    'font-size': 'unit(px,%)',
+    'font-size': 'unit(px)',
     'font-style': 'string',
     'font-weight': 'string',
     href: 'string',
@@ -191,20 +191,21 @@ export default class MjSocialElement extends BodyComponent {
               </tr>
           </table>
         </td>
-          ${this.getContent()
-            ? `
-            <td ${this.htmlAttributes({ style: 'tdText' })} >
-              <a
-                ${this.htmlAttributes({
-                  href,
-                  style: 'text',
-                  rel: this.getAttribute('rel'),
-                })}>
-                ${this.getContent()}
-              </a>
-            </td>
-            `
-            : ''}
+        ${this.getContent()
+          ? `
+          <td ${this.htmlAttributes({ style: 'tdText' })}>
+            <a
+              ${this.htmlAttributes({
+                href,
+                style: 'text',
+                rel: this.getAttribute('rel'),
+                target: this.getAttribute('target'),
+              })}>
+              ${this.getContent()}
+            </a>
+          </td>
+          `
+          : ''}
       </tr>
     `
   }

@@ -198,21 +198,26 @@ export default class MjCarousel extends BodyComponent {
     return `${carouselCss}\n${fallback}`
   }
 
-  getStyles() {
+  getStyles() { // eslint-disable-line class-methods-use-this
     return {
       carousel: {
         div: {
           display: 'table',
-          width: ' 100%',
+          width: '100%',
           'table-layout': 'fixed',
           'text-align': 'center',
-          'font-size': '0',
+          'font-size': '0px',
         },
         table: {
           'caption-side': 'top',
           display: 'table-caption',
           'table-layout': 'fixed',
           width: '100%',
+        },
+      },
+      images: {
+        td: {
+          padding: '0px',
         },
       },
       controls: {
@@ -222,12 +227,14 @@ export default class MjCarousel extends BodyComponent {
         },
         img: {
           display: 'block',
-          width: '100%',
+          width: this.getAttribute('icon-width'),
           height: 'auto',
         },
         td: {
+          'font-size': '0px',
           display: 'none',
           'mso-hide': 'all',
+          padding: '0px',
         },
       },
     }
@@ -269,7 +276,7 @@ export default class MjCarousel extends BodyComponent {
   }
 
   generateControls(direction, icon) {
-    const iconWidth = parseInt(this.getAttribute('icon-width'))
+    const iconWidth = parseInt(this.getAttribute('icon-width'), 10)
 
     return `
       <td
@@ -310,11 +317,14 @@ export default class MjCarousel extends BodyComponent {
 
   generateImages() {
     return `
-      <td>
+      <td
+        ${this.htmlAttributes({
+          style: 'images.td',
+        })}
+      >
         <div
           ${this.htmlAttributes({
             class: 'mj-carousel-images',
-            style: 'images.div',
           })}
         >
           ${this.renderChildren(this.props.children, {

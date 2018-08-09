@@ -15,7 +15,7 @@ export default class MjButton extends BodyComponent {
     color: 'color',
     'container-background-color': 'color',
     'font-family': 'string',
-    'font-size': 'unit(px,%)',
+    'font-size': 'unit(px)',
     'font-style': 'string',
     'font-weight': 'string',
     height: 'unit(px,%)',
@@ -97,7 +97,6 @@ export default class MjButton extends BodyComponent {
     return `
       <table
         ${this.htmlAttributes({
-          align: this.getAttribute('align'),
           border: '0',
           cellpadding: '0',
           cellspacing: '0',

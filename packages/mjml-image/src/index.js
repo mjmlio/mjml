@@ -20,9 +20,9 @@ export default class MjImage extends BodyComponent {
     'border-left': 'string',
     'border-right': 'string',
     'border-top': 'string',
-    'border-radius': 'unit(px,%)',
-    'container-background-color': 'string',
-    'fluid-on-mobile': 'string',
+    'border-radius': 'unit(px,%){1,4}',
+    'container-background-color': 'color',
+    'fluid-on-mobile': 'boolean',
     padding: 'unit(px,%){1,4}',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
@@ -141,14 +141,13 @@ export default class MjImage extends BodyComponent {
     return `
       <table
         ${this.htmlAttributes({
-          align: this.getAttribute('align'),
           border: '0',
           cellpadding: '0',
           cellspacing: '0',
           role: 'presentation',
           style: 'table',
           class:
-            this.getAttribute('fluid-on-mobile') === 'true'
+            this.getAttribute('fluid-on-mobile')
               ? 'full-width-mobile'
               : null,
         })}
@@ -158,7 +157,7 @@ export default class MjImage extends BodyComponent {
             <td ${this.htmlAttributes({
               style: 'td',
               class:
-                this.getAttribute('fluid-on-mobile') === 'true'
+                this.getAttribute('fluid-on-mobile')
                   ? 'full-width-mobile'
                   : null,
             })}>

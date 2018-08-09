@@ -33,6 +33,7 @@ class Component {
       content = '',
       context = {},
       props = {},
+      globalAttributes = {},
     } = initialDatas
 
     this.props = {
@@ -43,6 +44,7 @@ class Component {
 
     this.attributes = {
       ...this.constructor.defaultAttributes,
+      ...globalAttributes,
       ...attributes,
     }
     this.context = context
@@ -131,7 +133,7 @@ export class BodyComponent extends Component {
     return reduce(
       stylesObject,
       (output, value, name) => {
-        if (value) {
+        if (!isNil(value)) {
           return `${output}${name}:${value};`
         }
         return output

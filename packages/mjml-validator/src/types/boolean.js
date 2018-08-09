@@ -10,7 +10,7 @@ export default () =>
       this.matchers = [/^true$/i, /^false$/i]
     }
 
-    getValue() {
-      return !!this.value.match(/^true$/i)
+    isValid() {
+      return this.value === true || this.value === false
     }
   }

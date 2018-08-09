@@ -35,7 +35,6 @@ export default function skeleton(options) {
         <!--<![endif]-->
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        ${headRaw.filter(negate(isNil)).join('\n')}
         <style type="text/css">
           #outlook a { padding:0; }
           .ReadMsgBody { width:100%; }
@@ -84,6 +83,7 @@ export default function skeleton(options) {
         ${style && style.length > 0
           ? `<style type="text/css">${style.join('')}</style>`
           : ''}
+        ${headRaw.filter(negate(isNil)).join('\n')}
       </head>
       <body${backgroundColor === ''
         ? ''

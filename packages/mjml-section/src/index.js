@@ -294,7 +294,7 @@ export default class MjSection extends BodyComponent {
         ${this.htmlAttributes({
           align: 'center',
           class: this.getAttribute('css-class'),
-          // background: this.getAttribute('background-url'),
+          background: this.getAttribute('background-url'),
           border: '0',
           cellpadding: '0',
           cellspacing: '0',

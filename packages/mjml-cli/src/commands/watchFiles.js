@@ -38,12 +38,11 @@ export default (input, options) => {
       watched: flatMapAndJoin(watcher.getWatched()), // eslint-disable-line no-use-before-define
     }
 
-    watcher.add(
-      // eslint-disable-line no-use-before-define
+
+    watcher.add( // eslint-disable-line no-use-before-define
       difference(files.toWatch, files.watched),
     )
-    watcher.unwatch(
-      // eslint-disable-line no-use-before-define
+    watcher.unwatch( // eslint-disable-line no-use-before-define
       difference(files.watched, files.toWatch),
     )
   }
@@ -74,6 +73,7 @@ export default (input, options) => {
     .on('change', file => synchronyzeWatcher(path.resolve(file)))
     .on('add', file => {
       const filePath = path.resolve(file)
+
       const matchInputOption = input.reduce(
         (found, file) =>
           found || glob(path.resolve(file)).minimatch.match(filePath),

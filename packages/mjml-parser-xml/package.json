@@ -1,7 +1,7 @@
 {
   "name": "mjml-parser-xml",
   "description": "mjml-parser-xml",
-  "version": "4.0.4",
+  "version": "4.1.2",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -14,11 +14,18 @@
   "homepage": "https://mjml.io",
   "scripts": {
     "clean": "cross-env ../../node_modules/.bin/rimraf lib",
-    "build": "cross-env ../../node_modules/.bin/babel src --out-dir lib"
+    "build": "cross-env ../../node_modules/.bin/babel src --out-dir lib",
+    "test": "node ./test/test.js"
   },
   "dependencies": {
+    "babel-runtime": "^6.26.0",
     "cross-env": "^5.1.4",
     "htmlparser2": "^3.9.2",
     "lodash": "^4.17.2"
+  },
+  "devDependencies": {
+    "chai": "^4.1.1",
+    "mjml": "^4.1.2",
+    "mjml-core": "^4.1.2"
   }
 }

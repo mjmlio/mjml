@@ -1,6 +1,4 @@
 import { BodyComponent } from 'mjml-core'
-import url from 'url'
-
 import conditionalTag from 'mjml-core/lib/helpers/conditionalTag'
 
 export default class MjAccordionTitle extends BodyComponent {
@@ -9,7 +7,7 @@ export default class MjAccordionTitle extends BodyComponent {
   static allowedAttributes = {
     'background-color': 'color',
     color: 'color',
-    'font-size': 'unit(px,%)',
+    'font-size': 'unit(px)',
     'font-family': 'string',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
@@ -100,7 +98,7 @@ export default class MjAccordionTitle extends BodyComponent {
 
   render() {
     const contentElements = [this.renderTitle(), this.renderIcons()]
-    const content = (this.getAttribute('icon-position') == 'right'
+    const content = (this.getAttribute('icon-position') === 'right'
       ? contentElements
       : contentElements.reverse()
     ).join('\n')

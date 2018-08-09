@@ -26,7 +26,7 @@ export default class MjHero extends BodyComponent {
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
     'background-color': 'color',
-    'vertical-align': 'string',
+    'vertical-align': 'enum(top,bottom,middle)',
   }
 
   static defaultAttributes = {
@@ -126,6 +126,7 @@ export default class MjHero extends BodyComponent {
         height: this.getAttribute('background-height'),
         'mso-position-horizontal': 'center',
         position: 'absolute',
+        top: 0,
         width: this.getAttribute('background-width'),
         'z-index': '-3',
       },

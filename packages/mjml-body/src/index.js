@@ -1,4 +1,5 @@
 import { BodyComponent } from 'mjml-core'
+import conditionalTag from 'mjml-core/lib/helpers/conditionalTag'
 
 export default class MjBody extends BodyComponent {
   static allowedAttributes = {
@@ -22,6 +23,14 @@ export default class MjBody extends BodyComponent {
       div: {
         'background-color': this.getAttribute('background-color'),
       },
+      outlookTable: {
+        width: '100%',
+      },
+      outlookTd: {
+        'line-height': '0px',
+        'font-size': '0px',
+        'mso-line-height-rule': 'exactly',
+      },
     }
   }
 
@@ -36,7 +45,23 @@ export default class MjBody extends BodyComponent {
           style: 'div',
         })}
       >
-        ${this.renderChildren()}
+        ${conditionalTag(`
+          <table ${this.htmlAttributes({
+            border: '0',
+            cellpadding: '0',
+            cellspacing: '0',
+            role: 'presentation',
+            width: '100%',
+            style: 'outlookTable',
+            align: 'center',
+            bgcolor: this.getAttribute('background-color'),
+          })}>
+            <tr>
+              <td ${this.htmlAttributes({ style: 'outlookTd' })}>
+        `)}
+
+          ${this.renderChildren()}
+        ${conditionalTag('</td></tr></table>')}
       </div>
     `
   }

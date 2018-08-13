@@ -50,6 +50,10 @@ export default class MjImage extends BodyComponent {
     return {
       img: {
         border: this.getAttribute('border'),
+        'border-left': this.getAttribute('left'),
+        'border-right': this.getAttribute('right'),
+        'border-top': this.getAttribute('top'),
+        'border-bottom': this.getAttribute('bottom'),
         'border-radius': this.getAttribute('border-radius'),
         display: 'block',
         outline: 'none',
@@ -80,8 +84,9 @@ export default class MjImage extends BodyComponent {
 
     const paddingRight = this.getShorthandAttrValue('padding', 'right')
     const paddingLeft = this.getShorthandAttrValue('padding', 'left')
-    const border = this.getShorthandBorderValue()
-    const allPaddings = paddingLeft + paddingRight + border * 2
+    const borderRight = this.getShorthandBorderValue('right')
+    const borderLeft = this.getShorthandBorderValue('left')
+    const allPaddings = paddingLeft + paddingRight + borderRight + borderLeft
 
     return min([
       parseInt(containerWidth, 10) - allPaddings,

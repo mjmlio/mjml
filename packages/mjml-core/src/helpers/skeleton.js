@@ -1,4 +1,4 @@
-import { reduce } from 'lodash'
+import { reduce, negate, isNil } from 'lodash'
 import buildPreview from './preview'
 import { buildFontsTags } from './fonts'
 import buildMediaQueriesTags from './mediaQueries'
@@ -12,6 +12,7 @@ export default function skeleton(options) {
     mediaQueries = {},
     headStyle = [],
     componentsHeadStyle = {},
+    headRaw = [],
     preview,
     title = '',
     style,
@@ -82,6 +83,7 @@ export default function skeleton(options) {
         ${style && style.length > 0
           ? `<style type="text/css">${style.join('')}</style>`
           : ''}
+        ${headRaw.filter(negate(isNil)).join('\n')}
       </head>
       <body${backgroundColor === ''
         ? ''

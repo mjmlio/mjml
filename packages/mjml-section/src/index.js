@@ -45,13 +45,19 @@ export default class MjSection extends BodyComponent {
       this.getShorthandAttrValue('padding', 'left') +
       this.getShorthandAttrValue('padding', 'right')
 
+    const border =
+      this.getShorthandBorderValue('right') +
+      this.getShorthandBorderValue('left')
+
+    const allPaddings = paddingSize + border
+
     const { parsedWidth } = widthParser(containerWidth, {
       parseFloatToInt: false,
     })
 
     return {
       ...this.context,
-      containerWidth: `${parsedWidth - paddingSize}px`,
+      containerWidth: `${parsedWidth - allPaddings}px`,
     }
   }
 

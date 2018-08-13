@@ -34,6 +34,12 @@ export default class MjColumn extends BodyComponent {
     const paddingSize =
       this.getShorthandAttrValue('padding', 'left') +
       this.getShorthandAttrValue('padding', 'right')
+      
+    const border =
+      this.getShorthandBorderValue('right') +
+      this.getShorthandBorderValue('left')
+
+    const allPaddings = paddingSize + border
 
     let containerWidth =
       this.getAttribute('width') ||
@@ -45,9 +51,9 @@ export default class MjColumn extends BodyComponent {
 
     if (unit === '%') {
       containerWidth = `${parseFloat(parentWidth) * parsedWidth / 100 -
-        paddingSize}px`
+        allPaddings}px`
     } else {
-      containerWidth = `${parsedWidth - paddingSize}px`
+      containerWidth = `${parsedWidth - allPaddings}px`
     }
 
     return {

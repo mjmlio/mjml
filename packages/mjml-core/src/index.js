@@ -80,6 +80,7 @@ export default function mjml2html(mjml, options = {}) {
     inlineStyle: [],
     headStyle: {},
     componentsHeadStyle: [],
+    headRaw: [],
     mediaQueries: {},
     preview: '',
     style: [],
@@ -120,7 +121,7 @@ export default function mjml2html(mjml, options = {}) {
 
   const processing = (node, context, parseMJML = identity) => {
     if (!node) {
-      return
+      return null
     }
 
     const component = initComponent({
@@ -133,13 +134,14 @@ export default function mjml2html(mjml, options = {}) {
 
     if (component !== null) {
       if ('handler' in component) {
-        component.handler()
+        return component.handler()
       }
 
       if ('render' in component) {
-        return component.render() // eslint-disable-line consistent-return
+        return component.render()
       }
     }
+    return null
   }
 
   const applyAttributes = mjml => {
@@ -179,11 +181,13 @@ export default function mjml2html(mjml, options = {}) {
       return {
         ...mjml,
         attributes: {
-          ...globalDatas.defaultAttributes['mj-all'],
           ...globalDatas.defaultAttributes[tagName],
           ...attributesClasses,
           ...defaultAttributesForClasses,
           ...omit(attributes, ['mj-class']),
+        },
+        globalAttributes: {
+          ...globalDatas.defaultAttributes['mj-all'],
         },
         children: map(children, mjml => parse(mjml, nextParentMjClass)),
       }
@@ -239,7 +243,7 @@ export default function mjml2html(mjml, options = {}) {
     },
   }
 
-  processing(mjHead, headHelpers)
+  globalDatas.headRaw = processing(mjHead, headHelpers)
 
   content = processing(mjBody, bodyHelpers, applyAttributes)
 

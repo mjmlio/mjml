@@ -58,6 +58,8 @@ argument | description | default value
 `mjml [input] --config.beautify` | Beautifies the output (`true` or `false`) | true
 `mjml [input] --config.minify` | Minifies the output (`true` or `false`) | false
 `mjml [input] --config.configPath [mjmlconfigPath]` | Uses the `.mjmlconfig` file in the specified path or directory to include custom components | *The `.mjmlconfig` file in the current working directory, if any*
+`mjml [input] --config.validationLevel` | [Validation level](https://github.com/mjmlio/mjml/tree/master/packages/mjml-validator#validating-mjml): 'strict', 'soft' or 'skip' | 'soft'
+
 
 ## Inside Node.js
 

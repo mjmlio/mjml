@@ -67,7 +67,7 @@ class Component {
       mjml = MJMLParser(mjml, {
         ...options,
         components,
-        ignoreInclude: true,
+        ignoreIncludes: true,
       })
     }
 

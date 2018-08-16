@@ -77,6 +77,11 @@ container-background-color  | color       | inner element background color      
 This component enables you to display a given social network inside `mj-social`.  
 Note that default icons are transparent, which allows `background-color` to actually be the icon color.
 
+When using a named network (see list in the table below), the `href` attribute will be inserted in a share url (i.e. `https://www.facebook.com/sharer/sharer.php?u=[[URL]]`). To keep your `href` unchanged, add `-noshare` to the network name. Example :
+```
+<mj-social-element name="twitter-noshare" href="my-unchanged-url">Twitter</mj-social-element>
+```
+
 attribute                   | unit        | description                   | default value
 ----------------------------|-------------|-------------------------------|---------------------------
 border-radius               | px          | border radius                 | 3px

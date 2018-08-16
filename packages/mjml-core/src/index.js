@@ -1,6 +1,5 @@
 import { find, get, identity, map, omit, reduce, isObject } from 'lodash'
 import path from 'path'
-import fs from 'fs'
 import juice from 'juice'
 import { html as htmlBeautify } from 'js-beautify'
 import { minify as htmlMinify } from 'html-minifier'
@@ -15,6 +14,8 @@ import suffixCssClasses from './helpers/suffixCssClasses'
 import mergeOutlookConditionnals from './helpers/mergeOutlookConditionnals'
 import minifyOutlookConditionnals from './helpers/minifyOutlookConditionnals'
 import defaultSkeleton from './helpers/skeleton'
+
+import handleMjmlConfig from './helpers/mjmlconfig'
 
 class ValidationError extends Error {
   constructor(message, errors) {
@@ -58,7 +59,7 @@ export default function mjml2html(mjml, options = {}) {
   } = options
 
   // if mjmlConfigPath is specified then we need to handle it on each call
-  if (mjmlConfigPath) handleMjmlConfig(mjmlConfigPath) // eslint-disable-line no-use-before-define
+  if (mjmlConfigPath) handleMjmlConfig(mjmlConfigPath, registerComponent)
 
   if (typeof mjml === 'string') {
     mjml = MJMLParser(mjml, {
@@ -80,6 +81,7 @@ export default function mjml2html(mjml, options = {}) {
     inlineStyle: [],
     headStyle: {},
     componentsHeadStyle: [],
+    headRaw: [],
     mediaQueries: {},
     preview: '',
     style: [],
@@ -133,11 +135,11 @@ export default function mjml2html(mjml, options = {}) {
 
     if (component !== null) {
       if ('handler' in component) {
-        component.handler()
+        return component.handler()
       }
 
       if ('render' in component) {
-        return component.render() // eslint-disable-line consistent-return
+        return component.render()
       }
     }
   }
@@ -179,11 +181,13 @@ export default function mjml2html(mjml, options = {}) {
       return {
         ...mjml,
         attributes: {
-          ...globalDatas.defaultAttributes['mj-all'],
           ...globalDatas.defaultAttributes[tagName],
           ...attributesClasses,
           ...defaultAttributesForClasses,
           ...omit(attributes, ['mj-class']),
+        },
+        globalAttributes: {
+          ...globalDatas.defaultAttributes['mj-all'],
         },
         children: map(children, mjml => parse(mjml, nextParentMjClass)),
       }
@@ -239,7 +243,7 @@ export default function mjml2html(mjml, options = {}) {
     },
   }
 
-  processing(mjHead, headHelpers)
+  globalDatas.headRaw = processing(mjHead, headHelpers)
 
   content = processing(mjBody, bodyHelpers, applyAttributes)
 
@@ -287,40 +291,7 @@ export default function mjml2html(mjml, options = {}) {
   }
 }
 
-// register components from mjmlconfig
-const handleMjmlConfig = (mjmlConfigPath) => {
-  const res = {
-    result: null,
-    error: null,
-  }
-  let customComps
-
-  try {
-    const configPath = mjmlConfigPath || path.join(process.cwd(), '.mjmlconfig')
-    const mjmlConfig = fs.readFileSync(configPath)
-    customComps = JSON.parse(mjmlConfig).packages
-
-    customComps.forEach(compPath => {
-      const requiredComp = require(path.join(configPath.replace(/\.mjmlconfig$/, ''), compPath)) // eslint-disable-line global-require, import/no-dynamic-require
-      const requirableComp = requiredComp.default || requiredComp
-      registerComponent(requirableComp)
-      registerDependencies(requirableComp.dependencies)
-    })
-
-    res.result = `${customComps.length} component(s) successfully registered`
-  } catch (e) {
-    if (e.code === 'ENOENT') {
-      res.error = 'ENOENT'
-    } else {
-      console.log('Error when registering custom components : ', e) // eslint-disable-line no-console
-      res.error = e
-    }
-  }
-
-  return res
-}
-
-handleMjmlConfig()
+handleMjmlConfig(process.cwd(), registerComponent)
 
 export { components, initComponent, registerComponent, suffixCssClasses, handleMjmlConfig }
 

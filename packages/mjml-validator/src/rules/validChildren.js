@@ -5,16 +5,12 @@ import keys from 'lodash/keys'
 import dependencies from '../dependencies'
 import ruleError from './ruleError'
 
-export default function validChildren(element, { components }) {
+export default function validChildren(element, { components, skipElements }) {
   const { children, tagName } = element
 
   const Component = components[tagName]
 
-  if (!Component) {
-    return null
-  }
-
-  if (!children || children.length === 0) {
+  if (!Component || !children || !children.length) {
     return null
   }
 
@@ -24,15 +20,10 @@ export default function validChildren(element, { components }) {
       const ChildComponent = components[childTagName]
       const parentDependencies = dependencies[tagName] || []
 
-      if (!ChildComponent) {
-        return null
-      }
-
-      if (includes(parentDependencies, childTagName)) {
-        return null
-      }
-
       if (
+        !ChildComponent ||
+        skipElements.includes(childTagName) ||
+        includes(parentDependencies, childTagName) ||
         parentDependencies.some(
           dep => dep instanceof RegExp && dep.test(childTagName),
         )

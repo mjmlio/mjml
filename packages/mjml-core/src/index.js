@@ -1,6 +1,5 @@
 import { find, get, identity, map, omit, reduce, isObject } from 'lodash'
 import path from 'path'
-import fs from 'fs'
 import juice from 'juice'
 import { html as htmlBeautify } from 'js-beautify'
 import { minify as htmlMinify } from 'html-minifier'
@@ -15,6 +14,8 @@ import suffixCssClasses from './helpers/suffixCssClasses'
 import mergeOutlookConditionnals from './helpers/mergeOutlookConditionnals'
 import minifyOutlookConditionnals from './helpers/minifyOutlookConditionnals'
 import defaultSkeleton from './helpers/skeleton'
+
+import registerCustomComponents from './helpers/mjmlconfig'
 
 class ValidationError extends Error {
   constructor(message, errors) {
@@ -54,7 +55,10 @@ export default function mjml2html(mjml, options = {}) {
     skeleton = defaultSkeleton,
     validationLevel = 'soft',
     filePath = '.',
+    configPath = process.cwd(),
   } = options
+
+  registerCustomComponents(configPath, registerComponent)
 
   if (typeof mjml === 'string') {
     mjml = MJMLParser(mjml, {
@@ -284,21 +288,6 @@ export default function mjml2html(mjml, options = {}) {
   return {
     html: content,
     errors,
-  }
-}
-
-// register components from mjmlconfig
-try {
-  const mjmlConfig = fs.readFileSync(path.join(process.cwd(), '.mjmlconfig'))
-  const customComps = JSON.parse(mjmlConfig).packages
-
-  customComps.forEach(compPath => {
-    const requiredComp = require(path.join(process.cwd(), compPath)) // eslint-disable-line global-require, import/no-dynamic-require
-    registerComponent(requiredComp.default || requiredComp)
-  })
-} catch (e) {
-  if (e.code !== 'ENOENT') {
-    console.log('Error when registering custom components : ', e) // eslint-disable-line no-console
   }
 }
 

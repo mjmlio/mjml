@@ -5,7 +5,7 @@ import { html as htmlBeautify } from 'js-beautify'
 import { minify as htmlMinify } from 'html-minifier'
 
 import MJMLParser from 'mjml-parser-xml'
-import MJMLValidator, { registerDependencies } from 'mjml-validator'
+import MJMLValidator from 'mjml-validator'
 import { handleMjml3 } from 'mjml-migrate'
 
 import components, { initComponent, registerComponent } from './components'
@@ -135,11 +135,11 @@ export default function mjml2html(mjml, options = {}) {
 
     if (component !== null) {
       if ('handler' in component) {
-        return component.handler()
+        return component.handler() // eslint-disable-line consistent-return
       }
 
       if ('render' in component) {
-        return component.render()
+        return component.render() // eslint-disable-line consistent-return
       }
     }
   }

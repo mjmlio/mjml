@@ -1,5 +1,6 @@
 import path from 'path'
 import fs from 'fs'
+import { registerDependencies } from 'mjml-validator'
 
 import { registerComponent } from '../components'
 
@@ -64,7 +65,7 @@ export default function handleMjmlConfig(configPathOrDir = process.cwd(), regist
 
   const result = {
     success: [],
-    failures: []
+    failures: [],
   }
 
   packages.forEach(compPath => {
@@ -74,6 +75,7 @@ export default function handleMjmlConfig(configPathOrDir = process.cwd(), regist
       if (resolvedPath) {
         const requiredComp = require(resolvedPath) // eslint-disable-line global-require, import/no-dynamic-require
         registerCustomComponent(requiredComp.default || requiredComp, registerCompFn)
+        registerDependencies((requiredComp.default || requiredComp).dependencies)
         result.success.push(compPath)
       }
     } catch (e) {

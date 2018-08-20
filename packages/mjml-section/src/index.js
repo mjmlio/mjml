@@ -1,8 +1,6 @@
 import { BodyComponent, suffixCssClasses } from 'mjml-core'
 import { flow, identity, join, filter } from 'lodash/fp'
 
-import widthParser from 'mjml-core/lib/helpers/widthParser'
-
 const makeBackgroundString = flow(filter(identity), join(' '))
 export default class MjSection extends BodyComponent {
   static allowedAttributes = {
@@ -39,25 +37,11 @@ export default class MjSection extends BodyComponent {
   }
 
   getChildContext() {
-    const { containerWidth } = this.context
-
-    const paddingSize =
-      this.getShorthandAttrValue('padding', 'left') +
-      this.getShorthandAttrValue('padding', 'right')
-
-    const border =
-      this.getShorthandBorderValue('right') +
-      this.getShorthandBorderValue('left')
-
-    const allPaddings = paddingSize + border
-
-    const { parsedWidth } = widthParser(containerWidth, {
-      parseFloatToInt: false,
-    })
+    const { box } = this.getBoxWidths()
 
     return {
       ...this.context,
-      containerWidth: `${parsedWidth - allPaddings}px`,
+      containerWidth: `${box}px`,
     }
   }
 

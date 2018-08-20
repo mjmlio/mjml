@@ -102,7 +102,27 @@ export class BodyComponent extends Component {
     const borderDirection = direction && this.getAttribute(`border-${direction}`)
     const border = this.getAttribute('border')
 
-    return borderParser(borderDirection || border || 0, 10)
+    return borderParser(borderDirection || border || '0', 10)
+  }
+
+  getBoxWidths() {
+    const { containerWidth } = this.context
+    const parsedWidth = parseInt(containerWidth, 10)
+
+    const paddings =
+      this.getShorthandAttrValue('padding', 'right') +
+      this.getShorthandAttrValue('padding', 'left')
+
+    const borders =
+      this.getShorthandBorderValue('right') +
+      this.getShorthandBorderValue('left')
+
+    return {
+      totalWidth: parsedWidth,
+      borders,
+      paddings,
+      box: parsedWidth - paddings - borders,
+    }
   }
 
   htmlAttributes(attributes) {

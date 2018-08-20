@@ -77,21 +77,13 @@ export default class MjImage extends BodyComponent {
   }
 
   getContentWidth() {
-    const { containerWidth } = this.context
     const width = this.getAttribute('width')
                 ? parseInt(this.getAttribute('width'), 10)
                 : Infinity
 
-    const paddingRight = this.getShorthandAttrValue('padding', 'right')
-    const paddingLeft = this.getShorthandAttrValue('padding', 'left')
-    const borderRight = this.getShorthandBorderValue('right')
-    const borderLeft = this.getShorthandBorderValue('left')
-    const allPaddings = paddingLeft + paddingRight + borderRight + borderLeft
+    const { box } = this.getBoxWidths()
 
-    return min([
-      parseInt(containerWidth, 10) - allPaddings,
-      width,
-    ])
+    return min([ box, width ])
   }
 
   renderImage() {

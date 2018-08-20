@@ -28,18 +28,10 @@ export default class MjColumn extends BodyComponent {
 
   getChildContext() {
     const { containerWidth: parentWidth } = this.context
-
     const { nonRawSiblings } = this.props
+    const { borders, paddings } = this.getBoxWidths()
 
-    const paddingSize =
-      this.getShorthandAttrValue('padding', 'left') +
-      this.getShorthandAttrValue('padding', 'right')
-      
-    const border =
-      this.getShorthandBorderValue('right') +
-      this.getShorthandBorderValue('left')
-
-    const allPaddings = paddingSize + border
+    const allPaddings = paddings + borders
 
     let containerWidth =
       this.getAttribute('width') ||

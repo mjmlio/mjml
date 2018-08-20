@@ -1,9 +1,8 @@
 import { compact, map } from 'lodash'
 
-import { initializeType } from '../types/type'
 import ruleError from './ruleError'
 
-export default function validateType(element, { components }) {
+export default function validateType(element, { components, initializeType }) {
   const { attributes, tagName } = element
 
   const Component = components[tagName]

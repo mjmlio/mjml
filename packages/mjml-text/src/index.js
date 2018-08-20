@@ -6,7 +6,7 @@ export default class MjText extends BodyComponent {
   static endingTag = true
 
   static allowedAttributes = {
-    align: 'enum(left,right,center)',
+    align: 'enum(left,right,center,justify)',
     'background-color': 'color',
     color: 'color',
     'container-background-color': 'color',

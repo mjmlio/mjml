@@ -20,7 +20,9 @@ export default class MjSpacer extends BodyComponent {
     height: 'unit(px,%)',
   }
 
-  static defaultAttributes = {}
+  static defaultAttributes = {
+    height: '20px',
+  }
 
   getStyles() {
     return {

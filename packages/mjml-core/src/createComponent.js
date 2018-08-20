@@ -34,6 +34,7 @@ class Component {
       content = '',
       context = {},
       props = {},
+      globalAttributes = {},
     } = initialDatas
 
     this.props = {
@@ -44,6 +45,7 @@ class Component {
 
     this.attributes = formatAttributes({
       ...this.constructor.defaultAttributes,
+      ...globalAttributes,
       ...attributes,
     }, this.constructor.allowedAttributes)
     this.context = context
@@ -132,7 +134,7 @@ export class BodyComponent extends Component {
     return reduce(
       stylesObject,
       (output, value, name) => {
-        if (value) {
+        if (!isNil(value)) {
           return `${output}${name}:${value};`
         }
         return output
@@ -205,7 +207,7 @@ export class HeadComponent extends Component {
   handlerChildren() {
     const childrens = this.props.children
 
-    forEach(childrens, children => {
+    return childrens.map(children => {
       const component = initComponent({
         name: children.tagName,
         initialDatas: {
@@ -217,12 +219,17 @@ export class HeadComponent extends Component {
       if (!component) {
         // eslint-disable-next-line no-console
         console.log(`No matching component for tag : ${children.tagName}`)
-        return
+        return null
       }
 
       if (component.handler) {
         component.handler()
       }
+
+      if (component.render) {
+        return component.render()
+      }
+      return null
     })
   }
 }

@@ -15,7 +15,7 @@ import mergeOutlookConditionnals from './helpers/mergeOutlookConditionnals'
 import minifyOutlookConditionnals from './helpers/minifyOutlookConditionnals'
 import defaultSkeleton from './helpers/skeleton'
 
-import registerCustomComponents from './helpers/mjmlconfig'
+import handleMjmlConfig from './helpers/mjmlconfig'
 
 class ValidationError extends Error {
   constructor(message, errors) {
@@ -55,10 +55,11 @@ export default function mjml2html(mjml, options = {}) {
     skeleton = defaultSkeleton,
     validationLevel = 'soft',
     filePath = '.',
-    configPath = process.cwd(),
+    mjmlConfigPath = null,
   } = options
 
-  registerCustomComponents(configPath, registerComponent)
+  // if mjmlConfigPath is specified then we need to handle it on each call
+  if (mjmlConfigPath) handleMjmlConfig(mjmlConfigPath, registerComponent)
 
   if (typeof mjml === 'string') {
     mjml = MJMLParser(mjml, {
@@ -121,7 +122,7 @@ export default function mjml2html(mjml, options = {}) {
 
   const processing = (node, context, parseMJML = identity) => {
     if (!node) {
-      return null
+      return
     }
 
     const component = initComponent({
@@ -134,14 +135,13 @@ export default function mjml2html(mjml, options = {}) {
 
     if (component !== null) {
       if ('handler' in component) {
-        return component.handler()
+        return component.handler() // eslint-disable-line consistent-return
       }
 
       if ('render' in component) {
-        return component.render()
+        return component.render() // eslint-disable-line consistent-return
       }
     }
-    return null
   }
 
   const applyAttributes = mjml => {
@@ -291,6 +291,8 @@ export default function mjml2html(mjml, options = {}) {
   }
 }
 
-export { components, initComponent, registerComponent, suffixCssClasses }
+handleMjmlConfig(process.cwd(), registerComponent)
+
+export { components, initComponent, registerComponent, suffixCssClasses, handleMjmlConfig }
 
 export { BodyComponent, HeadComponent } from './createComponent'

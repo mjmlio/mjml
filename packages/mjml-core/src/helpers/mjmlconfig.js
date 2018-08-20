@@ -1,5 +1,6 @@
 import path from 'path'
 import fs from 'fs'
+import { registerDependencies } from 'mjml-validator'
 
 import { registerComponent } from '../components'
 
@@ -17,7 +18,7 @@ export function readMjmlConfig(configPathOrDir = process.cwd()) {
     if (e.code !== 'ENOENT') {
       console.log('Error reading mjmlconfig : ', e) // eslint-disable-line no-console
     }
-    return { mjmlConfig: { packages: [] }, mjmlConfigPath, componentRootPath }
+    return { mjmlConfig: { packages: [] }, mjmlConfigPath, componentRootPath, error: e }
   }
 }
 
@@ -58,8 +59,15 @@ export function registerCustomComponent(comp, registerCompFn = registerComponent
   }
 }
 
-export default function registerCustomComponents(configPathOrDir = process.cwd(), registerCompFn = registerComponent) {
-  const { mjmlConfig: { packages }, componentRootPath } = readMjmlConfig(configPathOrDir)
+export default function handleMjmlConfig(configPathOrDir = process.cwd(), registerCompFn = registerComponent) {
+  const { mjmlConfig: { packages }, componentRootPath, error } = readMjmlConfig(configPathOrDir)
+  if (error) return { error }
+
+  const result = {
+    success: [],
+    failures: [],
+  }
+
   packages.forEach(compPath => {
     let resolvedPath = compPath
     try {
@@ -67,13 +75,18 @@ export default function registerCustomComponents(configPathOrDir = process.cwd()
       if (resolvedPath) {
         const requiredComp = require(resolvedPath) // eslint-disable-line global-require, import/no-dynamic-require
         registerCustomComponent(requiredComp.default || requiredComp, registerCompFn)
+        registerDependencies((requiredComp.default || requiredComp).dependencies)
+        result.success.push(compPath)
       }
     } catch (e) {
-      if (e.code === 'ENOENT' || e.code !== 'MODULE_NOT_FOUND') {
+      result.failures.push({ error: e, compPath })
+      if (e.code === 'ENOENT' || e.code === 'MODULE_NOT_FOUND') {
         console.log('Missing or unreadable custom component : ', resolvedPath) // eslint-disable-line no-console
       } else {
         console.log('Error when registering custom component : ', resolvedPath, e) // eslint-disable-line no-console
       }
     }
   })
+
+  return result
 }

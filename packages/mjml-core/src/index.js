@@ -14,6 +14,7 @@ import suffixCssClasses from './helpers/suffixCssClasses'
 import mergeOutlookConditionnals from './helpers/mergeOutlookConditionnals'
 import minifyOutlookConditionnals from './helpers/minifyOutlookConditionnals'
 import defaultSkeleton from './helpers/skeleton'
+import { initializeType } from './types/type'
 
 import handleMjmlConfig from './helpers/mjmlconfig'
 
@@ -92,6 +93,7 @@ export default function mjml2html(mjml, options = {}) {
 
   const validatorOptions = {
     components,
+    initializeType,
   }
 
   switch (validationLevel) {

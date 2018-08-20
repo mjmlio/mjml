@@ -22,7 +22,7 @@ export default function validChildren(element, { components, skipElements }) {
 
       if (
         !ChildComponent ||
-        skipElements.includes(childTagName) ||
+        includes(skipElements, childTagName) ||
         includes(parentDependencies, childTagName) ||
         parentDependencies.some(
           dep => dep instanceof RegExp && dep.test(childTagName),

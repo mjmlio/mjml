@@ -1,5 +1,5 @@
 const chai = require('chai')
-const jsonToXml = require('../lib/helpers/jsonToXml')
+const jsonToXml = require('../lib/helpers/jsonToXML')
 
 const json = {
   line: 1,
@@ -39,5 +39,5 @@ const xml = jsonToXml(json)
 
 const validXml = '<mjml><mj-body><mj-section><mj-column><mj-text font-size="20px" color="#F45E43" font-family="helvetica">Hello World</mj-text></mj-column></mj-section></mj-body></mjml>'
 
-chai.expect(xml, 'jsonToXml test failed')
+chai.expect(xml, 'jsonToXML test failed')
     .to.equal(validXml)

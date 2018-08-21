@@ -12,6 +12,7 @@ import {
 import MJMLParser from 'mjml-parser-xml'
 
 import shorthandParser, { borderParser } from './helpers/shorthandParser'
+import formatAttributes from './helpers/formatAttributes'
 import jsonToXML from './helpers/jsonToXML'
 
 import components, { initComponent } from './components'
@@ -42,11 +43,11 @@ class Component {
       content,
     }
 
-    this.attributes = {
+    this.attributes = formatAttributes({
       ...this.constructor.defaultAttributes,
       ...globalAttributes,
       ...attributes,
-    }
+    }, this.constructor.allowedAttributes)
     this.context = context
 
     return this
@@ -233,7 +234,7 @@ export class HeadComponent extends Component {
   handlerChildren() {
     const childrens = this.props.children
 
-    forEach(childrens, children => {
+    return childrens.map(children => {
       const component = initComponent({
         name: children.tagName,
         initialDatas: {
@@ -245,12 +246,17 @@ export class HeadComponent extends Component {
       if (!component) {
         // eslint-disable-next-line no-console
         console.log(`No matching component for tag : ${children.tagName}`)
-        return
+        return null
       }
 
       if (component.handler) {
         component.handler()
       }
+
+      if (component.render) {
+        return component.render()
+      }
+      return null
     })
   }
 }

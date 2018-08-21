@@ -1,6 +1,5 @@
 import warning from 'warning'
 import { mapKeys } from 'lodash'
-import { components } from 'mjml-core'
 
 import * as rules from './rules'
 
@@ -23,6 +22,6 @@ export function registerRule(rule, name) {
   return true
 }
 
-mapKeys(rules, (func, name) => registerRule(func, name, { components }))
+mapKeys(rules, (func, name) => registerRule(func, name))
 
 export default MJMLRulesCollection

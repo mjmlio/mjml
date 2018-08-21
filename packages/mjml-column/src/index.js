@@ -190,7 +190,6 @@ export default class MjColumn extends BodyComponent {
     return `
       <table
         ${this.htmlAttributes({
-          background: this.getAttribute('background-color'),
           border: '0',
           cellpadding: '0',
           cellspacing: '0',

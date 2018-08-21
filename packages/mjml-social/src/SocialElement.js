@@ -1,5 +1,5 @@
 import { BodyComponent } from 'mjml-core'
-import { get } from 'lodash'
+import { get, each } from 'lodash'
 
 const defaultSocialNetworks = {
   facebook: {
@@ -39,6 +39,13 @@ const defaultSocialNetworks = {
       'https://www.mailjet.com/images/theme/v1/icons/ico-social/instagram.png',
   },
 }
+
+each(defaultSocialNetworks, (val, key) => {
+  defaultSocialNetworks[`${key}-noshare`] = {
+    ...val,
+    'share-url': '[[URL]]',
+  }
+})
 
 export default class MjSocialElement extends BodyComponent {
   static endingTag = true

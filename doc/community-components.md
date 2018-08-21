@@ -10,7 +10,7 @@ To use a community component, proceed as follows:
 ```
 {
   "packages": [
-    "./node_modules/component-name/path-to-js-file"
+    "component-name/path-to-js-file"
   ]
 }
 ```

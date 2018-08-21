@@ -34,7 +34,7 @@ export default async () => {
     console.log('\nCommand line error:') // eslint-disable-line no-console
     console.error(msg) // eslint-disable-line no-console
 
-    return process.exit(1)
+    process.exit(1)
   }
 
   const pickArgs = args =>
@@ -196,7 +196,8 @@ export default async () => {
       error('Validation failed')
       return
     }
-    process.exit(0)
+    process.exitCode = 0
+    return
   }
 
   if (!KEEP_OPEN && convertedStream.length === 0) {
@@ -220,7 +221,7 @@ export default async () => {
       Promise.all(convertedStream.map(outputToFile(argv.o)))
         .then(() => {
           if (!KEEP_OPEN) {
-            process.exit(EXIT_CODE)
+            process.exitCode = EXIT_CODE
           }
         })
         .catch(({ outputName, err }) => {
@@ -232,8 +233,8 @@ export default async () => {
     }
     case 's': {
       Promise.all(convertedStream.map(outputToConsole))
-        .then(() => process.exit(EXIT_CODE))
-        .catch(() => process.exit(1))
+        .then(() => process.exitCode = EXIT_CODE) // eslint-disable-line no-return-assign
+        .catch(() => process.exitCode = 1) // eslint-disable-line no-return-assign
       break
     }
     default:

@@ -9,6 +9,7 @@ export default class MjHero extends BodyComponent {
   static allowedAttributes = {
     mode: 'string',
     height: 'unit(px,%)',
+    width: 'unit(px,%)',
     'background-url': 'string',
     'background-width': 'unit(px,%)',
     'background-height': 'unit(px,%)',

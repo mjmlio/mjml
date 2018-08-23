@@ -50,13 +50,17 @@ export default class MjImage extends BodyComponent {
     return {
       img: {
         border: this.getAttribute('border'),
+        'border-left': this.getAttribute('left'),
+        'border-right': this.getAttribute('right'),
+        'border-top': this.getAttribute('top'),
+        'border-bottom': this.getAttribute('bottom'),
         'border-radius': this.getAttribute('border-radius'),
         display: 'block',
         outline: 'none',
         'text-decoration': 'none',
         height: this.getAttribute('height'),
         'min-width': fullWidth ? '100%' : null,
-        width: fullWidth ? `${parsedWidth}${unit}` : '100%',
+        width: `${width}px`,
         'max-width': fullWidth ? '100%' : null,
       },
       td: {
@@ -73,27 +77,13 @@ export default class MjImage extends BodyComponent {
   }
 
   getContentWidth() {
-    const { containerWidth } = this.context
-
     const width = this.getAttribute('width')
-      ? min([
-          parseInt(this.getAttribute('width'), 10),
-          parseInt(containerWidth, 10),
-        ])
-      : parseInt(containerWidth, 10)
+                ? parseInt(this.getAttribute('width'), 10)
+                : Infinity
 
-    const paddingRight = this.getShorthandAttrValue('padding', 'right')
-    const paddingLeft = this.getShorthandAttrValue('padding', 'left')
+    const { box } = this.getBoxWidths()
 
-    const widthOverflow =
-      paddingLeft +
-      paddingRight +
-      parseFloat(width) -
-      parseInt(containerWidth, 10)
-
-    return widthOverflow > 0
-      ? parseFloat(width - widthOverflow)
-      : parseFloat(width)
+    return min([ box, width ])
   }
 
   renderImage() {

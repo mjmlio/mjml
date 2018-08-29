@@ -1,5 +1,5 @@
 const chai = require('chai')
-const shorthandParser = require('../lib/helpers/shorthandParser')
+const shorthandParser = require('../lib/helpers/shorthandParser').default
 
 const testValues = [
   {

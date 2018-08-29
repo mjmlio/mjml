@@ -12,6 +12,7 @@ export default class MjNavbarLink extends BodyComponent {
     'font-size': 'unit(px)',
     'font-weight': 'string',
     href: 'string',
+    name: 'string',
     target: 'string',
     rel: 'string',
     'line-height': 'unit(px,%)',
@@ -79,6 +80,7 @@ export default class MjNavbarLink extends BodyComponent {
           href: link,
           rel: this.getAttribute('rel'),
           target: this.getAttribute('target'),
+          name: this.getAttribute('name'),
           style: 'a',
         })}
       >

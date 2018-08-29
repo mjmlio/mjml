@@ -10,6 +10,7 @@ export default class MjImage extends BodyComponent {
   static allowedAttributes = {
     alt: 'string',
     href: 'string',
+    name: 'string',
     src: 'string',
     srcset: 'string',
     title: 'string',
@@ -110,6 +111,7 @@ export default class MjImage extends BodyComponent {
             href: this.getAttribute('href'),
             target: this.getAttribute('target'),
             rel: this.getAttribute('rel'),
+            name: this.getAttribute('name'),
           })}
         >
           ${img}

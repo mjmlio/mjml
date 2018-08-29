@@ -79,6 +79,7 @@ align                       | string      | left/right/center             | cent
 color                       | color       | text color                    | #333333
 name                        | string      | social network name, see supported list below | N/A
 src                         | url         | image source                  | Each social `name` has its own default
+alt                         | string      | image alt attribute           | none
 padding                     | px          | supports up to 4 parameters                       | 10px 25px
 padding-top                 | px          | top offset                         | n/a
 padding-bottom              | px          | bottom offset                    | n/a

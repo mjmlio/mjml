@@ -11,7 +11,7 @@ import {
 
 import MJMLParser from 'mjml-parser-xml'
 
-import shorthandParser from './helpers/shorthandParser'
+import shorthandParser, { borderParser } from './helpers/shorthandParser'
 import formatAttributes from './helpers/formatAttributes'
 import jsonToXML from './helpers/jsonToXML'
 
@@ -70,7 +70,7 @@ class Component {
       mjml = MJMLParser(mjml, {
         ...options,
         components,
-        ignoreInclude: true,
+        ignoreIncludes: true,
       })
     }
 
@@ -97,6 +97,33 @@ export class BodyComponent extends Component {
     }
 
     return shorthandParser(mjAttribute, direction)
+  }
+
+  getShorthandBorderValue(direction) {
+    const borderDirection = direction && this.getAttribute(`border-${direction}`)
+    const border = this.getAttribute('border')
+
+    return borderParser(borderDirection || border || '0', 10)
+  }
+
+  getBoxWidths() {
+    const { containerWidth } = this.context
+    const parsedWidth = parseInt(containerWidth, 10)
+
+    const paddings =
+      this.getShorthandAttrValue('padding', 'right') +
+      this.getShorthandAttrValue('padding', 'left')
+
+    const borders =
+      this.getShorthandBorderValue('right') +
+      this.getShorthandBorderValue('left')
+
+    return {
+      totalWidth: parsedWidth,
+      borders,
+      paddings,
+      box: parsedWidth - paddings - borders,
+    }
   }
 
   htmlAttributes(attributes) {

@@ -182,19 +182,3 @@ For the text part, you are going to need two `<mj-text>`s like above. One with a
 </mj-section>
 ```
 This section is a 3-columns-based section. Please notice you can make the padding vary to change the space around the images.
-
-
-## Social Icons
-
-``` html
-
-<mj-section background-color="#e7e7e7">
-  <mj-column>
-    <mj-social>
-      <mj-social-element name="facebook" />
-    </mj-social>
-  </mj-column>
-</mj-section>
-
-```
-The MJML standard components library comes with a `mj-social` component. By default, every social network is enabled. To disable some of them, just use their names as an attribute with a `false` value. Here, we're going to use `facebook` only.

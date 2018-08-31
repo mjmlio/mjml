@@ -74,7 +74,6 @@ icon-height                 | percent/px  | icon height, overrides icon-size | i
 line-height                 | percent/px  | space between lines           | 22px
 mode                        | string      | vertical/horizontal           | horizontal
 text-decoration             | string      | underline/overline/none       | none
-text-mode                   | string      | display social network name   | true
 align                       | string      | left/right/center             | center
 color                       | color       | text color                    | #333333
 name                        | string      | social network name, see supported list below | N/A

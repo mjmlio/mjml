@@ -85,37 +85,38 @@ padding-bottom              | px          | bottom offset                    | n
 padding-left                | px          | left offset                      | n/a
 padding-right               | px          | right offset                       | n/a
 
-Supported networks with a share url:
-- facebook
-- twitter
-- google
-- pinterest
-- linkedin
-- tumblr
-- xing
+Supported networks with a share url:  
+- facebook  
+- twitter  
+- google  
+- pinterest  
+- linkedin  
+- tumblr  
+- xing  
 
-Without a share url:
-- github
-- instagram
-- web
-- snapchat
-- youtube
-- vimeo
-- medium
-- soundcloud
-- dribbble
+Without a share url:  
+- github  
+- instagram  
+- web  
+- snapchat  
+- youtube  
+- vimeo  
+- medium  
+- soundcloud  
+- dribbble  
 
 When using a network with share url, the `href` attribute will be inserted in the share url (i.e. `https://www.facebook.com/sharer/sharer.php?u=[[URL]]`). To keep your `href` unchanged, add `-noshare` to the network name. Example :
-```
-<mj-social-element name="twitter-noshare" href="my-unchanged-url">Twitter</mj-social-element>
-```
 
-<aside class="notice">
-  You can add any unsupported network like this:
+`
+<mj-social-element name="twitter-noshare" href="my-unchanged-url">Twitter</mj-social-element>
+`
+
+### Custom Social Element
+
+You can add any unsupported network like this:
 
 ```xml
-    <mj-social-element href="url" background-color="#FF00FF" src="path-to-your-icon">
-      Optional label
-    </mj-social-element>
+<mj-social-element href="url" background-color="#FF00FF" src="path-to-your-icon">
+  Optional label
+</mj-social-element>
 ```
-</aside>

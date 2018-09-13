@@ -295,6 +295,6 @@ export default function mjml2html(mjml, options = {}) {
 
 handleMjmlConfig(process.cwd(), registerComponent)
 
-export { components, initComponent, registerComponent, suffixCssClasses, handleMjmlConfig }
+export { components, initComponent, registerComponent, suffixCssClasses, handleMjmlConfig, initializeType }
 
 export { BodyComponent, HeadComponent } from './createComponent'

@@ -26,10 +26,10 @@ mjml --validate template.mjml
 
 ## In Javascript
 
-In Javascript, you can provide the level through the `options` parameters on `mjml2html`. Ex: `mjml2html(inputMJML, { validationLevel: strict })`
+In Javascript, you can provide the level through the `options` parameters on `mjml2html`. Ex: `mjml2html(inputMJML, { validationLevel: 'strict' })`
 
-`strict` will raise a `MJMLValidationError` exception. This object has 2 methods:
-* `getErrors` returns an array of objects with `line`, `message`, `tagName` as well as a `formattedMessage` which contains the `line`, `message` and `tagName` concatenated in a sentence.
+`strict` will raise a `MJMLValidationError` exception. This object has 2 methods:  
+* `getErrors` returns an array of objects with `line`, `message`, `tagName` as well as a `formattedMessage` which contains the `line`, `message` and `tagName` concatenated in a sentence.  
 * `getMessages` returns an array of `formattedMessage`.
 
 When using `soft`, no exception will be raised. You can get the errors in the object returned by `mjml2html`. It is the same object returned by `getErrors` on strict mode.

@@ -61,7 +61,7 @@ export default class MjImage extends BodyComponent {
         'text-decoration': 'none',
         height: this.getAttribute('height'),
         'min-width': fullWidth ? '100%' : null,
-        width: `${width}px`,
+        width: '100%',
         'max-width': fullWidth ? '100%' : null,
       },
       td: {

@@ -309,7 +309,7 @@ export default class MjCarousel extends BodyComponent {
                 />
               </label>
             `,
-          )}
+          ).join('')}
         </div>
       </td>
     `

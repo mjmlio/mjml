@@ -71,8 +71,8 @@ export default class MjButton extends BodyComponent {
         cursor: 'auto',
         'font-style': this.getAttribute('font-style'),
         height: this.getAttribute('height'),
-        padding: this.getAttribute('inner-padding'),
         'text-align': this.getAttribute('text-align'),
+        padding: this.getAttribute('href') ? '0' : this.getAttribute('inner-padding'),
       },
       content: {
         background: this.getAttribute('background-color'),
@@ -82,9 +82,15 @@ export default class MjButton extends BodyComponent {
         'font-style': this.getAttribute('font-style'),
         'font-weight': this.getAttribute('font-weight'),
         'line-height': this.getAttribute('line-height'),
+        'border-radius': this.getAttribute('border-radius'),
+        'border': this.getAttribute('border') === 'none'
+          ? `1px solid ${this.getAttribute('background-color')}`
+          : 'none',
         Margin: '0',
         'text-decoration': this.getAttribute('text-decoration'),
         'text-transform': this.getAttribute('text-transform'),
+        padding: this.getAttribute('href') ? this.getAttribute('inner-padding') : '0',
+        'display': 'inline-block',
       },
     }
   }
@@ -95,34 +101,34 @@ export default class MjButton extends BodyComponent {
     return `
       <table
         ${this.htmlAttributes({
-          align: this.getAttribute('align'),
-          border: '0',
-          cellpadding: '0',
-          cellspacing: '0',
-          role: 'presentation',
-          style: 'table',
-        })}
+        align: this.getAttribute('align'),
+        border: '0',
+        cellpadding: '0',
+        cellspacing: '0',
+        role: 'presentation',
+        style: 'table',
+      })}
       >
         <tr>
           <td
             ${this.htmlAttributes({
-              align: 'center',
-              bgcolor:
-                this.getAttribute('background-color') === 'none'
-                  ? undefined
-                  : this.getAttribute('background-color'),
-              role: 'presentation',
-              style: 'td',
-              valign: this.getAttribute('vertical-align'),
-            })}
+        align: 'center',
+        bgcolor:
+          this.getAttribute('background-color') === 'none'
+            ? undefined
+            : this.getAttribute('background-color'),
+        role: 'presentation',
+        style: 'td',
+        valign: this.getAttribute('vertical-align'),
+      })}
           >
             <${tag}
               ${this.htmlAttributes({
-                href: this.getAttribute('href'),
-                rel: this.getAttribute('rel'),
-                style: 'content',
-                target: tag === 'a' ? this.getAttribute('target') : undefined,
-              })}
+        href: this.getAttribute('href'),
+        rel: this.getAttribute('rel'),
+        style: 'content',
+        target: tag === 'a' ? this.getAttribute('target') : undefined,
+      })}
             >
               ${this.getContent()}
             </${tag}>

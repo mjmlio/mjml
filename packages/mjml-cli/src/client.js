@@ -4,7 +4,7 @@ import { html as htmlBeautify } from 'js-beautify'
 import { flow, pick, isNil, negate, pickBy } from 'lodash/fp'
 import { isArray, isEmpty, map, get } from 'lodash'
 
-import mjml2html, { components } from 'mjml-core'
+import mjml2html, { components, initializeType } from 'mjml-core'
 import migrate from 'mjml-migrate'
 import validate from 'mjml-validator'
 import MJMLParser from 'mjml-parser-xml'
@@ -159,7 +159,7 @@ export default async () => {
           break
         case 'v': // eslint-disable-line no-case-declarations
           const mjmlJson = MJMLParser(i.mjml, { components })
-          compiled = { errors: validate(mjmlJson, { components }) }
+          compiled = { errors: validate(mjmlJson, { components, initializeType }) }
           break
         default:
           compiled = mjml2html(i.mjml, { ...config, filePath: i.file })

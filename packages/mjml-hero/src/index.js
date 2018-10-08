@@ -48,13 +48,12 @@ export default class MjHero extends BodyComponent {
   getChildContext() {
     // Refactor -- removePaddingFor(width, ['padding', 'inner-padding'])
     const { containerWidth } = this.context
-    const { sibling } = this.props
     const paddingSize =
       this.getShorthandAttrValue('padding', 'left') +
       this.getShorthandAttrValue('padding', 'right')
 
     let currentContainerWidth =
-      this.getAttribute('width') || `${parseFloat(containerWidth) / sibling}px`
+      this.getAttribute('width') || `${parseFloat(containerWidth)}px`
 
     const { unit, parsedWidth } = widthParser(currentContainerWidth, {
       parseFloatToInt: false,

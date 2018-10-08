@@ -21,7 +21,7 @@ export default class MjTable extends BodyComponent {
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
     padding: 'unit(px,%){1,4}',
-    'table-layout': 'enum(auto/fixed/initial/inherit)',
+    'table-layout': 'enum(auto,fixed,initial,inherit)',
     'vertical-align': 'enum(top,bottom,middle)',
     width: 'unit(px,%)',
   }

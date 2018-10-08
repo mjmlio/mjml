@@ -26,7 +26,7 @@ Fixed height
         color="#ffffff"
         font-family="Helvetica"
         align="center"
-        font-size="45"
+        font-size="45px"
         line-height="45px"
         font-weight="900">
         GO TO SPACE
@@ -68,7 +68,7 @@ Fluid height
         color="#ffffff"
         font-family="Helvetica"
         align="center"
-        font-size="45"
+        font-size="45px"
         line-height="45px"
         font-weight="900">
         GO TO SPACE

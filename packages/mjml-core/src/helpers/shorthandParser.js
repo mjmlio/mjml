@@ -1,3 +1,5 @@
+import { get } from 'lodash'
+
 export default function(cssValue, direction) {
   const splittedCssValue = cssValue.split(' ')
   let directions = {}
@@ -20,4 +22,8 @@ export default function(cssValue, direction) {
   }
 
   return parseInt(splittedCssValue[directions[direction]] || 0, 10)
+}
+
+export function borderParser(border) {
+  return parseInt(get(border.match(/(?:(?:^| )(\d+))/), 1), 10) || 0
 }

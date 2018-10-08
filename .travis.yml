@@ -21,3 +21,5 @@ script:
  - cd packages/mjml-parser-xml
  - yarn install
  - yarn test --debug
+ - cd ../../packages/mjml-core
+ - yarn test --debug

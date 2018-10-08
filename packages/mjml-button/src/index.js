@@ -20,6 +20,7 @@ export default class MjButton extends BodyComponent {
     'font-weight': 'string',
     height: 'unit(px,%)',
     href: 'string',
+    name: 'string',
     'inner-padding': 'unit(px,%)',
     'line-height': 'unit(px,%)',
     'padding-bottom': 'unit(px,%)',
@@ -73,6 +74,7 @@ export default class MjButton extends BodyComponent {
         height: this.getAttribute('height'),
         padding: this.getAttribute('inner-padding'),
         'text-align': this.getAttribute('text-align'),
+        background: this.getAttribute('background-color'),
       },
       content: {
         background: this.getAttribute('background-color'),
@@ -95,7 +97,6 @@ export default class MjButton extends BodyComponent {
     return `
       <table
         ${this.htmlAttributes({
-          align: this.getAttribute('align'),
           border: '0',
           cellpadding: '0',
           cellspacing: '0',
@@ -120,6 +121,7 @@ export default class MjButton extends BodyComponent {
               ${this.htmlAttributes({
                 href: this.getAttribute('href'),
                 rel: this.getAttribute('rel'),
+                name: this.getAttribute('name'),
                 style: 'content',
                 target: tag === 'a' ? this.getAttribute('target') : undefined,
               })}

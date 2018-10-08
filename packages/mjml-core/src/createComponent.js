@@ -11,7 +11,8 @@ import {
 
 import MJMLParser from 'mjml-parser-xml'
 
-import shorthandParser from './helpers/shorthandParser'
+import shorthandParser, { borderParser } from './helpers/shorthandParser'
+import formatAttributes from './helpers/formatAttributes'
 import jsonToXML from './helpers/jsonToXML'
 
 import components, { initComponent } from './components'
@@ -33,6 +34,7 @@ class Component {
       content = '',
       context = {},
       props = {},
+      globalAttributes = {},
     } = initialDatas
 
     this.props = {
@@ -41,10 +43,11 @@ class Component {
       content,
     }
 
-    this.attributes = {
+    this.attributes = formatAttributes({
       ...this.constructor.defaultAttributes,
+      ...globalAttributes,
       ...attributes,
-    }
+    }, this.constructor.allowedAttributes)
     this.context = context
 
     return this
@@ -94,6 +97,33 @@ export class BodyComponent extends Component {
     }
 
     return shorthandParser(mjAttribute, direction)
+  }
+
+  getShorthandBorderValue(direction) {
+    const borderDirection = direction && this.getAttribute(`border-${direction}`)
+    const border = this.getAttribute('border')
+
+    return borderParser(borderDirection || border || '0', 10)
+  }
+
+  getBoxWidths() {
+    const { containerWidth } = this.context
+    const parsedWidth = parseInt(containerWidth, 10)
+
+    const paddings =
+      this.getShorthandAttrValue('padding', 'right') +
+      this.getShorthandAttrValue('padding', 'left')
+
+    const borders =
+      this.getShorthandBorderValue('right') +
+      this.getShorthandBorderValue('left')
+
+    return {
+      totalWidth: parsedWidth,
+      borders,
+      paddings,
+      box: parsedWidth - paddings - borders,
+    }
   }
 
   htmlAttributes(attributes) {
@@ -204,7 +234,7 @@ export class HeadComponent extends Component {
   handlerChildren() {
     const childrens = this.props.children
 
-    forEach(childrens, children => {
+    return childrens.map(children => {
       const component = initComponent({
         name: children.tagName,
         initialDatas: {
@@ -216,12 +246,17 @@ export class HeadComponent extends Component {
       if (!component) {
         // eslint-disable-next-line no-console
         console.log(`No matching component for tag : ${children.tagName}`)
-        return
+        return null
       }
 
       if (component.handler) {
         component.handler()
       }
+
+      if (component.render) {
+        return component.render()
+      }
+      return null
     })
   }
 }

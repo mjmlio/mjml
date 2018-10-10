@@ -7,9 +7,10 @@ import { components } from 'mjml-core'
 import { unavailableTags, attributesWithUnit } from './config'
 
 function removeContainerTag(bodyTag) {
-  bodyTag.attributes = bodyTag.children[0].attributes
-  bodyTag.children = bodyTag.children[0].children
-
+  if (bodyTag.children[0].tagName === 'mj-container') {
+    bodyTag.attributes = bodyTag.children[0].attributes
+    bodyTag.children = bodyTag.children[0].children
+  }
   return bodyTag
 }
 

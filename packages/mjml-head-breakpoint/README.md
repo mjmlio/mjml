@@ -28,3 +28,4 @@ This tag allows you to control on which breakpoint the layout should go desktop/
 attribute            | unit          | description                    | default value
 ---------------------|---------------|--------------------------------|---------------
 width                | px            | breakpoint's value             | n/a
+

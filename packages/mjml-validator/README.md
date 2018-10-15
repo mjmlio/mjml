@@ -33,3 +33,4 @@ In Javascript, you can provide the level through the `options` parameters on `mj
 * `getMessages` returns an array of `formattedMessage`.
 
 When using `soft`, no exception will be raised. You can get the errors in the object returned by `mjml2html`. It is the same object returned by `getErrors` on strict mode.
+

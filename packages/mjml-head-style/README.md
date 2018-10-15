@@ -45,3 +45,4 @@ This tag allows you to set CSS styles that will be applied to the <b>HTML</b> in
   attribute            | unit          | description                         | default value
   ---------------------|---------------|-------------------------------------|---------------
   inline               | string        | set to "inline" to inline styles    | n/a
+

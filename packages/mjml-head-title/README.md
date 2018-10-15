@@ -24,3 +24,4 @@ This tag allows you to set the title of an MJML document
     <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
   </a>
 </p>
+

@@ -37,23 +37,23 @@ Displays calls-to-action for various social networks with their associated logo.
 
 attribute                   | unit        | description                   | default value
 ----------------------------|-------------|-------------------------------|---------------------------
+align                       | string      | left/right/center             | center
 border-radius               | px          | border radius                 | 3px
+color                       | color       | text color                    | #333333
+container-background-color  | color       | inner element background color                     | n/a
 font-family                 | string      | font name                     | Ubuntu, Helvetica, Arial, sans-serif
 font-size                   | px/em       | font size                     | 13px
-icon-size                   | percent/px  | icon size (width and height)  | 20px
 icon-height                 | percent/px  | icon height, overrides icon-size | icon-size
+icon-size                   | percent/px  | icon size (width and height)  | 20px
+inner-padding               | px          | social network surrounding padding                 | 4px
 line-height                 | percent/px  | space between lines           | 22px
 mode                        | string      | vertical/horizontal           | horizontal
-text-decoration             | string      | underline/overline/none       | none
-align                       | string      | left/right/center             | center
-color                       | color       | text color                    | #333333
-inner-padding               | px          | social network surrounding padding                 | 4px
 padding                     | px          | supports up to 4 parameters                       | 10px 25px
-padding-top                 | px          | top offset                         | n/a
 padding-bottom              | px          | bottom offset                    | n/a
 padding-left                | px          | left offset                      | n/a
 padding-right               | px          | right offset                       | n/a
-container-background-color  | color       | inner element background color                     | n/a
+padding-top                 | px          | top offset                         | n/a
+text-decoration             | string      | underline/overline/none       | none
 
 ### mj-social-element
 
@@ -63,27 +63,27 @@ Note that default icons are transparent, which allows `background-color` to actu
 
 attribute                   | unit        | description                   | default value
 ----------------------------|-------------|-------------------------------|---------------------------
-border-radius               | px          | border radius                 | 3px
-href                        | url         | button redirection url        | [[SHORT_PERMALINK]]
-target                      | string      | link target                   | \_blank
+align                       | string      | left/right/center             | center
+alt                         | string      | image alt attribute           | none
 background-color            | color       | icon color                    | Each social `name` has its own default
+border-radius               | px          | border radius                 | 3px
+color                       | color       | text color                    | #333333
 font-family                 | string      | font name                     | Ubuntu, Helvetica, Arial, sans-serif
 font-size                   | px/em       | font size                     | 13px
-icon-size                   | percent/px  | icon size (width and height)  | 20px
+href                        | url         | button redirection url        | [[SHORT_PERMALINK]]
 icon-height                 | percent/px  | icon height, overrides icon-size | icon-size
+icon-size                   | percent/px  | icon size (width and height)  | 20px
 line-height                 | percent/px  | space between lines           | 22px
 mode                        | string      | vertical/horizontal           | horizontal
-text-decoration             | string      | underline/overline/none       | none
-align                       | string      | left/right/center             | center
-color                       | color       | text color                    | #333333
 name                        | string      | social network name, see supported list below | N/A
-src                         | url         | image source                  | Each social `name` has its own default
-alt                         | string      | image alt attribute           | none
 padding                     | px          | supports up to 4 parameters                       | 10px 25px
-padding-top                 | px          | top offset                         | n/a
 padding-bottom              | px          | bottom offset                    | n/a
 padding-left                | px          | left offset                      | n/a
 padding-right               | px          | right offset                       | n/a
+padding-top                 | px          | top offset                         | n/a
+src                         | url         | image source                  | Each social `name` has its own default
+target                      | string      | link target                   | \_blank
+text-decoration             | string      | underline/overline/none       | none
 
 Supported networks with a share url:  
 - facebook  
@@ -120,3 +120,4 @@ You can add any unsupported network like this:
   Optional label
 </mj-social-element>
 ```
+

@@ -139,7 +139,7 @@ function loopThrough(tree) {
           )
           loopThrough(tree.children[i])
         } else {
-          console.log(
+          console.error(
             `Ignoring unsupported tag : ${tree.children[i]
               .tagName} on line ${tree.children[i].line}`,
           )
@@ -186,7 +186,7 @@ export function handleMjml3(mjml) {
   const isV3Synthax = checkV3Through(mjml)
   if (!isV3Synthax) return mjml
 
-  console.log(
+  console.error(
     'MJML v3 syntax detected, migrating to MJML v4 syntax. Use mjml -m to get the migrated MJML.',
   )
   return migrate(mjml)

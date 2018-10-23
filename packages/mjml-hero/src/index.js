@@ -52,8 +52,7 @@ export default class MjHero extends BodyComponent {
       this.getShorthandAttrValue('padding', 'left') +
       this.getShorthandAttrValue('padding', 'right')
 
-    let currentContainerWidth =
-      this.getAttribute('width') || `${parseFloat(containerWidth)}px`
+    let currentContainerWidth = `${parseFloat(containerWidth)}px`
 
     const { unit, parsedWidth } = widthParser(currentContainerWidth, {
       parseFloatToInt: false,
@@ -145,7 +144,6 @@ export default class MjHero extends BodyComponent {
         'background-color': this.getAttribute('inner-background-color'),
         float: this.getAttribute('align'),
         margin: '0px auto',
-        width: this.getAttribute('width'),
       },
     }
   }

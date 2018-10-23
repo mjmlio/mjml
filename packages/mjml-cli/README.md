@@ -109,3 +109,4 @@ If you like live-coding, you might want to use the `-w` option that enables you 
 It can be time-saving when you can just split you screen and see the HTML output modified when you modify your MJML.
 
 Of course, the `-w` option can be used with an `--output` option too.
+

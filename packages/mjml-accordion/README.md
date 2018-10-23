@@ -57,23 +57,23 @@ Every attribute in `mj-accordion` are applied to `mj-accordion-element` unless y
 
 attribute | unit | description | default value
 ----------|------|-------------|---------------
-css-class | string | class name, added to the root HTML element created | n/a
-container-background-color | n/a | background-color of the cell | n/a,
 border | n/a | border | n/a
+container-background-color | n/a | background-color of the cell | n/a,
+css-class | string | class name, added to the root HTML element created | n/a
 font-family | n/a | font | Ubuntu, Helvetica, Arial, sans-serif
 icon-align | n/a | icon alignment | middle
-icon-wrapped-url | n/a | icon when accordion is wrapped | http://i.imgur.com/bIXv1bk.png
-icon-wrapped-alt | n/a | alt text when accordion is wrapped | +
-icon-unwrapped-url | n/a | icon when accordion is unwrapped | http://i.imgur.com/w4uTygT.png
-icon-unwrapped-alt | n/a | alt text when accordion is unwrapped | -
-icon-position | n/a | display icon left or right | right
 icon-height | px | icon width | 32px
+icon-position | n/a | display icon left or right | right
+icon-unwrapped-alt | n/a | alt text when accordion is unwrapped | -
+icon-unwrapped-url | n/a | icon when accordion is unwrapped | http://i.imgur.com/w4uTygT.png
 icon-width | px | icon height | 32px
+icon-wrapped-alt | n/a | alt text when accordion is wrapped | +
+icon-wrapped-url | n/a | icon when accordion is wrapped | http://i.imgur.com/bIXv1bk.png
+padding | px | padding | 10px 25px
 padding-bottom | px | padding bottom | n/a
 padding-left | px | padding left | n/a
 padding-right | px | padding right | n/a
 padding-top | px | padding top | n/a
-padding | px | padding | 10px 25px
 
 ### mjml-accordion-element
 
@@ -82,16 +82,16 @@ This component enables you to create a accordion pane
 attribute | unit | description | default value
 ----------|------|-------------|---------------
 background-color | n/a | background color | n/a
+css-class | string | class name, added to the root HTML element created | n/a
 font-family | n/a | font | Ubuntu, Helvetica, Arial, sans-serif
 icon-align | n/a | icon alignment | middle
-icon-wrapped-url | n/a | icon when accordion is wrapped | http://i.imgur.com/bIXv1bk.png
-icon-wrapped-alt | n/a | alt text when accordion is wrapped | +
-icon-unwrapped-url | n/a | icon when accordion is unwrapped | http://i.imgur.com/w4uTygT.png
-icon-unwrapped-alt | n/a | alt text when accordion is unwrapped | -
-icon-position | n/a | display icon left or right | right
 icon-height | n/a | icon width | 32px
+icon-position | n/a | display icon left or right | right
+icon-unwrapped-alt | n/a | alt text when accordion is unwrapped | -
+icon-unwrapped-url | n/a | icon when accordion is unwrapped | http://i.imgur.com/w4uTygT.png
 icon-width | n/a | icon height | 32px
-css-class | string | class name, added to the root HTML element created | n/a
+icon-wrapped-alt | n/a | alt text when accordion is wrapped | +
+icon-wrapped-url | n/a | icon when accordion is wrapped | http://i.imgur.com/bIXv1bk.png
 
 ### mjml-accordion-title
 
@@ -101,14 +101,14 @@ attribute | unit | description | default value
 ----------|------|-------------|---------------
 background-color | n/a | background color | n/a
 color | n/a | text color | n/a
+css-class | string | class name, added to the root HTML element created | n/a
 font-family | n/a | font family | Ubuntu, Helvetica, Arial, sans-serif
 font-size | px | font size | 13px
+padding | px | padding | 16px
 padding-bottom | px | padding bottom | n/a
 padding-left | px | padding left | n/a
 padding-right | px | padding right | n/a
 padding-top | px | padding top | n/a
-padding | px | padding | 16px
-css-class | string | class name, added to the root HTML element created | n/a
 
 ### mjml-accordion-text
 
@@ -118,11 +118,12 @@ attribute | unit | description | default value
 ----------|------|-------------|---------------
 background-color | n/a | background color | n/a
 color | n/a | text color | n/a
+css-class | string | class name, added to the root HTML element created | n/a
 font-family | n/a | font family | Ubuntu, Helvetica, Arial, sans-serif
 font-size | px | font size | 13px
+padding | px | padding | 16px
 padding-bottom | px | padding bottom | n/a
 padding-left | px | padding left | n/a
 padding-right | px | padding right | n/a
 padding-top | px | padding top | n/a
-padding | px | padding | 16px
-css-class | string | class name, added to the root HTML element created | n/a
+

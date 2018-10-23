@@ -51,3 +51,4 @@ padding-bottom      | px          | section bottom offset          | n/a
 padding-left        | px          | section left offset            | n/a
 padding-right       | px          | section right offset           | n/a
 css-class           | string      | class name, added to the root HTML element created | n/a
+

@@ -18,3 +18,4 @@ Clone the repo & `npm install` or install via NPM: `npm install mjml-migrate`
 * Unitless values are converted to `px`
 * `mj-social`'s syntax is replaced with the v4 syntax
 * Unsupported tags (defined in `unavailableTags` in `config.js`) are removed 
+

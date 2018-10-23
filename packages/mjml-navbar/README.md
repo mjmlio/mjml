@@ -62,23 +62,23 @@ Mode hamburger enabled:
 
 attribute                   | unit               | description                                                                                      | default value
 ----------------------------|--------------------|--------------------------------------------------------------------------------------------------|-----------------
+align                       | string             | align content left/center/right                                                                  | center
 base url                    | string             | base url for children components                                                                 | n/a
 hamburger                   | string             | activate the hamburger navigation on mobile if the value is hamburger                            | n/a
-align                       | string             | align content left/center/right                                                                  | center
-ico-open                    | ASCII code decimal | char code for a custom open icon (hamburger mode required)                                       | 9776
+ico-align                   | string             | hamburger icon alignment, left/center/right (hamburger mode required)                            | center
 ico-close                   | ASCII code decimal | char code for a custom close icon (hamburger mode required)                                      | 8855
+ico-color                   | color format       | hamburger icon color (hamburger mode required)                                                   | #000000
+ico-font-family             | string             | hamburger icon font (only on hamburger mode)                                                     | Ubuntu, Helvetica, Arial, sans-serif
+ico-font-size               | px                 | hamburger icon size (hamburger mode required)                                                    | 30px
+ico-line-height             | px                 | hamburger icon line height (hamburger mode required)                                             | 30px
+ico-open                    | ASCII code decimal | char code for a custom open icon (hamburger mode required)                                       | 9776
 ico-padding                 | px                 | hamburger icon padding, supports up to 4 parameters (hamburger mode required)                    | 10px
-ico-padding-top             | px                 | hamburger icon top offset (hamburger mode required)                                              | 10px
-ico-padding-right           | px                 | hamburger icon right offset (hamburger mode required)                                            | 10px
 ico-padding-bottom          | px                 | hamburger icon bottom offset (hamburger mode required)                                           | 10px
 ico-padding-left            | px                 | hamburger icon left offset (hamburger mode required)                                             | 10px
-ico-align                   | string             | hamburger icon alignment, left/center/right (hamburger mode required)                            | center
-ico-color                   | color format       | hamburger icon color (hamburger mode required)                                                   | #000000
-ico-font-size               | px                 | hamburger icon size (hamburger mode required)                                                    | 30px
-ico-font-family             | string             | hamburger icon font (only on hamburger mode)                                                     | Ubuntu, Helvetica, Arial, sans-serif
-ico-text-transform          | string             | hamburger icon text transformation none/capitalize/uppercase/lowercase (hamburger mode required) | none
+ico-padding-right           | px                 | hamburger icon right offset (hamburger mode required)                                            | 10px
+ico-padding-top             | px                 | hamburger icon top offset (hamburger mode required)                                              | 10px
 ico-text-decoration         | string             | hamburger icon text decoration none/underline/overline/line-through (hamburger mode required)    | none
-ico-line-height             | px                 | hamburger icon line height (hamburger mode required)                                             | 30px
+ico-text-transform          | string             | hamburger icon text transformation none/capitalize/uppercase/lowercase (hamburger mode required) | none
 
 
 ### mjml-navbar-link
@@ -97,14 +97,15 @@ font-family      | string        | font                                  | Ubunt
 font-size        | px            | text size                             | 13px
 font-style       | string        | normal/italic/oblique                 | n/a
 font-weight      | number        | text thickness                        | n/a
+href             | string        | link to redirect to on click          | n/a
 line-height      | px            | space between the lines               | 22px
-text-decoration  | string        | underline/overline/none               | n/a
-text-transform   | string        | capitalize/uppercase/lowercase/none   | uppercase
 padding          | px            | supports up to 4 parameters           | 10px 25px
-padding-top      | px            | top offset                            | n/a
 padding-bottom   | px            | bottom offset                         | n/a
 padding-left     | px            | left offset                           | n/a
 padding-right    | px            | right offset                          | n/a
+padding-top      | px            | top offset                            | n/a
 rel              | string        | specify the rel attribute             | n/a
-href             | string        | link to redirect to on click          | n/a
 target           | string        | link target on click                  | n/a
+text-decoration  | string        | underline/overline/none               | n/a
+text-transform   | string        | capitalize/uppercase/lowercase/none   | uppercase
+

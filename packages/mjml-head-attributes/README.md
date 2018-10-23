@@ -37,3 +37,4 @@ This tag allows you to modify default attributes on a `mj-tag` and add `mj-class
 <aside class="notice">
   Note that the apply order of attributes is: inline attributes, then classes, then default mj-attributes and then defaultMJMLDefinition
 </aside>
+

@@ -14,13 +14,11 @@ Fixed height
     <mj-hero
       mode="fixed-height"
       height="469px"
-      width="100%"
       background-width="600px"
       background-height="469px"
       background-url="https://cloud.githubusercontent.com/assets/1830348/15354890/1442159a-1cf0-11e6-92b1-b861dadf1750.jpg"
       background-color="#2a3448"
       padding="100px 0px">
-      <!-- To add content like mj-image, mj-text, mj-button ... use the mj-hero-content component -->
       <mj-text
         padding="20px"
         color="#ffffff"

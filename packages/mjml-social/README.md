@@ -53,6 +53,8 @@ padding-bottom              | px          | bottom offset                    | n
 padding-left                | px          | left offset                      | n/a
 padding-right               | px          | right offset                       | n/a
 padding-top                 | px          | top offset                         | n/a
+icon-padding                | px          | padding around the icons      | 0px
+text-padding                | px          | padding around the texts      | 4px 4px 4px 0
 text-decoration             | string      | underline/overline/none       | none
 
 ### mj-social-element
@@ -81,6 +83,8 @@ padding-bottom              | px          | bottom offset                    | n
 padding-left                | px          | left offset                      | n/a
 padding-right               | px          | right offset                       | n/a
 padding-top                 | px          | top offset                         | n/a
+icon-padding                | px          | padding around the icon       | 0px
+text-padding                | px          | padding around the text       | 4px 4px 4px 0
 src                         | url         | image source                  | Each social `name` has its own default
 target                      | string      | link target                   | \_blank
 text-decoration             | string      | underline/overline/none       | none
@@ -120,4 +124,3 @@ You can add any unsupported network like this:
   Optional label
 </mj-social-element>
 ```
-

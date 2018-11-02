@@ -160,6 +160,8 @@ export default class MjSocialElement extends BodyComponent {
       text: {
         color: this.getAttribute('color'),
         'font-size': this.getAttribute('font-size'),
+        'font-weight': this.getAttribute('font-weight'),
+        'font-style': this.getAttribute('font-style'),
         'font-family': this.getAttribute('font-family'),
         'line-height': this.getAttribute('line-height'),
         'text-decoration': this.getAttribute('text-decoration'),

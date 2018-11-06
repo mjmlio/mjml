@@ -12,6 +12,7 @@ export default class MjSocial extends BodyComponent {
     'font-weight': 'string',
     'icon-size': 'unit(px,%)',
     'icon-height': 'unit(px,%)',
+    'icon-padding': 'unit(px,%){1,4}',
     'inner-padding': 'unit(px,%)',
     'line-height': 'unit(px,%)',
     mode: 'enum(horizontal,vertical)',
@@ -21,6 +22,7 @@ export default class MjSocial extends BodyComponent {
     'padding-top': 'unit(px,%)',
     padding: 'unit(px,%){1,4}',
     'table-layout': 'enum(auto,fixed)',
+    'text-padding': 'unit(px,%){1,4}',
     'text-decoration': 'string',
     'vertical-align': 'enum(top,bottom,middle)',
   }
@@ -62,6 +64,8 @@ export default class MjSocial extends BodyComponent {
       'font-style',
       'icon-size',
       'icon-height',
+      'icon-padding',
+      'text-padding',
       'line-height',
       'text-decoration',
     ].reduce((res, attr) => {

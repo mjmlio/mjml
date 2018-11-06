@@ -43,6 +43,8 @@ color                       | color       | text color                    | #333
 container-background-color  | color       | inner element background color                     | n/a
 font-family                 | string      | font name                     | Ubuntu, Helvetica, Arial, sans-serif
 font-size                   | px/em       | font size                     | 13px
+font-style                  | string      | font style                    | normal
+font-weight                 | string      | font weight                   | normal
 icon-height                 | percent/px  | icon height, overrides icon-size | icon-size
 icon-size                   | percent/px  | icon size (width and height)  | 20px
 inner-padding               | px          | social network surrounding padding                 | 4px
@@ -72,6 +74,8 @@ border-radius               | px          | border radius                 | 3px
 color                       | color       | text color                    | #333333
 font-family                 | string      | font name                     | Ubuntu, Helvetica, Arial, sans-serif
 font-size                   | px/em       | font size                     | 13px
+font-style                  | string      | font style                    | normal
+font-weight                 | string      | font weight                   | normal
 href                        | url         | button redirection url        | [[SHORT_PERMALINK]]
 icon-height                 | percent/px  | icon height, overrides icon-size | icon-size
 icon-size                   | percent/px  | icon size (width and height)  | 20px

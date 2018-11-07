@@ -227,8 +227,8 @@ export default async () => {
     }
     case 's': {
       Promise.all(convertedStream.map(outputToConsole))
-        .then(() => (process.exitCode = EXIT_CODE)) // eslint-disable-line no-return-assign
-        .catch(() => (process.exitCode = 1)) // eslint-disable-line no-return-assign
+        .then(() => process.exitCode = EXIT_CODE) // eslint-disable-line no-return-assign
+        .catch(() => process.exitCode = 1) // eslint-disable-line no-return-assign
       break
     }
     default:

@@ -144,6 +144,7 @@ export default class MjHero extends BodyComponent {
         'background-color': this.getAttribute('inner-background-color'),
         float: this.getAttribute('align'),
         margin: '0px auto',
+        width: this.getAttribute('width'),
       },
     }
   }

@@ -1,6 +1,5 @@
 import path from 'path'
 import yargs from 'yargs'
-import { html as htmlBeautify } from 'js-beautify'
 import { flow, pick, isNil, negate, pickBy } from 'lodash/fp'
 import { isArray, isEmpty, map, get } from 'lodash'
 
@@ -18,13 +17,6 @@ import outputToConsole from './commands/outputToConsole'
 import { version as coreVersion } from 'mjml-core/package.json' // eslint-disable-line import/first
 import { version as cliVersion } from '../package.json'
 import DEFAULT_OPTIONS from './helpers/defaultOptions'
-
-const beautifyOptions = {
-  indent_size: 2,
-  wrap_attributes_indent_size: 2,
-  max_preserve_newline: 0,
-  preserve_newlines: false,
-}
 
 export default async () => {
   let EXIT_CODE = 0
@@ -155,11 +147,13 @@ export default async () => {
       let compiled
       switch (inputOpt) {
         case 'm': // eslint-disable-line no-case-declarations
-          compiled = { html: htmlBeautify(migrate(i.mjml), beautifyOptions) }
+          compiled = { html: migrate(i.mjml, { beautify: true }) }
           break
         case 'v': // eslint-disable-line no-case-declarations
           const mjmlJson = MJMLParser(i.mjml, { components })
-          compiled = { errors: validate(mjmlJson, { components, initializeType }) }
+          compiled = {
+            errors: validate(mjmlJson, { components, initializeType }),
+          }
           break
         default:
           compiled = mjml2html(i.mjml, { ...config, filePath: i.file })
@@ -233,8 +227,8 @@ export default async () => {
     }
     case 's': {
       Promise.all(convertedStream.map(outputToConsole))
-        .then(() => process.exitCode = EXIT_CODE) // eslint-disable-line no-return-assign
-        .catch(() => process.exitCode = 1) // eslint-disable-line no-return-assign
+        .then(() => (process.exitCode = EXIT_CODE)) // eslint-disable-line no-return-assign
+        .catch(() => (process.exitCode = 1)) // eslint-disable-line no-return-assign
       break
     }
     default:

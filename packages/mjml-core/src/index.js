@@ -53,6 +53,7 @@ export default function mjml2html(mjml, options = {}) {
     },
     keepComments,
     minify = false,
+    minifyOptions = {},
     skeleton = defaultSkeleton,
     validationLevel = 'soft',
     filePath = '.',
@@ -282,6 +283,7 @@ export default function mjml2html(mjml, options = {}) {
       collapseWhitespace: true,
       minifyCSS: false,
       removeEmptyAttributes: true,
+      ...minifyOptions,
     })
   }
 

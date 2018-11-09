@@ -69,6 +69,14 @@ $> mjml input.mjml --config.beautify true --config.minify false
 
 These are the default options.
 
+### Change minify options
+
+```bash
+$> mjml input.mjml --config.minifyOptions='{"minifyCSS": true, "removeEmptyAttributes": false}'
+```
+
+The defaults are "collapseWhitespace": true, "minifyCSS": false, "removeEmptyAttributes": true
+
 ### Log error stack
 
 ```bash
@@ -109,4 +117,3 @@ If you like live-coding, you might want to use the `-w` option that enables you 
 It can be time-saving when you can just split you screen and see the HTML output modified when you modify your MJML.
 
 Of course, the `-w` option can be used with an `--output` option too.
-

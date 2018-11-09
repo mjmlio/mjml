@@ -90,7 +90,15 @@ export default async () => {
     .help()
     .version(`mjml-core: ${coreVersion}\nmjml-cli: ${cliVersion}`).argv
 
-  const config = Object.assign(DEFAULT_OPTIONS, argv.c)
+  let minifyOptions
+
+  try {
+    minifyOptions = argv.c && argv.c.minifyOptions && JSON.parse(argv.c.minifyOptions)
+  } catch (e) {
+    error(`Failed to decode JSON for config.minifyOptions argument`)
+  }
+
+  const config = Object.assign(DEFAULT_OPTIONS, argv.c, minifyOptions && {minifyOptions})
   const inputArgs = pickArgs(['r', 'w', 'i', '_', 'm', 'v'])(argv)
   const outputArgs = pickArgs(['o', 's'])(argv)
 

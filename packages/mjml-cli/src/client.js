@@ -90,7 +90,15 @@ export default async () => {
     .help()
     .version(`mjml-core: ${coreVersion}\nmjml-cli: ${cliVersion}`).argv
 
-  const config = Object.assign(DEFAULT_OPTIONS, argv.c)
+  let fonts
+
+  try {
+    fonts = argv.c && argv.c.fonts && JSON.parse(argv.c.fonts)
+  } catch (e) {
+    error(`Failed to decode JSON for config.fonts argument`)
+  }
+
+  const config = Object.assign(DEFAULT_OPTIONS, argv.c, fonts && {fonts})
   const inputArgs = pickArgs(['r', 'w', 'i', '_', 'm', 'v'])(argv)
   const outputArgs = pickArgs(['o', 's'])(argv)
 

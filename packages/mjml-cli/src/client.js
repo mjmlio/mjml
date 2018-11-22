@@ -91,6 +91,7 @@ export default async () => {
     .version(`mjml-core: ${coreVersion}\nmjml-cli: ${cliVersion}`).argv
 
   let minifyOptions
+  let fonts
 
   try {
     minifyOptions = argv.c && argv.c.minifyOptions && JSON.parse(argv.c.minifyOptions)
@@ -98,7 +99,14 @@ export default async () => {
     error(`Failed to decode JSON for config.minifyOptions argument`)
   }
 
-  const config = Object.assign(DEFAULT_OPTIONS, argv.c, minifyOptions && {minifyOptions})
+  try {
+    fonts = argv.c && argv.c.fonts && JSON.parse(argv.c.fonts)
+  } catch (e) {
+    error(`Failed to decode JSON for config.fonts argument`)
+  }
+
+  const config = Object.assign(DEFAULT_OPTIONS, argv.c, fonts && {fonts}, minifyOptions && {minifyOptions})
+
   const inputArgs = pickArgs(['r', 'w', 'i', '_', 'm', 'v'])(argv)
   const outputArgs = pickArgs(['o', 's'])(argv)
 

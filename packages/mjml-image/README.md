@@ -24,23 +24,24 @@ Note that if no width is provided, the image will use the parent column width.
 
 attribute                     | unit          | description                    | default value
 ------------------------------|---------------|--------------------------------|-----------------------------
+align                         | position      | image alignment                | center
+alt                           | string        | image description              | n/a
+border                        | string        | css border definition          | none
+border-radius                 | px            | border radius                  | n/a
+container-background-color    | color         | inner element background color | n/a
+css-class                     | string        | class name, added to the root HTML element created | n/a
+fluid-on-mobile               | string        | if "true", will be full width on mobile even if width is set | n/a
+height                        | px            | image height                   | auto
+href                          | url           | link to redirect to on click   | n/a
 padding                       | px            | supports up to 4 parameters    | 10px 25px
-padding-top                   | px            | top offset                     | n/a
 padding-bottom                | px            | bottom offset                  | n/a
 padding-left                  | px            | left offset                    | n/a
 padding-right                 | px            | right offset                   | n/a
-container-background-color    | color         | inner element background color | n/a
-border                        | string        | css border definition          | none
-border-radius                 | px            | border radius                  | n/a
-width                         | px            | image width                    | 100%
-height                        | px            | image height                   | auto
+padding-top                   | px            | top offset                     | n/a
+rel                           | string        | specify the rel attribute      | n/a
 src                           | url           | image source                   | n/a
 srcset                        | url & width   | enables to set a different image source based on the viewport | n/a
-href                          | url           | link to redirect to on click   | n/a
 target                        | string        | link target on click           | \_blank
-rel                           | string        | specify the rel attribute      | n/a
-alt                           | string        | image description              | n/a
-align                         | position      | image alignment                | center
 title                         | string        | tooltip & accessibility        | n/a
-css-class                     | string        | class name, added to the root HTML element created | n/a
-fluid-on-mobile               | string        | if "true", will be full width on mobile even if width is set | n/a
+width                         | px            | image width                    | 100%
+

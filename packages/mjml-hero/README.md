@@ -14,13 +14,11 @@ Fixed height
     <mj-hero
       mode="fixed-height"
       height="469px"
-      width="100%"
       background-width="600px"
       background-height="469px"
       background-url="https://cloud.githubusercontent.com/assets/1830348/15354890/1442159a-1cf0-11e6-92b1-b861dadf1750.jpg"
       background-color="#2a3448"
       padding="100px 0px">
-      <!-- To add content like mj-image, mj-text, mj-button ... use the mj-hero-content component -->
       <mj-text
         padding="20px"
         color="#ffffff"
@@ -105,18 +103,19 @@ For better result we encourage you to use a background image width equal to the 
 
 attribute           | unit                                | description                                                          | default value
 --------------------|-------------------------------------|----------------------------------------------------------------------|--------------
-width               | px                                  | hero container width                                                 | parent element width
-mode                | fluid-height/fixed-height           | choose if the height is fixed based on the height attribute or fluid | fluid-height
-height              | px                                  | hero section height (required for fixed-height mode)                 | 0px
-background-width    | px                                  | width of the image used                                              | 0px
-background-height   | px                                  | height of the image used                                             | 0px
-background-url      | url                                 | absolute background url                                              | n/a
 background-color    | color                               | hero background color                                                | #ffffff
+background-height   | px                                  | height of the image used                                             | 0px
 background-position | top/center/bottom left/center/right | background image position                                            | center center
-padding             | px                                  | supports up to 4 parameters                                          | 0px
-padding-top         | px                                  | top offset                                                           | 0px
-padding-right       | px                                  | right offset                                                         | 0px
-padding-left        | px                                  | left offset                                                          | 0px
-padding-bottom      | px                                  | bottom offset                                                        | 0px
-vertical-align      | top/middle/bottom                   | content vertical alignment                                           | top
+background-url      | url                                 | absolute background url                                              | n/a
+background-width    | px                                  | width of the image used                                              | 0px
 css-class | string | class name, added to the root HTML element created | n/a
+height              | px                                  | hero section height (required for fixed-height mode)                 | 0px
+mode                | fluid-height/fixed-height           | choose if the height is fixed based on the height attribute or fluid | fluid-height
+padding             | px                                  | supports up to 4 parameters                                          | 0px
+padding-bottom      | px                                  | bottom offset                                                        | 0px
+padding-left        | px                                  | left offset                                                          | 0px
+padding-right       | px                                  | right offset                                                         | 0px
+padding-top         | px                                  | top offset                                                           | 0px
+vertical-align      | top/middle/bottom                   | content vertical alignment                                           | top
+width               | px                                  | hero container width                                                 | parent element width
+

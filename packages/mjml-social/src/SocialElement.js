@@ -102,6 +102,7 @@ export default class MjSocialElement extends BodyComponent {
     href: 'string',
     'icon-size': 'unit(px,%)',
     'icon-height': 'unit(px,%)',
+    'icon-padding': 'unit(px,%){1,4}',
     'line-height': 'unit(px,%)',
     name: 'string',
     'padding-bottom': 'unit(px,%)',
@@ -109,6 +110,7 @@ export default class MjSocialElement extends BodyComponent {
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
     padding: 'unit(px,%){1,4}',
+    'text-padding': 'unit(px,%){1,4}',
     src: 'string',
     alt: 'string',
     target: 'string',
@@ -123,6 +125,7 @@ export default class MjSocialElement extends BodyComponent {
     'font-size': '13px',
     'line-height': '1',
     padding: '4px',
+    'text-padding': '4px 4px 4px 0',
     target: '_blank',
     'text-decoration': 'none',
     href: '[[SHORT_PERMALINK]]',
@@ -145,6 +148,7 @@ export default class MjSocialElement extends BodyComponent {
         width: iconSize,
       },
       icon: {
+        padding: this.getAttribute('icon-padding'),
         'font-size': '0',
         height: iconHeight || iconSize,
         'vertical-align': 'middle',
@@ -155,11 +159,14 @@ export default class MjSocialElement extends BodyComponent {
       },
       tdText: {
         'vertical-align': 'middle',
-        padding: '4px 4px 4px 0',
+        padding: this.getAttribute('text-padding'),
+
       },
       text: {
         color: this.getAttribute('color'),
         'font-size': this.getAttribute('font-size'),
+        'font-weight': this.getAttribute('font-weight'),
+        'font-style': this.getAttribute('font-style'),
         'font-family': this.getAttribute('font-family'),
         'line-height': this.getAttribute('line-height'),
         'text-decoration': this.getAttribute('text-decoration'),

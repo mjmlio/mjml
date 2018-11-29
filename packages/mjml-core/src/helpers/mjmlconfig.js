@@ -16,7 +16,7 @@ export function readMjmlConfig(configPathOrDir = process.cwd()) {
     return { mjmlConfig, componentRootPath }
   } catch (e) {
     if (e.code !== 'ENOENT') {
-      console.log('Error reading mjmlconfig : ', e) // eslint-disable-line no-console
+      console.error('Error reading mjmlconfig : ', e) // eslint-disable-line no-console
     }
     return { mjmlConfig: { packages: [] }, mjmlConfigPath, componentRootPath, error: e }
   }
@@ -32,7 +32,7 @@ export function resolveComponentPath(compPath, componentRootPath) {
       return require.resolve(compPath)
     } catch (e) {
       if (e.code !== 'MODULE_NOT_FOUND') {
-        console.log('Error resolving custom component path : ', e) // eslint-disable-line no-console
+        console.error('Error resolving custom component path : ', e) // eslint-disable-line no-console
         return null
       }
       // we got a 'MODULE_NOT_FOUND' error
@@ -81,9 +81,9 @@ export default function handleMjmlConfig(configPathOrDir = process.cwd(), regist
     } catch (e) {
       result.failures.push({ error: e, compPath })
       if (e.code === 'ENOENT' || e.code === 'MODULE_NOT_FOUND') {
-        console.log('Missing or unreadable custom component : ', resolvedPath) // eslint-disable-line no-console
+        console.error('Missing or unreadable custom component : ', resolvedPath) // eslint-disable-line no-console
       } else {
-        console.log('Error when registering custom component : ', resolvedPath, e) // eslint-disable-line no-console
+        console.error('Error when registering custom component : ', resolvedPath, e) // eslint-disable-line no-console
       }
     }
   })

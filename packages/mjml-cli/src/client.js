@@ -31,7 +31,7 @@ export default async () => {
   let KEEP_OPEN = false
 
   const error = msg => {
-    console.log('\nCommand line error:') // eslint-disable-line no-console
+    console.error('\nCommand line error:') // eslint-disable-line no-console
     console.error(msg) // eslint-disable-line no-console
 
     process.exit(1)
@@ -90,7 +90,14 @@ export default async () => {
     .help()
     .version(`mjml-core: ${coreVersion}\nmjml-cli: ${cliVersion}`).argv
 
+  let minifyOptions
   let fonts
+
+  try {
+    minifyOptions = argv.c && argv.c.minifyOptions && JSON.parse(argv.c.minifyOptions)
+  } catch (e) {
+    error(`Failed to decode JSON for config.minifyOptions argument`)
+  }
 
   try {
     fonts = argv.c && argv.c.fonts && JSON.parse(argv.c.fonts)
@@ -98,7 +105,8 @@ export default async () => {
     error(`Failed to decode JSON for config.fonts argument`)
   }
 
-  const config = Object.assign(DEFAULT_OPTIONS, argv.c, fonts && {fonts})
+  const config = Object.assign(DEFAULT_OPTIONS, argv.c, fonts && {fonts}, minifyOptions && {minifyOptions})
+
   const inputArgs = pickArgs(['r', 'w', 'i', '_', 'm', 'v'])(argv)
   const outputArgs = pickArgs(['o', 's'])(argv)
 
@@ -182,7 +190,7 @@ export default async () => {
 
   convertedStream.forEach(s => {
     if (get(s, 'compiled.errors.length')) {
-      console.log(map(s.compiled.errors, 'formattedMessage').join('\n')) // eslint-disable-line no-console
+      console.error(map(s.compiled.errors, 'formattedMessage').join('\n')) // eslint-disable-line no-console
     }
   })
 

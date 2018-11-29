@@ -1,4 +1,4 @@
-import mjml2html, { registerComponent, handleMjmlConfig } from 'mjml-core'
+import mjml2html, { registerComponent } from 'mjml-core'
 import { registerDependencies } from 'mjml-validator'
 
 import { Social, SocialElement } from 'mjml-social'
@@ -47,5 +47,3 @@ registerComponent(CarouselImage)
 registerDependencies(require('./dependencies'))
 
 export default mjml2html
-
-export { handleMjmlConfig }

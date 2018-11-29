@@ -28,34 +28,35 @@ Displays a customizable button.
 
 attribute                   | unit        | description                                      | default value
 ----------------------------|-------------|--------------------------------------------------|---------------------
+align                       | string      | horizontal alignment                             | center
 background-color            | color       | button background-color                          | #414141
-container-background-color  | color       | button container background color                | n/a
 border                      | string      | css border format                                | none
 border-bottom               | string      | css border format                                | n/a
 border-left                 | string      | css border format                                | n/a
+border-radius               | px          | border radius                                    | 3px
 border-right                | string      | css border format                                | n/a
 border-top                  | string      | css border format                                | n/a
-border-radius               | px          | border radius                                    | 3px
-font-style                  | string      | normal/italic/oblique                            | n/a
-font-size                   | px          | text size                                        | 13px
-font-weight                 | number      | text thickness                                   | normal
-font-family                 | string      | font name                                        | Ubuntu, Helvetica, Arial, sans-serif
 color                       | color       | text color                                       | #ffffff
-text-align                  | string      | text-align button content                        | none
-text-decoration             | string      | underline/overline/none                          | none
-text-transform              | string      | capitalize/uppercase/lowercase                   | none
-align                       | string      | horizontal alignment                             | center
-vertical-align              | string      | vertical alignment                               | middle
-line-height                 | px/%/none   | line-height on link                              | 120%
+container-background-color  | color       | button container background color                | n/a
+css-class                   | string      | class name, added to the root HTML element created | n/a
+font-family                 | string      | font name                                        | Ubuntu, Helvetica, Arial, sans-serif
+font-size                   | px          | text size                                        | 13px
+font-style                  | string      | normal/italic/oblique                            | n/a
+font-weight                 | number      | text thickness                                   | normal
+height                      | px          | button height                                    | n/a
 href                        | link        | link to be triggered when the button is clicked  | n/a
-rel                         | string      | specify the rel attribute for the button link    | n/a
-target                      | string      | specify the target attribute for the button link | \_blank
 inner-padding               | px          | inner button padding                             | 10px 25px
+line-height                 | px/%/none   | line-height on link                              | 120%
 padding                     | px          | supports up to 4 parameters                      | 10px 25px
-padding-top                 | px          | top offset                                       | n/a
 padding-bottom              | px          | bottom offset                                    | n/a
 padding-left                | px          | left offset                                      | n/a
 padding-right               | px          | right offset                                     | n/a
+padding-top                 | px          | top offset                                       | n/a
+rel                         | string      | specify the rel attribute for the button link    | n/a
+target                      | string      | specify the target attribute for the button link | \_blank
+text-align                  | string      | text-align button content                        | none
+text-decoration             | string      | underline/overline/none                          | none
+text-transform              | string      | capitalize/uppercase/lowercase                   | none
+vertical-align              | string      | vertical alignment                               | middle
 width                       | px          | button width                                     | n/a
-height                      | px          | button height                                    | n/a
-css-class                   | string      | class name, added to the root HTML element created | n/a
+

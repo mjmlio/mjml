@@ -48,3 +48,4 @@ This tag allows you to display text in your email.
  padding-left                 | px            | left offset                                 | n/a
  padding-right                | px            | right offset                                | n/a
  css-class                    | string        | class name, added to the root HTML element created | n/a
+

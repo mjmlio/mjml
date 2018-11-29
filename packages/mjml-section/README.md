@@ -33,23 +33,24 @@ changed to 100%.
 
 attribute           | unit        | description                    | default value
 --------------------|-------------|--------------------------------|---------------
-full-width          | string      | make the section full-width    | n/a
+background-color    | color       | section color                  | n/a
+background-repeat   | string      | css background repeat          | repeat
+background-size     | percent/px  | css background size            | auto
+background-url      | url         | background url                 | n/a
 border              | string      | css border format              | none
 border-bottom       | string      | css border format              | n/a
 border-left         | string      | css border format              | n/a
+border-radius       | px          | border radius                  | n/a
 border-right        | string      | css border format              | n/a
 border-top          | string      | css border format              | n/a
-border-radius       | px          | border radius                  | n/a
-background-color    | color       | section color                  | n/a
-background-url      | url         | background url                 | n/a
-background-repeat   | string      | css background repeat          | repeat
-background-size     | percent/px  | css background size            | auto
-vertical-align      | string      | css vertical-align             | top
-text-align          | string      | css text-align                 | center
+css-class           | string      | class name, added to the root HTML element created | n/a
+direction           | string      | ltr / rtl                      | ltr
+full-width          | string      | make the section full-width    | n/a
 padding             | px          | supports up to 4 parameters    | 20px 0
-padding-top         | px          | section top offset             | n/a
 padding-bottom      | px          | section bottom offset          | n/a
 padding-left        | px          | section left offset            | n/a
 padding-right       | px          | section right offset           | n/a
-direction           | string      | ltr / rtl                      | ltr
-css-class           | string      | class name, added to the root HTML element created | n/a
+padding-top         | px          | section top offset             | n/a
+text-align          | string      | css text-align                 | center
+vertical-align      | string      | css vertical-align             | top
+

@@ -20,8 +20,8 @@ export default function MJMLValidator(element, options = {}) {
         errors,
         ...values(rulesCollection)
           .map(rule => rule(element, {
-            ...options,
             skipElements: SKIP_ELEMENTS,
+            ...options,
           })),
       ),
     )

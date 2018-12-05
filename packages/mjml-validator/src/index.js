@@ -3,7 +3,7 @@ import { flatten, concat, filter, includes, values } from 'lodash'
 import ruleError from './rules/ruleError'
 import rulesCollection, { registerRule } from './MJMLRulesCollection'
 
-const SKIP_ELEMENTS = ['mjml', 'mj-body', 'mj-head', 'mj-raw']
+const SKIP_ELEMENTS = ['mjml']
 
 export const formatValidationError = ruleError
 

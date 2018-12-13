@@ -3,6 +3,11 @@
   "packages": [
     "packages/*"
   ],
+  "command": {
+    "publish": {
+      "exact": true
+    }
+  },
   "npmClient": "yarn",
   "version": "4.2.1"
 }

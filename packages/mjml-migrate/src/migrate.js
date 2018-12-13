@@ -3,8 +3,16 @@
 import { keys, find } from 'lodash'
 import MJMLParser from 'mjml-parser-xml'
 import { components } from 'mjml-core'
+import { html as htmlBeautify } from 'js-beautify'
 
 import { unavailableTags, attributesWithUnit } from './config'
+
+const beautifyOptions = {
+  indent_size: 2,
+  wrap_attributes_indent_size: 2,
+  max_preserve_newline: 0,
+  preserve_newlines: false,
+}
 
 function removeContainerTag(bodyTag) {
   if (bodyTag.children[0].tagName === 'mj-container') {
@@ -174,13 +182,16 @@ const jsonToXML = ({ tagName, attributes, children, content }) => {
     : ` ${stringAttrs}>`}${subNode}</${tagName}>`
 }
 
-export default function migrate(input) {
+export default function migrate(input, options = {}) {
+  const { beautify } = options
   if (typeof input === 'object') return loopThrough(input)
 
   const mjmlJson = MJMLParser(input, { components, ignoreIncludes: true })
   loopThrough(mjmlJson)
 
-  return jsonToXML(mjmlJson)
+  return beautify
+    ? htmlBeautify(jsonToXML(mjmlJson), beautifyOptions)
+    : jsonToXML(mjmlJson)
 }
 
 export function handleMjml3(mjml) {

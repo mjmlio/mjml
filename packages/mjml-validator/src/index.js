@@ -14,14 +14,16 @@ export default function MJMLValidator(element, options = {}) {
   const { children, tagName } = element
   let errors
 
-  if (!includes(SKIP_ELEMENTS, tagName)) {
+  const skipElements = options.skipElements || SKIP_ELEMENTS
+
+  if (!includes(skipElements, tagName)) {
     errors = flatten(
       concat(
         errors,
         ...values(rulesCollection)
           .map(rule => rule(element, {
+            skipElements,
             ...options,
-            skipElements: SKIP_ELEMENTS,
           })),
       ),
     )

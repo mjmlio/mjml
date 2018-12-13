@@ -113,6 +113,7 @@ export default class MjSocialElement extends BodyComponent {
     'text-padding': 'unit(px,%){1,4}',
     src: 'string',
     alt: 'string',
+    title: 'string',
     target: 'string',
     'text-decoration': 'string',
   }
@@ -235,6 +236,7 @@ export default class MjSocialElement extends BodyComponent {
                     <img
                       ${this.htmlAttributes({
                         alt: this.getAttribute('alt'),
+                        title: this.getAttribute('title'),
                         height: parseInt(iconHeight || iconSize, 10),
                         src,
                         style: 'img',

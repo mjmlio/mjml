@@ -1,4 +1,4 @@
-import { find, get, identity, map, omit, reduce, isObject } from 'lodash'
+import { find, get, identity, map, omit, reduce, isObject, each } from 'lodash'
 import path from 'path'
 import juice from 'juice'
 import { html as htmlBeautify } from 'js-beautify'
@@ -54,6 +54,7 @@ export default function mjml2html(mjml, options = {}) {
     keepComments,
     minify = false,
     minifyOptions = {},
+    juicePreserveTags = null,
     skeleton = defaultSkeleton,
     validationLevel = 'soft',
     filePath = '.',
@@ -260,6 +261,12 @@ export default function mjml2html(mjml, options = {}) {
   })
 
   if (globalDatas.inlineStyle.length > 0) {
+    if (juicePreserveTags) {
+      each(juicePreserveTags, (val, key) => {
+        juice.codeBlocks[key] = val
+      })
+    }
+
     content = juice(content, {
       applyStyleTags: false,
       extraCss: globalDatas.inlineStyle.join(''),

@@ -15,7 +15,7 @@ export default class MjTable extends BodyComponent {
     'font-family': 'string',
     'font-size': 'unit(px)',
     'font-weight': 'string',
-    'line-height': 'unit(px,%)',
+    'line-height': 'unit(px,%,)',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',

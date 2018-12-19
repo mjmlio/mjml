@@ -14,7 +14,7 @@ export default class MjSocial extends BodyComponent {
     'icon-height': 'unit(px,%)',
     'icon-padding': 'unit(px,%){1,4}',
     'inner-padding': 'unit(px,%)',
-    'line-height': 'unit(px,%)',
+    'line-height': 'unit(px,%,)',
     mode: 'enum(horizontal,vertical)',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',

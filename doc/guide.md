@@ -30,7 +30,9 @@ MJML has been designed with responsiveness in mind. The abstraction it offers gu
   <mj-body>
     <mj-section>
       <mj-column>
-        <mj-text>Hi sexy!</mj-text>
+        <mj-image width="100px" src="https://mjml.io/assets/img/logo-small.png"></mj-image>
+        <mj-divider border-color="#F45E43"></mj-divider>
+        <mj-text font-size="20px" color="#F45E43" font-family="helvetica">Hello World</mj-text>
       </mj-column>
     </mj-section>
   </mj-body>

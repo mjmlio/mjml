@@ -57,6 +57,10 @@ Let's take the following layout to illustrate this:
 
 Since the first section defines only 2 columns, the engine will translate that in a layout where each column takes 50% of the total space (300px each). If we add a third one, it goes down to 33%, and with a fourth one to 25%.
 
+<p>
+  <br/><br/><br/><br/><br/><br/><br/><br/>
+</p>
+
 ### Manual sizing
 You can also manually set the size of your columns, in pixels or percentage, by using the `width` attribute on `mj-column`.
 

@@ -4,7 +4,7 @@ Components are the core of MJML. A component is an abstraction of a more complex
 
 MJML comes out of the box with a set of standard components to help you build easily your first templates without having to reinvent the wheel.
 
-For instance, the `mj-button` components is, on the inside, a complex HTML layout:
+For instance, the `mj-button` component is, on the inside, a complex HTML layout:
 
 ``` html
 
@@ -34,9 +34,9 @@ A MJML document starts with a `<mjml>` tag, it can contain only `mj-head` and `m
 attribute | unit | description | default value
 ----------|------|-------------|---------------
 owa | string | if set to "desktop", will force desktop display on outlook. Otherwise outlook will display mobile version since it ignores media queries | none
-lang | string | used as <html lang=""> attribute | none
+lang | string | used as `<html lang="">` attribute | none
 
 
 ## mj-head
 
-mj-head contains head components, related to the document such as style and meta elements (see head components below).
+mj-head contains head components, related to the document such as style and meta elements (see [head components](#standard-head-components)).

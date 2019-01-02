@@ -76,7 +76,7 @@ The text padding represents the inner space around the content within the `mj-te
               background-size="cover"
               background-repeat="no-repeat">
 
-    <mj-column width="600">
+    <mj-column width="600px">
 
 		  <mj-text  align="center"
                 color="#fff"
@@ -99,7 +99,7 @@ To add the image header, you will have to replace the section's background-color
 Similarly to the first header, you will have to center the text both vertically and horizontally.
 The padding remains the same.
 The button `href` sets the button location.
-In order to have the background rendered full-width in the column, set the column width to 600px with `width="600"`.
+In order to have the background rendered full-width in the column, set the column width to 600px with `width="600px"`.
 
 ## Introduction Text
 
@@ -107,7 +107,7 @@ In order to have the background rendered full-width in the column, set the colum
 
 <!-- Intro text -->
   <mj-section background-color="#fafafa">
-    	<mj-column width="400">
+    	<mj-column width="400px">
 
           <mj-text font-style="italic"
                    font-size="20px"
@@ -138,7 +138,7 @@ The title is a regular `mj-text` that can be customized.
 
   <!-- Left image -->
   <mj-column>
-    <mj-image width="200"
+    <mj-image width="200px"
               src="https://designspell.files.wordpress.com/2012/01/sciolino-paris-bw.jpg" />
   </mj-column>
 
@@ -171,13 +171,13 @@ For the text part, you are going to need two `<mj-text>`s like above. One with a
 <!-- Icons -->
 <mj-section background-color="#fbfbfb">
   <mj-column>
-    <mj-image width="100" src="http://191n.mj.am/img/191n/3s/x0l.png" />
+    <mj-image width="100px" src="http://191n.mj.am/img/191n/3s/x0l.png" />
   </mj-column>
   <mj-column>
-    <mj-image width="100" src="http://191n.mj.am/img/191n/3s/x01.png" />
+    <mj-image width="100px" src="http://191n.mj.am/img/191n/3s/x01.png" />
   </mj-column>
   <mj-column>
-    <mj-image width="100" src="http://191n.mj.am/img/191n/3s/x0s.png" />
+    <mj-image width="100px" src="http://191n.mj.am/img/191n/3s/x0s.png" />
   </mj-column>
 </mj-section>
 ```

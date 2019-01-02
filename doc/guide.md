@@ -7,7 +7,6 @@ language_tabs:
 toc_footers:
   - <a href='https://github.com/mjmlio/mjml'>Fork me on Github</a>
   - <a href='https://github.com/mjmlio/mjml/issues'>Submit an Issue</a>
-  - MJML v4.2.0
 
 search: true
 ---
@@ -31,9 +30,7 @@ MJML has been designed with responsiveness in mind. The abstraction it offers gu
   <mj-body>
     <mj-section>
       <mj-column>
-        <mj-image width="100px" src="https://mjml.io/assets/img/logo-small.png"></mj-image>
-        <mj-divider border-color="#F45E43"></mj-divider>
-        <mj-text font-size="20px" color="#F45E43" font-family="helvetica">Hello World</mj-text>
+        <mj-text>Hi sexy!</mj-text>
       </mj-column>
     </mj-section>
   </mj-body>
@@ -44,52 +41,5 @@ MJML has been designed with responsiveness in mind. The abstraction it offers gu
   <br />
   <br />
   <br />
-  <a href="https://mjml.io/try-it-live"><img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" /></a>
+  <a href="/try-it-live/intro"><img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" /></a>
 </p>
-
-
-## mjml
-
-A MJML document starts with a `<mjml>` tag, it can contain only `mj-head` and `mj-body` tags. Both have the same purpose of `head` and `body` in a HTML document.
-
-## mj-head
-
-mj-head contains everything related to the document such as style and meta elements. It supports custom head elements and can be registered through `registerMJHeadElement(<string> name, <function> handler)` api from `mjml-core`, it acts as a pre-render hook.
-
-
-## mj-body
-
-mj-body contains everything related to the content of your email. It supports custom elements too and can be registered either through `registerMJElement(<MJMLElement> class)` api from `mjml-core` or via a `.mjmlconfig` file. Non-known element from `mjml-core` are simply ignored. Note that `mj-body` should have only one root element due to how React works.
-
-
-## mj-include
-
-The mjml-core package allows you to include external mjml files to build your email template.
-
-```xml
-<!-- header.mjml -->
-<mj-section>
-  <mj-column>
-    <mj-text>This is a header</mj-text>
-  </mj-column>
-</mj-section>
-```
-
-You can wrap your external mjml files inside the default `mjml > mj-body`
-tags to make it easier to preview outside the main template
-
-
-```xml
-<!-- main.mjml -->
-<mjml>
-  <mj-body>
-    <mj-include path="./header" /> <!-- or 'header.mjml' -->
-  </mj-body>
-</mjml>
-```
-
-The MJML engine will then replace your included files before starting the rendering process
-
-<aside class="notice">
-Note that the file must be a file with a `.mjml` extension
-</aside>

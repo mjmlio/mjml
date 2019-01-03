@@ -91,6 +91,7 @@ icon-padding                | px          | padding around the icon       | 0px
 text-padding                | px          | padding around the text       | 4px 4px 4px 0
 src                         | url         | image source                  | Each social `name` has its own default
 target                      | string      | link target                   | \_blank
+title                       | string      | img title attribute           | none
 text-decoration             | string      | underline/overline/none       | none
 
 Supported networks with a share url:  

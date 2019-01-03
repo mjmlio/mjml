@@ -6,10 +6,10 @@ import * as rules from './rules'
 const MJMLRulesCollection = {}
 
 export function registerRule(rule, name) {
-  if (typeof rule !== 'function' || rule.length !== 2) {
+  if (typeof rule !== 'function') {
     return warning(
       false,
-      'Your rule must be a function and must have two parameters which are the element to validate and the components object imported from mjml-core',
+      'Your rule must be a function',
     )
   }
 

@@ -197,8 +197,10 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
           if (!inEndingTag) { // we're getting out of endingTag
             // if self-closing tag we don't get the content
             if (!isSelfClosing(currentEndingTagIndexes, parser)) {
-              const val = xml.substring(currentEndingTagIndexes.endIndex + 1, parser.startIndex).trim()
-              if (val) cur.content = val
+              const partialVal = xml.substring(currentEndingTagIndexes.endIndex + 1, parser.endIndex).trim()
+              const val = partialVal.substring(0, partialVal.lastIndexOf(`</${name}`))
+
+              if (val) cur.content = val.trim()
             }
           }
         }

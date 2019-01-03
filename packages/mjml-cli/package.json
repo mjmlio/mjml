@@ -1,7 +1,7 @@
 {
   "name": "mjml-cli",
   "description": "MJML: the only framework that makes responsive-email easy",
-  "version": "4.2.1",
+  "version": "4.3.0",
   "main": "bin/mjml",
   "bin": {
     "mjml-cli": "bin/mjml"
@@ -24,12 +24,11 @@
     "chokidar": "^1.6.1",
     "cross-env": "^5.1.4",
     "glob": "^7.1.1",
-    "js-beautify": "^1.6.14",
     "lodash": "^4.17.4",
-    "mjml-core": "^4.2.1",
-    "mjml-migrate": "^4.2.1",
-    "mjml-parser-xml": "^4.2.1",
-    "mjml-validator": "^4.2.1",
+    "mjml-core": "4.3.0",
+    "mjml-migrate": "4.3.0",
+    "mjml-parser-xml": "4.3.0",
+    "mjml-validator": "4.3.0",
     "yargs": "^8.0.2"
   },
   "devDependencies": {

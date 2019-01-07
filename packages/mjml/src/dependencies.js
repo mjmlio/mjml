@@ -7,7 +7,7 @@ export default {
   'mj-attributes': [/^.*^/],
   'mj-body': ['mj-raw', 'mj-section', 'mj-wrapper', 'mj-hero'],
   'mj-button': [],
-  'mj-carousel': ['mj-carousel-image', 'mj-raw'],
+  'mj-carousel': ['mj-carousel-image'],
   'mj-carousel-image': [],
   'mj-column': [
     'mj-accordion',
@@ -63,7 +63,7 @@ export default {
   'mj-navbar': ['mj-navbar-link', 'mj-raw'],
   'mj-raw': [],
   'mj-section': ['mj-column', 'mj-group', 'mj-raw'],
-  'mj-social': ['mj-social-element', 'mj-raw'],
+  'mj-social': ['mj-social-element'],
   'mj-social-element': [],
   'mj-spacer': [],
   'mj-table': [],

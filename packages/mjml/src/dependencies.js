@@ -5,7 +5,7 @@ export default {
   'mj-accordion-title': [],
   'mj-accordion-text': [],
   'mj-attributes': [/^.*^/],
-  'mj-body': ['mj-raw', 'mj-section', 'mj-wrapper', 'mj-hero', 'mj-raw'],
+  'mj-body': ['mj-raw', 'mj-section', 'mj-wrapper', 'mj-hero'],
   'mj-button': [],
   'mj-carousel': ['mj-carousel-image', 'mj-raw'],
   'mj-carousel-image': [],

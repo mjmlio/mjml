@@ -66,16 +66,19 @@ function migrateSocialSyntax(socialTag) {
 
   // migrate all attributes to their child attributes
   keys(networks).forEach(network => {
+    const nameMigrated = networks[network].replace(':url', '-noshare').replace(':share', '')
+    const nameWithoutOpts = nameMigrated.replace('-noshare', '')
+
     socialTag.children.push({
       tagName: `mj-social-element`,
-      attributes: { name: networks[network] },
-      content: attributes[`${networks[network]}-content`] || '',
+      attributes: { name: nameMigrated },
+      content: attributes[`${nameWithoutOpts}-content`] || '',
     })
 
     keys(attributes).forEach(attribute => {
-      if (attribute.match(networks[network]) && !attribute.match('content')) {
+      if (attribute.match(nameWithoutOpts) && !attribute.match('content')) {
         socialTag.children[network].attributes[
-          attribute.replace(`${networks[network]}-`, '')
+          attribute.replace(`${nameWithoutOpts}-`, '')
         ] =
           socialTag.attributes[attribute]
         delete socialTag.attributes[attribute]

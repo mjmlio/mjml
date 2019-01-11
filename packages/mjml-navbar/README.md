@@ -64,6 +64,7 @@ attribute                   | unit               | description                  
 ----------------------------|--------------------|--------------------------------------------------------------------------------------------------|-----------------
 align                       | string             | align content left/center/right                                                                  | center
 base url                    | string             | base url for children components                                                                 | n/a
+css-class                   | string             | class name, added to the root HTML element created                                               | n/a
 hamburger                   | string             | activate the hamburger navigation on mobile if the value is hamburger                            | n/a
 ico-align                   | string             | hamburger icon alignment, left/center/right (hamburger mode required)                            | center
 ico-close                   | ASCII code decimal | char code for a custom close icon (hamburger mode required)                                      | 8855
@@ -92,20 +93,21 @@ This component should be used to display an individual link in the navbar.
 
 attribute        | unit          | description                           | default value
 -----------------|---------------|---------------------------------------|------------------------------
-color            | color         | text color                            | #000000
-font-family      | string        | font                                  | Ubuntu, Helvetica, Arial, sans-serif
-font-size        | px            | text size                             | 13px
-font-style       | string        | normal/italic/oblique                 | n/a
-font-weight      | number        | text thickness                        | n/a
-href             | string        | link to redirect to on click          | n/a
-line-height      | px            | space between the lines               | 22px
-padding          | px            | supports up to 4 parameters           | 10px 25px
-padding-bottom   | px            | bottom offset                         | n/a
-padding-left     | px            | left offset                           | n/a
-padding-right    | px            | right offset                          | n/a
-padding-top      | px            | top offset                            | n/a
-rel              | string        | specify the rel attribute             | n/a
-target           | string        | link target on click                  | n/a
-text-decoration  | string        | underline/overline/none               | n/a
-text-transform   | string        | capitalize/uppercase/lowercase/none   | uppercase
+color            | color         | text color                                         | #000000
+css-class        | string        | class name, added to the root HTML element created | n/a
+font-family      | string        | font                                               | Ubuntu, Helvetica, Arial, sans-serif
+font-size        | px            | text size                                          | 13px
+font-style       | string        | normal/italic/oblique                              | n/a
+font-weight      | number        | text thickness                                     | n/a
+href             | string        | link to redirect to on click                       | n/a
+line-height      | px            | space between the lines                            | 22px
+padding          | px            | supports up to 4 parameters                        | 10px 25px
+padding-bottom   | px            | bottom offset                                      | n/a
+padding-left     | px            | left offset                                        | n/a
+padding-right    | px            | right offset                                       | n/a
+padding-top      | px            | top offset                                         | n/a
+rel              | string        | specify the rel attribute                          | n/a
+target           | string        | link target on click                               | n/a
+text-decoration  | string        | underline/overline/none                            | n/a
+text-transform   | string        | capitalize/uppercase/lowercase/none                | uppercase
 

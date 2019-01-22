@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-import { keys, find } from 'lodash'
+import { keys, find, isNil } from 'lodash'
 import MJMLParser from 'mjml-parser-xml'
 import { components } from 'mjml-core'
 import { html as htmlBeautify } from 'js-beautify'
@@ -25,7 +25,7 @@ function removeContainerTag(bodyTag) {
 const listAttributes = tag => tag.attributes
 
 function addPx(value) {
-  if (!isNaN(value)) {
+  if (!isNaN(value) && !isNil(value)) {
     return `${value}px`
   }
   return value

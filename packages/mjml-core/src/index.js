@@ -58,6 +58,7 @@ export default function mjml2html(mjml, options = {}) {
     validationLevel = 'soft',
     filePath = '.',
     mjmlConfigPath = null,
+    noMigrateWarn = false,
   } = options
 
   // if mjmlConfigPath is specified then we need to handle it on each call
@@ -71,7 +72,7 @@ export default function mjml2html(mjml, options = {}) {
     })
   }
 
-  mjml = handleMjml3(mjml)
+  mjml = handleMjml3(mjml, { noMigrateWarn })
 
   const globalDatas = {
     backgroundColor: '',

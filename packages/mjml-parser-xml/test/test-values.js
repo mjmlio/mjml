@@ -486,6 +486,53 @@ module.exports = [
            attributes: {} } ],
       attributes: {}
     }
+  },
+  {
+    test: 'Single opening tag in endingTag, single and multi-line',
+    mjml: `
+      <mjml>
+        <mj-body>
+          <mj-section>
+            <mj-column>
+              <mj-raw test="test"><?php endif ?></mj-raw>
+              <mj-raw>
+                <?php endif ?>
+              </mj-raw>
+            </mj-column>
+          </mj-section>
+        </mj-body>
+      </mjml>
+    `,
+    validJson: { line: 2,
+      includedIn: [],
+      tagName: 'mjml',
+      children:
+       [ { line: 3,
+           includedIn: [],
+           tagName: 'mj-body',
+           children:
+            [ { line: 4,
+                includedIn: [],
+                tagName: 'mj-section',
+                children:
+                 [ { line: 5,
+                     includedIn: [],
+                     tagName: 'mj-column',
+                     children:
+                      [ { line: 6,
+                          includedIn: [],
+                          tagName: 'mj-raw',
+                          attributes: { test: 'test' },
+                          content: '<?php endif ?>' },
+                        { line: 7,
+                          includedIn: [],
+                          tagName: 'mj-raw',
+                          content: '<?php endif ?>',
+                          attributes: {} } ],
+                     attributes: {} } ],
+                attributes: {} } ],
+           attributes: {} } ],
+      attributes: {} }
   }
 ]
 /* eslint-enable comma-dangle */

@@ -3,7 +3,9 @@
   "mjml/doc/install.md",
   "mjml/doc/getting_started.md",
   "mjml/doc/basic.md",
-  "mjml/doc/components.md",
+  "mjml/doc/components_1.md",
+  "mjml/packages/mjml-body/README.md",
+  "mjml/doc/components_2.md",
   "mjml/doc/head_components.md",
   "mjml/packages/mjml-head-attributes/README.md",
   "mjml/packages/mjml-head-breakpoint/README.md",
@@ -13,7 +15,6 @@
   "mjml/packages/mjml-head-title/README.md",
   "mjml/doc/body_components.md",
   "mjml/packages/mjml-accordion/README.md",
-  "mjml/packages/mjml-body/README.md",
   "mjml/packages/mjml-button/README.md",
   "mjml/packages/mjml-carousel/README.md",
   "mjml/packages/mjml-column/README.md",
@@ -36,5 +37,3 @@
   "mjml/doc/using_mjml_in_json.md",
   "mjml/doc/tooling.md"
 ]
-
-

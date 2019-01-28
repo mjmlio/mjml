@@ -38,18 +38,20 @@ This tag allows you to display table and filled it with data. It only accepts pl
 
 attribute                   | unit                        | description                    | default value
 ----------------------------|-----------------------------|------------------------------- |--------------
-color                       | color                       | text header & footer color     | #000000
 cellpadding                 | pixels                      | space between cells            | n/a
 cellspacing                 | pixels                      | space between cell and border  | n/a
+color                       | color                       | text header & footer color     | #000000
+container-background-color  | color                       | inner element background color | n/a
+css-class                   | string                      | class name, added to the root HTML element created | n/a
 font-family                 | string                      | font name                      | Ubuntu, Helvetica, Arial, sans-serif
 font-size                   | px                          | font size                      | 13px
 font-style                  | string                      | font style                     | n/a
 line-height                 | percent/px                  | space between lines            | 22px
-container-background-color  | color                       | inner element background color | n/a
 padding                     | percent/px                  | supports up to 4 parameters    | 10px 25px
-padding-top                 | percent/px                  | top offset                     | n/a
 padding-bottom              | percent/px                  | bottom offset                  | n/a
 padding-left                | percent/px                  | left offset                    | n/a
 padding-right               | percent/px                  | right offset                   | n/a
-width                       | percent/px                  | table width                    | 100%
+padding-top                 | percent/px                  | top offset                     | n/a
 table-layout                | auto/fixed/initial/inherit  | sets the table layout.         | auto
+width                       | percent/px                  | table width                    | 100%
+

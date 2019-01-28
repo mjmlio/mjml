@@ -1,10 +1,9 @@
 import path from 'path'
 import yargs from 'yargs'
-import { html as htmlBeautify } from 'js-beautify'
 import { flow, pick, isNil, negate, pickBy } from 'lodash/fp'
 import { isArray, isEmpty, map, get } from 'lodash'
 
-import mjml2html, { components } from 'mjml-core'
+import mjml2html, { components, initializeType } from 'mjml-core'
 import migrate from 'mjml-migrate'
 import validate from 'mjml-validator'
 import MJMLParser from 'mjml-parser-xml'
@@ -19,19 +18,12 @@ import { version as coreVersion } from 'mjml-core/package.json' // eslint-disabl
 import { version as cliVersion } from '../package.json'
 import DEFAULT_OPTIONS from './helpers/defaultOptions'
 
-const beautifyOptions = {
-  indent_size: 2,
-  wrap_attributes_indent_size: 2,
-  max_preserve_newline: 0,
-  preserve_newlines: false,
-}
-
 export default async () => {
   let EXIT_CODE = 0
   let KEEP_OPEN = false
 
   const error = msg => {
-    console.log('\nCommand line error:') // eslint-disable-line no-console
+    console.error('\nCommand line error:') // eslint-disable-line no-console
     console.error(msg) // eslint-disable-line no-console
 
     process.exit(1)
@@ -90,7 +82,23 @@ export default async () => {
     .help()
     .version(`mjml-core: ${coreVersion}\nmjml-cli: ${cliVersion}`).argv
 
-  const config = Object.assign(DEFAULT_OPTIONS, argv.c)
+  let minifyOptions
+  let fonts
+
+  try {
+    minifyOptions = argv.c && argv.c.minifyOptions && JSON.parse(argv.c.minifyOptions)
+  } catch (e) {
+    error(`Failed to decode JSON for config.minifyOptions argument`)
+  }
+
+  try {
+    fonts = argv.c && argv.c.fonts && JSON.parse(argv.c.fonts)
+  } catch (e) {
+    error(`Failed to decode JSON for config.fonts argument`)
+  }
+
+  const config = Object.assign(DEFAULT_OPTIONS, argv.c, fonts && {fonts}, minifyOptions && {minifyOptions})
+
   const inputArgs = pickArgs(['r', 'w', 'i', '_', 'm', 'v'])(argv)
   const outputArgs = pickArgs(['o', 's'])(argv)
 
@@ -155,11 +163,13 @@ export default async () => {
       let compiled
       switch (inputOpt) {
         case 'm': // eslint-disable-line no-case-declarations
-          compiled = { html: htmlBeautify(migrate(i.mjml), beautifyOptions) }
+          compiled = { html: migrate(i.mjml, { beautify: true }) }
           break
         case 'v': // eslint-disable-line no-case-declarations
           const mjmlJson = MJMLParser(i.mjml, { components })
-          compiled = { errors: validate(mjmlJson, { components }) }
+          compiled = {
+            errors: validate(mjmlJson, { components, initializeType }),
+          }
           break
         default:
           compiled = mjml2html(i.mjml, { ...config, filePath: i.file })
@@ -174,7 +184,7 @@ export default async () => {
 
   convertedStream.forEach(s => {
     if (get(s, 'compiled.errors.length')) {
-      console.log(map(s.compiled.errors, 'formattedMessage').join('\n')) // eslint-disable-line no-console
+      console.error(map(s.compiled.errors, 'formattedMessage').join('\n')) // eslint-disable-line no-console
     }
   })
 

@@ -69,6 +69,14 @@ $> mjml input.mjml --config.beautify true --config.minify false
 
 These are the default options.
 
+### Change minify options
+
+```bash
+$> mjml input.mjml --config.minifyOptions='{"minifyCSS": true, "removeEmptyAttributes": false}'
+```
+
+The defaults are "collapseWhitespace": true, "minifyCSS": false, "removeEmptyAttributes": true
+
 ### Log error stack
 
 ```bash

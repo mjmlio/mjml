@@ -31,12 +31,13 @@ Don't want to install anything? Use the free online editor!
 
 ## Applications and plugins
 
-MJML comes with an ecosystem of tools and plugins, check out:
-- The [MJML App](https://mjmlio.github.io/mjml-app/) (MJML is included)
-- [Visual Studio Code plugin](https://github.com/attilabuti/vscode-mjml) (MJML is included)
-- [Atom plugin](https://atom.io/users/mjmlio) (MJML needs to be installed separately)
-- [Sublime Text plugin](https://packagecontrol.io/packages/MJML-syntax) (MJML needs to be installed separately)
+MJML comes with an ecosystem of tools and plugins, check out:  
+- The [MJML App](https://mjmlio.github.io/mjml-app/) (MJML is included)  
+- [Visual Studio Code plugin](https://github.com/attilabuti/vscode-mjml) (MJML is included)  
+- [Atom plugin](https://atom.io/users/mjmlio) (MJML needs to be installed separately)  
+- [Sublime Text plugin](https://packagecontrol.io/packages/MJML-syntax) (MJML needs to be installed separately)  
 
+For more information, check the [Tooling](#tooling) section.  
 For more tools, check the [Community](https://mjml.io/community) page.
 
 ## Command line interface
@@ -57,7 +58,7 @@ argument | description | default value
 `mjml -w [input]` | Watches the changes made to [input] (file or folder) | NA
 `mjml [input] --config.beautify` | Beautifies the output (`true` or `false`) | true
 `mjml [input] --config.minify` | Minifies the output (`true` or `false`) | false
-`mjml [input] --config.configPath [mjmlconfigPath]` | Uses the `.mjmlconfig` file in the specified path or directory to include custom components | *The `.mjmlconfig` file in the current working directory, if any*
+`mjml [input] --config.mjmlConfigPath [mjmlconfigPath]` | Uses the `.mjmlconfig` file in the specified path or directory to include custom components | *The `.mjmlconfig` file in the current working directory, if any*
 `mjml [input] --config.validationLevel` | [Validation level](https://github.com/mjmlio/mjml/tree/master/packages/mjml-validator#validating-mjml): 'strict', 'soft' or 'skip' | 'soft'
 
 
@@ -100,7 +101,7 @@ beautify | boolean | Option to beautify the HTML output | false
 minify | boolean | Option to minify the HTML output | false
 validationLevel | string | Available values for the [validator](https://github.com/mjmlio/mjml/tree/master/packages/mjml-validator#validating-mjml): 'strict', 'soft', 'skip'  | 'soft'
 filePath | string | Full path of the specified file to use when resolving paths from [`mj-include` components](#mj-include) | '.'
-configPath | string | The path or directory of the [`.mjmlconfig` file](#community-components) | `process.cwd()`
+mjmlConfigPath | string | The path or directory of the [`.mjmlconfig` file](#community-components) | `process.cwd()`
 
 ## API
 

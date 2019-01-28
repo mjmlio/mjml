@@ -20,6 +20,7 @@ export default class MjButton extends BodyComponent {
     'font-weight': 'string',
     height: 'unit(px,%)',
     href: 'string',
+    name: 'string',
     'inner-padding': 'unit(px,%)',
     'line-height': 'unit(px,%)',
     'padding-bottom': 'unit(px,%)',
@@ -125,6 +126,7 @@ export default class MjButton extends BodyComponent {
               ${this.htmlAttributes({
                 href: this.getAttribute('href'),
                 rel: this.getAttribute('rel'),
+                name: this.getAttribute('name'),
                 style: 'content',
                 target: tag === 'a' ? this.getAttribute('target') : undefined,
               })}

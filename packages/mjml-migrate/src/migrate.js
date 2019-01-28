@@ -186,7 +186,7 @@ const jsonToXML = ({ tagName, attributes, children, content }) => {
 }
 
 export default function migrate(input, options = {}) {
-  const { beautify, noMigrateWarn } = options
+  const { beautify } = options
   if (typeof input === 'object') return loopThrough(input)
 
   const mjmlJson = MJMLParser(input, { components, ignoreIncludes: true })

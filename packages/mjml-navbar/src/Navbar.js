@@ -68,7 +68,6 @@ export default class MjNavbar extends BodyComponent {
         'mso-hide': 'all',
         '-moz-user-select': 'none',
         'user-select': 'none',
-        align: this.getAttribute('ico-align'),
         color: this.getAttribute('ico-color'),
         'font-size': this.getAttribute('ico-font-size'),
         'font-family': this.getAttribute('ico-font-family'),
@@ -119,6 +118,7 @@ export default class MjNavbar extends BodyComponent {
             for: key,
             class: 'mj-menu-label',
             style: 'label',
+            align: this.getAttribute('ico-align'),
           })}
         >
           <span

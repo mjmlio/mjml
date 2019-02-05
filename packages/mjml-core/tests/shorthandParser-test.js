@@ -1,5 +1,6 @@
 const chai = require('chai')
 const helper = require('../lib/helpers/shorthandParser')
+
 const shorthandParser = helper && helper.default
 
 const testValues = [

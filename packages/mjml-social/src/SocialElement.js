@@ -157,6 +157,7 @@ export default class MjSocialElement extends BodyComponent {
       },
       img: {
         'border-radius': this.getAttribute('border-radius'),
+        display: 'block',
       },
       tdText: {
         'vertical-align': 'middle',

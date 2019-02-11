@@ -99,6 +99,8 @@ argument | description | default value
 `mjml [input] --config.beautify` | Beautifies the output (`true` or `false`) | true
 `mjml [input] --config.minify` | Minifies the output (`true` or `false`) | false
 
+See [mjml-cli documentation](https://github.com/mjmlio/mjml/blob/master/packages/mjml-cli/README.md) for more information about config options.
+
 ## Inside Node.js
 
 ```javascript
@@ -138,6 +140,9 @@ beautify | boolean | Option to beautify the HTML output | false
 minify | boolean | Option to minify the HTML output | false
 validationLevel | string | Available values for the [validator](https://github.com/mjmlio/mjml/tree/master/packages/mjml-validator#validating-mjml): 'strict', 'soft', 'skip'  | 'soft'
 filePath | string | Path of file, used for relative paths in mj-includes | '.'
+juicePreserveTags | Preserve some tags when inlining css, see [mjml-cli documentation](https://github.com/mjmlio/mjml/blob/master/packages/mjml-cli/README.md) for more info | NA
+minifyOptions | Options for html minifier, see [mjml-cli documentation](https://github.com/mjmlio/mjml/blob/master/packages/mjml-cli/README.md) for more info | NA
+mjmlConfigPath | string | The path or directory of the `.mjmlconfig` file (for custom components use) | `process.cwd()`
 
 ## API
 

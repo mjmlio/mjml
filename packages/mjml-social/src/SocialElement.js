@@ -103,7 +103,7 @@ export default class MjSocialElement extends BodyComponent {
     'icon-size': 'unit(px,%)',
     'icon-height': 'unit(px,%)',
     'icon-padding': 'unit(px,%){1,4}',
-    'line-height': 'unit(px,%)',
+    'line-height': 'unit(px,%,)',
     name: 'string',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',

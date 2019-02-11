@@ -22,8 +22,13 @@ export default class MjNavbar extends BodyComponent {
     'ico-padding-top': 'unit(px,%)',
     'ico-padding-right': 'unit(px,%)',
     'ico-padding-bottom': 'unit(px,%)',
+    'padding': 'unit(px,%){1,4}',
+    'padding-left': 'unit(px,%)',
+    'padding-top': 'unit(px,%)',
+    'padding-right': 'unit(px,%)',
+    'padding-bottom': 'unit(px,%)',
     'ico-text-decoration': 'string',
-    'ico-line-height': 'unit(px,%)',
+    'ico-line-height': 'unit(px,%,)',
   }
 
   static defaultAttributes = {

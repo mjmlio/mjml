@@ -197,11 +197,11 @@ export default function migrate(input, options = {}) {
     : jsonToXML(mjmlJson)
 }
 
-export function handleMjml3(mjml) {
+export function handleMjml3(mjml, options = {}) {
   const isV3Synthax = checkV3Through(mjml)
   if (!isV3Synthax) return mjml
 
-  console.error(
+  if (!options.noMigrateWarn) console.log(
     'MJML v3 syntax detected, migrating to MJML v4 syntax. Use mjml -m to get the migrated MJML.',
   )
   return migrate(mjml)

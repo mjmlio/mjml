@@ -13,7 +13,7 @@ export function initComponent({ initialDatas, name }) {
     const component = new Component(initialDatas)
 
     if (component.headStyle) {
-      component.context.addHeadSyle(name, component.headStyle)
+      component.context.addHeadStyle(name, component.headStyle)
     }
     if (component.componentHeadStyle) {
       component.context.addComponentHeadSyle(component.componentHeadStyle)

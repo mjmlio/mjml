@@ -207,7 +207,7 @@ export default function mjml2html(mjml, options = {}) {
         className
       ] = `{ width:${parsedWidth}${unit} !important; max-width: ${parsedWidth}${unit}; }`
     },
-    addHeadSyle(identifier, headStyle) {
+    addHeadStyle(identifier, headStyle) {
       globalDatas.headStyle[identifier] = headStyle
     },
     addComponentHeadSyle(headStyle) {

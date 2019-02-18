@@ -24,11 +24,6 @@ Displays a blank space.
 
 attribute                   | unit        | description                    | default value
 ----------------------------|-------------|--------------------------------|------------------------------
-border                      | string      | css border format              | none
-border-bottom               | string      | css border format              | n/a
-border-left                 | string      | css border format              | n/a
-border-right                | string      | css border format              | n/a
-border-top                  | string      | css border format              | n/a
 container-background-color   | color         | inner element background color  | n/a
 css-class                   | string      | class name, added to the root HTML element created | n/a
 height                      | px          | spacer height                  | 20px

@@ -13,7 +13,7 @@ export default class MjSocial extends BodyComponent {
     'icon-size': 'unit(px,%)',
     'icon-height': 'unit(px,%)',
     'icon-padding': 'unit(px,%){1,4}',
-    'inner-padding': 'unit(px,%)',
+    'inner-padding': 'unit(px,%){1,4}',
     'line-height': 'unit(px,%,)',
     mode: 'enum(horizontal,vertical)',
     'padding-bottom': 'unit(px,%)',

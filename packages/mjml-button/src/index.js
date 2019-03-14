@@ -1,5 +1,7 @@
 import { BodyComponent } from 'mjml-core'
 
+import widthParser from 'mjml-core/lib/helpers/widthParser'
+
 export default class MjButton extends BodyComponent {
   static endingTag = true
 
@@ -78,6 +80,7 @@ export default class MjButton extends BodyComponent {
       },
       content: {
         display: 'inline-block',
+        width: this.calculateAWidth(this.getAttribute('width')),
         background: this.getAttribute('background-color'),
         color: this.getAttribute('color'),
         'font-family': this.getAttribute('font-family'),
@@ -91,9 +94,26 @@ export default class MjButton extends BodyComponent {
         padding: this.getAttribute('inner-padding'),
         'mso-padding-alt': '0px',
         'border-radius': this.getAttribute('border-radius'),
-
       },
     }
+  }
+
+  calculateAWidth(width) {
+    if (!width) return null
+
+    const { parsedWidth, unit } = widthParser(width)
+
+    // impossible to handle percents because it depends on padding and text width
+    if (unit !== 'px') return null
+
+    const { borders } = this.getBoxWidths()
+
+    const innerPaddings =
+      this.getShorthandAttrValue('inner-padding', 'left') +
+      this.getShorthandAttrValue('inner-padding', 'right')
+
+
+    return `${parsedWidth - innerPaddings - borders}px`
   }
 
   render() {

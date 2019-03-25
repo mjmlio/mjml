@@ -69,7 +69,7 @@ export default (input, options) => {
   )
 
   const watcher = chokidar
-    .watch(input)
+    .watch(input.map(i => i.replace(/\\/g,'/')))
     .on('change', file => synchronyzeWatcher(path.resolve(file)))
     .on('add', file => {
       const filePath = path.resolve(file)

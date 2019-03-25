@@ -22,8 +22,13 @@ export default class MjNavbar extends BodyComponent {
     'ico-padding-top': 'unit(px,%)',
     'ico-padding-right': 'unit(px,%)',
     'ico-padding-bottom': 'unit(px,%)',
+    'padding': 'unit(px,%){1,4}',
+    'padding-left': 'unit(px,%)',
+    'padding-top': 'unit(px,%)',
+    'padding-right': 'unit(px,%)',
+    'padding-bottom': 'unit(px,%)',
     'ico-text-decoration': 'string',
-    'ico-line-height': 'unit(px,%)',
+    'ico-line-height': 'unit(px,%,)',
   }
 
   static defaultAttributes = {
@@ -68,7 +73,6 @@ export default class MjNavbar extends BodyComponent {
         'mso-hide': 'all',
         '-moz-user-select': 'none',
         'user-select': 'none',
-        align: this.getAttribute('ico-align'),
         color: this.getAttribute('ico-color'),
         'font-size': this.getAttribute('ico-font-size'),
         'font-family': this.getAttribute('ico-font-family'),
@@ -119,6 +123,7 @@ export default class MjNavbar extends BodyComponent {
             for: key,
             class: 'mj-menu-label',
             style: 'label',
+            align: this.getAttribute('ico-align'),
           })}
         >
           <span

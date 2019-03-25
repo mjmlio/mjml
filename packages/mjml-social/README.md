@@ -40,6 +40,7 @@ attribute                   | unit        | description                   | defa
 align                       | string      | left/right/center             | center
 border-radius               | px          | border radius                 | 3px
 color                       | color       | text color                    | #333333
+css-class                   | string      | class name, added to the root HTML element created | n/a
 container-background-color  | color       | inner element background color                     | n/a
 font-family                 | string      | font name                     | Ubuntu, Helvetica, Arial, sans-serif
 font-size                   | px/em       | font size                     | 13px
@@ -72,6 +73,7 @@ alt                         | string      | image alt attribute           | none
 background-color            | color       | icon color                    | Each social `name` has its own default
 border-radius               | px          | border radius                 | 3px
 color                       | color       | text color                    | #333333
+css-class                   | string      | class name, added to the root HTML element created | n/a
 font-family                 | string      | font name                     | Ubuntu, Helvetica, Arial, sans-serif
 font-size                   | px/em       | font size                     | 13px
 font-style                  | string      | font style                    | normal

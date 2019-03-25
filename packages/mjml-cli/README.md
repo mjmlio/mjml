@@ -77,6 +77,14 @@ $> mjml input.mjml --config.minifyOptions='{"minifyCSS": true, "removeEmptyAttri
 
 The defaults are "collapseWhitespace": true, "minifyCSS": false, "removeEmptyAttributes": true
 
+### Preserve specific tags when using inline mj-style
+
+```bash
+$> mjml input.mjml --config.juicePreserveTags='{"myTag": { "start": "<#", "end": "</#" }}'
+```
+
+When using `<mj-style inline="inline">` the css will be inlined using the juice library. As a side effect, juice will convert all tags' attributes into lower case. If you need to preserve some cases (i.e. for a templating lib) you can specify the tags to preserve. With the example above, all tags of the form `<# myVar="" >` or `</# myVar="" >` will be left untouched. By default juice already ignores `<% EJS %>` and `{{ HBS }}` tags.
+
 ### Log error stack
 
 ```bash

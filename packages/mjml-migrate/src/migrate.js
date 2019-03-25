@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-import { keys, find } from 'lodash'
+import { keys, find, isNil } from 'lodash'
 import MJMLParser from 'mjml-parser-xml'
 import { components } from 'mjml-core'
 import { html as htmlBeautify } from 'js-beautify'
@@ -25,7 +25,7 @@ function removeContainerTag(bodyTag) {
 const listAttributes = tag => tag.attributes
 
 function addPx(value) {
-  if (!isNaN(value)) {
+  if (!isNaN(value) && !isNil(value)) {
     return `${value}px`
   }
   return value
@@ -66,16 +66,19 @@ function migrateSocialSyntax(socialTag) {
 
   // migrate all attributes to their child attributes
   keys(networks).forEach(network => {
+    const nameMigrated = networks[network].replace(':url', '-noshare').replace(':share', '')
+    const nameWithoutOpts = nameMigrated.replace('-noshare', '')
+
     socialTag.children.push({
       tagName: `mj-social-element`,
-      attributes: { name: networks[network] },
-      content: attributes[`${networks[network]}-content`] || '',
+      attributes: { name: nameMigrated },
+      content: attributes[`${nameWithoutOpts}-content`] || '',
     })
 
     keys(attributes).forEach(attribute => {
-      if (attribute.match(networks[network]) && !attribute.match('content')) {
+      if (attribute.match(nameWithoutOpts) && !attribute.match('content')) {
         socialTag.children[network].attributes[
-          attribute.replace(`${networks[network]}-`, '')
+          attribute.replace(`${nameWithoutOpts}-`, '')
         ] =
           socialTag.attributes[attribute]
         delete socialTag.attributes[attribute]
@@ -194,11 +197,11 @@ export default function migrate(input, options = {}) {
     : jsonToXML(mjmlJson)
 }
 
-export function handleMjml3(mjml) {
+export function handleMjml3(mjml, options = {}) {
   const isV3Synthax = checkV3Through(mjml)
   if (!isV3Synthax) return mjml
 
-  console.error(
+  if (!options.noMigrateWarn) console.log(
     'MJML v3 syntax detected, migrating to MJML v4 syntax. Use mjml -m to get the migrated MJML.',
   )
   return migrate(mjml)

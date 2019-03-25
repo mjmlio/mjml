@@ -15,7 +15,7 @@ export default class MjNavbarLink extends BodyComponent {
     name: 'string',
     target: 'string',
     rel: 'string',
-    'line-height': 'unit(px,%)',
+    'line-height': 'unit(px,%,)',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',

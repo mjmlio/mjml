@@ -83,6 +83,7 @@ export default async () => {
     .version(`mjml-core: ${coreVersion}\nmjml-cli: ${cliVersion}`).argv
 
   let minifyOptions
+  let juicePreserveTags
   let fonts
 
   try {
@@ -92,12 +93,24 @@ export default async () => {
   }
 
   try {
+    juicePreserveTags = argv.c && argv.c.juicePreserveTags && JSON.parse(argv.c.juicePreserveTags)
+  } catch (e) {
+    error(`Failed to decode JSON for config.juicePreserveTags argument`)
+  }
+
+  try {
     fonts = argv.c && argv.c.fonts && JSON.parse(argv.c.fonts)
   } catch (e) {
     error(`Failed to decode JSON for config.fonts argument`)
   }
 
-  const config = Object.assign(DEFAULT_OPTIONS, argv.c, fonts && {fonts}, minifyOptions && {minifyOptions})
+  const config = Object.assign(
+    DEFAULT_OPTIONS,
+    argv.c,
+    fonts && {fonts},
+    minifyOptions && {minifyOptions},
+    juicePreserveTags && {juicePreserveTags},
+  )
 
   const inputArgs = pickArgs(['r', 'w', 'i', '_', 'm', 'v'])(argv)
   const outputArgs = pickArgs(['o', 's'])(argv)

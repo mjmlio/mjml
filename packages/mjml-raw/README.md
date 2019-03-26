@@ -19,9 +19,8 @@ If placed inside `<mj-head>`, its content will be added at the end of the `<head
   </a>
 </p>
 
-<aside class="notice">
-  If you use mj-raw to add templating language, and use the `minify` option, you might get a `Parsing error`, especially when using the `<` character. You can tell the minifier to ignore some content by wrapping it between two `<!-- htmlmin:ignore -->` tags.
-</aside>
+
+If you use mj-raw to add templating language, and use the `minify` option, you might get a `Parsing error`, especially when using the `<` character. You can tell the minifier to ignore some content by wrapping it between two `<!-- htmlmin:ignore -->` tags.
 
 ```xml
 <mjml>

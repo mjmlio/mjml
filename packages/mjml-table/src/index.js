@@ -42,8 +42,6 @@ export default class MjTable extends BodyComponent {
   getStyles() {
     return {
       table: {
-        cellpadding: this.getAttribute('cellspadding'),
-        cellspacing: this.getAttribute('cellspacing'),
         color: this.getAttribute('color'),
         'font-family': this.getAttribute('font-family'),
         'font-size': this.getAttribute('font-size'),

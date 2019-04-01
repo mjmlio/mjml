@@ -44,7 +44,7 @@ border-radius       | px          | border radius                  | n/a
 border-right        | string      | css border format              | n/a
 border-top          | string      | css border format              | n/a
 css-class           | string      | class name, added to the root HTML element created | n/a
-direction           | string      | ltr / rtl                      | ltr
+direction           | ltr / rtl   | set the display order of direct children | ltr
 full-width          | string      | make the section full-width    | n/a
 padding             | px          | supports up to 4 parameters    | 20px 0
 padding-bottom      | px          | section bottom offset          | n/a
@@ -53,4 +53,3 @@ padding-right       | px          | section right offset           | n/a
 padding-top         | px          | section top offset             | n/a
 text-align          | string      | css text-align                 | center
 vertical-align      | string      | css vertical-align             | top
-

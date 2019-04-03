@@ -19,3 +19,19 @@ If placed inside `<mj-head>`, its content will be added at the end of the `<head
   </a>
 </p>
 
+
+If you use mj-raw to add templating language, and use the `minify` option, you might get a `Parsing error`, especially when using the `<` character. You can tell the minifier to ignore some content by wrapping it between two `<!-- htmlmin:ignore -->` tags.
+
+```xml
+<mjml>
+  <mj-body>
+    <mj-raw>
+      <!-- htmlmin:ignore -->{% if foo < 5 %}<!-- htmlmin:ignore -->
+    </mj-raw>
+      <!-- Some mjml section -->
+    <mj-raw>
+      {% endif %}
+    </mj-raw>
+  </mj-body>
+</mjml>
+```

@@ -31,7 +31,7 @@ export default class MjImage extends BodyComponent {
     'padding-top': 'unit(px,%)',
     target: 'string',
     width: 'unit(px)',
-    height: 'unit(px)',
+    height: 'unit(px,auto)',
     'max-height': 'unit(px,%)',
     'font-size': 'unit(px)',
   }

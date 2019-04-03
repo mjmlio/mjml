@@ -103,6 +103,8 @@ export default async () => {
   } catch (e) {
     error(`Failed to decode JSON for config.fonts argument`)
   }
+  
+  const filePath = argv.c && argv.c.filePath
 
   const config = Object.assign(
     DEFAULT_OPTIONS,
@@ -185,7 +187,7 @@ export default async () => {
           }
           break
         default:
-          compiled = mjml2html(i.mjml, { ...config, filePath: i.file })
+          compiled = mjml2html(i.mjml, { ...config, filePath: filePath || i.file })
       }
 
       convertedStream.push({ ...i, compiled })

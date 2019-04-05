@@ -68,7 +68,7 @@ export default class MjColumn extends BodyComponent {
 
     return {
       div: {
-        'font-size': '13px',
+        'font-size': '0px',
         'text-align': 'left',
         direction: this.getAttribute('direction'),
         display: 'inline-block',

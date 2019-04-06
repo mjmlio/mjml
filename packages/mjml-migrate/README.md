@@ -1,4 +1,4 @@
-# mjml-migrate
+# mj-migrate
 
 ## Purpose
 

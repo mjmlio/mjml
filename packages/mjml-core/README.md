@@ -1,4 +1,4 @@
-## mjml-core
+## mj-core
 
 ### Installation
 

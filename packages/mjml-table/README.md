@@ -1,4 +1,4 @@
-## mjml-table
+## mj-table
 
 This tag allows you to display table and filled it with data. It only accepts plain HTML.
 
@@ -42,7 +42,6 @@ cellpadding                 | pixels                      | space between cells 
 cellspacing                 | pixels                      | space between cell and border  | n/a
 color                       | color                       | text header & footer color     | #000000
 container-background-color  | color                       | inner element background color | n/a
-css-class                   | string                      | class name, added to the root HTML element created | n/a
 font-family                 | string                      | font name                      | Ubuntu, Helvetica, Arial, sans-serif
 font-size                   | px                          | font size                      | 13px
 font-style                  | string                      | font style                     | n/a

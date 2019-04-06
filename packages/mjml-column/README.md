@@ -1,4 +1,4 @@
-## mjml-column
+## mj-column
 
 Columns enable you to horizontally organize the content within your sections. They must be located under `mj-section` tags in order to be considered by the engine.
 To be responsive, columns are expressed in terms of percentage.

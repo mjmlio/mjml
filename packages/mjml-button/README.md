@@ -45,7 +45,7 @@ font-style                  | string      | normal/italic/oblique               
 font-weight                 | number      | text thickness                                   | normal
 height                      | px          | button height                                    | n/a
 href                        | link        | link to be triggered when the button is clicked  | n/a
-inner-padding               | px          | inner button padding                             | 10px 25px
+inner-padding               | px          | inner button padding (up to 4 parameters)        | 10px 25px
 line-height                 | px/%/none   | line-height on link                              | 120%
 padding                     | px          | supports up to 4 parameters                      | 10px 25px
 padding-bottom              | px          | bottom offset                                    | n/a

@@ -21,5 +21,8 @@
     "lodash": "^4.17.2",
     "mjml-core": "4.3.0",
     "mjml-section": "4.3.0"
+  },
+  "devDependencies": {
+    "cross-env": "^5.2.0"
   }
 }

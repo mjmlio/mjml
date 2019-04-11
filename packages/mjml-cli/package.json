@@ -32,6 +32,7 @@
   },
   "devDependencies": {
     "chai": "^4.1.1",
+    "cross-env": "^5.2.0",
     "mocha": "^3.5.0"
   }
 }

@@ -20,5 +20,8 @@
     "babel-runtime": "^6.26.0",
     "lodash": "^4.17.2",
     "warning": "^3.0.0"
+  },
+  "devDependencies": {
+    "cross-env": "^5.2.0"
   }
 }

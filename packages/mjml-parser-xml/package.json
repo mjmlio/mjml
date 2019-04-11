@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "chai": "^4.1.1",
+    "cross-env": "^5.2.0",
     "mjml": "4.3.0",
     "mjml-core": "4.3.0"
   }

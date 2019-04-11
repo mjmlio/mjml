@@ -48,5 +48,8 @@
     "mjml-text": "4.3.0",
     "mjml-validator": "4.3.0",
     "mjml-wrapper": "4.3.0"
+  },
+  "devDependencies": {
+    "cross-env": "^5.2.0"
   }
 }

@@ -29,8 +29,5 @@
     "opn": "^5.1.0",
     "prettier": "^1.7.3",
     "rimraf": "^2.6.1"
-  },
-  "dependencies": {
-    "cross-env": "^5.1.4"
   }
 }

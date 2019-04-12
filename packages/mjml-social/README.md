@@ -35,29 +35,30 @@ Displays calls-to-action for various social networks with their associated logo.
 </p>
 
 
-attribute                   | unit        | description                   | default value
-----------------------------|-------------|-------------------------------|---------------------------
-align                       | string      | left/right/center             | center
-border-radius               | px          | border radius                 | 3px
-color                       | color       | text color                    | #333333
-container-background-color  | color       | inner element background color                     | n/a
-font-family                 | string      | font name                     | Ubuntu, Helvetica, Arial, sans-serif
-font-size                   | px/em       | font size                     | 13px
-font-style                  | string      | font style                    | normal
-font-weight                 | string      | font weight                   | normal
-icon-height                 | percent/px  | icon height, overrides icon-size | icon-size
-icon-size                   | percent/px  | icon size (width and height)  | 20px
-inner-padding               | px          | social network surrounding padding                 | 4px
-line-height                 | percent/px  | space between lines           | 22px
-mode                        | string      | vertical/horizontal           | horizontal
-padding                     | px          | supports up to 4 parameters                       | 10px 25px
-padding-bottom              | px          | bottom offset                    | n/a
-padding-left                | px          | left offset                      | n/a
-padding-right               | px          | right offset                       | n/a
-padding-top                 | px          | top offset                         | n/a
-icon-padding                | px          | padding around the icons      | 0px
-text-padding                | px          | padding around the texts      | 4px 4px 4px 0
-text-decoration             | string      | underline/overline/none       | none
+attribute                  | unit       | description                                        | default value
+---------------------------|------------|----------------------------------------------------|--------------
+align                      | string     | left/right/center                                  | center
+border-radius              | px         | border radius                                      | 3px
+color                      | color      | text color                                         | #333333
+container-background-color | color      | inner element background color                     | n/a
+css-class 	               | string 	  | class name, added to the root HTML element created | n/a
+font-family                | string     | font name                                          | Ubuntu, Helvetica, Arial, sans-serif
+font-size                  | px/em      | font size                                          | 13px
+font-style                 | string     | font style                                         | normal
+font-weight                | string     | font weight                                        | normal
+icon-height                | percent/px | icon height, overrides icon-size                   | icon-size
+icon-size                  | percent/px | icon size (width and height)                       | 20px
+inner-padding              | px         | social network surrounding padding                 | 4px
+line-height                | percent/px | space between lines                                | 22px
+mode                       | string     | vertical/horizontal                                | horizontal
+padding                    | px         | supports up to 4 parameters                        | 10px 25px
+padding-bottom             | px         | bottom offset                                      | n/a
+padding-left               | px         | left offset                                        | n/a
+padding-right              | px         | right offset                                       | n/a
+padding-top                | px         | top offset                                         | n/a
+icon-padding               | px         | padding around the icons                           | 0px
+text-padding               | px         | padding around the texts                           | 4px 4px 4px 0
+text-decoration            | string     | underline/overline/none                            | none
 
 ### mj-social-element
 
@@ -65,34 +66,35 @@ This component enables you to display a given social network inside `mj-social`.
 Note that default icons are transparent, which allows `background-color` to actually be the icon color.
 
 
-attribute                   | unit        | description                   | default value
-----------------------------|-------------|-------------------------------|---------------------------
-align                       | string      | left/right/center             | center
-alt                         | string      | image alt attribute           | none
-background-color            | color       | icon color                    | Each social `name` has its own default
-border-radius               | px          | border radius                 | 3px
-color                       | color       | text color                    | #333333
-font-family                 | string      | font name                     | Ubuntu, Helvetica, Arial, sans-serif
-font-size                   | px/em       | font size                     | 13px
-font-style                  | string      | font style                    | normal
-font-weight                 | string      | font weight                   | normal
-href                        | url         | button redirection url        | [[SHORT_PERMALINK]]
-icon-height                 | percent/px  | icon height, overrides icon-size | icon-size
-icon-size                   | percent/px  | icon size (width and height)  | 20px
-line-height                 | percent/px  | space between lines           | 22px
-mode                        | string      | vertical/horizontal           | horizontal
-name                        | string      | social network name, see supported list below | N/A
-padding                     | px          | supports up to 4 parameters                       | 10px 25px
-padding-bottom              | px          | bottom offset                    | n/a
-padding-left                | px          | left offset                      | n/a
-padding-right               | px          | right offset                       | n/a
-padding-top                 | px          | top offset                         | n/a
-icon-padding                | px          | padding around the icon       | 0px
-text-padding                | px          | padding around the text       | 4px 4px 4px 0
-src                         | url         | image source                  | Each social `name` has its own default
-target                      | string      | link target                   | \_blank
-title                       | string      | img title attribute           | none
-text-decoration             | string      | underline/overline/none       | none
+attribute        | unit       | description                                        | default value
+-----------------|------------|----------------------------------------------------|--------------
+align            | string     | left/right/center                                  | center
+alt              | string     | image alt attribute                                | none
+background-color | color      | icon color                                         | Each social `name` has its own default
+border-radius    | px         | border radius                                      | 3px
+color            | color      | text color                                         | #333333
+css-class 	     | string 	  | class name, added to the root HTML element created | n/a
+font-family      | string     | font name                                          | Ubuntu, Helvetica, Arial, sans-serif
+font-size        | px/em      | font size                                          | 13px
+font-style       | string     | font style                                         | normal
+font-weight      | string     | font weight                                        | normal
+href             | url        | button redirection url                             | [[SHORT_PERMALINK]]
+icon-height      | percent/px | icon height, overrides icon-size                   | icon-size
+icon-size        | percent/px | icon size (width and height)                       | 20px
+line-height      | percent/px | space between lines                                | 22px
+mode             | string     | vertical/horizontal                                | horizontal
+name             | string     | social network name, see supported list below      | N/A
+padding          | px         | supports up to 4 parameters                        | 10px 25px
+padding-bottom   | px         | bottom offset                                      | n/a
+padding-left     | px         | left offset                                        | n/a
+padding-right    | px         | right offset                                       | n/a
+padding-top      | px         | top offset                                         | n/a
+icon-padding     | px         | padding around the icon                            | 0px
+text-padding     | px         | padding around the text                            | 4px 4px 4px 0
+src              | url        | image source                                       | Each social `name` has its own default
+target           | string     | link target                                        | \_blank
+title            | string     | img title attribute                                | none
+text-decoration  | string     | underline/overline/none                            | none
 
 Supported networks with a share url:  
 - facebook  

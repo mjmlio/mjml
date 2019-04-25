@@ -31,6 +31,7 @@ This tag allows you to display text in your email.
  attribute                    | unit          | description                                 | default value
 ------------------------------|---------------|---------------------------------------------|-------------------------------------
  color                        | color         | text color                                  | #000000
+ css-class                    | string        | class name, added to the root HTML element created | n/a
  font-family                  | string        | font                                        | Ubuntu, Helvetica, Arial, sans-serif
  font-size                    | px            | text size                                   | 13px
  font-style                   | string        | normal/italic/oblique                       | n/a
@@ -47,5 +48,4 @@ This tag allows you to display text in your email.
  padding-bottom               | px            | bottom offset                               | n/a
  padding-left                 | px            | left offset                                 | n/a
  padding-right                | px            | right offset                                | n/a
- css-class                    | string        | class name, added to the root HTML element created | n/a
 

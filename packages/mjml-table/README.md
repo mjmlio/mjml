@@ -38,6 +38,7 @@ This tag allows you to display table and filled it with data. It only accepts pl
 
 attribute                   | unit                        | description                    | default value
 ----------------------------|-----------------------------|------------------------------- |--------------
+align                       | left/right/center           | self horizontal alignment      | left
 border                      | border                      | table external border          | none
 cellpadding                 | pixels                      | space between cells            | n/a
 cellspacing                 | pixels                      | space between cell and border  | n/a

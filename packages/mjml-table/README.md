@@ -38,6 +38,7 @@ This tag allows you to display table and filled it with data. It only accepts pl
 
 attribute                   | unit                        | description                    | default value
 ----------------------------|-----------------------------|------------------------------- |--------------
+border                      | border                      | table external border          | none
 cellpadding                 | pixels                      | space between cells            | n/a
 cellspacing                 | pixels                      | space between cell and border  | n/a
 color                       | color                       | text header & footer color     | #000000
@@ -54,4 +55,3 @@ padding-right               | percent/px                  | right offset        
 padding-top                 | percent/px                  | top offset                     | n/a
 table-layout                | auto/fixed/initial/inherit  | sets the table layout.         | auto
 width                       | percent/px                  | table width                    | 100%
-

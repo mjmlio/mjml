@@ -8,6 +8,7 @@ export default class MjTable extends BodyComponent {
 
   static allowedAttributes = {
     align: 'enum(left,right,center)',
+    border: 'string',
     cellpadding: 'integer',
     cellspacing: 'integer',
     'container-background-color': 'color',
@@ -28,6 +29,7 @@ export default class MjTable extends BodyComponent {
 
   static defaultAttributes = {
     align: 'left',
+    border: 'none',
     cellpadding: '0',
     cellspacing: '0',
     color: '#000000',
@@ -48,6 +50,7 @@ export default class MjTable extends BodyComponent {
         'line-height': this.getAttribute('line-height'),
         'table-layout': this.getAttribute('table-layout'),
         width: this.getAttribute('width'),
+        border: this.getAttribute('border'),
       },
     }
   }

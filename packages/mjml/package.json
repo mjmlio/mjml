@@ -20,7 +20,6 @@
     "build": "cross-env ../../node_modules/.bin/babel src --out-dir lib"
   },
   "dependencies": {
-    "cross-env": "^5.1.4",
     "mjml-accordion": "4.4.0-beta.1",
     "mjml-body": "4.4.0-beta.1",
     "mjml-button": "4.4.0-beta.1",
@@ -49,5 +48,8 @@
     "mjml-text": "4.4.0-beta.1",
     "mjml-validator": "4.4.0-beta.1",
     "mjml-wrapper": "4.4.0-beta.1"
+  },
+  "devDependencies": {
+    "cross-env": "^5.2.0"
   }
 }

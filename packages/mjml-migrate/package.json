@@ -19,12 +19,12 @@
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-preset-es2015": "^6.24.1",
-    "babel-preset-stage-3": "^6.24.1"
+    "babel-preset-stage-3": "^6.24.1",
+    "cross-env": "^5.2.0"
   },
   "dependencies": {
     "babel-runtime": "^6.26.0",
     "commander": "^2.11.0",
-    "cross-env": "^5.1.4",
     "js-beautify": "^1.6.14",
     "lodash": "^4.17.2",
     "mjml-core": "4.4.0-beta.1",

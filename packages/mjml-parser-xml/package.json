@@ -1,7 +1,7 @@
 {
   "name": "mjml-parser-xml",
   "description": "mjml-parser-xml",
-  "version": "4.4.0-beta.1",
+  "version": "4.4.0-beta.2",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -24,8 +24,8 @@
   },
   "devDependencies": {
     "chai": "^4.1.1",
-    "mjml": "4.4.0-beta.1",
-    "mjml-core": "4.4.0-beta.1",
-    "cross-env": "^5.2.0"
+    "cross-env": "^5.2.0",
+    "mjml": "4.4.0-beta.2",
+    "mjml-core": "4.4.0-beta.2"
   }
 }

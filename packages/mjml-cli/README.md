@@ -77,11 +77,27 @@ $> mjml input.mjml --config.minifyOptions='{"minifyCSS": true, "removeEmptyAttri
 
 The defaults are "collapseWhitespace": true, "minifyCSS": false, "removeEmptyAttributes": true
 
+### Preserve specific tags when using inline mj-style
+
+```bash
+$> mjml input.mjml --config.juicePreserveTags='{"myTag": { "start": "<#", "end": "</#" }}'
+```
+
+When using `<mj-style inline="inline">` the css will be inlined using the juice library. As a side effect, juice will convert all tags' attributes into lower case. If you need to preserve some cases (i.e. for a templating lib) you can specify the tags to preserve. With the example above, all tags of the form `<# myVar="" >` or `</# myVar="" >` will be left untouched. By default juice already ignores `<% EJS %>` and `{{ HBS }}` tags.
+
 ### Log error stack
 
 ```bash
 $> mjml input.mjml --config.stack true
 ```
+
+### Override base path for mj-include relative paths
+
+```bash
+$> mjml ./my-project/input.mjml --config.filePath ./my-partials/input.mjml
+```
+
+If you like to keep your partials together and you want to be able to mj-include them without having to change the relative path of the includes depending on the compiled file path, you can use this option. In this exemple, `<mj-include path="./header.mjml" />` will include `./my-partials/header.mjml`, ignoring the actual path of `input.mjml`.
 
 ### Render and redirect the result to a file
 

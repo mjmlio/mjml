@@ -52,4 +52,4 @@ padding-left        | px          | section left offset            | n/a
 padding-right       | px          | section right offset           | n/a
 padding-top         | px          | section top offset             | n/a
 text-align          | string      | css text-align                 | center
-
+vertical-align      | string      | css vertical-align             | top

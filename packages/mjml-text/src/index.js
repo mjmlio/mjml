@@ -60,9 +60,7 @@ export default class MjText extends BodyComponent {
         ${this.htmlAttributes({
           style: 'text',
         })}
-      >
-        ${this.getContent()}
-      </div>
+      >${this.getContent()}</div>
     `
   }
 

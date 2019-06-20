@@ -76,7 +76,6 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
         children: [],
       }
       cur.children.push(newNode)
-      cur = newNode
 
       return
     }

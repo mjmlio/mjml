@@ -94,7 +94,8 @@ export default class MjColumn extends BodyComponent {
   }
 
   getMobileWidth() {
-    const { nonRawSiblings, containerWidth } = this.context
+    const { containerWidth } = this.context
+    const { nonRawSiblings } = this.props
     const width = this.getAttribute('width')
     const mobileWidth = this.getAttribute('mobileWidth')
 

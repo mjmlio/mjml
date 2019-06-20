@@ -42,14 +42,6 @@ export default function skeleton(options) {
           img { border:0;height:auto;line-height:100%; outline:none;text-decoration:none;-ms-interpolation-mode:bicubic; }
           p { display:block;margin:13px 0; }
         </style>
-        <!--[if !mso]><!-->
-        <style type="text/css">
-          @media only screen and (max-width:480px) {
-            @-ms-viewport { width:320px; }
-            @viewport { width:320px; }
-          }
-        </style>
-        <!--<![endif]-->
         <!--[if mso]>
         <xml>
         <o:OfficeDocumentSettings>

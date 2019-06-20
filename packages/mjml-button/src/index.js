@@ -88,7 +88,7 @@ export default class MjButton extends BodyComponent {
         'font-style': this.getAttribute('font-style'),
         'font-weight': this.getAttribute('font-weight'),
         'line-height': this.getAttribute('line-height'),
-        Margin: '0',
+        margin: '0',
         'text-decoration': this.getAttribute('text-decoration'),
         'text-transform': this.getAttribute('text-transform'),
         padding: this.getAttribute('inner-padding'),

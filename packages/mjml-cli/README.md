@@ -75,7 +75,17 @@ These are the default options.
 $> mjml input.mjml --config.minifyOptions='{"minifyCSS": true, "removeEmptyAttributes": false}'
 ```
 
-The defaults are "collapseWhitespace": true, "minifyCSS": false, "removeEmptyAttributes": true
+The defaults are "collapseWhitespace": true, "minifyCSS": false, "removeEmptyAttributes": true  
+See html-minifier documentation for more available options  
+
+### Change juice options (library used for inlining mj-syle css)
+
+```bash
+$> mjml input.mjml --config.minifyOptions='{"preserveImportant": true}'
+```
+
+The defaults are "applyStyleTags": false, "insertPreservedExtraCss": false, "removeStyleTags": false  
+See juice documentation for more available options  
 
 ### Preserve specific tags when using inline mj-style
 
@@ -113,11 +123,16 @@ You can output the resulting email responsive HTML in a file.
 If the output file does not exist it will be created, but output directories must already exist.
 If output is a directory, output file(s) will be `output/input-file-name.html`
 
-### Set the validation rule to `skip` so that the file is rendered without being validated.
+### Set the validation mode
 
 ```bash
 mjml -l skip -r input.mjml
 ```
+
+Accepted values are
+- 'normal' : *(default)* will display validation messages but compile anyway
+- 'skip' : the file is rendered without being validated
+- 'strict' : will throw an error if validation fails
 
 ### Watch changes on a file
 

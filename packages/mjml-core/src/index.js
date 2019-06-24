@@ -54,6 +54,7 @@ export default function mjml2html(mjml, options = {}) {
     keepComments,
     minify = false,
     minifyOptions = {},
+    juiceOptions = {},
     juicePreserveTags = null,
     skeleton = defaultSkeleton,
     validationLevel = 'soft',
@@ -273,6 +274,7 @@ export default function mjml2html(mjml, options = {}) {
       extraCss: globalDatas.inlineStyle.join(''),
       insertPreservedExtraCss: false,
       removeStyleTags: false,
+      ...juiceOptions,
     })
   }
 
@@ -290,6 +292,8 @@ export default function mjml2html(mjml, options = {}) {
     content = htmlMinify(content, {
       collapseWhitespace: true,
       minifyCSS: false,
+      caseSensitive: true,
+      ignoreCustomFragments: [/< ./],
       removeEmptyAttributes: true,
       ...minifyOptions,
     })

@@ -82,9 +82,16 @@ export default async () => {
     .help()
     .version(`mjml-core: ${coreVersion}\nmjml-cli: ${cliVersion}`).argv
 
+  let juiceOptions
   let minifyOptions
   let juicePreserveTags
   let fonts
+
+  try {
+    juiceOptions = argv.c && argv.c.juiceOptions && JSON.parse(argv.c.juiceOptions)
+  } catch (e) {
+    error(`Failed to decode JSON for config.juiceOptions argument`)
+  }
 
   try {
     minifyOptions = argv.c && argv.c.minifyOptions && JSON.parse(argv.c.minifyOptions)
@@ -111,6 +118,7 @@ export default async () => {
     argv.c,
     fonts && {fonts},
     minifyOptions && {minifyOptions},
+    juiceOptions && {juiceOptions},
     juicePreserveTags && {juicePreserveTags},
   )
 

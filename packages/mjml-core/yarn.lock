@@ -156,7 +156,7 @@ commander@2.17.x:
   version "2.17.1"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.17.1.tgz#bd77ab7de6de94205ceacc72f1716d29f20a77bf"
 
-commander@^2.11.0, commander@^2.15.1, commander@^2.19.0:
+commander@^2.15.1, commander@^2.19.0:
   version "2.20.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.0.tgz#d58bb2b5c1ee8f87b0d340027e9e94e222c5a422"
 
@@ -183,20 +183,12 @@ core-util-is@1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
 
-cross-env@^5.1.4, cross-env@^5.2.0:
+cross-env@^5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/cross-env/-/cross-env-5.2.0.tgz#6ecd4c015d5773e614039ee529076669b9d126f2"
   dependencies:
     cross-spawn "^6.0.5"
     is-windows "^1.0.0"
-
-cross-spawn@^5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-5.1.0.tgz#e8bd0efee58fcff6f8f94510a0a554bbfa235449"
-  dependencies:
-    lru-cache "^4.0.1"
-    shebang-command "^1.2.0"
-    which "^1.2.9"
 
 cross-spawn@^6.0.5:
   version "6.0.5"
@@ -240,9 +232,10 @@ deep-eql@^3.0.1:
   dependencies:
     type-detect "^4.0.0"
 
-deep-extend@^0.5.1:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/deep-extend/-/deep-extend-0.5.1.tgz#b894a9dd90d3023fbf1c55a394fb858eb2066f1f"
+deep-extend@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/deep-extend/-/deep-extend-0.6.0.tgz#c4fa7c95404a17a9c3e8ca7e1537312b736330ac"
+  integrity sha512-LOHxIOaPYdHlJRtCQfDIVZtfw/ufM8+rVj649RIHzcm/vGwQRXFt6OPqIFWsm2XEMrNIEtWR64sY1LEKD2vAOA==
 
 delayed-stream@~1.0.0:
   version "1.0.0"
@@ -457,10 +450,6 @@ js-beautify@^1.6.14:
     mkdirp "~0.5.1"
     nopt "~4.0.1"
 
-"js-tokens@^3.0.0 || ^4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
-
 jsbn@~0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/jsbn/-/jsbn-0.1.1.tgz#a5e654c2e5a2deb5f201d96cefbca80c0ef2f513"
@@ -486,17 +475,18 @@ jsprim@^1.2.2:
     json-schema "0.2.3"
     verror "1.10.0"
 
-juice@^4.1.0:
-  version "4.3.2"
-  resolved "https://registry.yarnpkg.com/juice/-/juice-4.3.2.tgz#0a199e5f66f4f7f5cae4c079ebba81b0c2f4d1e0"
+juice@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/juice/-/juice-5.2.0.tgz#a40ea144bde2845fe2aade46a81f493f8ea677a0"
+  integrity sha512-0l6GZmT3efexyaaay3SchKT5kG311N59TEFP5lfvEy0nz9SNqjx311plJ3b4jze7arsmDsiHQLh/xnAuk0HFTQ==
   dependencies:
     cheerio "^0.22.0"
     commander "^2.15.1"
-    cross-spawn "^5.1.0"
-    deep-extend "^0.5.1"
+    cross-spawn "^6.0.5"
+    deep-extend "^0.6.0"
     mensch "^0.3.3"
     slick "^1.12.2"
-    web-resource-inliner "^4.2.1"
+    web-resource-inliner "^4.3.1"
 
 lodash.assignin@^4.0.9:
   version "4.2.0"
@@ -554,17 +544,11 @@ lodash@^4.17.11, lodash@^4.17.2:
   version "4.17.11"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
 
-loose-envify@^1.0.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/loose-envify/-/loose-envify-1.4.0.tgz#71ee51fa7be4caec1a63839f7e682d8132d30caf"
-  dependencies:
-    js-tokens "^3.0.0 || ^4.0.0"
-
 lower-case@^1.1.1:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/lower-case/-/lower-case-1.1.4.tgz#9a2cabd1b9e8e0ae993a4bf7d5875c39c42e8eac"
 
-lru-cache@^4.0.1, lru-cache@^4.1.5:
+lru-cache@^4.1.5:
   version "4.1.5"
   resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-4.1.5.tgz#8bbe50ea85bed59bc9e33dcab8235ee9bcf443cd"
   dependencies:
@@ -598,50 +582,6 @@ minimatch@^3.0.4:
 minimist@0.0.8:
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.0.8.tgz#857fcabfc3397d2625b8228262e86aa7a011b05d"
-
-mjml-core@4.4.0-beta.1:
-  version "4.4.0-beta.1"
-  resolved "https://registry.yarnpkg.com/mjml-core/-/mjml-core-4.4.0-beta.1.tgz#ddd10dcb81459ed865123799c7751a76ee0e8de3"
-  dependencies:
-    babel-runtime "^6.26.0"
-    cross-env "^5.1.4"
-    html-minifier "^3.5.3"
-    js-beautify "^1.6.14"
-    juice "^4.1.0"
-    lodash "^4.17.2"
-    mjml-migrate "4.4.0-beta.1"
-    mjml-parser-xml "4.4.0-beta.1"
-    mjml-validator "4.4.0-beta.1"
-
-mjml-migrate@4.4.0-beta.1:
-  version "4.4.0-beta.1"
-  resolved "https://registry.yarnpkg.com/mjml-migrate/-/mjml-migrate-4.4.0-beta.1.tgz#315060a2e44225b1b29a0bfde2bbd77510b9dfad"
-  dependencies:
-    babel-runtime "^6.26.0"
-    commander "^2.11.0"
-    cross-env "^5.1.4"
-    js-beautify "^1.6.14"
-    lodash "^4.17.2"
-    mjml-core "4.4.0-beta.1"
-    mjml-parser-xml "4.4.0-beta.1"
-
-mjml-parser-xml@4.4.0-beta.1:
-  version "4.4.0-beta.1"
-  resolved "https://registry.yarnpkg.com/mjml-parser-xml/-/mjml-parser-xml-4.4.0-beta.1.tgz#88d8c17ee7f1fc1121162a95312db467ee5f438b"
-  dependencies:
-    babel-runtime "^6.26.0"
-    cross-env "^5.1.4"
-    htmlparser2 "^3.9.2"
-    lodash "^4.17.2"
-
-mjml-validator@4.4.0-beta.1:
-  version "4.4.0-beta.1"
-  resolved "https://registry.yarnpkg.com/mjml-validator/-/mjml-validator-4.4.0-beta.1.tgz#cacad89dd69ff88d9912974b84117c301be844d3"
-  dependencies:
-    babel-runtime "^6.26.0"
-    cross-env "^5.1.4"
-    lodash "^4.17.2"
-    warning "^3.0.0"
 
 mkdirp@~0.5.1:
   version "0.5.1"
@@ -906,15 +846,10 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
-warning@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/warning/-/warning-3.0.0.tgz#32e5377cb572de4ab04753bdf8821c01ed605b7c"
-  dependencies:
-    loose-envify "^1.0.0"
-
-web-resource-inliner@^4.2.1:
+web-resource-inliner@^4.3.1:
   version "4.3.2"
   resolved "https://registry.yarnpkg.com/web-resource-inliner/-/web-resource-inliner-4.3.2.tgz#953b76a8fd7e45e0d5ea8806174b39f473269c0f"
+  integrity sha512-eVnNqwG20sbAgqv2JONwyr57UNZFJP4oauioeUjpCMY83AM11956eIhxlCGGXfSMi7bRBjR9Vao05bXFzslh7w==
   dependencies:
     async "^2.1.2"
     chalk "^1.1.3"

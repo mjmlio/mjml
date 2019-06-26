@@ -2408,7 +2408,7 @@ lcid@^1.0.0:
   dependencies:
     invert-kv "^1.0.0"
 
-lerna@^2.0.0:
+lerna@^2.11.0:
   version "2.11.0"
   resolved "https://registry.yarnpkg.com/lerna/-/lerna-2.11.0.tgz#89b5681e286d388dda5bbbdbbf6b84c8094eff65"
   dependencies:

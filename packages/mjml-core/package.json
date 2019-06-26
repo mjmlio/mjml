@@ -21,7 +21,7 @@
     "babel-runtime": "^6.26.0",
     "html-minifier": "^3.5.3",
     "js-beautify": "^1.6.14",
-    "juice": "^4.1.0",
+    "juice": "^5.2.0",
     "lodash": "^4.17.2",
     "mjml-migrate": "4.4.0-beta.2",
     "mjml-parser-xml": "4.4.0-beta.2",

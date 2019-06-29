@@ -82,7 +82,7 @@ icon-size                   | percent/px  | icon size (width and height)  | 20px
 line-height                 | percent/px  | space between lines           | 22px
 mode                        | string      | vertical/horizontal           | horizontal
 name                        | string      | social network name, see supported list below | N/A
-padding                     | px          | supports up to 4 parameters                       | 10px 25px
+padding                     | px          | supports up to 4 parameters                       | 4px
 padding-bottom              | px          | bottom offset                    | n/a
 padding-left                | px          | left offset                      | n/a
 padding-right               | px          | right offset                       | n/a

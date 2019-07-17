@@ -75,13 +75,39 @@ These are the default options.
 $> mjml input.mjml --config.minifyOptions='{"minifyCSS": true, "removeEmptyAttributes": false}'
 ```
 
-The defaults are "collapseWhitespace": true, "minifyCSS": false, "removeEmptyAttributes": true
+The defaults are "collapseWhitespace": true, "minifyCSS": false, "removeEmptyAttributes": true  
+See html-minifier documentation for more available options  
+
+### Change juice options (library used for inlining mj-syle css)
+
+```bash
+$> mjml input.mjml --config.minifyOptions='{"preserveImportant": true}'
+```
+
+The defaults are "applyStyleTags": false, "insertPreservedExtraCss": false, "removeStyleTags": false  
+See juice documentation for more available options  
+
+### Preserve specific tags when using inline mj-style
+
+```bash
+$> mjml input.mjml --config.juicePreserveTags='{"myTag": { "start": "<#", "end": "</#" }}'
+```
+
+When using `<mj-style inline="inline">` the css will be inlined using the juice library. As a side effect, juice will convert all tags' attributes into lower case. If you need to preserve some cases (i.e. for a templating lib) you can specify the tags to preserve. With the example above, all tags of the form `<# myVar="" >` or `</# myVar="" >` will be left untouched. By default juice already ignores `<% EJS %>` and `{{ HBS }}` tags.
 
 ### Log error stack
 
 ```bash
 $> mjml input.mjml --config.stack true
 ```
+
+### Override base path for mj-include relative paths
+
+```bash
+$> mjml ./my-project/input.mjml --config.filePath ./my-partials/input.mjml
+```
+
+If you like to keep your partials together and you want to be able to mj-include them without having to change the relative path of the includes depending on the compiled file path, you can use this option. In this exemple, `<mj-include path="./header.mjml" />` will include `./my-partials/header.mjml`, ignoring the actual path of `input.mjml`.
 
 ### Render and redirect the result to a file
 
@@ -97,11 +123,16 @@ You can output the resulting email responsive HTML in a file.
 If the output file does not exist it will be created, but output directories must already exist.
 If output is a directory, output file(s) will be `output/input-file-name.html`
 
-### Set the validation rule to `skip` so that the file is rendered without being validated.
+### Set the validation mode
 
 ```bash
 mjml -l skip -r input.mjml
 ```
+
+Accepted values are
+- 'normal' : *(default)* will display validation messages but compile anyway
+- 'skip' : the file is rendered without being validated
+- 'strict' : will throw an error if validation fails
 
 ### Watch changes on a file
 

@@ -68,7 +68,7 @@ export default class MjColumn extends BodyComponent {
 
     return {
       div: {
-        'font-size': '13px',
+        'font-size': '0px',
         'text-align': 'left',
         direction: this.getAttribute('direction'),
         display: 'inline-block',
@@ -94,7 +94,8 @@ export default class MjColumn extends BodyComponent {
   }
 
   getMobileWidth() {
-    const { nonRawSiblings, containerWidth } = this.context
+    const { containerWidth } = this.context
+    const { nonRawSiblings } = this.props
     const width = this.getAttribute('width')
     const mobileWidth = this.getAttribute('mobileWidth')
 

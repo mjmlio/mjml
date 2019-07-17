@@ -82,8 +82,16 @@ export default async () => {
     .help()
     .version(`mjml-core: ${coreVersion}\nmjml-cli: ${cliVersion}`).argv
 
+  let juiceOptions
   let minifyOptions
+  let juicePreserveTags
   let fonts
+
+  try {
+    juiceOptions = argv.c && argv.c.juiceOptions && JSON.parse(argv.c.juiceOptions)
+  } catch (e) {
+    error(`Failed to decode JSON for config.juiceOptions argument`)
+  }
 
   try {
     minifyOptions = argv.c && argv.c.minifyOptions && JSON.parse(argv.c.minifyOptions)
@@ -92,12 +100,27 @@ export default async () => {
   }
 
   try {
+    juicePreserveTags = argv.c && argv.c.juicePreserveTags && JSON.parse(argv.c.juicePreserveTags)
+  } catch (e) {
+    error(`Failed to decode JSON for config.juicePreserveTags argument`)
+  }
+
+  try {
     fonts = argv.c && argv.c.fonts && JSON.parse(argv.c.fonts)
   } catch (e) {
     error(`Failed to decode JSON for config.fonts argument`)
   }
+  
+  const filePath = argv.c && argv.c.filePath
 
-  const config = Object.assign(DEFAULT_OPTIONS, argv.c, fonts && {fonts}, minifyOptions && {minifyOptions})
+  const config = Object.assign(
+    DEFAULT_OPTIONS,
+    argv.c,
+    fonts && {fonts},
+    minifyOptions && {minifyOptions},
+    juiceOptions && {juiceOptions},
+    juicePreserveTags && {juicePreserveTags},
+  )
 
   const inputArgs = pickArgs(['r', 'w', 'i', '_', 'm', 'v'])(argv)
   const outputArgs = pickArgs(['o', 's'])(argv)
@@ -172,7 +195,7 @@ export default async () => {
           }
           break
         default:
-          compiled = mjml2html(i.mjml, { ...config, filePath: i.file })
+          compiled = mjml2html(i.mjml, { ...config, filePath: filePath || i.file })
       }
 
       convertedStream.push({ ...i, compiled })

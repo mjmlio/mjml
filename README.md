@@ -95,9 +95,11 @@ argument | description | default value
 `mjml -m [input]` | Migrates a v3 MJML file to the v4 syntax | NA
 `mjml [input] -o [output]` | Writes the output to [output] | NA
 `mjml [input] -s` | Writes the output to `stdout` | NA
-`mjml -w [input]` | Watches the changes made to [input] (file or folder) | NA
+`mjml -w [input]` | Watches the changes made to `[input]` (file or folder) | NA
 `mjml [input] --config.beautify` | Beautifies the output (`true` or `false`) | true
 `mjml [input] --config.minify` | Minifies the output (`true` or `false`) | false
+
+See [mjml-cli documentation](https://github.com/mjmlio/mjml/blob/master/packages/mjml-cli/README.md) for more information about config options.
 
 ## Inside Node.js
 
@@ -138,6 +140,9 @@ beautify | boolean | Option to beautify the HTML output | false
 minify | boolean | Option to minify the HTML output | false
 validationLevel | string | Available values for the [validator](https://github.com/mjmlio/mjml/tree/master/packages/mjml-validator#validating-mjml): 'strict', 'soft', 'skip'  | 'soft'
 filePath | string | Path of file, used for relative paths in mj-includes | '.'
+juicePreserveTags | Preserve some tags when inlining css, see [mjml-cli documentation](https://github.com/mjmlio/mjml/blob/master/packages/mjml-cli/README.md) for more info | NA
+minifyOptions | Options for html minifier, see [mjml-cli documentation](https://github.com/mjmlio/mjml/blob/master/packages/mjml-cli/README.md) for more info | NA
+mjmlConfigPath | string | The path or directory of the `.mjmlconfig` file (for custom components use) | `process.cwd()`
 
 ## API
 

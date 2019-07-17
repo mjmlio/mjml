@@ -8,6 +8,7 @@ export default class MjTable extends BodyComponent {
 
   static allowedAttributes = {
     align: 'enum(left,right,center)',
+    border: 'string',
     cellpadding: 'integer',
     cellspacing: 'integer',
     'container-background-color': 'color',
@@ -15,7 +16,7 @@ export default class MjTable extends BodyComponent {
     'font-family': 'string',
     'font-size': 'unit(px)',
     'font-weight': 'string',
-    'line-height': 'unit(px,%)',
+    'line-height': 'unit(px,%,)',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
@@ -28,6 +29,7 @@ export default class MjTable extends BodyComponent {
 
   static defaultAttributes = {
     align: 'left',
+    border: 'none',
     cellpadding: '0',
     cellspacing: '0',
     color: '#000000',
@@ -42,14 +44,13 @@ export default class MjTable extends BodyComponent {
   getStyles() {
     return {
       table: {
-        cellpadding: this.getAttribute('cellspadding'),
-        cellspacing: this.getAttribute('cellspacing'),
         color: this.getAttribute('color'),
         'font-family': this.getAttribute('font-family'),
         'font-size': this.getAttribute('font-size'),
         'line-height': this.getAttribute('line-height'),
         'table-layout': this.getAttribute('table-layout'),
         width: this.getAttribute('width'),
+        border: this.getAttribute('border'),
       },
     }
   }

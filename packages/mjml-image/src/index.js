@@ -31,7 +31,9 @@ export default class MjImage extends BodyComponent {
     'padding-top': 'unit(px,%)',
     target: 'string',
     width: 'unit(px)',
-    height: 'unit(px)',
+    height: 'unit(px,auto)',
+    'max-height': 'unit(px,%)',
+    'font-size': 'unit(px)',
   }
 
   static defaultAttributes = {
@@ -40,6 +42,7 @@ export default class MjImage extends BodyComponent {
     height: 'auto',
     padding: '10px 25px',
     target: '_blank',
+    'font-size': '13px',
   }
 
   getStyles() {
@@ -60,9 +63,11 @@ export default class MjImage extends BodyComponent {
         outline: 'none',
         'text-decoration': 'none',
         height: this.getAttribute('height'),
+        'max-height': this.getAttribute('max-height'),
         'min-width': fullWidth ? '100%' : null,
         width: '100%',
         'max-width': fullWidth ? '100%' : null,
+        'font-size': this.getAttribute('font-size'),
       },
       td: {
         width: fullWidth ? null : `${parsedWidth}${unit}`,

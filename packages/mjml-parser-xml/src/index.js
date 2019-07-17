@@ -56,6 +56,7 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
 
   const handleInclude = (file, line) => {
     const partialPath = path.resolve(cwd, file)
+    const curBeforeInclude = cur
 
     if (find(cur.includedIn, { file: partialPath }))
       throw new Error(`Circular inclusion detected on file : ${partialPath}`)
@@ -75,7 +76,6 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
         children: [],
       }
       cur.children.push(newNode)
-      cur = newNode
 
       return
     }
@@ -113,10 +113,8 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
     if (body) {
       const boundChildren = bindToTree(body.children)
       cur.children = [...cur.children, ...boundChildren]
-
-      cur = boundChildren[boundChildren.length - 1]
     }
-
+    
     if (head) {
       let curHead = findTag('mj-head', mjml)
 
@@ -127,6 +125,7 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
           parent: mjml,
           tagName: 'mj-head',
           children: [],
+          includedIn: [],
         })
 
         curHead = findTag('mj-head', mjml)
@@ -134,9 +133,10 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
 
       const boundChildren = bindToTree(head.children, curHead)
       curHead.children = [...curHead.children, ...boundChildren]
-
-      cur = boundChildren[boundChildren.length - 1]
     }
+    
+    // must restore cur to the cur before include started
+    cur = curBeforeInclude
   }
 
   const parser = new htmlparser.Parser(
@@ -210,8 +210,10 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
         if (inInclude) {
           inInclude = false
         }
-
-        cur = (cur && cur.parent) || null
+        
+        // for includes, setting cur is handled in handleInclude because when there is
+        // only mj-head in include it doesn't create any elements, so setting back to parent is wrong
+        if (name !== 'mj-include') cur = (cur && cur.parent) || null
       },
       ontext: text => {
         if (inEndingTag > 0) return
@@ -228,6 +230,7 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
             line: findLastIndex(lineIndexes, i => i <= parser.startIndex) + 1,
             tagName: 'mj-raw',
             content: `<!-- ${data.trim()} -->`,
+            includedIn,
           })
         }
       },

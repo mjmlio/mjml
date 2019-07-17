@@ -23,7 +23,6 @@ export default class MjSection extends BodyComponent {
     'padding-right': 'unit(px,%)',
     'text-align': 'enum(left,center,right)',
     'text-padding': 'unit(px,%){1,4}',
-    'vertical-align': 'enum(bottom,middle,top)',
   }
 
   static defaultAttributes = {
@@ -33,7 +32,6 @@ export default class MjSection extends BodyComponent {
     padding: '20px 0',
     'text-align': 'center',
     'text-padding': '4px 4px 4px 0',
-    'vertical-align': 'top',
   }
 
   getChildContext() {
@@ -82,11 +80,10 @@ export default class MjSection extends BodyComponent {
         'padding-right': this.getAttribute('padding-right'),
         'padding-top': this.getAttribute('padding-top'),
         'text-align': this.getAttribute('text-align'),
-        'vertical-align': this.getAttribute('vertical-align'),
       },
       div: {
         ...(fullWidth ? {} : background),
-        Margin: '0px auto',
+        margin: '0px auto',
         'border-radius': this.getAttribute('border-radius'),
         'max-width': containerWidth,
       },

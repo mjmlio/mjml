@@ -61,5 +61,5 @@ attribute           | unit        | description                    | default att
 width               | percent/px  | group width                    | (100 / number of non-raw elements in section)%
 vertical-align      | string      | middle/top/bottom              | top
 background-color    | string      | background color for a group   | n/a
+direction           | ltr / rtl   | set the display order of direct children | ltr
 css-class           | string      | class name, added to the root HTML element created | n/a
-

@@ -1,5 +1,7 @@
 import { BodyComponent } from 'mjml-core'
 
+import widthParser from 'mjml-core/lib/helpers/widthParser'
+
 export default class MjButton extends BodyComponent {
   static endingTag = true
 
@@ -21,8 +23,8 @@ export default class MjButton extends BodyComponent {
     height: 'unit(px,%)',
     href: 'string',
     name: 'string',
-    'inner-padding': 'unit(px,%)',
-    'line-height': 'unit(px,%)',
+    'inner-padding': 'unit(px,%){1,4}',
+    'line-height': 'unit(px,%,)',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
@@ -72,11 +74,13 @@ export default class MjButton extends BodyComponent {
         cursor: 'auto',
         'font-style': this.getAttribute('font-style'),
         height: this.getAttribute('height'),
-        padding: this.getAttribute('inner-padding'),
+        'mso-padding-alt': this.getAttribute('inner-padding'),
         'text-align': this.getAttribute('text-align'),
         background: this.getAttribute('background-color'),
       },
       content: {
+        display: 'inline-block',
+        width: this.calculateAWidth(this.getAttribute('width')),
         background: this.getAttribute('background-color'),
         color: this.getAttribute('color'),
         'font-family': this.getAttribute('font-family'),
@@ -84,11 +88,32 @@ export default class MjButton extends BodyComponent {
         'font-style': this.getAttribute('font-style'),
         'font-weight': this.getAttribute('font-weight'),
         'line-height': this.getAttribute('line-height'),
-        Margin: '0',
+        margin: '0',
         'text-decoration': this.getAttribute('text-decoration'),
         'text-transform': this.getAttribute('text-transform'),
+        padding: this.getAttribute('inner-padding'),
+        'mso-padding-alt': '0px',
+        'border-radius': this.getAttribute('border-radius'),
       },
     }
+  }
+
+  calculateAWidth(width) {
+    if (!width) return null
+
+    const { parsedWidth, unit } = widthParser(width)
+
+    // impossible to handle percents because it depends on padding and text width
+    if (unit !== 'px') return null
+
+    const { borders } = this.getBoxWidths()
+
+    const innerPaddings =
+      this.getShorthandAttrValue('inner-padding', 'left') +
+      this.getShorthandAttrValue('inner-padding', 'right')
+
+
+    return `${parsedWidth - innerPaddings - borders}px`
   }
 
   render() {

@@ -35,7 +35,7 @@ This tag allows you to display text in your email.
  font-size                    | px            | text size                                   | 13px
  font-style                   | string        | normal/italic/oblique                       | n/a
  font-weight                  | number        | text thickness                              | n/a
- line-height                  | px            | space between the lines                     | 22px
+ line-height                  | px            | space between the lines                     | 1
  letter-spacing               | px            | letter spacing                              | none
  height                       | px            | The height of the element                   | n/a
  text-decoration              | string        | underline/overline/line-through/none        | n/a
@@ -48,4 +48,3 @@ This tag allows you to display text in your email.
  padding-left                 | px            | left offset                                 | n/a
  padding-right                | px            | right offset                                | n/a
  css-class                    | string        | class name, added to the root HTML element created | n/a
-

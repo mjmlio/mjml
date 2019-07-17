@@ -33,8 +33,6 @@ export default class MjHero extends BodyComponent {
     mode: 'fixed-height',
     height: '0px',
     'background-url': null,
-    'background-width': '0px',
-    'background-height': '0px',
     'background-position': 'center center',
     padding: '0px',
     'padding-bottom': null,
@@ -81,6 +79,8 @@ export default class MjHero extends BodyComponent {
         100,
     )
 
+    const width = this.getAttribute('background-width') || containerWidth
+
     return {
       div: {
         margin: '0 auto',
@@ -125,7 +125,7 @@ export default class MjHero extends BodyComponent {
         'mso-position-horizontal': 'center',
         position: 'absolute',
         top: 0,
-        width: this.getAttribute('background-width'),
+        width,
         'z-index': '-3',
       },
       'outlook-inner-td': {

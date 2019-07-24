@@ -8,7 +8,7 @@ export default class MjColumn extends BodyComponent {
     border: 'string',
     'border-bottom': 'string',
     'border-left': 'string',
-    'border-radius': 'unit(px,%)',
+    'border-radius': 'unit(px,%){1,4}',
     'border-right': 'string',
     'border-top': 'string',
     direction: 'enum(ltr,rtl)',

@@ -46,7 +46,7 @@
     "mjml-spacer": "4.4.1",
     "mjml-table": "4.4.1",
     "mjml-text": "4.4.1",
-    "mjml-validator": "4.4.0",
+    "mjml-validator": "4.4.1",
     "mjml-wrapper": "4.4.1"
   },
   "devDependencies": {

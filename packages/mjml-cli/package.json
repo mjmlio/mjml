@@ -27,7 +27,7 @@
     "mjml-core": "4.4.1",
     "mjml-migrate": "4.4.1",
     "mjml-parser-xml": "4.4.1",
-    "mjml-validator": "4.4.0",
+    "mjml-validator": "4.4.1",
     "yargs": "^8.0.2"
   },
   "devDependencies": {

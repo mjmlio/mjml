@@ -1,7 +1,7 @@
 {
   "name": "mjml-column",
   "description": "mjml-column",
-  "version": "4.4.0",
+  "version": "4.4.1",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -19,7 +19,7 @@
   "dependencies": {
     "babel-runtime": "^6.26.0",
     "lodash": "^4.17.2",
-    "mjml-core": "4.4.0"
+    "mjml-core": "4.4.1"
   },
   "devDependencies": {
     "cross-env": "^5.2.0"

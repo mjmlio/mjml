@@ -41,6 +41,9 @@ MJML is a markup language created by [Mailjet](https://www.mailjet.com/) and des
 
 # Installation
 
+### Requirements
+ - Node >= 8.x
+
 You can install MJML with NPM to use it with NodeJS or the Command Line Interface. If you're not sure what those are, head over to <a href="#usage">Usage</a> for other ways to use MJML.
 
 ```bash

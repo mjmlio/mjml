@@ -229,11 +229,13 @@ export default class MjSocialElement extends BodyComponent {
           >
             <tr>
               <td ${this.htmlAttributes({ style: 'icon' })}>
-                <a ${this.htmlAttributes({
-                  href,
-                  rel: this.getAttribute('rel'),
-                  target: this.getAttribute('target'),
-                })}>
+                ${this.getAttribute('href') != '' ?
+                  `<a ${this.htmlAttributes({
+                    href,
+                    rel: this.getAttribute('rel'),
+                    target: this.getAttribute('target'),
+                  })}>` : ''
+                }
                     <img
                       ${this.htmlAttributes({
                         alt: this.getAttribute('alt'),
@@ -244,7 +246,9 @@ export default class MjSocialElement extends BodyComponent {
                         width: parseInt(iconSize, 10),
                       })}
                     />
-                  </a>
+                  ${this.getAttribute('href') != '' ?
+                    `</a>` : ''
+                  }
                 </td>
               </tr>
           </table>
@@ -252,15 +256,23 @@ export default class MjSocialElement extends BodyComponent {
         ${this.getContent()
           ? `
           <td ${this.htmlAttributes({ style: 'tdText' })}>
-            <a
-              ${this.htmlAttributes({
-                href,
-                style: 'text',
-                rel: this.getAttribute('rel'),
-                target: this.getAttribute('target'),
-              })}>
+            ${this.getAttribute('href') != '' ?
+              `<a
+                ${this.htmlAttributes({
+                  href,
+                  style: 'text',
+                  rel: this.getAttribute('rel'),
+                  target: this.getAttribute('target'),
+                })}>`
+              :  `<span
+                    ${this.htmlAttributes({
+                      style: 'text',
+                    })}>`
+            }
               ${this.getContent()}
-            </a>
+            ${this.getAttribute('href') != '' ?
+              `</a>` : '</span>'
+            }
           </td>
           `
           : ''}

@@ -147,6 +147,28 @@ export class BodyComponent extends Component {
     )
   }
 
+  applyCustomAttrs({htmlAttrs, attrName}) {
+    try{
+      const customLinkAttrsStr = this.getAttribute(attrName)
+      if(customLinkAttrsStr){
+        const attrsArr = customLinkAttrsStr.split(';')
+        for(let attrItem of attrsArr){
+          if(attrItem){
+            let pair = attrItem.split(':')
+            let key = pair[0].trim()
+            let val = pair[1].trim()
+            if(key){
+              htmlAttrs[key] = val
+            }
+          }
+        }       
+      }
+    }
+    catch(err){
+      console.log(`Attribute value for attribute ${attrName} is illegal`)
+    }
+  }
+
   styles(styles) {
     let stylesObject
 

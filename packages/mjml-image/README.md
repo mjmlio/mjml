@@ -44,4 +44,4 @@ srcset                        | url & width   | enables to set a different image
 target                        | string        | link target on click           | \_blank
 title                         | string        | tooltip & accessibility        | n/a
 width                         | px            | image width                    | 100%
-
+custom-link-attrs             | string        | specify attributes to attach to the anchor tag, use key:value pairs and split by semicolum(;) if multiple attributes are provided; example: key1:val1;key2:val2; | n/a

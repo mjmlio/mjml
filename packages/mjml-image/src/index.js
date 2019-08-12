@@ -34,6 +34,7 @@ export default class MjImage extends BodyComponent {
     height: 'unit(px,auto)',
     'max-height': 'unit(px,%)',
     'font-size': 'unit(px)',
+    'custom-link-attrs': 'string',
   }
 
   static defaultAttributes = {
@@ -110,14 +111,18 @@ export default class MjImage extends BodyComponent {
     `
 
     if (this.getAttribute('href')) {
+      let htmlAttrs = {   
+        href: this.getAttribute('href'),
+        target: this.getAttribute('target'),
+        rel: this.getAttribute('rel'),
+        name: this.getAttribute('name'),
+      }
+
+      this.applyCustomAttrs({htmlAttrs, attrName:'custom-link-attrs'})
+
       return `
         <a
-          ${this.htmlAttributes({
-            href: this.getAttribute('href'),
-            target: this.getAttribute('target'),
-            rel: this.getAttribute('rel'),
-            name: this.getAttribute('name'),
-          })}
+          ${this.htmlAttributes(htmlAttrs)}
         >
           ${img}
         </a>

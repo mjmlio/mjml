@@ -127,6 +127,7 @@ export class BodyComponent extends Component {
   }
 
   htmlAttributes(attributes) {
+    const self = this
     const specialAttributes = {
       style: v => this.styles(v),
       default: identity,
@@ -138,35 +139,21 @@ export class BodyComponent extends Component {
         const value = (specialAttributes[name] || specialAttributes.default)(v)
 
         if (!isNil(value)) {
-          return `${output} ${name}="${value}"`
+          let pairs
+          if(self.isCustomAttr({name})){
+            pairs = self.getCustomAttrVals({name, value})
+          }
+          else{
+            pairs = `${name}="${value}"`
+          }
+
+          return `${output} ${pairs}`
         }
 
         return output
       },
       '',
     )
-  }
-
-  applyCustomAttrs({htmlAttrs, attrName}) {
-    try{
-      const customLinkAttrsStr = this.getAttribute(attrName)
-      if(customLinkAttrsStr){
-        const attrsArr = customLinkAttrsStr.split(';')
-        for(const attrItem of attrsArr){
-          if(attrItem){
-            const pair = attrItem.split(':')
-            const key = pair[0].trim()
-            const val = pair[1].trim()
-            if(key){
-              htmlAttrs[key] = val
-            }
-          }
-        }       
-      }
-    }
-    catch(err){
-      console.log(`Attribute value for attribute ${attrName} is illegal`)
-    }
   }
 
   styles(styles) {
@@ -190,6 +177,28 @@ export class BodyComponent extends Component {
       },
       '',
     )
+  }
+
+  isCustomAttr({name}){
+    const cusAttrPrefix = 'custom-attr-'
+    return (name.startsWith(cusAttrPrefix))
+  }
+
+  getCustomAttrVals({name, value}){
+    let pairStr = ''
+    const attrsArr = value.split(';')
+    for(let i = 0; i < attrsArr.length; i++){
+      const attrItem = attrsArr[i]
+      if(attrItem){
+        const pair = attrItem.split(':')
+        const key = pair[0].trim()
+        const val = pair[1].trim()
+        if(key){
+          pairStr += `${key}="${val}" `
+        }
+      }
+    }
+    return pairStr
   }
 
   renderChildren(childrens, options = {}) {

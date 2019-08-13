@@ -127,7 +127,6 @@ export class BodyComponent extends Component {
   }
 
   htmlAttributes(attributes) {
-    const self = this
     const specialAttributes = {
       style: v => this.styles(v),
       default: identity,
@@ -140,8 +139,8 @@ export class BodyComponent extends Component {
 
         if (!isNil(value)) {
           let pairs
-          if(self.isCustomAttr({name})){
-            pairs = self.getCustomAttrVals({name, value})
+          if(this.isCustomAttr({name})){
+            pairs = this.getCustomAttrStr({value})
           }
           else{
             pairs = `${name}="${value}"`
@@ -184,21 +183,33 @@ export class BodyComponent extends Component {
     return (name.startsWith(cusAttrPrefix))
   }
 
-  getCustomAttrVals({name, value}){
-    let pairStr = ''
+  getCustomAttrStr({value}){
     const attrsArr = value.split(';')
-    for(let i = 0; i < attrsArr.length; i++){
-      const attrItem = attrsArr[i]
-      if(attrItem){
-        const pair = attrItem.split(':')
-        const key = pair[0].trim()
-        const val = pair[1].trim()
-        if(key){
-          pairStr += `${key}="${val}" `
+    return reduce(
+      attrsArr,
+      (output, attrItem) => {
+        if(attrItem){
+          const pair = attrItem.split(':')
+          const key = pair[0]
+          const val = pair[1]
+          if(isNil(key) || !key.trim()){
+            return output
+          }
+          else{
+            if(isNil(val)){
+              return `${output} ${key}`
+            }
+            else{
+              return `${output} ${key.trim()}="${val.trim()}"`
+            }
+          }
         }
-      }
-    }
-    return pairStr
+        else{
+          return output
+        }
+      },
+      '',
+    )
   }
 
   renderChildren(childrens, options = {}) {

@@ -152,11 +152,11 @@ export class BodyComponent extends Component {
       const customLinkAttrsStr = this.getAttribute(attrName)
       if(customLinkAttrsStr){
         const attrsArr = customLinkAttrsStr.split(';')
-        for(let attrItem of attrsArr){
+        for(const attrItem of attrsArr){
           if(attrItem){
-            let pair = attrItem.split(':')
-            let key = pair[0].trim()
-            let val = pair[1].trim()
+            const pair = attrItem.split(':')
+            const key = pair[0].trim()
+            const val = pair[1].trim()
             if(key){
               htmlAttrs[key] = val
             }

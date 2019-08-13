@@ -111,7 +111,7 @@ export default class MjImage extends BodyComponent {
     `
 
     if (this.getAttribute('href')) {
-      let htmlAttrs = {   
+      const htmlAttrs = {   
         href: this.getAttribute('href'),
         target: this.getAttribute('target'),
         rel: this.getAttribute('rel'),

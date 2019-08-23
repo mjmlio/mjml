@@ -43,6 +43,7 @@ class ValidationError extends Error {
 export default function mjml2html(mjml, options = {}) {
   let content = ''
   let errors = []
+  const { userContext } = options
 
   if (typeof options.skeleton === 'string') {
     /* eslint-disable global-require */
@@ -181,6 +182,7 @@ export default function mjml2html(mjml, options = {}) {
       initialDatas: {
         ...parseMJML(node),
         context,
+        userContext,
       },
     })
 

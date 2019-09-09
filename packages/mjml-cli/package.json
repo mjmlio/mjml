@@ -23,7 +23,7 @@
     "babel-runtime": "^6.26.0",
     "chokidar": "^3.0.0",
     "glob": "^7.1.1",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.15",
     "mjml-core": "4.4.1",
     "mjml-migrate": "4.4.1",
     "mjml-parser-xml": "4.4.1",

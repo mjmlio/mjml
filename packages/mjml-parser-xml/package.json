@@ -20,7 +20,7 @@
   "dependencies": {
     "babel-runtime": "^6.26.0",
     "htmlparser2": "^3.9.2",
-    "lodash": "^4.17.2"
+    "lodash": "^4.17.15"
   },
   "devDependencies": {
     "chai": "^4.1.1",

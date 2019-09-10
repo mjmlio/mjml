@@ -59,6 +59,7 @@ export default function mjml2html(mjml, options = {}) {
     skeleton = defaultSkeleton,
     validationLevel = 'soft',
     filePath = '.',
+    actualPath = '.',
     mjmlConfigPath = null,
     noMigrateWarn = false,
   } = options
@@ -71,6 +72,7 @@ export default function mjml2html(mjml, options = {}) {
       keepComments,
       components,
       filePath,
+      actualPath,
     })
   }
 

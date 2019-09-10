@@ -35,6 +35,7 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
     convertBooleans = true,
     keepComments = true,
     filePath = '.',
+    actualPath = '.',
     ignoreIncludes = false,
   } = options
 
@@ -43,7 +44,11 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
     map(component => component.getTagName()),
   )({ ...components })
 
-  const cwd = filePath ? path.dirname(filePath) : process.cwd()
+  const filePathIsDir = path.extname(filePath) === ''
+
+  const cwd = filePath
+    ? (filePathIsDir ? filePath : path.dirname(filePath))
+    : process.cwd()
 
   let mjml = null
   let cur = null
@@ -69,7 +74,7 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
       const newNode = {
         line,
         file,
-        absoluteFilePath: path.resolve(cwd, filePath),
+        absoluteFilePath: path.resolve(cwd, actualPath),
         parent: cur,
         tagName: 'mj-raw',
         content: `<!-- mj-include fails to read file : ${file} at ${partialPath} -->`,
@@ -90,6 +95,7 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
       {
         ...options,
         filePath: partialPath,
+        actualPath: partialPath,
       },
       [
         ...cur.includedIn,
@@ -120,8 +126,8 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
 
       if (!curHead) {
         mjml.children.push({
-          file: filePath,
-          absoluteFilePath: path.resolve(cwd, filePath),
+          file: actualPath,
+          absoluteFilePath: path.resolve(cwd, actualPath),
           parent: mjml,
           tagName: 'mj-head',
           children: [],
@@ -172,8 +178,8 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
         }
 
         const newNode = {
-          file: filePath,
-          absoluteFilePath: path.resolve(cwd, filePath),
+          file: actualPath,
+          absoluteFilePath: path.resolve(cwd, actualPath),
           line,
           includedIn,
           parent: cur,

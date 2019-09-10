@@ -26,7 +26,7 @@ export default (input, options) => {
     )
   const synchronyzeWatcher = filePath => {
     getRelatedFiles(filePath).forEach(f => {
-      dependencies[f] = fileContext(f)
+      dependencies[f] = fileContext(f, options.c.filePath)
 
       if (dirty.indexOf(f) === -1) {
         dirty.push(f)
@@ -37,7 +37,6 @@ export default (input, options) => {
       toWatch: flatMapKeyAndValues(dependencies),
       watched: flatMapAndJoin(watcher.getWatched()), // eslint-disable-line no-use-before-define
     }
-
 
     watcher.add( // eslint-disable-line no-use-before-define
       difference(files.toWatch, files.watched),
@@ -52,13 +51,14 @@ export default (input, options) => {
       ...args,
       compiled: mjml2html(args.content, {
         filePath: args.file,
+        actualPath: args.file,
         ...options.config,
       }),
     }),
     args => {
       const { compiled: { errors } } = args
-
-      console.warn(errors, ...errors.map(e => e.formattedMessage))
+      
+      errors.forEach(e => console.warn(e.formattedMessage))
 
       return args
     },

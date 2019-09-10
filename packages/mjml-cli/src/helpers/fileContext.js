@@ -7,7 +7,7 @@ const ensureIncludeIsMJMLFile = file =>
   (file.trim().match(/.mjml/) && file) || `${file}.mjml`
 const error = e => console.error(e.stack || e) // eslint-disable-line no-console
 
-export default baseFile => {
+export default (baseFile, filePath) => {
   const filesIncluded = []
 
   const readIncludes = (dir, file, base) => {
@@ -17,6 +17,8 @@ export default baseFile => {
         : ensureIncludeIsMJMLFile(file),
     )
     const currentDirectory = path.dirname(currentFile)
+    const filePathDirectory = filePath ? path.dirname(filePath) : ''
+
     const includes = new RegExp(includeRegexp)
 
     let content
@@ -31,7 +33,7 @@ export default baseFile => {
     while (matchgroup != null) {
       const includedFile = ensureIncludeIsMJMLFile(matchgroup[1])
       const includedFilePath = path.resolve(
-        path.join(currentDirectory, includedFile),
+        path.join(currentDirectory, filePathDirectory || '', includedFile),
       )
 
       filesIncluded.push(includedFilePath)

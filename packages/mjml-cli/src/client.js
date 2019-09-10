@@ -195,7 +195,7 @@ export default async () => {
           }
           break
         default:
-          compiled = mjml2html(i.mjml, { ...config, filePath: filePath || i.file })
+          compiled = mjml2html(i.mjml, { ...config, filePath: filePath || i.file, actualPath: i.file })
       }
 
       convertedStream.push({ ...i, compiled })

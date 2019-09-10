@@ -5,7 +5,7 @@ import filter from 'lodash/filter'
 
 import ruleError from './ruleError'
 
-const WHITELIST = ['mj-class', 'css-class']
+const WHITELIST = ['mj-class', 'css-class', 'mj-error']
 
 export default function validateAttribute(element, { components }) {
   const { attributes, tagName } = element

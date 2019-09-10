@@ -44,11 +44,11 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
     map(component => component.getTagName()),
   )({ ...components })
 
-  const filePathIsDir = path.extname(filePath) === ''
-
-  const cwd = filePath
-    ? (filePathIsDir ? filePath : path.dirname(filePath))
-    : process.cwd()
+  let cwd = process.cwd()
+  
+  if (filePath) {
+    cwd = path.extname(filePath) === '' ? filePath : path.dirname(filePath)
+  }
 
   let mjml = null
   let cur = null

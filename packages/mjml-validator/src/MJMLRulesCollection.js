@@ -7,10 +7,7 @@ const MJMLRulesCollection = {}
 
 export function registerRule(rule, name) {
   if (typeof rule !== 'function') {
-    return warning(
-      false,
-      'Your rule must be a function',
-    )
+    return warning(false, 'Your rule must be a function')
   }
 
   if (name) {

@@ -20,11 +20,12 @@ export default function MJMLValidator(element, options = {}) {
     errors = flatten(
       concat(
         errors,
-        ...values(rulesCollection)
-          .map(rule => rule(element, {
+        ...values(rulesCollection).map(rule =>
+          rule(element, {
             skipElements,
             ...options,
-          })),
+          }),
+        ),
       ),
     )
   }

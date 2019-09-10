@@ -43,6 +43,7 @@ changed to 100%.
 
 <aside class="notice">
   If you're using a background-url on a `mj-wrapper` then do not add one into a section within the mj-wrapper. Outlook Desktop doesn't support nested VML, so it will most likely break your email.
+  Also, if you use a background-color on mj-wrapper and a background-image on its section/hero child, the background-color will be over the background-image on Outlook. There is no way to keep the vml image over the content and under the wrapper background-color due to z-index being ignored on most tags.
 </aside>
 
 
@@ -67,4 +68,3 @@ padding-right       | px          | section right offset           | n/a
 padding-top         | px          | section top offset             | n/a
 text-align          | string      | css text-align                 | center
 vertical-align      | string      | css vertical-align             | top
-

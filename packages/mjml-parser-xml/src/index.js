@@ -74,9 +74,10 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
         tagName: 'mj-raw',
         content: `<!-- mj-include fails to read file : ${file} at ${partialPath} -->`,
         children: [],
-        attributes: {
-          'mj-error': `mj-include fails to read file : ${file} at ${partialPath}`
-        },
+        errors: [{
+          type: 'include',
+          params: { file, partialPath },
+        }],
       }
       cur.children.push(newNode)
 

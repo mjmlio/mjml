@@ -144,7 +144,7 @@ export default class MjGroup extends BodyComponent {
       return `${parsedWidth}${unit}`
     }
 
-    let classesName = `${this.getColumnClass()} outlook-group-fix`
+    let classesName = `${this.getColumnClass()} mj-outlook-group-fix`
 
     if (this.getAttribute('css-class')) {
       classesName += ` ${this.getAttribute('css-class')}`

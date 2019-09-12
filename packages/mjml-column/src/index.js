@@ -260,7 +260,7 @@ export default class MjColumn extends BodyComponent {
   }
 
   render() {
-    let classesName = `${this.getColumnClass()} outlook-group-fix`
+    let classesName = `${this.getColumnClass()} mj-outlook-group-fix`
 
     if (this.getAttribute('css-class')) {
       classesName += ` ${this.getAttribute('css-class')}`

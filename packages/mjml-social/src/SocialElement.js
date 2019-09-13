@@ -129,7 +129,6 @@ export default class MjSocialElement extends BodyComponent {
     'text-padding': '4px 4px 4px 0',
     target: '_blank',
     'text-decoration': 'none',
-    href: '[[SHORT_PERMALINK]]',
   }
 
   getStyles() {
@@ -180,7 +179,7 @@ export default class MjSocialElement extends BodyComponent {
     const socialNetwork = defaultSocialNetworks[this.getAttribute('name')] || {}
     let href = this.getAttribute('href')
 
-    if (get(socialNetwork, 'share-url')) {
+    if (href && get(socialNetwork, 'share-url')) {
       href = socialNetwork['share-url'].replace('[[URL]]', href)
     }
 
@@ -210,6 +209,8 @@ export default class MjSocialElement extends BodyComponent {
       'icon-size': iconSize,
       'icon-height': iconHeight,
     } = this.getSocialAttributes()
+    
+    const hasLink = !!this.getAttribute('href')
 
     return `
       <tr
@@ -229,7 +230,7 @@ export default class MjSocialElement extends BodyComponent {
           >
             <tr>
               <td ${this.htmlAttributes({ style: 'icon' })}>
-                ${this.getAttribute('href') != '' ?
+                ${hasLink ?
                   `<a ${this.htmlAttributes({
                     href,
                     rel: this.getAttribute('rel'),
@@ -246,7 +247,7 @@ export default class MjSocialElement extends BodyComponent {
                         width: parseInt(iconSize, 10),
                       })}
                     />
-                  ${this.getAttribute('href') != '' ?
+                  ${hasLink ?
                     `</a>` : ''
                   }
                 </td>
@@ -256,7 +257,7 @@ export default class MjSocialElement extends BodyComponent {
         ${this.getContent()
           ? `
           <td ${this.htmlAttributes({ style: 'tdText' })}>
-            ${this.getAttribute('href') != '' ?
+            ${hasLink ?
               `<a
                 ${this.htmlAttributes({
                   href,
@@ -270,7 +271,7 @@ export default class MjSocialElement extends BodyComponent {
                     })}>`
             }
               ${this.getContent()}
-            ${this.getAttribute('href') != '' ?
+            ${hasLink ?
               `</a>` : '</span>'
             }
           </td>

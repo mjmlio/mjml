@@ -78,7 +78,7 @@ font-family                 | string      | font name                     | Ubun
 font-size                   | px/em       | font size                     | 13px
 font-style                  | string      | font style                    | normal
 font-weight                 | string      | font weight                   | normal
-href                        | url         | button redirection url        | [[SHORT_PERMALINK]]
+href                        | url         | button redirection url        | none
 icon-height                 | percent/px  | icon height, overrides icon-size | icon-size
 icon-size                   | percent/px  | icon size (width and height)  | 20px
 line-height                 | percent/px  | space between lines           | 22px
@@ -131,3 +131,5 @@ You can add any unsupported network like this:
   Optional label
 </mj-social-element>
 ```
+
+You can also use mj-social this way with no `href` attribute to make a simple list of inlined images-texts.

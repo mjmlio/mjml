@@ -5,7 +5,7 @@ export default content =>
     (match, prefix, content, suffix) => {
       // find spaces between tags
       const processedContent = content
-        .replace(/(^|>)(\s+)*(<|$)/gm, (match, prefix, content, suffix) =>
+        .replace(/(^|>)(\s+)(<|$)/gm, (match, prefix, content, suffix) =>
           `${prefix}${suffix}`
         )
         .replace(/\s{2,}/gm, ' ')

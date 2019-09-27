@@ -18,7 +18,7 @@ export function readMjmlConfig(configPathOrDir = process.cwd()) {
     if (e.code !== 'ENOENT') {
       console.error('Error reading mjmlconfig : ', e) // eslint-disable-line no-console
     }
-    return { mjmlConfig: { packages: [] }, mjmlConfigPath, componentRootPath, error: e }
+    return { mjmlConfig: { packages: [], options: {} }, mjmlConfigPath, componentRootPath, error: e }
   }
 }
 
@@ -59,10 +59,7 @@ export function registerCustomComponent(comp, registerCompFn = registerComponent
   }
 }
 
-export default function handleMjmlConfig(configPathOrDir = process.cwd(), registerCompFn = registerComponent) {
-  const { mjmlConfig: { packages }, componentRootPath, error } = readMjmlConfig(configPathOrDir)
-  if (error) return { error }
-
+export function handleMjmlConfigComponents(packages, componentRootPath, registerCompFn) {
   const result = {
     success: [],
     failures: [],
@@ -89,4 +86,11 @@ export default function handleMjmlConfig(configPathOrDir = process.cwd(), regist
   })
 
   return result
+}
+
+export default function handleMjmlConfig(configPathOrDir = process.cwd(), registerCompFn = registerComponent) {
+  const { mjmlConfig: { packages }, componentRootPath, error } = readMjmlConfig(configPathOrDir)
+  if (error) return { error }
+  
+  return handleMjmlConfigComponents(packages, componentRootPath, registerCompFn)
 }

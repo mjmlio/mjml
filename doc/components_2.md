@@ -1,6 +1,6 @@
 ## mj-include
 
-The mjml-core package allows you to include external mjml files to build your email template.
+The `mjml-core` package allows you to include external `mjml` files to build your email template.
 
 ```xml
 <!-- header.mjml -->
@@ -24,7 +24,7 @@ tags to make it easier to preview outside the main template
 </mjml>
 ```
 
-The MJML engine will then replace your included files before starting the rendering process
+The `MJML` engine will then replace your included files before starting the rendering process
 
 <aside class="notice">
 Note that the file must be a file with a `.mjml` extension

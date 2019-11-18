@@ -1,7 +1,5 @@
 # MJML 4
 
-If you're looking for MJML 3.3.X check [this branch](https://github.com/mjmlio/mjml/tree/3.3.x)
-
 <p align="center">
   <a href="http://mjml.io" target="_blank">
     <img width="250"src="https://mjml.io/assets/img/litmus/mjmlbymailjet.png">
@@ -46,18 +44,6 @@ You can install `MJML` with `NPM` to use it with NodeJS or the Command Line Inte
 ```bash
 npm install mjml
 ```
-
-# Development
-
-To work on MJML, make changes and create merge requests, download and install [yarn](https://yarnpkg.com/lang/en/docs/install/) for easy development.
-
-```bash
-git clone https://github.com/mjmlio/mjml.git && cd mjml
-yarn
-yarn build
-```
-
-You can also run `yarn build:watch` to rebuild the package as you code.
 
 # Usage
 
@@ -151,18 +137,3 @@ A free-to-use MJML API is available to make it easy to integrate MJML in your ap
 # MJML Slack
 
 MJML wouldn't be as cool without its amazing community. Head over the [Community Slack](https://slack.mjml.io/) to meet fellow MJML'ers.
-
-# Contributors
-
-- [Maxime](https://github.com/iRyusa)
-- [Nicolas](https://github.com/ngarnier)
-- [Cedric](https://github.com/kmcb777)
-- [Loeck](https://github.com/lohek)
-- [Robin](https://github.com/robink)
-- [Guillaume](https://github.com/GuillaumeBadi)
-- [Meriadec](https://github.com/meriadec)
-- [Arnaud](https://github.com/arnaudbreton)
-- [HTeuMeuLeu](https://github.com/hteumeuleu)
-- [Emmanuel Payet](https://github.com/epayet)
-- [Matthieu](https://github.com/swibge)
-- [Rogier](https://github.com/rogierslag)

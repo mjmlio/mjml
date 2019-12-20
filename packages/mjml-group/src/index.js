@@ -158,7 +158,18 @@ export default class MjGroup extends BodyComponent {
         })}
       >
         <!--[if mso | IE]>
-        <table  role="presentation" border="0" cellpadding="0" cellspacing="0">
+        <table
+          ${this.htmlAttributes({
+            bgcolor:
+                this.getAttribute('background-color') === 'none'
+                  ? undefined
+                  : this.getAttribute('background-color'),
+            border: '0',
+            cellpadding: '0',
+            cellspacing: '0',
+            role: 'presentation',
+          })}
+        >
           <tr>
         <![endif]-->
           ${this.renderChildren(children, {

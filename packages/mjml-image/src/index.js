@@ -34,6 +34,7 @@ export default class MjImage extends BodyComponent {
     height: 'unit(px,auto)',
     'max-height': 'unit(px,%)',
     'font-size': 'unit(px)',
+    usemap: 'string'
   }
 
   static defaultAttributes = {
@@ -105,6 +106,7 @@ export default class MjImage extends BodyComponent {
           style: 'img',
           title: this.getAttribute('title'),
           width: this.getContentWidth(),
+          usemap: this.getAttribute('usemap')
         })}
       />
     `

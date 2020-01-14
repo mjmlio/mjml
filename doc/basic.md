@@ -197,4 +197,4 @@ This section is a 3-columns-based section. Please notice you can make the paddin
 </mj-section>
 
 ```
-The MJML standard components library comes with a `mj-social` component. By default, every social network is enabled. To disable some of them, just use their names as an attribute with a `false` value. Here, we're going to use `facebook` only.
+The MJML standard components library comes with a `mj-social` component. Here, we're going to use `facebook` only.

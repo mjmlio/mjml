@@ -1,4 +1,4 @@
-## mjml-group
+## mj-group
 
 
 <p align="center">

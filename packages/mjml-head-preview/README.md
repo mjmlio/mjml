@@ -1,4 +1,4 @@
-## mjml-preview
+## mj-preview
 
 This tag allows you to set the preview that will be displayed in the inbox of the recipient.
 

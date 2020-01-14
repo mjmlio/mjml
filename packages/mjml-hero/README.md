@@ -60,7 +60,6 @@ Fluid height
       background-color="#2a3448"
       padding="100px 0px"
       width="100%">
-      <!-- To add content like mj-image, mj-text, mj-button ... use the mj-hero-content component -->
       <mj-text
         padding="20px"
         color="#ffffff"

@@ -1,4 +1,4 @@
-## mj-breakpoint
+## mjml-breakpoint
 This tag allows you to control on which breakpoint the layout should go desktop/mobile.
 
 ```xml

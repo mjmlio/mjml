@@ -1,4 +1,4 @@
-## mj-wrapper
+## mjml-wrapper
 
 <p align="center">
   <img src="http://i.imgur.com/6YKq83B.png" alt="wrapper" />

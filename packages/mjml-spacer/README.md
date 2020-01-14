@@ -1,4 +1,4 @@
-## mj-spacer
+## mjml-spacer
 
 Displays a blank space.
 

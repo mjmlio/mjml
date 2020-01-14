@@ -1,4 +1,4 @@
-## mj-attributes
+## mjml-attributes
 
 This tag allows you to modify default attributes on a `mj-tag` and add `mj-class` to them.
 

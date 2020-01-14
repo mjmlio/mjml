@@ -1,4 +1,4 @@
-## mj-divider
+## mjml-divider
 
 Displays a horizontal divider that can be customized like a HTML border.
 

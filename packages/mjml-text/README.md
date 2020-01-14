@@ -1,4 +1,4 @@
-## mj-text
+## mjml-text
 
 Most important, this element places text in your email.
 

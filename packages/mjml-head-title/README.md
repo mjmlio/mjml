@@ -1,4 +1,4 @@
-## mj-title
+## mjml-title
 
 This tag allows you to set the title of an MJML document
 

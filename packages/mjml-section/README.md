@@ -1,4 +1,4 @@
-## mj-section
+## mjml-section
 
 Sections are intended to be used as rows within your email.
 They will be used to structure the layout.
@@ -40,7 +40,7 @@ background-url      | url         | background url                 | n/a
 border              | string      | css border format              | none
 border-bottom       | string      | css border format              | n/a
 border-left         | string      | css border format              | n/a
-border-radius       | px          | border radius                  | n/a
+border-radius       | px          | border radius (only applied on the background-color, not the border) | n/a
 border-right        | string      | css border format              | n/a
 border-top          | string      | css border format              | n/a
 css-class           | string      | class name, added to the root HTML element created | n/a

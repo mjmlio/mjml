@@ -1,4 +1,4 @@
-## mj-social
+## mjml-social
 
 <p align="center">
   <img src="https://cloud.githubusercontent.com/assets/6558790/12751360/0c78ce48-c9bd-11e5-98ca-4a2ac9e6341b.png" alt="desktop" style="width: 250px;"/>

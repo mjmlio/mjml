@@ -1,4 +1,4 @@
-## mj-image
+## mjml-image
 
 Displays a responsive image in your email. It is similar to the HTML `<img />` tag.
 Note that if no width is provided, the image will use the parent column width.

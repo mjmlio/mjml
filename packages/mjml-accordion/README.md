@@ -1,10 +1,10 @@
-## mj-accordion
+## mjml-accordion
 
 <p align="center">
   <img src="http://i.imgur.com/C4S9MVc.gif" alt="accordion" />
 </p>
 
-`mj-accordion` is an interactive MJML component to stack content in tabs, so the information is collapsed and only the titles are visible. Readers can interact by clicking on the tabs to reveal the content, providing a great experience on mobile devices where space is scarce.
+`mjml-accordion` is an interactive MJML component to stack content in tabs, so the information is collapsed and only the titles are visible. Readers can interact by clicking on the tabs to reveal the content, providing a great experience on mobile devices where space is scarce.
 
 ```xml
 <mjml>
@@ -75,7 +75,7 @@ padding-left | px | padding left | n/a
 padding-right | px | padding right | n/a
 padding-top | px | padding top | n/a
 
-### mj-accordion-element
+### mjml-accordion-element
 
 This component enables you to create a accordion pane
 
@@ -93,7 +93,7 @@ icon-width | n/a | icon height | 32px
 icon-wrapped-alt | n/a | alt text when accordion is wrapped | +
 icon-wrapped-url | n/a | icon when accordion is wrapped | http://i.imgur.com/bIXv1bk.png
 
-### mj-accordion-title
+### mjml-accordion-title
 
 This component enables you to add and style a title to your accordion
 
@@ -110,7 +110,7 @@ padding-left | px | padding left | n/a
 padding-right | px | padding right | n/a
 padding-top | px | padding top | n/a
 
-### mj-accordion-text
+### mjml-accordion-text
 
 This component enables you to add and style a text to your accordion
 

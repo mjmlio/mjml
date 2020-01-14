@@ -1,4 +1,4 @@
-## mj-table
+## mjml-table
 
 This tag allows you to display table and filled it with data. It only accepts plain HTML.
 
@@ -8,7 +8,7 @@ This tag allows you to display table and filled it with data. It only accepts pl
     <mj-section>
       <mj-column>
         <mj-table>
-          <tr style="border-bottom:1px solid #ecedee;text-align:left;padding:15px 0;">
+          <tr style="border-bottom:1px solid #ecedee;text-align:left;">
             <th style="padding: 0 15px 0 0;">Year</th>
             <th style="padding: 0 15px;">Language</th>
             <th style="padding: 0 0 0 15px;">Inspired from</th>

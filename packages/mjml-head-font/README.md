@@ -1,4 +1,4 @@
-## mj-font
+## mjml-font
 
 This tag allows you to import fonts if used in your MJML document
 

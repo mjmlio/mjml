@@ -1,4 +1,4 @@
-## mj-body
+## mjml-body
 
 This is the starting point of your email.
 

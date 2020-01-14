@@ -1,4 +1,4 @@
-## mj-button
+## mjml-button
 
 <p align="center">
   <img src="https://cloud.githubusercontent.com/assets/6558790/12751346/fd993192-c9bc-11e5-8c91-37d616bf5874.png" alt="desktop" width="150px" />
@@ -44,6 +44,7 @@ font-size                   | px          | text size                           
 font-style                  | string      | normal/italic/oblique                            | n/a
 font-weight                 | number      | text thickness                                   | normal
 height                      | px          | button height                                    | n/a
+letter-spacing              | px          | letter spacing                                   | none
 href                        | link        | link to be triggered when the button is clicked  | n/a
 inner-padding               | px          | inner button padding                             | 10px 25px
 line-height                 | px/%/none   | line-height on link                              | 120%

@@ -1,4 +1,4 @@
-## mj-navbar
+## mjml-navbar
 
 <p align="center">
   <img src="https://cloud.githubusercontent.com/assets/1830348/15317906/d6cef510-1c23-11e6-83d7-31e4e4f8ba2a.png" width="800px" />
@@ -29,7 +29,7 @@ Displays a menu for navigation with an optional hamburger mode for mobile device
   </a>
 </p>
 
-### mj-navbar
+### mjml-navbar
 
 Individual links of the menu should we wrapped inside mj-navbar.
 
@@ -82,7 +82,7 @@ ico-text-decoration         | string             | hamburger icon text decoratio
 ico-text-transform          | string             | hamburger icon text transformation none/capitalize/uppercase/lowercase (hamburger mode required) | none
 
 
-### mj-navbar-link
+### mjml-navbar-link
 
 
 This component should be used to display an individual link in the navbar.

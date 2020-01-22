@@ -1,7 +1,5 @@
 ## mj-hero
 
-Display a section with a background image and some content inside (mj-text, mj-button, mj-image ...) wrapped in mj-hero-content component
-
 Fixed height  
 
 <p align="center">

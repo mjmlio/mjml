@@ -1,7 +1,7 @@
 ## mj-carousel
 
 <p align="center">
-  <img src="http://i.imgur.com/wHqIzgd.gif" alt="desktop" />
+  <img src="https://i.imgur.com/wHqIzgd.gif" alt="desktop" />
 </p>
 
 `mj-carousel` displays a gallery of images or "carousel". Readers can interact by hovering and clicking on thumbnails depending on the email client they use.

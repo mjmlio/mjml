@@ -51,7 +51,7 @@
 </p>
 
 <aside class="notice">
-Every attribute in `mj-accordion` are applied to `mj-accordion-element` unless you overide them on `mj-accordion-element`
+Every attribute in `mj-accordion` are applied to `mj-accordion-element` unless you override them on `mj-accordion-element`
 </aside>
 
 

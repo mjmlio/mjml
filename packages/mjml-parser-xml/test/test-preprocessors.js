@@ -7,7 +7,7 @@ const parse = mjml =>
   MJMLParser(mjml, {
     keepComments: true,
     components,
-    middlewares: [
+    preprocessors: [
       data =>
         template(data, {
           evaluate: /{{([\s\S]+?)}}/g,

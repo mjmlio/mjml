@@ -36,7 +36,7 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
     keepComments = true,
     filePath = '.',
     ignoreIncludes = false,
-    middlewares = [],
+    preprocessors = [],
   } = options
 
   const endingTags = flow(
@@ -260,8 +260,8 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
     },
   )
 
-  // Apply middlewares to raw xml
-  xml = flow(middlewares)(xml)
+  // Apply preprocessors to raw xml
+  xml = flow(preprocessors)(xml)
 
   parser.write(xml)
   parser.end()

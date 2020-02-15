@@ -1,4 +1,4 @@
-## mjml-text
+## mj-text
 
 This tag allows you to display text in your email.
 

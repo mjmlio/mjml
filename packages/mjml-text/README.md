@@ -34,7 +34,7 @@ The HTML `<br/>` tag is convenient for creating  line breaks.
     <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg"
          alt="try the code live" />
   </a>
-</p>
+</p> 
 
 <aside class="notice">
 Don't forget to encode special characters to avoid unexpected
@@ -46,7 +46,7 @@ Don't forget to encode special characters to avoid unexpected
 align      | in ["center", "justify", "left", "right"]      | horizontal text alignment <!--- not CSS "align" because different shape -->      | left
 color      | in [#RRGGBB, &lt;named-color&gt, rgb(), rgba()] <!--- see color.js in mjml-core -->      | text color; <!--- not CSS "color" because different shape -->  | #000000
 container-background-color    | in [#RRGGBB, &lt;named-color&gt, rgb(), rgba()] <!--- see color.js in mjml-core -->      | "mj-text" background color <!--- not CSS "color" because different shape -->      | n/a
-css-class      | string       | creates HTML classes and attributes, added to the root HTML element created; see "css-class" in [mj-style](#mj-style) for code example      | n/a
+css-class      | string       | creates HTML classes and attributes, added to the root HTML element created; see "css-class" in [mj-style](#mjml-style) for code example      | n/a
 font-family                   | string; font or generic family name(s)      | same as CSS "font-family"       | Ubuntu, Helvetica, Arial, sans-serif
 font-size      | px: not negative      | text size <!--- not CSS "font-size" because different shape -->      | 13px
 font-style        | often "normal", "italic", or "oblique &lt;angle&gt;"      | same as CSS "font-style"      | n/a

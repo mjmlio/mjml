@@ -1,7 +1,5 @@
 ## mjml-hero
 
-Display a section with a background image and some content inside (mj-text, mj-button, mj-image ...) wrapped in mj-hero-content component
-
 Fixed height  
 
 <p align="center">
@@ -60,7 +58,6 @@ Fluid height
       background-color="#2a3448"
       padding="100px 0px"
       width="100%">
-      <!-- To add content like mj-image, mj-text, mj-button ... use the mj-hero-content component -->
       <mj-text
         padding="20px"
         color="#ffffff"

@@ -20,7 +20,7 @@ This tag allows you to display text in your email.
 
 <p align="center">
   <a href="https://mjml.io/try-it-live/components/text">
-    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
+    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live">
   </a>
 </p>
 

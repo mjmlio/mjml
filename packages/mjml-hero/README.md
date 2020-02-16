@@ -5,7 +5,7 @@ Display a section with a background image and some content inside (mj-text, mj-b
 Fixed height  
 
 <p align="center">
-  <img src="https://cloud.githubusercontent.com/assets/1830348/15354833/bfe7faaa-1cef-11e6-8d38-15e8951b6636.png" />
+  <img src="https://cloud.githubusercontent.com/assets/1830348/15354833/bfe7faaa-1cef-11e6-8d38-15e8951b6636.png">
 </p>
 
 ```xml
@@ -39,14 +39,15 @@ Fixed height
 
  <p align="center">
    <a href="https://mjml.io/try-it-live/components/hero">
-     <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
+     <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg"
+         alt="try it live">
    </a>
  </p>
 
 Fluid height
 
 <p align="center">
-  <img src="https://cloud.githubusercontent.com/assets/1830348/15354867/fc2f404a-1cef-11e6-92ac-92de9e438210.png" />
+  <img src="https://cloud.githubusercontent.com/assets/1830348/15354867/fc2f404a-1cef-11e6-92ac-92de9e438210.png">
 </p>
 
 ```xml
@@ -81,7 +82,8 @@ Fluid height
 
 <p align="center">
   <a href="https://mjml.io/try-it-live/components/hero/1">
-    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
+    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg"
+        alt="try it live">
   </a>
 </p>
 

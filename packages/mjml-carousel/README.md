@@ -1,7 +1,7 @@
 ## mjml-carousel
 
 <p align="center">
-  <img src="http://i.imgur.com/wHqIzgd.gif" alt="desktop" />
+  <img src="http://i.imgur.com/wHqIzgd.gif" alt="desktop">
 </p>
 
 `mjml-carousel` displays a gallery of images or "carousel". Readers can interact by hovering and clicking on thumbnails depending on the email client they use.
@@ -26,7 +26,7 @@ This component enables you to set the styles of the carousel elements.
 
 <p align="center">
   <a href="https://mjml.io/try-it-live/components/carousel">
-    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="sexy" />
+    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="sexy">
   </a>
 </p>
 

@@ -10,7 +10,9 @@ Here is the final render we want to end with:
 </p>
 
 <p align="center">
-  <a href="/try-it-live/templates/basic"><img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" /></a>
+  <a href="/try-it-live/templates/basic">
+    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live">
+  </a>
 </p>
 
 Looks cool, right?

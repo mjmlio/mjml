@@ -25,7 +25,10 @@ You can also run `yarn build:watch` to rebuild the package as you code.
 Don't want to install anything? Use the free online editor!
 
 <p align="center">
-  <a href="http://mjml.io/try-it-live" target="_blank"><img src="https://cloud.githubusercontent.com/assets/6558790/12195421/58a40618-b5f7-11e5-9ed3-80463874ab14.png" alt="try it live" width="75%"></a>
+  <a href="http://mjml.io/try-it-live" target="_blank">
+    <img src="https://cloud.githubusercontent.com/assets/6558790/12195421/58a40618-b5f7-11e5-9ed3-80463874ab14.png"
+        alt="try it live" width="75%">
+  </a>
 </p>
 <br>
 

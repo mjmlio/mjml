@@ -14,7 +14,7 @@ If you're looking for MJML 3.3.X check [this branch](https://github.com/mjmlio/m
     <img src="https://travis-ci.org/mjmlio/mjml.svg?branch=master" alt="travis">
   </a>
   <a href="https://www.codacy.com/app/gbadi/mjml">
-    <img src="https://api.codacy.com/project/badge/grade/575339cb861f4ff4b0dbb3f9e1759c35"/>
+    <img src="https://api.codacy.com/project/badge/grade/575339cb861f4ff4b0dbb3f9e1759c35">
   </a>
 </p>
 

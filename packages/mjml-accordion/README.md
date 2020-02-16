@@ -1,7 +1,7 @@
 ## mjml-accordion
 
 <p align="center">
-  <img src="http://i.imgur.com/C4S9MVc.gif" alt="accordion" />
+  <img src="http://i.imgur.com/C4S9MVc.gif" alt="accordion">
 </p>
 
 `mjml-accordion` is an interactive MJML component to stack content in tabs, so the information is collapsed and only the titles are visible. Readers can interact by clicking on the tabs to reveal the content, providing a great experience on mobile devices where space is scarce.
@@ -46,7 +46,7 @@
 
 <p align="center">
   <a href="https://mjml.io/try-it-live/components/accordion">
-    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="sexy" />
+    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="sexy">
   </a>
 </p>
 

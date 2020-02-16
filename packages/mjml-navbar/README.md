@@ -1,7 +1,7 @@
 ## mjml-navbar
 
 <p align="center">
-  <img src="https://cloud.githubusercontent.com/assets/1830348/15317906/d6cef510-1c23-11e6-83d7-31e4e4f8ba2a.png" width="800px" />
+  <img src="https://cloud.githubusercontent.com/assets/1830348/15317906/d6cef510-1c23-11e6-83d7-31e4e4f8ba2a.png" width="800px">
 </p>
 
 Displays a menu for navigation with an optional hamburger mode for mobile devices.
@@ -25,7 +25,8 @@ Displays a menu for navigation with an optional hamburger mode for mobile device
 
 <p align="center">
   <a target="_blank" href="https://mjml.io/try-it-live/components/navbar">
-    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
+    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg"
+        alt="try it live">
   </a>
 </p>
 
@@ -37,7 +38,7 @@ Individual links of the menu should we wrapped inside mj-navbar.
 Standard Desktop:
 
 <p align="center">
-  <img src="https://cloud.githubusercontent.com/assets/1830348/15317906/d6cef510-1c23-11e6-83d7-31e4e4f8ba2a.png" width="800px" />
+  <img src="https://cloud.githubusercontent.com/assets/1830348/15317906/d6cef510-1c23-11e6-83d7-31e4e4f8ba2a.png" width="800px">
 </p>
 
 Standard Mobile:

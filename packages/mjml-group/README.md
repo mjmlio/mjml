@@ -3,12 +3,14 @@
 
 <p align="center">
   Desktop<br />
-  <img src="https://cloud.githubusercontent.com/assets/570317/15677458/a6ad2c1c-274a-11e6-8fdf-6853d748ef27.png" />
+  <img src="https://cloud.githubusercontent.com/assets/570317/15677458/a6ad2c1c-274a-11e6-8fdf-6853d748ef27.png"
+      alt="example presentation of columns for desktop; because of the wide screen, mj-columns are side-by-side">
 </p>
 
 <p align="center">
   Mobile<br />
-  <img src="https://cloud.githubusercontent.com/assets/570317/15677396/6bb62708-274a-11e6-8c59-0d8b3944a2ae.png" />
+  <img src="https://cloud.githubusercontent.com/assets/570317/15677396/6bb62708-274a-11e6-8c59-0d8b3944a2ae.png"
+      alt="example presentation of columns for mobile; because the mj-columns are in an mj-group, they still appear side-by-side">
 </p>
 
 mj-group allows you to prevent columns from stacking on mobile. To do so, wrap the columns inside a `mj-group` tag, so they'll stay side by side on mobile.
@@ -39,7 +41,9 @@ mj-group allows you to prevent columns from stacking on mobile. To do so, wrap t
 ```
 
 <p align="center">
-  <a href="https://mjml.io/try-it-live/components/group"><img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" /></a>
+  <a href="https://mjml.io/try-it-live/components/group">
+    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live">
+  </a>
 </p>
 
 <aside class="notice">

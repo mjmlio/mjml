@@ -18,7 +18,7 @@ Displays a blank space.
 
 <p align="center">
   <a href="https://mjml.io/try-it-live/components/spacer">
-    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
+    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live">
   </a>
 </p>
 

@@ -1,7 +1,7 @@
 ## mjml-wrapper
 
 <p align="center">
-  <img src="http://i.imgur.com/6YKq83B.png" alt="wrapper" />
+  <img src="http://i.imgur.com/6YKq83B.png" alt="wrapper">
 </p>
 
 Wrapper enables to wrap multiple sections together. It's especially useful to achieve nested layouts with shared border or background images across sections.
@@ -29,7 +29,7 @@ Wrapper enables to wrap multiple sections together. It's especially useful to ac
 
 <p align="center">
   <a href="https://mjml.io/try-it-live/components/wrapper">
-    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
+    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live">
   </a>
 </p>
 

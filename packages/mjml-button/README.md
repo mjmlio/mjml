@@ -1,7 +1,8 @@
 ## mjml-button
 
 <p align="center">
-  <img src="https://cloud.githubusercontent.com/assets/6558790/12751346/fd993192-c9bc-11e5-8c91-37d616bf5874.png" alt="desktop" width="150px" />
+  <img src="https://cloud.githubusercontent.com/assets/6558790/12751346/fd993192-c9bc-11e5-8c91-37d616bf5874.png"
+      alt="desktop" width="150px">
 </p>
 
 Displays a customizable button.
@@ -22,7 +23,7 @@ Displays a customizable button.
 
 <p align="center">
   <a href="https://mjml.io/try-it-live/components/button">
-    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
+    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live">
   </a>
 </p>
 

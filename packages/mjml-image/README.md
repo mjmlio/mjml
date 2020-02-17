@@ -1,4 +1,4 @@
-## mjml-image
+## mj-image
 
 Displays a responsive image in your email. It is similar to the HTML `<img />` tag.
 Note that if no width is provided, the image will use the parent column width.
@@ -8,7 +8,7 @@ Note that if no width is provided, the image will use the parent column width.
   <mj-body>
     <mj-section>
       <mj-column>
-        <mj-image width="300px" src="http://www.online-image-editor.com//styles/2014/images/example_image.png" />
+        <mj-image width="300px" src="https://www.online-image-editor.com//styles/2014/images/example_image.png" />
       </mj-column>
     </mj-section>
   </mj-body>

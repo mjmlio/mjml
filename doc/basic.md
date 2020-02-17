@@ -6,7 +6,7 @@ In this section, you're going to learn how to code a basic email template using 
 Here is the final render we want to end with:
 
 <p align="center">
-  <a href="http://mjml.io/try-it-live/templates/hello-world"><img width="350px" src="https://cloud.githubusercontent.com/assets/6558790/12779864/d9c20556-ca6a-11e5-9007-d40ac89c5088.png" alt="sexy"></a>
+  <a href="https://mjml.io/try-it-live/templates/hello-world"><img width="350px" src="https://cloud.githubusercontent.com/assets/6558790/12779864/d9c20556-ca6a-11e5-9007-d40ac89c5088.png" alt="sexy"></a>
 </p>
 
 <p align="center">
@@ -72,7 +72,7 @@ The text padding represents the inner space around the content within the `mj-te
 ``` html
 
 <!-- Image Header -->
-  <mj-section background-url="http://1.bp.blogspot.com/-TPrfhxbYpDY/Uh3Refzk02I/AAAAAAAALw8/5sUJ0UUGYuw/s1600/New+York+in+The+1960's+-+70's+(2).jpg"
+  <mj-section background-url="https://1.bp.blogspot.com/-TPrfhxbYpDY/Uh3Refzk02I/AAAAAAAALw8/5sUJ0UUGYuw/s1600/New+York+in+The+1960's+-+70's+(2).jpg"
               background-size="cover"
               background-repeat="no-repeat">
 
@@ -171,13 +171,13 @@ For the text part, you are going to need two `<mj-text>`s like above. One with a
 <!-- Icons -->
 <mj-section background-color="#fbfbfb">
   <mj-column>
-    <mj-image width="100px" src="http://191n.mj.am/img/191n/3s/x0l.png" />
+    <mj-image width="100px" src="https://191n.mj.am/img/191n/3s/x0l.png" />
   </mj-column>
   <mj-column>
-    <mj-image width="100px" src="http://191n.mj.am/img/191n/3s/x01.png" />
+    <mj-image width="100px" src="https://191n.mj.am/img/191n/3s/x01.png" />
   </mj-column>
   <mj-column>
-    <mj-image width="100px" src="http://191n.mj.am/img/191n/3s/x0s.png" />
+    <mj-image width="100px" src="https://191n.mj.am/img/191n/3s/x0s.png" />
   </mj-column>
 </mj-section>
 ```
@@ -197,4 +197,5 @@ This section is a 3-columns-based section. Please notice you can make the paddin
 </mj-section>
 
 ```
-The MJML standard components library comes with a `mj-social` component. Here, we're going to use `facebook` only.
+The MJML standard components library comes with a `mj-social` component.
+Here, we're going to use `facebook` only.

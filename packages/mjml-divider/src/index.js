@@ -31,7 +31,7 @@ export default class MjDivider extends BodyComponent {
       'border-top': ['style', 'width', 'color']
         .map(attr => this.getAttribute(`border-${attr}`))
         .join(' '),
-      'font-size': 1,
+      'font-size': '1px',
       margin: '0px auto',
       width: this.getAttribute('width'),
     }

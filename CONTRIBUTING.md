@@ -2,7 +2,7 @@
 
 ## Code of Conduct
 
-This project adheres to the Contributor Covenant [code of conduct](http://contributor-covenant.org/version/1/4/). By participating, you are expected to uphold this code. Please report unacceptable behavior to [support@mjml.io](mailto:support@mjml.io).
+This project adheres to the Contributor Covenant [code of conduct](https://contributor-covenant.org/version/1/4/). By participating, you are expected to uphold this code. Please report unacceptable behavior to [support@mjml.io](mailto:support@mjml.io).
 
 ## Packages
 

@@ -3,7 +3,7 @@ import { BodyComponent } from 'mjml-core'
 export default class MjSocial extends BodyComponent {
   static allowedAttributes = {
     align: 'enum(left,right,center)',
-    'border-radius': 'string',
+    'border-radius': 'unit(px,%)',
     'container-background-color': 'color',
     color: 'color',
     'font-family': 'string',

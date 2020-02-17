@@ -7,7 +7,6 @@ MJML comes out of the box with a set of standard components to help you build ea
 For instance, the `mj-button` component is, on the inside, a complex HTML layout:
 
 ``` html
-
 <!-- MJML -->
 <mj-button href="#">
     Hello There!
@@ -93,12 +92,14 @@ It uses the MJML attribute otherwise.
 Use caution in choosing attributes and attribute values for email.
 Some widely used email clients don't support
   some popular attributes or some attribute values.
-Some email clients render a given attribute or attribute value
-  differently than other clients. 
+Or support them differently than other clients.
+https://www.caniemail.com/ might have valuable advice.
+In many cases, MJML will handle attributes that don't work
+  to give developers a "decent" rendering, even if different than intended.
+We can't do it all.
 As [one Email Design Reference](https://templates.mailchimp.com/)
   (accessed 2019-12-23) said, "Coding an HTML email isn't much different than
   coding a website was back in the late '90s."
-Ouch!
 </aside>
 
 
@@ -110,7 +111,7 @@ Both have the same purpose of `<head>` and `<body>` in an HTML document.
 
 attribute | unit | description | default value
 ----------|------|-------------|---------------
-owa | string | If set to "desktop", will force desktop display on outlook. Otherwise outlook will display mobile version since it ignores media queries | n/a
+owa | string | If set to "desktop", will force desktop display on outlook. Otherwise outlook will display mobile version since it ignores media queries. | n/a
 lang | string | same as HTML's `<html lang="">` | n/a
 
 <aside class="notice">
@@ -122,4 +123,6 @@ These examples correctly show the syntax for using one MJML attribute and for us
 
 ## mj-head
 
-mj-head contains head components, related to the document such as style and meta elements (see [head components](#standard-head-components)).
+`mj-head` contains head components, related to the document such as style and meta elements (see [head components](#standard-head-components)).
+
+`mj-head` is optional.

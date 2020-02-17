@@ -4,12 +4,8 @@ Most important, this element places text in your email.
 
 Also important, this element supports placement of raw HTML tags
   and their attributes anywhere within.
-Sometimes, developers put _only_ HTML within a given `<mj-text>` tag set.
-
-Inside this tag, there's no need to surround each paragraph with HTML `<p>` tags.
-The HTML `<br/>` tag is convenient for creating  line breaks.
-
-
+Don't forget to encode special characters to avoid unexpected
+  behaviour from MJML's parser.
 
  ```xml
 <mjml>
@@ -36,11 +32,6 @@ The HTML `<br/>` tag is convenient for creating  line breaks.
   </a>
 </p> 
 
-<aside class="notice">
-Don't forget to encode special characters to avoid unexpected
-  behaviour from MJML's parser.
-</aside>
-
  attribute                    | unit                    | description                                 | default value
 ------------------------------|-------------------------|---------------------------------------------|-------------------------------------
 align      | in ["center", "justify", "left", "right"]      | horizontal text alignment <!--- not CSS "align" because different shape -->      | left
@@ -62,4 +53,3 @@ padding-top          | px, %                            | sets top padding; % sa
 text-decoration      | string (often "underline", "overline", "line-through", or "none")      | same as CSS "text-decoration"      | n/a
 text-transform       | often "uppercase", "lowercase", "capitalize", or "none"      |  same as CSS "text-transform"      | n/a
 vertical-align      | in ["bottom", "middle", "top"]      | vertical text alignment <!--- not CSS "vertical-align" because different shape --> | n/a
-

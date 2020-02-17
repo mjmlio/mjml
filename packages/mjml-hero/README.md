@@ -1,11 +1,12 @@
-## mjml-hero
+## mj-hero
 
 Display a section with a background image and some content inside (mj-text, mj-button, mj-image ...) wrapped in mj-hero-content component
 
 Fixed height  
 
 <p align="center">
-  <img src="https://cloud.githubusercontent.com/assets/1830348/15354833/bfe7faaa-1cef-11e6-8d38-15e8951b6636.png" />
+  <img src="https://cloud.githubusercontent.com/assets/1830348/15354833/bfe7faaa-1cef-11e6-8d38-15e8951b6636.png"
+     alt="demo background picture with fixed height" />
 </p>
 
 ```xml
@@ -46,7 +47,8 @@ Fixed height
 Fluid height
 
 <p align="center">
-  <img src="https://cloud.githubusercontent.com/assets/1830348/15354867/fc2f404a-1cef-11e6-92ac-92de9e438210.png" />
+  <img src="https://cloud.githubusercontent.com/assets/1830348/15354867/fc2f404a-1cef-11e6-92ac-92de9e438210.png"
+      alt="demo background picture with fixed height" />
 </p>
 
 ```xml

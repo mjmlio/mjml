@@ -1,4 +1,4 @@
-## mjml-raw
+## mj-raw
 
 Displays raw HTML that is not going to be parsed by the MJML engine. Anything left inside this tag should be raw, responsive HTML.
 If placed inside `<mj-head>`, its content will be added at the end of the `<head>`.

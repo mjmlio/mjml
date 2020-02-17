@@ -42,7 +42,7 @@ Looks cool, right?
   </mj-body>
 </mjml>
 ```
-First, we will implement the skeleton which are the sections. Here, our email is going to be divided into 6 sections.
+First, we will implement the skeleton which are the sections. Here, our email is going to be divided into 6 sections. 
 
 ## Company Header
 

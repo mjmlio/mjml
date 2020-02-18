@@ -8,6 +8,8 @@ export default class MjSection extends BodyComponent {
     'background-url': 'string',
     'background-repeat': 'enum(repeat,no-repeat)',
     'background-size': 'string',
+    'background-position-x': 'enum(left,center,right)',
+    'background-position-y': 'enum(top,center,bottom)',
     border: 'string',
     'border-bottom': 'string',
     'border-left': 'string',
@@ -28,6 +30,8 @@ export default class MjSection extends BodyComponent {
   static defaultAttributes = {
     'background-repeat': 'repeat',
     'background-size': 'auto',
+    'background-position-x': 'center',
+    'background-position-y': 'top',
     direction: 'ltr',
     padding: '20px 0',
     'text-align': 'center',
@@ -49,7 +53,12 @@ export default class MjSection extends BodyComponent {
     const fullWidth = this.isFullWidth()
 
     const background = this.getAttribute('background-url')
-      ? { background: this.getBackground() }
+      ? { 
+        background: this.getBackground(), 
+        'background-position': `${this.getAttribute('background-position-x')} ${this.getAttribute('background-position-y')}`,
+        // background size and position has to be seperate since yahoo does not support shorthand background css property
+        'background-size': this.getAttribute('background-size'),
+      }
       : {
           background: this.getAttribute('background-color'),
           'background-color': this.getAttribute('background-color'),
@@ -94,17 +103,20 @@ export default class MjSection extends BodyComponent {
     }
   }
 
-  getBackground = () =>
-    makeBackgroundString([
+  getBackground() {
+    return makeBackgroundString([
       this.getAttribute('background-color'),
       ...(this.hasBackground()
         ? [
             `url(${this.getAttribute('background-url')})`,
-            `top center / ${this.getAttribute('background-size')}`,
+            this.getAttribute('background-position-x'),
+            this.getAttribute('background-position-y'),
+            `/ ${this.getAttribute('background-size')}`,
             this.getAttribute('background-repeat'),
           ]
         : []),
     ])
+  }
 
   hasBackground() {
     return this.getAttribute('background-url') != null
@@ -189,6 +201,38 @@ export default class MjSection extends BodyComponent {
 
     const { containerWidth } = this.context
 
+    let vOriginPosX, vOriginPosY
+    let vSizeAttributes = {}
+
+    // this logic is different when using repeat or no-repeat
+    if (this.getAttribute('background-repeat') == "repeat") {
+      switch (this.getAttribute('background-position-x')) {
+        case 'left': vOriginPosX = '0'; break;
+        case 'center': vOriginPosX = '0.5'; break;
+        case 'right': vOriginPosX = '1'; break;
+        default: vOriginPosX = '0.5'; break;
+      }
+      switch (this.getAttribute('background-position-y')) {
+        case 'top': vOriginPosY = '0'; break;
+        case 'center': vOriginPosY = '0.5'; break;
+        case 'bottom': vOriginPosY = '1'; break;
+        default: vOriginPosY = '0'; break;
+      }
+    } else {
+
+    }
+
+    // If background size is either cover or contain, we tell VML to keep the aspect 
+    // and fill the entire element. 
+    if (this.getAttribute('background-size') === 'cover' ||
+      this.getAttribute('background-size') === 'contain') {
+      vSizeAttributes = {
+        size: '1,1',
+        aspect: this.getAttribute('background-size') == 'cover' ? 'atleast' : 'atmost',
+      }
+    }
+
+
     return `
       <!--[if mso | IE]>
         <v:rect ${this.htmlAttributes({
@@ -200,11 +244,12 @@ export default class MjSection extends BodyComponent {
           stroke: 'false',
         })}>
         <v:fill ${this.htmlAttributes({
-          origin: '0.5, 0',
-          position: '0.5, 0',
+          origin: `${vOriginPosX}, ${vOriginPosY}`,
+          position: `${vOriginPosX}, ${vOriginPosY}`,
           src: this.getAttribute('background-url'),
           color: this.getAttribute('background-color'),
           type: 'tile',
+          ...vSizeAttributes
         })} />
         <v:textbox style="mso-fit-shape-to-text:true" inset="0,0,0,0">
       <![endif]-->

@@ -55,8 +55,9 @@ export default class MjSection extends BodyComponent {
     const background = this.getAttribute('background-url')
       ? { 
         background: this.getBackground(), 
+        // background size, repeat and position has to be seperate since yahoo does not support shorthand background css property
         'background-position': `${this.getAttribute('background-position-x')} ${this.getAttribute('background-position-y')}`,
-        // background size and position has to be seperate since yahoo does not support shorthand background css property
+        'background-repeat': this.getAttribute('background-repeat'),
         'background-size': this.getAttribute('background-size'),
       }
       : {

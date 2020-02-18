@@ -219,7 +219,18 @@ export default class MjSection extends BodyComponent {
         default: vOriginPosY = '0'; break;
       }
     } else {
-
+      switch (this.getAttribute('background-position-x')) {
+        case 'left': vOriginPosX = '-0.5'; break;
+        case 'center': vOriginPosX = '0'; break;
+        case 'right': vOriginPosX = '0.5'; break;
+        default: vOriginPosX = '0'; break;
+      }
+      switch (this.getAttribute('background-position-y')) {
+        case 'top': vOriginPosY = '-0.5'; break;
+        case 'center': vOriginPosY = '0'; break;
+        case 'bottom': vOriginPosY = '0.5'; break;
+        default: vOriginPosY = '-1'; break;
+      }
     }
 
     // If background size is either cover or contain, we tell VML to keep the aspect 
@@ -248,7 +259,7 @@ export default class MjSection extends BodyComponent {
           position: `${vOriginPosX}, ${vOriginPosY}`,
           src: this.getAttribute('background-url'),
           color: this.getAttribute('background-color'),
-          type: 'tile',
+          type: this.getAttribute('background-repeat') === 'repeat' ? 'tile' : 'frame',
           ...vSizeAttributes
         })} />
         <v:textbox style="mso-fit-shape-to-text:true" inset="0,0,0,0">

@@ -202,37 +202,40 @@ export default class MjSection extends BodyComponent {
 
     const { containerWidth } = this.context
 
-    let vOriginPosX, vOriginPosY
+    let vOriginPosX
+    let vOriginPosY
     let vSizeAttributes = {}
 
     // this logic is different when using repeat or no-repeat
-    if (this.getAttribute('background-repeat') == "repeat") {
-      switch (this.getAttribute('background-position-x')) {
-        case 'left': vOriginPosX = '0'; break;
-        case 'center': vOriginPosX = '0.5'; break;
-        case 'right': vOriginPosX = '1'; break;
-        default: vOriginPosX = '0.5'; break;
-      }
-      switch (this.getAttribute('background-position-y')) {
-        case 'top': vOriginPosY = '0'; break;
-        case 'center': vOriginPosY = '0.5'; break;
-        case 'bottom': vOriginPosY = '1'; break;
-        default: vOriginPosY = '0'; break;
-      }
-    } else {
-      switch (this.getAttribute('background-position-x')) {
-        case 'left': vOriginPosX = '-0.5'; break;
-        case 'center': vOriginPosX = '0'; break;
-        case 'right': vOriginPosX = '0.5'; break;
-        default: vOriginPosX = '0'; break;
-      }
-      switch (this.getAttribute('background-position-y')) {
-        case 'top': vOriginPosY = '-0.5'; break;
-        case 'center': vOriginPosY = '0'; break;
-        case 'bottom': vOriginPosY = '0.5'; break;
-        default: vOriginPosY = '-1'; break;
-      }
+    switch (this.getAttribute('background-position-x')) {
+      case 'left': 
+        vOriginPosX = this.getAttribute('background-repeat') === "repeat" ? '0' : '-0.5'
+        break
+      case 'center': 
+        vOriginPosX = this.getAttribute('background-repeat') === "repeat" ? '0.5' : '0'
+        break
+      case 'right': 
+        vOriginPosX = this.getAttribute('background-repeat') === "repeat" ? '1' : '0.5'
+        break
+      default: 
+        vOriginPosX = this.getAttribute('background-repeat') === "repeat" ? '0.5' : '0'
+        break
     }
+    switch (this.getAttribute('background-position-y')) {
+      case 'top':
+        vOriginPosY = this.getAttribute('background-repeat') === "repeat" ? '0' : '-0.5'
+        break
+      case 'center':
+        vOriginPosY = this.getAttribute('background-repeat') === "repeat" ? '0.5' : '0'
+        break
+      case 'bottom':
+        vOriginPosY = this.getAttribute('background-repeat') === "repeat" ? '1' : '0.5'
+        break
+      default:
+        vOriginPosY = this.getAttribute('background-repeat') === "repeat" ? '0' : '-0.5'
+        break
+    }
+
 
     // If background size is either cover or contain, we tell VML to keep the aspect 
     // and fill the entire element. 
@@ -240,7 +243,7 @@ export default class MjSection extends BodyComponent {
       this.getAttribute('background-size') === 'contain') {
       vSizeAttributes = {
         size: '1,1',
-        aspect: this.getAttribute('background-size') == 'cover' ? 'atleast' : 'atmost',
+        aspect: this.getAttribute('background-size') === 'cover' ? 'atleast' : 'atmost',
       }
     }
 
@@ -261,7 +264,7 @@ export default class MjSection extends BodyComponent {
           src: this.getAttribute('background-url'),
           color: this.getAttribute('background-color'),
           type: this.getAttribute('background-repeat') === 'repeat' ? 'tile' : 'frame',
-          ...vSizeAttributes
+          ...vSizeAttributes,
         })} />
         <v:textbox style="mso-fit-shape-to-text:true" inset="0,0,0,0">
       <![endif]-->

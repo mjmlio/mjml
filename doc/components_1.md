@@ -33,7 +33,7 @@ MJML authors use _attributes_ to specify custom behavior of MJML components.
 Our documentation has _attribute lists_ for each component describing each 
   supported attribute.
 The lists have four columns.
-The first attribute list is just below, under the ["mjml" heading](##mjml).
+The first attribute list is just below, under the ["mjml" heading](#mjml).
 
 The _attribute_ column is a complete list of attributes a component supports.
 An examples of syntax for using a attributes appears just below here
@@ -44,19 +44,6 @@ In general, if MJML has an attribute of the same name as an HTML attribute,
   the two operate similarly.
 </aside>
 
-<!--- NOTE: I understand Markdown recognizes this three-dash comment
-  syntax as a line that should appear in the HTML as a comment (two-dash),
-  but should not render in the documentation. Garry votes that's okay.
-  There's advantage in putting a comment here for future documentation
-  maintainers. --> 
-<!--- Example 1: MJML's type "color" (color.js in mjml-core/src/types) supports notations
-  (1) #RRGGBB, (2) #RGB, (3) rgb(), and (4) rgba(), and no other.
-  HTML also supports "hsl()" notation and others. Still, they operate similarly. -->
-<!--- Example 2:
-  MJML's "mj-text" > "padding" limits the attribute values to "unit(px,%,)".
-  HTML's "padding" also supports "em" units and
-  three <em>global value</em> strings. Still similar. -->
-  
 The _unit_ column specifies whether the attribute must be, for instance,
   a string, a number, or other unit.
 There's a little more on this later in this section.
@@ -67,8 +54,6 @@ Sometimes, it indicates equivalence with the same-name HTML attribute.
 
 The _default value_ column specifies the default value for the attribute.
 Attributes without a default value have _n/a_ here.
-
-<!--- Not ambiguous because MJML does not support "n/a" as any attribute value. --> 
 
 <aside class="notice">
 MJML syntax for <em>HTML</em> attributes differs from syntax for <em>MJML</em> attributes.
@@ -86,20 +71,18 @@ In such code, MJML uses the HTML attribute
 It uses the MJML attribute otherwise.
 </aside>
 
-<!--- https://mjml.io/try-it-live/H1LbbsI1I -->
-
 <aside class="notice">
 Use caution in choosing attributes and attribute values for email.
 Some widely used email clients don't support
   some popular attributes or some attribute values.
 Or support them differently than other clients.
 https://www.caniemail.com/ might have valuable advice.
-In many cases, MJML will handle attributes that don't work
-  to give developers a "decent" rendering, even if different than intended.
-We can't do it all.
 As [one Email Design Reference](https://templates.mailchimp.com/)
   (accessed 2019-12-23) said, "Coding an HTML email isn't much different than
   coding a website was back in the late '90s."
+In many cases, MJML will handle attributes that don't work
+  to give developers a "decent" rendering, even if different than intended.
+We do what we can. Developers take it from there.
 </aside>
 
 
@@ -113,13 +96,6 @@ attribute | unit | description | default value
 ----------|------|-------------|---------------
 owa | string | If set to "desktop", will force desktop display on outlook. Otherwise outlook will display mobile version since it ignores media queries. | n/a
 lang | string | same as HTML's `<html lang="">` | n/a
-
-<aside class="notice">
-Use '&lt;mjml lang="fr"&gt;' for the French language.<br />
-For the English language and <em>desktop display</em> for Outlook, use '&lt;mjml lang="en" owa="desktop"&gt;'.
-<br /><br />
-These examples correctly show the syntax for using one MJML attribute and for using more than one attribute.
-</aside>
 
 ## mj-head
 

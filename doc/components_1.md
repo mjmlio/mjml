@@ -63,26 +63,18 @@ MJML attributes use the same syntax in MJML tags as HTML attributes in HTML tags
 </aside>
 
 <aside class="notice">
-MJML can support both an HTML attribute and an MJML attribute
-  with the same spelling and different values.
-In such code, MJML uses the HTML attribute
-  inside an MJML "css-class" attribute and
+What if you use the same name for both an HTML attribute and
+  an MJML attribute?
+It shouldn't be a problem.
+MJML uses the HTML attribute inside an MJML "css-class" attribute and
   in raw HTML inside a "class" attribute.
+Those areas are for HTML.
 It uses the MJML attribute otherwise.
 </aside>
 
 <aside class="notice">
-Use caution in choosing attributes and attribute values for email.
-Some widely used email clients don't support
-  some popular attributes or some attribute values.
-Or support them differently than other clients.
-https://www.caniemail.com/ might have valuable advice.
-As [one Email Design Reference](https://templates.mailchimp.com/)
-  (accessed 2019-12-23) said, "Coding an HTML email isn't much different than
-  coding a website was back in the late '90s."
-In many cases, MJML will handle attributes that don't work
-  to give developers a "decent" rendering, even if different than intended.
-We do what we can. Developers take it from there.
+  If you wonder whether a given CSS attribute or value has good support
+    in email clients, https://www.caniemail.com/ can have valuable advice.
 </aside>
 
 

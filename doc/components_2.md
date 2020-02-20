@@ -23,7 +23,3 @@ tags to make it easier to preview outside the main template.
   </mj-body>
 </mjml>
 ```
-
-<aside class="notice">
-The file must have an '.mjml' extension.
-</aside>

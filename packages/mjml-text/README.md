@@ -31,23 +31,23 @@ Also important, this element supports placement of raw HTML tags
 </p> 
 
  attribute                    | unit                    | description                                 | default value
-------------------------------|-------------------------|---------------------------------------------|-------------------------------------
-align      | in ["center", "justify", "left", "right"]      | horizontal text alignment <!--- not CSS "align" because different shape -->      | left
-color      | in [#RRGGBB, &lt;named-color&gt, rgb(), rgba()] <!--- see color.js in mjml-core -->      | text color; <!--- not CSS "color" because different shape -->  | #000000
-container-background-color    | in [#RRGGBB, &lt;named-color&gt, rgb(), rgba()] <!--- see color.js in mjml-core -->      | "mj-text" background color <!--- not CSS "color" because different shape -->      | n/a
-css-class      | string       | creates HTML classes and attributes, added to the root HTML element created; see "css-class" in [mj-style](#mjml-style) for code example      | n/a
-font-family                   | string; font or generic family name(s)      | same as CSS "font-family"       | Ubuntu, Helvetica, Arial, sans-serif
-font-size      | px: not negative      | text size <!--- not CSS "font-size" because different shape -->      | 13px
-font-style        | often "normal", "italic", or "oblique &lt;angle&gt;"      | same as CSS "font-style"      | n/a
-font-weight                   | string            | font weight (or boldness); same as CSS "font-weight"      | n/a
-height      | px, %      | height of the "mj-text" element; % is relative to the containing block's height. <!--- not CSS "height" because different shape -->      | n/a
-letter-spacing       | px: pos, zero, or neg      | letter spacing within the line <!--- not CSS "letter-spacing" because different shape -->      | n/a
-line-height          | px, %       | space between lines; % is relative to the block's font <!--- not CSS "line-height" because different shape -->      | 100%
-padding              | px, % {1,4}      | sets "padding-bottom", "-left", "-right", and "-top"; % is relative to "width" of containing block <!--- not CSS "padding" because different shape -->      | 10px 25px
-padding-bottom       | px, %                            | sets bottom padding; % same as above        | 10px
-padding-left         | px, %                            | sets left padding; % same as above          | 25px
-padding-right        | px, %                            | sets right padding; % same as above         | 25px
-padding-top          | px, %                            | sets top padding; % same as above           | 10px
-text-decoration      | string (often "underline", "overline", "line-through", or "none")      | same as CSS "text-decoration"      | n/a
-text-transform       | often "uppercase", "lowercase", "capitalize", or "none"      |  same as CSS "text-transform"      | n/a
-vertical-align      | in ["bottom", "middle", "top"]      | vertical text alignment <!--- not CSS "vertical-align" because different shape --> | n/a
+------------------------------|-------------------------|---------------------------------------------|--------
+align      | in ["center", "justify", "left", "right"]      | horizontal text alignment               | left
+color      | in [#RRGGBB, &lt;named-color&gt;, rgb(), rgba()]      | text color                       | #000000
+container-background-color     | in [#RRGGBB, &lt;named-color&gt;, rgb(), rgba()]      | "mj-text" background color     | n/a
+css-class                     | string              | see "css-class" in [mj-style](#mjml-style)      | n/a
+font-family      | string; font or generic family name(s)      | same as CSS                          | Ubuntu, Helvetica, Arial, sans-serif
+font-size      | px: not negative                       | text size                                   | 13px
+font-style      | often "normal", "italic", or "oblique &lt;angle&gt;"      | same as CSS             | n/a
+font-weight     | string                                | boldness                                    | n/a
+height         | px, %                                  | height of the "mj-text" element             | n/a
+letter-spacing       | px: pos, zero, or neg            | letter spacing on the line                  | n/a
+line-height      | px, %                                | space between lines                         | 100%
+padding      | px, % {1,4}                 | sets "padding-bottom", "-left", "-right", and "-top"     | 10px 25px
+padding-bottom      | px, %                             | bottom padding                              | 10px
+padding-left      | px, %                               | left padding                                | 25px
+padding-right      | px, %                              | right padding                               | 25px
+padding-top      | px, %                                | top padding                                 | 10px
+text-decoration      | string (often "underline", "overline", "line-through", or "none")      | same as CSS      | n/a
+text-transform       | often "uppercase", "lowercase", "capitalize", or "none"      | same as CSS     | n/a
+vertical-align      | in ["bottom", "middle", "top"]      | vertical text alignment                   | n/a

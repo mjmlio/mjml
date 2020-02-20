@@ -33,6 +33,7 @@ MJML authors use _attributes_ to specify custom behavior of MJML components.
 Our documentation has _attribute lists_ for each component describing each 
   supported attribute.
 The lists have four columns.
+
 The first attribute list is just below, under the ["mjml" heading](#mjml).
 
 The _attribute_ column is a complete list of attributes a component supports.
@@ -63,18 +64,19 @@ MJML attributes use the same syntax in MJML tags as HTML attributes in HTML tags
 </aside>
 
 <aside class="notice">
-What if you use the same name for both an HTML attribute and
-  an MJML attribute?
-It shouldn't be a problem.
-MJML uses the HTML attribute inside an MJML "css-class" attribute and
-  in raw HTML inside a "class" attribute.
-Those areas are for HTML.
-It uses the MJML attribute otherwise.
+  Q: What if you use the same name for both an HTML attribute and
+    an MJML attribute?<br />
+  A: It shouldn't be a problem.<br />
+  MJML uses the HTML attribute inside an HTML "class" attribute and
+    inside an MJML "css-class" attribute.
+  Those areas are for HTML.
+  It uses the MJML attribute otherwise.
 </aside>
 
 <aside class="notice">
   If you wonder whether a given CSS attribute or value has good support
-    in email clients, https://www.caniemail.com/ can have valuable advice.
+    in email clients, [caniemail.com](https://www.caniemail.com/)
+    often has valuable advice.
 </aside>
 
 
@@ -88,6 +90,7 @@ attribute | unit | description | default value
 ----------|------|-------------|---------------
 owa | string | If set to "desktop", will force desktop display on outlook. Otherwise outlook will display mobile version since it ignores media queries. | n/a
 lang | string | same as HTML's `<html lang="">` | n/a
+
 
 ## mj-head
 

@@ -31,7 +31,6 @@ Also important, this element supports use of raw HTML tags
  attribute                 | unit             | description                                     | default value
 ---------------------------|------------------|-------------------------------------------------|--------------
 align                      | string           | left/right/center/justify                       | left
-background-color           | color            | TBD                                             | n/a
 color                      | color            | text color                                      | #000000
 container-background-color | color            | element background color                        | n/a
 css-class                  | string        | class name, added to the root HTML element created | n/a

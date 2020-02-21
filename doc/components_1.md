@@ -39,12 +39,14 @@ The first column of each list is a complete list of the MJML attributes
 The linter is likely to complain about any other.
 
 <aside class="notice">
-MJML syntax for <em>HTML</em> attributes differs from syntax for <em>MJML</em> attributes.
-Within MJML, we can use HTML attributes only with HTML elements and
-  MJML attributes only with MJML elements.
+
+
+
+Within MJML, HTML attributes apply only to HTML elements and
+  MJML attributes apply only to MJML elements.
 Though some MJML attributes are spelled the same as HTML attributes
-  (and should operate similarly), MJML attributes may support
-  different values.
+  (and usually operate similarly), MJML attributes may not support
+  some HTML attribute values, reflecting spotty support by email clients.
 </aside>
 
 <aside class="notice">

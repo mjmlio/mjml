@@ -62,7 +62,7 @@ Those two have the same purposes as the HTML `<head>` and `<body>` elements.
 
 attribute | unit   | description                     | default value
 ----------|--------|---------------------------------|---------------
-owa       | string | If set to "desktop", will force desktop display on outlook. Otherwise outlook will display mobile version since it ignores media queries.      | n/a
+owa       | string | If set to "desktop", will force desktop display on Outlook. Otherwise Outlook will display mobile version since it ignores media queries.      | n/a
 lang      | string | same as HTML's `<html lang="">` | n/a
 
 

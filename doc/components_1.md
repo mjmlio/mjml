@@ -52,9 +52,9 @@ The linter is likely to complain about any other.
 </aside>
 
 <aside class="notice">
-  If you wonder whether a given CSS attribute or value has good support
-      in email clients, [caniemail.com](https://www.caniemail.com/)
-      often has valuable advice.
+  [caniemail.com](https://www.caniemail.com/) often has valuable advice
+      about whether a given CSS attribute or value has good support
+      in email clients.
 </aside>
 
 

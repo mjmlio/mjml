@@ -43,7 +43,7 @@ We geek about that stuff &mdash; we’ll stay on top of it.
 You can spend less time reading up on the latest email client updates
     and more time designing beautiful email.
 Your email won't necessarily render the same on all email clients.
-However. it'll render reasonably on the email clients our many customers tell us
+However, it'll render reasonably on the email clients our many customers tell us
     are most important to them.
 
 ``` html

@@ -43,5 +43,6 @@ src                           | url           | image source                   |
 srcset                        | url & width   | enables to set a different image source based on the viewport | n/a
 target                        | string        | link target on click           | \_blank
 title                         | string        | tooltip & accessibility        | n/a
+usemap                        | string        | reference to image map, be careful, it isn't supported everywhere         | n/a
 width                         | px            | image width                    | 100%
 

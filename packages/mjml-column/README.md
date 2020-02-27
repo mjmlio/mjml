@@ -36,7 +36,8 @@ Every single column has to contain something because they are responsive contain
 
 attribute           | unit        | description                    | default attributes
 --------------------|-------------|--------------------------------|--------------------------------------
-background-color    | string      | background color for a column  | n/a
+background-color    | color       | background color for a column  | n/a
+inner-background-color | color    | requires: a padding, inner background color for column | n/a
 border              | string      | css border format              | none
 border-bottom       | string      | css border format              | n/a
 border-left         | string      | css border format              | n/a

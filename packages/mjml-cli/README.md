@@ -104,7 +104,7 @@ $> mjml input.mjml --config.stack true
 ### Override base path for mj-include relative paths
 
 ```bash
-$> mjml ./my-project/input.mjml --config.filePath ./my-partials/input.mjml
+$> mjml ./my-project/input.mjml --config.filePath ./my-partials/
 ```
 
 If you like to keep your partials together and you want to be able to mj-include them without having to change the relative path of the includes depending on the compiled file path, you can use this option. In this exemple, `<mj-include path="./header.mjml" />` will include `./my-partials/header.mjml`, ignoring the actual path of `input.mjml`.

@@ -3,7 +3,7 @@ import { BodyComponent } from 'mjml-core'
 export default class MjSocial extends BodyComponent {
   static allowedAttributes = {
     align: 'enum(left,right,center)',
-    'border-radius': 'unit(px)',
+    'border-radius': 'unit(px,%)',
     'container-background-color': 'color',
     color: 'color',
     'font-family': 'string',
@@ -41,7 +41,8 @@ export default class MjSocial extends BodyComponent {
     'text-decoration': 'none',
   }
 
-  getStyles() { // eslint-disable-line class-methods-use-this
+  getStyles() {
+    // eslint-disable-line class-methods-use-this
     return {
       tableVertical: {
         margin: '0px',
@@ -145,9 +146,11 @@ export default class MjSocial extends BodyComponent {
 
   render() {
     return `
-      ${this.getAttribute('mode') === 'horizontal'
-        ? this.renderHorizontal()
-        : this.renderVertical()}
+      ${
+        this.getAttribute('mode') === 'horizontal'
+          ? this.renderHorizontal()
+          : this.renderVertical()
+      }
     `
   }
 }

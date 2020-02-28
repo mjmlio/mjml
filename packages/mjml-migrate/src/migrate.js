@@ -66,7 +66,9 @@ function migrateSocialSyntax(socialTag) {
 
   // migrate all attributes to their child attributes
   keys(networks).forEach(network => {
-    const nameMigrated = networks[network].replace(':url', '-noshare').replace(':share', '')
+    const nameMigrated = networks[network]
+      .replace(':url', '-noshare')
+      .replace(':share', '')
     const nameWithoutOpts = nameMigrated.replace('-noshare', '')
 
     socialTag.children.push({
@@ -79,8 +81,7 @@ function migrateSocialSyntax(socialTag) {
       if (attribute.match(nameWithoutOpts) && !attribute.match('content')) {
         socialTag.children[network].attributes[
           attribute.replace(`${nameWithoutOpts}-`, '')
-        ] =
-          socialTag.attributes[attribute]
+        ] = socialTag.attributes[attribute]
         delete socialTag.attributes[attribute]
       }
     })
@@ -152,8 +153,7 @@ function loopThrough(tree) {
           loopThrough(tree.children[i])
         } else {
           console.error(
-            `Ignoring unsupported tag : ${tree.children[i]
-              .tagName} on line ${tree.children[i].line}`,
+            `Ignoring unsupported tag : ${tree.children[i].tagName} on line ${tree.children[i].line}`,
           )
           delete tree.children[i]
         }
@@ -180,9 +180,9 @@ const jsonToXML = ({ tagName, attributes, children, content }) => {
     .map(attr => `${attr}="${attributes[attr]}"`)
     .join(' ')
 
-  return `<${tagName}${stringAttrs === ''
-    ? '>'
-    : ` ${stringAttrs}>`}${subNode}</${tagName}>`
+  return `<${tagName}${
+    stringAttrs === '' ? '>' : ` ${stringAttrs}>`
+  }${subNode}</${tagName}>`
 }
 
 export default function migrate(input, options = {}) {
@@ -201,9 +201,10 @@ export function handleMjml3(mjml, options = {}) {
   const isV3Synthax = checkV3Through(mjml)
   if (!isV3Synthax) return mjml
 
-  if (!options.noMigrateWarn) console.log(
-    'MJML v3 syntax detected, migrating to MJML v4 syntax. Use mjml -m to get the migrated MJML.',
-  )
+  if (!options.noMigrateWarn)
+    console.log(
+      'MJML v3 syntax detected, migrating to MJML v4 syntax. Use mjml -m to get the migrated MJML.',
+    )
   return migrate(mjml)
 }
 

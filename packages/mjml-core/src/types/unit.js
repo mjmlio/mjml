@@ -5,11 +5,11 @@ export const matcher = /^(unit|unitWithNegative)\(.*\)/gim
 
 export default params => {
   const allowNeg = params.match(/^unitWithNegative/) ? '-|' : ''
-  
+
   const units = params.match(/\(([^)]+)\)/)[1].split(',')
   const argsMatch = params.match(/\{([^}]+)\}/)
   const args = (argsMatch && argsMatch[1] && argsMatch[1].split(',')) || ['1'] // defaults to 1
-  
+
   const allowAuto = units.includes('auto') ? '|auto' : ''
   const filteredUnits = units.filter(u => u !== 'auto')
 
@@ -23,9 +23,9 @@ export default params => {
 
       this.matchers = [
         new RegExp(
-          `^(((${allowNeg}\\d|,|\\.){1,}(${filteredUnits.map(escapeRegExp).join('|')})|0${allowAuto})( )?){${args.join(
-            ',',
-          )}}$`,
+          `^(((${allowNeg}\\d|,|\\.){1,}(${filteredUnits
+            .map(escapeRegExp)
+            .join('|')})|0${allowAuto})( )?){${args.join(',')}}$`,
         ),
       ]
     }

@@ -114,7 +114,6 @@ export default class MjButton extends BodyComponent {
       this.getShorthandAttrValue('inner-padding', 'left') +
       this.getShorthandAttrValue('inner-padding', 'right')
 
-
     return `${parsedWidth - innerPaddings - borders}px`
   }
 

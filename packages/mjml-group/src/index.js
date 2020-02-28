@@ -30,7 +30,7 @@ export default class MjGroup extends BodyComponent {
     })
 
     if (unit === '%') {
-      containerWidth = `${parseFloat(parentWidth) * parsedWidth / 100 -
+      containerWidth = `${(parseFloat(parentWidth) * parsedWidth) / 100 -
         paddingSize}px`
     } else {
       containerWidth = `${parsedWidth - paddingSize}px`
@@ -89,7 +89,7 @@ export default class MjGroup extends BodyComponent {
     })
 
     if (unit === '%') {
-      return `${parseFloat(containerWidth) * parsedWidth / 100}px`
+      return `${(parseFloat(containerWidth) * parsedWidth) / 100}px`
     }
     return `${parsedWidth}px`
   }
@@ -139,7 +139,7 @@ export default class MjGroup extends BodyComponent {
       })
 
       if (unit === '%') {
-        return `${100 * parsedWidth / groupWidth}px`
+        return `${(100 * parsedWidth) / groupWidth}px`
       }
       return `${parsedWidth}${unit}`
     }
@@ -161,9 +161,9 @@ export default class MjGroup extends BodyComponent {
         <table
           ${this.htmlAttributes({
             bgcolor:
-                this.getAttribute('background-color') === 'none'
-                  ? undefined
-                  : this.getAttribute('background-color'),
+              this.getAttribute('background-color') === 'none'
+                ? undefined
+                : this.getAttribute('background-color'),
             border: '0',
             cellpadding: '0',
             cellspacing: '0',

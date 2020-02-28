@@ -72,7 +72,11 @@ export function registerCustomComponent(
   }
 }
 
-export function handleMjmlConfigComponents(packages, componentRootPath, registerCompFn) {
+export function handleMjmlConfigComponents(
+  packages,
+  componentRootPath,
+  registerCompFn,
+) {
   const result = {
     success: [],
     failures: [],
@@ -110,9 +114,16 @@ export function handleMjmlConfigComponents(packages, componentRootPath, register
   return result
 }
 
-export default function handleMjmlConfig(configPathOrDir = process.cwd(), registerCompFn = registerComponent) {
-  const { mjmlConfig: { packages }, componentRootPath, error } = readMjmlConfig(configPathOrDir)
+export default function handleMjmlConfig(
+  configPathOrDir = process.cwd(),
+  registerCompFn = registerComponent,
+) {
+  const {
+    mjmlConfig: { packages },
+    componentRootPath,
+    error,
+  } = readMjmlConfig(configPathOrDir)
   if (error) return { error }
-  
+
   return handleMjmlConfigComponents(packages, componentRootPath, registerCompFn)
 }

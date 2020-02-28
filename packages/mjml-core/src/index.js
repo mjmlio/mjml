@@ -16,7 +16,10 @@ import minifyOutlookConditionnals from './helpers/minifyOutlookConditionnals'
 import defaultSkeleton from './helpers/skeleton'
 import { initializeType } from './types/type'
 
-import handleMjmlConfig, { readMjmlConfig, handleMjmlConfigComponents } from './helpers/mjmlconfig'
+import handleMjmlConfig, {
+  readMjmlConfig,
+  handleMjmlConfigComponents,
+} from './helpers/mjmlconfig'
 
 class ValidationError extends Error {
   constructor(message, errors) {
@@ -39,24 +42,28 @@ export default function mjml2html(mjml, options = {}) {
     /* eslint-enable global-require */
     /* eslint-enable import/no-dynamic-require */
   }
-  
+
   let packages = {}
   let mjmlConfig = {}
   let confOptions = {}
   let mjmlConfigOptions = {}
   let error = null
   let componentRootPath = null
-  
+
   if (options.useMjmlConfigOptions || mjmlConfigPath) {
     const mjmlConfigContent = readMjmlConfig(mjmlConfigPath)
-    
-    ;({ mjmlConfig: { packages, options: confOptions }, componentRootPath, error } = mjmlConfigContent)
-    
+
+    ;({
+      mjmlConfig: { packages, options: confOptions },
+      componentRootPath,
+      error,
+    } = mjmlConfigContent)
+
     if (options.useMjmlConfigOptions) {
       mjmlConfigOptions = confOptions
     }
   }
-  
+
   // if mjmlConfigPath is specified then we need to register components it on each call
   if (!error && mjmlConfigPath) {
     handleMjmlConfigComponents(packages, componentRootPath, registerComponent)

@@ -48,7 +48,12 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
   let cwd = process.cwd()
   
   if (filePath) {
-    cwd = path.extname(filePath) === '' ? filePath : path.dirname(filePath)
+    try {
+      const isDir = fs.lstatSync(filePath).isDirectory()
+      cwd = isDir ? filePath : path.dirname(filePath)
+    } catch (e) {
+      throw new Error('Specified filePath does not exist')
+    }
   }
 
   let mjml = null

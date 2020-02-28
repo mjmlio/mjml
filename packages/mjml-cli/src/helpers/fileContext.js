@@ -9,6 +9,11 @@ const error = e => console.error(e.stack || e) // eslint-disable-line no-console
 
 export default (baseFile, filePath) => {
   const filesIncluded = []
+  
+  const isFilePathDir = fs.lstatSync(filePath).isDirectory()
+  const filePathDirectory = filePath
+    ? (isFilePathDir ? filePath : path.dirname(filePath))
+    : ''
 
   const readIncludes = (dir, file, base) => {
     const currentFile = path.resolve(
@@ -16,8 +21,8 @@ export default (baseFile, filePath) => {
         ? path.join(dir, ensureIncludeIsMJMLFile(file))
         : ensureIncludeIsMJMLFile(file),
     )
+
     const currentDirectory = path.dirname(currentFile)
-    const filePathDirectory = filePath ? path.dirname(filePath) : ''
 
     const includes = new RegExp(includeRegexp)
 
@@ -32,13 +37,18 @@ export default (baseFile, filePath) => {
     let matchgroup = includes.exec(content)
     while (matchgroup != null) {
       const includedFile = ensureIncludeIsMJMLFile(matchgroup[1])
+      
+      // when reading first level of includes we must join the path specified in filePath
+      // when reading further nested inscludes, just take parent dir as base
+      const targetDir = file === baseFile ? filePathDirectory : currentDirectory
+      
       const includedFilePath = path.resolve(
-        path.join(currentDirectory, filePathDirectory || '', includedFile),
+        path.join(targetDir, includedFile),
       )
 
       filesIncluded.push(includedFilePath)
 
-      readIncludes(path.dirname(currentFile), includedFile, currentFile)
+      readIncludes(targetDir, includedFile, currentFile)
       matchgroup = includes.exec(content)
     }
   }

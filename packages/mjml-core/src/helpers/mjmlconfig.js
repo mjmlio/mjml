@@ -22,7 +22,7 @@ export function readMjmlConfig(configPathOrDir = process.cwd()) {
       console.error('Error reading mjmlconfig : ', e) // eslint-disable-line no-console
     }
     return {
-      mjmlConfig: { packages: [] },
+      mjmlConfig: { packages: [], options: {} },
       mjmlConfigPath,
       componentRootPath,
       error: e,
@@ -72,17 +72,11 @@ export function registerCustomComponent(
   }
 }
 
-export default function handleMjmlConfig(
-  configPathOrDir = process.cwd(),
-  registerCompFn = registerComponent,
+export function handleMjmlConfigComponents(
+  packages,
+  componentRootPath,
+  registerCompFn,
 ) {
-  const {
-    mjmlConfig: { packages },
-    componentRootPath,
-    error,
-  } = readMjmlConfig(configPathOrDir)
-  if (error) return { error }
-
   const result = {
     success: [],
     failures: [],
@@ -118,4 +112,18 @@ export default function handleMjmlConfig(
   })
 
   return result
+}
+
+export default function handleMjmlConfig(
+  configPathOrDir = process.cwd(),
+  registerCompFn = registerComponent,
+) {
+  const {
+    mjmlConfig: { packages },
+    componentRootPath,
+    error,
+  } = readMjmlConfig(configPathOrDir)
+  if (error) return { error }
+
+  return handleMjmlConfigComponents(packages, componentRootPath, registerCompFn)
 }

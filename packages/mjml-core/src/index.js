@@ -16,7 +16,10 @@ import minifyOutlookConditionnals from './helpers/minifyOutlookConditionnals'
 import defaultSkeleton from './helpers/skeleton'
 import { initializeType } from './types/type'
 
-import handleMjmlConfig from './helpers/mjmlconfig'
+import handleMjmlConfig, {
+  readMjmlConfig,
+  handleMjmlConfigComponents,
+} from './helpers/mjmlconfig'
 
 class ValidationError extends Error {
   constructor(message, errors) {
@@ -38,6 +41,32 @@ export default function mjml2html(mjml, options = {}) {
       : options.skeleton)
     /* eslint-enable global-require */
     /* eslint-enable import/no-dynamic-require */
+  }
+
+  let packages = {}
+  let mjmlConfig = {}
+  let confOptions = {}
+  let mjmlConfigOptions = {}
+  let error = null
+  let componentRootPath = null
+
+  if (options.useMjmlConfigOptions || options.mjmlConfigPath) {
+    const mjmlConfigContent = readMjmlConfig(options.mjmlConfigPath)
+
+    ;({
+      mjmlConfig: { packages, options: confOptions },
+      componentRootPath,
+      error,
+    } = mjmlConfigContent)
+
+    if (options.useMjmlConfigOptions) {
+      mjmlConfigOptions = confOptions
+    }
+  }
+
+  // if mjmlConfigPath is specified then we need to register components it on each call
+  if (!error && options.mjmlConfigPath) {
+    handleMjmlConfigComponents(packages, componentRootPath, registerComponent)
   }
 
   const {
@@ -62,10 +91,10 @@ export default function mjml2html(mjml, options = {}) {
     actualPath = '.',
     mjmlConfigPath = null,
     noMigrateWarn = false,
-  } = options
-
-  // if mjmlConfigPath is specified then we need to handle it on each call
-  if (mjmlConfigPath) handleMjmlConfig(mjmlConfigPath, registerComponent)
+  } = {
+    ...mjmlConfigOptions,
+    ...options,
+  }
 
   if (typeof mjml === 'string') {
     mjml = MJMLParser(mjml, {

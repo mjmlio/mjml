@@ -1,4 +1,4 @@
-## mjml-social
+## mj-social
 
 <p align="center">
   <img src="https://cloud.githubusercontent.com/assets/6558790/12751360/0c78ce48-c9bd-11e5-98ca-4a2ac9e6341b.png" alt="desktop" style="width: 250px;"/>
@@ -78,13 +78,13 @@ font-family                 | string      | font name                     | Ubun
 font-size                   | px/em       | font size                     | 13px
 font-style                  | string      | font style                    | normal
 font-weight                 | string      | font weight                   | normal
-href                        | url         | button redirection url        | [[SHORT_PERMALINK]]
+href                        | url         | button redirection url        | none
 icon-height                 | percent/px  | icon height, overrides icon-size | icon-size
 icon-size                   | percent/px  | icon size (width and height)  | 20px
 line-height                 | percent/px  | space between lines           | 22px
 mode                        | string      | vertical/horizontal           | horizontal
 name                        | string      | social network name, see supported list below | N/A
-padding                     | px          | supports up to 4 parameters                       | 10px 25px
+padding                     | px          | supports up to 4 parameters                       | 4px
 padding-bottom              | px          | bottom offset                    | n/a
 padding-left                | px          | left offset                      | n/a
 padding-right               | px          | right offset                       | n/a
@@ -131,3 +131,5 @@ You can add any unsupported network like this:
   Optional label
 </mj-social-element>
 ```
+
+You can also use mj-social this way with no `href` attribute to make a simple list of inlined images-texts.

@@ -1,7 +1,8 @@
-## mjml-navbar
+## mj-navbar
 
 <p align="center">
-  <img src="https://cloud.githubusercontent.com/assets/1830348/15317906/d6cef510-1c23-11e6-83d7-31e4e4f8ba2a.png" width="800px" />
+  <img src="https://cloud.githubusercontent.com/assets/1830348/15317906/d6cef510-1c23-11e6-83d7-31e4e4f8ba2a.png"
+      alt="example desktop width navbar" width="800px" />
 </p>
 
 Displays a menu for navigation with an optional hamburger mode for mobile devices.
@@ -29,7 +30,7 @@ Displays a menu for navigation with an optional hamburger mode for mobile device
   </a>
 </p>
 
-### mjml-navbar
+### mj-navbar
 
 Individual links of the menu should we wrapped inside mj-navbar.
 
@@ -37,19 +38,23 @@ Individual links of the menu should we wrapped inside mj-navbar.
 Standard Desktop:
 
 <p align="center">
-  <img src="https://cloud.githubusercontent.com/assets/1830348/15317906/d6cef510-1c23-11e6-83d7-31e4e4f8ba2a.png" width="800px" />
+  <img src="https://cloud.githubusercontent.com/assets/1830348/15317906/d6cef510-1c23-11e6-83d7-31e4e4f8ba2a.png"
+      alt="example desktop width navbar" width="800px" />
 </p>
 
 Standard Mobile:
 
 <p align="center">
-  <img src="https://cloud.githubusercontent.com/assets/1830348/15317917/e514d0a4-1c23-11e6-8e5a-c23da9ac1d4e.png" width="318px" />
+  <img src="https://cloud.githubusercontent.com/assets/1830348/15317917/e514d0a4-1c23-11e6-8e5a-c23da9ac1d4e.png"
+      alt="example mobile width navbar" width="318px" />
 </p>
 
 Mode hamburger enabled:
 
 <p align="center">
-  <img src="https://cloud.githubusercontent.com/assets/1830348/15317922/f01c5c24-1c23-11e6-9b0c-95b0602da260.gif" width="309px" />
+  <img src="https://cloud.githubusercontent.com/assets/1830348/15317922/f01c5c24-1c23-11e6-9b0c-95b0602da260.gif"
+      alt="hamburger mode animation shows menu expansion after clicking hamburger icon"
+      width="309px" />
 </p>
 
 <aside class="notice">
@@ -82,7 +87,7 @@ ico-text-decoration         | string             | hamburger icon text decoratio
 ico-text-transform          | string             | hamburger icon text transformation none/capitalize/uppercase/lowercase (hamburger mode required) | none
 
 
-### mjml-navbar-link
+### mj-navbar-link
 
 
 This component should be used to display an individual link in the navbar.

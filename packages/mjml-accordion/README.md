@@ -1,17 +1,17 @@
-## mjml-accordion
+## mj-accordion
 
 <p align="center">
-  <img src="http://i.imgur.com/C4S9MVc.gif" alt="accordion" />
+  <img src="https://i.imgur.com/C4S9MVc.gif" alt="accordion" />
 </p>
 
-`mjml-accordion` is an interactive MJML component to stack content in tabs, so the information is collapsed and only the titles are visible. Readers can interact by clicking on the tabs to reveal the content, providing a great experience on mobile devices where space is scarce.
+`mj-accordion` is an interactive MJML component to stack content in tabs, so the information is collapsed and only the titles are visible. Readers can interact by clicking on the tabs to reveal the content, providing a great experience on mobile devices where space is scarce.
 
 ```xml
 <mjml>
   <mj-head>
     <mj-attributes>
       <mj-accordion border="none" padding="1px" />
-      <mj-accordion-element icon-wrapped-url="http://i.imgur.com/Xvw0vjq.png" icon-unwrapped-url="http://i.imgur.com/KKHenWa.png" icon-height="24px" icon-width="24px" />
+      <mj-accordion-element icon-wrapped-url="https://i.imgur.com/Xvw0vjq.png" icon-unwrapped-url="https://i.imgur.com/KKHenWa.png" icon-height="24px" icon-width="24px" />
       <mj-accordion-title font-family="Roboto, Open Sans, Helvetica, Arial, sans-serif" background-color="#fff" color="#031017" padding="15px" font-size="18px" />
       <mj-accordion-text font-family="Open Sans, Helvetica, Arial, sans-serif" background-color="#fafafa" padding="15px" color="#505050" font-size="14px" />
     </mj-attributes>
@@ -51,7 +51,7 @@
 </p>
 
 <aside class="notice">
-Every attribute in `mj-accordion` are applied to `mj-accordion-element` unless you overide them on `mj-accordion-element`
+Every attribute in `mj-accordion` are applied to `mj-accordion-element` unless you override them on `mj-accordion-element`
 </aside>
 
 
@@ -65,17 +65,17 @@ icon-align | n/a | icon alignment | middle
 icon-height | px | icon width | 32px
 icon-position | n/a | display icon left or right | right
 icon-unwrapped-alt | n/a | alt text when accordion is unwrapped | -
-icon-unwrapped-url | n/a | icon when accordion is unwrapped | http://i.imgur.com/w4uTygT.png
+icon-unwrapped-url | n/a | icon when accordion is unwrapped | https://i.imgur.com/w4uTygT.png
 icon-width | px | icon height | 32px
 icon-wrapped-alt | n/a | alt text when accordion is wrapped | +
-icon-wrapped-url | n/a | icon when accordion is wrapped | http://i.imgur.com/bIXv1bk.png
+icon-wrapped-url | n/a | icon when accordion is wrapped | https://i.imgur.com/bIXv1bk.png
 padding | px | padding | 10px 25px
 padding-bottom | px | padding bottom | n/a
 padding-left | px | padding left | n/a
 padding-right | px | padding right | n/a
 padding-top | px | padding top | n/a
 
-### mjml-accordion-element
+### mj-accordion-element
 
 This component enables you to create a accordion pane
 
@@ -88,12 +88,12 @@ icon-align | n/a | icon alignment | middle
 icon-height | n/a | icon width | 32px
 icon-position | n/a | display icon left or right | right
 icon-unwrapped-alt | n/a | alt text when accordion is unwrapped | -
-icon-unwrapped-url | n/a | icon when accordion is unwrapped | http://i.imgur.com/w4uTygT.png
+icon-unwrapped-url | n/a | icon when accordion is unwrapped | https://i.imgur.com/w4uTygT.png
 icon-width | n/a | icon height | 32px
 icon-wrapped-alt | n/a | alt text when accordion is wrapped | +
-icon-wrapped-url | n/a | icon when accordion is wrapped | http://i.imgur.com/bIXv1bk.png
+icon-wrapped-url | n/a | icon when accordion is wrapped | https://i.imgur.com/bIXv1bk.png
 
-### mjml-accordion-title
+### mj-accordion-title
 
 This component enables you to add and style a title to your accordion
 
@@ -110,7 +110,7 @@ padding-left | px | padding left | n/a
 padding-right | px | padding right | n/a
 padding-top | px | padding top | n/a
 
-### mjml-accordion-text
+### mj-accordion-text
 
 This component enables you to add and style a text to your accordion
 

@@ -1,9 +1,11 @@
 import escapeRegExp from 'lodash/escapeRegExp'
 import Type from './type'
 
-export const matcher = /^unit\(.*\)/gim
+export const matcher = /^(unit|unitWithNegative)\(.*\)/gim
 
 export default params => {
+  const allowNeg = params.match(/^unitWithNegative/) ? '-|' : ''
+  
   const units = params.match(/\(([^)]+)\)/)[1].split(',')
   const argsMatch = params.match(/\{([^}]+)\}/)
   const args = (argsMatch && argsMatch[1] && argsMatch[1].split(',')) || ['1'] // defaults to 1
@@ -21,7 +23,7 @@ export default params => {
 
       this.matchers = [
         new RegExp(
-          `^(((\\d|,|\\.){1,}(${filteredUnits.map(escapeRegExp).join('|')})|0${allowAuto})( )?){${args.join(
+          `^(((${allowNeg}\\d|,|\\.){1,}(${filteredUnits.map(escapeRegExp).join('|')})|0${allowAuto})( )?){${args.join(
             ',',
           )}}$`,
         ),

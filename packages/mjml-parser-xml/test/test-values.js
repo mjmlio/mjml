@@ -12,10 +12,10 @@ module.exports = [
         &amp;
         lorem
       </mj-button>
-      <mj-button href="http://mjml.io?encodedUrl=http%3A%2F%2Fmjml.io&coin=coi">
+      <mj-button href="https://mjml.io?encodedUrl=https%3A%2F%2Fmjml.io&coin=coi">
         Blu
       </mj-button>
-      <mj-button href="&é(§&è!çà)">http%3A%2F%2Fmjml.io</mj-button>
+      <mj-button href="&é(§&è!çà)">https%3A%2F%2Fmjml.io</mj-button>
       <mj-raw>
         <coin color="#CCCCCC">bla</coin>
       </mj-raw>
@@ -62,7 +62,7 @@ module.exports = [
                   "includedIn": [],
                   "tagName": "mj-button",
                   "attributes": {
-                    "href": "http://mjml.io?encodedUrl=http%3A%2F%2Fmjml.io&coin=coi"
+                    "href": "https://mjml.io?encodedUrl=https%3A%2F%2Fmjml.io&coin=coi"
                   },
                   "content": "Blu"
                 },
@@ -74,7 +74,7 @@ module.exports = [
                   "attributes": {
                     "href": "&é(§&è!çà)"
                   },
-                  "content": "http%3A%2F%2Fmjml.io"
+                  "content": "https%3A%2F%2Fmjml.io"
                 },
                 {
                   "file": ".",

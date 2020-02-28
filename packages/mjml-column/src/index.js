@@ -156,15 +156,16 @@ export default class MjColumn extends BodyComponent {
     let className = ''
 
     const { parsedWidth, unit } = this.getParsedWidth()
-
+    const formattedClassNb = parsedWidth.toString().replace('.', '-')
+    
     switch (unit) {
       case '%':
-        className = `mj-column-per-${parseInt(parsedWidth, 10)}`
+          className = `mj-column-per-${formattedClassNb}`
         break
 
       case 'px':
       default:
-        className = `mj-column-px-${parseInt(parsedWidth, 10)}`
+        className = `mj-column-px-${formattedClassNb}`
         break
     }
 
@@ -260,7 +261,7 @@ export default class MjColumn extends BodyComponent {
   }
 
   render() {
-    let classesName = `${this.getColumnClass()} outlook-group-fix`
+    let classesName = `${this.getColumnClass()} mj-outlook-group-fix`
 
     if (this.getAttribute('css-class')) {
       classesName += ` ${this.getAttribute('css-class')}`

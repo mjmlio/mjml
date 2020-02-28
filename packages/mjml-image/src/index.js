@@ -34,6 +34,7 @@ export default class MjImage extends BodyComponent {
     height: 'unit(px,auto)',
     'max-height': 'unit(px,%)',
     'font-size': 'unit(px)',
+    usemap: 'string',
   }
 
   static defaultAttributes = {
@@ -105,6 +106,7 @@ export default class MjImage extends BodyComponent {
           style: 'img',
           title: this.getAttribute('title'),
           width: this.getContentWidth(),
+          usemap: this.getAttribute('usemap'),
         })}
       />
     `
@@ -129,8 +131,8 @@ export default class MjImage extends BodyComponent {
 
   headStyle = breakpoint => `
     @media only screen and (max-width:${breakpoint}) {
-      table.full-width-mobile { width: 100% !important; }
-      td.full-width-mobile { width: auto !important; }
+      table.mj-full-width-mobile { width: 100% !important; }
+      td.mj-full-width-mobile { width: auto !important; }
     }
   `
 
@@ -145,7 +147,7 @@ export default class MjImage extends BodyComponent {
           style: 'table',
           class:
             this.getAttribute('fluid-on-mobile')
-              ? 'full-width-mobile'
+              ? 'mj-full-width-mobile'
               : null,
         })}
       >
@@ -155,7 +157,7 @@ export default class MjImage extends BodyComponent {
               style: 'td',
               class:
                 this.getAttribute('fluid-on-mobile')
-                  ? 'full-width-mobile'
+                  ? 'mj-full-width-mobile'
                   : null,
             })}>
               ${this.renderImage()}

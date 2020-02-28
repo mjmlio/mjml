@@ -1,7 +1,7 @@
 {
   "name": "mjml-raw",
   "description": "mjml-raw",
-  "version": "4.4.1",
+  "version": "4.5.1",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -18,8 +18,8 @@
   },
   "dependencies": {
     "babel-runtime": "^6.26.0",
-    "lodash": "^4.17.2",
-    "mjml-core": "4.4.1"
+    "lodash": "^4.17.15",
+    "mjml-core": "4.5.1"
   },
   "devDependencies": {
     "cross-env": "^5.2.0"

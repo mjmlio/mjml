@@ -1,4 +1,4 @@
-## mjml-column
+## mj-column
 
 Columns enable you to horizontally organize the content within your sections. They must be located under `mj-section` tags in order to be considered by the engine.
 To be responsive, columns are expressed in terms of percentage.
@@ -45,7 +45,7 @@ border-top          | string      | css border format              | n/a
 border-radius       | percent/px  | border radius                  | n/a
 width               | percent/px  | column width                   | (100 / number of non-raw elements in section)%
 vertical-align      | string      | middle/top/bottom              | top
-padding             | px          | supports up to 4 parameters    | 20px 0
+padding             | px          | supports up to 4 parameters    | n/a
 padding-top         | px          | section top offset             | n/a
 padding-bottom      | px          | section bottom offset          | n/a
 padding-left        | px          | section left offset            | n/a

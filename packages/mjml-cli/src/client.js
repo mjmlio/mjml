@@ -168,7 +168,7 @@ export default async () => {
       break
     }
     case 'w':
-      watchFiles(inputFiles, argv)
+      watchFiles(inputFiles, { ...argv, config })
       KEEP_OPEN = true
       break
     case 'i':

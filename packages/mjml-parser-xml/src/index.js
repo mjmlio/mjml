@@ -46,7 +46,7 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
   )({ ...components })
 
   let cwd = process.cwd()
-  
+
   if (filePath) {
     try {
       const isDir = fs.lstatSync(filePath).isDirectory()

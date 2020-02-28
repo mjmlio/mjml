@@ -9,10 +9,12 @@ const error = e => console.error(e.stack || e) // eslint-disable-line no-console
 
 export default (baseFile, filePath) => {
   const filesIncluded = []
-  
+
   const isFilePathDir = fs.lstatSync(filePath).isDirectory()
   const filePathDirectory = filePath
-    ? (isFilePathDir ? filePath : path.dirname(filePath))
+    ? isFilePathDir
+      ? filePath
+      : path.dirname(filePath)
     : ''
 
   const readIncludes = (dir, file, base) => {
@@ -37,14 +39,12 @@ export default (baseFile, filePath) => {
     let matchgroup = includes.exec(content)
     while (matchgroup != null) {
       const includedFile = ensureIncludeIsMJMLFile(matchgroup[1])
-      
+
       // when reading first level of includes we must join the path specified in filePath
-      // when reading further nested inscludes, just take parent dir as base
+      // when reading further nested includes, just take parent dir as base
       const targetDir = file === baseFile ? filePathDirectory : currentDirectory
-      
-      const includedFilePath = path.resolve(
-        path.join(targetDir, includedFile),
-      )
+
+      const includedFilePath = path.resolve(path.join(targetDir, includedFile))
 
       filesIncluded.push(includedFilePath)
 

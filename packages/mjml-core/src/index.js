@@ -241,11 +241,9 @@ export default function mjml2html(mjml, options = {}) {
         }
       } else {
         throw Error(
-          `An mj-head element add an unkown head attribute : ${attr} with params ${Array.isArray(
-            params,
-          )
-            ? params.join('')
-            : params}`,
+          `An mj-head element add an unkown head attribute : ${attr} with params ${
+            Array.isArray(params) ? params.join('') : params
+          }`,
         )
       }
     },
@@ -310,6 +308,13 @@ export default function mjml2html(mjml, options = {}) {
 
 handleMjmlConfig(process.cwd(), registerComponent)
 
-export { components, initComponent, registerComponent, suffixCssClasses, handleMjmlConfig, initializeType }
+export {
+  components,
+  initComponent,
+  registerComponent,
+  suffixCssClasses,
+  handleMjmlConfig,
+  initializeType,
+}
 
 export { BodyComponent, HeadComponent } from './createComponent'

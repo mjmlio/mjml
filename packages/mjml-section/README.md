@@ -1,4 +1,4 @@
-## mjml-section
+## mj-section
 
 Sections are intended to be used as rows within your email.
 They will be used to structure the layout.

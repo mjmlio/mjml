@@ -57,8 +57,7 @@ export default class MjHero extends BodyComponent {
     })
 
     if (unit === '%') {
-      currentContainerWidth = `${parseFloat(containerWidth) *
-        parsedWidth /
+      currentContainerWidth = `${(parseFloat(containerWidth) * parsedWidth) /
         100 -
         paddingSize}px`
     } else {
@@ -74,8 +73,8 @@ export default class MjHero extends BodyComponent {
   getStyles() {
     const { containerWidth } = this.context
     const backgroundRatio = Math.round(
-      parseInt(this.getAttribute('background-height'), 10) /
-        parseInt(this.getAttribute('background-width'), 10) *
+      (parseInt(this.getAttribute('background-height'), 10) /
+        parseInt(this.getAttribute('background-width'), 10)) *
         100,
     )
 

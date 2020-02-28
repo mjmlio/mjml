@@ -42,7 +42,7 @@ export default class MjColumn extends BodyComponent {
     })
 
     if (unit === '%') {
-      containerWidth = `${parseFloat(parentWidth) * parsedWidth / 100 -
+      containerWidth = `${(parseFloat(parentWidth) * parsedWidth) / 100 -
         allPaddings}px`
     } else {
       containerWidth = `${parsedWidth - allPaddings}px`
@@ -126,7 +126,7 @@ export default class MjColumn extends BodyComponent {
     })
 
     if (unit === '%') {
-      return `${parseFloat(containerWidth) * parsedWidth / 100}px`
+      return `${(parseFloat(containerWidth) * parsedWidth) / 100}px`
     }
     return `${parsedWidth}px`
   }
@@ -157,10 +157,10 @@ export default class MjColumn extends BodyComponent {
 
     const { parsedWidth, unit } = this.getParsedWidth()
     const formattedClassNb = parsedWidth.toString().replace('.', '-')
-    
+
     switch (unit) {
       case '%':
-          className = `mj-column-per-${formattedClassNb}`
+        className = `mj-column-per-${formattedClassNb}`
         break
 
       case 'px':

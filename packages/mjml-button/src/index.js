@@ -24,6 +24,7 @@ export default class MjButton extends BodyComponent {
     href: 'string',
     name: 'string',
     'inner-padding': 'unit(px,%){1,4}',
+    'letter-spacing': 'unitWithNegative(px,%)',
     'line-height': 'unit(px,%,)',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
@@ -88,6 +89,7 @@ export default class MjButton extends BodyComponent {
         'font-style': this.getAttribute('font-style'),
         'font-weight': this.getAttribute('font-weight'),
         'line-height': this.getAttribute('line-height'),
+        'letter-spacing': this.getAttribute('letter-spacing'),
         margin: '0',
         'text-decoration': this.getAttribute('text-decoration'),
         'text-transform': this.getAttribute('text-transform'),
@@ -111,7 +113,6 @@ export default class MjButton extends BodyComponent {
     const innerPaddings =
       this.getShorthandAttrValue('inner-padding', 'left') +
       this.getShorthandAttrValue('inner-padding', 'right')
-
 
     return `${parsedWidth - innerPaddings - borders}px`
   }

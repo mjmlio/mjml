@@ -50,8 +50,8 @@ export default function mjml2html(mjml, options = {}) {
   let error = null
   let componentRootPath = null
 
-  if (options.useMjmlConfigOptions || mjmlConfigPath) {
-    const mjmlConfigContent = readMjmlConfig(mjmlConfigPath)
+  if (options.useMjmlConfigOptions || options.mjmlConfigPath) {
+    const mjmlConfigContent = readMjmlConfig(options.mjmlConfigPath)
 
     ;({
       mjmlConfig: { packages, options: confOptions },
@@ -65,7 +65,7 @@ export default function mjml2html(mjml, options = {}) {
   }
 
   // if mjmlConfigPath is specified then we need to register components it on each call
-  if (!error && mjmlConfigPath) {
+  if (!error && options.mjmlConfigPath) {
     handleMjmlConfigComponents(packages, componentRootPath, registerComponent)
   }
 

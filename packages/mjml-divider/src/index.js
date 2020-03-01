@@ -57,8 +57,7 @@ export default class MjDivider extends BodyComponent {
 
     switch (unit) {
       case '%':
-        return `${parseInt(containerWidth, 10) *
-          parseInt(parsedWidth, 10) /
+        return `${(parseInt(containerWidth, 10) * parseInt(parsedWidth, 10)) /
           100 -
           paddingSize}px`
       case 'px':

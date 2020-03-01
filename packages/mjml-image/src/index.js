@@ -85,12 +85,12 @@ export default class MjImage extends BodyComponent {
 
   getContentWidth() {
     const width = this.getAttribute('width')
-                ? parseInt(this.getAttribute('width'), 10)
-                : Infinity
+      ? parseInt(this.getAttribute('width'), 10)
+      : Infinity
 
     const { box } = this.getBoxWidths()
 
-    return min([ box, width ])
+    return min([box, width])
   }
 
   renderImage() {
@@ -145,20 +145,18 @@ export default class MjImage extends BodyComponent {
           cellspacing: '0',
           role: 'presentation',
           style: 'table',
-          class:
-            this.getAttribute('fluid-on-mobile')
-              ? 'mj-full-width-mobile'
-              : null,
+          class: this.getAttribute('fluid-on-mobile')
+            ? 'mj-full-width-mobile'
+            : null,
         })}
       >
         <tbody>
           <tr>
             <td ${this.htmlAttributes({
               style: 'td',
-              class:
-                this.getAttribute('fluid-on-mobile')
-                  ? 'mj-full-width-mobile'
-                  : null,
+              class: this.getAttribute('fluid-on-mobile')
+                ? 'mj-full-width-mobile'
+                : null,
             })}>
               ${this.renderImage()}
             </td>

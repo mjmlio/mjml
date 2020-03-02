@@ -1,5 +1,4 @@
 import { BodyComponent, suffixCssClasses } from 'mjml-core'
-import url from 'url'
 
 import conditionalTag from 'mjml-core/lib/helpers/conditionalTag'
 

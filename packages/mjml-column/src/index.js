@@ -17,6 +17,12 @@ export default class MjColumn extends BodyComponent {
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
+    'inner-border': 'string',
+    'inner-border-bottom': 'string',
+    'inner-border-left': 'string',
+    'inner-border-radius': 'unit(px,%){1,4}',
+    'inner-border-right': 'string',
+    'inner-border-top': 'string',
     padding: 'unit(px,%){1,4}',
     'vertical-align': 'enum(top,bottom,middle)',
     width: 'unit(px,%)',
@@ -31,8 +37,11 @@ export default class MjColumn extends BodyComponent {
     const { containerWidth: parentWidth } = this.context
     const { nonRawSiblings } = this.props
     const { borders, paddings } = this.getBoxWidths()
+    const innerBorders =
+      this.getShorthandAttrValue('inner-border', 'left') +
+      this.getShorthandAttrValue('inner-border', 'right')
 
-    const allPaddings = paddings + borders
+    const allPaddings = paddings + borders + innerBorders
 
     let containerWidth =
       this.getAttribute('width') ||
@@ -80,6 +89,12 @@ export default class MjColumn extends BodyComponent {
         ...(this.hasGutter()
           ? {
               'background-color': this.getAttribute('inner-background-color'),
+              'border': this.getAttribute('inner-border'),
+              'border-bottom': this.getAttribute('inner-border-bottom'),
+              'border-left': this.getAttribute('inner-border-left'),
+              'border-radius': this.getAttribute('inner-border-radius'),
+              'border-right': this.getAttribute('inner-border-right'),
+              'border-top': this.getAttribute('inner-border-top'),
             }
           : tableStyle),
       },

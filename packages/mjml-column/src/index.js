@@ -89,7 +89,7 @@ export default class MjColumn extends BodyComponent {
         ...(this.hasGutter()
           ? {
               'background-color': this.getAttribute('inner-background-color'),
-              'border': this.getAttribute('inner-border'),
+              border: this.getAttribute('inner-border'),
               'border-bottom': this.getAttribute('inner-border-bottom'),
               'border-left': this.getAttribute('inner-border-left'),
               'border-radius': this.getAttribute('inner-border-radius'),

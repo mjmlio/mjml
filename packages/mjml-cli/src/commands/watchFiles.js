@@ -30,7 +30,7 @@ export default (input, options) => {
     )(dependencies)
   const synchronyzeWatcher = filePath => {
     getRelatedFiles(filePath).forEach(f => {
-      dependencies[f] = fileContext(f, options.c.filePath)
+      dependencies[f] = fileContext(f, options.config.filePath)
 
       if (dirty.indexOf(f) === -1) {
         dirty.push(f)

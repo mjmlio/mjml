@@ -49,6 +49,10 @@ export default class MjAccordion extends BodyComponent {
         input.mj-accordion-checkbox:checked + * .mj-accordion-less { display:block!important; }
       }
 
+      .moz-text-html input.mj-accordion-checkbox + * .mj-accordion-title { cursor: auto; touch-action: auto; -webkit-user-select: auto; -moz-user-select: auto; user-select: auto; }
+      .moz-text-html input.mj-accordion-checkbox + * .mj-accordion-content { overflow: hidden; display: block; }
+      .moz-text-html input.mj-accordion-checkbox + * .mj-accordion-ico { display: none; }
+
       @goodbye { @gmail }
     `
 

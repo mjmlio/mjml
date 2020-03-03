@@ -36,6 +36,7 @@ export default async () => {
     )
 
   const argv = yargs
+    .version(false) // cf. https://github.com/yargs/yargs/issues/961
     .options({
       r: {
         alias: 'read',

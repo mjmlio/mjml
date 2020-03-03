@@ -1,5 +1,4 @@
 import { BodyComponent, suffixCssClasses } from 'mjml-core'
-import url from 'url'
 
 import conditionalTag from 'mjml-core/lib/helpers/conditionalTag'
 
@@ -67,7 +66,7 @@ export default class MjNavbarLink extends BodyComponent {
   renderContent() {
     const href = this.getAttribute('href')
     const navbarBaseUrl = this.getAttribute('navbarBaseUrl')
-    const link = navbarBaseUrl ? url.resolve(navbarBaseUrl, href) : href
+    const link = navbarBaseUrl ? `${navbarBaseUrl}${href}` : href
 
     const cssClass = this.getAttribute('css-class')
       ? ` ${this.getAttribute('css-class')}`

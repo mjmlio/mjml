@@ -91,6 +91,7 @@ export default function mjml2html(mjml, options = {}) {
     actualPath = '.',
     mjmlConfigPath = null,
     noMigrateWarn = false,
+    preprocessors,
   } = {
     ...mjmlConfigOptions,
     ...options,
@@ -102,6 +103,7 @@ export default function mjml2html(mjml, options = {}) {
       components,
       filePath,
       actualPath,
+      preprocessors,
     })
   }
 

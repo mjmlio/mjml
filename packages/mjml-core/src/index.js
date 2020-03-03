@@ -44,7 +44,6 @@ export default function mjml2html(mjml, options = {}) {
   }
 
   let packages = {}
-  let mjmlConfig = {}
   let confOptions = {}
   let mjmlConfigOptions = {}
   let error = null
@@ -89,7 +88,6 @@ export default function mjml2html(mjml, options = {}) {
     validationLevel = 'soft',
     filePath = '.',
     actualPath = '.',
-    mjmlConfigPath = null,
     noMigrateWarn = false,
     preprocessors,
   } = {

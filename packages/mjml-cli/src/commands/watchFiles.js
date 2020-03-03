@@ -37,19 +37,15 @@ export default (input, options) => {
       }
     })
 
+    /* eslint-disable no-use-before-define */
     const files = {
       toWatch: flatMapKeyAndValues(dependencies),
-      watched: flatMapAndJoin(watcher.getWatched()), // eslint-disable-line no-use-before-define
+      watched: flatMapAndJoin(watcher.getWatched()),
     }
 
-    watcher.add(
-      // eslint-disable-line no-use-before-define
-      difference(files.toWatch, files.watched),
-    )
-    watcher.unwatch(
-      // eslint-disable-line no-use-before-define
-      difference(files.watched, files.toWatch),
-    )
+    watcher.add(difference(files.toWatch, files.watched))
+    watcher.unwatch(difference(files.watched, files.toWatch))
+    /* eslint-enable no-use-before-define */
   }
   const readAndCompile = flow(
     file => ({ file, content: readFile(file).mjml }),

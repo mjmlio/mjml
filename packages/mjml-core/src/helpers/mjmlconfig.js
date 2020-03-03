@@ -102,11 +102,12 @@ export function handleMjmlConfigComponents(
       if (e.code === 'ENOENT' || e.code === 'MODULE_NOT_FOUND') {
         console.error('Missing or unreadable custom component : ', resolvedPath) // eslint-disable-line no-console
       } else {
+        // eslint-disable-next-line no-console
         console.error(
           'Error when registering custom component : ',
           resolvedPath,
           e,
-        ) // eslint-disable-line no-console
+        )
       }
     }
   })

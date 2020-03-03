@@ -14,10 +14,8 @@ export default (baseFile, filePath) => {
   if (filePath) {
     try {
       const isFilePathDir = fs.lstatSync(filePath).isDirectory()
-      
-      filePathDirectory = isFilePathDir
-        ? filePath
-        : path.dirname(filePath)
+
+      filePathDirectory = isFilePathDir ? filePath : path.dirname(filePath)
     } catch (e) {
       if (e.code === 'ENOENT') {
         throw new Error('Specified filePath does not exist')
@@ -52,7 +50,8 @@ export default (baseFile, filePath) => {
 
       // when reading first level of includes we must join the path specified in filePath
       // when reading further nested includes, just take parent dir as base
-      const targetDir = filePath && file === baseFile ? filePathDirectory : currentDirectory
+      const targetDir =
+        filePath && file === baseFile ? filePathDirectory : currentDirectory
 
       const includedFilePath = path.resolve(path.join(targetDir, includedFile))
 

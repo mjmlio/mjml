@@ -1,7 +1,7 @@
 {
   "name": "mjml-table",
   "description": "mjml-atable",
-  "version": "4.6.0",
+  "version": "4.6.1",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -19,7 +19,7 @@
   "dependencies": {
     "babel-runtime": "^6.26.0",
     "lodash": "^4.17.15",
-    "mjml-core": "4.6.0"
+    "mjml-core": "4.6.1"
   },
   "devDependencies": {
     "cross-env": "^5.2.0"

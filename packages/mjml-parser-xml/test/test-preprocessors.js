@@ -33,4 +33,4 @@ const xml = `<mjml>
 const json = parse(xml)
 const { html } = mjml2html(json)
 
-console.log(html)
+console.log(html) // eslint-disable-line no-console

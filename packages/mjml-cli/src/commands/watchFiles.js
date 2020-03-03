@@ -13,7 +13,10 @@ let dirty = []
 
 const _flatMap = flatMap.convert({ cap: false }) // eslint-disable-line no-underscore-dangle
 const flatMapAndJoin = _flatMap((v, k) => v.map(p => path.join(k, p)))
-const flatMapKeyAndValues = flow(_flatMap((v, k) => [k, ...v]), uniq)
+const flatMapKeyAndValues = flow(
+  _flatMap((v, k) => [k, ...v]),
+  uniq,
+)
 
 export default (input, options) => {
   console.log(`Now watching: ${input}`)
@@ -21,12 +24,13 @@ export default (input, options) => {
   const dependencies = {}
   const outputToFile = makeOutputToFile(options.o)
   const getRelatedFiles = file =>
-    flow(pickBy((v, k) => k === file || v.indexOf(file) !== -1), Object.keys)(
-      dependencies,
-    )
+    flow(
+      pickBy((v, k) => k === file || v.indexOf(file) !== -1),
+      Object.keys,
+    )(dependencies)
   const synchronyzeWatcher = filePath => {
     getRelatedFiles(filePath).forEach(f => {
-      dependencies[f] = fileContext(f)
+      dependencies[f] = fileContext(f, options.c.filePath)
 
       if (dirty.indexOf(f) === -1) {
         dirty.push(f)
@@ -38,11 +42,12 @@ export default (input, options) => {
       watched: flatMapAndJoin(watcher.getWatched()), // eslint-disable-line no-use-before-define
     }
 
-
-    watcher.add( // eslint-disable-line no-use-before-define
+    watcher.add(
+      // eslint-disable-line no-use-before-define
       difference(files.toWatch, files.watched),
     )
-    watcher.unwatch( // eslint-disable-line no-use-before-define
+    watcher.unwatch(
+      // eslint-disable-line no-use-before-define
       difference(files.watched, files.toWatch),
     )
   }
@@ -52,13 +57,16 @@ export default (input, options) => {
       ...args,
       compiled: mjml2html(args.content, {
         filePath: args.file,
+        actualPath: args.file,
         ...options.config,
       }),
     }),
     args => {
-      const { compiled: { errors } } = args
+      const {
+        compiled: { errors },
+      } = args
 
-      console.warn(errors, ...errors.map(e => e.formattedMessage))
+      errors.forEach(e => console.warn(e.formattedMessage))
 
       return args
     },
@@ -69,7 +77,7 @@ export default (input, options) => {
   )
 
   const watcher = chokidar
-    .watch(input.map(i => i.replace(/\\/g,'/')))
+    .watch(input.map(i => i.replace(/\\/g, '/')))
     .on('change', file => synchronyzeWatcher(path.resolve(file)))
     .on('add', file => {
       const filePath = path.resolve(file)

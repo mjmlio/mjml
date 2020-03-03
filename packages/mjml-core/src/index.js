@@ -16,7 +16,10 @@ import minifyOutlookConditionnals from './helpers/minifyOutlookConditionnals'
 import defaultSkeleton from './helpers/skeleton'
 import { initializeType } from './types/type'
 
-import handleMjmlConfig from './helpers/mjmlconfig'
+import handleMjmlConfig, {
+  readMjmlConfig,
+  handleMjmlConfigComponents,
+} from './helpers/mjmlconfig'
 
 class ValidationError extends Error {
   constructor(message, errors) {
@@ -40,6 +43,32 @@ export default function mjml2html(mjml, options = {}) {
     /* eslint-enable import/no-dynamic-require */
   }
 
+  let packages = {}
+  let mjmlConfig = {}
+  let confOptions = {}
+  let mjmlConfigOptions = {}
+  let error = null
+  let componentRootPath = null
+
+  if (options.useMjmlConfigOptions || options.mjmlConfigPath) {
+    const mjmlConfigContent = readMjmlConfig(options.mjmlConfigPath)
+
+    ;({
+      mjmlConfig: { packages, options: confOptions },
+      componentRootPath,
+      error,
+    } = mjmlConfigContent)
+
+    if (options.useMjmlConfigOptions) {
+      mjmlConfigOptions = confOptions
+    }
+  }
+
+  // if mjmlConfigPath is specified then we need to register components it on each call
+  if (!error && options.mjmlConfigPath) {
+    handleMjmlConfigComponents(packages, componentRootPath, registerComponent)
+  }
+
   const {
     beautify = false,
     fonts = {
@@ -59,18 +88,22 @@ export default function mjml2html(mjml, options = {}) {
     skeleton = defaultSkeleton,
     validationLevel = 'soft',
     filePath = '.',
+    actualPath = '.',
     mjmlConfigPath = null,
     noMigrateWarn = false,
-  } = options
-
-  // if mjmlConfigPath is specified then we need to handle it on each call
-  if (mjmlConfigPath) handleMjmlConfig(mjmlConfigPath, registerComponent)
+    preprocessors,
+  } = {
+    ...mjmlConfigOptions,
+    ...options,
+  }
 
   if (typeof mjml === 'string') {
     mjml = MJMLParser(mjml, {
       keepComments,
       components,
       filePath,
+      actualPath,
+      preprocessors,
     })
   }
 
@@ -239,11 +272,9 @@ export default function mjml2html(mjml, options = {}) {
         }
       } else {
         throw Error(
-          `An mj-head element add an unkown head attribute : ${attr} with params ${Array.isArray(
-            params,
-          )
-            ? params.join('')
-            : params}`,
+          `An mj-head element add an unkown head attribute : ${attr} with params ${
+            Array.isArray(params) ? params.join('') : params
+          }`,
         )
       }
     },
@@ -308,6 +339,13 @@ export default function mjml2html(mjml, options = {}) {
 
 handleMjmlConfig(process.cwd(), registerComponent)
 
-export { components, initComponent, registerComponent, suffixCssClasses, handleMjmlConfig, initializeType }
+export {
+  components,
+  initComponent,
+  registerComponent,
+  suffixCssClasses,
+  handleMjmlConfig,
+  initializeType,
+}
 
 export { BodyComponent, HeadComponent } from './createComponent'

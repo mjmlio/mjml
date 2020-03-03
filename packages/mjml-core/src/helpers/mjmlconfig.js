@@ -8,20 +8,27 @@ export function readMjmlConfig(configPathOrDir = process.cwd()) {
   let componentRootPath = process.cwd()
   let mjmlConfigPath = configPathOrDir
   try {
-    mjmlConfigPath = path.basename(configPathOrDir) === '.mjmlconfig'
-      ? path.resolve(configPathOrDir)
-      : path.resolve(configPathOrDir, '.mjmlconfig')
+    mjmlConfigPath =
+      path.basename(configPathOrDir) === '.mjmlconfig'
+        ? path.resolve(configPathOrDir)
+        : path.resolve(configPathOrDir, '.mjmlconfig')
     componentRootPath = path.dirname(mjmlConfigPath)
-    const mjmlConfig = JSON.parse(fs.readFileSync(path.resolve(mjmlConfigPath), 'utf8'))
+    const mjmlConfig = JSON.parse(
+      fs.readFileSync(path.resolve(mjmlConfigPath), 'utf8'),
+    )
     return { mjmlConfig, componentRootPath }
   } catch (e) {
     if (e.code !== 'ENOENT') {
       console.error('Error reading mjmlconfig : ', e) // eslint-disable-line no-console
     }
-    return { mjmlConfig: { packages: [] }, mjmlConfigPath, componentRootPath, error: e }
+    return {
+      mjmlConfig: { packages: [], options: {} },
+      mjmlConfigPath,
+      componentRootPath,
+      error: e,
+    }
   }
 }
-
 
 export function resolveComponentPath(compPath, componentRootPath) {
   if (!compPath) {
@@ -38,7 +45,10 @@ export function resolveComponentPath(compPath, componentRootPath) {
       // we got a 'MODULE_NOT_FOUND' error
       try {
         // try again as relative path to node_modules: (this may be necessary if mjml is installed globally or by npm link)
-        return resolveComponentPath(`./node_modules/${compPath}`, componentRootPath)
+        return resolveComponentPath(
+          `./node_modules/${compPath}`,
+          componentRootPath,
+        )
       } catch (e) {
         //  try again as a plain local path:
         return resolveComponentPath(`./${compPath}`, componentRootPath)
@@ -48,7 +58,10 @@ export function resolveComponentPath(compPath, componentRootPath) {
   return require.resolve(path.resolve(componentRootPath, compPath))
 }
 
-export function registerCustomComponent(comp, registerCompFn = registerComponent) {
+export function registerCustomComponent(
+  comp,
+  registerCompFn = registerComponent,
+) {
   if (comp instanceof Function) {
     registerCompFn(comp)
   } else {
@@ -59,10 +72,11 @@ export function registerCustomComponent(comp, registerCompFn = registerComponent
   }
 }
 
-export default function handleMjmlConfig(configPathOrDir = process.cwd(), registerCompFn = registerComponent) {
-  const { mjmlConfig: { packages }, componentRootPath, error } = readMjmlConfig(configPathOrDir)
-  if (error) return { error }
-
+export function handleMjmlConfigComponents(
+  packages,
+  componentRootPath,
+  registerCompFn,
+) {
   const result = {
     success: [],
     failures: [],
@@ -74,8 +88,13 @@ export default function handleMjmlConfig(configPathOrDir = process.cwd(), regist
       resolvedPath = resolveComponentPath(compPath, componentRootPath)
       if (resolvedPath) {
         const requiredComp = require(resolvedPath) // eslint-disable-line global-require, import/no-dynamic-require
-        registerCustomComponent(requiredComp.default || requiredComp, registerCompFn)
-        registerDependencies((requiredComp.default || requiredComp).dependencies)
+        registerCustomComponent(
+          requiredComp.default || requiredComp,
+          registerCompFn,
+        )
+        registerDependencies(
+          (requiredComp.default || requiredComp).dependencies,
+        )
         result.success.push(compPath)
       }
     } catch (e) {
@@ -83,10 +102,28 @@ export default function handleMjmlConfig(configPathOrDir = process.cwd(), regist
       if (e.code === 'ENOENT' || e.code === 'MODULE_NOT_FOUND') {
         console.error('Missing or unreadable custom component : ', resolvedPath) // eslint-disable-line no-console
       } else {
-        console.error('Error when registering custom component : ', resolvedPath, e) // eslint-disable-line no-console
+        console.error(
+          'Error when registering custom component : ',
+          resolvedPath,
+          e,
+        ) // eslint-disable-line no-console
       }
     }
   })
 
   return result
+}
+
+export default function handleMjmlConfig(
+  configPathOrDir = process.cwd(),
+  registerCompFn = registerComponent,
+) {
+  const {
+    mjmlConfig: { packages },
+    componentRootPath,
+    error,
+  } = readMjmlConfig(configPathOrDir)
+  if (error) return { error }
+
+  return handleMjmlConfigComponents(packages, componentRootPath, registerCompFn)
 }

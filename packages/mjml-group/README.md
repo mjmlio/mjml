@@ -1,14 +1,16 @@
-## mjml-group
+## mj-group
 
 
 <p align="center">
   Desktop<br />
-  <img src="https://cloud.githubusercontent.com/assets/570317/15677458/a6ad2c1c-274a-11e6-8fdf-6853d748ef27.png" />
+  <img src="https://cloud.githubusercontent.com/assets/570317/15677458/a6ad2c1c-274a-11e6-8fdf-6853d748ef27.png"
+       alt="easy and quick; responsive" />
 </p>
 
 <p align="center">
   Mobile<br />
-  <img src="https://cloud.githubusercontent.com/assets/570317/15677396/6bb62708-274a-11e6-8c59-0d8b3944a2ae.png" />
+  <img src="https://cloud.githubusercontent.com/assets/570317/15677396/6bb62708-274a-11e6-8c59-0d8b3944a2ae.png"
+      alt="easy and quick; responsive" />
 </p>
 
 mj-group allows you to prevent columns from stacking on mobile. To do so, wrap the columns inside a `mj-group` tag, so they'll stay side by side on mobile.

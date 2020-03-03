@@ -36,6 +36,7 @@ export default async () => {
     )
 
   const argv = yargs
+    .version(false) // cf. https://github.com/yargs/yargs/issues/961
     .options({
       r: {
         alias: 'read',
@@ -88,19 +89,22 @@ export default async () => {
   let fonts
 
   try {
-    juiceOptions = argv.c && argv.c.juiceOptions && JSON.parse(argv.c.juiceOptions)
+    juiceOptions =
+      argv.c && argv.c.juiceOptions && JSON.parse(argv.c.juiceOptions)
   } catch (e) {
     error(`Failed to decode JSON for config.juiceOptions argument`)
   }
 
   try {
-    minifyOptions = argv.c && argv.c.minifyOptions && JSON.parse(argv.c.minifyOptions)
+    minifyOptions =
+      argv.c && argv.c.minifyOptions && JSON.parse(argv.c.minifyOptions)
   } catch (e) {
     error(`Failed to decode JSON for config.minifyOptions argument`)
   }
 
   try {
-    juicePreserveTags = argv.c && argv.c.juicePreserveTags && JSON.parse(argv.c.juicePreserveTags)
+    juicePreserveTags =
+      argv.c && argv.c.juicePreserveTags && JSON.parse(argv.c.juicePreserveTags)
   } catch (e) {
     error(`Failed to decode JSON for config.juicePreserveTags argument`)
   }
@@ -110,16 +114,16 @@ export default async () => {
   } catch (e) {
     error(`Failed to decode JSON for config.fonts argument`)
   }
-  
+
   const filePath = argv.c && argv.c.filePath
 
   const config = Object.assign(
     DEFAULT_OPTIONS,
     argv.c,
-    fonts && {fonts},
-    minifyOptions && {minifyOptions},
-    juiceOptions && {juiceOptions},
-    juicePreserveTags && {juicePreserveTags},
+    fonts && { fonts },
+    minifyOptions && { minifyOptions },
+    juiceOptions && { juiceOptions },
+    juicePreserveTags && { juicePreserveTags },
   )
 
   const inputArgs = pickArgs(['r', 'w', 'i', '_', 'm', 'v'])(argv)
@@ -168,7 +172,7 @@ export default async () => {
       break
     }
     case 'w':
-      watchFiles(inputFiles, argv)
+      watchFiles(inputFiles, { ...argv, config })
       KEEP_OPEN = true
       break
     case 'i':
@@ -195,7 +199,11 @@ export default async () => {
           }
           break
         default:
-          compiled = mjml2html(i.mjml, { ...config, filePath: filePath || i.file })
+          compiled = mjml2html(i.mjml, {
+            ...config,
+            filePath: filePath || i.file,
+            actualPath: i.file,
+          })
       }
 
       convertedStream.push({ ...i, compiled })
@@ -239,7 +247,7 @@ export default async () => {
 
   switch (outputOpt) {
     case 'o': {
-      if (inputs.length > 1 && (!isDirectory(argv.o) && argv.o !== '')) {
+      if (inputs.length > 1 && !isDirectory(argv.o) && argv.o !== '') {
         error(
           `Multiple input files, but output option should be either an existing directory or an empty string: ${argv.o} given`,
         )
@@ -266,8 +274,8 @@ export default async () => {
     }
     case 's': {
       Promise.all(convertedStream.map(outputToConsole))
-        .then(() => process.exitCode = EXIT_CODE) // eslint-disable-line no-return-assign
-        .catch(() => process.exitCode = 1) // eslint-disable-line no-return-assign
+        .then(() => (process.exitCode = EXIT_CODE)) // eslint-disable-line no-return-assign
+        .catch(() => (process.exitCode = 1)) // eslint-disable-line no-return-assign
       break
     }
     default:

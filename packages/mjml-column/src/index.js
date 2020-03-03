@@ -12,10 +12,17 @@ export default class MjColumn extends BodyComponent {
     'border-right': 'string',
     'border-top': 'string',
     direction: 'enum(ltr,rtl)',
+    'inner-background-color': 'color',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
+    'inner-border': 'string',
+    'inner-border-bottom': 'string',
+    'inner-border-left': 'string',
+    'inner-border-radius': 'unit(px,%){1,4}',
+    'inner-border-right': 'string',
+    'inner-border-top': 'string',
     padding: 'unit(px,%){1,4}',
     'vertical-align': 'enum(top,bottom,middle)',
     width: 'unit(px,%)',
@@ -30,8 +37,11 @@ export default class MjColumn extends BodyComponent {
     const { containerWidth: parentWidth } = this.context
     const { nonRawSiblings } = this.props
     const { borders, paddings } = this.getBoxWidths()
+    const innerBorders =
+      this.getShorthandAttrValue('inner-border', 'left') +
+      this.getShorthandAttrValue('inner-border', 'right')
 
-    const allPaddings = paddings + borders
+    const allPaddings = paddings + borders + innerBorders
 
     let containerWidth =
       this.getAttribute('width') ||
@@ -42,7 +52,7 @@ export default class MjColumn extends BodyComponent {
     })
 
     if (unit === '%') {
-      containerWidth = `${parseFloat(parentWidth) * parsedWidth / 100 -
+      containerWidth = `${(parseFloat(parentWidth) * parsedWidth) / 100 -
         allPaddings}px`
     } else {
       containerWidth = `${parsedWidth - allPaddings}px`
@@ -76,7 +86,17 @@ export default class MjColumn extends BodyComponent {
         width: this.getMobileWidth(),
       },
       table: {
-        ...(this.hasGutter() ? {} : tableStyle),
+        ...(this.hasGutter()
+          ? {
+              'background-color': this.getAttribute('inner-background-color'),
+              border: this.getAttribute('inner-border'),
+              'border-bottom': this.getAttribute('inner-border-bottom'),
+              'border-left': this.getAttribute('inner-border-left'),
+              'border-radius': this.getAttribute('inner-border-radius'),
+              'border-right': this.getAttribute('inner-border-right'),
+              'border-top': this.getAttribute('inner-border-top'),
+            }
+          : tableStyle),
       },
       tdOutlook: {
         'vertical-align': this.getAttribute('vertical-align'),
@@ -126,7 +146,7 @@ export default class MjColumn extends BodyComponent {
     })
 
     if (unit === '%') {
-      return `${parseFloat(containerWidth) * parsedWidth / 100}px`
+      return `${(parseFloat(containerWidth) * parsedWidth) / 100}px`
     }
     return `${parsedWidth}px`
   }
@@ -157,10 +177,10 @@ export default class MjColumn extends BodyComponent {
 
     const { parsedWidth, unit } = this.getParsedWidth()
     const formattedClassNb = parsedWidth.toString().replace('.', '-')
-    
+
     switch (unit) {
       case '%':
-          className = `mj-column-per-${formattedClassNb}`
+        className = `mj-column-per-${formattedClassNb}`
         break
 
       case 'px':

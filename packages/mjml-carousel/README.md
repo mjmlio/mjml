@@ -1,10 +1,10 @@
-## mjml-carousel
+## mj-carousel
 
 <p align="center">
   <img src="https://i.imgur.com/wHqIzgd.gif" alt="desktop" />
 </p>
 
-`mjml-carousel` displays a gallery of images or "carousel". Readers can interact by hovering and clicking on thumbnails depending on the email client they use.
+`mj-carousel` displays a gallery of images or "carousel". Readers can interact by hovering and clicking on thumbnails depending on the email client they use.
 
 This component enables you to set the styles of the carousel elements.
 
@@ -47,7 +47,7 @@ tb-selected-border-color | string | css border color of the selected thumbnail |
 tb-width | px | thumbnail width | null
 thumbnails | String | display or not the thumbnails (visible | hidden)
 
-### mjml-carousel-image
+### mj-carousel-image
 
 This component enables you to add and style the images in the carousel.
 

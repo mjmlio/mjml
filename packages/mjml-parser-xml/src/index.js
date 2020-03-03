@@ -35,7 +35,9 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
     convertBooleans = true,
     keepComments = true,
     filePath = '.',
+    actualPath = '.',
     ignoreIncludes = false,
+    preprocessors = [],
   } = options
 
   const endingTags = flow(
@@ -43,7 +45,16 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
     map(component => component.getTagName()),
   )({ ...components })
 
-  const cwd = filePath ? path.dirname(filePath) : process.cwd()
+  let cwd = process.cwd()
+
+  if (filePath) {
+    try {
+      const isDir = fs.lstatSync(filePath).isDirectory()
+      cwd = isDir ? filePath : path.dirname(filePath)
+    } catch (e) {
+      throw new Error('Specified filePath does not exist')
+    }
+  }
 
   let mjml = null
   let cur = null
@@ -69,15 +80,17 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
       const newNode = {
         line,
         file,
-        absoluteFilePath: path.resolve(cwd, filePath),
+        absoluteFilePath: path.resolve(cwd, actualPath),
         parent: cur,
         tagName: 'mj-raw',
         content: `<!-- mj-include fails to read file : ${file} at ${partialPath} -->`,
         children: [],
-        errors: [{
-          type: 'include',
-          params: { file, partialPath },
-        }],
+        errors: [
+          {
+            type: 'include',
+            params: { file, partialPath },
+          },
+        ],
       }
       cur.children.push(newNode)
 
@@ -94,6 +107,7 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
       {
         ...options,
         filePath: partialPath,
+        actualPath: partialPath,
       },
       [
         ...cur.includedIn,
@@ -118,14 +132,14 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
       const boundChildren = bindToTree(body.children)
       cur.children = [...cur.children, ...boundChildren]
     }
-    
+
     if (head) {
       let curHead = findTag('mj-head', mjml)
 
       if (!curHead) {
         mjml.children.push({
-          file: filePath,
-          absoluteFilePath: path.resolve(cwd, filePath),
+          file: actualPath,
+          absoluteFilePath: path.resolve(cwd, actualPath),
           parent: mjml,
           tagName: 'mj-head',
           children: [],
@@ -138,7 +152,7 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
       const boundChildren = bindToTree(head.children, curHead)
       curHead.children = [...curHead.children, ...boundChildren]
     }
-    
+
     // must restore cur to the cur before include started
     cur = curBeforeInclude
   }
@@ -156,7 +170,8 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
         if (isAnEndingTag) {
           inEndingTag += 1
 
-          if (inEndingTag === 1) { // we're entering endingTag
+          if (inEndingTag === 1) {
+            // we're entering endingTag
             currentEndingTagIndexes.startIndex = parser.startIndex
             currentEndingTagIndexes.endIndex = parser.endIndex
           }
@@ -176,8 +191,8 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
         }
 
         const newNode = {
-          file: filePath,
-          absoluteFilePath: path.resolve(cwd, filePath),
+          file: actualPath,
+          absoluteFilePath: path.resolve(cwd, actualPath),
           line,
           includedIn,
           parent: cur,
@@ -198,11 +213,20 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
         if (endingTags.indexOf(name) !== -1) {
           inEndingTag -= 1
 
-          if (!inEndingTag) { // we're getting out of endingTag
+          if (!inEndingTag) {
+            // we're getting out of endingTag
             // if self-closing tag we don't get the content
             if (!isSelfClosing(currentEndingTagIndexes, parser)) {
-              const partialVal = xml.substring(currentEndingTagIndexes.endIndex + 1, parser.endIndex).trim()
-              const val = partialVal.substring(0, partialVal.lastIndexOf(`</${name}`))
+              const partialVal = xml
+                .substring(
+                  currentEndingTagIndexes.endIndex + 1,
+                  parser.endIndex,
+                )
+                .trim()
+              const val = partialVal.substring(
+                0,
+                partialVal.lastIndexOf(`</${name}`),
+              )
 
               if (val) cur.content = val.trim()
             }
@@ -214,7 +238,7 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
         if (inInclude) {
           inInclude = false
         }
-        
+
         // for includes, setting cur is handled in handleInclude because when there is
         // only mj-head in include it doesn't create any elements, so setting back to parent is wrong
         if (name !== 'mj-include') cur = (cur && cur.parent) || null
@@ -246,6 +270,9 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
       lowerCaseAttributeNames: false,
     },
   )
+
+  // Apply preprocessors to raw xml
+  xml = flow(preprocessors)(xml)
 
   parser.write(xml)
   parser.end()

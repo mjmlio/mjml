@@ -49,7 +49,8 @@ const defaultSocialNetworks = {
   },
   tumblr: {
     src: `${IMG_BASE_URL}tumblr.png`,
-    'share-url': 'https://www.tumblr.com/widgets/share/tool?canonicalUrl=[[URL]]',
+    'share-url':
+      'https://www.tumblr.com/widgets/share/tool?canonicalUrl=[[URL]]',
     'background-color': '#344356',
   },
   github: {
@@ -78,7 +79,6 @@ const defaultSocialNetworks = {
     'background-color': '#D95988',
   },
 }
-
 
 each(defaultSocialNetworks, (val, key) => {
   defaultSocialNetworks[`${key}-noshare`] = {
@@ -161,7 +161,6 @@ export default class MjSocialElement extends BodyComponent {
       tdText: {
         'vertical-align': 'middle',
         padding: this.getAttribute('text-padding'),
-
       },
       text: {
         color: this.getAttribute('color'),
@@ -209,7 +208,7 @@ export default class MjSocialElement extends BodyComponent {
       'icon-size': iconSize,
       'icon-height': iconHeight,
     } = this.getSocialAttributes()
-    
+
     const hasLink = !!this.getAttribute('href')
 
     return `
@@ -230,12 +229,14 @@ export default class MjSocialElement extends BodyComponent {
           >
             <tr>
               <td ${this.htmlAttributes({ style: 'icon' })}>
-                ${hasLink ?
-                  `<a ${this.htmlAttributes({
-                    href,
-                    rel: this.getAttribute('rel'),
-                    target: this.getAttribute('target'),
-                  })}>` : ''
+                ${
+                  hasLink
+                    ? `<a ${this.htmlAttributes({
+                        href,
+                        rel: this.getAttribute('rel'),
+                        target: this.getAttribute('target'),
+                      })}>`
+                    : ''
                 }
                     <img
                       ${this.htmlAttributes({
@@ -247,36 +248,35 @@ export default class MjSocialElement extends BodyComponent {
                         width: parseInt(iconSize, 10),
                       })}
                     />
-                  ${hasLink ?
-                    `</a>` : ''
-                  }
+                  ${hasLink ? `</a>` : ''}
                 </td>
               </tr>
           </table>
         </td>
-        ${this.getContent()
-          ? `
+        ${
+          this.getContent()
+            ? `
           <td ${this.htmlAttributes({ style: 'tdText' })}>
-            ${hasLink ?
-              `<a
+            ${
+              hasLink
+                ? `<a
                 ${this.htmlAttributes({
                   href,
                   style: 'text',
                   rel: this.getAttribute('rel'),
                   target: this.getAttribute('target'),
                 })}>`
-              :  `<span
+                : `<span
                     ${this.htmlAttributes({
                       style: 'text',
                     })}>`
             }
               ${this.getContent()}
-            ${hasLink ?
-              `</a>` : '</span>'
-            }
+            ${hasLink ? `</a>` : '</span>'}
           </td>
           `
-          : ''}
+            : ''
+        }
       </tr>
     `
   }

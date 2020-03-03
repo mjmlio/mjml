@@ -8,9 +8,9 @@ const jsonToXML = ({ tagName, attributes, children, content }) => {
     .map(attr => `${attr}="${attributes[attr]}"`)
     .join(' ')
 
-  return `<${tagName}${stringAttrs === ''
-    ? '>'
-    : ` ${stringAttrs}>`}${subNode}</${tagName}>`
+  return `<${tagName}${
+    stringAttrs === '' ? '>' : ` ${stringAttrs}>`
+  }${subNode}</${tagName}>`
 }
 
 export default jsonToXML

@@ -61,6 +61,7 @@ argument | description | default value
 `mjml [input] --config.juicePreserveTags` | Preserve some tags when inlining css, see [mjml-cli documentation](https://github.com/mjmlio/mjml/blob/master/packages/mjml-cli/README.md) for more info | NA
 `mjml [input] --config.minifyOptions` | Options for html minifier, see [mjml-cli documentation](https://github.com/mjmlio/mjml/blob/master/packages/mjml-cli/README.md) for more info | NA
 `mjml [input] --config.mjmlConfigPath [mjmlconfigPath]` | Uses the `.mjmlconfig` file in the specified path or directory to include custom components | *The `.mjmlconfig` file in the current working directory, if any*
+`mjml [input] --config.useMjmlConfigOptions` | Allows to use the `config` attribute from `.mjmlconfig` file | false
 `mjml [input] --config.validationLevel` | [Validation level](https://github.com/mjmlio/mjml/tree/master/packages/mjml-validator#validating-mjml): 'strict', 'soft' or 'skip' | 'soft'
 
 
@@ -104,6 +105,7 @@ minify | boolean | Option to minify the HTML output | false
 validationLevel | string | Available values for the [validator](https://github.com/mjmlio/mjml/tree/master/packages/mjml-validator#validating-mjml): 'strict', 'soft', 'skip'  | 'soft'
 filePath | string | Full path of the specified file to use when resolving paths from [`mj-include` components](#mj-include) | '.'
 mjmlConfigPath | string | The path or directory of the [`.mjmlconfig` file](#community-components) | `process.cwd()`
+useMjmlConfigOptions | Allows to use the `config` attribute from `.mjmlconfig` file | false
 minifyOptions | Options for html minifier, see [mjml-cli documentation](https://github.com/mjmlio/mjml/blob/master/packages/mjml-cli/README.md) for more info | {"collapseWhitespace": true, "minifyCSS": false, "removeEmptyAttributes": true}
 juicePreserveTags | optional setting when inlining css, see [mjml-cli documentation](https://github.com/mjmlio/mjml/blob/master/packages/mjml-cli/README.md) for more info | NA
 

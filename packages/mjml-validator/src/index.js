@@ -8,7 +8,7 @@ const SKIP_ELEMENTS = ['mjml']
 export const formatValidationError = ruleError
 
 export { rulesCollection, registerRule }
-export dependencies, { registerDependencies } from './dependencies'
+export { default as dependencies, registerDependencies } from './dependencies'
 
 export default function MJMLValidator(element, options = {}) {
   const { children, tagName } = element

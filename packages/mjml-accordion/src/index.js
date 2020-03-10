@@ -1,4 +1,4 @@
-export Accordion from './Accordion'
-export AccordionElement from './AccordionElement'
-export AccordionText from './AccordionText'
-export AccordionTitle from './AccordionTitle'
+export { default as Accordion } from './Accordion'
+export { default as AccordionElement } from './AccordionElement'
+export { default as AccordionText } from './AccordionText'
+export { default as AccordionTitle } from './AccordionTitle'

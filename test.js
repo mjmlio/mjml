@@ -1,4 +1,4 @@
-require('babel-register')
+require('@babel/register')
 
 const mjml2html = require('./packages/mjml/src/index')
 

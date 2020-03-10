@@ -1,2 +1,2 @@
-export Navbar from './Navbar'
-export NavbarLink from './NavbarLink'
+export { default as Navbar } from './Navbar'
+export { default as NavbarLink } from './NavbarLink'

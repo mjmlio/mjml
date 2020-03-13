@@ -192,6 +192,7 @@ export default function mjml2html(mjml, options = {}) {
       }
     }
   }
+  
 
   const applyAttributes = mjml => {
     const parse = (mjml, parentMjClass = '') => {

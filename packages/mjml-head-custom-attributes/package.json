@@ -1,7 +1,7 @@
 {
-  "name": "mjml-core",
-  "description": "mjml-core",
-  "version": "4.6.0",
+  "name": "mjml-head-custom-attributes",
+  "description": "mjml-head-custom-attributes",
+  "version": "4.6.2",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -14,22 +14,14 @@
   "homepage": "https://mjml.io",
   "scripts": {
     "clean": "cross-env ../../node_modules/.bin/rimraf lib",
-    "build": "cross-env ../../node_modules/.bin/babel src --out-dir lib",
-    "test": "node ./tests/index.js"
+    "build": "cross-env ../../node_modules/.bin/babel src --out-dir lib"
   },
   "dependencies": {
     "babel-runtime": "^6.26.0",
-    "cheerio": "1.0.0-rc.3",
-    "html-minifier": "^3.5.3",
-    "js-beautify": "^1.6.14",
-    "juice": "^5.2.0",
     "lodash": "^4.17.15",
-    "mjml-migrate": "4.6.0",
-    "mjml-parser-xml": "4.6.0",
-    "mjml-validator": "4.5.0"
+    "mjml-core": "4.6.2"
   },
   "devDependencies": {
-    "chai": "^4.1.1",
     "cross-env": "^5.2.0"
   }
 }

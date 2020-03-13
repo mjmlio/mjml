@@ -1,8 +1,19 @@
-import { find, get, identity, map, omit, reduce, isObject, each } from 'lodash'
+import {
+  find,
+  get,
+  identity,
+  map,
+  omit,
+  reduce,
+  isObject,
+  each,
+  isEmpty,
+} from 'lodash'
 import path from 'path'
 import juice from 'juice'
 import { html as htmlBeautify } from 'js-beautify'
 import { minify as htmlMinify } from 'html-minifier'
+import cheerio from 'cheerio'
 
 import MJMLParser from 'mjml-parser-xml'
 import MJMLValidator from 'mjml-validator'
@@ -113,6 +124,7 @@ export default function mjml2html(mjml, options = {}) {
     classes: {},
     classesDefault: {},
     defaultAttributes: {},
+    customAttributes: {},
     fonts,
     inlineStyle: [],
     headStyle: {},
@@ -325,6 +337,20 @@ export default function mjml2html(mjml, options = {}) {
       removeEmptyAttributes: true,
       ...minifyOptions,
     })
+  }
+
+  if (!isEmpty(globalDatas.customAttributes)) {
+    const $ = cheerio.load(content)
+
+    each(globalDatas.customAttributes, (data, selector) => {
+      each(data, (value, attrName) => {
+        $(selector).each(function() {
+          $(this).attr(attrName, value)
+        })
+      })
+    })
+
+    content = $.root().html()
   }
 
   content = mergeOutlookConditionnals(content)

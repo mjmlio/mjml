@@ -1,7 +1,7 @@
 ## mj-attributes
 
 This tag allows you to add custom attributes on any html tag of the generated html, using css selectors.
-It's not needed for most email creations, but can be useful in some cases, i.e. mailchimp editable templates.
+It's not needed for most email creations, but can be useful in some cases, i.e. editable templates.
 
  ```xml
 <mjml>

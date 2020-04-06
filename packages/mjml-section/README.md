@@ -31,24 +31,38 @@ changed to 100%.
   Sections cannot be nested into sections. Also, any content in a section should also be wrapped in a column.
 </aside>
 
-attribute           | unit        | description                    | default value
---------------------|-------------|--------------------------------|---------------
-background-color    | color       | section color                  | n/a
-background-repeat   | string      | css background repeat          | repeat
-background-size     | percent/px  | css background size            | auto
-background-url      | url         | background url                 | n/a
-border              | string      | css border format              | none
-border-bottom       | string      | css border format              | n/a
-border-left         | string      | css border format              | n/a
-border-radius       | px          | border radius                  | n/a
-border-right        | string      | css border format              | n/a
-border-top          | string      | css border format              | n/a
-css-class           | string      | class name, added to the root HTML element created | n/a
-direction           | ltr / rtl   | set the display order of direct children | ltr
-full-width          | string      | make the section full-width    | n/a
-padding             | px          | supports up to 4 parameters    | 20px 0
-padding-bottom      | px          | section bottom offset          | n/a
-padding-left        | px          | section left offset            | n/a
-padding-right       | px          | section right offset           | n/a
-padding-top         | px          | section top offset             | n/a
-text-align          | string      | css text-align                 | center
+<aside class="warning">
+  Sections cannot be nested into sections. Also, any content in a section should also be wrapped in a column.
+</aside>
+
+attribute             | unit        | description                    | default value
+----------------------|-------------|--------------------------------|---------------
+background-color      | color       | section color                  | n/a
+background-position   | percent / 'left','top',... (2 values max) | css background position (see outlook limitations below)        | top center
+background-position-x | percent / keyword   | css background position x      | none
+background-position-y | percent / keyword   | css background position y      | none
+background-repeat     | string      | css background repeat          | repeat
+background-size       | px/percent/'cover'/'contain'     | css background size    | auto
+background-url        | url         | background url                 | n/a
+border                | string      | css border format              | none
+border-bottom         | string      | css border format              | n/a
+border-left           | string      | css border format              | n/a
+border-radius         | px          | border radius                  | n/a
+border-right          | string      | css border format              | n/a
+border-top            | string      | css border format              | n/a
+css-class             | string      | class name, added to the root HTML element created | n/a
+direction             | ltr / rtl   | set the display order of direct children | ltr
+full-width            | string      | make the section full-width    | n/a
+padding               | px          | supports up to 4 parameters    | 20px 0
+padding-bottom        | px          | section bottom offset          | n/a
+padding-left          | px          | section left offset            | n/a
+padding-right         | px          | section right offset           | n/a
+padding-top           | px          | section top offset             | n/a
+text-align            | string      | css text-align                 | center
+
+
+<aside class="notice">
+  Limitations of background-images size and position on Outlook desktop :  
+  - If background-size is not specified, no-repeat will be ignored on Outlook.
+  - If the specified size is a single attribute in percent, the height will be auto as in standard css. On outlook, the image will never overflow the element, and it will be shrinked instead of being cropped like on other clients.
+</aside>

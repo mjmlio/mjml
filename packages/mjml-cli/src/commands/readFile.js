@@ -1,6 +1,6 @@
 import fs from 'fs'
 import glob from 'glob'
-import { flatMap } from 'lodash'
+import flatMap from 'lodash/flatMap'
 
 export const flatMapPaths = paths =>
   flatMap(paths, p => glob.sync(p, { nodir: true }))

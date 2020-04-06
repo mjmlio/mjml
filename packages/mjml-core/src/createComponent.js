@@ -1,13 +1,11 @@
-import {
-  get,
-  forEach,
-  identity,
-  reduce,
-  kebabCase,
-  find,
-  filter,
-  isNil,
-} from 'lodash'
+import get from 'lodash/get'
+import forEach from 'lodash/forEach'
+import identity from 'lodash/identity'
+import reduce from 'lodash/reduce'
+import kebabCase from 'lodash/kebabCase'
+import find from 'lodash/find'
+import filter from 'lodash/filter'
+import isNil from 'lodash/isNil'
 
 import MJMLParser from 'mjml-parser-xml'
 

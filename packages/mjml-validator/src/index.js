@@ -1,4 +1,8 @@
-import { flatten, concat, filter, includes, values } from 'lodash'
+import flatten from 'lodash/flatten'
+import concat from 'lodash/concat'
+import filter from 'lodash/filter'
+import includes from 'lodash/includes'
+import values from 'lodash/values'
 
 import ruleError from './rules/ruleError'
 import rulesCollection, { registerRule } from './MJMLRulesCollection'

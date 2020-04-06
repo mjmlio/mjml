@@ -1,7 +1,7 @@
 import widthParser from 'mjml-core/lib/helpers/widthParser'
 
 import { BodyComponent } from 'mjml-core'
-import { reduce } from 'lodash'
+import reduce from 'lodash/reduce'
 
 export default class MjTable extends BodyComponent {
   static endingTag = true

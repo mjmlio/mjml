@@ -1,5 +1,5 @@
 import warning from 'warning'
-import { mapKeys } from 'lodash'
+import mapKeys from 'lodash/mapKeys'
 
 import * as rules from './rules'
 

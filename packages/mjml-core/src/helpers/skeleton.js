@@ -1,4 +1,6 @@
-import { reduce, negate, isNil } from 'lodash'
+import reduce from 'lodash/reduce'
+import negate from 'lodash/negate'
+import isNil from 'lodash/isNil'
 import buildPreview from './preview'
 import { buildFontsTags } from './fonts'
 import buildMediaQueriesTags from './mediaQueries'

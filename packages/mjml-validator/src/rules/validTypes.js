@@ -1,4 +1,5 @@
-import { compact, map } from 'lodash'
+import compact from 'lodash/compact'
+import map from 'lodash/map'
 
 import ruleError from './ruleError'
 

@@ -1,4 +1,5 @@
-import { mergeWith, isArray } from 'lodash'
+import mergeWith from 'lodash/mergeWith'
+import isArray from 'lodash/isArray'
 
 // eslint-disable-next-line consistent-return
 function mergeArrays(objValue, srcValue) {

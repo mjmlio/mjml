@@ -1,4 +1,4 @@
-import { includes } from 'lodash'
+import includes from 'lodash/includes'
 import ruleError from './ruleError'
 
 // Tags that have no associated components but are allowed even so

@@ -1,4 +1,11 @@
-import { find, get, identity, map, omit, reduce, isObject, each } from 'lodash'
+import find from 'lodash/find'
+import get from 'lodash/get'
+import identity from 'lodash/identity'
+import map from 'lodash/map'
+import omit from 'lodash/omit'
+import reduce from 'lodash/reduce'
+import isObject from 'lodash/isObject'
+import each from 'lodash/each'
 import path from 'path'
 import juice from 'juice'
 import { html as htmlBeautify } from 'js-beautify'
@@ -180,7 +187,6 @@ export default function mjml2html(mjml, options = {}) {
       }
     }
   }
-  
 
   const applyAttributes = mjml => {
     const parse = (mjml, parentMjClass = '') => {

@@ -1,5 +1,5 @@
 import { BodyComponent } from 'mjml-core'
-import { find } from 'lodash'
+import find from 'lodash/find'
 import conditionalTag from 'mjml-core/lib/helpers/conditionalTag'
 import AccordionText from './AccordionText'
 import AccordionTitle from './AccordionTitle'

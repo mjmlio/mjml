@@ -1,5 +1,8 @@
 import { BodyComponent, suffixCssClasses } from 'mjml-core'
-import { flow, identity, join, filter } from 'lodash/fp'
+import flow from 'lodash/fp/flow'
+import identity from 'lodash/fp/identity'
+import join from 'lodash/fp/join'
+import filter from 'lodash/fp/filter'
 
 const makeBackgroundString = flow(filter(identity), join(' '))
 export default class MjSection extends BodyComponent {

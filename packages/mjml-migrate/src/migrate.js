@@ -1,6 +1,8 @@
 /* eslint-disable no-console */
 
-import { keys, find, isNil } from 'lodash'
+import keys from 'lodash/keys'
+import find from 'lodash/find'
+import isNil from 'lodash/isNil'
 import MJMLParser from 'mjml-parser-xml'
 import { components } from 'mjml-core'
 import { html as htmlBeautify } from 'js-beautify'

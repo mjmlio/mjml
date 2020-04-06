@@ -1,4 +1,5 @@
-import { map, isEmpty } from 'lodash'
+import map from 'lodash/map'
+import isEmpty from 'lodash/isEmpty'
 
 // eslint-disable-next-line import/prefer-default-export
 export default function buildMediaQueriesTags(

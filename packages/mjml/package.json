@@ -16,8 +16,8 @@
   },
   "homepage": "https://mjml.io",
   "scripts": {
-    "clean": "cross-env ../../node_modules/.bin/rimraf lib",
-    "build": "cross-env ../../node_modules/.bin/babel src --out-dir lib"
+    "clean": "rimraf lib",
+    "build": "babel src --out-dir lib --root-mode upward"
   },
   "dependencies": {
     "mjml-accordion": "4.6.2",
@@ -50,6 +50,7 @@
     "mjml-wrapper": "4.6.2"
   },
   "devDependencies": {
-    "cross-env": "^5.2.0"
+    "@babel/cli": "^7.8.4",
+    "rimraf": "^3.0.2"
   }
 }

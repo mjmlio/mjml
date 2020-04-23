@@ -95,6 +95,7 @@ src                         | url         | image source                  | Each
 target                      | string      | link target                   | \_blank
 title                       | string      | img title attribute           | none
 text-decoration             | string      | underline/overline/none       | none
+vertical-align              | string      | top/middle/bottom             | middle
 
 Supported networks with a share url:  
 - facebook  

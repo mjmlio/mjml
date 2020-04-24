@@ -17,7 +17,7 @@
   "homepage": "https://mjml.io",
   "scripts": {
     "clean": "cross-env ../../node_modules/.bin/rimraf lib",
-    "test": "node ./test/test.js",
+    "test": "node ./test/test-custom-attributes.js",
     "build": "cross-env ../../node_modules/.bin/babel src --out-dir lib"
   },
   "dependencies": {

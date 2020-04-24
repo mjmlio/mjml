@@ -17,6 +17,7 @@
   "homepage": "https://mjml.io",
   "scripts": {
     "clean": "cross-env ../../node_modules/.bin/rimraf lib",
+    "test": "node ./test/test.js",
     "build": "cross-env ../../node_modules/.bin/babel src --out-dir lib"
   },
   "dependencies": {
@@ -51,6 +52,7 @@
     "mjml-wrapper": "4.6.2"
   },
   "devDependencies": {
-    "cross-env": "^5.2.0"
+    "cross-env": "^5.2.0",
+    "cheerio": "1.0.0-rc.3"
   }
 }

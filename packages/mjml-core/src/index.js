@@ -341,7 +341,10 @@ export default function mjml2html(mjml, options = {}) {
   }
 
   if (!isEmpty(globalDatas.customAttributes)) {
-    const $ = cheerio.load(content)
+    const $ = cheerio.load(content, {
+      xmlMode: true, // otherwise it may move contents that aren't in any tag
+      decodeEntities: false, // won't escape special characters
+    })
 
     each(globalDatas.customAttributes, (data, selector) => {
       each(data, (value, attrName) => {

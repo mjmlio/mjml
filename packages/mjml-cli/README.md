@@ -61,13 +61,14 @@ mjml -s input.mjml
 mjml --stdout input.mjml
 ```
 
-### Minify and beautify the output HTML
+### Minify and beautify the output HTML (or use any option available on mjml2html)
 
 ```bash
 $> mjml input.mjml --config.beautify true --config.minify false
 ```
 
 These are the default options.
+All the options that can be passed to mjml2html (see general documentation) can be provided with the `--config` or `-c` argument.
 
 ### Change minify options
 

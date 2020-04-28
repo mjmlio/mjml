@@ -2,11 +2,6 @@ const mjml = require('../lib/index.js')
 const chai = require('chai')
 const cheerio = require('cheerio')
 const { sortBy } = require('lodash')
-// require('mjml')
-// const components = require('mjml-core').components
-// const displayDiff = require('./test-utils').displayDiff
-// const omitDeepLodash = require('./test-utils').omitDeepLodash
-// const testValues = require('./test-values')
 
 const input = `
 <mjml>
@@ -47,14 +42,14 @@ const $ = cheerio.load(html)
 
 // should put the attributes at the right place
 chai.expect(
-  $('.text div').map(function() {
+  $('.text div').map(function getAttr() {
     return $(this).attr('data-id')
   }).get(),
   'Custom attributes added on texts',
 ).to.eql(['42', '42'])
 
 chai.expect(
-  $('.image td').map(function() {
+  $('.image td').map(function getAttr() {
     return $(this).attr('data-name')
   }).get(),
   'Custom attributes added on image',

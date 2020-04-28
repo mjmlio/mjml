@@ -192,7 +192,6 @@ export default function mjml2html(mjml, options = {}) {
       }
     }
   }
-  
 
   const applyAttributes = mjml => {
     const parse = (mjml, parentMjClass = '') => {
@@ -348,7 +347,7 @@ export default function mjml2html(mjml, options = {}) {
 
     each(globalDatas.customAttributes, (data, selector) => {
       each(data, (value, attrName) => {
-        $(selector).each(function() {
+        $(selector).each(function getAttr() {
           $(this).attr(attrName, value)
         })
       })

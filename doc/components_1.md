@@ -7,7 +7,6 @@ MJML comes out of the box with a set of standard components to help you build ea
 For instance, the `mj-button` component is, on the inside, a complex HTML layout:
 
 ``` html
-
 <!-- MJML -->
 <mj-button href="#">
     Hello There!

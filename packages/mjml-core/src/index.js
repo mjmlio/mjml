@@ -82,7 +82,7 @@ export default function mjml2html(mjml, options = {}) {
     keepComments,
     minify = false,
     minifyOptions = {},
-    ignoreIncludes = false
+    ignoreIncludes = false,
     juiceOptions = {},
     juicePreserveTags = null,
     skeleton = defaultSkeleton,

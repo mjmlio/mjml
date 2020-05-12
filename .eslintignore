@@ -3,3 +3,4 @@ lib
 packages/mjml-core/src/types*
 type.js
 test.js
+babel.config.js

@@ -8,8 +8,8 @@
 </p>
 
 <p align="center">
-  <a href="https://travis-ci.org/mjmlio/mjml">
-    <img src="https://travis-ci.org/mjmlio/mjml.svg?branch=master" alt="travis">
+  <a href="https://github.com/mjmlio/mjml/actions">
+    <img src="https://github.com/mjmlio/mjml/workflows/Mjml%20CI/badge.svg?branch=master" alt="github actions">
   </a>
   <a href="https://www.codacy.com/app/gbadi/mjml">
     <img src="https://api.codacy.com/project/badge/grade/575339cb861f4ff4b0dbb3f9e1759c35"/>

@@ -92,6 +92,7 @@ padding-top                 | px          | top offset                         |
 icon-padding                | px          | padding around the icon       | 0px
 text-padding                | px          | padding around the text       | 4px 4px 4px 0
 src                         | url         | image source                  | Each social `name` has its own default
+srcset                      | url & width | set a different image source based on the viewport | n/a
 target                      | string      | link target                   | \_blank
 title                       | string      | img title attribute           | none
 text-decoration             | string      | underline/overline/none       | none

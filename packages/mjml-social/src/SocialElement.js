@@ -113,6 +113,7 @@ export default class MjSocialElement extends BodyComponent {
     'text-padding': 'unit(px,%){1,4}',
     src: 'string',
     srcset: 'string',
+    sizes: 'string',
     alt: 'string',
     title: 'string',
     target: 'string',
@@ -187,6 +188,7 @@ export default class MjSocialElement extends BodyComponent {
       'icon-size',
       'icon-height',
       'srcset',
+      'sizes',
       'src',
       'background-color',
     ].reduce(
@@ -207,6 +209,7 @@ export default class MjSocialElement extends BodyComponent {
     const {
       src,
       srcset,
+      sizes,
       href,
       'icon-size': iconSize,
       'icon-height': iconHeight,
@@ -249,6 +252,7 @@ export default class MjSocialElement extends BodyComponent {
                         src,
                         style: 'img',
                         width: parseInt(iconSize, 10),
+                        sizes,
                         srcset,
                       })}
                     />

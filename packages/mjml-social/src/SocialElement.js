@@ -112,6 +112,7 @@ export default class MjSocialElement extends BodyComponent {
     padding: 'unit(px,%){1,4}',
     'text-padding': 'unit(px,%){1,4}',
     src: 'string',
+    srcset: 'string',
     alt: 'string',
     title: 'string',
     target: 'string',
@@ -185,6 +186,7 @@ export default class MjSocialElement extends BodyComponent {
     const attrs = [
       'icon-size',
       'icon-height',
+      'srcset',
       'src',
       'background-color',
     ].reduce(
@@ -204,6 +206,7 @@ export default class MjSocialElement extends BodyComponent {
   render() {
     const {
       src,
+      srcset,
       href,
       'icon-size': iconSize,
       'icon-height': iconHeight,
@@ -246,6 +249,7 @@ export default class MjSocialElement extends BodyComponent {
                         src,
                         style: 'img',
                         width: parseInt(iconSize, 10),
+                        srcset,
                       })}
                     />
                   ${hasLink ? `</a>` : ''}

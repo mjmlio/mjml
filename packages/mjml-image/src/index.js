@@ -1,4 +1,4 @@
-import min from 'lodash/min'
+import { min } from 'lodash'
 
 import { BodyComponent } from 'mjml-core'
 

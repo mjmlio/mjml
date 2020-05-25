@@ -1,7 +1,4 @@
-import concat from 'lodash/concat'
-import keys from 'lodash/keys'
-import includes from 'lodash/includes'
-import filter from 'lodash/filter'
+import { concat, keys, includes, filter } from 'lodash'
 
 import ruleError from './ruleError'
 

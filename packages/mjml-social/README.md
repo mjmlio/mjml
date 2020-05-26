@@ -82,7 +82,6 @@ href                        | url         | button redirection url        | none
 icon-height                 | percent/px  | icon height, overrides icon-size | icon-size
 icon-size                   | percent/px  | icon size (width and height)  | 20px
 line-height                 | percent/px  | space between lines           | 22px
-mode                        | string      | vertical/horizontal           | horizontal
 name                        | string      | social network name, see supported list below | N/A
 padding                     | px          | supports up to 4 parameters                       | 4px
 padding-bottom              | px          | bottom offset                    | n/a

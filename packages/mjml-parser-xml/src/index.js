@@ -1,13 +1,9 @@
 import htmlparser from 'htmlparser2'
 
-import isObject from 'lodash/isObject'
-import findLastIndex from 'lodash/findLastIndex'
-import find from 'lodash/find'
+import { isObject, findLastIndex, find } from 'lodash'
+import { filter, map, flow } from 'lodash/fp'
 import path from 'path'
 import fs from 'fs'
-import filter from 'lodash/fp/filter'
-import map from 'lodash/fp/map'
-import flow from 'lodash/fp/flow'
 
 import cleanNode from './helpers/cleanNode'
 import convertBooleansOnAttrs from './helpers/convertBooleansOnAttrs'
@@ -181,7 +177,7 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
 
         if (name === 'mj-include') {
           if (ignoreIncludes) return
-          
+
           inInclude = true
           handleInclude(decodeURIComponent(attrs.path), line)
           return

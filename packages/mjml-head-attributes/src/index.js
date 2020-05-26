@@ -1,6 +1,4 @@
-import forEach from 'lodash/forEach'
-import omit from 'lodash/omit'
-import reduce from 'lodash/reduce'
+import { forEach, omit, reduce } from 'lodash'
 
 import { HeadComponent } from 'mjml-core'
 

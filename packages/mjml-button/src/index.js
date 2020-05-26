@@ -24,7 +24,7 @@ export default class MjButton extends BodyComponent {
     href: 'string',
     name: 'string',
     'inner-padding': 'unit(px,%){1,4}',
-    'letter-spacing': 'unitWithNegative(px,%)',
+    'letter-spacing': 'unitWithNegative(px,em)',
     'line-height': 'unit(px,%,)',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',

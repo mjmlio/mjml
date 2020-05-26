@@ -10,7 +10,7 @@ const defaultSocialNetworks = {
     src: `${IMG_BASE_URL}facebook.png`,
   },
   twitter: {
-    'share-url': 'https://twitter.com/home?status=[[URL]]',
+    'share-url': 'https://twitter.com/intent/tweet?url=[[URL]]',
     'background-color': '#55acee',
     src: `${IMG_BASE_URL}twitter.png`,
   },

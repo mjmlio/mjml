@@ -1,8 +1,5 @@
 import { BodyComponent } from 'mjml-core'
-import range from 'lodash/range'
-import repeat from 'lodash/repeat'
-import min from 'lodash/min'
-import map from 'lodash/map'
+import { range, repeat, min, map } from 'lodash'
 import crypto from 'crypto'
 
 import { msoConditionalTag } from 'mjml-core/lib/helpers/conditionalTag'

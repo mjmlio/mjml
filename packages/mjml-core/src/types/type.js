@@ -1,5 +1,4 @@
-import some from 'lodash/some'
-import find from 'lodash/find'
+import { some, find } from 'lodash'
 import typesConstructors from './index'
 
 // Avoid recreate existing types

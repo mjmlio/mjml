@@ -39,6 +39,7 @@ padding-left                  | px            | left offset                    |
 padding-right                 | px            | right offset                   | n/a
 padding-top                   | px            | top offset                     | n/a
 rel                           | string        | specify the rel attribute      | n/a
+sizes                         | media query & width | set width based on query | n/a
 src                           | url           | image source                   | n/a
 srcset                        | url & width   | enables to set a different image source based on the viewport | n/a
 target                        | string        | link target on click           | \_blank

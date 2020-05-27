@@ -1,4 +1,4 @@
-import min from 'lodash/min'
+import { min } from 'lodash'
 
 import { BodyComponent } from 'mjml-core'
 
@@ -13,6 +13,7 @@ export default class MjImage extends BodyComponent {
     name: 'string',
     src: 'string',
     srcset: 'string',
+    sizes: 'string',
     title: 'string',
     rel: 'string',
     align: 'enum(left,center,right)',
@@ -103,6 +104,7 @@ export default class MjImage extends BodyComponent {
           height: height && (height === 'auto' ? height : parseInt(height, 10)),
           src: this.getAttribute('src'),
           srcset: this.getAttribute('srcset'),
+          sizes: this.getAttribute('sizes'),
           style: 'img',
           title: this.getAttribute('title'),
           width: this.getContentWidth(),

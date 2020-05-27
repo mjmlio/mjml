@@ -107,7 +107,7 @@ font-weight      | number        | text thickness                               
 href             | string        | link to redirect to on click                       | n/a
 letter-spacing   | px,em         | letter-spacing                                     | n/a
 line-height      | px            | space between the lines                            | 22px
-padding          | px            | supports up to 4 parameters                        | 10px 25px
+padding          | px            | supports up to 4 parameters                        | 15px 10px
 padding-bottom   | px            | bottom offset                                      | n/a
 padding-left     | px            | left offset                                        | n/a
 padding-right    | px            | right offset                                       | n/a

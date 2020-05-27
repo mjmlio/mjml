@@ -1,6 +1,4 @@
-import filter from 'lodash/filter'
-import includes from 'lodash/includes'
-import keys from 'lodash/keys'
+import { filter, includes, keys } from 'lodash'
 
 import dependencies from '../dependencies'
 import ruleError from './ruleError'

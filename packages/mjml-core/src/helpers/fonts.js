@@ -1,5 +1,4 @@
-import forEach from 'lodash/forEach'
-import map from 'lodash/map'
+import { forEach, map } from 'lodash'
 
 // eslint-disable-next-line import/prefer-default-export
 export function buildFontsTags(content, inlineStyle, fonts = {}) {

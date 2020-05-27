@@ -1,4 +1,4 @@
-import escapeRegExp from 'lodash/escapeRegExp'
+import { escapeRegExp } from 'lodash'
 import Type from './type'
 
 export const matcher = /^enum/gim

@@ -33,7 +33,7 @@ Don't want to install anything? Use the free online editor!
 
 MJML comes with an ecosystem of tools and plugins, check out:  
 - The [MJML App](https://mjmlio.github.io/mjml-app/) (MJML is included)  
-- [Visual Studio Code plugin](https://github.com/attilabuti/vscode-mjml) (MJML is included)  
+- [Visual Studio Code plugin](https://github.com/mjmlio/vscode-mjml) (MJML is included)  
 - [Atom plugin](https://atom.io/users/mjmlio) (MJML needs to be installed separately)  
 - [Sublime Text plugin](https://packagecontrol.io/packages/MJML-syntax) (MJML needs to be installed separately)  
 

@@ -116,6 +116,7 @@ export default class MjSocialElement extends BodyComponent {
     title: 'string',
     target: 'string',
     'text-decoration': 'string',
+    'vertical-align': 'enum(top,middle,bottom)',
   }
 
   static defaultAttributes = {
@@ -129,6 +130,7 @@ export default class MjSocialElement extends BodyComponent {
     'text-padding': '4px 4px 4px 0',
     target: '_blank',
     'text-decoration': 'none',
+    'vertical-align': 'middle',
   }
 
   getStyles() {
@@ -141,6 +143,7 @@ export default class MjSocialElement extends BodyComponent {
     return {
       td: {
         padding: this.getAttribute('padding'),
+        'vertical-align': this.getAttribute('vertical-align'),
       },
       table: {
         background: backgroundColor,

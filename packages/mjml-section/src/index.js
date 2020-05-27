@@ -2,12 +2,16 @@ import { BodyComponent, suffixCssClasses } from 'mjml-core'
 import { flow, identity, join, filter } from 'lodash/fp'
 
 const makeBackgroundString = flow(filter(identity), join(' '))
+
 export default class MjSection extends BodyComponent {
   static allowedAttributes = {
     'background-color': 'color',
     'background-url': 'string',
     'background-repeat': 'enum(repeat,no-repeat)',
     'background-size': 'string',
+    'background-position': 'string',
+    'background-position-x': 'string',
+    'background-position-y': 'string',
     border: 'string',
     'border-bottom': 'string',
     'border-left': 'string',
@@ -28,6 +32,7 @@ export default class MjSection extends BodyComponent {
   static defaultAttributes = {
     'background-repeat': 'repeat',
     'background-size': 'auto',
+    'background-position': 'top center',
     direction: 'ltr',
     padding: '20px 0',
     'text-align': 'center',
@@ -49,7 +54,13 @@ export default class MjSection extends BodyComponent {
     const fullWidth = this.isFullWidth()
 
     const background = this.getAttribute('background-url')
-      ? { background: this.getBackground() }
+      ? {
+          background: this.getBackground(),
+          // background size, repeat and position has to be seperate since yahoo does not support shorthand background css property
+          'background-position': this.getBackgroundString(),
+          'background-repeat': this.getAttribute('background-repeat'),
+          'background-size': this.getAttribute('background-size'),
+        }
       : {
           background: this.getAttribute('background-color'),
           'background-color': this.getAttribute('background-color'),
@@ -94,17 +105,77 @@ export default class MjSection extends BodyComponent {
     }
   }
 
-  getBackground = () =>
-    makeBackgroundString([
+  getBackground() {
+    return makeBackgroundString([
       this.getAttribute('background-color'),
       ...(this.hasBackground()
         ? [
             `url(${this.getAttribute('background-url')})`,
-            `top center / ${this.getAttribute('background-size')}`,
+            this.getBackgroundString(),
+            `/ ${this.getAttribute('background-size')}`,
             this.getAttribute('background-repeat'),
           ]
         : []),
     ])
+  }
+
+  getBackgroundString() {
+    const { posX, posY } = this.getBackgroundPosition()
+    return `${posX} ${posY}`
+  }
+
+  getBackgroundPosition() {
+    const { x, y } = this.parseBackgroundPosition()
+
+    return {
+      posX: this.getAttribute('background-position-x') || x,
+      posY: this.getAttribute('background-position-y') || y,
+    }
+  }
+
+  parseBackgroundPosition() {
+    const posSplit = this.getAttribute('background-position').split(' ')
+
+    if (posSplit.length === 1) {
+      const val = posSplit[0]
+      // here we must determine if x or y was provided ; other will be center
+      if (['top', 'bottom'].includes(val)) {
+        return {
+          x: 'center',
+          y: val,
+        }
+      }
+
+      return {
+        x: val,
+        y: 'center',
+      }
+    }
+
+    if (posSplit.length === 2) {
+      // x and y can be put in any order in background-position so we need to determine that based on values
+      const val1 = posSplit[0]
+      const val2 = posSplit[1]
+
+      if (
+        ['top', 'bottom'].includes(val1) ||
+        (val1 === 'center' && ['left', 'right'].includes(val2))
+      ) {
+        return {
+          x: val2,
+          y: val1,
+        }
+      }
+
+      return {
+        x: val1,
+        y: val2,
+      }
+    }
+
+    // more than 2 values is not supported, let's treat as default value
+    return { x: 'center', y: 'top' }
+  }
 
   hasBackground() {
     return this.getAttribute('background-url') != null
@@ -189,6 +260,114 @@ export default class MjSection extends BodyComponent {
 
     const { containerWidth } = this.context
 
+    const isPercentage = str => /^\d+(\.\d+)?%$/.test(str)
+
+    let vSizeAttributes = {}
+    let { posX: bgPosX, posY: bgPosY } = this.getBackgroundPosition()
+
+    switch (bgPosX) {
+      case 'left':
+        bgPosX = '0%'
+        break
+      case 'center':
+        bgPosX = '50%'
+        break
+      case 'right':
+        bgPosX = '100%'
+        break
+      default:
+        if (!isPercentage(bgPosX)) {
+          bgPosX = '50%'
+        }
+        break
+    }
+    switch (bgPosY) {
+      case 'top':
+        bgPosY = '0%'
+        break
+      case 'center':
+        bgPosY = '50%'
+        break
+      case 'bottom':
+        bgPosY = '100%'
+        break
+      default:
+        if (!isPercentage(bgPosY)) {
+          bgPosY = '0%'
+        }
+        break
+    }
+
+    // this logic is different when using repeat or no-repeat
+    let [[vOriginX, vPosX], [vOriginY, vPosY]] = ['x', 'y'].map(coordinate => {
+      const isX = coordinate === 'x'
+      const bgRepeat = this.getAttribute('background-repeat') === 'repeat'
+      let pos = isX ? bgPosX : bgPosY
+      let origin = isX ? bgPosX : bgPosY
+
+      if (isPercentage(pos)) {
+        // Should be percentage at this point
+        const percentageValue = pos.match(/^(\d+(\.\d+)?)%$/)[1]
+        const decimal = parseInt(percentageValue, 10) / 100
+
+        if (bgRepeat) {
+          pos = decimal
+          origin = decimal
+        } else {
+          pos = (-50 + decimal * 100) / 100
+          origin = (-50 + decimal * 100) / 100
+        }
+      } else if (bgRepeat) {
+        // top (y) or center (x)
+        origin = isX ? '0.5' : '0'
+        pos = isX ? '0.5' : '0'
+      } else {
+        origin = isX ? '0' : '-0.5'
+        pos = isX ? '0' : '-0.5'
+      }
+
+      return [origin, pos]
+    }, this)
+
+    // If background size is either cover or contain, we tell VML to keep the aspect
+    // and fill the entire element.
+    if (
+      this.getAttribute('background-size') === 'cover' ||
+      this.getAttribute('background-size') === 'contain'
+    ) {
+      vSizeAttributes = {
+        size: '1,1',
+        aspect:
+          this.getAttribute('background-size') === 'cover'
+            ? 'atleast'
+            : 'atmost',
+      }
+    } else if (this.getAttribute('background-size') !== 'auto') {
+      const bgSplit = this.getAttribute('background-size').split(' ')
+
+      if (bgSplit.length === 1) {
+        vSizeAttributes = {
+          size: this.getAttribute('background-size'),
+          aspect: 'atmost', // reproduces height auto
+        }
+      } else {
+        vSizeAttributes = {
+          size: bgSplit.join(','),
+        }
+      }
+    }
+
+    let vmlType =
+      this.getAttribute('background-repeat') === 'no-repeat' ? 'frame' : 'tile'
+
+    if (this.getAttribute('background-size') === 'auto') {
+      vmlType = 'tile' // if no size provided, keep old behavior because outlook can't use original image size with "frame"
+      ;[[vOriginX, vPosX], [vOriginY, vPosY]] = [
+        [0.5, 0.5],
+        [0, 0],
+      ] // also ensure that images are still cropped the same way
+    }
+
     return `
       <!--[if mso | IE]>
         <v:rect ${this.htmlAttributes({
@@ -200,11 +379,12 @@ export default class MjSection extends BodyComponent {
           stroke: 'false',
         })}>
         <v:fill ${this.htmlAttributes({
-          origin: '0.5, 0',
-          position: '0.5, 0',
+          origin: `${vOriginX}, ${vOriginY}`,
+          position: `${vPosX}, ${vPosY}`,
           src: this.getAttribute('background-url'),
           color: this.getAttribute('background-color'),
-          type: 'tile',
+          type: vmlType,
+          ...vSizeAttributes,
         })} />
         <v:textbox style="mso-fit-shape-to-text:true" inset="0,0,0,0">
       <![endif]-->

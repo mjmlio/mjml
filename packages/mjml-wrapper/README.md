@@ -43,15 +43,18 @@ changed to 100%.
 
 <aside class="notice">
   If you're using a background-url on a `mj-wrapper` then do not add one into a section within the mj-wrapper. Outlook Desktop doesn't support nested VML, so it will most likely break your email.
-  Also, if you use a background-color on mj-wrapper and a background-url on its section/hero child, the background-color will be over the background-image on Outlook. There is no way to keep the vml image over the content and under the wrapper background-color due to z-index being ignored on most tags.
+  Also, if you use a background-color on mj-wrapper and a background-url on its section/hero child, the background-color will be over the background-image on Outlook desktop. There is no way to keep the vml image under the content and over the wrapper's background-color due to z-index being ignored on most tags.
 </aside>
 
 
 attribute           | unit        | description                    | default value
 --------------------|-------------|--------------------------------|---------------
 background-color    | color       | section color                  | n/a
-background-repeat   | string      | css background repeat          | repeat
-background-size     | percent/px  | css background size            | auto
+background-position   | percent / 'left','top',... (2 values max) | css background position (see outlook limitations in mj-section doc)        | top center
+background-position-x | percent / keyword   | css background position x      | none
+background-position-y | percent / keyword   | css background position y      | none
+background-repeat     | string      | css background repeat          | repeat
+background-size       | px/percent/'cover'/'contain'     | css background size    | auto
 background-url      | url         | background url                 | n/a
 border              | string      | css border format              | none
 border-bottom       | string      | css border format              | n/a
@@ -67,4 +70,3 @@ padding-left        | px          | section left offset            | n/a
 padding-right       | px          | section right offset           | n/a
 padding-top         | px          | section top offset             | n/a
 text-align          | string      | css text-align                 | center
-vertical-align      | string      | css vertical-align             | top

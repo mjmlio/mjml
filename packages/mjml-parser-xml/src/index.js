@@ -179,7 +179,9 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
 
         const line = findLastIndex(lineIndexes, i => i <= parser.startIndex) + 1
 
-        if (name === 'mj-include' && !ignoreIncludes) {
+        if (name === 'mj-include') {
+          if (ignoreIncludes) return
+          
           inInclude = true
           handleInclude(decodeURIComponent(attrs.path), line)
           return

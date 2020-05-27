@@ -1,2 +1,2 @@
-export Social from './Social'
-export SocialElement from './SocialElement'
+export { default as Social } from './Social'
+export { default as SocialElement } from './SocialElement'

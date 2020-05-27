@@ -1,7 +1,7 @@
 {
   "name": "mjml-social",
   "description": "mjml-social",
-  "version": "4.6.2",
+  "version": "4.6.3",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -13,15 +13,16 @@
   },
   "homepage": "https://mjml.io",
   "scripts": {
-    "clean": "cross-env ../../node_modules/.bin/rimraf lib",
-    "build": "cross-env ../../node_modules/.bin/babel src --out-dir lib"
+    "clean": "rimraf lib",
+    "build": "babel src --out-dir lib --root-mode upward"
   },
   "dependencies": {
-    "babel-runtime": "^6.26.0",
+    "@babel/runtime": "^7.8.7",
     "lodash": "^4.17.15",
-    "mjml-core": "4.6.2"
+    "mjml-core": "4.6.3"
   },
   "devDependencies": {
-    "cross-env": "^5.2.0"
+    "@babel/cli": "^7.8.4",
+    "rimraf": "^3.0.2"
   }
 }

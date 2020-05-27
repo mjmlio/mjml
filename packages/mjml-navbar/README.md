@@ -105,6 +105,7 @@ font-size        | px            | text size                                    
 font-style       | string        | normal/italic/oblique                              | n/a
 font-weight      | number        | text thickness                                     | n/a
 href             | string        | link to redirect to on click                       | n/a
+letter-spacing   | px,em         | letter-spacing                                     | n/a
 line-height      | px            | space between the lines                            | 22px
 padding          | px            | supports up to 4 parameters                        | 15px 10px
 padding-bottom   | px            | bottom offset                                      | n/a
@@ -115,4 +116,3 @@ rel              | string        | specify the rel attribute                    
 target           | string        | link target on click                               | n/a
 text-decoration  | string        | underline/overline/none                            | n/a
 text-transform   | string        | capitalize/uppercase/lowercase/none                | uppercase
-

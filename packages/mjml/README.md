@@ -60,7 +60,7 @@ Don't want to install anything? Use the free online editor!
 
 MJML comes with an ecosystem of tools and plugins, check out:
 - The [MJML App](https://mjmlio.github.io/mjml-app/) (MJML is included)
-- [Visual Studio Code plugin](https://github.com/attilabuti/vscode-mjml) (MJML is included)
+- [Visual Studio Code plugin](https://github.com/mjmlio/vscode-mjml) (MJML is included)
 - [Atom plugin](https://atom.io/users/mjmlio) (MJML needs to be installed separately)
 - [Sublime Text plugin](https://packagecontrol.io/packages/MJML-syntax) (MJML needs to be installed separately)
 
@@ -122,6 +122,7 @@ option   | unit   | description  | default value
 -------------|--------|--------------|---------------
 fonts  | object | Default fonts imported in the HTML rendered by HTML | See in [index.js](https://github.com/mjmlio/mjml/blob/master/packages/mjml-core/src/index.js#L36-L44)
 keepComments | boolean | Option to keep comments in the HTML output | true
+ignoreIncludes | boolean | Option to ignore mj-includes | false
 beautify | boolean | Option to beautify the HTML output | false
 minify | boolean | Option to minify the HTML output | false
 validationLevel | string | Available values for the [validator](https://github.com/mjmlio/mjml/tree/master/packages/mjml-validator#validating-mjml): 'strict', 'soft', 'skip'  | 'soft'

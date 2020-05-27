@@ -46,6 +46,7 @@ font-weight                 | number      | text thickness                      
 height                      | px          | button height                                    | n/a
 href                        | link        | link to be triggered when the button is clicked  | n/a
 inner-padding               | px          | inner button padding                             | 10px 25px
+letter-spacing              | px,em       | letter-spacing                                   | n/a
 line-height                 | px/%/none   | line-height on link                              | 120%
 padding                     | px          | supports up to 4 parameters                      | 10px 25px
 padding-bottom              | px          | bottom offset                                    | n/a
@@ -59,4 +60,3 @@ text-decoration             | string      | underline/overline/none             
 text-transform              | string      | capitalize/uppercase/lowercase                   | none
 vertical-align              | string      | vertical alignment                               | middle
 width                       | px          | button width                                     | n/a
-

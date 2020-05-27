@@ -16,9 +16,9 @@
   },
   "homepage": "https://mjml.io",
   "scripts": {
-    "clean": "cross-env ../../node_modules/.bin/rimraf lib",
-    "test": "cross-env ./test/test-html-attributes.js",
-    "build": "cross-env ../../node_modules/.bin/babel src --out-dir lib"
+    "clean": "rimraf lib",
+    "build": "babel src --out-dir lib --root-mode upward",
+    "test": "node ./test/test-html-attributes.js"
   },
   "dependencies": {
     "mjml-accordion": "4.6.3",

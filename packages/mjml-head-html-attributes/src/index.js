@@ -1,7 +1,7 @@
 import { get } from 'lodash'
 import { HeadComponent } from 'mjml-core'
 
-export default class MjCustomAttributes extends HeadComponent {
+export default class MjHtmlAttributes extends HeadComponent {
   handler() {
     const { add } = this.context
     const { children } = this.props

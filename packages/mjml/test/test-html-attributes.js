@@ -8,10 +8,10 @@ const input = `
   <mj-head>
     <mj-html-attributes>
       <mj-selector path=".text div">
-        <mj-custom name="data-id">42</mj-custom>
+        <mj-html-attribute name="data-id">42</mj-html-attribute>
       </mj-selector>
       <mj-selector path=".image td">
-        <mj-custom name="data-name">43</mj-custom>
+        <mj-html-attribute name="data-name">43</mj-html-attribute>
       </mj-selector>
     </mj-html-attributes>
   </mj-head>
@@ -37,8 +37,6 @@ const input = `
 
 const html = mjml(input).html
 const $ = cheerio.load(html)
-
-
 
 // should put the attributes at the right place
 chai.expect(

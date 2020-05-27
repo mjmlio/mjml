@@ -6,14 +6,14 @@ const { sortBy } = require('lodash')
 const input = `
 <mjml>
   <mj-head>
-    <mj-custom-attributes>
+    <mj-html-attributes>
       <mj-selector path=".text div">
         <mj-custom name="data-id">42</mj-custom>
       </mj-selector>
       <mj-selector path=".image td">
         <mj-custom name="data-name">43</mj-custom>
       </mj-selector>
-    </mj-custom-attributes>
+    </mj-html-attributes>
   </mj-head>
   <mj-body>
     <mj-raw>{ if item < 5 }</mj-raw>

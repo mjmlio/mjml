@@ -17,7 +17,7 @@
   "homepage": "https://mjml.io",
   "scripts": {
     "clean": "cross-env ../../node_modules/.bin/rimraf lib",
-    "test": "cross-env ./test/test-custom-attributes.js",
+    "test": "cross-env ./test/test-html-attributes.js",
     "build": "cross-env ../../node_modules/.bin/babel src --out-dir lib"
   },
   "dependencies": {
@@ -32,7 +32,7 @@
     "mjml-group": "4.6.3",
     "mjml-head": "4.6.3",
     "mjml-head-attributes": "4.6.3",
-    "mjml-head-custom-attributes": "4.6.3",
+    "mjml-head-html-attributes": "4.6.3",
     "mjml-head-breakpoint": "4.6.3",
     "mjml-head-font": "4.6.3",
     "mjml-head-preview": "4.6.3",

@@ -6,11 +6,11 @@ It's not needed for most email creations, but can be useful in some cases, i.e. 
  ```xml
 <mjml>
   <mj-head>
-    <mj-custom-attributes>
+    <mj-html-attributes>
       <mj-selector path=".custom div">
-        <mj-custom name="data-id">42</mj-custom>
+        <mj-html-attribute name="data-id">42</mj-html-attribute>
       </mj-selector>
-    </mj-custom-attributes>
+    </mj-html-attributes>
   </mj-head>
   <mj-body>
     <mj-section>
@@ -28,11 +28,11 @@ In the generated html, a mj-text becomes a `td`, and a `div` inside this `td`. I
 
 To use this component, you will likely have to look at the generated html to see where exactly are the `css-class` applied, to know which css selector you need to use to add your custom attribute on the right html tag.
 
-You can use multiple `mj-selector` inside a `mj-custom-attributes`, and multiple `mj-custom` inside a `mj-selector`.
+You can use multiple `mj-selector` inside a `mj-html-attributes`, and multiple `mj-custom` inside a `mj-selector`.
   
 
 <p align="center">
-  <a href="https://mjml.io/try-it-live/components/head-custom-attributes">
+  <a href="https://mjml.io/try-it-live/components/head-html-attributes">
     <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
   </a>
 </p>

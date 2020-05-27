@@ -13,7 +13,7 @@ export default class MjCustomAttributes extends HeadComponent {
         const { path } = attributes
 
         const custom = children
-          .filter(c => c.tagName === 'mj-custom' && !!get(c, 'attributes.name'))
+          .filter(c => c.tagName === 'mj-html-attribute' && !!get(c, 'attributes.name'))
           .reduce(
             (acc, c) => ({
               ...acc,
@@ -22,7 +22,7 @@ export default class MjCustomAttributes extends HeadComponent {
             {},
           )
 
-        add('customAttributes', path, custom)
+        add('htmlAttributes', path, custom)
       })
   }
 }

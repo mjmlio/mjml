@@ -126,7 +126,7 @@ export default function mjml2html(mjml, options = {}) {
     classes: {},
     classesDefault: {},
     defaultAttributes: {},
-    customAttributes: {},
+    htmlAttributes: {},
     fonts,
     inlineStyle: [],
     headStyle: {},
@@ -341,13 +341,13 @@ export default function mjml2html(mjml, options = {}) {
     })
   }
 
-  if (!isEmpty(globalDatas.customAttributes)) {
+  if (!isEmpty(globalDatas.htmlAttributes)) {
     const $ = cheerio.load(content, {
       xmlMode: true, // otherwise it may move contents that aren't in any tag
       decodeEntities: false, // won't escape special characters
     })
 
-    each(globalDatas.customAttributes, (data, selector) => {
+    each(globalDatas.htmlAttributes, (data, selector) => {
       each(data, (value, attrName) => {
         $(selector).each(function getAttr() {
           $(this).attr(attrName, value)

@@ -1,8 +1,19 @@
-import { find, get, identity, map, omit, reduce, isObject, each } from 'lodash'
+import {
+  find,
+  get,
+  identity,
+  map,
+  omit,
+  reduce,
+  isObject,
+  each,
+  isEmpty,
+} from 'lodash'
 import path from 'path'
 import juice from 'juice'
 import { html as htmlBeautify } from 'js-beautify'
 import { minify as htmlMinify } from 'html-minifier'
+import cheerio from 'cheerio'
 
 import MJMLParser from 'mjml-parser-xml'
 import MJMLValidator from 'mjml-validator'
@@ -115,6 +126,7 @@ export default function mjml2html(mjml, options = {}) {
     classes: {},
     classesDefault: {},
     defaultAttributes: {},
+    htmlAttributes: {},
     fonts,
     inlineStyle: [],
     headStyle: {},
@@ -182,7 +194,6 @@ export default function mjml2html(mjml, options = {}) {
       }
     }
   }
-  
 
   const applyAttributes = mjml => {
     const parse = (mjml, parentMjClass = '') => {
@@ -328,6 +339,23 @@ export default function mjml2html(mjml, options = {}) {
       removeEmptyAttributes: true,
       ...minifyOptions,
     })
+  }
+
+  if (!isEmpty(globalDatas.htmlAttributes)) {
+    const $ = cheerio.load(content, {
+      xmlMode: true, // otherwise it may move contents that aren't in any tag
+      decodeEntities: false, // won't escape special characters
+    })
+
+    each(globalDatas.htmlAttributes, (data, selector) => {
+      each(data, (value, attrName) => {
+        $(selector).each(function getAttr() {
+          $(this).attr(attrName, value)
+        })
+      })
+    })
+
+    content = $.root().html()
   }
 
   content = mergeOutlookConditionnals(content)

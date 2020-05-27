@@ -17,7 +17,8 @@
   "homepage": "https://mjml.io",
   "scripts": {
     "clean": "rimraf lib",
-    "build": "babel src --out-dir lib --root-mode upward"
+    "build": "babel src --out-dir lib --root-mode upward",
+    "test": "node ./test/test-html-attributes.js"
   },
   "dependencies": {
     "mjml-accordion": "4.6.3",
@@ -31,6 +32,7 @@
     "mjml-group": "4.6.3",
     "mjml-head": "4.6.3",
     "mjml-head-attributes": "4.6.3",
+    "mjml-head-html-attributes": "4.6.3",
     "mjml-head-breakpoint": "4.6.3",
     "mjml-head-font": "4.6.3",
     "mjml-head-preview": "4.6.3",
@@ -51,6 +53,8 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
+    "cross-env": "^5.2.0",
+    "cheerio": "1.0.0-rc.3",
     "rimraf": "^3.0.2"
   }
 }

@@ -22,3 +22,5 @@ jobs:
           yarn test --debug
           cd ../../packages/mjml-core
           yarn test --debug
+          cd ../../packages/mjml
+          yarn test

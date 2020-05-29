@@ -13,7 +13,10 @@ export default class MjHtmlAttributes extends HeadComponent {
         const { path } = attributes
 
         const custom = children
-          .filter(c => c.tagName === 'mj-html-attribute' && !!get(c, 'attributes.name'))
+          .filter(
+            c =>
+              c.tagName === 'mj-html-attribute' && !!get(c, 'attributes.name'),
+          )
           .reduce(
             (acc, c) => ({
               ...acc,

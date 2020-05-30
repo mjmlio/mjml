@@ -3,6 +3,23 @@
 Columns enable you to horizontally organize the content within your sections. They must be located under `mj-section` tags in order to be considered by the engine.
 To be responsive, columns are expressed in terms of percentage.
 
+<aside class="notice">
+  Use caution with `width` attributes on `mj-column`.
+  It's okay if the sum of `mj-column` widths is
+      as much as the `mj-section` width.
+  Two columns of 50% are fine.
+  (The sum equals 100%.
+  Sums less than that are okay, too.)
+  However, if that sum exceeds the `mj-section` width,
+      do thorough testing, especially on desktop clients.
+  Three columns, two of 50% plus one of any percentage or
+      any fixed width could cause poor rendering.
+  (The first two columns use the full width.
+  The third causes need for more.)
+  It's best to avoid `width` sums greater than
+      `mj-section` width (either 100% or pixel width).
+</aside>
+
 Every single column has to contain something because they are responsive containers, and will be vertically stacked on a mobile view. Any standard component, or component that you have defined and registered, can be placed within a column – except `mj-column` or `mj-section` elements.
 
 ```xml

@@ -1,4 +1,4 @@
-import htmlparser from 'htmlparser2'
+import * as htmlparser from 'htmlparser2'
 
 import { isObject, findLastIndex, find } from 'lodash'
 import { filter, map, flow } from 'lodash/fp'

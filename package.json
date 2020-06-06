@@ -20,14 +20,13 @@
     "babel-eslint": "^10.1.0",
     "babel-plugin-add-module-exports": "^1.0.2",
     "babel-plugin-lodash": "^3.3.4",
-    "es6-promisify": "^5.0.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-import": "^2.21.1",
     "lerna": "^3.22.1",
-    "opn": "^5.1.0",
+    "open": "^7.3.0",
     "prettier": "^2.0.5",
-    "rimraf": "^2.6.1"
+    "rimraf": "^3.0.2"
   }
 }

@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.8.7",
-    "htmlparser2": "^3.9.2",
+    "htmlparser2": "^4.1.0",
     "lodash": "^4.17.15"
   },
   "devDependencies": {

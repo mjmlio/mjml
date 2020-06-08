@@ -226,7 +226,7 @@ export default class MjSection extends BodyComponent {
         <tr>
       <![endif]-->
       ${this.renderChildren(children, {
-        renderer: component =>
+        renderer: (component) =>
           component.constructor.isRawElement()
             ? component.render()
             : `
@@ -260,7 +260,7 @@ export default class MjSection extends BodyComponent {
 
     const { containerWidth } = this.context
 
-    const isPercentage = str => /^\d+(\.\d+)?%$/.test(str)
+    const isPercentage = (str) => /^\d+(\.\d+)?%$/.test(str)
 
     let vSizeAttributes = {}
     let { posX: bgPosX, posY: bgPosY } = this.getBackgroundPosition()
@@ -299,35 +299,38 @@ export default class MjSection extends BodyComponent {
     }
 
     // this logic is different when using repeat or no-repeat
-    let [[vOriginX, vPosX], [vOriginY, vPosY]] = ['x', 'y'].map(coordinate => {
-      const isX = coordinate === 'x'
-      const bgRepeat = this.getAttribute('background-repeat') === 'repeat'
-      let pos = isX ? bgPosX : bgPosY
-      let origin = isX ? bgPosX : bgPosY
+    let [[vOriginX, vPosX], [vOriginY, vPosY]] = ['x', 'y'].map(
+      (coordinate) => {
+        const isX = coordinate === 'x'
+        const bgRepeat = this.getAttribute('background-repeat') === 'repeat'
+        let pos = isX ? bgPosX : bgPosY
+        let origin = isX ? bgPosX : bgPosY
 
-      if (isPercentage(pos)) {
-        // Should be percentage at this point
-        const percentageValue = pos.match(/^(\d+(\.\d+)?)%$/)[1]
-        const decimal = parseInt(percentageValue, 10) / 100
+        if (isPercentage(pos)) {
+          // Should be percentage at this point
+          const percentageValue = pos.match(/^(\d+(\.\d+)?)%$/)[1]
+          const decimal = parseInt(percentageValue, 10) / 100
 
-        if (bgRepeat) {
-          pos = decimal
-          origin = decimal
+          if (bgRepeat) {
+            pos = decimal
+            origin = decimal
+          } else {
+            pos = (-50 + decimal * 100) / 100
+            origin = (-50 + decimal * 100) / 100
+          }
+        } else if (bgRepeat) {
+          // top (y) or center (x)
+          origin = isX ? '0.5' : '0'
+          pos = isX ? '0.5' : '0'
         } else {
-          pos = (-50 + decimal * 100) / 100
-          origin = (-50 + decimal * 100) / 100
+          origin = isX ? '0' : '-0.5'
+          pos = isX ? '0' : '-0.5'
         }
-      } else if (bgRepeat) {
-        // top (y) or center (x)
-        origin = isX ? '0.5' : '0'
-        pos = isX ? '0.5' : '0'
-      } else {
-        origin = isX ? '0' : '-0.5'
-        pos = isX ? '0' : '-0.5'
-      }
 
-      return [origin, pos]
-    }, this)
+        return [origin, pos]
+      },
+      this,
+    )
 
     // If background size is either cover or contain, we tell VML to keep the aspect
     // and fill the entire element.

@@ -3,7 +3,7 @@ import Type from './type'
 
 export const matcher = /^enum/gim
 
-export default params => {
+export default (params) => {
   const matchers = params.match(/\(([^)]+)\)/)[1].split(',')
 
   return class Enum extends Type {
@@ -14,7 +14,7 @@ export default params => {
     constructor(value) {
       super(value)
 
-      this.matchers = matchers.map(m => new RegExp(`^${escapeRegExp(m)}$`))
+      this.matchers = matchers.map((m) => new RegExp(`^${escapeRegExp(m)}$`))
     }
   }
 }

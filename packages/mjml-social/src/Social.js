@@ -93,7 +93,7 @@ export default class MjSocial extends BodyComponent {
       <![endif]-->
       ${this.renderChildren(children, {
         attributes: this.getSocialElementAttributes(),
-        renderer: component => `
+        renderer: (component) => `
             <!--[if mso | IE]>
               <td>
             <![endif]-->

@@ -98,8 +98,9 @@ export default class MjCarouselImage extends BodyComponent {
     return `
       <input
         ${this.htmlAttributes({
-          class: `mj-carousel-radio mj-carousel-${carouselId}-radio mj-carousel-${carouselId}-radio-${index +
-            1}`,
+          class: `mj-carousel-radio mj-carousel-${carouselId}-radio mj-carousel-${carouselId}-radio-${
+            index + 1
+          }`,
           checked: index === 0 ? 'checked' : null,
           type: 'radio',
           name: `mj-carousel-radio-${carouselId}`,

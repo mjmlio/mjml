@@ -3,7 +3,7 @@ import Type from './type'
 
 export const matcher = /^(unit|unitWithNegative)\(.*\)/gim
 
-export default params => {
+export default (params) => {
   const allowNeg = params.match(/^unitWithNegative/) ? '-|' : ''
 
   const units = params.match(/\(([^)]+)\)/)[1].split(',')
@@ -11,7 +11,7 @@ export default params => {
   const args = (argsMatch && argsMatch[1] && argsMatch[1].split(',')) || ['1'] // defaults to 1
 
   const allowAuto = units.includes('auto') ? '|auto' : ''
-  const filteredUnits = units.filter(u => u !== 'auto')
+  const filteredUnits = units.filter((u) => u !== 'auto')
 
   return class Unit extends Type {
     static errorMessage = `has invalid value: $value for type Unit, only accepts (${units.join(

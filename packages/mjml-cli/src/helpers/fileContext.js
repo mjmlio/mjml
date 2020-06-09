@@ -3,9 +3,9 @@ import path from 'path'
 
 const includeRegexp = /<mj-include\s+path=['"](.*[.mjml]?)['"]\s*(\/>|>\s*<\/mj-include>)/g
 
-const ensureIncludeIsMJMLFile = file =>
+const ensureIncludeIsMJMLFile = (file) =>
   (file.trim().match(/.mjml/) && file) || `${file}.mjml`
-const error = e => console.error(e.stack || e) // eslint-disable-line no-console
+const error = (e) => console.error(e.stack || e) // eslint-disable-line no-console
 
 export default (baseFile, filePath) => {
   const filesIncluded = []

@@ -57,9 +57,9 @@ export default class MjHero extends BodyComponent {
     })
 
     if (unit === '%') {
-      currentContainerWidth = `${(parseFloat(containerWidth) * parsedWidth) /
-        100 -
-        paddingSize}px`
+      currentContainerWidth = `${
+        (parseFloat(containerWidth) * parsedWidth) / 100 - paddingSize
+      }px`
     } else {
       currentContainerWidth = `${parsedWidth - paddingSize}px`
     }
@@ -207,9 +207,7 @@ export default class MjHero extends BodyComponent {
                 })}
               >
                 ${this.renderChildren(children, {
-                  renderer: (
-                    component, // eslint-disable-line no-confusing-arrow
-                  ) =>
+                  renderer: (component) =>
                     component.constructor.isRawElement()
                       ? component.render()
                       : `

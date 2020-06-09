@@ -30,8 +30,9 @@ export default class MjGroup extends BodyComponent {
     })
 
     if (unit === '%') {
-      containerWidth = `${(parseFloat(parentWidth) * parsedWidth) / 100 -
-        paddingSize}px`
+      containerWidth = `${
+        (parseFloat(parentWidth) * parsedWidth) / 100 - paddingSize
+      }px`
     } else {
       containerWidth = `${parsedWidth - paddingSize}px`
     }
@@ -128,10 +129,11 @@ export default class MjGroup extends BodyComponent {
 
     const { containerWidth } = this.context
 
-    const getElementWidth = width => {
+    const getElementWidth = (width) => {
       if (!width) {
-        return `${parseInt(containerWidth, 10) /
-          parseInt(nonRawSiblings, 10)}px`
+        return `${
+          parseInt(containerWidth, 10) / parseInt(nonRawSiblings, 10)
+        }px`
       }
 
       const { unit, parsedWidth } = widthParser(width, {
@@ -174,7 +176,7 @@ export default class MjGroup extends BodyComponent {
         <![endif]-->
           ${this.renderChildren(children, {
             attributes: { mobileWidth: 'mobileWidth' },
-            renderer: component =>
+            renderer: (component) =>
               component.constructor.isRawElement()
                 ? component.render()
                 : `

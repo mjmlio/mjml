@@ -20,7 +20,7 @@ export default function MJMLValidator(element, options = {}) {
     errors = flatten(
       concat(
         errors,
-        ...values(rulesCollection).map(rule =>
+        ...values(rulesCollection).map((rule) =>
           rule(element, {
             skipElements,
             ...options,
@@ -32,7 +32,7 @@ export default function MJMLValidator(element, options = {}) {
 
   if (children && children.length > 0) {
     errors = flatten(
-      concat(errors, ...children.map(child => MJMLValidator(child, options))),
+      concat(errors, ...children.map((child) => MJMLValidator(child, options))),
     )
   }
 

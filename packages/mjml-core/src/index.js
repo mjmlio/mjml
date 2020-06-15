@@ -352,7 +352,7 @@ export default function mjml2html(mjml, options = {}) {
     each(globalDatas.htmlAttributes, (data, selector) => {
       each(data, (value, attrName) => {
         $(selector).each(function getAttr() {
-          $(this).attr(attrName, value)
+          $(this).attr(attrName, value || '')
         })
       })
     })

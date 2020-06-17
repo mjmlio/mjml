@@ -7,6 +7,8 @@ export default class MjButton extends BodyComponent {
 
   static allowedAttributes = {
     align: 'enum(left,center,right)',
+    img:'string',
+    'aria-label': 'string',
     'background-color': 'color',
     'border-bottom': 'string',
     'border-left': 'string',
@@ -117,6 +119,14 @@ export default class MjButton extends BodyComponent {
     return `${parsedWidth - innerPaddings - borders}px`
   }
 
+  getImageContent(){
+    const imgSrc = this.getAttribute('img')
+    if(imgSrc){
+      return `<img src= ${this.getAttribute('img')} />`
+    }
+    return ''
+  }
+
   render() {
     const tag = this.getAttribute('href') ? 'a' : 'p'
 
@@ -145,6 +155,7 @@ export default class MjButton extends BodyComponent {
           >
             <${tag}
               ${this.htmlAttributes({
+                'aria-label': this.getAttribute('aria-label'),
                 href: this.getAttribute('href'),
                 rel: this.getAttribute('rel'),
                 name: this.getAttribute('name'),
@@ -152,6 +163,7 @@ export default class MjButton extends BodyComponent {
                 target: tag === 'a' ? this.getAttribute('target') : undefined,
               })}
             >
+              ${this.getImageContent()}
               ${this.getContent()}
             </${tag}>
           </td>

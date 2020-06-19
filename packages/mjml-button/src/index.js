@@ -8,7 +8,6 @@ export default class MjButton extends BodyComponent {
   static allowedAttributes = {
     align: 'enum(left,center,right)',
     img:'string',
-    'aria-label': 'string',
     'background-color': 'color',
     'border-bottom': 'string',
     'border-left': 'string',
@@ -155,13 +154,13 @@ export default class MjButton extends BodyComponent {
           >
             <${tag}
               ${this.htmlAttributes({
-                'aria-label': this.getAttribute('aria-label'),
                 href: this.getAttribute('href'),
                 rel: this.getAttribute('rel'),
                 name: this.getAttribute('name'),
                 style: 'content',
                 target: tag === 'a' ? this.getAttribute('target') : undefined,
               })}
+              role="button"
             >
               ${this.getImageContent()}
               ${this.getContent()}

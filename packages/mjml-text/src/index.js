@@ -25,6 +25,7 @@ export default class MjText extends BodyComponent {
     'text-decoration': 'string',
     'text-transform': 'string',
     'vertical-align': 'enum(top,bottom,middle)',
+    'tag': 'string'
   }
 
   static defaultAttributes = {
@@ -55,12 +56,13 @@ export default class MjText extends BodyComponent {
   }
 
   renderContent() {
+   const tag = this.getAttribute('tag') || 'div';
     return `
-      <div
+      <${tag}
         ${this.htmlAttributes({
           style: 'text',
         })}
-      >${this.getContent()}</div>
+      >${this.getContent()}</${tag}>
     `
   }
 

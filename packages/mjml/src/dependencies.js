@@ -7,11 +7,13 @@ export default {
   'mj-attributes': [/^.*^/],
   'mj-body': ['mj-raw', 'mj-section', 'mj-wrapper', 'mj-hero'],
   'mj-button': [],
+  'mj-badge': [],
   'mj-carousel': ['mj-carousel-image'],
   'mj-carousel-image': [],
   'mj-column': [
     'mj-accordion',
     'mj-button',
+    'mj-badge',
     'mj-carousel',
     'mj-divider',
     'mj-html',
@@ -43,6 +45,7 @@ export default {
   'mj-hero': [
     'mj-accordion',
     'mj-button',
+    'mj-badge',
     'mj-carousel',
     'mj-divider',
     'mj-html',

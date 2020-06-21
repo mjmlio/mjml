@@ -21,6 +21,7 @@ import HeadStyle from 'mjml-head-style'
 import HeadTitle from 'mjml-head-title'
 import Hero from 'mjml-hero'
 import Button from 'mjml-button'
+import Badge from 'mjml-badge'
 import Column from 'mjml-column'
 import Divider from 'mjml-divider'
 import Group from 'mjml-group'
@@ -43,6 +44,7 @@ registerComponent(HeadPreview)
 registerComponent(HeadStyle)
 registerComponent(HeadTitle)
 registerComponent(Hero)
+registerComponent(Badge)
 registerComponent(Button)
 registerComponent(Column)
 registerComponent(Divider)

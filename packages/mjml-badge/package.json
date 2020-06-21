@@ -1,0 +1,28 @@
+{
+  "name": "mjml-badge",
+  "description": "mjml-badge",
+  "version": "4.7.0-beta.1",
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mjmlio/mjml.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mjmlio/mjml/issues"
+  },
+  "homepage": "https://mjml.io",
+  "scripts": {
+    "clean": "rimraf lib",
+    "build": "babel src --out-dir lib --root-mode upward"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.8.7",
+    "lodash": "^4.17.15",
+    "mjml-core": "4.7.0-beta.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "rimraf": "^3.0.2"
+  }
+}

@@ -3,6 +3,9 @@
   "description": "mjml-head-title",
   "version": "4.7.0-beta.1",
   "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mjmlio/mjml.git"

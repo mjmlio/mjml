@@ -6,6 +6,9 @@
   "bin": {
     "migrate": "lib/cli.js"
   },
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "clean": "rimraf lib",
     "build": "babel src --out-dir lib --root-mode upward"

@@ -6,6 +6,10 @@
   "bin": {
     "mjml": "bin/mjml"
   },
+  "files": [
+    "bin",
+    "lib"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mjmlio/mjml.git"

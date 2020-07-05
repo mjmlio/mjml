@@ -80,7 +80,8 @@ Fluid height
 
 <p align="center">
   <a href="https://mjml.io/try-it-live/components/hero/1">
-    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
+    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg"
+      alt="try it live" />
   </a>
 </p>
 
@@ -89,15 +90,21 @@ Fluid height
 </aside>
 
 <aside class="notice">
-  <span style="font-weight:bold;">The background position does not work in fluid-height mode on outlook.com</span>
+  <span style="font-weight:bold;">The background position does not work in fluid-height mode
+   on Outlook.com</span>
 </aside>
 
 <aside class="notice">
-For better result we encourage you to use a background image width equal to the hero container width and always specify a fallback background color, in case the user email client does not support background images.
+  For all uses of "mj-hero", it's best to set attribute "background-width" 
+  to the "mj-hero" container width and to specify a "background-color"
+  (for use only on the few clients that don't support "background-url").
 </aside>
 
 <aside class="notice">
-  Please keep the hero container height below the image height. When the hero container height - both in fixed or fluid modes - is greater than the background image height, we can’t guarantee a perfect rendering in all supported email clients
+  Please keep the hero container height below the image height.
+  When the hero container height &mdash; both in fixed and fluid modes &mdash; 
+  is greater than the background image height, we can’t guarantee
+  a perfect rendering in all supported email clients.
 </aside>
 
 attribute           | unit                                | description                                                          | default value
@@ -107,7 +114,7 @@ background-height   | px                                  | height of the image 
 background-position | top/center/bottom left/center/right | background image position                                            | center center
 background-url      | url                                 | absolute background url                                              | n/a
 background-width    | px                                  | width of the image used                                              | parent element width
-css-class | string | class name, added to the root HTML element created | n/a
+css-class           | string                              | class name, added to the root HTML element created                   | n/a
 height              | px                                  | hero section height (required for fixed-height mode)                 | 0px
 mode                | fluid-height/fixed-height           | choose if the height is fixed based on the height attribute or fluid | fluid-height
 padding             | px                                  | supports up to 4 parameters                                          | 0px

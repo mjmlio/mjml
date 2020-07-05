@@ -3,6 +3,11 @@
 Columns enable you to horizontally organize the content within your sections. They must be located under `mj-section` tags in order to be considered by the engine.
 To be responsive, columns are expressed in terms of percentage.
 
+<aside class="notice">
+  The sum of columns in a section cannot be greater than
+      the width of the parent `mj-section` (or 100%).
+</aside>
+
 Every single column has to contain something because they are responsive containers, and will be vertically stacked on a mobile view. Any standard component, or component that you have defined and registered, can be placed within a column – except `mj-column` or `mj-section` elements.
 
 ```xml

@@ -86,7 +86,8 @@ Fluid height
 </p>
 
 <aside class="notice">
-  The height attribute is required only for the fixed-height mode
+  For "mode="fixed-height", both "background-height" and "background-width"
+  are necessary.
 </aside>
 
 <aside class="notice">

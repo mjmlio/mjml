@@ -1,6 +1,6 @@
 ## mj-hero
 
-This element displays an hero image in the background of an email.
+This element displays a hero image in the background of an email.
 It behaves like an `mj-section` with a single `mj-column`.
 
 Set `background-height` and `background-width`
@@ -11,12 +11,10 @@ In both fixed and fluid modes, it's best to use an image with width
   the same as the `mj-body` width (`width="600px"` by default).
 Further, it's best to use an image with height the same or larger
   than the `height` of `mj-hero`.
-Poor rendering frequently results from image sizes outside
-  this guidance.
+Image sizes outside this guidance often result in poor rendering.
 
-You should add a `background-color` to provide a fallback color if the email client doesn't support background image.
-Some clients don't support `background-url`.
-Many more clients support `background-color`.
+Use `background-color` to provide a fallback color
+  ins case an email client doesn't support `background-url`.
 
 Fixed height  
 
@@ -108,8 +106,8 @@ Fluid height
 </aside>
 
 <aside class="notice">
-  Outlook.com does not support 'background-position' with 
-  'mode="fluid-height"'.
+  Email client support of 'background-position' with 
+  'mode="fluid-height"' is spotty.
 </aside>
 
 attribute           | unit                                | description                                                          | default value

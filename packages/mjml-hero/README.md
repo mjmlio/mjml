@@ -14,7 +14,7 @@ Further, it's best to use an image with height the same or larger
 Image sizes outside this guidance often result in poor rendering.
 
 Use `background-color` to provide a fallback color
-  ins case an email client doesn't support `background-url`.
+  in case an email client doesn't support `background-url`.
 
 Fixed height  
 

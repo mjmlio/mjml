@@ -1,6 +1,6 @@
 ## mj-hero
 
-This element displays an image in the background of an email.
+This element displays an hero image in the background of an email.
 It behaves like an `mj-section` with a single `mj-column`.
 
 Set `background-height` and `background-width`
@@ -14,7 +14,7 @@ Further, it's best to use an image with height the same or larger
 Poor rendering frequently results from image sizes outside
   this guidance.
 
-For the widest great rendering, always specify `background-color`.
+You should add a `background-color` to provide a fallback color if the email client doesn't support background image.
 Some clients don't support `background-url`.
 Many more clients support `background-color`.
 

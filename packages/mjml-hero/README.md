@@ -4,17 +4,23 @@ This element displays a hero image in the background of an email.
 It behaves like an `mj-section` with a single `mj-column`.
 
 `background-height` and `background-width` attributes are mandatory.
-  to the actual height and width of the image identified in
-  `background-url`.
 
 In both fixed and fluid modes, it's best to use an image with width
   the same as the `mj-body` width (`width="600px"` by default).
 For better results, it's best to use an image with height the same or larger
   than the `height` of `mj-hero`.
-Image sizes outside this guidance often result in poor rendering.
 
 Use `background-color` to provide a fallback color
   in case an email client doesn't support `background-url`.
+
+<aside class="notice">
+  The "height" attribute is required only for 'mode="fixed-height"'.
+</aside>
+
+<aside class="notice">
+  Email client support of 'background-position' with 'mode="fluid-height"' is
+      not consistent.
+</aside>
 
 Fixed height  
 
@@ -101,15 +107,6 @@ Fluid height
   </a>
 </p>
 
-<aside class="notice">
-   The "height" attribute is required only for 'mode="fixed-height"'. 
-</aside>
-
-<aside class="notice">
-  Email client support of 'background-position' with 
-  'mode="fluid-height"' is spotty.
-</aside>
-
 attribute           | unit                                | description                                                          | default value
 --------------------|-------------------------------------|----------------------------------------------------------------------|--------------
 background-color    | color                               | hero background color                                                | #ffffff
@@ -117,7 +114,6 @@ background-height   | px                                  | height of the image 
 background-position | top/center/bottom left/center/right | background image position                                            | center center
 background-url      | url                                 | absolute background url                                              | n/a
 background-width    | px                                  | width of the image used                                              | parent element width
-css-class           | string                              | class name, added to the root HTML element created                   | n/a
 height              | px                                  | hero section height (required for fixed-height mode)                 | 0px
 mode                | fluid-height/fixed-height           | choose if the height is fixed based on the height attribute or fluid | fluid-height
 padding             | px                                  | supports up to 4 parameters                                          | 0px

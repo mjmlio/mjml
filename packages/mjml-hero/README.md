@@ -1,6 +1,6 @@
 ## mj-hero
 
-This element displays a hero image in the background of an email.
+This element displays a hero image.
 It behaves like an `mj-section` with a single `mj-column`.
 
 `background-height` and `background-width` attributes are mandatory.

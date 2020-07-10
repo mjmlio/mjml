@@ -9,7 +9,7 @@ It behaves like an `mj-section` with a single `mj-column`.
 
 In both fixed and fluid modes, it's best to use an image with width
   the same as the `mj-body` width (`width="600px"` by default).
-Further, it's best to use an image with height the same or larger
+For better results, it's best to use an image with height the same or larger
   than the `height` of `mj-hero`.
 Image sizes outside this guidance often result in poor rendering.
 

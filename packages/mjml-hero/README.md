@@ -3,7 +3,7 @@
 This element displays a hero image in the background of an email.
 It behaves like an `mj-section` with a single `mj-column`.
 
-Set `background-height` and `background-width`
+`background-height` and `background-width` attributes are mandatory.
   to the actual height and width of the image identified in
   `background-url`.
 

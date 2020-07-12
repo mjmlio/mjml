@@ -5,8 +5,8 @@ It behaves like an `mj-section` with a single `mj-column`.
 
 `background-height` and `background-width` attributes are mandatory.
 
-In both fixed and fluid modes, it's best to use an image with width
-  the same as the `mj-body` width (`width="600px"` by default).
+It's best to use an image with width the same as the `mj-body` width
+  (`width="600px"` by default).
 For better results, it's best to use an image with height the same or larger
   than the `height` of `mj-hero`.
 

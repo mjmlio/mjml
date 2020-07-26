@@ -26,7 +26,7 @@ For instance, MJML converts the simple `mj-button` code here to the longer HTML 
 
 ## mjml
 
-An MJML document starts with an `<mjml>` tag. It can contain only `mj-head` and `mj-body` tags. These the same purpose as `head` and `body` tags in an HTML document.
+An MJML document starts with an `<mjml>` tag. It can contain only `mj-head` and `mj-body` tags. These have the same purpose as `head` and `body` tags in an HTML document.
 
 attribute | unit   | description                               | default value
 ----------|--------|-------------------------------------------|---------------

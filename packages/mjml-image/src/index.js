@@ -131,7 +131,7 @@ export default class MjImage extends BodyComponent {
     return img
   }
 
-  headStyle = breakpoint => `
+  headStyle = (breakpoint) => `
     @media only screen and (max-width:${breakpoint}) {
       table.mj-full-width-mobile { width: 100% !important; }
       td.mj-full-width-mobile { width: auto !important; }

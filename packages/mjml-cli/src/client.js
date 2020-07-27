@@ -8,13 +8,13 @@ import migrate from 'mjml-migrate'
 import validate from 'mjml-validator'
 import MJMLParser from 'mjml-parser-xml'
 
+import { version as coreVersion } from 'mjml-core/package.json'
 import readFile, { flatMapPaths } from './commands/readFile'
 import watchFiles from './commands/watchFiles'
 import readStream from './commands/readStream'
 import outputToFile, { isDirectory } from './commands/outputToFile'
 import outputToConsole from './commands/outputToConsole'
 
-import { version as coreVersion } from 'mjml-core/package.json' // eslint-disable-line import/first
 import { version as cliVersion } from '../package.json'
 import DEFAULT_OPTIONS from './helpers/defaultOptions'
 
@@ -22,20 +22,20 @@ export default async () => {
   let EXIT_CODE = 0
   let KEEP_OPEN = false
 
-  const error = msg => {
+  const error = (msg) => {
     console.error('\nCommand line error:') // eslint-disable-line no-console
     console.error(msg) // eslint-disable-line no-console
 
     process.exit(1)
   }
 
-  const pickArgs = args =>
+  const pickArgs = (args) =>
     flow(
       pick(args),
-      pickBy(e => negate(isNil)(e) && !(isArray(e) && isEmpty(e))),
+      pickBy((e) => negate(isNil)(e) && !(isArray(e) && isEmpty(e))),
     )
 
-  const argv = yargs
+  const { argv } = yargs
     .version(false) // cf. https://github.com/yargs/yargs/issues/961
     .options({
       r: {
@@ -81,7 +81,7 @@ export default async () => {
       },
     })
     .help()
-    .version(`mjml-core: ${coreVersion}\nmjml-cli: ${cliVersion}`).argv
+    .version(`mjml-core: ${coreVersion}\nmjml-cli: ${cliVersion}`)
 
   let juiceOptions
   let minifyOptions
@@ -146,7 +146,7 @@ export default async () => {
         argv.o !== '',
       'Need an output option when watching files',
     ],
-  ].forEach(v => (v[0] ? error(v[1]) : null))
+  ].forEach((v) => (v[0] ? error(v[1]) : null))
 
   const inputOpt = Object.keys(inputArgs)[0]
   const outputOpt = Object.keys(outputArgs)[0] || 's'
@@ -161,7 +161,7 @@ export default async () => {
     case 'v':
     case 'm':
     case '_': {
-      flatMapPaths(inputFiles).forEach(file => {
+      flatMapPaths(inputFiles).forEach((file) => {
         inputs.push(readFile(file))
       })
 
@@ -185,14 +185,14 @@ export default async () => {
   const convertedStream = []
   const failedStream = []
 
-  inputs.forEach(i => {
+  inputs.forEach((i) => {
     try {
       let compiled
       switch (inputOpt) {
-        case 'm': // eslint-disable-line no-case-declarations
+        case 'm':
           compiled = { html: migrate(i.mjml, { beautify: true }) }
           break
-        case 'v': // eslint-disable-line no-case-declarations
+        case 'v': // eslint-disable-next-line no-case-declarations
           const mjmlJson = MJMLParser(i.mjml, { components })
           compiled = {
             errors: validate(mjmlJson, { components, initializeType }),
@@ -213,14 +213,13 @@ export default async () => {
     }
   })
 
-  convertedStream.forEach(s => {
+  convertedStream.forEach((s) => {
     if (get(s, 'compiled.errors.length')) {
       console.error(map(s.compiled.errors, 'formattedMessage').join('\n')) // eslint-disable-line no-console
     }
   })
 
   failedStream.forEach(({ error, file }) => {
-    // eslint-disable-line array-callback-return
     console.error(`${file ? `File: ${file}\n` : null}${error}`) // eslint-disable-line no-console
 
     if (config.stack) {
@@ -231,7 +230,7 @@ export default async () => {
   if (inputOpt === 'v') {
     const isInvalid =
       failedStream.length ||
-      convertedStream.some(s => !!get(s, 'compiled.errors.length'))
+      convertedStream.some((s) => !!get(s, 'compiled.errors.length'))
 
     if (isInvalid) {
       error('Validation failed')

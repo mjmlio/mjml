@@ -155,7 +155,7 @@ export default function mjml2html(mjml, options = {}) {
       if (errors.length > 0) {
         throw new ValidationError(
           `ValidationError: \n ${errors
-            .map(e => e.formattedMessage)
+            .map((e) => e.formattedMessage)
             .join('\n')}`,
           errors,
         )
@@ -195,7 +195,7 @@ export default function mjml2html(mjml, options = {}) {
     }
   }
 
-  const applyAttributes = mjml => {
+  const applyAttributes = (mjml) => {
     const parse = (mjml, parentMjClass = '') => {
       const { attributes, tagName, children } = mjml
       const classes = get(mjml.attributes, 'mj-class', '').split(' ')
@@ -240,7 +240,7 @@ export default function mjml2html(mjml, options = {}) {
         globalAttributes: {
           ...globalDatas.defaultAttributes['mj-all'],
         },
-        children: map(children, mjml => parse(mjml, nextParentMjClass)),
+        children: map(children, (mjml) => parse(mjml, nextParentMjClass)),
       }
     }
 
@@ -259,7 +259,7 @@ export default function mjml2html(mjml, options = {}) {
     addComponentHeadSyle(headStyle) {
       globalDatas.componentsHeadStyle.push(headStyle)
     },
-    setBackgroundColor: color => {
+    setBackgroundColor: (color) => {
       globalDatas.backgroundColor = color
     },
     processing: (node, context) => processing(node, context, applyAttributes),
@@ -277,9 +277,11 @@ export default function mjml2html(mjml, options = {}) {
               ...params[1],
             }
           } else {
+            // eslint-disable-next-line prefer-destructuring
             globalDatas[attr][params[0]] = params[1]
           }
         } else {
+          // eslint-disable-next-line prefer-destructuring
           globalDatas[attr] = params[0]
         }
       } else {
@@ -350,7 +352,7 @@ export default function mjml2html(mjml, options = {}) {
     each(globalDatas.htmlAttributes, (data, selector) => {
       each(data, (value, attrName) => {
         $(selector).each(function getAttr() {
-          $(this).attr(attrName, value)
+          $(this).attr(attrName, value || '')
         })
       })
     })

@@ -5,7 +5,7 @@ export default function errorAttr(element) {
 
   if (!errors) return null
 
-  return errors.map(error => {
+  return errors.map((error) => {
     switch (error.type) {
       case 'include': {
         const { file, partialPath } = error.params

@@ -66,7 +66,7 @@ export function registerCustomComponent(
     registerCompFn(comp)
   } else {
     const compNames = Object.keys(comp) // this approach handles both an array and an object (like the mjml-accordion default export)
-    compNames.forEach(compName => {
+    compNames.forEach((compName) => {
       registerCustomComponent(comp[compName], registerCompFn)
     })
   }
@@ -82,7 +82,7 @@ export function handleMjmlConfigComponents(
     failures: [],
   }
 
-  packages.forEach(compPath => {
+  packages.forEach((compPath) => {
     let resolvedPath = compPath
     try {
       resolvedPath = resolveComponentPath(compPath, componentRootPath)

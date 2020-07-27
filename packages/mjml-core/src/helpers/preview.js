@@ -1,4 +1,4 @@
-export default function(content) {
+export default function (content) {
   if (content === '') {
     return ''
   }

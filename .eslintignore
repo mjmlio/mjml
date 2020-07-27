@@ -2,5 +2,6 @@ node_modules
 lib
 packages/mjml-core/src/types*
 type.js
+test-html-attributes.js
 test.js
 babel.config.js

@@ -7,13 +7,16 @@ export default class MjHtmlAttributes extends HeadComponent {
     const { children } = this.props
 
     children
-      .filter(c => c.tagName === 'mj-selector')
-      .forEach(selector => {
-        const { tagName, attributes, children } = selector
+      .filter((c) => c.tagName === 'mj-selector')
+      .forEach((selector) => {
+        const { attributes, children } = selector
         const { path } = attributes
 
         const custom = children
-          .filter(c => c.tagName === 'mj-html-attribute' && !!get(c, 'attributes.name'))
+          .filter(
+            (c) =>
+              c.tagName === 'mj-html-attribute' && !!get(c, 'attributes.name'),
+          )
           .reduce(
             (acc, c) => ({
               ...acc,

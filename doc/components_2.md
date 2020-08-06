@@ -12,7 +12,7 @@ The `mjml-core` package allows you to include external `mjml` files to build you
 ```
 
 You can wrap your external mjml files inside the default `mjml > mj-body`
-tags to make it easier to preview outside the main template
+tags to make it easier to preview outside the main template.
 
 
 ```xml
@@ -24,8 +24,8 @@ tags to make it easier to preview outside the main template
 </mjml>
 ```
 
-The `MJML` engine will then replace your included files before starting the rendering process
+The `MJML` engine will then replace your included files before starting the rendering process.
 
 <aside class="notice">
-Note that the file must be a file with a `.mjml` extension
+The file must have an '.mjml' extension.
 </aside>

@@ -25,7 +25,3 @@ tags to make it easier to preview outside the main template
 ```
 
 The `MJML` engine will then replace your included files before starting the rendering process
-
-<aside class="notice">
-Note that the file must be a file with a `.mjml` extension
-</aside>

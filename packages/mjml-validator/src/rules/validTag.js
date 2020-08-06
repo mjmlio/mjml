@@ -5,8 +5,6 @@ import ruleError from './ruleError'
 const componentLessTags = [
   'mj-all',
   'mj-class',
-  'mj-selector',
-  'mj-html-attribute',
 ]
 
 export default function validateTag(element, { components }) {

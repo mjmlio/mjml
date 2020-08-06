@@ -1,4 +1,4 @@
-const unavailableTags = ['mj-html', 'mj-invoice', 'mj-list', 'mj-location']
+const unavailableTags = []
 
 const attributesWithUnit = [
   'background-size',

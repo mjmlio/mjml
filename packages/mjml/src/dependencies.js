@@ -61,3 +61,4 @@ export default {
   'mj-text': [],
   'mj-wrapper': ['mj-hero', 'mj-raw', 'mj-section'],
 }
+

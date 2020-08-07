@@ -10,8 +10,8 @@ If you're looking for MJML 3.3.X check [this branch](https://github.com/mjmlio/m
 </p>
 
 <p align="center">
-  <a href="https://travis-ci.org/mjmlio/mjml">
-    <img src="https://travis-ci.org/mjmlio/mjml.svg?branch=master" alt="travis">
+  <a href="https://github.com/mjmlio/mjml/actions">
+    <img src="https://github.com/mjmlio/mjml/workflows/Mjml%20CI/badge.svg?branch=master" alt="github actions">
   </a>
   <a href="https://www.codacy.com/app/gbadi/mjml">
     <img src="https://api.codacy.com/project/badge/grade/575339cb861f4ff4b0dbb3f9e1759c35"/>
@@ -30,7 +30,7 @@ If you're looking for MJML 3.3.X check [this branch](https://github.com/mjmlio/m
 
 # Introduction
 
-`MJML` is a markup language created by [Mailjet](https://www.mailjet.com/) and designed to reduce the pain of coding a responsive email. Its semantic syntax makes it easy and straightforward while its rich standard components library fastens your development time and lightens your email codebase. MJML’s open-source engine takes care of translating the `MJML` you wrote into responsive HTML.
+`MJML` is a markup language created by [Mailjet](https://www.mailjet.com/) and designed to reduce the pain of coding a responsive email. Its semantic syntax makes the language easy and straightforward while its rich standard components library shortens your development time and lightens your email codebase. MJML’s open-source engine takes care of translating the `MJML` you wrote into responsive HTML.
 
 <p align="center">
   <a href="https://mjml.io" target="_blank">

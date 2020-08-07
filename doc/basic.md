@@ -1,4 +1,3 @@
-
 # Basic layout example
 
 In this section, you're going to learn how to code a basic email template using MJML.
@@ -195,7 +194,6 @@ This section is a 3-columns-based section. Please notice you can make the paddin
     </mj-social>
   </mj-column>
 </mj-section>
-
 ```
 The MJML standard components library comes with a `mj-social` component.
 Here, we're going to use `facebook` only.

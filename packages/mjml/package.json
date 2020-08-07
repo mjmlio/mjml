@@ -1,14 +1,19 @@
 {
   "name": "mjml",
   "description": "MJML: the only framework that makes responsive-email easy",
-  "version": "4.6.3",
+  "version": "4.7.0-beta.1",
   "main": "lib/index.js",
   "bin": {
     "mjml": "bin/mjml"
   },
+  "files": [
+    "bin",
+    "lib"
+  ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mjmlio/mjml.git"
+    "url": "git+https://github.com/mjmlio/mjml.git",
+    "directory": "packages/mjml"
   },
   "license": "MIT",
   "bugs": {
@@ -21,40 +26,41 @@
     "test": "node ./test/test-html-attributes.js"
   },
   "dependencies": {
-    "mjml-accordion": "4.6.3",
-    "mjml-body": "4.6.3",
-    "mjml-button": "4.6.3",
-    "mjml-carousel": "4.6.3",
-    "mjml-cli": "4.6.3",
-    "mjml-column": "4.6.3",
-    "mjml-core": "4.6.3",
-    "mjml-divider": "4.6.3",
-    "mjml-group": "4.6.3",
-    "mjml-head": "4.6.3",
-    "mjml-head-attributes": "4.6.3",
-    "mjml-head-html-attributes": "4.6.3",
-    "mjml-head-breakpoint": "4.6.3",
-    "mjml-head-font": "4.6.3",
-    "mjml-head-preview": "4.6.3",
-    "mjml-head-style": "4.6.3",
-    "mjml-head-title": "4.6.3",
-    "mjml-hero": "4.6.3",
-    "mjml-image": "4.6.3",
-    "mjml-migrate": "4.6.3",
-    "mjml-navbar": "4.6.3",
-    "mjml-raw": "4.6.3",
-    "mjml-section": "4.6.3",
-    "mjml-social": "4.6.3",
-    "mjml-spacer": "4.6.3",
-    "mjml-table": "4.6.3",
-    "mjml-text": "4.6.3",
-    "mjml-validator": "4.6.3",
-    "mjml-wrapper": "4.6.3"
+    "mjml-accordion": "4.7.0-beta.1",
+    "mjml-body": "4.7.0-beta.1",
+    "mjml-button": "4.7.0-beta.1",
+    "mjml-carousel": "4.7.0-beta.1",
+    "mjml-cli": "4.7.0-beta.1",
+    "mjml-column": "4.7.0-beta.1",
+    "mjml-core": "4.7.0-beta.1",
+    "mjml-divider": "4.7.0-beta.1",
+    "mjml-group": "4.7.0-beta.1",
+    "mjml-head": "4.7.0-beta.1",
+    "mjml-head-attributes": "4.7.0-beta.1",
+    "mjml-head-breakpoint": "4.7.0-beta.1",
+    "mjml-head-font": "4.7.0-beta.1",
+    "mjml-head-html-attributes": "4.7.0-beta.1",
+    "mjml-head-preview": "4.7.0-beta.1",
+    "mjml-head-style": "4.7.0-beta.1",
+    "mjml-head-title": "4.7.0-beta.1",
+    "mjml-hero": "4.7.0-beta.1",
+    "mjml-image": "4.7.0-beta.1",
+    "mjml-migrate": "4.7.0-beta.1",
+    "mjml-navbar": "4.7.0-beta.1",
+    "mjml-raw": "4.7.0-beta.1",
+    "mjml-section": "4.7.0-beta.1",
+    "mjml-social": "4.7.0-beta.1",
+    "mjml-spacer": "4.7.0-beta.1",
+    "mjml-table": "4.7.0-beta.1",
+    "mjml-text": "4.7.0-beta.1",
+    "mjml-validator": "4.7.0-beta.1",
+    "mjml-wrapper": "4.7.0-beta.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
-    "cross-env": "^5.2.0",
+    "chai": "^4.1.1",
     "cheerio": "1.0.0-rc.3",
+    "lodash": "^4.17.15",
     "rimraf": "^3.0.2"
   }
 }

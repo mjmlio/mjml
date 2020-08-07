@@ -1,0 +1,16 @@
+name: Build Documentation
+
+on:
+  push:
+    tags: ['*']
+
+jobs:
+  buildDoc:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Documentation Build
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.documentation_token }}
+          repository: mjmlio/slate
+          event-type: build-doc

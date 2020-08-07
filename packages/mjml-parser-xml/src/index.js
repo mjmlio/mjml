@@ -9,7 +9,7 @@ import cleanNode from './helpers/cleanNode'
 import convertBooleansOnAttrs from './helpers/convertBooleansOnAttrs'
 import setEmptyAttributes from './helpers/setEmptyAttributes'
 
-const indexesForNewLine = xml => {
+const indexesForNewLine = (xml) => {
   const regex = /\n/gi
   const indexes = [0]
 
@@ -37,8 +37,8 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
   } = options
 
   const endingTags = flow(
-    filter(component => component.endingTag),
-    map(component => component.getTagName()),
+    filter((component) => component.endingTag),
+    map((component) => component.getTagName()),
   )({ ...components })
 
   let cwd = process.cwd()
@@ -115,7 +115,7 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
     )
 
     const bindToTree = (children, tree = cur) =>
-      children.map(c => ({ ...c, parent: tree }))
+      children.map((c) => ({ ...c, parent: tree }))
 
     if (partialMjml.tagName !== 'mjml') {
       return
@@ -173,7 +173,8 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
           }
         }
 
-        const line = findLastIndex(lineIndexes, i => i <= parser.startIndex) + 1
+        const line =
+          findLastIndex(lineIndexes, (i) => i <= parser.startIndex) + 1
 
         if (name === 'mj-include') {
           if (ignoreIncludes) return
@@ -207,7 +208,7 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
 
         cur = newNode
       },
-      onclosetag: name => {
+      onclosetag: (name) => {
         if (endingTags.indexOf(name) !== -1) {
           inEndingTag -= 1
 
@@ -241,19 +242,19 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
         // only mj-head in include it doesn't create any elements, so setting back to parent is wrong
         if (name !== 'mj-include') cur = (cur && cur.parent) || null
       },
-      ontext: text => {
+      ontext: (text) => {
         if (inEndingTag > 0) return
 
         if (text && text.trim() && cur) {
           cur.content = `${(cur && cur.content) || ''}${text.trim()}`.trim()
         }
       },
-      oncomment: data => {
+      oncomment: (data) => {
         if (inEndingTag > 0) return
 
         if (cur && keepComments) {
           cur.children.push({
-            line: findLastIndex(lineIndexes, i => i <= parser.startIndex) + 1,
+            line: findLastIndex(lineIndexes, (i) => i <= parser.startIndex) + 1,
             tagName: 'mj-raw',
             content: `<!-- ${data.trim()} -->`,
             includedIn,

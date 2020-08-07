@@ -1,11 +1,15 @@
 {
   "name": "mjml-head-attributes",
   "description": "mjml-head-attributes",
-  "version": "4.6.3",
+  "version": "4.7.0-beta.1",
   "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mjmlio/mjml.git"
+    "url": "git+https://github.com/mjmlio/mjml.git",
+    "directory": "packages/mjml-head-attributes"
   },
   "license": "MIT",
   "bugs": {
@@ -19,7 +23,7 @@
   "dependencies": {
     "@babel/runtime": "^7.8.7",
     "lodash": "^4.17.15",
-    "mjml-core": "4.6.3"
+    "mjml-core": "4.7.0-beta.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",

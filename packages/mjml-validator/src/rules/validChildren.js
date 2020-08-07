@@ -13,7 +13,7 @@ export default function validChildren(element, { components, skipElements }) {
   }
 
   return filter(
-    children.map(child => {
+    children.map((child) => {
       const childTagName = child.tagName
       const ChildComponent = components[childTagName]
       const parentDependencies = dependencies[tagName] || []
@@ -23,17 +23,17 @@ export default function validChildren(element, { components, skipElements }) {
         includes(skipElements, childTagName) ||
         includes(parentDependencies, childTagName) ||
         parentDependencies.some(
-          dep => dep instanceof RegExp && dep.test(childTagName),
+          (dep) => dep instanceof RegExp && dep.test(childTagName),
         )
       ) {
         return null
       }
 
       const allowedDependencies = keys(dependencies).filter(
-        key =>
+        (key) =>
           includes(dependencies[key], childTagName) ||
           dependencies[key].some(
-            dep => dep instanceof RegExp && dep.test(childTagName),
+            (dep) => dep instanceof RegExp && dep.test(childTagName),
           ),
       )
 

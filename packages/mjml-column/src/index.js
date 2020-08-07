@@ -52,8 +52,9 @@ export default class MjColumn extends BodyComponent {
     })
 
     if (unit === '%') {
-      containerWidth = `${(parseFloat(parentWidth) * parsedWidth) / 100 -
-        allPaddings}px`
+      containerWidth = `${
+        (parseFloat(parentWidth) * parsedWidth) / 100 - allPaddings
+      }px`
     } else {
       containerWidth = `${parsedWidth - allPaddings}px`
     }
@@ -121,7 +122,8 @@ export default class MjColumn extends BodyComponent {
 
     if (mobileWidth !== 'mobileWidth') {
       return '100%'
-    } else if (width === undefined) {
+    }
+    if (width === undefined) {
       return `${parseInt(100 / nonRawSiblings, 10)}%`
     }
 
@@ -205,7 +207,7 @@ export default class MjColumn extends BodyComponent {
       'padding-left',
       'padding-right',
       'padding-top',
-    ].some(attr => this.getAttribute(attr) != null)
+    ].some((attr) => this.getAttribute(attr) != null)
   }
 
   renderGutter() {
@@ -245,9 +247,7 @@ export default class MjColumn extends BodyComponent {
         })}
       >
         ${this.renderChildren(children, {
-          renderer: (
-            component, // eslint-disable-line no-confusing-arrow
-          ) =>
+          renderer: (component) =>
             component.constructor.isRawElement()
               ? component.render()
               : `

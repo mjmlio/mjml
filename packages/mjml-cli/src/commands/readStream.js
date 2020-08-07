@@ -1,10 +1,10 @@
 const stdinSync = () =>
-  new Promise(res => {
+  new Promise((res) => {
     let buffer = ''
 
     const stream = process.stdin
 
-    stream.on('data', chunck => {
+    stream.on('data', (chunck) => {
       buffer += chunck
     })
 

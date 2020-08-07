@@ -1,18 +1,22 @@
 {
   "name": "mjml-migrate",
-  "version": "4.6.3",
+  "version": "4.7.0-beta.1",
   "description": "A tool to migrate a template from MJML 3 to MJML 4",
   "main": "lib/migrate.js",
   "bin": {
     "migrate": "lib/cli.js"
   },
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "clean": "rimraf lib",
     "build": "babel src --out-dir lib --root-mode upward"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mjmlio/mjml.git"
+    "url": "git+https://github.com/mjmlio/mjml.git",
+    "directory": "packages/mjml-migrate"
   },
   "author": "Nicolas Garnier",
   "license": "MIT",
@@ -25,7 +29,7 @@
     "commander": "^2.11.0",
     "js-beautify": "^1.6.14",
     "lodash": "^4.17.15",
-    "mjml-core": "4.6.3",
-    "mjml-parser-xml": "4.6.3"
+    "mjml-core": "4.7.0-beta.1",
+    "mjml-parser-xml": "4.7.0-beta.1"
   }
 }

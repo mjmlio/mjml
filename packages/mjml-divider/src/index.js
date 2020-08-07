@@ -29,7 +29,7 @@ export default class MjDivider extends BodyComponent {
   getStyles() {
     const p = {
       'border-top': ['style', 'width', 'color']
-        .map(attr => this.getAttribute(`border-${attr}`))
+        .map((attr) => this.getAttribute(`border-${attr}`))
         .join(' '),
       'font-size': '1px',
       margin: '0px auto',
@@ -57,9 +57,10 @@ export default class MjDivider extends BodyComponent {
 
     switch (unit) {
       case '%':
-        return `${(parseInt(containerWidth, 10) * parseInt(parsedWidth, 10)) /
-          100 -
-          paddingSize}px`
+        return `${
+          (parseInt(containerWidth, 10) * parseInt(parsedWidth, 10)) / 100 -
+          paddingSize
+        }px`
       case 'px':
         return width
       default:

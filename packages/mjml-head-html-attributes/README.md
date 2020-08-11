@@ -28,7 +28,7 @@ In the generated html, a mj-text becomes a `td`, and a `div` inside this `td`. I
 
 To use this component, you will likely have to look at the generated html to see where exactly are the `css-class` applied, to know which css selector you need to use to add your custom attribute on the right html tag.
 
-You can use multiple `mj-selector` inside a `mj-html-attributes`, and multiple `mj-custom` inside a `mj-selector`.
+You can use multiple `mj-selector` inside a `mj-html-attributes`, and multiple `mj-html-attribute` inside a `mj-selector`.
   
 
 <p align="center">

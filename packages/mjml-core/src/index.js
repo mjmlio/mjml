@@ -364,6 +364,7 @@ export default function mjml2html(mjml, options = {}) {
 
   return {
     html: content,
+    json: mjml,
     errors,
   }
 }

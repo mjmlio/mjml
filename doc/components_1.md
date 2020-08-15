@@ -50,4 +50,4 @@ lang      | string | sets the `<html lang="">` attribute       | none
 
 ## mj-head
 
-See [head components](#standard-head-components)).
+See [head components](#standard-head-components).

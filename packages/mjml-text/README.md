@@ -25,7 +25,7 @@ This tag allows you to display text in your email.
 </p>
 
 <aside class="notice">
-  `MjText` can contain any HTML tag with any attributes. Don't forget to encode special characters to avoid unexpected behaviour from MJML's parser
+  `mj-text` elements can contain any HTML tag with any attributes.
 </aside>
 
  attribute                    | unit          | description                                 | default value

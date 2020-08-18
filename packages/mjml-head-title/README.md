@@ -1,6 +1,6 @@
 ## mj-title
 
-This tag allows you to set the title of an MJML document
+Defines the document's title that browsers show in the title bar or a page's tab.
 
  ```xml
 <mjml>

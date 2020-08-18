@@ -193,7 +193,11 @@ export default async () => {
           compiled = { html: migrate(i.mjml, { beautify: true }) }
           break
         case 'v': // eslint-disable-next-line no-case-declarations
-          const mjmlJson = MJMLParser(i.mjml, { components })
+          const mjmlJson = MJMLParser(i.mjml, {
+            components,
+            filePath: filePath || i.file,
+            actualPath: i.file,
+          })
           compiled = {
             errors: validate(mjmlJson, { components, initializeType }),
           }

@@ -19,7 +19,7 @@ export default class MjSection extends BodyComponent {
     'border-right': 'string',
     'border-top': 'string',
     direction: 'enum(ltr,rtl)',
-    'full-width': 'enum(full-width)',
+    'full-width': 'enum(full-width,false,)',
     padding: 'unit(px,%){1,4}',
     'padding-top': 'unit(px,%)',
     'padding-bottom': 'unit(px,%)',

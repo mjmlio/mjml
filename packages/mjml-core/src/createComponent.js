@@ -109,7 +109,7 @@ export class BodyComponent extends Component {
       direction && this.getAttribute(`border-${direction}`)
     const border = this.getAttribute('border')
 
-    return borderParser(borderDirection || border || '0', 10)
+    return borderParser(borderDirection || border || '0')
   }
 
   getBoxWidths() {

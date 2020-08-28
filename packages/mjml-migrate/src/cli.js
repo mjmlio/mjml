@@ -1,21 +1,21 @@
-#!/bin/env node
+#!/usr/bin/env node
 
 import fs from 'fs'
-import program from 'commander'
+import yargs from 'yargs'
 import migrate from './migrate'
 import { version } from '../package.json'
 
-program
+const program = yargs
+  .usage('$0 [options] <input-file> <output-file>')
   .version(version)
-  .usage('[options] <input-file> <output-file>')
-  .parse(process.argv)
+  .help()
 
-if (program.args.length !== 2) {
-  program.outputHelp()
+if (program.argv._.length !== 2) {
+  program.showHelp()
   process.exit(1)
 }
 
-const [inputFilename, outputFilename] = program.args
+const [inputFilename, outputFilename] = program.argv._
 
 const input = fs.readFileSync(inputFilename, 'utf8')
 const output = migrate(input)

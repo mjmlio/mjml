@@ -301,6 +301,23 @@ export default function mjml2html(mjml, options = {}) {
   if (minify && minify !== 'false') {
     content = minifyOutlookConditionnals(content)
   }
+  
+  if (!isEmpty(globalDatas.htmlAttributes)) {
+    const $ = cheerio.load(content, {
+      xmlMode: true, // otherwise it may move contents that aren't in any tag
+      decodeEntities: false, // won't escape special characters
+    })
+
+    each(globalDatas.htmlAttributes, (data, selector) => {
+      each(data, (value, attrName) => {
+        $(selector).each(function getAttr() {
+          $(this).attr(attrName, value)
+        })
+      })
+    })
+
+    content = $.root().html()
+  }
 
   content = skeleton({
     content,
@@ -341,23 +358,6 @@ export default function mjml2html(mjml, options = {}) {
       removeEmptyAttributes: true,
       ...minifyOptions,
     })
-  }
-
-  if (!isEmpty(globalDatas.htmlAttributes)) {
-    const $ = cheerio.load(content, {
-      xmlMode: true, // otherwise it may move contents that aren't in any tag
-      decodeEntities: false, // won't escape special characters
-    })
-
-    each(globalDatas.htmlAttributes, (data, selector) => {
-      each(data, (value, attrName) => {
-        $(selector).each(function getAttr() {
-          $(this).attr(attrName, value || '')
-        })
-      })
-    })
-
-    content = $.root().html()
   }
 
   content = mergeOutlookConditionnals(content)

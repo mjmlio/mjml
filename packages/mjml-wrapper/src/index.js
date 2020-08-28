@@ -8,7 +8,7 @@ export default class MjWrapper extends MjSection {
 
     return `
       ${this.renderChildren(children, {
-        renderer: component =>
+        renderer: (component) =>
           component.constructor.isRawElement()
             ? component.render()
             : `

@@ -1,14 +1,19 @@
 {
   "name": "mjml-cli",
   "description": "MJML: the only framework that makes responsive-email easy",
-  "version": "4.6.3",
+  "version": "4.7.0-beta.1",
   "main": "bin/mjml",
   "bin": {
     "mjml-cli": "bin/mjml"
   },
+  "files": [
+    "bin",
+    "lib"
+  ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mjmlio/mjml.git"
+    "url": "git+https://github.com/mjmlio/mjml.git",
+    "directory": "packages/mjml-cli"
   },
   "license": "MIT",
   "bugs": {
@@ -24,10 +29,10 @@
     "chokidar": "^3.0.0",
     "glob": "^7.1.1",
     "lodash": "^4.17.15",
-    "mjml-core": "4.6.3",
-    "mjml-migrate": "4.6.3",
-    "mjml-parser-xml": "4.6.3",
-    "mjml-validator": "4.6.3",
+    "mjml-core": "4.7.0-beta.1",
+    "mjml-migrate": "4.7.0-beta.1",
+    "mjml-parser-xml": "4.7.0-beta.1",
+    "mjml-validator": "4.7.0-beta.1",
     "yargs": "^13.3.0"
   },
   "devDependencies": {

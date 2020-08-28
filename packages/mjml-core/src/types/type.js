@@ -4,13 +4,13 @@ import typesConstructors from './index'
 // Avoid recreate existing types
 export const types = {}
 
-export const initializeType = typeConfig => {
+export const initializeType = (typeConfig) => {
   if (types[typeConfig]) {
     return types[typeConfig]
   }
 
   const { typeConstructor } =
-    find(typesConstructors, type => !!typeConfig.match(type.matcher)) || {}
+    find(typesConstructors, (type) => !!typeConfig.match(type.matcher)) || {}
 
   if (!typeConstructor) {
     throw new Error(`No type found for ${typeConfig}`)
@@ -27,7 +27,7 @@ export default class Type {
   }
 
   isValid() {
-    return some(this.matchers, matcher => `${this.value}`.match(matcher))
+    return some(this.matchers, (matcher) => `${this.value}`.match(matcher))
   }
 
   getErrorMessage() {

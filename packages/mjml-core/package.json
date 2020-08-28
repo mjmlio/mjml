@@ -1,11 +1,15 @@
 {
   "name": "mjml-core",
   "description": "mjml-core",
-  "version": "4.6.3",
+  "version": "4.7.0-beta.1",
   "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mjmlio/mjml.git"
+    "url": "git+https://github.com/mjmlio/mjml.git",
+    "directory": "packages/mjml-core"
   },
   "license": "MIT",
   "bugs": {
@@ -24,9 +28,9 @@
     "js-beautify": "^1.6.14",
     "juice": "^5.2.0",
     "lodash": "^4.17.15",
-    "mjml-migrate": "4.6.3",
-    "mjml-parser-xml": "4.6.3",
-    "mjml-validator": "4.6.3"
+    "mjml-migrate": "4.7.0-beta.1",
+    "mjml-parser-xml": "4.7.0-beta.1",
+    "mjml-validator": "4.7.0-beta.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",

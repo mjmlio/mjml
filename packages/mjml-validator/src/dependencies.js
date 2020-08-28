@@ -9,7 +9,7 @@ function mergeArrays(objValue, srcValue) {
 
 const dependencies = {}
 
-export const registerDependencies = dep =>
+export const registerDependencies = (dep) =>
   mergeWith(dependencies, dep, mergeArrays)
 
 export default dependencies

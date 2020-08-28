@@ -1,4 +1,4 @@
-export default content =>
+export default (content) =>
   // find conditionnal comment blocks
   content.replace(
     /(<!--\[if\s[^\]]+]>)([\s\S]*?)(<!\[endif]-->)/gm,

@@ -37,6 +37,3 @@ padding-bottom               | px            | bottom offset                   |
 padding-left                 | px            | left offset                     | n/a
 padding-right                | px            | right offset                    | n/a
 padding-top                  | px            | top offset                      | n/a
-vertical-align              | string      | vertical alignment                 | middle
-width                       | px          | spacer width                   | n/a
-

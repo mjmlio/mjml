@@ -16,7 +16,6 @@ export default class MjSpacer extends BodyComponent {
     'padding-top': 'unit(px,%)',
     padding: 'unit(px,%){1,4}',
     'vertical-align': 'enum(top,bottom,middle)',
-    width: 'unit(px,%)',
     height: 'unit(px,%)',
   }
 
@@ -40,7 +39,7 @@ export default class MjSpacer extends BodyComponent {
         <table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td height="${parseInt(
           height,
           10,
-        )}" style="vertical-align:top;height:${height};">
+        )}" style="height:${height};">
       `)}
       <div
         ${this.htmlAttributes({

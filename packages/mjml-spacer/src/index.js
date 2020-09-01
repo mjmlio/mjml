@@ -39,7 +39,7 @@ export default class MjSpacer extends BodyComponent {
         <table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td height="${parseInt(
           height,
           10,
-        )} " style="height:${height};">
+        )}" style="height:${height};">
       `)}
       <div
         ${this.htmlAttributes({

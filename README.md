@@ -1,4 +1,4 @@
-# MJML 4 
+# MJML 4
 
 If you're looking for MJML 3.3.X check [this branch](https://github.com/mjmlio/mjml/tree/3.3.x)
 

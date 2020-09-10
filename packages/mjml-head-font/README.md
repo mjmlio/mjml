@@ -1,7 +1,10 @@
 ## mj-font
 
-This tag imports fonts for your use.
-The `href` attribute points to a hosted css file; that file points to the font file.
+This tag imports fonts.
+The tag has effect only if the template uses the font, too. 
+The `href` attribute points to a hosted css file; that file contains a `@font-face` declaration.
+Example: [https://fonts
+.googleapis.com/css?family=Raleway](https://fonts.googleapis.com/css?family=Raleway)
 Some font providers (as in our example code) host both the CSS and the font files.
 
  ```xml
@@ -28,11 +31,7 @@ Some font providers (as in our example code) host both the CSS and the font file
   </a>
 </p>
 
-<aside class="notice">
-  If you don't get a CSS file, model one on the "href" file in the example.
-</aside>
-
-attribute   | unit     | description                             | default value
-------------|----------|-----------------------------------------|---------------
-href        | string   | URL of a hosted CSS file for the font   | n/a
-name        | string   | name of the font                        | n/a
+attribute   | unit     | description                | default value
+------------|----------|----------------------------|---------------
+href        | string   | URL of a hosted CSS file   | n/a
+name        | string   | name of the font           | n/a

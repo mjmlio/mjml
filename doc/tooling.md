@@ -2,6 +2,9 @@
 
 In order to provide you with the best experience with MJML and help you use it more efficiently, we've developed some tools to integrate it seamlessly in your development workflow:
 
+## Visual Studio Code
+[Visual Studio Code](https://code.visualstudio.com/) is a free code editor made by [Microsoft](https://www.microsoft.com/). We recommend this package as it is the feature-richest MJML plugin for code editors with live previews, syntax highlighting and linting as well as export features including HTML and screenshots. It is available [on Github](https://github.com/mjmlio/vscode-mjml) and through the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=mjmlio.vscode-mjml).
+
 ## Atom language plugin
 [Atom](https://atom.io) is a powerful text editor originally released by [Github](https://github.com). This package provides autocompletion and syntax highlighting for MJML. It is available [on Github](https://github.com/mjmlio/language-mjml) and through the [Atom Package Manager (APM)](https://atom.io/packages/language-mjml).
 

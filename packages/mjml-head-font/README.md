@@ -5,7 +5,6 @@ The tag has effect only if the template uses the font, too.
 The `href` attribute points to a hosted css file; that file contains a `@font-face` declaration.
 Example: [https://fonts
 .googleapis.com/css?family=Raleway](https://fonts.googleapis.com/css?family=Raleway)
-Some font providers (as in our example code) host both the CSS and the font files.
 
  ```xml
  <mjml>

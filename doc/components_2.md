@@ -25,5 +25,5 @@ You can wrap your external mjml files inside the default `mjml > mj-body`
 </mjml>
 ```
 
-The `MJML` engine will then replace your included files before starting
-  the rendering process.
+The `MJML` engine will then include these files
+  in the HTML file as it builds the HTML.

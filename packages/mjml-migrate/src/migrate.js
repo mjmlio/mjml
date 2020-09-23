@@ -25,7 +25,8 @@ function removeContainerTag(bodyTag) {
 const listAttributes = (tag) => tag.attributes
 
 function addPx(value) {
-  if (!Number.isNaN(value) && !isNil(value)) {
+  // eslint-disable-next-line no-restricted-globals
+  if (!isNaN(value) && !isNil(value)) {
     return `${value}px`
   }
   return value

@@ -76,10 +76,9 @@ export default function skeleton(options) {
         }
         ${headRaw.filter(negate(isNil)).join('\n')}
       </head>
-      <body${
-        backgroundColor === ''
-          ? ''
-          : ` style="background-color:${backgroundColor};"`
+      <body${backgroundColor === ''
+        ? ' style="word-spacing:normal"'
+        : ` style="word-spacing:normal;background-color:${backgroundColor};"`
       }>
         ${buildPreview(preview)}
         ${content}

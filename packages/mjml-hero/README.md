@@ -17,7 +17,7 @@ Use `background-color` to provide a fallback color
   The "height" attribute is required only for 'mode="fixed-height"'.
 </aside>
 
-Fixed height  
+Fixed height
 
 <p align="center">
   <img src="https://cloud.githubusercontent.com/assets/1830348/15354833/bfe7faaa-1cef-11e6-8d38-15e8951b6636.png"
@@ -109,6 +109,7 @@ background-height   | px                                  | height of the image 
 background-position | top/center/bottom left/center/right | background image position                                            | center center
 background-url      | url                                 | absolute background url                                              | n/a
 background-width    | px                                  | width of the image used                                              | parent element width
+border-radius       | px                                  | border radius                                                        | n/a
 height              | px                                  | hero section height (required for fixed-height mode)                 | 0px
 mode                | fluid-height/fixed-height           | choose if the height is fixed based on the height attribute or fluid | fluid-height
 padding             | px                                  | supports up to 4 parameters                                          | 0px

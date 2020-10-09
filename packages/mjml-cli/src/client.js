@@ -2,6 +2,8 @@ import path from 'path'
 import yargs from 'yargs'
 import { flow, pick, isNil, negate, pickBy } from 'lodash/fp'
 import { isArray, isEmpty, map, get } from 'lodash'
+import { html as htmlBeautify } from 'js-beautify'
+import { minify as htmlMinify } from 'html-minifier'
 
 import mjml2html, { components, initializeType } from 'mjml-core'
 import migrate from 'mjml-migrate'
@@ -202,12 +204,35 @@ export default async () => {
             errors: validate(mjmlJson, { components, initializeType }),
           }
           break
-        default:
+
+        default: {
+          const beautify = config.beautify && config.beautify !== 'false'
+          const minify = config.minify && config.minify !== 'false'
+          delete config.minify
+          delete config.beautify
           compiled = mjml2html(i.mjml, {
             ...config,
             filePath: filePath || i.file,
             actualPath: i.file,
           })
+          if (beautify) {
+            compiled = htmlBeautify(compiled, {
+              indent_size: 2,
+              wrap_attributes_indent_size: 2,
+              max_preserve_newline: 0,
+              preserve_newlines: false,
+            })
+          }
+          if (minify) {
+            compiled = htmlMinify(compiled, {
+              collapseWhitespace: true,
+              minifyCSS: false,
+              caseSensitive: true,
+              removeEmptyAttributes: true,
+              ...config.minifyOptions,
+            })
+          }
+        }
       }
 
       convertedStream.push({ ...i, compiled })

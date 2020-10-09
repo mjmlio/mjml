@@ -35,9 +35,9 @@ import handleMjmlConfig, {
 const isNode = require('detect-node')
 
 function registerPreset(preset) {
-  for (const component of preset.components) {
+  preset.components.forEach((component) => {
     registerComponent(component)
-  }
+  })
   registerDependencies(preset.dependencies)
 }
 
@@ -117,9 +117,9 @@ export default function mjml2html(mjml, options = {}) {
     ...options,
   }
 
-  for (const preset of presets) {
+  presets.forEach((preset) => {
     registerPreset(preset)
-  }
+  })
 
   if (typeof mjml === 'string') {
     mjml = MJMLParser(mjml, {

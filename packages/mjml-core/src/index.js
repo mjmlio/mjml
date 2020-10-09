@@ -34,6 +34,13 @@ import handleMjmlConfig, {
 
 const isNode = require('detect-node')
 
+function registerPreset(preset) {
+  for (const component of preset.components) {
+    registerComponent(component)
+  }
+  registerDependencies(preset.dependencies)
+}
+
 class ValidationError extends Error {
   constructor(message, errors) {
     super(message)
@@ -104,9 +111,14 @@ export default function mjml2html(mjml, options = {}) {
     actualPath = '.',
     noMigrateWarn = false,
     preprocessors,
+    presets = [],
   } = {
     ...mjmlConfigOptions,
     ...options,
+  }
+
+  for (const preset of presets) {
+    registerPreset(preset)
   }
 
   if (typeof mjml === 'string') {
@@ -387,6 +399,7 @@ export {
   components,
   initComponent,
   registerComponent,
+  registerPreset,
   suffixCssClasses,
   handleMjmlConfig,
   initializeType,

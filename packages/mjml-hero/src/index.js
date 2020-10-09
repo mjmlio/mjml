@@ -13,7 +13,7 @@ export default class MjHero extends BodyComponent {
     'background-width': 'unit(px,%)',
     'background-height': 'unit(px,%)',
     'background-position': 'string',
-    'border-radius': 'unit(px)',
+    'border-radius': 'string',
     'container-background-color': 'color',
     'inner-background-color': 'color',
     'inner-padding': 'unit(px,%){1,4}',

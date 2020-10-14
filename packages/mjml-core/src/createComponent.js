@@ -72,25 +72,15 @@ class Component {
 
   renderMJML(mjml, options = {}) {
     if (typeof mjml === 'string') {
-      if (mjml.indexOf('<mjml>') === -1) {
-        // supports returning siblings elements from a custom component
-        const partialMjml = MJMLParser(`<mjml><mj-body>${mjml}</mj-body></mjml>`, {
-          ...options,
-          components,
-          ignoreIncludes: true,
-        })
-        const body = find(partialMjml.children, { tagName: 'mj-body' })
-
-        return body.children
-          .map(child => this.context.processing(child, this.context))
-          .join('')
-      }
-
-      mjml = MJMLParser(mjml, {
+      // supports returning siblings elements from a custom component
+      const partialMjml = MJMLParser(`<fragment>${mjml}</fragment>`, {
         ...options,
         components,
         ignoreIncludes: true,
       })
+      return partialMjml.children
+        .map(child => this.context.processing(child, this.context))
+        .join('')
     }
 
     return this.context.processing(mjml, this.context)

@@ -121,6 +121,9 @@ color | n/a | text color | n/a
 css-class | string | class name, added to the root HTML element created | n/a
 font-family | n/a | font family | Ubuntu, Helvetica, Arial, sans-serif
 font-size | px | font size | 13px
+font-weight | number | text thickness | n/a
+letter-spacing | px,em | letter spacing | none
+line-height | px | space between the lines | 1
 padding | px | padding | 16px
 padding-bottom | px | padding bottom | n/a
 padding-left | px | padding left | n/a

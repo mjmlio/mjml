@@ -33,6 +33,7 @@ css-class                     | string        | class name, added to the root HT
 fluid-on-mobile               | string        | if "true", will be full width on mobile even if width is set | n/a
 height                        | px            | image height                   | auto
 href                          | url           | link to redirect to on click   | n/a
+name                          | string        | specify the link name attribute | n/a
 padding                       | px            | supports up to 4 parameters    | 10px 25px
 padding-bottom                | px            | bottom offset                  | n/a
 padding-left                  | px            | left offset                    | n/a

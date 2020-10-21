@@ -72,11 +72,15 @@ class Component {
 
   renderMJML(mjml, options = {}) {
     if (typeof mjml === 'string') {
-      mjml = MJMLParser(mjml, {
+      // supports returning siblings elements from a custom component
+      const partialMjml = MJMLParser(`<fragment>${mjml}</fragment>`, {
         ...options,
         components,
         ignoreIncludes: true,
       })
+      return partialMjml.children
+        .map(child => this.context.processing(child, this.context))
+        .join('')
     }
 
     return this.context.processing(mjml, this.context)

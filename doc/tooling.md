@@ -20,4 +20,4 @@ Gulp is a tool designed to help you automate and enhance your workflow. Our plug
 ## Contribute to the MJML ecosystem
 The MJML ecosystem is still young and we're also counting on your help to help us make it grow and provide its community with even more awesome tools, always aiming to making development with MJML an efficient and fun process!
 
-Getting involved is really easy and our [roadmap is open](https://github.com/mjmlio/mjml/projects/1). If you want to contribute, feel free to [open an issue](https://github.com/mjmlio/mjml/issues) or [submit a pull-request](https://github.com/mjmlio/mjml/pulls)!
+Getting involved is really easy. If you want to contribute, feel free to [open an issue](https://github.com/mjmlio/mjml/issues) or [submit a pull-request](https://github.com/mjmlio/mjml/pulls)!

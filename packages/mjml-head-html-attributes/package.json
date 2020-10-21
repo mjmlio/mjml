@@ -1,7 +1,7 @@
 {
   "name": "mjml-head-html-attributes",
   "description": "mjml-head-html-attributes",
-  "version": "4.7.0-beta.2",
+  "version": "4.7.1",
   "main": "lib/index.js",
   "files": [
     "lib"
@@ -23,7 +23,7 @@
   "dependencies": {
     "@babel/runtime": "^7.8.7",
     "lodash": "^4.17.15",
-    "mjml-core": "4.7.0-beta.2"
+    "mjml-core": "4.7.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",

@@ -6,6 +6,14 @@
 
 Displays a customizable button.
 
+<aside class="notice">
+  The `mj-button` component is almost fully clickable.
+  If we improve capability for one supported email client, we'd harm support for another.
+  <br /><br />
+  We have a good balance.
+  [Issue #359](https://github.com/mjmlio/mjml/issues/359) and links there have good detail.
+</aside>
+
 ```xml
 <mjml>
   <mj-body>

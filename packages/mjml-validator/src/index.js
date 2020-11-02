@@ -1,6 +1,9 @@
 import ruleError from './rules/ruleError'
 import rulesCollection, { registerRule } from './MJMLRulesCollection'
-import dependencies, { registerDependencies } from './dependencies'
+import dependencies, {
+  registerDependencies,
+  mergeDependencies,
+} from './dependencies'
 
 const SKIP_ELEMENTS = ['mjml']
 

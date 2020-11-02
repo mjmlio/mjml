@@ -7,7 +7,7 @@ import { minify as htmlMinify } from 'html-minifier'
 
 import mjml2html, { components, initializeType } from 'mjml-core'
 import migrate from 'mjml-migrate'
-import validate from 'mjml-validator'
+import validate, { dependencies } from 'mjml-validator'
 import MJMLParser from 'mjml-parser-xml'
 
 import { version as coreVersion } from 'mjml-core/package.json'
@@ -201,7 +201,7 @@ export default async () => {
             actualPath: i.file,
           })
           compiled = {
-            errors: validate(mjmlJson, { components, initializeType }),
+            errors: validate(mjmlJson, { dependencies, components, initializeType }),
           }
           break
 

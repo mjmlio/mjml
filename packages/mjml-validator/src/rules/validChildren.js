@@ -1,9 +1,9 @@
-import { filter, includes, keys } from 'lodash'
-
-import dependencies from '../dependencies'
 import ruleError from './ruleError'
 
-export default function validChildren(element, { components, skipElements }) {
+export default function validChildren(
+  element,
+  { components, dependencies, skipElements },
+) {
   const { children, tagName } = element
 
   const Component = components[tagName]
@@ -12,37 +12,41 @@ export default function validChildren(element, { components, skipElements }) {
     return null
   }
 
-  return filter(
-    children.map((child) => {
-      const childTagName = child.tagName
-      const ChildComponent = components[childTagName]
-      const parentDependencies = dependencies[tagName] || []
+  const errors = []
 
-      if (
-        !ChildComponent ||
-        includes(skipElements, childTagName) ||
-        includes(parentDependencies, childTagName) ||
-        parentDependencies.some(
-          (dep) => dep instanceof RegExp && dep.test(childTagName),
-        )
-      ) {
-        return null
-      }
+  for (const child of children) {
+    const childTagName = child.tagName
+    const ChildComponent = components[childTagName]
+    const parentDependencies = dependencies[tagName] || []
 
-      const allowedDependencies = keys(dependencies).filter(
-        (key) =>
-          includes(dependencies[key], childTagName) ||
-          dependencies[key].some(
-            (dep) => dep instanceof RegExp && dep.test(childTagName),
-          ),
+    if (
+      !ChildComponent ||
+      skipElements.includes(childTagName) ||
+      parentDependencies.includes(childTagName) ||
+      parentDependencies.some(
+        (dep) => dep instanceof RegExp && dep.test(childTagName),
       )
+    ) {
+      continue
+    }
 
-      return ruleError(
+    const allowedDependencies = Object.keys(dependencies).filter(
+      (key) =>
+        dependencies[key].includes(childTagName) ||
+        dependencies[key].some(
+          (dep) => dep instanceof RegExp && dep.test(childTagName),
+        ),
+    )
+
+    errors.push(
+      ruleError(
         `${childTagName} cannot be used inside ${tagName}, only inside: ${allowedDependencies.join(
           ', ',
         )}`,
         child,
-      )
-    }),
-  )
+      ),
+    )
+  }
+
+  return errors
 }

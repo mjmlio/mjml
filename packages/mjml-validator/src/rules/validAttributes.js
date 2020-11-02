@@ -1,5 +1,3 @@
-import { concat, keys, includes, filter } from 'lodash'
-
 import ruleError from './ruleError'
 
 const WHITELIST = ['mj-class', 'css-class']
@@ -13,13 +11,12 @@ export default function validateAttribute(element, { components }) {
     return null
   }
 
-  const availableAttributes = concat(
-    keys(Component.allowedAttributes),
-    WHITELIST,
-  )
-  const unknownAttributes = filter(
-    keys(attributes),
-    (attribute) => !includes(availableAttributes, attribute),
+  const availableAttributes = [
+    ...Object.keys(Component.allowedAttributes),
+    ...WHITELIST,
+  ]
+  const unknownAttributes = Object.keys(attributes).filter(
+    (attribute) => !availableAttributes.includes(attribute),
   )
 
   if (unknownAttributes.length === 0) {

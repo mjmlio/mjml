@@ -1,5 +1,3 @@
-import { compact, map } from 'lodash'
-
 import ruleError from './ruleError'
 
 export default function validateType(element, { components, initializeType }) {
@@ -11,16 +9,20 @@ export default function validateType(element, { components, initializeType }) {
     return null
   }
 
-  return compact(
-    map(attributes, (value, attr) => {
-      const attrType =
-        Component.allowedAttributes && Component.allowedAttributes[attr]
-      if (!attrType) return null // attribute not allowed
+  const errors = []
 
-      const TypeChecker = initializeType(attrType)
-      const result = new TypeChecker(value)
-      if (result.isValid()) return null
-      return ruleError(`Attribute ${attr} ${result.getErrorMessage()}`, element)
-    }),
-  )
+  for (const [attr, value] of Object.entries(attributes)) {
+    const attrType =
+      Component.allowedAttributes && Component.allowedAttributes[attr]
+    if (!attrType) continue // attribute not allowed
+
+    const TypeChecker = initializeType(attrType)
+    const result = new TypeChecker(value)
+    if (result.isValid()) continue
+    errors.push(
+      ruleError(`Attribute ${attr} ${result.getErrorMessage()}`, element),
+    )
+  }
+
+  return errors
 }

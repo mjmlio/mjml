@@ -1,13 +1,20 @@
-import warning from 'warning'
-import { mapKeys } from 'lodash'
+import validAttributes from './rules/validAttributes'
+import validChildren from './rules/validChildren'
+import validTag from './rules/validTag'
+import validTypes from './rules/validTypes'
+import errorAttr from './rules/errorAttr'
 
-import * as rules from './rules'
-
-const MJMLRulesCollection = {}
+const MJMLRulesCollection = {
+  validAttributes,
+  validChildren,
+  validTag,
+  validTypes,
+  errorAttr,
+}
 
 export function registerRule(rule, name) {
   if (typeof rule !== 'function') {
-    return warning(false, 'Your rule must be a function')
+    return console.error('Your rule must be a function')
   }
 
   if (name) {
@@ -18,7 +25,5 @@ export function registerRule(rule, name) {
 
   return true
 }
-
-mapKeys(rules, (func, name) => registerRule(func, name))
 
 export default MJMLRulesCollection

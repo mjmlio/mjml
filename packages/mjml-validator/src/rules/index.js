@@ -1,5 +1,0 @@
-export { default as validAttributes } from './validAttributes'
-export { default as validChildren } from './validChildren'
-export { default as validTag } from './validTag'
-export { default as validTypes } from './validTypes'
-export { default as errorAttr } from './errorAttr'

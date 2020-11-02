@@ -16,7 +16,7 @@ import { minify as htmlMinify } from 'html-minifier'
 import cheerio from 'cheerio'
 
 import MJMLParser from 'mjml-parser-xml'
-import MJMLValidator from 'mjml-validator'
+import MJMLValidator, { dependencies } from 'mjml-validator'
 import { handleMjml3 } from 'mjml-migrate'
 
 import components, { initComponent, registerComponent } from './components'
@@ -142,6 +142,7 @@ export default function mjml2html(mjml, options = {}) {
 
   const validatorOptions = {
     components,
+    dependencies,
     initializeType,
   }
 

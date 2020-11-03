@@ -1,6 +1,6 @@
 export const assignDependencies = (target, ...sources) => {
   for (const source of sources) {
-    for (const tag of source) {
+    for (const tag of Object.keys(source)) {
       const list = []
       if (target[tag]) {
         list.push(...target[tag])

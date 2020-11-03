@@ -19,33 +19,32 @@ export default function validChildren(
     const ChildComponent = components[childTagName]
     const parentDependencies = dependencies[tagName] || []
 
-    if (
+    const childIsValid =
       !ChildComponent ||
       skipElements.includes(childTagName) ||
       parentDependencies.includes(childTagName) ||
       parentDependencies.some(
         (dep) => dep instanceof RegExp && dep.test(childTagName),
       )
-    ) {
-      continue
-    }
 
-    const allowedDependencies = Object.keys(dependencies).filter(
-      (key) =>
-        dependencies[key].includes(childTagName) ||
-        dependencies[key].some(
-          (dep) => dep instanceof RegExp && dep.test(childTagName),
+    if (childIsValid === false) {
+      const allowedDependencies = Object.keys(dependencies).filter(
+        (key) =>
+          dependencies[key].includes(childTagName) ||
+          dependencies[key].some(
+            (dep) => dep instanceof RegExp && dep.test(childTagName),
+          ),
+      )
+
+      errors.push(
+        ruleError(
+          `${childTagName} cannot be used inside ${tagName}, only inside: ${allowedDependencies.join(
+            ', ',
+          )}`,
+          child,
         ),
-    )
-
-    errors.push(
-      ruleError(
-        `${childTagName} cannot be used inside ${tagName}, only inside: ${allowedDependencies.join(
-          ', ',
-        )}`,
-        child,
-      ),
-    )
+      )
+    }
   }
 
   return errors

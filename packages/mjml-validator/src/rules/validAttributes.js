@@ -12,7 +12,7 @@ export default function validateAttribute(element, { components }) {
   }
 
   const availableAttributes = [
-    ...Object.keys(Component.allowedAttributes),
+    ...Object.keys(Component.allowedAttributes || {}),
     ...WHITELIST,
   ]
   const unknownAttributes = Object.keys(attributes).filter(

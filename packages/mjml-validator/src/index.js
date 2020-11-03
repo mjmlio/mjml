@@ -25,13 +25,16 @@ export default function MJMLValidator(element, options = {}) {
 
   if (!skipElements.includes(tagName)) {
     for (const rule of Object.values(rulesCollection)) {
-      errors.push(
-        ...rule(element, {
-          dependencies,
-          skipElements,
-          ...options,
-        }),
-      )
+      const ruleError = rule(element, {
+        dependencies,
+        skipElements,
+        ...options,
+      })
+      if (Array.isArray(ruleError)) {
+        errors.push(...ruleError)
+      } else if (ruleError) {
+        errors.push(ruleError)
+      }
     }
   }
 

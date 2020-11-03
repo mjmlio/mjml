@@ -47,7 +47,7 @@ export default async () => {
       },
       m: {
         alias: 'migrate',
-        describe: 'Migrate MJML3 File(s)',
+        describe: 'Migrate MJML3 File(s) (deprecated)',
         type: 'array',
       },
       v: {

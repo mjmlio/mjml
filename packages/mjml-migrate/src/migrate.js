@@ -187,6 +187,7 @@ const jsonToXML = ({ tagName, attributes, children, content }) => {
 }
 
 export default function migrate(input, options = {}) {
+  console.warn('mjml-migrate is deprecated and will be removed in mjml 5')
   const { beautify } = options
   if (typeof input === 'object') return loopThrough(input)
 

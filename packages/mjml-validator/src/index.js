@@ -2,7 +2,7 @@ import ruleError from './rules/ruleError'
 import rulesCollection, { registerRule } from './MJMLRulesCollection'
 import dependencies, {
   registerDependencies,
-  mergeDependencies,
+  assignDependencies,
 } from './dependencies'
 
 const SKIP_ELEMENTS = ['mjml']
@@ -11,7 +11,7 @@ export const formatValidationError = ruleError
 
 export { rulesCollection, registerRule }
 
-export { dependencies, registerDependencies, mergeDependencies }
+export { dependencies, registerDependencies, assignDependencies }
 
 export default function MJMLValidator(element, options = {}) {
   const { children, tagName } = element

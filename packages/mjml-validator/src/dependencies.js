@@ -1,25 +1,23 @@
-export const mergeDependencies = (left, right) => {
-  const allTags = Array.from(
-    new Set([...Object.keys(left), ...Object.keys(right)]),
-  )
-  const newDependencies = {}
-  for (const tag of allTags) {
-    const list = []
-    if (left[tag]) {
-      list.push(...left[tag])
+export const assignDependencies = (target, ...sources) => {
+  for (const source of sources) {
+    for (const tag of source) {
+      const list = []
+      if (target[tag]) {
+        list.push(...target[tag])
+      }
+      if (source[tag]) {
+        list.push(...source[tag])
+      }
+      target[tag] = Array.from(new Set(list))
     }
-    if (right[tag]) {
-      list.push(...right[tag])
-    }
-    newDependencies[tag] = Array.from(new Set(list))
   }
-  return newDependencies
+  return target
 }
 
 const dependencies = {}
 
 export const registerDependencies = (dep) => {
-  dependencies = mergeDependencies(dependencies, dep)
+  assignDependencies(dependencies, dep)
 }
 
 export default dependencies

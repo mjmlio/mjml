@@ -341,6 +341,7 @@ export default function mjml2html(mjml, options = {}) {
   content = mergeOutlookConditionnals(content)
 
   if (beautify) {
+    // eslint-disable no-console
     console.warn(
       '"beautify" option is deprecated in mjml-core and only available in mjml cli.',
     )
@@ -353,6 +354,7 @@ export default function mjml2html(mjml, options = {}) {
   }
 
   if (minify) {
+    // eslint-disable no-console
     console.warn(
       '"minify" option is deprecated in mjml-core and only available in mjml cli.',
     )

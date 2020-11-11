@@ -29,17 +29,18 @@ export default class MjDivider extends BodyComponent {
   }
 
   getStyles() {
+    let computeAlign = '0px auto'
+    if (this.getAttribute('align') === 'left') {
+      computeAlign = '0px'
+    } else if (this.getAttribute('align') === 'right') {
+      computeAlign = '0px 0px 0px auto'
+    }
     const p = {
       'border-top': ['style', 'width', 'color']
         .map((attr) => this.getAttribute(`border-${attr}`))
         .join(' '),
       'font-size': '1px',
-      margin:
-        this.getAttribute(`align`) === 'center'
-          ? '0px auto'
-          : this.getAttribute(`align`) === 'left'
-          ? '0px'
-          : '0px 0px 0px auto',
+      margin: computeAlign,
       width: this.getAttribute('width'),
     }
 

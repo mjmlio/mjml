@@ -16,6 +16,7 @@ export default class MjDivider extends BodyComponent {
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
     width: 'unit(px,%)',
+    align: 'enum(left, center, right)',
   }
 
   static defaultAttributes = {
@@ -24,6 +25,7 @@ export default class MjDivider extends BodyComponent {
     'border-width': '4px',
     padding: '10px 25px',
     width: '100%',
+    align: 'center',
   }
 
   getStyles() {
@@ -32,7 +34,12 @@ export default class MjDivider extends BodyComponent {
         .map((attr) => this.getAttribute(`border-${attr}`))
         .join(' '),
       'font-size': '1px',
-      margin: '0px auto',
+      margin:
+        this.getAttribute(`align`) === 'center'
+          ? '0px auto'
+          : this.getAttribute(`align`) === 'left'
+          ? '0px'
+          : '0px 0px 0px auto',
       width: this.getAttribute('width'),
     }
 

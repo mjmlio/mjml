@@ -28,7 +28,7 @@ Here are the guidelines to help maintainers and the community better understand 
 
 * **Check the [FAQ](https://mjml.io/faq)** for a list of common questions and problems
 
-* **Check the [documentation](https://mjml.io/documentation/)** for more details on how to use MJML, MJML components, how to create a custom component and more
+* **Check the [documentation](https://documentation.mjml.io/)** for more details on how to use MJML, MJML components, how to create a custom component and more
 
 * **Search [issues](https://github.com/mjmlio/mjml/issues?utf8=%E2%9C%93&q=is%3Aissue+)** and **[pull requests](https://github.com/mjmlio/mjml/pulls?utf8=%E2%9C%93&q=is%3Apr+)** to see if a similar one might have been already asked before
 

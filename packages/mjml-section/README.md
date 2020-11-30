@@ -28,11 +28,7 @@ changed to 100%.
 </aside>
 
 <aside class="warning">
-  Sections cannot be nested into sections. Also, any content in a section should also be wrapped in a column.
-</aside>
-
-<aside class="warning">
-  Sections cannot be nested into sections. Also, any content in a section should also be wrapped in a column.
+  Sections cannot be nested into sections. Columns can nest in sections; all content should be in a column.
 </aside>
 
 attribute             | unit        | description                    | default value

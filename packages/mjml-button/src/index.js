@@ -130,32 +130,34 @@ export default class MjButton extends BodyComponent {
           style: 'table',
         })}
       >
-        <tr>
-          <td
-            ${this.htmlAttributes({
-              align: 'center',
-              bgcolor:
-                this.getAttribute('background-color') === 'none'
-                  ? undefined
-                  : this.getAttribute('background-color'),
-              role: 'presentation',
-              style: 'td',
-              valign: this.getAttribute('vertical-align'),
-            })}
-          >
-            <${tag}
+        <tbody>
+          <tr>
+            <td
               ${this.htmlAttributes({
-                href: this.getAttribute('href'),
-                rel: this.getAttribute('rel'),
-                name: this.getAttribute('name'),
-                style: 'content',
-                target: tag === 'a' ? this.getAttribute('target') : undefined,
+                align: 'center',
+                bgcolor:
+                  this.getAttribute('background-color') === 'none'
+                    ? undefined
+                    : this.getAttribute('background-color'),
+                role: 'presentation',
+                style: 'td',
+                valign: this.getAttribute('vertical-align'),
               })}
             >
-              ${this.getContent()}
-            </${tag}>
-          </td>
-        </tr>
+              <${tag}
+                ${this.htmlAttributes({
+                  href: this.getAttribute('href'),
+                  rel: this.getAttribute('rel'),
+                  name: this.getAttribute('name'),
+                  style: 'content',
+                  target: tag === 'a' ? this.getAttribute('target') : undefined,
+                })}
+              >
+                ${this.getContent()}
+              </${tag}>
+            </td>
+          </tr>
+        </tbody>
       </table>
     `
   }

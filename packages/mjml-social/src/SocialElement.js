@@ -236,17 +236,18 @@ export default class MjSocialElement extends BodyComponent {
               style: 'table',
             })}
           >
-            <tr>
-              <td ${this.htmlAttributes({ style: 'icon' })}>
-                ${
-                  hasLink
-                    ? `<a ${this.htmlAttributes({
-                        href,
-                        rel: this.getAttribute('rel'),
-                        target: this.getAttribute('target'),
-                      })}>`
-                    : ''
-                }
+            <tbody>
+              <tr>
+                <td ${this.htmlAttributes({ style: 'icon' })}>
+                  ${
+                    hasLink
+                      ? `<a ${this.htmlAttributes({
+                          href,
+                          rel: this.getAttribute('rel'),
+                          target: this.getAttribute('target'),
+                        })}>`
+                      : ''
+                  }
                     <img
                       ${this.htmlAttributes({
                         alt: this.getAttribute('alt'),
@@ -262,6 +263,7 @@ export default class MjSocialElement extends BodyComponent {
                   ${hasLink ? `</a>` : ''}
                 </td>
               </tr>
+            </tbody>
           </table>
         </td>
         ${

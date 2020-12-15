@@ -216,7 +216,7 @@ export default async () => {
             actualPath: i.file,
           })
           if (beautify) {
-            compiled = htmlBeautify(compiled, {
+            compiled.html = htmlBeautify(compiled.html, {
               indent_size: 2,
               wrap_attributes_indent_size: 2,
               max_preserve_newline: 0,
@@ -224,7 +224,7 @@ export default async () => {
             })
           }
           if (minify) {
-            compiled = htmlMinify(compiled, {
+            compiled.html = htmlMinify(compiled.html, {
               collapseWhitespace: true,
               minifyCSS: false,
               caseSensitive: true,

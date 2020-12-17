@@ -3,6 +3,8 @@ import { BodyComponent } from 'mjml-core'
 import widthParser from 'mjml-core/lib/helpers/widthParser'
 
 export default class MjColumn extends BodyComponent {
+  static componentName = 'mj-column'
+  
   static allowedAttributes = {
     'background-color': 'color',
     border: 'string',

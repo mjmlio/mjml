@@ -6,6 +6,8 @@ import widthParser from 'mjml-core/lib/helpers/widthParser'
 const makeBackgroundString = flow(filter(identity), join(' '))
 
 export default class MjHero extends BodyComponent {
+  static componentName = 'mj-hero'
+  
   static allowedAttributes = {
     mode: 'string',
     height: 'unit(px,%)',

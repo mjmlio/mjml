@@ -3,6 +3,7 @@ import { BodyComponent } from 'mjml-core'
 import conditionalTag from 'mjml-core/lib/helpers/conditionalTag'
 
 export default class MjText extends BodyComponent {
+  static componentName = 'mj-text'
   static endingTag = true
 
   static allowedAttributes = {

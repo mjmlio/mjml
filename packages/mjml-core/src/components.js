@@ -3,7 +3,7 @@ import { kebabCase } from 'lodash'
 const components = {}
 
 export function registerComponent(Component) {
-  components[kebabCase(Component.name)] = Component
+  components[Component.componentName || kebabCase(Component.name)] = Component
 }
 
 export function initComponent({ initialDatas, name }) {

@@ -5,6 +5,8 @@ import AccordionText from './AccordionText'
 import AccordionTitle from './AccordionTitle'
 
 export default class MjAccordionElement extends BodyComponent {
+  static componentName = 'mj-accordion-element'
+  
   static allowedAttributes = {
     'background-color': 'color',
     'font-family': 'string',

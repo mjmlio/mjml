@@ -1,3 +1,4 @@
+const isNode = require('detect-node')
 import {
   find,
   get,
@@ -44,7 +45,7 @@ export default function mjml2html(mjml, options = {}) {
   let content = ''
   let errors = []
 
-  if (typeof options.skeleton === 'string') {
+  if (isNode && typeof options.skeleton === 'string') {
     /* eslint-disable global-require */
     /* eslint-disable import/no-dynamic-require */
     options.skeleton = require(options.skeleton.charAt(0) === '.'
@@ -60,7 +61,7 @@ export default function mjml2html(mjml, options = {}) {
   let error = null
   let componentRootPath = null
 
-  if (options.useMjmlConfigOptions || options.mjmlConfigPath) {
+  if (isNode && options.useMjmlConfigOptions || options.mjmlConfigPath) {
     const mjmlConfigContent = readMjmlConfig(options.mjmlConfigPath)
 
     ;({
@@ -75,7 +76,7 @@ export default function mjml2html(mjml, options = {}) {
   }
 
   // if mjmlConfigPath is specified then we need to register components it on each call
-  if (!error && options.mjmlConfigPath) {
+  if (isNode && !error && options.mjmlConfigPath) {
     handleMjmlConfigComponents(packages, componentRootPath, registerComponent)
   }
 
@@ -359,6 +360,7 @@ export default function mjml2html(mjml, options = {}) {
     console.warn(
       '"minify" option is deprecated in mjml-core and only available in mjml cli.',
     )
+
     content = htmlMinify(content, {
       collapseWhitespace: true,
       minifyCSS: false,
@@ -375,7 +377,9 @@ export default function mjml2html(mjml, options = {}) {
   }
 }
 
-handleMjmlConfig(process.cwd(), registerComponent)
+if (isNode) {
+  handleMjmlConfig(process.cwd(), registerComponent)
+}
 
 export {
   components,

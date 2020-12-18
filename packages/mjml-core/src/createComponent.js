@@ -20,7 +20,7 @@ import components, { initComponent } from './components'
 
 class Component {
   static getTagName() {
-    return kebabCase(this.name)
+    return this.componentName || kebabCase(this.name)
   }
 
   static isRawElement() {
@@ -238,7 +238,7 @@ export class BodyComponent extends Component {
 
 export class HeadComponent extends Component {
   static getTagName() {
-    return kebabCase(this.name)
+    return this.componentName || kebabCase(this.name)
   }
 
   handlerChildren() {

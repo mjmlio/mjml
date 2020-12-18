@@ -62,7 +62,7 @@ export default function mjml2html(mjml, options = {}) {
   let error = null
   let componentRootPath = null
 
-  if (isNode && options.useMjmlConfigOptions || options.mjmlConfigPath) {
+  if ((isNode && options.useMjmlConfigOptions) || options.mjmlConfigPath) {
     const mjmlConfigContent = readMjmlConfig(options.mjmlConfigPath)
 
     ;({

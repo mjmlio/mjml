@@ -6,7 +6,7 @@ import { msoConditionalTag } from 'mjml-core/lib/helpers/conditionalTag'
 
 export default class MjCarousel extends BodyComponent {
   static componentName = 'mj-carousel'
-  
+
   static allowedAttributes = {
     align: 'enum(left,center,right)',
     'border-radius': 'unit(px,%)',

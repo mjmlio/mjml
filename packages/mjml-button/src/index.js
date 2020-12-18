@@ -4,7 +4,7 @@ import widthParser from 'mjml-core/lib/helpers/widthParser'
 
 export default class MjButton extends BodyComponent {
   static componentName = 'mj-button'
-  
+
   static endingTag = true
 
   static allowedAttributes = {

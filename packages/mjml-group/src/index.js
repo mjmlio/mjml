@@ -4,7 +4,7 @@ import widthParser from 'mjml-core/lib/helpers/widthParser'
 
 export default class MjGroup extends BodyComponent {
   static componentName = 'mj-group'
-  
+
   static allowedAttributes = {
     'background-color': 'color',
     direction: 'enum(ltr,rtl)',

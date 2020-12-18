@@ -7,7 +7,7 @@ import conditionalTag, {
 
 export default class MjNavbar extends BodyComponent {
   static componentName = 'mj-navbar'
-  
+
   static allowedAttributes = {
     align: 'enum(left,center,right)',
     'base-url': 'string',

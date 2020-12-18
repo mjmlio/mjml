@@ -79,7 +79,7 @@ class Component {
         ignoreIncludes: true,
       })
       return partialMjml.children
-        .map(child => this.context.processing(child, this.context))
+        .map((child) => this.context.processing(child, this.context))
         .join('')
     }
 

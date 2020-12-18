@@ -2,6 +2,7 @@ import { BodyComponent, suffixCssClasses } from 'mjml-core'
 
 export default class MjCarouselImage extends BodyComponent {
   static componentName = 'mj-carousel-image'
+
   static endingTag = true
 
   static allowedAttributes = {

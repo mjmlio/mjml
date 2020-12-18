@@ -1,5 +1,5 @@
-const path = require('path');
-const uglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const path = require('path')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = {
     mode: 'production',
@@ -8,36 +8,36 @@ module.exports = {
     },
     optimization: {
         minimizer: [
-            new uglifyJsPlugin({
+            new UglifyJsPlugin({
                 uglifyOptions: {
                     ecma: 5,
                     keep_classnames: true,
                     keep_fnames: true,
                     compress: {
                         passes: 2,
-                        keep_fargs: false
+                        keep_fargs: false,
                     },
                     output: {
                       beautify: false,
                     },
-                    mangle: true
-                }
-            })
-        ]
+                    mangle: true,
+                },
+            }),
+        ],
     },
     output: {
       library: 'mjml',
       filename: 'index.js',
       path: path.resolve(__dirname, './lib'),
       libraryTarget: 'umd',
-      umdNamedDefine: true
+      umdNamedDefine: true,
     },
     resolve: {
       alias: {
         'path': path.resolve(__dirname, 'browser-mocks/path'),
         'fs': path.resolve(__dirname, 'browser-mocks/fs'),
         'uglify-js': path.resolve(__dirname, 'browser-mocks/uglify-js'),
-      }
+      },
     },
     module: {
         rules: [
@@ -49,19 +49,19 @@ module.exports = {
                         loader: 'babel-loader',
                         options: {
                             presets: [
-                                '@babel/preset-env'
+                                '@babel/preset-env',
                             ],
                             plugins: [
                                 ["@babel/plugin-proposal-decorators", { "legacy": true }],
                                 ["@babel/plugin-proposal-class-properties", { "loose" : true }],
                                 "@babel/plugin-proposal-function-bind",
-                                "@babel/plugin-proposal-export-default-from"
+                                "@babel/plugin-proposal-export-default-from",
                             ],
-                            babelrc: false
-                        }
-                    }
-                ]
-            }
-		]
+                            babelrc: false,
+                        },
+                    },
+                ],
+            },
+		],
     },
-};
+}

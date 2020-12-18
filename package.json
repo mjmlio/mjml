@@ -6,6 +6,7 @@
     "build": "lerna run build --parallel --ignore mjml-browser",
     "build-browser": "cd packages/mjml-browser && yarn build",
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "postinstall": "lerna bootstrap",
     "prettier": "prettier --write \"packages/**/{src,bin}/**/*.?(js|json)\""
   },

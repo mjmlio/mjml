@@ -2,6 +2,7 @@ import { HeadComponent } from 'mjml-core'
 
 export default class MjTitle extends HeadComponent {
   static componentName = 'mj-title'
+
   static endingTag = true
 
   handler() {

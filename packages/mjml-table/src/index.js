@@ -5,6 +5,7 @@ import { reduce } from 'lodash'
 
 export default class MjTable extends BodyComponent {
   static componentName = 'mj-table'
+
   static endingTag = true
 
   static allowedAttributes = {

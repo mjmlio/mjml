@@ -89,6 +89,7 @@ each(defaultSocialNetworks, (val, key) => {
 
 export default class MjSocialElement extends BodyComponent {
   static componentName = 'mj-social-element'
+
   static endingTag = true
 
   static allowedAttributes = {

@@ -1,4 +1,3 @@
-const isNode = require('detect-node')
 import {
   find,
   get,
@@ -32,6 +31,8 @@ import handleMjmlConfig, {
   readMjmlConfig,
   handleMjmlConfigComponents,
 } from './helpers/mjmlconfig'
+
+const isNode = require('detect-node')
 
 class ValidationError extends Error {
   constructor(message, errors) {

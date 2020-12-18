@@ -1,4 +1,3 @@
-const isNode = require('detect-node')
 import { Parser } from 'htmlparser2'
 
 import { isObject, findLastIndex, find } from 'lodash'
@@ -9,6 +8,8 @@ import fs from 'fs'
 import cleanNode from './helpers/cleanNode'
 import convertBooleansOnAttrs from './helpers/convertBooleansOnAttrs'
 import setEmptyAttributes from './helpers/setEmptyAttributes'
+
+const isNode = require('detect-node')
 
 const indexesForNewLine = (xml) => {
   const regex = /\n/gi

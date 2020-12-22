@@ -23,7 +23,7 @@ If you're looking for MJML 3.3.X check [this branch](https://github.com/mjmlio/m
   | <b><a href="#introduction">Introduction</a></b>
   | <b><a href="#installation">Installation</a></b>
   | <b><a href="#usage">Usage</a></b>
-  | <b><a href="#contribute">Contribute</a></b> |
+  | <b><a href="./CONTRIBUTING.md">Contribute</a></b> |
 </p>
 
 ---

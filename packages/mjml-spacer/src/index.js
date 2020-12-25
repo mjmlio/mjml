@@ -1,7 +1,5 @@
 import { BodyComponent } from 'mjml-core'
 
-import conditionalTag from 'mjml-core/lib/helpers/conditionalTag'
-
 export default class MjSpacer extends BodyComponent {
   static allowedAttributes = {
     border: 'string',

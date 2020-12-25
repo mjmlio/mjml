@@ -30,8 +30,6 @@ export default class MjSpacer extends BodyComponent {
   }
 
   render() {
-    const height = this.getAttribute('height')
-
     return `
       <div
         ${this.htmlAttributes({

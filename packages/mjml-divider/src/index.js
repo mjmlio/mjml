@@ -16,7 +16,7 @@ export default class MjDivider extends BodyComponent {
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
     width: 'unit(px,%)',
-    align: 'enum(left, center, right)',
+    align: 'enum(left,center,right)',
   }
 
   static defaultAttributes = {
@@ -81,7 +81,7 @@ export default class MjDivider extends BodyComponent {
       <!--[if mso | IE]>
         <table
           ${this.htmlAttributes({
-            align: 'center',
+            align: this.getAttribute('align'),
             border: '0',
             cellpadding: '0',
             cellspacing: '0',

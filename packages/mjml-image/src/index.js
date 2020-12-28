@@ -56,10 +56,10 @@ export default class MjImage extends BodyComponent {
     return {
       img: {
         border: this.getAttribute('border'),
-        'border-left': this.getAttribute('left'),
-        'border-right': this.getAttribute('right'),
-        'border-top': this.getAttribute('top'),
-        'border-bottom': this.getAttribute('bottom'),
+        'border-left': this.getAttribute('border-left'),
+        'border-right': this.getAttribute('border-right'),
+        'border-top': this.getAttribute('border-top'),
+        'border-bottom': this.getAttribute('border-bottom'),
         'border-radius': this.getAttribute('border-radius'),
         display: 'block',
         outline: 'none',

@@ -16,6 +16,7 @@ export default class MjDivider extends BodyComponent {
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
     width: 'unit(px,%)',
+    align: 'enum(left, center, right)',
   }
 
   static defaultAttributes = {
@@ -24,15 +25,22 @@ export default class MjDivider extends BodyComponent {
     'border-width': '4px',
     padding: '10px 25px',
     width: '100%',
+    align: 'center',
   }
 
   getStyles() {
+    let computeAlign = '0px auto'
+    if (this.getAttribute('align') === 'left') {
+      computeAlign = '0px'
+    } else if (this.getAttribute('align') === 'right') {
+      computeAlign = '0px 0px 0px auto'
+    }
     const p = {
       'border-top': ['style', 'width', 'color']
         .map((attr) => this.getAttribute(`border-${attr}`))
         .join(' '),
       'font-size': '1px',
-      margin: '0px auto',
+      margin: computeAlign,
       width: this.getAttribute('width'),
     }
 

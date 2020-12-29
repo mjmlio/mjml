@@ -147,6 +147,34 @@ minifyOptions | Options for html minifier, see [mjml-cli documentation](https://
 mjmlConfigPath | string | The path or directory of the `.mjmlconfig` file (for custom components use) | `process.cwd()`
 useMjmlConfigOptions | Allows to use the `config` attribute from `.mjmlconfig` file | false
 
+## Client-side (in browser)
+
+```javascript
+var mjml2html = require('mjml-browser')
+
+/*
+  Compile a mjml string
+*/
+var htmlOutput = mjml2html(`
+  <mjml>
+    <mj-body>
+      <mj-section>
+        <mj-column>
+          <mj-text>
+            Hello World!
+          </mj-text>
+        </mj-column>
+      </mj-section>
+    </mj-body>
+  </mjml>
+`, options)
+
+
+/*
+  Print the responsive HTML generated and MJML errors if any
+*/
+console.log(htmlOutput)
+
 ## API
 
 A free-to-use MJML API is available to make it easy to integrate MJML in your application. Head over [here](https://mjml.io/api) to learn more about the API.

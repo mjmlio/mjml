@@ -27,6 +27,10 @@ attribute                     | unit          | description                    |
 align                         | position      | image alignment                | center
 alt                           | string        | image description              | n/a
 border                        | string        | css border definition          | none
+border-top                    | string        | css border definition          | none
+border-bottom                 | string        | css border definition          | none
+border-left                   | string        | css border definition          | none
+border-right                  | string        | css border definition          | none
 border-radius                 | px            | border radius                  | n/a
 container-background-color    | color         | inner element background color | n/a
 css-class                     | string        | class name, added to the root HTML element created | n/a
@@ -47,4 +51,3 @@ target                        | string        | link target on click           |
 title                         | string        | tooltip & accessibility        | n/a
 usemap                        | string        | reference to image map, be careful, it isn't supported everywhere         | n/a
 width                         | px            | image width                    | 100%
-

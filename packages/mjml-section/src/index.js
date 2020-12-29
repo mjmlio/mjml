@@ -4,6 +4,8 @@ import { flow, identity, join, filter } from 'lodash/fp'
 const makeBackgroundString = flow(filter(identity), join(' '))
 
 export default class MjSection extends BodyComponent {
+  static componentName = 'mj-section'
+
   static allowedAttributes = {
     'background-color': 'color',
     'background-url': 'string',

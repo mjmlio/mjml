@@ -3,6 +3,8 @@ import { BodyComponent } from 'mjml-core'
 import widthParser from 'mjml-core/lib/helpers/widthParser'
 
 export default class MjDivider extends BodyComponent {
+  static componentName = 'mj-divider'
+
   static tagOmission = true
 
   static allowedAttributes = {

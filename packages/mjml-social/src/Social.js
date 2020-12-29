@@ -1,6 +1,8 @@
 import { BodyComponent } from 'mjml-core'
 
 export default class MjSocial extends BodyComponent {
+  static componentName = 'mj-social'
+
   static allowedAttributes = {
     align: 'enum(left,right,center)',
     'border-radius': 'unit(px,%)',

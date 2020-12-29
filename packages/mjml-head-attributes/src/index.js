@@ -3,6 +3,8 @@ import { forEach, omit, reduce } from 'lodash'
 import { HeadComponent } from 'mjml-core'
 
 export default class MjAttributes extends HeadComponent {
+  static componentName = 'mj-attributes'
+
   handler() {
     const { add } = this.context
 

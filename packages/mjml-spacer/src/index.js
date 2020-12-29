@@ -1,6 +1,8 @@
 import { BodyComponent } from 'mjml-core'
 
 export default class MjSpacer extends BodyComponent {
+  static componentName = 'mj-spacer'
+
   static allowedAttributes = {
     border: 'string',
     'border-bottom': 'string',

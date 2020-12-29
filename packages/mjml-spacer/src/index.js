@@ -1,7 +1,5 @@
 import { BodyComponent } from 'mjml-core'
 
-import conditionalTag from 'mjml-core/lib/helpers/conditionalTag'
-
 export default class MjSpacer extends BodyComponent {
   static allowedAttributes = {
     border: 'string',
@@ -26,30 +24,18 @@ export default class MjSpacer extends BodyComponent {
     return {
       div: {
         height: this.getAttribute('height'),
+        'line-height': this.getAttribute('height'),
       },
     }
   }
 
   render() {
-    const height = this.getAttribute('height')
-
     return `
-      ${conditionalTag(`
-        <table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td height="${parseInt(
-          height,
-          10,
-        )}" style="height:${height};">
-      `)}
       <div
         ${this.htmlAttributes({
           style: 'div',
         })}
-      >
-        &nbsp;
-      </div>
-      ${conditionalTag(`
-        </td></tr></table>
-      `)}
+      >&#8202;</div>
     `
   }
 }

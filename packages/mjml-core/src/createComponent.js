@@ -20,7 +20,7 @@ import components, { initComponent } from './components'
 
 class Component {
   static getTagName() {
-    return kebabCase(this.name)
+    return this.componentName || kebabCase(this.name)
   }
 
   static isRawElement() {
@@ -79,7 +79,7 @@ class Component {
         ignoreIncludes: true,
       })
       return partialMjml.children
-        .map(child => this.context.processing(child, this.context))
+        .map((child) => this.context.processing(child, this.context))
         .join('')
     }
 
@@ -238,7 +238,7 @@ export class BodyComponent extends Component {
 
 export class HeadComponent extends Component {
   static getTagName() {
-    return kebabCase(this.name)
+    return this.componentName || kebabCase(this.name)
   }
 
   handlerChildren() {

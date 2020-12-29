@@ -2,6 +2,8 @@ import { get } from 'lodash'
 import { HeadComponent } from 'mjml-core'
 
 export default class MjHtmlAttributes extends HeadComponent {
+  static componentName = 'mj-html-attributes'
+
   handler() {
     const { add } = this.context
     const { children } = this.props

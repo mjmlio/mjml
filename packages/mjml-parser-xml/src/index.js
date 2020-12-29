@@ -9,6 +9,8 @@ import cleanNode from './helpers/cleanNode'
 import convertBooleansOnAttrs from './helpers/convertBooleansOnAttrs'
 import setEmptyAttributes from './helpers/setEmptyAttributes'
 
+const isNode = require('detect-node')
+
 const indexesForNewLine = (xml) => {
   const regex = /\n/gi
   const indexes = [0]
@@ -43,7 +45,7 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
 
   let cwd = process.cwd()
 
-  if (filePath) {
+  if (isNode && filePath) {
     try {
       const isDir = fs.lstatSync(filePath).isDirectory()
       cwd = isDir ? filePath : path.dirname(filePath)
@@ -177,7 +179,7 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
           findLastIndex(lineIndexes, (i) => i <= parser.startIndex) + 1
 
         if (name === 'mj-include') {
-          if (ignoreIncludes) return
+          if (ignoreIncludes || !isNode) return
 
           inInclude = true
           handleInclude(decodeURIComponent(attrs.path), line)
@@ -191,7 +193,7 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
 
         const newNode = {
           file: actualPath,
-          absoluteFilePath: path.resolve(cwd, actualPath),
+          absoluteFilePath: isNode ? path.resolve(cwd, actualPath) : actualPath,
           line,
           includedIn,
           parent: cur,

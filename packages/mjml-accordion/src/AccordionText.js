@@ -1,6 +1,8 @@
 import { BodyComponent } from 'mjml-core'
 
 export default class MjAccordionText extends BodyComponent {
+  static componentName = 'mj-accordion-text'
+
   static endingTag = true
 
   static allowedAttributes = {

@@ -20,6 +20,7 @@ If you're looking for MJML 3.3.X check [this branch](https://github.com/mjmlio/m
 
 
 <p align="center">
+  | <b><a href="#translated-documentation">Translated documentation</a></b>
   | <b><a href="#introduction">Introduction</a></b>
   | <b><a href="#installation">Installation</a></b>
   | <b><a href="#usage">Usage</a></b>
@@ -27,6 +28,10 @@ If you're looking for MJML 3.3.X check [this branch](https://github.com/mjmlio/m
 </p>
 
 ---
+# Translated documentation
+
+| Language | Link for documentation |
+| 日本語 | [日本語ドキュメント](https://github.com/mjmlio/mjml/blob/master/readme-ja.md) |
 
 # Introduction
 
@@ -174,6 +179,7 @@ var htmlOutput = mjml2html(`
   Print the responsive HTML generated and MJML errors if any
 */
 console.log(htmlOutput)
+```
 
 ## API
 

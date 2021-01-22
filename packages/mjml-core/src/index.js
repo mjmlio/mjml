@@ -114,7 +114,7 @@ export default function mjml2html(mjml, options = {}) {
     ...options,
   }
 
-  const components = = [...globalComponents]
+  const components = [...globalComponents]
   const dependencies = assignDependencies({}, globalDependencies)
   for (const preset of presets) {
     components.push(...preset.components)

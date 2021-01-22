@@ -38,13 +38,6 @@ import handleMjmlConfig, {
 
 const isNode = require('detect-node')
 
-function registerPreset(preset) {
-  preset.components.forEach((component) => {
-    registerComponent(component)
-  })
-  assignDependencies(globalDependencies, preset.dependencies)
-}
-
 class ValidationError extends Error {
   constructor(message, errors) {
     super(message)
@@ -406,7 +399,6 @@ export {
   globalComponents as components,
   initComponent,
   registerComponent,
-  registerPreset,
   suffixCssClasses,
   handleMjmlConfig,
   initializeType,

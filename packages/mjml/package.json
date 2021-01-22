@@ -30,7 +30,8 @@
     "mjml-cli": "4.8.2",
     "mjml-core": "4.8.2",
     "mjml-migrate": "4.8.2",
-    "mjml-preset-core": "4.8.2"
+    "mjml-preset-core": "4.8.2",
+    "mjml-validator": "4.8.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",

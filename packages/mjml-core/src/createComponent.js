@@ -261,7 +261,7 @@ export class HeadComponent extends Component {
   }
 
   handlerChildren() {
-    const children = this.props.children
+    const { children } = this.props
 
     return children.map((children) => {
       const component = initComponent({

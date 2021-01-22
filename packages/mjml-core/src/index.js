@@ -16,10 +16,14 @@ import { minify as htmlMinify } from 'html-minifier'
 import cheerio from 'cheerio'
 
 import MJMLParser from 'mjml-parser-xml'
-import MJMLValidator, { dependencies } from 'mjml-validator'
+import MJMLValidator, {
+  dependencies as globalDependencies,
+  assignDependencies,
+} from 'mjml-validator'
 import { handleMjml3 } from 'mjml-migrate'
+
 import { initComponent } from './createComponent'
-import components, { registerComponent } from './components'
+import globalComponents, { registerComponent } from './components'
 
 import suffixCssClasses from './helpers/suffixCssClasses'
 import mergeOutlookConditionnals from './helpers/mergeOutlookConditionnals'
@@ -38,7 +42,7 @@ function registerPreset(preset) {
   preset.components.forEach((component) => {
     registerComponent(component)
   })
-  registerDependencies(preset.dependencies)
+  assignDependencies(globalDependencies, preset.dependencies)
 }
 
 class ValidationError extends Error {
@@ -117,9 +121,12 @@ export default function mjml2html(mjml, options = {}) {
     ...options,
   }
 
-  presets.forEach((preset) => {
-    registerPreset(preset)
-  })
+  const components = = [...globalComponents]
+  const dependencies = assignDependencies({}, globalDependencies)
+  for (const preset of presets) {
+    components.push(...preset.components)
+    assignDependencies(dependencies, preset.dependencies)
+  }
 
   if (typeof mjml === 'string') {
     mjml = MJMLParser(mjml, {
@@ -396,7 +403,7 @@ if (isNode) {
 }
 
 export {
-  components,
+  globalComponents as components,
   initComponent,
   registerComponent,
   registerPreset,

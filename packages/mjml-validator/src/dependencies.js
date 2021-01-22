@@ -1,14 +1,26 @@
 export const assignDependencies = (target, ...sources) => {
+  if (!sources) {
+    return target
+  }
+
   for (const source of sources) {
-    for (const tag of Object.keys(source)) {
-      const list = []
-      if (target[tag]) {
-        list.push(...target[tag])
+    if (typeof source === 'object' && source !== null) {
+      for (const tag of Object.keys(source)) {
+      if (typeof tag !== 'string') {
+          const list = []
+          if (target[tag]) {
+            list.push(...target[tag])
+          }
+          if (source[tag]) {
+            list.push(...source[tag])
+          }
+          target[tag] = Array.from(new Set(list))
+        } else {
+          console.warn('dependency "tag" must be of type string')
+        }
       }
-      if (source[tag]) {
-        list.push(...source[tag])
-      }
-      target[tag] = Array.from(new Set(list))
+    } else {
+      console.warn('"dependencies" must be an object.')
     }
   }
   return target

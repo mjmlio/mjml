@@ -6,23 +6,4 @@ export function registerComponent(Component) {
   components[Component.componentName || kebabCase(Component.name)] = Component
 }
 
-export function initComponent({ initialDatas, name }) {
-  const Component = components[name]
-
-  if (Component) {
-    const component = new Component(initialDatas)
-
-    if (component.headStyle) {
-      component.context.addHeadStyle(name, component.headStyle)
-    }
-    if (component.componentHeadStyle) {
-      component.context.addComponentHeadSyle(component.componentHeadStyle)
-    }
-
-    return component
-  }
-
-  return null
-}
-
 export default components

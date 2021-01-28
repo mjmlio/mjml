@@ -6,11 +6,11 @@ In this section, you're going to learn how to code a basic email template using 
 Here is the final render we want to end with:
 
 <p align="center">
-  <a href="https://mjml.io/try-it-live/templates/hello-world"><img width="350px" src="https://cloud.githubusercontent.com/assets/6558790/12779864/d9c20556-ca6a-11e5-9007-d40ac89c5088.png" alt="sexy"></a>
+  <a href="https://mjml.io/try-it-live/templates/basic"><img width="350px" src="https://cloud.githubusercontent.com/assets/6558790/12779864/d9c20556-ca6a-11e5-9007-d40ac89c5088.png" alt="sexy"></a>
 </p>
 
 <p align="center">
-  <a href="/try-it-live/templates/basic"><img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" /></a>
+  <a href="https://mjml.io/try-it-live/templates/basic"><img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" /></a>
 </p>
 
 Looks cool, right?

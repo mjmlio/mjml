@@ -21,6 +21,7 @@
     "build": "babel src --out-dir lib --root-mode upward"
   },
   "dependencies": {
+    "@babel/runtime": "^7.8.7",
     "mjml-accordion": "4.8.1",
     "mjml-body": "4.8.1",
     "mjml-button": "4.8.1",

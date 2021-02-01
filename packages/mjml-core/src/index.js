@@ -23,7 +23,10 @@ import MJMLValidator, {
 import { handleMjml3 } from 'mjml-migrate'
 
 import { initComponent } from './createComponent'
-import globalComponents, { registerComponent } from './components'
+import globalComponents, {
+  registerComponent,
+  assignComponents,
+} from './components'
 
 import suffixCssClasses from './helpers/suffixCssClasses'
 import mergeOutlookConditionnals from './helpers/mergeOutlookConditionnals'
@@ -114,10 +117,10 @@ export default function mjml2html(mjml, options = {}) {
     ...options,
   }
 
-  const components = [...globalComponents]
+  const components = { ...globalComponents }
   const dependencies = assignDependencies({}, globalDependencies)
   for (const preset of presets) {
-    components.push(...preset.components)
+    assignComponents(components, preset.components)
     assignDependencies(dependencies, preset.dependencies)
   }
 
@@ -399,6 +402,7 @@ export {
   globalComponents as components,
   initComponent,
   registerComponent,
+  assignComponents,
   suffixCssClasses,
   handleMjmlConfig,
   initializeType,

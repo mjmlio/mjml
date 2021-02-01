@@ -1,5 +1,5 @@
 export const assignDependencies = (target, ...sources) => {
-  if (!sources || !sources.length) {
+  if (sources.length === 0) {
     return target
   }
 

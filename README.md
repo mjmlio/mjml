@@ -31,6 +31,7 @@ If you're looking for MJML 3.3.X check [this branch](https://github.com/mjmlio/m
 # Translated documentation
 
 | Language | Link for documentation |
+| :-: | :-: |
 | 日本語 | [日本語ドキュメント](https://github.com/mjmlio/mjml/blob/master/readme-ja.md) |
 
 # Introduction

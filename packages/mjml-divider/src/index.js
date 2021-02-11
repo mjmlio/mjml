@@ -67,9 +67,9 @@ export default class MjDivider extends BodyComponent {
 
     switch (unit) {
       case '%':
-        const effectiveWidth = parseInt(containerWidth, 10) - paddingSize;
-        const percentMultiplier = parseInt(parsedWidth, 10) / 100;
-        return `${effectiveWidth * percentMultiplier}px`;
+        const effectiveWidth = parseInt(containerWidth, 10) - paddingSize
+        const percentMultiplier = parseInt(parsedWidth, 10) / 100
+        return `${effectiveWidth * percentMultiplier}px`
       case 'px':
         return width
       default:

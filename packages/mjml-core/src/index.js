@@ -18,8 +18,8 @@ import cheerio from 'cheerio'
 import MJMLParser from 'mjml-parser-xml'
 import MJMLValidator, { dependencies } from 'mjml-validator'
 import { handleMjml3 } from 'mjml-migrate'
-
-import components, { initComponent, registerComponent } from './components'
+import { initComponent } from './createComponent'
+import components, { registerComponent } from './components'
 
 import suffixCssClasses from './helpers/suffixCssClasses'
 import mergeOutlookConditionnals from './helpers/mergeOutlookConditionnals'
@@ -251,6 +251,7 @@ export default function mjml2html(mjml, options = {}) {
   }
 
   const bodyHelpers = {
+    components,
     addMediaQuery(className, { parsedWidth, unit }) {
       globalDatas.mediaQueries[
         className
@@ -269,6 +270,7 @@ export default function mjml2html(mjml, options = {}) {
   }
 
   const headHelpers = {
+    components,
     add(attr, ...params) {
       if (Array.isArray(globalDatas[attr])) {
         globalDatas[attr].push(...params)

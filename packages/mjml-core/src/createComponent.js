@@ -16,7 +16,24 @@ import shorthandParser, { borderParser } from './helpers/shorthandParser'
 import formatAttributes from './helpers/formatAttributes'
 import jsonToXML from './helpers/jsonToXML'
 
-import components, { initComponent } from './components'
+export function initComponent({ initialDatas, name }) {
+  const Component = initialDatas.context.components[name]
+
+  if (Component) {
+    const component = new Component(initialDatas)
+
+    if (component.headStyle) {
+      component.context.addHeadStyle(name, component.headStyle)
+    }
+    if (component.componentHeadStyle) {
+      component.context.addComponentHeadSyle(component.componentHeadStyle)
+    }
+
+    return component
+  }
+
+  return null
+}
 
 class Component {
   static getTagName() {
@@ -75,7 +92,7 @@ class Component {
       // supports returning siblings elements from a custom component
       const partialMjml = MJMLParser(`<fragment>${mjml}</fragment>`, {
         ...options,
-        components,
+        components: this.context.components,
         ignoreIncludes: true,
       })
       return partialMjml.children
@@ -180,7 +197,7 @@ export class BodyComponent extends Component {
     )
   }
 
-  renderChildren(childrens, options = {}) {
+  renderChildren(children, options = {}) {
     const {
       props = {},
       renderer = (component) => component.render(),
@@ -188,23 +205,25 @@ export class BodyComponent extends Component {
       rawXML = false,
     } = options
 
-    childrens = childrens || this.props.children
+    children = children || this.props.children
 
     if (rawXML) {
-      return childrens.map((child) => jsonToXML(child)).join('\n')
+      return children.map((child) => jsonToXML(child)).join('\n')
     }
 
-    const sibling = childrens.length
+    const sibling = children.length
 
-    const rawComponents = filter(components, (c) => c.isRawElement())
-    const nonRawSiblings = childrens.filter(
+    const rawComponents = filter(this.context.components, (c) =>
+      c.isRawElement(),
+    )
+    const nonRawSiblings = children.filter(
       (child) => !find(rawComponents, (c) => c.getTagName() === child.tagName),
     ).length
 
     let output = ''
     let index = 0
 
-    forEach(childrens, (children) => {
+    forEach(children, (children) => {
       const component = initComponent({
         name: children.tagName,
         initialDatas: {
@@ -242,9 +261,9 @@ export class HeadComponent extends Component {
   }
 
   handlerChildren() {
-    const childrens = this.props.children
+    const { children } = this.props
 
-    return childrens.map((children) => {
+    return children.map((children) => {
       const component = initComponent({
         name: children.tagName,
         initialDatas: {

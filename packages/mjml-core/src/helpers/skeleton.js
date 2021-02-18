@@ -16,7 +16,6 @@ export default function skeleton(options) {
     preview,
     title = '',
     style,
-    forceOWADesktop,
     inlineStyle,
     lang,
   } = options
@@ -56,7 +55,7 @@ export default function skeleton(options) {
         </style>
         <![endif]-->
         ${buildFontsTags(content, inlineStyle, fonts)}
-        ${buildMediaQueriesTags(breakpoint, mediaQueries, forceOWADesktop)}
+        ${buildMediaQueriesTags(breakpoint, mediaQueries)}
         <style type="text/css">
         ${reduce(
           componentsHeadStyle,

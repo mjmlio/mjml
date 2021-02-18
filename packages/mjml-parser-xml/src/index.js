@@ -58,10 +58,52 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
   let cur = null
   let inInclude = !!includedIn.length
   let inEndingTag = 0
+  const cssIncludes = []
   const currentEndingTagIndexes = { startIndex: 0, endIndex: 0 }
 
   const findTag = (tagName, tree) => find(tree.children, { tagName })
   const lineIndexes = indexesForNewLine(xml)
+
+  const handleCssInclude = (file, attrs, line) => {
+    const partialPath = path.resolve(cwd, file)
+    let content
+    try {
+      content = fs.readFileSync(partialPath, 'utf8')
+    } catch (e) {
+      const newNode = {
+        line,
+        file,
+        absoluteFilePath: path.resolve(cwd, actualPath),
+        parent: cur,
+        tagName: 'mj-raw',
+        content: `<!-- mj-include fails to read file : ${file} at ${partialPath} -->`,
+        children: [],
+        errors: [
+          {
+            type: 'include',
+            params: { file, partialPath },
+          },
+        ],
+      }
+      cur.children.push(newNode)
+
+      return
+    }
+
+    const attributes =
+      attrs['css-inline'] === 'inline' ? { inline: 'inline' } : {}
+
+    const newNode = {
+      line,
+      file,
+      absoluteFilePath: path.resolve(cwd, actualPath),
+      tagName: 'mj-style',
+      content,
+      children: [],
+      attributes,
+    }
+    cssIncludes.push(newNode)
+  }
 
   const handleInclude = (file, line) => {
     const partialPath = path.resolve(cwd, file)
@@ -181,6 +223,11 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
         if (name === 'mj-include') {
           if (ignoreIncludes || !isNode) return
 
+          if (attrs.type === 'css') {
+            handleCssInclude(decodeURIComponent(attrs.path), attrs, line)
+            return
+          }
+
           inInclude = true
           handleInclude(decodeURIComponent(attrs.path), line)
           return
@@ -287,6 +334,25 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
   // Assign "attributes" property if not set
   if (addEmptyAttributes) {
     setEmptyAttributes(mjml)
+  }
+
+  if (cssIncludes.length) {
+    const head = find(mjml.children, { tagName: 'mj-head' })
+
+    if (head) {
+      if (head.children) {
+        head.children = [...head.children, ...cssIncludes]
+      } else {
+        head.children = cssIncludes
+      }
+    } else {
+      mjml.children.push({
+        file: filePath,
+        line: 0,
+        tagName: 'mj-head',
+        children: cssIncludes,
+      })
+    }
   }
 
   return mjml

@@ -64,7 +64,7 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
   const findTag = (tagName, tree) => find(tree.children, { tagName })
   const lineIndexes = indexesForNewLine(xml)
 
-  const handleCssInclude = (file, attrs, line) => {
+  const handleCssHtmlInclude = (file, attrs, line) => {
     const partialPath = path.resolve(cwd, file)
     let content
     try {
@@ -84,6 +84,20 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
             params: { file, partialPath },
           },
         ],
+      }
+      cur.children.push(newNode)
+
+      return
+    }
+
+    if (attrs.type === 'html') {
+      const newNode = {
+        line,
+        file,
+        absoluteFilePath: path.resolve(cwd, actualPath),
+        parent: cur,
+        tagName: 'mj-raw',
+        content,
       }
       cur.children.push(newNode)
 
@@ -223,8 +237,8 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
         if (name === 'mj-include') {
           if (ignoreIncludes || !isNode) return
 
-          if (attrs.type === 'css') {
-            handleCssInclude(decodeURIComponent(attrs.path), attrs, line)
+          if (attrs.type === 'css' || attrs.type === 'html') {
+            handleCssHtmlInclude(decodeURIComponent(attrs.path), attrs, line)
             return
           }
 

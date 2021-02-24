@@ -1,5 +1,8 @@
 module.exports = {
-  presets: [['@babel/env', { targets: { node: '10' } }]],
+  presets: [['@babel/env', {
+    targets: { node: '10' },
+    include: ['transform-classes'],
+  }]],
   plugins: [
     '@babel/proposal-class-properties',
     [

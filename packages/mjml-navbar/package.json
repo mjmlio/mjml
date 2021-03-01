@@ -1,7 +1,7 @@
 {
   "name": "mjml-navbar",
   "description": "mjml-navbar",
-  "version": "4.8.1",
+  "version": "4.8.2",
   "main": "lib/index.js",
   "files": [
     "lib"
@@ -23,7 +23,7 @@
   "dependencies": {
     "@babel/runtime": "^7.8.7",
     "lodash": "^4.17.15",
-    "mjml-core": "4.8.1"
+    "mjml-core": "4.8.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",

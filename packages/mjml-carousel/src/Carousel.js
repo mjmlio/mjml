@@ -175,8 +175,6 @@ export default class MjCarousel extends BodyComponent {
       .mj-carousel noinput .mj-carousel-arrows,
       .mj-carousel noinput .mj-carousel-thumbnails { display: none !important; }
 
-      [owa] .mj-carousel-thumbnail { display: none !important; }
-
       @media screen yahoo {
           .mj-carousel-${this.carouselId}-icons-cell,
           .mj-carousel-previous-icons,

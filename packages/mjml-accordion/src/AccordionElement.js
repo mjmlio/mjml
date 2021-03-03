@@ -9,6 +9,7 @@ export default class MjAccordionElement extends BodyComponent {
 
   static allowedAttributes = {
     'background-color': 'color',
+    border: 'string',
     'font-family': 'string',
     'icon-align': 'enum(top,middle,bottom)',
     'icon-width': 'unit(px,%)',

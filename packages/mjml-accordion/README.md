@@ -48,7 +48,7 @@
   <a href="https://mjml.io/try-it-live/components/accordion">
     <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="sexy" />
   </a>
-
+</p>
 
 attribute | unit | description | default value
 ----------|------|-------------|---------------

@@ -11,8 +11,6 @@ import {
 } from 'lodash'
 import path from 'path'
 import juice from 'juice'
-import { html as htmlBeautify } from 'js-beautify'
-import { minify as htmlMinify } from 'html-minifier'
 import cheerio from 'cheerio'
 
 import MJMLParser from 'mjml-parser-xml'
@@ -20,7 +18,6 @@ import MJMLValidator, {
   dependencies as globalDependencies,
   assignDependencies,
 } from 'mjml-validator'
-import { handleMjml3 } from 'mjml-migrate'
 
 import { initComponent } from './createComponent'
 import globalComponents, {
@@ -109,7 +106,6 @@ export default function mjml2html(mjml, options = {}) {
     validationLevel = 'soft',
     filePath = '.',
     actualPath = '.',
-    noMigrateWarn = false,
     preprocessors,
     presets = [],
   } = {
@@ -134,8 +130,6 @@ export default function mjml2html(mjml, options = {}) {
       ignoreIncludes,
     })
   }
-
-  mjml = handleMjml3(mjml, { noMigrateWarn })
 
   const globalDatas = {
     backgroundColor: '',
@@ -362,29 +356,14 @@ export default function mjml2html(mjml, options = {}) {
   if (beautify) {
     // eslint-disable-next-line no-console
     console.warn(
-      '"beautify" option is deprecated in mjml-core and only available in mjml cli.',
+      '"beautify" option has been removed in mjml-core and only available in mjml cli.',
     )
-    content = htmlBeautify(content, {
-      indent_size: 2,
-      wrap_attributes_indent_size: 2,
-      max_preserve_newline: 0,
-      preserve_newlines: false,
-    })
   }
-
   if (minify) {
     // eslint-disable-next-line no-console
     console.warn(
-      '"minify" option is deprecated in mjml-core and only available in mjml cli.',
+      '"minify" option has been removed in mjml-core and only available in mjml cli.',
     )
-
-    content = htmlMinify(content, {
-      collapseWhitespace: true,
-      minifyCSS: false,
-      caseSensitive: true,
-      removeEmptyAttributes: true,
-      ...minifyOptions,
-    })
   }
 
   return {

@@ -1,7 +1,7 @@
 import path from 'path'
 import yargs from 'yargs'
-import { flow, pick, isNil, negate, pickBy, omit } from 'lodash/fp'
-import { isArray, isEmpty, map, get } from 'lodash'
+import { flow, pick, isNil, negate, pickBy } from 'lodash/fp'
+import { isArray, isEmpty, map, get, omit } from 'lodash'
 import { html as htmlBeautify } from 'js-beautify'
 import { minify as htmlMinify } from 'html-minifier'
 
@@ -208,7 +208,7 @@ export default async () => {
         default: {
           const beautify = config.beautify && config.beautify !== 'false'
           const minify = config.minify && config.minify !== 'false'
-
+          
           compiled = mjml2html(i.mjml, {
             ...omit(config, ['minify', 'beautify']),
             filePath: filePath || i.file,

@@ -143,13 +143,10 @@ console.log(htmlOutput)
 fonts  | object | 初期フォントをインポートしたHTMLを描画する | 初期フォントについては[index.js](https://github.com/mjmlio/mjml/blob/master/packages/mjml-core/src/index.js#L36-L44)をご覧ください。
 keepComments | boolean | 出力されるHTMLにコメントを残すオプション | true
 ignoreIncludes | boolean | mj-includesを無視するオプション | false
-beautify | boolean | 出力されるHTMLを整えるオプション | false
-minify | boolean | 出力されるHTMLをminify化するオプション | false
 validationLevel | string | [validator](https://github.com/mjmlio/mjml/tree/master/packages/mjml-validator#validating-mjml)で利用する値: 'strict', 'soft', 'skip'  | 'soft'
 filePath | string | mj-includesの相対パスに使われるファイルパス | '.'
 preprocessors | array of functions | xmlのパース前に適用するプリプロセッサー。入力はjsonではなく、必ずxmlでなければなりません。関数の場合は必ず (xml: string) => string としなければなりません。 | []
 juicePreserveTags | cssをインライン化する際にタグを保持する。詳しくは[mjml-cli documentation](https://github.com/mjmlio/mjml/blob/master/packages/mjml-cli/README.md)をご覧ください。 | NA
-minifyOptions | htmlのminify化に関するオプション。詳しくは[mjml-cli documentation](https://github.com/mjmlio/mjml/blob/master/packages/mjml-cli/README.md)をご覧ください。 | NA
 mjmlConfigPath | string | `.mjmlconfig`ファイルのパスもしくはディレクトリー(カスタムコンポーネントの場合) | `process.cwd()`
 useMjmlConfigOptions | `.mjmlconfig`ファイルで`config`属性の使用を許可する | false
 

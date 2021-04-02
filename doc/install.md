@@ -100,13 +100,10 @@ option   | unit   | description  | default value
 -------------|--------|--------------|---------------
 fonts  | object | Default fonts imported in the HTML rendered by HTML | See in [index.js](https://github.com/mjmlio/mjml/blob/master/packages/mjml-core/src/index.js#L36-L44)
 keepComments | boolean | Option to keep comments in the HTML output | true
-beautify | boolean | Option to beautify the HTML output | false
-minify | boolean | Option to minify the HTML output | false
 validationLevel | string | Available values for the [validator](https://github.com/mjmlio/mjml/tree/master/packages/mjml-validator#validating-mjml): 'strict', 'soft', 'skip'  | 'soft'
 filePath | string | Full path of the specified file to use when resolving paths from [`mj-include` components](#mj-include) | '.'
 mjmlConfigPath | string | The path or directory of the [`.mjmlconfig` file](#community-components) | `process.cwd()`
 useMjmlConfigOptions | Allows to use the `config` attribute from `.mjmlconfig` file | false
-minifyOptions | Options for html minifier, see [mjml-cli documentation](https://github.com/mjmlio/mjml/blob/master/packages/mjml-cli/README.md) for more info | {"collapseWhitespace": true, "minifyCSS": false, "removeEmptyAttributes": true}
 juicePreserveTags | optional setting when inlining css, see [mjml-cli documentation](https://github.com/mjmlio/mjml/blob/master/packages/mjml-cli/README.md) for more info | NA
 
 ## API

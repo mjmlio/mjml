@@ -191,7 +191,7 @@ This section is a 3-columns-based section. Please notice you can make the paddin
 <mj-section background-color="#e7e7e7">
   <mj-column>
     <mj-social>
-      <mj-social-element name="facebook" />
+      <mj-social-element name="facebook">Share</mj-social-element>
     </mj-social>
   </mj-column>
 </mj-section>

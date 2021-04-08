@@ -30,6 +30,17 @@ Example: [https://fonts
   </a>
 </p>
 
+<aside class="notice">
+  "mj-font" cannot work if the email client doesn't support external fonts.
+  <a href="https://www.caniemail.com/features/css-at-font-face/"
+     target="_blank"
+     referrerpolicy="no-referrer"
+     rel="noreferrer noopener"
+     title="link to caniemail.com/features/css-at-font-face"
+   >https://www.caniemail.com/features/css-at-font-face/</a >
+   may help.
+</aside>
+
 attribute   | unit     | description                | default value
 ------------|----------|----------------------------|---------------
 href        | string   | URL of a hosted CSS file   | n/a

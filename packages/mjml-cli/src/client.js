@@ -188,15 +188,12 @@ export default async () => {
       break
     }
     case 'w':
-      watchFiles(
-        inputFiles,
-        {
-          ...argv,
-          config,
-          minifyConfig,
-          beautifyConfig,
-        }
-      )
+      watchFiles(inputFiles, {
+        ...argv,
+        config,
+        minifyConfig,
+        beautifyConfig,
+      })
       KEEP_OPEN = true
       break
     case 'i':
@@ -223,7 +220,11 @@ export default async () => {
             actualPath: i.file,
           })
           compiled = {
-            errors: validate(mjmlJson, { dependencies, components, initializeType }),
+            errors: validate(mjmlJson, {
+              dependencies,
+              components,
+              initializeType,
+            }),
           }
           break
 

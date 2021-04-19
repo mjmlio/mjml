@@ -57,7 +57,7 @@ export default (input, options) => {
       const beautify = config.beautify && config.beautify !== 'false'
       const minify = config.minify && config.minify !== 'false'
 
-      let compiled = mjml2html(args.content, {
+      const compiled = mjml2html(args.content, {
         filePath: args.file,
         actualPath: args.file,
         ...omit(config, ['minify', 'beautify']),
@@ -71,7 +71,7 @@ export default (input, options) => {
           ...config.minifyOptions,
         })
       }
-      
+
       return {
         ...args,
         compiled,

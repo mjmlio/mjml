@@ -4,6 +4,9 @@ import glob from 'glob'
 import path from 'path'
 import mjml2html from 'mjml-core'
 import { flow, pickBy, flatMap, uniq, difference, remove } from 'lodash/fp'
+import { omit } from 'lodash'
+import { html as htmlBeautify } from 'js-beautify'
+import { minify as htmlMinify } from 'html-minifier'
 
 import readFile from './readFile'
 import makeOutputToFile from './outputToFile'
@@ -49,14 +52,31 @@ export default (input, options) => {
   }
   const readAndCompile = flow(
     (file) => ({ file, content: readFile(file).mjml }),
-    (args) => ({
-      ...args,
-      compiled: mjml2html(args.content, {
+    (args) => {
+      const { config, beautifyConfig, minifyConfig } = options
+      const beautify = config.beautify && config.beautify !== 'false'
+      const minify = config.minify && config.minify !== 'false'
+
+      let compiled = mjml2html(args.content, {
         filePath: args.file,
         actualPath: args.file,
-        ...options.config,
-      }),
-    }),
+        ...omit(config, ['minify', 'beautify']),
+      })
+      if (beautify) {
+        compiled.html = htmlBeautify(compiled.html, beautifyConfig)
+      }
+      if (minify) {
+        compiled.html = htmlMinify(compiled.html, {
+          ...minifyConfig,
+          ...config.minifyOptions,
+        })
+      }
+      
+      return {
+        ...args,
+        compiled,
+      }
+    },
     (args) => {
       const {
         compiled: { errors },

@@ -20,6 +20,20 @@ import outputToConsole from './commands/outputToConsole'
 import { version as cliVersion } from '../package.json'
 import DEFAULT_OPTIONS from './helpers/defaultOptions'
 
+const beautifyConfig = {
+  indent_size: 2,
+  wrap_attributes_indent_size: 2,
+  max_preserve_newline: 0,
+  preserve_newlines: false,
+}
+
+const minifyConfig = {
+  collapseWhitespace: true,
+  minifyCSS: false,
+  caseSensitive: true,
+  removeEmptyAttributes: true,
+}
+
 export default async () => {
   let EXIT_CODE = 0
   let KEEP_OPEN = false
@@ -174,7 +188,12 @@ export default async () => {
       break
     }
     case 'w':
-      watchFiles(inputFiles, { ...argv, config })
+      watchFiles(inputFiles, {
+        ...argv,
+        config,
+        minifyConfig,
+        beautifyConfig,
+      })
       KEEP_OPEN = true
       break
     case 'i':
@@ -201,7 +220,11 @@ export default async () => {
             actualPath: i.file,
           })
           compiled = {
-            errors: validate(mjmlJson, { dependencies, components, initializeType }),
+            errors: validate(mjmlJson, {
+              dependencies,
+              components,
+              initializeType,
+            }),
           }
           break
 
@@ -215,19 +238,11 @@ export default async () => {
             actualPath: i.file,
           })
           if (beautify) {
-            compiled.html = htmlBeautify(compiled.html, {
-              indent_size: 2,
-              wrap_attributes_indent_size: 2,
-              max_preserve_newline: 0,
-              preserve_newlines: false,
-            })
+            compiled.html = htmlBeautify(compiled.html, beautifyConfig)
           }
           if (minify) {
             compiled.html = htmlMinify(compiled.html, {
-              collapseWhitespace: true,
-              minifyCSS: false,
-              caseSensitive: true,
-              removeEmptyAttributes: true,
+              ...minifyConfig,
               ...config.minifyOptions,
             })
           }

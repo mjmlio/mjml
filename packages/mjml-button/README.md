@@ -1,14 +1,16 @@
 ## mj-button
 
 <p align="center">
-  <img src="https://cloud.githubusercontent.com/assets/6558790/12751346/fd993192-c9bc-11e5-8c91-37d616bf5874.png" alt="desktop" width="150px" />
+  <img src="https://cloud.githubusercontent.com/assets/6558790/12751346/fd993192-c9bc-11e5-8c91-37d616bf5874.png"
+       alt="desktop" width="150px" />
 </p>
 
 Displays a customizable button.
 
 <aside class="notice">
   The `mj-button` won't be fully clickable because of client support.
-  See discussion at [Issue #359](https://github.com/mjmlio/mjml/issues/359).
+  See discussion at
+    <a href="https://github.com/mjmlio/mjml/issues/359">Issue #359</a>.
 </aside>
 
 ```xml

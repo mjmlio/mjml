@@ -140,6 +140,7 @@ export default async () => {
     minifyOptions && { minifyOptions },
     juiceOptions && { juiceOptions },
     juicePreserveTags && { juicePreserveTags },
+    argv.c.keepComments === 'false' && { keepComments: false },
   )
 
   const inputArgs = pickArgs(['r', 'w', 'i', '_', 'm', 'v'])(argv)

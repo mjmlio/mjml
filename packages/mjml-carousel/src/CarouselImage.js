@@ -140,7 +140,7 @@ export default class MjCarouselImage extends BodyComponent {
       >
         ${
           href
-            ? `<a href=${href} rel=${rel} target="_blank">${image}</a>`
+            ? `<a ${this.htmlAttributes({ href, rel, target: "_blank" })}>${image}</a>`
             : image
         }
       </div>

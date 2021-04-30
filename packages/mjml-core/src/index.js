@@ -153,6 +153,7 @@ export default function mjml2html(mjml, options = {}) {
     preview: '',
     style: [],
     title: '',
+    forceOWADesktop: get(mjml, 'attributes.owa', 'mobile') === 'desktop',
     lang: get(mjml, 'attributes.lang'),
   }
 

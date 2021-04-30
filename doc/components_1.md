@@ -32,6 +32,7 @@ A MJML document starts with a `<mjml>` tag, it can contain only `mj-head` and `m
 
 attribute | unit | description | default value
 ----------|------|-------------|---------------
+owa | string | if set to "desktop", switch force desktop version for older (self-hosted) version of Outlook.com that doesn't support media queries (cf. [this issue](https://github.com/mjmlio/mjml/issues/2241)) | none
 lang | string | used as `<html lang="">` attribute | none
 
 

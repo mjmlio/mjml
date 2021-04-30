@@ -1,7 +1,7 @@
 import { map, isEmpty } from 'lodash'
 
 // eslint-disable-next-line import/prefer-default-export
-export default function buildMediaQueriesTags(breakpoint, mediaQueries = {}) {
+export default function buildMediaQueriesTags(breakpoint, mediaQueries = {}, forceOWADesktop = false) {
   if (isEmpty(mediaQueries)) {
     return ''
   }
@@ -14,6 +14,7 @@ export default function buildMediaQueriesTags(breakpoint, mediaQueries = {}) {
     mediaQueries,
     (mediaQuery, className) => `.moz-text-html .${className} ${mediaQuery}`,
   )
+  const owaQueries = map(baseMediaQueries, (mq) => `[owa] ${mq}`)
 
   return `
     <style type="text/css">
@@ -24,5 +25,10 @@ export default function buildMediaQueriesTags(breakpoint, mediaQueries = {}) {
     <style media="screen and (min-width:${breakpoint})">
       ${thunderbirdMediaQueries.join('\n')}
     </style>
+    ${
+      forceOWADesktop
+        ? `<style type="text/css">\n${owaQueries.join('\n')}\n</style>`
+        : ``
+    }
   `
 }

@@ -112,7 +112,7 @@ export default class MjSection extends BodyComponent {
       this.getAttribute('background-color'),
       ...(this.hasBackground()
         ? [
-            `url(${this.getAttribute('background-url')})`,
+            `url('${this.getAttribute('background-url')}')`,
             this.getBackgroundString(),
             `/ ${this.getAttribute('background-size')}`,
             this.getAttribute('background-repeat'),

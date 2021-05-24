@@ -1,6 +1,8 @@
 ## mj-attributes
 
-This tag allows you to modify default attributes on a `mj-tag` and add `mj-class` to them.
+This tag allows you to modify default MJML attributes on a `mj-tag` or on all tag with `mj-all`.
+
+In addition of all available `mj-tag` you can also reuse a set of MJML attributes with `mj-class`
 
  ```xml
 <mjml>

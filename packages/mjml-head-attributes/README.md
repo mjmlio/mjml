@@ -4,19 +4,19 @@ Inside `mj-attributes`, a tag citing one MJML component (like `mj-text`;
 see example) overrides default settings for listed MJML attributes
 on the one component.
 
-An `mj-all` is like the above, but affects every MJML component with one tag.
+An `mj-all` is like the above, but affects all MJML components via the one tag.
 
 `mj-class` tags create a named group of MJML attributes you can apply to MJML
-components much like you can apply HTML classes to HTML elements. To apply them, use `mj-class="<name>"`.
+components. To apply them, use `mj-class="<name>"`.
 
  ```xml
 <mjml>
   <mj-head>
     <mj-attributes>
       <mj-text padding="0" />
-	  <mj-all font-family="Arial" />
       <mj-class name="blue" color="blue" />
       <mj-class name="big" font-size="20px" />
+      <mj-all font-family="Arial" />
     </mj-attributes>
   </mj-head>
   <mj-body>
@@ -38,8 +38,11 @@ components much like you can apply HTML classes to HTML elements. To apply them,
 </p>
 
 <aside class="notice">
-MJML's priority for applying values to MJML attributes is
-(highest priority first):
-inline MJML attributes, `mj-class` in `mj-attributes`,
-`mj-all` in `mj-attributes`, and default MJML values.
+  In the following list, MJML applies only the first MJML attributes found:
+  <ul>
+    <li>inline MJML attributes,</li>
+    <li>the entry for the same MJML component (like, "mj-text") in "mj-attributes",</li>
+    <li>"mj-all" in "mj-attributes", and</li>
+    <li>default MJML values.</li>
+  </ul>
 </aside>

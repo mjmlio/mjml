@@ -1,6 +1,6 @@
 ## mj-carousel
 
-<p align="center">
+<p style="text-align: center;" >
   <img src="https://i.imgur.com/wHqIzgd.gif" alt="desktop" />
 </p>
 
@@ -24,7 +24,7 @@ This component enables you to set the styles of the carousel elements.
 </mjml>
 ```
 
-<p align="center">
+<p style="text-align: center;" >
   <a href="https://mjml.io/try-it-live/components/carousel">
     <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="sexy" />
   </a>

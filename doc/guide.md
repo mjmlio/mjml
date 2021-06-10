@@ -39,7 +39,7 @@ MJML has been designed with responsiveness in mind. The abstraction it offers gu
 </mjml>
 
 ```
-<p align="center">
+<p style="text-align: center;" >
   <br />
   <br />
   <br />

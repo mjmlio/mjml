@@ -1,13 +1,13 @@
 # MJML 4
 
-<p align="center">
+<p style="text-align: center;" >
   <a href="http://mjml.io" target="_blank">
     <img width="250"src="https://mjml.io/assets/img/litmus/mjmlbymailjet.png">
 
   </a>
 </p>
 
-<p align="center">
+<p style="text-align: center;" >
   <a href="https://github.com/mjmlio/mjml/actions">
     <img src="https://github.com/mjmlio/mjml/workflows/Mjml%20CI/badge.svg?branch=master" alt="github actions">
   </a>
@@ -17,7 +17,7 @@
 </p>
 
 
-<p align="center">
+<p style="text-align: center;" >
   | <b><a href="#introduction">Introduction</a></b>
   | <b><a href="#installation">Installation</a></b>
   | <b><a href="#usage">Usage</a></b>
@@ -30,7 +30,7 @@
 
 `MJML` is a markup language created by [Mailjet](https://www.mailjet.com/) and designed to reduce the pain of coding a responsive email. Its semantic syntax makes it easy and straightforward while its rich standard components library fastens your development time and lightens your email codebase. MJML’s open-source engine takes care of translating the `MJML` you wrote into responsive HTML.
 
-<p align="center">
+<p style="text-align: center;" >
   <a href="http://mjml.io" target="_blank">
     <img width="75%" src="https://cloud.githubusercontent.com/assets/6558790/12450760/ee034178-bf85-11e5-9dda-98d0c8f9f8d6.png">
   </a>
@@ -51,7 +51,7 @@ npm install mjml
 
 Don't want to install anything? Use the free online editor!
 
-<p align="center">
+<p style="text-align: center;" >
   <a href="http://mjml.io/try-it-live" target="_blank"><img src="https://cloud.githubusercontent.com/assets/6558790/12195421/58a40618-b5f7-11e5-9ed3-80463874ab14.png" alt="try it live" width="75%"></a>
 </p>
 <br>

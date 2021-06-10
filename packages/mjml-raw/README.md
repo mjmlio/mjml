@@ -13,7 +13,7 @@ If placed inside `<mj-head>`, its content will be added at the end of the `<head
 </mjml>
 ```
 
-<p align="center">
+<p style="text-align: center;" >
   <a target="_blank" href="https://mjml.io/try-it-live/components/raw">
     <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
   </a>

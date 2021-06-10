@@ -2,14 +2,14 @@
 
 もしも、MJML 3.3.Xについて探しているのであれば、[このブランチ](https://github.com/mjmlio/mjml/tree/3.3.x)をご確認ください。
 
-<p align="center">
+<p style="text-align: center;" >
   <a href="https://mjml.io" target="_blank">
     <img width="250"src="https://mjml.io/assets/img/litmus/mjmlbymailjet.png">
 
   </a>
 </p>
 
-<p align="center">
+<p style="text-align: center;" >
   <a href="https://github.com/mjmlio/mjml/actions">
     <img src="https://github.com/mjmlio/mjml/workflows/Mjml%20CI/badge.svg?branch=master" alt="github actions">
   </a>
@@ -19,7 +19,7 @@
 </p>
 
 
-<p align="center">
+<p style="text-align: center;" >
   | <b><a href="#translated-documentation">翻訳されたドキュメント</a></b>
   | <b><a href="#introduction">紹介</a></b>
   | <b><a href="#installation">インストール</a></b>
@@ -38,7 +38,7 @@
 
 `MJML`は[Mailjet](https://www.mailjet.com/)によって作成されたマークアップ言語で、レスポンシブemailをコーディングする際に生じる負担を軽減する設計がされています。そのセマンティックな構文は言語を簡単完結にし、その豊富な標準コンポーネントライブラリはあなたの開発時間とコードベースを短縮するでしょう。MJMLのオープンソースエンジンは、あなたの書いたMJMLをレスポンシブHTMLに変換します。
 
-<p align="center">
+<p style="text-align: center;" >
   <a href="https://mjml.io" target="_blank">
     <img width="75%" src="https://cloud.githubusercontent.com/assets/6558790/12450760/ee034178-bf85-11e5-9dda-98d0c8f9f8d6.png">
   </a>
@@ -71,7 +71,7 @@ yarn build
 
 何もインストールしたくないですか？それならば、無料のオンラインエディターを使いましょう！
 
-<p align="center">
+<p style="text-align: center;" >
   <a href="https://mjml.io/try-it-live" target="_blank"><img src="https://cloud.githubusercontent.com/assets/6558790/12195421/58a40618-b5f7-11e5-9ed3-80463874ab14.png" alt="try it live" width="75%"></a>
 </p>
 <br>

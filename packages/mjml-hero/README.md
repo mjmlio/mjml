@@ -13,10 +13,6 @@ For better results, it's best to use an image with height the same or larger
 Use `background-color` to provide a fallback color
   in case an email client doesn't support `background-url`.
 
-<aside class="notice">
-  The "height" attribute is required only for 'mode="fixed-height"'.
-</aside>
-
 Fixed height
 
 <p align="center">
@@ -32,7 +28,8 @@ Fixed height
       height="469px"
       background-width="600px"
       background-height="469px"
-      background-url="https://cloud.githubusercontent.com/assets/1830348/15354890/1442159a-1cf0-11e6-92b1-b861dadf1750.jpg"
+      background-url=
+          "https://cloud.githubusercontent.com/assets/1830348/15354890/1442159a-1cf0-11e6-92b1-b861dadf1750.jpg"
       background-color="#2a3448"
       padding="100px 0px">
       <mj-text
@@ -73,10 +70,10 @@ Fluid height
       mode="fluid-height"
       background-width="600px"
       background-height="469px"
-      background-url="https://cloud.githubusercontent.com/assets/1830348/15354890/1442159a-1cf0-11e6-92b1-b861dadf1750.jpg"
+      background-url=
+          "https://cloud.githubusercontent.com/assets/1830348/15354890/1442159a-1cf0-11e6-92b1-b861dadf1750.jpg"
       background-color="#2a3448"
-      padding="100px 0px"
-      width="100%">
+      padding="100px 0px">
       <mj-text
         padding="20px"
         color="#ffffff"
@@ -105,10 +102,10 @@ Fluid height
 attribute           | unit                                | description                                                          | default value
 --------------------|-------------------------------------|----------------------------------------------------------------------|--------------
 background-color    | color                               | hero background color                                                | #ffffff
-background-height   | px                                  | height of the image used (mandatory in fixed-height mode)            | none
+background-height   | px                                  | height of the image used, mandatory                                  | none
 background-position | top/center/bottom left/center/right | background image position                                            | center center
 background-url      | url                                 | absolute background url                                              | n/a
-background-width    | px                                  | width of the image used                                              | parent element width
+background-width    | px                                  | width of the image used, mandatory                                   | parent element width
 border-radius       | px                                  | border radius                                                        | n/a
 height              | px                                  | hero section height (required for fixed-height mode)                 | 0px
 mode                | fluid-height/fixed-height           | choose if the height is fixed based on the height attribute or fluid | fluid-height

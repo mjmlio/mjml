@@ -2,7 +2,12 @@
   "name": "mjml-spacer",
   "description": "mjml-spacer",
   "version": "4.9.3",
-  "main": "lib/index.js",
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "exports": {
+    "imports": "./lib/esm/index.js",
+    "require": "./lib/cjs/index.js"
+  },
   "files": [
     "lib"
   ],
@@ -18,7 +23,8 @@
   "homepage": "https://mjml.io",
   "scripts": {
     "clean": "rimraf lib",
-    "build": "babel src --out-dir lib --root-mode upward"
+    "build": "babel src --out-dir lib/cjs --root-mode upward",
+    "build:esm": "babel src --out-dir lib/esm --root-mode upward"
   },
   "dependencies": {
     "@babel/runtime": "^7.8.7",

@@ -1,7 +1,10 @@
+const ESM = process.env.ESM === 'true'
+
 module.exports = {
   presets: [['@babel/env', {
     targets: { node: '10' },
     include: ['transform-classes'],
+    ...(ESM ? { modules: false } : {}),
   }]],
   plugins: [
     '@babel/proposal-class-properties',

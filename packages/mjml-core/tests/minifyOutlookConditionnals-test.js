@@ -1,5 +1,5 @@
 const chai = require('chai')
-const minifyOutlookConditionnals = require('../lib/helpers/minifyOutlookConditionnals')
+const minifyOutlookConditionnals = require('../lib/cjs/helpers/minifyOutlookConditionnals')
 
 const testValues = [
   {

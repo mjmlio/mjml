@@ -3,7 +3,7 @@ import crypto from 'crypto'
 
 import conditionalTag, {
   msoConditionalTag,
-} from 'mjml-core/lib/helpers/conditionalTag'
+} from 'mjml-core/lib/esm/helpers/conditionalTag'
 
 export default class MjNavbar extends BodyComponent {
   static componentName = 'mj-navbar'

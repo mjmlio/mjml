@@ -1,4 +1,4 @@
-import widthParser from 'mjml-core/lib/helpers/widthParser'
+import widthParser from 'mjml-core/lib/esm/helpers/widthParser'
 
 import { BodyComponent } from 'mjml-core'
 import { reduce } from 'lodash'

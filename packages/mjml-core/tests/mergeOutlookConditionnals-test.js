@@ -1,5 +1,5 @@
 const chai = require('chai')
-const mergeOutlookConditionnals = require('../lib/helpers/mergeOutlookConditionnals')
+const mergeOutlookConditionnals = require('../lib/cjs/helpers/mergeOutlookConditionnals')
 
 const testValues = [
   {

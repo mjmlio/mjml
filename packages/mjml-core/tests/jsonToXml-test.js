@@ -1,5 +1,5 @@
 const chai = require('chai')
-const jsonToXml = require('../lib/helpers/jsonToXML')
+const jsonToXml = require('../lib/cjs/helpers/jsonToXML')
 
 const json = {
   line: 1,

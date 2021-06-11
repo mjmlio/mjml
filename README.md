@@ -2,14 +2,14 @@
 
 If you're looking for MJML 3.3.X check [this branch](https://github.com/mjmlio/mjml/tree/3.3.x)
 
-<p align="center">
+<p style="text-align: center;" >
   <a href="https://mjml.io" target="_blank">
     <img width="250"src="https://mjml.io/assets/img/litmus/mjmlbymailjet.png">
 
   </a>
 </p>
 
-<p align="center">
+<p style="text-align: center;" >
   <a href="https://github.com/mjmlio/mjml/actions">
     <img src="https://github.com/mjmlio/mjml/workflows/Mjml%20CI/badge.svg?branch=master" alt="github actions">
   </a>
@@ -19,19 +19,25 @@ If you're looking for MJML 3.3.X check [this branch](https://github.com/mjmlio/m
 </p>
 
 
-<p align="center">
+<p style="text-align: center;" >
+  | <b><a href="#translated-documentation">Translated documentation</a></b>
   | <b><a href="#introduction">Introduction</a></b>
   | <b><a href="#installation">Installation</a></b>
   | <b><a href="#usage">Usage</a></b> |
 </p>
 
 ---
+# Translated documentation
+
+| Language | Link for documentation |
+| :-: | :-: |
+| 日本語 | [日本語ドキュメント](https://github.com/mjmlio/mjml/blob/master/readme-ja.md) |
 
 # Introduction
 
 `MJML` is a markup language created by [Mailjet](https://www.mailjet.com/) and designed to reduce the pain of coding a responsive email. Its semantic syntax makes the language easy and straightforward while its rich standard components library shortens your development time and lightens your email codebase. MJML’s open-source engine takes care of translating the `MJML` you wrote into responsive HTML.
 
-<p align="center">
+<p style="text-align: center;" >
   <a href="https://mjml.io" target="_blank">
     <img width="75%" src="https://cloud.githubusercontent.com/assets/6558790/12450760/ee034178-bf85-11e5-9dda-98d0c8f9f8d6.png">
   </a>
@@ -64,7 +70,7 @@ You can also run `yarn build:watch` to rebuild the package as you code.
 
 Don't want to install anything? Use the free online editor!
 
-<p align="center">
+<p style="text-align: center;" >
   <a href="https://mjml.io/try-it-live" target="_blank"><img src="https://cloud.githubusercontent.com/assets/6558790/12195421/58a40618-b5f7-11e5-9ed3-80463874ab14.png" alt="try it live" width="75%"></a>
 </p>
 <br>
@@ -145,6 +151,35 @@ juicePreserveTags | Preserve some tags when inlining css, see [mjml-cli document
 minifyOptions | Options for html minifier, see [mjml-cli documentation](https://github.com/mjmlio/mjml/blob/master/packages/mjml-cli/README.md) for more info | NA
 mjmlConfigPath | string | The path or directory of the `.mjmlconfig` file (for custom components use) | `process.cwd()`
 useMjmlConfigOptions | Allows to use the `config` attribute from `.mjmlconfig` file | false
+
+## Client-side (in browser)
+
+```javascript
+var mjml2html = require('mjml-browser')
+
+/*
+  Compile a mjml string
+*/
+var htmlOutput = mjml2html(`
+  <mjml>
+    <mj-body>
+      <mj-section>
+        <mj-column>
+          <mj-text>
+            Hello World!
+          </mj-text>
+        </mj-column>
+      </mj-section>
+    </mj-body>
+  </mjml>
+`, options)
+
+
+/*
+  Print the responsive HTML generated and MJML errors if any
+*/
+console.log(htmlOutput)
+```
 
 ## API
 

@@ -3,6 +3,8 @@ import { BodyComponent } from 'mjml-core'
 import widthParser from 'mjml-core/lib/helpers/widthParser'
 
 export default class MjButton extends BodyComponent {
+  static componentName = 'mj-button'
+
   static endingTag = true
 
   static allowedAttributes = {
@@ -23,6 +25,7 @@ export default class MjButton extends BodyComponent {
     height: 'unit(px,%)',
     href: 'string',
     name: 'string',
+    title: 'string',
     'inner-padding': 'unit(px,%){1,4}',
     'letter-spacing': 'unitWithNegative(px,em)',
     'line-height': 'unit(px,%,)',

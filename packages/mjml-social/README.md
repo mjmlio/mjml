@@ -1,6 +1,6 @@
 ## mj-social
 
-<p align="center">
+<p style="text-align: center;" >
   <img src="https://cloud.githubusercontent.com/assets/6558790/12751360/0c78ce48-c9bd-11e5-98ca-4a2ac9e6341b.png" alt="desktop" style="width: 250px;"/>
 </p>
 
@@ -28,7 +28,7 @@ Displays calls-to-action for various social networks with their associated logo.
 </mjml>
 ```
 
-<p align="center">
+<p style="text-align: center;" >
   <a href="https://mjml.io/try-it-live/components/social">
     <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
   </a>

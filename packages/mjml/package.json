@@ -1,7 +1,7 @@
 {
   "name": "mjml",
   "description": "MJML: the only framework that makes responsive-email easy",
-  "version": "4.7.1",
+  "version": "4.9.3",
   "main": "lib/index.js",
   "bin": {
     "mjml": "bin/mjml"
@@ -27,40 +27,16 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.8.7",
-    "mjml-accordion": "4.7.1",
-    "mjml-body": "4.7.1",
-    "mjml-button": "4.7.1",
-    "mjml-carousel": "4.7.1",
-    "mjml-cli": "4.7.1",
-    "mjml-column": "4.7.1",
-    "mjml-core": "4.7.1",
-    "mjml-divider": "4.7.1",
-    "mjml-group": "4.7.1",
-    "mjml-head": "4.7.1",
-    "mjml-head-attributes": "4.7.1",
-    "mjml-head-breakpoint": "4.7.1",
-    "mjml-head-font": "4.7.1",
-    "mjml-head-html-attributes": "4.7.1",
-    "mjml-head-preview": "4.7.1",
-    "mjml-head-style": "4.7.1",
-    "mjml-head-title": "4.7.1",
-    "mjml-hero": "4.7.1",
-    "mjml-image": "4.7.1",
-    "mjml-migrate": "4.7.1",
-    "mjml-navbar": "4.7.1",
-    "mjml-raw": "4.7.1",
-    "mjml-section": "4.7.1",
-    "mjml-social": "4.7.1",
-    "mjml-spacer": "4.7.1",
-    "mjml-table": "4.7.1",
-    "mjml-text": "4.7.1",
-    "mjml-validator": "4.7.1",
-    "mjml-wrapper": "4.7.1"
+    "mjml-cli": "4.9.3",
+    "mjml-core": "4.9.3",
+    "mjml-migrate": "4.9.3",
+    "mjml-preset-core": "4.9.3",
+    "mjml-validator": "4.9.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "chai": "^4.1.1",
-    "cheerio": "1.0.0-rc.3",
+    "cheerio": "1.0.0-rc.10",
     "lodash": "^4.17.15",
     "rimraf": "^3.0.2"
   }

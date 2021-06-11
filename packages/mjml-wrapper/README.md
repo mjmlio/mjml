@@ -1,6 +1,6 @@
 ## mj-wrapper
 
-<p align="center">
+<p style="text-align: center;" >
   <img src="https://i.imgur.com/6YKq83B.png" alt="wrapper" />
 </p>
 
@@ -27,7 +27,7 @@ Wrapper enables to wrap multiple sections together. It's especially useful to ac
 </mjml>
 ```
 
-<p align="center">
+<p style="text-align: center;" >
   <a href="https://mjml.io/try-it-live/components/wrapper">
     <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
   </a>

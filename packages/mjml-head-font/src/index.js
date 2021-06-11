@@ -1,7 +1,7 @@
 import { HeadComponent } from 'mjml-core'
 
 export default class MjFont extends HeadComponent {
-  static tagOmission = true
+  static componentName = 'mj-font'
 
   static allowedAttributes = {
     name: 'string',

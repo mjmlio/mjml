@@ -39,9 +39,9 @@ MJML has been designed with responsiveness in mind. The abstraction it offers gu
 </mjml>
 
 ```
-<p align="center">
+<p style="text-align: center;" >
   <br />
   <br />
   <br />
-  <a href="/try-it-live/intro"><img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" /></a>
+  <a href="https://mjml.io/try-it-live/intro"><img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" /></a>
 </p>

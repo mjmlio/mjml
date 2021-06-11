@@ -93,7 +93,7 @@ export function handleMjmlConfigComponents(
           registerCompFn,
         )
         registerDependencies(
-          (requiredComp.default || requiredComp).dependencies,
+          (requiredComp.default || requiredComp).dependencies || {},
         )
         result.success.push(compPath)
       }

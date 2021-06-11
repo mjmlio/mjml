@@ -30,7 +30,7 @@ export default function skeleton(options) {
         <title>
           ${title}
         </title>
-        <!--[if !mso]><!-- -->
+        <!--[if !mso]><!-->
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <!--<![endif]-->
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -43,12 +43,14 @@ export default function skeleton(options) {
           p { display:block;margin:13px 0; }
         </style>
         <!--[if mso]>
+        <noscript>
         <xml>
         <o:OfficeDocumentSettings>
           <o:AllowPNG/>
           <o:PixelsPerInch>96</o:PixelsPerInch>
         </o:OfficeDocumentSettings>
         </xml>
+        </noscript>
         <![endif]-->
         <!--[if lte mso 11]>
         <style type="text/css">
@@ -76,7 +78,9 @@ export default function skeleton(options) {
         }
         ${headRaw.filter(negate(isNil)).join('\n')}
       </head>
-      <body style="word-spacing:normal;${backgroundColor ? `background-color:${backgroundColor};` : ''}">
+      <body style="word-spacing:normal;${
+        backgroundColor ? `background-color:${backgroundColor};` : ''
+      }">
         ${buildPreview(preview)}
         ${content}
       </body>

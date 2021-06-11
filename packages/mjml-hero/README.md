@@ -19,7 +19,7 @@ Use `background-color` to provide a fallback color
 
 Fixed height
 
-<p align="center">
+<p style="text-align: center;" >
   <img src="https://cloud.githubusercontent.com/assets/1830348/15354833/bfe7faaa-1cef-11e6-8d38-15e8951b6636.png"
      alt="demo background picture with fixed height" />
 </p>
@@ -53,7 +53,7 @@ Fixed height
 </mjml>
  ```
 
- <p align="center">
+ <p style="text-align: center;" >
    <a href="https://mjml.io/try-it-live/components/hero">
      <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
    </a>
@@ -61,7 +61,7 @@ Fixed height
 
 Fluid height
 
-<p align="center">
+<p style="text-align: center;" >
   <img src="https://cloud.githubusercontent.com/assets/1830348/15354867/fc2f404a-1cef-11e6-92ac-92de9e438210.png"
       alt="demo background picture with fixed height" />
 </p>
@@ -95,7 +95,7 @@ Fluid height
 </mjml>
 ```
 
-<p align="center">
+<p style="text-align: center;" >
   <a href="https://mjml.io/try-it-live/components/hero/1">
     <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg"
       alt="try it live" />

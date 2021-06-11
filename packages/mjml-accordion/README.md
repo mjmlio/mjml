@@ -1,6 +1,6 @@
 ## mj-accordion
 
-<p align="center">
+<p style="text-align: center;" >
   <img src="https://i.imgur.com/C4S9MVc.gif" alt="accordion" />
 </p>
 
@@ -44,20 +44,15 @@
 </mjml>
 ```
 
-<p align="center">
+<p style="text-align: center;" >
   <a href="https://mjml.io/try-it-live/components/accordion">
     <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="sexy" />
   </a>
 </p>
 
-<aside class="notice">
-Every attribute in `mj-accordion` are applied to `mj-accordion-element` unless you override them on `mj-accordion-element`
-</aside>
-
-
 attribute | unit | description | default value
 ----------|------|-------------|---------------
-border | n/a | border | n/a
+border | string | CSS border format | none
 container-background-color | n/a | background-color of the cell | n/a,
 css-class | string | class name, added to the root HTML element created | n/a
 font-family | n/a | font | Ubuntu, Helvetica, Arial, sans-serif
@@ -77,11 +72,18 @@ padding-top | px | padding top | n/a
 
 ### mj-accordion-element
 
-This component enables you to create a accordion pane
+Creates an accordion title/text pair.
+An accordion can have any number of these pairs.
+
+<aside class="notice">
+Inheritance applies between attributes supported in both `mj-accordion` and 
+`mj-accordion-element` unless `mj-accordion-element` overrides.
+</aside>
 
 attribute | unit | description | default value
 ----------|------|-------------|---------------
 background-color | n/a | background color | n/a
+border | n/a | border | affects each horizontal border in the accordion except the top one
 css-class | string | class name, added to the root HTML element created | n/a
 font-family | n/a | font | Ubuntu, Helvetica, Arial, sans-serif
 icon-align | n/a | icon alignment | middle
@@ -95,7 +97,7 @@ icon-wrapped-url | n/a | icon when accordion is wrapped | https://i.imgur.com/bI
 
 ### mj-accordion-title
 
-This component enables you to add and style a title to your accordion
+The title in a title/text pair.
 
 attribute | unit | description | default value
 ----------|------|-------------|---------------
@@ -112,7 +114,7 @@ padding-top | px | padding top | n/a
 
 ### mj-accordion-text
 
-This component enables you to add and style a text to your accordion
+The text in a title/text pair.
 
 attribute | unit | description | default value
 ----------|------|-------------|---------------
@@ -129,4 +131,3 @@ padding-bottom | px | padding bottom | n/a
 padding-left | px | padding left | n/a
 padding-right | px | padding right | n/a
 padding-top | px | padding top | n/a
-

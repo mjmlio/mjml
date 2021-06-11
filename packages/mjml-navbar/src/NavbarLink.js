@@ -3,6 +3,8 @@ import { BodyComponent, suffixCssClasses } from 'mjml-core'
 import conditionalTag from 'mjml-core/lib/helpers/conditionalTag'
 
 export default class MjNavbarLink extends BodyComponent {
+  static componentName = 'mj-navbar-link'
+
   static endingTag = true
 
   static allowedAttributes = {

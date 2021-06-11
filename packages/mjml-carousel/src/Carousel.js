@@ -5,6 +5,8 @@ import crypto from 'crypto'
 import { msoConditionalTag } from 'mjml-core/lib/helpers/conditionalTag'
 
 export default class MjCarousel extends BodyComponent {
+  static componentName = 'mj-carousel'
+
   static allowedAttributes = {
     align: 'enum(left,center,right)',
     'border-radius': 'unit(px,%)',
@@ -174,7 +176,7 @@ export default class MjCarousel extends BodyComponent {
       .mj-carousel noinput .mj-carousel-thumbnails { display: none !important; }
 
       [owa] .mj-carousel-thumbnail { display: none !important; }
-
+      
       @media screen yahoo {
           .mj-carousel-${this.carouselId}-icons-cell,
           .mj-carousel-previous-icons,

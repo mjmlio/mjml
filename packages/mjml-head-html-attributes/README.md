@@ -31,7 +31,7 @@ To use this component, you will likely have to look at the generated html to see
 You can use multiple `mj-selector` inside a `mj-html-attributes`, and multiple `mj-html-attribute` inside a `mj-selector`.
   
 
-<p align="center">
+<p style="text-align: center;" >
   <a href="https://mjml.io/try-it-live/components/head-html-attributes">
     <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
   </a>

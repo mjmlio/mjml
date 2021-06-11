@@ -10,7 +10,7 @@ This is the starting point of your email.
 </mjml>
 ```
 
-<p align="center">
+<p style="text-align: center;" >
   <a target="_blank" href="https://mjml.io/try-it-live/components/body">
     <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
   </a>

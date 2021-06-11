@@ -11,7 +11,7 @@ export default function validateType(element, { components, initializeType }) {
 
   const errors = []
 
-  for (const [attr, value] of Object.entries(attributes)) {
+  for (const [attr, value] of Object.entries(attributes || {})) {
     const attrType =
       Component.allowedAttributes && Component.allowedAttributes[attr]
     if (attrType) {

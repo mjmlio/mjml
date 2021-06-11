@@ -19,7 +19,7 @@ This tag allows you to set the preview that will be displayed in the inbox of th
 </mjml>
  ```
 
-<p align="center">
+<p style="text-align: center;" >
   <a href="https://mjml.io/try-it-live/components/head-preview">
     <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
   </a>

@@ -15,7 +15,7 @@ export default function validateAttribute(element, { components }) {
     ...Object.keys(Component.allowedAttributes || {}),
     ...WHITELIST,
   ]
-  const unknownAttributes = Object.keys(attributes).filter(
+  const unknownAttributes = Object.keys(attributes || {}).filter(
     (attribute) => !availableAttributes.includes(attribute),
   )
 

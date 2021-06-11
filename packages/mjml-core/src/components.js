@@ -2,27 +2,14 @@ import { kebabCase } from 'lodash'
 
 const components = {}
 
-export function registerComponent(Component) {
-  components[kebabCase(Component.name)] = Component
+export function assignComponents(target, source) {
+  for (const component of source) {
+    target[component.componentName || kebabCase(component.name)] = component
+  }
 }
 
-export function initComponent({ initialDatas, name }) {
-  const Component = components[name]
-
-  if (Component) {
-    const component = new Component(initialDatas)
-
-    if (component.headStyle) {
-      component.context.addHeadStyle(name, component.headStyle)
-    }
-    if (component.componentHeadStyle) {
-      component.context.addComponentHeadSyle(component.componentHeadStyle)
-    }
-
-    return component
-  }
-
-  return null
+export function registerComponent(Component) {
+  assignComponents(components, [Component])
 }
 
 export default components

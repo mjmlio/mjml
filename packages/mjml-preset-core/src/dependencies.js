@@ -54,7 +54,7 @@ export default {
   'mj-raw': [],
   'mj-section': ['mj-column', 'mj-group', 'mj-raw'],
   'mj-selector': ['mj-html-attribute'],
-  'mj-social': ['mj-social-element'],
+  'mj-social': ['mj-social-element', 'mj-raw'],
   'mj-social-element': [],
   'mj-spacer': [],
   'mj-table': [],

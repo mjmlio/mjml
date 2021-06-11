@@ -1,6 +1,8 @@
 import { BodyComponent, suffixCssClasses } from 'mjml-core'
 
 export default class MjCarouselImage extends BodyComponent {
+  static componentName = 'mj-carousel-image'
+
   static endingTag = true
 
   static allowedAttributes = {
@@ -138,7 +140,7 @@ export default class MjCarouselImage extends BodyComponent {
       >
         ${
           href
-            ? `<a href=${href} rel=${rel} target="_blank">${image}</a>`
+            ? `<a ${this.htmlAttributes({ href, rel, target: "_blank" })}>${image}</a>`
             : image
         }
       </div>

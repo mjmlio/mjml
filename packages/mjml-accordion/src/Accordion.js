@@ -1,6 +1,8 @@
 import { BodyComponent } from 'mjml-core'
 
 export default class MjAccordion extends BodyComponent {
+  static componentName = 'mj-accordion'
+
   static allowedAttributes = {
     'container-background-color': 'color',
     border: 'string',

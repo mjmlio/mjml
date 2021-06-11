@@ -2,6 +2,8 @@ import { BodyComponent } from 'mjml-core'
 import conditionalTag from 'mjml-core/lib/helpers/conditionalTag'
 
 export default class MjAccordionTitle extends BodyComponent {
+  static componentName = 'mj-accordion-title'
+
   static endingTag = true
 
   static allowedAttributes = {

@@ -1,7 +1,7 @@
 {
   "name": "mjml-carousel",
   "description": "mjml-carousel",
-  "version": "4.7.1",
+  "version": "4.9.3",
   "main": "lib/index.js",
   "files": [
     "lib"
@@ -23,7 +23,7 @@
   "dependencies": {
     "@babel/runtime": "^7.8.7",
     "lodash": "^4.17.15",
-    "mjml-core": "4.7.1"
+    "mjml-core": "4.9.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",

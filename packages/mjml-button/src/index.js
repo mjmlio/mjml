@@ -41,6 +41,9 @@ export default class MjButton extends BodyComponent {
     'vertical-align': 'enum(top,bottom,middle)',
     'text-align': 'enum(left,right,center)',
     width: 'unit(px,%)',
+    'mso-height': 'unit(px)',
+    'mso-width': 'unit(px)',
+    'mso-proof': 'boolean',
   }
 
   static defaultAttributes = {
@@ -59,6 +62,9 @@ export default class MjButton extends BodyComponent {
     'text-decoration': 'none',
     'text-transform': 'none',
     'vertical-align': 'middle',
+    'mso-height': '40px',
+    'mso-width': '200px',
+    'mso-proof': 'false',
   }
 
   getStyles() {
@@ -100,6 +106,21 @@ export default class MjButton extends BodyComponent {
         'mso-padding-alt': '0px',
         'border-radius': this.getAttribute('border-radius'),
       },
+      msocontainer: {
+        height: this.getAttribute('mso-height'),
+        width: this.getAttribute('mso-width'),
+        padding: this.getAttribute('padding'),
+        'v-text-anchor': 'middle',
+      },
+      msobutton: {
+        color: this.getAttribute('color'),
+        'font-family': this.getAttribute('font-family'),
+        'font-size': this.getAttribute('font-size'),
+        'font-style': this.getAttribute('font-style'),
+        'font-weight': this.getAttribute('font-weight'),
+        'line-height': this.getAttribute('line-height'),
+        'letter-spacing': this.getAttribute('letter-spacing'),
+      },
     }
   }
 
@@ -120,10 +141,83 @@ export default class MjButton extends BodyComponent {
     return `${parsedWidth - innerPaddings - borders}px`
   }
 
+  renderMSO() {
+    const bgColor =
+      this.getAttribute('background-color') === 'none'
+        ? undefined
+        : this.getAttribute('background-color')
+    const radii = !this.getAttribute('border-radius')
+      ? 0
+      : parseInt(this.getAttribute('border-radius'), 10)
+    const height = parseInt(this.getAttribute('mso-height'), 10)
+    let arcsize = 0
+    if (radii > height) arcsize = 100
+    if (radii !== 0 && arcsize !== 100) arcsize = (radii / height) * 100
+
+    let borderAttr = ['0pt', 'Solid', '#000000']
+    const borderstyleAdapter = {
+      solid: 'Solid',
+      dotted: 'Dot',
+      dashed: 'Dash',
+      double: 'Solid',
+      groove: 'Solid',
+      ridge: 'Solid',
+      inset: 'Solid',
+      outset: 'Solid',
+      none: 'Solid',
+      hidden: 'Solid',
+    }
+    const stroked = this.getAttribute('border') !== 'none'
+    if (stroked) {
+      const border = this.getAttribute('border').split(' ')
+      borderAttr = [
+        border.length > 0 ? border[0] : borderAttr[0],
+        border.length > 1 ? borderstyleAdapter[border[1]] : borderAttr[1],
+        border.length === 3 ? border[2] : borderAttr[2],
+      ]
+    }
+    return `
+    <!--[if mso]>
+      <tr>
+        <td ${this.htmlAttributes({
+          align: this.getAttribute('align'),
+        })}>
+          <v:roundrect
+            xmlns:v="urn:schemas-microsoft-com:vml"
+            xmlns:w="urn:schemas-microsoft-com:office:word"
+            ${this.htmlAttributes({
+              href: this.getAttribute('href'),
+              arcsize,
+              fill: bgColor === undefined ? 'f' : 't',
+              strokeweight: stroked ? borderAttr[0] : '0pt',
+              strokecolor: borderAttr[2],
+              stroked: stroked ? 't' : 'f',
+              style: 'msocontainer',
+            })}
+            >
+            ${stroked ? `<v:stroke dashstyle="${borderAttr[1]}" />` : ''}
+            ${
+              bgColor === undefined
+                ? ''
+                : `<v:fill type="tile" color="${bgColor}" />`
+            }
+            <w:anchorlock/>
+            <center ${this.htmlAttributes({ style: 'msobutton' })}>
+              ${this.getContent()}
+            </center>
+          </v:roundrect>
+        </td>
+      </tr>
+    <!<[endif]-->
+    `
+  }
+
   render() {
     const tag = this.getAttribute('href') ? 'a' : 'p'
-
+    const mso = this.getAttribute('mso-proof')
     return `
+      ${mso ? this.renderMSO() : ''}
+      ${mso ? '<!--[if !mso]><!---->' : ''}
       <table
         ${this.htmlAttributes({
           border: '0',
@@ -137,7 +231,7 @@ export default class MjButton extends BodyComponent {
           <tr>
             <td
               ${this.htmlAttributes({
-                align: 'center',
+                align: this.getAttribute('align'),
                 bgcolor:
                   this.getAttribute('background-color') === 'none'
                     ? undefined
@@ -162,6 +256,7 @@ export default class MjButton extends BodyComponent {
           </tr>
         </tbody>
       </table>
+      ${mso ? '<!--<[endif]-->' : ''}
     `
   }
 }

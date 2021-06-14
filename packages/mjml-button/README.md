@@ -13,6 +13,10 @@ Displays a customizable button.
     <a href="https://github.com/mjmlio/mjml/issues/359">Issue #359</a>.
 </aside>
 
+<aside class="warning">
+  The `mj-button` will be duplicated in two html components when mso-proof is true
+</aside>
+
 ```xml
 <mjml>
   <mj-body>
@@ -55,6 +59,9 @@ href                        | link        | link to be triggered when the button
 inner-padding               | px          | inner button padding                             | 10px 25px
 letter-spacing              | px,em       | letter-spacing                                   | n/a
 line-height                 | px/%/none   | line-height on link                              | 120%
+mso-proof                   | boolean     | specify outlook to use roundrect approach        | false
+mso-width                   | px          | roundrect button width                           | 200px
+mso-height                  | px          | roundrect button height                          | 40px
 padding                     | px          | supports up to 4 parameters                      | 10px 25px
 padding-bottom              | px          | bottom offset                                    | n/a
 padding-left                | px          | left offset                                      | n/a

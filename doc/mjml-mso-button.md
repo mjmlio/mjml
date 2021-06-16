@@ -1,4 +1,4 @@
-# mjml-msobutton
+## mjml-msobutton
 
 Button that also use the [VML](https://docs.microsoft.com/en-us/windows/win32/vml/shape-element--vml) solution for radius.
 
@@ -15,14 +15,14 @@ More important, these 3 new attributes allow mjml to generate a bulletproof butt
 
 It's available on [Github](https://github.com/adrien-zinger/mjml-mso-button) and [NPM](https://www.npmjs.com/package/mjml-msobutton).
 
-## Usage
+**Usage**
 
 Use it like an mj-button:
 ```html
 <mj-msobutton mso-proof="true">Click !</mj-msobutton>
 ```
 
-## Problems that you should know
+**Problems that you should know**
 
 This outlook solution isn't really bulletproof.
 1. This cannot be used with an image in background

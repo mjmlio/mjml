@@ -184,12 +184,12 @@ console.log(htmlOutput)
 
 ## API
 
-無料のMJML APIを利用することで、あなたのアプリケーションにMJMLを簡単に統合できます。  
+無料のMJML APIを利用することで、あなたのアプリケーションにMJMLを簡単に統合できます。
 APIの詳細については[ここ](https://mjml.io/api)をご覧ください。
 
 # MJML Slack
 
-MJMLはその素晴らしいコミュニティなくしてはここまで良いものにならなかったでしょう。[コミュニティ Slack](https://slack.mjml.io/)から、MJML'er達に会いにいきましょう。
+MJMLはその素晴らしいコミュニティなくしてはここまで良いものにならなかったでしょう。[コミュニティ Slack](https://join.slack.com/t/mjml/shared_invite/zt-gqmwfwmr-kPBnfuuB7wof5httaTcXxg)から、MJML'er達に会いにいきましょう。
 
 # 貢献者
 

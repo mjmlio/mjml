@@ -139,4 +139,4 @@ A free-to-use MJML API is available to make it easy to integrate MJML in your ap
 
 # MJML Slack
 
-MJML wouldn't be as cool without its amazing community. Head over the [Community Slack](https://slack.mjml.io/) to meet fellow MJML'ers.
+MJML wouldn't be as cool without its amazing community. Head over the [Community Slack](https://join.slack.com/t/mjml/shared_invite/zt-gqmwfwmr-kPBnfuuB7wof5httaTcXxg) to meet fellow MJML'ers.

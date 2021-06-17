@@ -1,6 +1,6 @@
 import { BodyComponent } from 'mjml-core'
 
-import conditionalTag from 'mjml-core/lib/helpers/conditionalTag'
+import conditionalTag from 'mjml-core/lib/esm/helpers/conditionalTag'
 
 export default class MjText extends BodyComponent {
   static componentName = 'mj-text'

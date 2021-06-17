@@ -1,7 +1,7 @@
 const { template } = require('lodash')
-const MJMLParser = require('../lib')
-const mjml2html = require('../../mjml/lib')
-const { components } = require('../../mjml-core/lib')
+const MJMLParser = require('../lib/cjs')
+const mjml2html = require('../../mjml/lib/cjs')
+const { components } = require('../../mjml-core/lib/cjs')
 
 const parse = mjml =>
   MJMLParser(mjml, {

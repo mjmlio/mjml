@@ -1,5 +1,5 @@
 const chai = require('chai')
-const widthParser = require('../lib/helpers/widthParser')
+const widthParser = require('../lib/cjs/helpers/widthParser')
 
 const testValues = [
   {

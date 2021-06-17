@@ -1,5 +1,5 @@
 const chai = require('chai')
-const helper = require('../lib/helpers/shorthandParser')
+const helper = require('../lib/cjs/helpers/shorthandParser')
 
 const shorthandParser = helper && helper.default
 

@@ -13,6 +13,10 @@ For better results, it's best to use an image with height the same or larger
 Use `background-color` to provide a fallback color
   in case an email client doesn't support `background-url`.
 
+<aside class="notice">
+  The "height" attribute is required only for 'mode="fixed-height"'.
+</aside>
+
 Fixed height
 
 <p align="center">

@@ -202,6 +202,7 @@ export default class MjSection extends BodyComponent {
           cellpadding: '0',
           cellspacing: '0',
           class: suffixCssClasses(this.getAttribute('css-class'), 'outlook'),
+          role: 'presentation',
           style: { width: `${containerWidth}` },
           width: parseInt(containerWidth, 10),
           ...bgcolorAttr,

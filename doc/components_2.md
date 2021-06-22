@@ -1,7 +1,8 @@
 ## mj-include
 
-The `mjml-core` package allows you to include external `mjml` files
-  to build your email template.
+The `mjml-core` package adds `mj-include` content to
+  a copy of your MJML markup in memory.
+It uses that copy to build the HTML file.
 
 ```xml
 <!-- header.mjml -->
@@ -12,10 +13,6 @@ The `mjml-core` package allows you to include external `mjml` files
 </mj-section>
 ```
 
-You can wrap your external mjml files inside the default `mjml > mj-body`
-  tags to make it easier to preview outside the main template.
-
-
 ```xml
 <!-- main.mjml -->
 <mjml>
@@ -25,14 +22,29 @@ You can wrap your external mjml files inside the default `mjml > mj-body`
 </mjml>
 ```
 
+The `main.mjml` code here demonstrates adding content from `header.mjml`.
 
-The `MJML` engine will then replace your included files before starting the rendering process.
+The `header.mjml` code here is an include file without `mjml`, `mj-head`, and
+  `mj-body` tags.
+In this case, MJML puts all text from this file where
+  it finds the `mj-include`.
+
+MJML also allows the `mjml`, `mj-head`, and `mj-body` tags in include files.
+The resulting MJML include file can preview better outside the main template.
+When the main `mj-body` section holds these mixed include files,
+  MJML puts content of
+  (1) the `mj-head` from `mj-include` in the main `mj-head` element and 
+  (2) the `mj-body` from `mj-include` where it finds the `mj-include`.
+
+Include files can have `mj-include` elements.
+
 
 ### Other file types
 
-You can include external `css` files. They will be inserted the same way as when using a `mj-style`.  
-You need to specify that you're including a css file using the `type="css"` attribute.  
-If you want the css to be inlined, you can use the `css-inline="inline"` attribute.
+MJML can include external `css` files;
+  it inserts them as if finding an `mj-style`.  
+When including a CSS file, use the `type="css"` attribute.  
+The `css-inline="inline"` attribute causes MJML to inline the CSS.
 
 ```xml
 <!-- main.mjml -->
@@ -40,8 +52,10 @@ If you want the css to be inlined, you can use the `css-inline="inline"` attribu
   <mj-include path="./inline-styles.css" type="css" css-inline="inline" />
 ```
 
-You can also include external `html` files. They will be inserted the same way as when using a `mj-raw`.  
-You need to specify that you're including a html file using the `type="html"` attribute.  
+MJML can include external `html` files;
+  it inserts them as if finding an `mj-raw`.  
+When including an HTML file, use the `type="html"` attribute.
+MJML puts the external HTML where it finds the `<include>`.
 
 ```xml
 <!-- main.mjml -->

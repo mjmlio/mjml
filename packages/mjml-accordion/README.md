@@ -52,8 +52,8 @@
 
 attribute | unit | description | default value
 ----------|------|-------------|---------------
-border | string | CSS border format | none
-container-background-color | n/a | background-color of the cell | n/a,
+border | string | CSS border format | 2px solid black
+container-background-color | n/a | background-color of the cell | n/a
 css-class | string | class name, added to the root HTML element created | n/a
 font-family | n/a | font | Ubuntu, Helvetica, Arial, sans-serif
 icon-align | n/a | icon alignment | middle

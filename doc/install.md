@@ -53,7 +53,7 @@ mjml input.mjml -o output.html
 
 You can pass optional `arguments` to the CLI and combine them.
 
-argument | description | default value
+argument                                                | description                                                                                                                                               | default value
 ------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | -----------------------------------------------------------------------------------
 `mjml -m [input]`                                       | Migrates a v3 MJML file to the v4 syntax                                                                                                                  | NA
 `mjml [input] -o [output]`                              | Writes the output to [output]                                                                                                                             | NA

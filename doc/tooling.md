@@ -17,6 +17,10 @@ In addition to the language plugin, a linter is available to highlight errors in
 ## Gulp
 Gulp is a tool designed to help you automate and enhance your workflow. Our plugin enables you to plug the MJML translation engine into your workflow, helping you to streamline your development workflow. It is available here on [Github](https://github.com/mjmlio/gulp-mjml)
 
+## IntelliJ IDEA Plugin - MJML Support
+[IntelliJ IDEA](https://www.jetbrains.com/idea/) is an IDE developed by JetBrains. The plugin provides you with a (near) realtime preview, auto complete, inline documentation and code analysis. Its available on the [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/16418-mjml-support).
+
+
 ## Contribute to the MJML ecosystem
 The MJML ecosystem is still young and we're also counting on your help to help us make it grow and provide its community with even more awesome tools, always aiming to making development with MJML an efficient and fun process!
 

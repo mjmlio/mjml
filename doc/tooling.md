@@ -14,11 +14,11 @@ In addition to the language plugin, a linter is available to highlight errors in
 ## Sublime Text
 [Sublime Text](https://www.sublimetext.com/) is a powerful text editor. We're providing you with a package to color MJML tags. It is available [on Github](https://github.com/mjmlio/mjml-syntax) and through the [Sublime Package Control](https://packagecontrol.io/packages/MJML-syntax).
 
-## Gulp
-Gulp is a tool designed to help you automate and enhance your workflow. Our plugin enables you to plug the MJML translation engine into your workflow, helping you to streamline your development workflow. It is available here on [Github](https://github.com/mjmlio/gulp-mjml)
-
 ## IntelliJ IDEA Plugin - MJML Support
 [IntelliJ IDEA](https://www.jetbrains.com/idea/) is an IDE developed by JetBrains. The plugin provides you with a (near) realtime preview, auto complete, inline documentation and code analysis. Its available on the [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/16418-mjml-support).
+
+## Gulp
+Gulp is a tool designed to help you automate and enhance your workflow. Our plugin enables you to plug the MJML translation engine into your workflow, helping you to streamline your development workflow. It is available here on [Github](https://github.com/mjmlio/gulp-mjml)
 
 
 ## Contribute to the MJML ecosystem

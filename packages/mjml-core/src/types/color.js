@@ -21,7 +21,7 @@ export default () =>
     }
 
     getValue() {
-      if (this.value.match(shorthandRegex)) {
+      if (typeof this.value === 'string' && this.value.match(shorthandRegex)) {
         return this.value.replace(replaceInputRegex, replaceOutput)
       }
 

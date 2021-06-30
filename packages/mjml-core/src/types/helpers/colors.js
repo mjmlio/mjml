@@ -60,6 +60,7 @@ export default [
   'hotpink',
   'indianred',
   'indigo',
+  'inherit',
   'ivory',
   'khaki',
   'lavender',

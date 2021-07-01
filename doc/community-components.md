@@ -7,7 +7,7 @@ To use a community component, proceed as follows:
 - Install the community component with `npm install {component-name}` in the same folder
 - Create a `.mjmlconfig` file in the same folder with:
 
-```
+```json
 {
   "packages": [
     "component-name/path-to-js-file"

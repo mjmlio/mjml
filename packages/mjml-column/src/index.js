@@ -138,7 +138,9 @@ export default class MjColumn extends BodyComponent {
         return width
       case 'px':
       default:
-        return `${parsedWidth / parseInt(containerWidth, 10)}%`
+        const finalWidth = parsedWidth / parseInt(containerWidth, 10) * 100
+        
+        return `${finalWidth}%`
     }
   }
 

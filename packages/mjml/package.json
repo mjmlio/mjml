@@ -1,7 +1,7 @@
 {
   "name": "mjml",
   "description": "MJML: the only framework that makes responsive-email easy",
-  "version": "4.10.1",
+  "version": "4.10.2",
   "main": "lib/index.js",
   "bin": {
     "mjml": "bin/mjml"
@@ -27,11 +27,11 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.14.6",
-    "mjml-cli": "4.10.1",
-    "mjml-core": "4.10.1",
-    "mjml-migrate": "4.10.1",
-    "mjml-preset-core": "4.10.1",
-    "mjml-validator": "4.10.1"
+    "mjml-cli": "4.10.2",
+    "mjml-core": "4.10.2",
+    "mjml-migrate": "4.10.2",
+    "mjml-preset-core": "4.10.2",
+    "mjml-validator": "4.10.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",

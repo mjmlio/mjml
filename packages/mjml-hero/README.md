@@ -119,4 +119,3 @@ padding-left        | px                                  | left offset         
 padding-right       | px                                  | right offset                                                         | 0px
 padding-top         | px                                  | top offset                                                           | 0px
 vertical-align      | top/middle/bottom                   | content vertical alignment                                           | top
-width               | px                                  | hero container width                                                 | parent element width

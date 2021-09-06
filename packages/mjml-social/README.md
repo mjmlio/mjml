@@ -93,7 +93,6 @@ text-padding                | px          | padding around the text       | 4px 
 sizes                       | media query & width | set icon width based on query | n/a
 src                         | url         | image source                  | Each social `name` has its own default
 srcset                      | url & width | set a different image source based on the viewport | n/a
-rel                         | string      | specify the rel attribute for the link    | n/a
 target                      | string      | link target                   | \_blank
 title                       | string      | img title attribute           | none
 text-decoration             | string      | underline/overline/none       | none

@@ -47,7 +47,6 @@ container-background-color  | color                       | inner element backgr
 css-class                   | string                      | class name, added to the root HTML element created | n/a
 font-family                 | string                      | font name                      | Ubuntu, Helvetica, Arial, sans-serif
 font-size                   | px                          | font size                      | 13px
-font-style                  | string                      | font style                     | n/a
 line-height                 | percent/px                  | space between lines            | 22px
 padding                     | percent/px                  | supports up to 4 parameters    | 10px 25px
 padding-bottom              | percent/px                  | bottom offset                  | n/a

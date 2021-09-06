@@ -150,10 +150,11 @@ export default class MjButton extends BodyComponent {
               <${tag}
                 ${this.htmlAttributes({
                   href: this.getAttribute('href'),
-                  rel: this.getAttribute('rel'),
                   name: this.getAttribute('name'),
+                  rel: this.getAttribute('rel'),
                   style: 'content',
                   target: tag === 'a' ? this.getAttribute('target') : undefined,
+                  title: this.getAttribute('title'),
                 })}
               >
                 ${this.getContent()}

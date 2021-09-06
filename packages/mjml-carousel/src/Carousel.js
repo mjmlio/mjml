@@ -10,6 +10,7 @@ export default class MjCarousel extends BodyComponent {
   static allowedAttributes = {
     align: 'enum(left,center,right)',
     'border-radius': 'unit(px,%)',
+    'container-background-color': 'color',
     'icon-width': 'unit(px,%)',
     'left-icon': 'string',
     padding: 'unit(px,%){1,4}',

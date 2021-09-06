@@ -34,6 +34,7 @@ This component enables you to set the styles of the carousel elements.
 attribute | unit | description | default value
 ----------|------|-------------|---------------
 align | string | horizontal alignment | center
+container-background-color | string | column background color | none
 border-radius | px | border radius | n/a
 css-class | string | class name, added to the root HTML element created | n/a
 icon-width | px | width of the icons on left and right of the main image | 44px
@@ -57,6 +58,7 @@ css-class | string | class name, added to the root HTML element created | n/a
 href | url | link to redirect to on click | n/a
 rel | string | specify the rel attribute | n/a
 src | url | image source | n/a
+target | string | link target on click | \_blank
 thumbnails-src | url | image source to have a thumbnail different than the image it's linked to | null
 title | string | tooltip & accessibility | n/a
 

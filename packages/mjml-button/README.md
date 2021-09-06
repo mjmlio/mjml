@@ -65,5 +65,6 @@ target                      | string      | specify the target attribute for the
 text-align                  | string      | text-align button content                        | none
 text-decoration             | string      | underline/overline/none                          | none
 text-transform              | string      | capitalize/uppercase/lowercase                   | none
+title                       | string      | tooltip & accessibility                          | n/a
 vertical-align              | string      | vertical alignment                               | middle
 width                       | px          | button width                                     | n/a

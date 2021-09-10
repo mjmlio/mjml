@@ -113,6 +113,7 @@ export default class MjSocialElement extends BodyComponent {
     'padding-top': 'unit(px,%)',
     padding: 'unit(px,%){1,4}',
     'text-padding': 'unit(px,%){1,4}',
+    rel: 'string',
     src: 'string',
     srcset: 'string',
     sizes: 'string',

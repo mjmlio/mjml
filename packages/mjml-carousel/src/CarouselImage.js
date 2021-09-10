@@ -9,6 +9,7 @@ export default class MjCarouselImage extends BodyComponent {
     alt: 'string',
     href: 'string',
     rel: 'string',
+    target: 'string',
     title: 'string',
     src: 'string',
     'thumbnails-src': 'string',

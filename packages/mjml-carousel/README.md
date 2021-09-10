@@ -34,7 +34,7 @@ This component enables you to set the styles of the carousel elements.
 attribute | unit | description | default value
 ----------|------|-------------|---------------
 align | string | horizontal alignment | center
-background-color | string | column background color | none
+container-background-color | string | column background color | none
 border-radius | px | border radius | n/a
 css-class | string | class name, added to the root HTML element created | n/a
 icon-width | px | width of the icons on left and right of the main image | 44px

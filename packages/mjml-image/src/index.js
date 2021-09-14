@@ -121,6 +121,7 @@ export default class MjImage extends BodyComponent {
             target: this.getAttribute('target'),
             rel: this.getAttribute('rel'),
             name: this.getAttribute('name'),
+            title: this.getAttribute('title'),
           })}
         >
           ${img}

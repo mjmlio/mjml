@@ -25,6 +25,7 @@ const beautifyConfig = {
   wrap_attributes_indent_size: 2,
   max_preserve_newline: 0,
   preserve_newlines: false,
+  end_with_newline: true,
 }
 
 const minifyConfig = {

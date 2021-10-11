@@ -85,6 +85,7 @@ export default class MjSection extends BodyComponent {
         'border-left': this.getAttribute('border-left'),
         'border-right': this.getAttribute('border-right'),
         'border-top': this.getAttribute('border-top'),
+        'border-radius': this.getAttribute('border-radius'),
         direction: this.getAttribute('direction'),
         'font-size': '0px',
         padding: this.getAttribute('padding'),

@@ -22,7 +22,7 @@ Displays a horizontal divider that can be customized like a HTML border.
 
 | attribute                  | unit       | description                                        | default value |
 | -------------------------- | -----------| -------------------------------------------------- | ------------- |
-| align                      | string     | left/right/center/justify                          | center        |
+| align                      | string     | left/right/center                                  | center        |
 | border-color               | color      | divider color                                      | #000000       |
 | border-style               | string     | dashed/dotted/solid                                | solid         |
 | border-width               | px         | divider's border width                             | 4px           |

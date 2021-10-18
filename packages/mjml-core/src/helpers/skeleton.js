@@ -72,10 +72,7 @@ export default function skeleton(options) {
         )}
         </style>
         <style type="text/css">
-        ${map(style, (s) => {
-          if (isFunction(s)) return s(breakpoint)
-          return s
-        }).join('')}
+        ${map(style, (s) => (isFunction(s) ? s(breakpoint) : s)).join('')}
         ${headRaw.filter(negate(isNil)).join('\n')}
         </style>
       </head>

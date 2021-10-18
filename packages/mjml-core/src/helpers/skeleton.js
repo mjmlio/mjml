@@ -1,4 +1,4 @@
-import { reduce, negate, isNil } from 'lodash'
+import { map, reduce, negate, isNil, isFunction } from 'lodash'
 import buildPreview from './preview'
 import { buildFontsTags } from './fonts'
 import buildMediaQueriesTags from './mediaQueries'
@@ -15,7 +15,7 @@ export default function skeleton(options) {
     headRaw = [],
     preview,
     title = '',
-    style,
+    style = [],
     forceOWADesktop,
     inlineStyle,
     lang,
@@ -71,12 +71,13 @@ export default function skeleton(options) {
           '',
         )}
         </style>
-        ${
-          style && style.length > 0
-            ? `<style type="text/css">${style.join('')}</style>`
-            : ''
-        }
+        <style type="text/css">
+        ${map(style, (s) => {
+          if (isFunction(s)) return s(breakpoint)
+          return s
+        }).join('')}
         ${headRaw.filter(negate(isNil)).join('\n')}
+        </style>
       </head>
       <body style="word-spacing:normal;${
         backgroundColor ? `background-color:${backgroundColor};` : ''

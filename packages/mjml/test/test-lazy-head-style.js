@@ -1,6 +1,6 @@
-const mjml = require('../lib/index.js')
 const chai = require('chai')
 const spies = require('chai-spies')
+const mjml = require('../lib')
 
 chai.use(spies)
 
@@ -8,7 +8,6 @@ const {
   HeadComponent,
   registerComponent,
 } = require('../../mjml-core/lib/index')
-
 
 const addStyle = chai.spy(
   (breakpoint) => `
@@ -22,7 +21,9 @@ const addStyle = chai.spy(
 
 class HeadComponentWithFunctionStyle extends HeadComponent {
   static componentName = 'mj-head-component-with-function-style'
+
   static endingTag = true
+  
   static allowedAttributes = {}
 
   handler() {

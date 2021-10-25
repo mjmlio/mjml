@@ -1,7 +1,7 @@
-const mjml = require('../lib/index.js')
 const chai = require('chai')
 const cheerio = require('cheerio')
 const { sortBy } = require('lodash')
+const mjml = require('../lib')
 
 const input = `
 <mjml>
@@ -35,23 +35,31 @@ const input = `
 </mjml>
 `
 
-const html = mjml(input).html
+const { html } = mjml(input)
 const $ = cheerio.load(html)
 
 // should put the attributes at the right place
-chai.expect(
-  $('.text div').map(function getAttr() {
-    return $(this).attr('data-id')
-  }).get(),
-  'Custom attributes added on texts',
-).to.eql(['42', '42'])
+chai
+  .expect(
+    $('.text div')
+      .map(function getAttr() {
+        return $(this).attr('data-id')
+      })
+      .get(),
+    'Custom attributes added on texts',
+  )
+  .to.eql(['42', '42'])
 
-chai.expect(
-  $('.image td').map(function getAttr() {
-    return $(this).attr('data-name')
-  }).get(),
-  'Custom attributes added on image',
-).to.eql(['43'])
+chai
+  .expect(
+    $('.image td')
+      .map(function getAttr() {
+        return $(this).attr('data-name')
+      })
+      .get(),
+    'Custom attributes added on image',
+  )
+  .to.eql(['43'])
 
 // should not alter templating syntax, or move the content that is outside any tag (mj-raws)
 const expected = [
@@ -63,14 +71,8 @@ const expected = [
   '{ end if }',
   '{ item + 1 }',
 ]
-const indexes = expected.map(str => html.indexOf(str))
+const indexes = expected.map((str) => html.indexOf(str))
 
-chai.expect(
-  indexes,
-  'Templating syntax unaltered',
-).to.not.include(-1)
+chai.expect(indexes, 'Templating syntax unaltered').to.not.include(-1)
 
-chai.expect(
-  sortBy(indexes),
-  'Mj-raws kept same positions',
-).to.deep.eql(indexes)
+chai.expect(sortBy(indexes), 'Mj-raws kept same positions').to.deep.eql(indexes)

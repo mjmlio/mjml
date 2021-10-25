@@ -1,2 +1,2 @@
-require('./test-html-attributes')
-require('./test-lazy-head-style')
+require('./html-attributes.test')
+require('./lazy-head-style.test')

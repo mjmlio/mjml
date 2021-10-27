@@ -16,7 +16,7 @@ export default class MjText extends BodyComponent {
     'font-size': 'unit(px)',
     'font-style': 'string',
     'font-weight': 'string',
-    height: 'unit(px,%)',
+    height: 'unit(px,%,auto)',
     'letter-spacing': 'unitWithNegative(px,em)',
     'line-height': 'unit(px,%,)',
     'padding-bottom': 'unit(px,%)',

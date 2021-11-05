@@ -20,17 +20,15 @@ const addStyle = chai.spy(
 )
 
 class HeadComponentWithFunctionStyle extends HeadComponent {
-  static componentName = 'mj-head-component-with-function-style'
-
-  static endingTag = true
-  
-  static allowedAttributes = {}
-
   handler() {
     const { add } = this.context
     add('style', addStyle)
   }
 }
+HeadComponentWithFunctionStyle.componentName = 'mj-head-component-with-function-style'
+HeadComponentWithFunctionStyle.endingTag = true
+HeadComponentWithFunctionStyle.allowedAttributes = {}
+
 
 registerComponent(HeadComponentWithFunctionStyle)
 

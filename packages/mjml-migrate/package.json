@@ -1,6 +1,6 @@
 {
   "name": "mjml-migrate",
-  "version": "4.10.4",
+  "version": "4.11.0",
   "description": "A tool to migrate a template from MJML 3 to MJML 4",
   "main": "lib/migrate.js",
   "bin": {
@@ -28,8 +28,8 @@
     "@babel/runtime": "^7.14.6",
     "js-beautify": "^1.6.14",
     "lodash": "^4.17.21",
-    "mjml-core": "4.10.4",
-    "mjml-parser-xml": "4.10.4",
+    "mjml-core": "4.11.0",
+    "mjml-parser-xml": "4.11.0",
     "yargs": "^16.1.0"
   }
 }

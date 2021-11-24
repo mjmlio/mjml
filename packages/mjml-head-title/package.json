@@ -1,7 +1,7 @@
 {
   "name": "mjml-head-title",
   "description": "mjml-head-title",
-  "version": "4.10.4",
+  "version": "4.11.0",
   "main": "lib/index.js",
   "files": [
     "lib"
@@ -23,7 +23,7 @@
   "dependencies": {
     "@babel/runtime": "^7.14.6",
     "lodash": "^4.17.21",
-    "mjml-core": "4.10.4"
+    "mjml-core": "4.11.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",

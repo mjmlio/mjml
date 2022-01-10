@@ -36,6 +36,11 @@ This tag allows you to display table and filled it with data. It only accepts pl
   </a>
 </p>
 
+<aside class="notice">
+  `mj-table` is an "ending tag", which means it can contain HTML code which will be left as it is, so it can contain HTML tags with attributes, but it cannot contain other MJML components. In `mj-table` specifically, you can put anything you would put in a `<table>` element. More information about ending tags <a href="#ending-tags>in this section</a>.
+</aside>
+
+
 attribute                   | unit                        | description                    | default value
 ----------------------------|-----------------------------|------------------------------- |--------------
 align                       | left/right/center           | self horizontal alignment      | left

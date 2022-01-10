@@ -6,6 +6,11 @@
 
 `mj-accordion` is an interactive MJML component to stack content in tabs, so the information is collapsed and only the titles are visible. Readers can interact by clicking on the tabs to reveal the content, providing a great experience on mobile devices where space is scarce.
 
+<aside class="notice">
+  `mj-accordion-text` and `mj-accordion-title` are "ending tags", which means they can contain HTML code which will be left as it is, so they can contain HTML tags with attributes, but they cannot contain other MJML components. More information about ending tags <a href="#ending-tags>in this section</a>.
+</aside>
+
+
 ```xml
 <mjml>
   <mj-head>

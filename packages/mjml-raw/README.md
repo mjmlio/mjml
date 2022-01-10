@@ -22,6 +22,11 @@ If placed inside `<mj-head>`, its content will be added at the end of the `<head
 
 If you use mj-raw to add templating language, and use the `minify` option, you might get a `Parsing error`, especially when using the `<` character. You can tell the minifier to ignore some content by wrapping it between two `<!-- htmlmin:ignore -->` tags.
 
+
+<aside class="notice">
+  `mj-raw` is an "ending tag", which means it can contain HTML code which will be left as it is, so it can contain HTML tags with attributes, but it cannot contain other MJML components. More information about ending tags <a href="#ending-tags>in this section</a>.
+</aside>
+
 ```xml
 <mjml>
   <mj-body>

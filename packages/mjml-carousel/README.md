@@ -30,6 +30,10 @@ This component enables you to set the styles of the carousel elements.
   </a>
 </p>
 
+<aside class="notice">
+  `mj-carousel-image` is an "ending tag", which means it can contain HTML code which will be left as it is, so it can contain HTML tags with attributes, but it cannot contain other MJML components. More information about ending tags <a href="#ending-tags>in this section</a>.
+</aside>
+
 
 attribute | unit | description | default value
 ----------|------|-------------|---------------
@@ -61,4 +65,3 @@ src | url | image source | n/a
 target | string | link target on click | \_blank
 thumbnails-src | url | image source to have a thumbnail different than the image it's linked to | null
 title | string | tooltip & accessibility | n/a
-

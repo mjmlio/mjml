@@ -22,8 +22,6 @@ const flatMapKeyAndValues = flow(
 )
 
 export default (input, options) => {
-  console.log(`Now watching: ${input}`)
-
   const dependencies = {}
   const outputToFile = makeOutputToFile(options.o)
   const getRelatedFiles = (file) =>
@@ -97,6 +95,7 @@ export default (input, options) => {
     .on('change', (file) => synchronyzeWatcher(path.resolve(file)))
     .on('add', (file) => {
       const filePath = path.resolve(file)
+      console.log(`Now watching file: ${filePath}`)
 
       const matchInputOption = input.reduce(
         (found, file) =>

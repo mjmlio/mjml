@@ -1,10 +1,11 @@
 import fs from 'fs'
 import path from 'path'
 
-const includeRegexp = /<mj-include\s+path=['"](.*[.mjml]?)['"]\s*(\/>|>\s*<\/mj-include>)/g
+const includeRegexp = /<mj-include\s+path=['"](.*(?:\.mjml|\.css|\.html))['"]\s*[^<>]*(\/>|>\s*<\/mj-include>)/gi
 
-const ensureIncludeIsMJMLFile = (file) =>
-  (file.trim().match(/.mjml/) && file) || `${file}.mjml`
+const ensureIncludeIsSupportedFile = (file) => 
+  path.extname(file).match(/\.mjml|\.css|\.html/) ? file : `${file}.mjml`
+  
 const error = (e) => console.error(e.stack || e) // eslint-disable-line no-console
 
 export default (baseFile, filePath) => {
@@ -28,8 +29,8 @@ export default (baseFile, filePath) => {
   const readIncludes = (dir, file, base) => {
     const currentFile = path.resolve(
       dir
-        ? path.join(dir, ensureIncludeIsMJMLFile(file))
-        : ensureIncludeIsMJMLFile(file),
+        ? path.join(dir, ensureIncludeIsSupportedFile(file))
+        : ensureIncludeIsSupportedFile(file),
     )
 
     const currentDirectory = path.dirname(currentFile)
@@ -46,7 +47,7 @@ export default (baseFile, filePath) => {
 
     let matchgroup = includes.exec(content)
     while (matchgroup != null) {
-      const includedFile = ensureIncludeIsMJMLFile(matchgroup[1])
+      const includedFile = ensureIncludeIsSupportedFile(matchgroup[1])
 
       // when reading first level of includes we must join the path specified in filePath
       // when reading further nested includes, just take parent dir as base

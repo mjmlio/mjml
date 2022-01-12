@@ -9,13 +9,23 @@ export function readMjmlConfig(configPathOrDir = process.cwd()) {
   let mjmlConfigPath = configPathOrDir
   try {
     mjmlConfigPath =
-      path.basename(configPathOrDir) === '.mjmlconfig'
+      path.basename(configPathOrDir).match(/^\.mjmlconfig(\.js)?$/)
         ? path.resolve(configPathOrDir)
         : path.resolve(configPathOrDir, '.mjmlconfig')
     componentRootPath = path.dirname(mjmlConfigPath)
-    const mjmlConfig = JSON.parse(
-      fs.readFileSync(path.resolve(mjmlConfigPath), 'utf8'),
-    )
+    
+    const fullPath = path.resolve(mjmlConfigPath)
+
+    let mjmlConfig
+    if (path.extname(mjmlConfigPath) === '.js') {
+      delete require.cache[fullPath]
+      mjmlConfig = require(fullPath)
+    } else {
+      mjmlConfig = JSON.parse(
+        fs.readFileSync(fullPath, 'utf8'),
+      )
+    }
+
     return { mjmlConfig, componentRootPath }
   } catch (e) {
     if (e.code !== 'ENOENT') {

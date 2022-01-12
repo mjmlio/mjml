@@ -66,6 +66,7 @@ export default function mjml2html(mjml, options = {}) {
   let packages = {}
   let confOptions = {}
   let mjmlConfigOptions = {}
+  let confPreprocessors = {}
   let error = null
   let componentRootPath = null
 
@@ -73,7 +74,7 @@ export default function mjml2html(mjml, options = {}) {
     const mjmlConfigContent = readMjmlConfig(options.mjmlConfigPath)
 
     ;({
-      mjmlConfig: { packages, options: confOptions },
+      mjmlConfig: { packages, options: confOptions, preprocessors: confPreprocessors },
       componentRootPath,
       error,
     } = mjmlConfigContent)
@@ -115,6 +116,7 @@ export default function mjml2html(mjml, options = {}) {
   } = {
     ...mjmlConfigOptions,
     ...options,
+    preprocessors: options.preprocessors ? [...confPreprocessors, ...options.preprocessors] : confPreprocessors
   }
 
   const components = { ...globalComponents }

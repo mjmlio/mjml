@@ -325,7 +325,7 @@ export default function mjml2html(mjml, options = {}) {
   
   if (mjOutsideRaws.length) {
     const toAddBeforeDoctype = mjOutsideRaws.filter(elt =>
-      elt.attributes['position'] && elt.attributes['position'] === 'file-start'
+      elt.attributes.position && elt.attributes.position === 'file-start',
     )
     if (toAddBeforeDoctype.length) {
       globalDatas.beforeDoctype = toAddBeforeDoctype.map(elt => elt.content).join('\n')

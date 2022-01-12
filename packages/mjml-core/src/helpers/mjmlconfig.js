@@ -19,7 +19,7 @@ export function readMjmlConfig(configPathOrDir = process.cwd()) {
     let mjmlConfig
     if (path.extname(mjmlConfigPath) === '.js') {
       delete require.cache[fullPath]
-      mjmlConfig = require(fullPath)
+      mjmlConfig = require(fullPath) // eslint-disable-line global-require, import/no-dynamic-require
     } else {
       mjmlConfig = JSON.parse(
         fs.readFileSync(fullPath, 'utf8'),

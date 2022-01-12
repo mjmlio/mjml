@@ -116,7 +116,7 @@ export default function mjml2html(mjml, options = {}) {
   } = {
     ...mjmlConfigOptions,
     ...options,
-    preprocessors: options.preprocessors ? [...confPreprocessors, ...options.preprocessors] : confPreprocessors
+    preprocessors: options.preprocessors ? [...confPreprocessors, ...options.preprocessors] : confPreprocessors,
   }
 
   const components = { ...globalComponents }

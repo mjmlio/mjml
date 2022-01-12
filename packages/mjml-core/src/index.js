@@ -1,5 +1,6 @@
 import {
   find,
+  filter,
   get,
   identity,
   map,
@@ -139,6 +140,7 @@ export default function mjml2html(mjml, options = {}) {
 
   const globalDatas = {
     backgroundColor: '',
+    beforeDoctype: '',
     breakpoint: '480px',
     classes: {},
     classesDefault: {},
@@ -188,6 +190,7 @@ export default function mjml2html(mjml, options = {}) {
 
   const mjBody = find(mjml.children, { tagName: 'mj-body' })
   const mjHead = find(mjml.children, { tagName: 'mj-head' })
+  const mjOutsideRaws = filter(mjml.children, { tagName: 'mj-raw' })
 
   const processing = (node, context, parseMJML = identity) => {
     if (!node) {
@@ -319,6 +322,15 @@ export default function mjml2html(mjml, options = {}) {
   content = processing(mjBody, bodyHelpers, applyAttributes)
 
   content = minifyOutlookConditionnals(content)
+  
+  if (mjOutsideRaws.length) {
+    const toAddBeforeDoctype = mjOutsideRaws.filter(elt =>
+      elt.attributes['position'] && elt.attributes['position'] === 'file-start'
+    )
+    if (toAddBeforeDoctype.length) {
+      globalDatas.beforeDoctype = toAddBeforeDoctype.map(elt => elt.content).join('\n')
+    }
+  }
 
   if (!isEmpty(globalDatas.htmlAttributes)) {
     const $ = cheerio.load(content, {

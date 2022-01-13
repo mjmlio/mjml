@@ -54,6 +54,7 @@ class Component {
       context = {},
       props = {},
       globalAttributes = {},
+      globalDatas = {},
     } = initialDatas
 
     this.props = {

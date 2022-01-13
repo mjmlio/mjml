@@ -1,4 +1,5 @@
 import { BodyComponent } from 'mjml-core'
+import buildPreview from './helpers/preview'
 
 export default class MjBody extends BodyComponent {
   static componentName = 'mj-body'
@@ -21,6 +22,10 @@ export default class MjBody extends BodyComponent {
 
   getStyles() {
     return {
+      body: {
+        'word-spacing': 'normal',
+        'background-color': this.getAttribute('background-color'),
+      },
       div: {
         'background-color': this.getAttribute('background-color'),
       },
@@ -28,18 +33,21 @@ export default class MjBody extends BodyComponent {
   }
 
   render() {
-    const { setBackgroundColor } = this.context
-    setBackgroundColor(this.getAttribute('background-color'))
+    const { preview, lang } = this.context.getGlobalDatas()
 
     return `
-      <div
-        ${this.htmlAttributes({
-          class: this.getAttribute('css-class'),
+      <body ${this.htmlAttributes({
+        class: this.getAttribute('css-class'),
+        style: 'body',
+      })}>
+        ${buildPreview(preview)}
+        <div ${this.htmlAttributes({
+          lang,
           style: 'div',
-        })}
-      >
-        ${this.renderChildren()}
-      </div>
+        })}>
+          ${this.renderChildren()}
+        </div>
+      </body>
     `
   }
 }

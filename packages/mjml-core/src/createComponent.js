@@ -54,9 +54,11 @@ class Component {
       context = {},
       props = {},
       globalAttributes = {},
+      absoluteFilePath = null,
     } = initialDatas
 
     this.props = {
+      absoluteFilePath,
       ...props,
       children,
       content,

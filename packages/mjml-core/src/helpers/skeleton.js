@@ -1,5 +1,4 @@
 import { map, reduce, negate, isNil, isFunction } from 'lodash'
-import buildPreview from './preview'
 import { buildFontsTags } from './fonts'
 import buildMediaQueriesTags from './mediaQueries'
 
@@ -12,7 +11,6 @@ export default function skeleton(options) {
     headStyle = [],
     componentsHeadStyle = {},
     headRaw = [],
-    preview,
     title = '',
     style = [],
     forceOWADesktop,

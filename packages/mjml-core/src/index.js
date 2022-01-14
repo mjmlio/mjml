@@ -317,6 +317,10 @@ export default function mjml2html(mjml, options = {}) {
   globalDatas.headRaw = processing(mjHead, headHelpers)
 
   content = processing(mjBody, bodyHelpers, applyAttributes)
+  
+  if (!content) {
+    throw new Error('Malformed MJML. Check that your structure is correct and enclosed in <mjml> tags.')
+  }
 
   content = minifyOutlookConditionnals(content)
 

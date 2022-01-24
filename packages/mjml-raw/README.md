@@ -24,7 +24,7 @@ If you use mj-raw to add templating language, and use the `minify` option, you m
 
 
 <aside class="notice">
-  `mj-raw` is an "ending tag", which means it can contain HTML code which will be left as it is, so it can contain HTML tags with attributes, but it cannot contain other MJML components. More information about ending tags <a href="#ending-tags>in this section</a>.
+  `mj-raw` is an "ending tag", which means it can contain HTML code which will be left as it is, so it can contain HTML tags with attributes, but it cannot contain other MJML components. More information about ending tags <a href="#ending-tags">in this section</a>.
 </aside>
 
 ```xml

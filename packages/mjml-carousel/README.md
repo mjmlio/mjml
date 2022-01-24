@@ -31,7 +31,7 @@ This component enables you to set the styles of the carousel elements.
 </p>
 
 <aside class="notice">
-  `mj-carousel-image` is an "ending tag", which means it can contain HTML code which will be left as it is, so it can contain HTML tags with attributes, but it cannot contain other MJML components. More information about ending tags <a href="#ending-tags>in this section</a>.
+  `mj-carousel-image` is an "ending tag", which means it can contain HTML code which will be left as it is, so it can contain HTML tags with attributes, but it cannot contain other MJML components. More information about ending tags <a href="#ending-tags">in this section</a>.
 </aside>
 
 

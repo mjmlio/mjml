@@ -35,7 +35,7 @@ Displays calls-to-action for various social networks with their associated logo.
 </p>
 
 <aside class="notice">
-  `mj-social-element` is an "ending tag", which means it can contain HTML code which will be left as it is, so it can contain HTML tags with attributes, but it cannot contain other MJML components. More information about ending tags <a href="#ending-tags>in this section</a>.
+  `mj-social-element` is an "ending tag", which means it can contain HTML code which will be left as it is, so it can contain HTML tags with attributes, but it cannot contain other MJML components. More information about ending tags <a href="#ending-tags">in this section</a>.
 </aside>
 
 
@@ -66,7 +66,7 @@ text-decoration             | string      | underline/overline/none       | none
 
 ### mj-social-element
 
-This component enables you to display a given social network inside `mj-social`.  
+This component enables you to display a given social network inside `mj-social`.
 Note that default icons are transparent, which allows `background-color` to actually be the icon color.
 
 
@@ -103,25 +103,25 @@ title                       | string      | img title attribute           | none
 text-decoration             | string      | underline/overline/none       | none
 vertical-align              | string      | top/middle/bottom             | middle
 
-Supported networks with a share url:  
-- facebook  
-- twitter  
-- google  
-- pinterest  
-- linkedin  
-- tumblr  
-- xing  
+Supported networks with a share url:
+- facebook
+- twitter
+- google
+- pinterest
+- linkedin
+- tumblr
+- xing
 
-Without a share url:  
-- github  
-- instagram  
-- web  
-- snapchat  
-- youtube  
-- vimeo  
-- medium  
-- soundcloud  
-- dribbble  
+Without a share url:
+- github
+- instagram
+- web
+- snapchat
+- youtube
+- vimeo
+- medium
+- soundcloud
+- dribbble
 
 When using a network with share url, the `href` attribute will be inserted in the share url (i.e. `https://www.facebook.com/sharer/sharer.php?u=[[URL]]`). To keep your `href` unchanged, add `-noshare` to the network name. Example :
 

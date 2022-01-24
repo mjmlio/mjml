@@ -1,5 +1,4 @@
 export default function (content) {
-  console.log('REACH !');
   if (content === '') {
     return ''
   }

@@ -7,6 +7,7 @@ export default class MjBody extends BodyComponent {
   static allowedAttributes = {
     width: 'unit(px)',
     'background-color': 'color',
+    id: 'string',
   }
 
   static defaultAttributes = {
@@ -37,6 +38,7 @@ export default class MjBody extends BodyComponent {
 
     return `
       <body ${this.htmlAttributes({
+        id: this.getAttribute('id'),
         class: this.getAttribute('css-class'),
         style: 'body',
       })}>

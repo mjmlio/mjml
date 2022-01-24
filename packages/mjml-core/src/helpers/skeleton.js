@@ -24,8 +24,7 @@ export default function skeleton(options) {
 
   const langAttribute = lang ? `lang="${lang}" ` : ''
 
-  return `${beforeDoctype}
-<!doctype html>
+  return `${beforeDoctype ? `${beforeDoctype}\n` : ''}<!doctype html>
 <html ${langAttribute}xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
   <head>
     <title>

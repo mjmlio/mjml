@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 
-const includeRegexp = /<mj-include\s+path=['"](.*(?:\.mjml|\.css|\.html))['"]\s*[^<>]*(\/>|>\s*<\/mj-include>)/gi
+const includeRegexp = /<mj-include[^<>]+path=['"](.*(?:\.mjml|\.css|\.html))['"]\s*[^<>]*(\/>|>\s*<\/mj-include>)/gi
 
 const ensureIncludeIsSupportedFile = (file) => 
   path.extname(file).match(/\.mjml|\.css|\.html/) ? file : `${file}.mjml`

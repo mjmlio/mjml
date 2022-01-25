@@ -138,7 +138,6 @@ export default function mjml2html(mjml, options = {}) {
   mjml = handleMjml3(mjml, { noMigrateWarn })
 
   const globalDatas = {
-    backgroundColor: '',
     breakpoint: '480px',
     classes: {},
     classesDefault: {},
@@ -278,9 +277,7 @@ export default function mjml2html(mjml, options = {}) {
     addComponentHeadSyle(headStyle) {
       globalDatas.componentsHeadStyle.push(headStyle)
     },
-    setBackgroundColor: (color) => {
-      globalDatas.backgroundColor = color
-    },
+    getGlobalDatas: () => globalDatas,
     processing: (node, context) => processing(node, context, applyAttributes),
   }
 

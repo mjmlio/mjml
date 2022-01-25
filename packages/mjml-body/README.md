@@ -23,6 +23,6 @@ This is the starting point of your email.
 attribute            | unit          | description                    | default value
 ---------------------|---------------|--------------------------------|---------------
 background-color     | color formats | the general background color   | n/a
-css-class            | string        | class name, added to the root HTML element created | n/a
+css-class            | string        | class name, added to the body tag in the generated HTML | n/a
+id                   | string        | id, added to the body tag in the generated HTML | n/a
 width                | px            | email's width                  | 600px
-

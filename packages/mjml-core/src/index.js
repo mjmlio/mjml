@@ -66,7 +66,7 @@ export default function mjml2html(mjml, options = {}) {
   let packages = {}
   let confOptions = {}
   let mjmlConfigOptions = {}
-  let confPreprocessors = {}
+  let confPreprocessors = []
   let error = null
   let componentRootPath = null
 

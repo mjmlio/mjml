@@ -42,8 +42,8 @@ container-background-color | string | column background color | none
 border-radius | px | border radius | n/a
 css-class | string | class name, added to the root HTML element created | n/a
 icon-width | px | width of the icons on left and right of the main image | 44px
-left-icon | url | icon on the left of the main image | https://mjml.io/assets/img/left-arrow.png
-right-icon | url | icon on the right of the main image | https://mjml.io/assets/img/right-arrow.png
+left-icon | url | icon on the left of the main image | https://i.imgur.com/xTh3hln.png
+right-icon | url | icon on the right of the main image | https://i.imgur.com/os7o9kz.png
 tb-border | css border format | border of the thumbnails | none
 tb-border-radius | px | border-radius of the thumbnails | none
 tb-hover-border-color | string | css border color of the hovered thumbnail | none

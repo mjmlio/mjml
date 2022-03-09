@@ -130,7 +130,7 @@ $> mjml input.mjml --config.minifyOptions='{"minifyCSS": true, "removeEmptyAttri
 The defaults are "collapseWhitespace": true, "minifyCSS": false, "removeEmptyAttributes": true  
 See html-minifier documentation for more available options
 
-### Change juice options (library used for inlining mj-syle css)
+### Change juice options (library used for inlining mj-style css)
 
 ```bash
 $> mjml input.mjml --config.minifyOptions='{"preserveImportant": true}'

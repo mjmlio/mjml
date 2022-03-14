@@ -1,4 +1,4 @@
-import { BodyComponent } from 'mjml-core'
+import { BodyComponent, makeLowerBreakpoint } from 'mjml-core'
 import crypto from 'crypto'
 
 import conditionalTag, {
@@ -53,7 +53,7 @@ export default class MjNavbar extends BodyComponent {
     `
       noinput.mj-menu-checkbox { display:block!important; max-height:none!important; visibility:visible!important; }
 
-      @media only screen and (max-width:${breakpoint}) {
+      @media only screen and (max-width:${makeLowerBreakpoint(breakpoint)}) {
         .mj-menu-checkbox[type="checkbox"] ~ .mj-inline-links { display:none!important; }
         .mj-menu-checkbox[type="checkbox"]:checked ~ .mj-inline-links,
         .mj-menu-checkbox[type="checkbox"] ~ .mj-menu-trigger { display:block!important; max-width:none!important; max-height:none!important; font-size:inherit!important; }

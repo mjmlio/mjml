@@ -29,6 +29,7 @@ import globalComponents, {
   assignComponents,
 } from './components'
 
+import makeLowerBreakpoint from './helpers/makeLowerBreakpoint'
 import suffixCssClasses from './helpers/suffixCssClasses'
 import mergeOutlookConditionnals from './helpers/mergeOutlookConditionnals'
 import minifyOutlookConditionnals from './helpers/minifyOutlookConditionnals'
@@ -436,6 +437,7 @@ export {
   initComponent,
   registerComponent,
   assignComponents,
+  makeLowerBreakpoint,
   suffixCssClasses,
   handleMjmlConfig,
   initializeType,

@@ -51,7 +51,8 @@ First, we will implement the skeleton which are the sections. Here, our email is
 <!-- Company Header -->
 <mj-section background-color="#f0f0f0">
   <mj-column>
-    <mj-text  font-style="italic"
+    <mj-text  align="center"
+	      font-style="italic"
               font-size="20px"
               color="#626262">
       My Company
@@ -77,11 +78,12 @@ The text padding represents the inner space around the content within the `mj-te
               background-repeat="no-repeat">
 
     <mj-column width="600px">
-
-		  <mj-text  align="center"
-                color="#fff"
-                font-size="40px"
-                font-family="Helvetica Neue">Slogan here</mj-text>
+	<mj-text  align="center"
+                  color="#fff"
+                  font-size="40px"
+                  font-family="Helvetica Neue">
+	  Slogan here
+	</mj-text>
 
       <mj-button background-color="#F63A4D"
                  href="#">

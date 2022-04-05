@@ -70,6 +70,7 @@ export default class MjColumn extends BodyComponent {
   getStyles() {
     const tableStyle = {
       'background-color': this.getAttribute('background-color'),
+      'border-collapse': 'separate',
       border: this.getAttribute('border'),
       'border-bottom': this.getAttribute('border-bottom'),
       'border-left': this.getAttribute('border-left'),
@@ -88,10 +89,14 @@ export default class MjColumn extends BodyComponent {
         'vertical-align': this.getAttribute('vertical-align'),
         width: this.getMobileWidth(),
       },
+      gutterTable: {
+        'border-collapse': 'separate',
+      },
       table: {
         ...(this.hasGutter()
           ? {
               'background-color': this.getAttribute('inner-background-color'),
+              'border-collapse': 'separate',
               border: this.getAttribute('inner-border'),
               'border-bottom': this.getAttribute('inner-border-bottom'),
               'border-left': this.getAttribute('inner-border-left'),
@@ -220,6 +225,7 @@ export default class MjColumn extends BodyComponent {
           cellpadding: '0',
           cellspacing: '0',
           role: 'presentation',
+          style: 'gutterTable',
           width: '100%',
         })}
       >

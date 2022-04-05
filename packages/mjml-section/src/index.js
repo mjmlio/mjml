@@ -72,14 +72,15 @@ export default class MjSection extends BodyComponent {
       tableFullwidth: {
         ...(fullWidth ? background : {}),
         width: '100%',
-        'border-radius': this.getAttribute('border-radius'),
+        'border-collapse': 'separate',
       },
       table: {
         ...(fullWidth ? {} : background),
         width: '100%',
-        'border-radius': this.getAttribute('border-radius'),
+        'border-collapse': 'separate',
       },
       td: {
+        'border-radius': this.getAttribute('border-radius'),
         border: this.getAttribute('border'),
         'border-bottom': this.getAttribute('border-bottom'),
         'border-left': this.getAttribute('border-left'),
@@ -97,7 +98,6 @@ export default class MjSection extends BodyComponent {
       div: {
         ...(fullWidth ? {} : background),
         margin: '0px auto',
-        'border-radius': this.getAttribute('border-radius'),
         'max-width': containerWidth,
       },
       innerDiv: {

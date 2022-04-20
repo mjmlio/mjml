@@ -8,7 +8,7 @@ In order to provide you with the best experience with MJML and help you use it m
 
 ## Parcel
 
-[Parcel](parcel.io) is the code editor built for email. This feature packed tool includes syntax highlighting, Emmet, inline documentation, autocomplete, live preview, screenshots, and full MJML, CSS, and HTML validation. Use Focus Mode to keep the preview aligned with the code you're working on, or Inspect Element to easily find the code that produces specific elements in the preview. Export MJML to HTML with a click.
+[Parcel](https://parcel.io) is the code editor built for email. This feature packed tool includes syntax highlighting, Emmet, inline documentation, autocomplete, live preview, screenshots, and full MJML, CSS, and HTML validation. Use Focus Mode to keep the preview aligned with the code you're working on, or Inspect Element to easily find the code that produces specific elements in the preview. Export MJML to HTML with a click.
 
 ## Atom language plugin
 

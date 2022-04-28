@@ -27,7 +27,7 @@ export default class MjColumn extends BodyComponent {
     'inner-border-top': 'string',
     padding: 'unit(px,%){1,4}',
     'vertical-align': 'enum(top,bottom,middle)',
-    width: 'unit(px,%)',
+    width: 'unit(px,%,auto)',
   }
 
   static defaultAttributes = {
@@ -122,6 +122,9 @@ export default class MjColumn extends BodyComponent {
     const width = this.getAttribute('width')
     const mobileWidth = this.getAttribute('mobileWidth')
 
+    if (width === 'auto') {
+      return width
+    }
     if (mobileWidth !== 'mobileWidth') {
       return '100%'
     }
@@ -149,6 +152,9 @@ export default class MjColumn extends BodyComponent {
       parseFloatToInt: false,
     })
 
+    if (unit === 'auto') {
+      return unit
+    }
     if (unit === '%') {
       return `${(parseFloat(containerWidth) * parsedWidth) / 100}px`
     }
@@ -183,6 +189,9 @@ export default class MjColumn extends BodyComponent {
     const formattedClassNb = parsedWidth.toString().replace('.', '-')
 
     switch (unit) {
+      case 'auto':
+        return 'mj-column-auto'
+
       case '%':
         className = `mj-column-per-${formattedClassNb}`
         break

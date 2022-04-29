@@ -72,7 +72,7 @@ export default class MjImage extends BodyComponent {
         'font-size': this.getAttribute('font-size'),
       },
       td: {
-        width: fullWidth ? null : `${parsedWidth}${unit}`,
+        width: fullWidth || width === Infinity ? null : `${parsedWidth}${unit}`,
       },
       table: {
         'min-width': fullWidth ? '100%' : null,
@@ -96,6 +96,7 @@ export default class MjImage extends BodyComponent {
 
   renderImage() {
     const height = this.getAttribute('height')
+    const width = this.getContentWidth()
 
     const img = `
       <img
@@ -107,7 +108,7 @@ export default class MjImage extends BodyComponent {
           sizes: this.getAttribute('sizes'),
           style: 'img',
           title: this.getAttribute('title'),
-          width: this.getContentWidth(),
+          width: width === Infinity ? null : width,
           usemap: this.getAttribute('usemap'),
         })}
       />

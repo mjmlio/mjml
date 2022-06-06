@@ -8,6 +8,7 @@ import {
   find,
   filter,
   isNil,
+  omitBy,
 } from 'lodash'
 
 import MJMLParser from 'mjml-parser-xml'
@@ -98,7 +99,7 @@ class Component {
         ignoreIncludes: true,
       })
       return partialMjml.children
-        .map((child) => this.context.processing(child, this.context))
+        .map(child => this.context.processing(child, this.context))
         .join('')
     }
 
@@ -157,20 +158,16 @@ export class BodyComponent extends Component {
 
   htmlAttributes(attributes) {
     const specialAttributes = {
-      style: (v) => this.styles(v),
+      style: v => this.styles(v),
       default: identity,
     }
 
     return reduce(
-      attributes,
+      omitBy(attributes, isNil),
       (output, v, name) => {
         const value = (specialAttributes[name] || specialAttributes.default)(v)
 
-        if (!isNil(value)) {
-          return `${output} ${name}="${value}"`
-        }
-
-        return output
+        return `${output} ${name}="${value}"`
       },
       '',
     )
@@ -202,7 +199,7 @@ export class BodyComponent extends Component {
   renderChildren(children, options = {}) {
     const {
       props = {},
-      renderer = (component) => component.render(),
+      renderer = component => component.render(),
       attributes = {},
       rawXML = false,
     } = options
@@ -210,22 +207,20 @@ export class BodyComponent extends Component {
     children = children || this.props.children
 
     if (rawXML) {
-      return children.map((child) => jsonToXML(child)).join('\n')
+      return children.map(child => jsonToXML(child)).join('\n')
     }
 
     const sibling = children.length
 
-    const rawComponents = filter(this.context.components, (c) =>
-      c.isRawElement(),
-    )
+    const rawComponents = filter(this.context.components, c => c.isRawElement())
     const nonRawSiblings = children.filter(
-      (child) => !find(rawComponents, (c) => c.getTagName() === child.tagName),
+      child => !find(rawComponents, c => c.getTagName() === child.tagName),
     ).length
 
     let output = ''
     let index = 0
 
-    forEach(children, (children) => {
+    forEach(children, children => {
       const component = initComponent({
         name: children.tagName,
         initialDatas: {
@@ -265,7 +260,7 @@ export class HeadComponent extends Component {
   handlerChildren() {
     const { children } = this.props
 
-    return children.map((children) => {
+    return children.map(children => {
       const component = initComponent({
         name: children.tagName,
         initialDatas: {

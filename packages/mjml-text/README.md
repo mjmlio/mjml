@@ -1,16 +1,17 @@
 ## mj-text
 
-This tag allows you to display text in your email.
+This tag allows you to display text and HTML in your email and has shorthand attributes for easily styling its children.
 
  ```xml
 <mjml>
   <mj-body>
     <mj-section>
       <mj-column>
-        <mj-text>
-          <h1>
-            Hey Title!
-          </h1>
+        <mj-text font-family="Helvetica" color="#F45E43">
+          <h1>Title</h1>
+
+          <p>Paragraph</p>
+          <p style="font-family:Comic Sans Ms">Another paragraph</p>
         </mj-text>
       </mj-column>
     </mj-section>
@@ -19,7 +20,7 @@ This tag allows you to display text in your email.
  ```
 
 <p style="text-align: center;" >
-  <a href="https://mjml.io/try-it-live/components/text">
+  <a href="https://mjml.io/try-it-live/E7Tk_8zjI">
     <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
   </a>
 </p>

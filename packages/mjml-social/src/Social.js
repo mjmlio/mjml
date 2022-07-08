@@ -1,4 +1,5 @@
 import { BodyComponent } from 'mjml-core'
+import { isNil } from 'lodash'
 
 export default class MjSocial extends BodyComponent {
   static componentName = 'mj-social'
@@ -71,10 +72,12 @@ export default class MjSocial extends BodyComponent {
       'text-padding',
       'line-height',
       'text-decoration',
-    ].reduce((res, attr) => {
-      res[attr] = this.getAttribute(attr)
-      return res
-    }, base)
+    ]
+      .filter((e) => !isNil(this.getAttribute(e)))
+      .reduce((res, attr) => {
+        res[attr] = this.getAttribute(attr)
+        return res
+      }, base)
   }
 
   renderHorizontal() {
@@ -95,7 +98,7 @@ export default class MjSocial extends BodyComponent {
       <![endif]-->
       ${this.renderChildren(children, {
         attributes: this.getSocialElementAttributes(),
-        renderer: (component) => 
+        renderer: (component) =>
           component.constructor.isRawElement()
             ? component.render()
             : `

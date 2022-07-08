@@ -1,5 +1,5 @@
 ## mj-breakpoint
-This tag allows you to control on which breakpoint the layout should go desktop/mobile. At window widths below this value the layout will be displayed in mobile mode.
+This tag allows you to control on which breakpoint the layout should go desktop/mobile.
 
 ```xml
 <mjml>

@@ -29,9 +29,7 @@ export default function skeleton(options) {
   return `${beforeDoctype ? `${beforeDoctype}\n` : ''}<!doctype html>
 <html ${langAttribute}${dirAttribute}xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
   <head>
-    <title>
-      ${title}
-    </title>
+    <title>${title}</title>
     <!--[if !mso]><!-->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!--<![endif]-->
@@ -74,7 +72,7 @@ export default function skeleton(options) {
     )}
     </style>
     <style type="text/css">
-    ${map(style, s => (isFunction(s) ? s(breakpoint) : s)).join('')}
+    ${map(style, (s) => (isFunction(s) ? s(breakpoint) : s)).join('')}
     </style>
     ${headRaw.filter(negate(isNil)).join('\n')}
   </head>

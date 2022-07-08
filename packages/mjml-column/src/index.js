@@ -68,7 +68,6 @@ export default class MjColumn extends BodyComponent {
   }
 
   getStyles() {
-    const { hasBackground } = this.getChildContext()
     const tableStyle = {
       'background-color': this.getAttribute('background-color'),
       border: this.getAttribute('border'),
@@ -108,21 +107,7 @@ export default class MjColumn extends BodyComponent {
       },
       gutter: {
         ...tableStyle,
-        ...(hasBackground
-          ? {
-              margin: this.getAttribute('padding'),
-              'margin-top': this.getAttribute('padding-top'),
-              'margin-right': this.getAttribute('padding-right'),
-              'margin-bottom': this.getAttribute('padding-bottom'),
-              'margin-left': this.getAttribute('padding-left'),
-            }
-          : {
-              padding: this.getAttribute('padding'),
-              'padding-top': this.getAttribute('padding-top'),
-              'padding-right': this.getAttribute('padding-right'),
-              'padding-bottom': this.getAttribute('padding-bottom'),
-              'padding-left': this.getAttribute('padding-left'),
-            }),
+        ...this.getSafePaddingValues(),
       },
     }
   }
@@ -247,7 +232,6 @@ export default class MjColumn extends BodyComponent {
 
   renderColumn() {
     const { children } = this.props
-    const { hasBackground } = this.getChildContext()
 
     return `
       <table

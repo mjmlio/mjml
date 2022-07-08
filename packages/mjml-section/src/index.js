@@ -47,11 +47,13 @@ export default class MjSection extends BodyComponent {
     return {
       ...this.context,
       containerWidth: `${box}px`,
+      hasBackground:
+        this.context.hasBackground || this.getAttribute('background-url'),
     }
   }
 
   getStyles() {
-    const { containerWidth } = this.context
+    const { containerWidth } = this.getChildContext()
 
     const fullWidth = this.isFullWidth()
 
@@ -87,12 +89,8 @@ export default class MjSection extends BodyComponent {
         'border-top': this.getAttribute('border-top'),
         direction: this.getAttribute('direction'),
         'font-size': '0px',
-        padding: this.getAttribute('padding'),
-        'padding-bottom': this.getAttribute('padding-bottom'),
-        'padding-left': this.getAttribute('padding-left'),
-        'padding-right': this.getAttribute('padding-right'),
-        'padding-top': this.getAttribute('padding-top'),
         'text-align': this.getAttribute('text-align'),
+        ...this.getSafePaddingValues(),
       },
       div: {
         ...(fullWidth ? {} : background),

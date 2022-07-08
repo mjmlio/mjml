@@ -68,6 +68,7 @@ export default class MjColumn extends BodyComponent {
   }
 
   getStyles() {
+    const { hasBackground } = this.getChildContext()
     const tableStyle = {
       'background-color': this.getAttribute('background-color'),
       border: this.getAttribute('border'),
@@ -107,11 +108,21 @@ export default class MjColumn extends BodyComponent {
       },
       gutter: {
         ...tableStyle,
-        padding: this.getAttribute('padding'),
-        'padding-top': this.getAttribute('padding-top'),
-        'padding-right': this.getAttribute('padding-right'),
-        'padding-bottom': this.getAttribute('padding-bottom'),
-        'padding-left': this.getAttribute('padding-left'),
+        ...(hasBackground
+          ? {
+              margin: this.getAttribute('padding'),
+              'margin-top': this.getAttribute('padding-top'),
+              'margin-right': this.getAttribute('padding-right'),
+              'margin-bottom': this.getAttribute('padding-bottom'),
+              'margin-left': this.getAttribute('padding-left'),
+            }
+          : {
+              padding: this.getAttribute('padding'),
+              'padding-top': this.getAttribute('padding-top'),
+              'padding-right': this.getAttribute('padding-right'),
+              'padding-bottom': this.getAttribute('padding-bottom'),
+              'padding-left': this.getAttribute('padding-left'),
+            }),
       },
     }
   }
@@ -236,6 +247,7 @@ export default class MjColumn extends BodyComponent {
 
   renderColumn() {
     const { children } = this.props
+    const { hasBackground } = this.getChildContext()
 
     return `
       <table
@@ -265,14 +277,8 @@ export default class MjColumn extends BodyComponent {
                         'container-background-color',
                       ),
                       'font-size': '0px',
-                      padding: component.getAttribute('padding'),
-                      'padding-top': component.getAttribute('padding-top'),
-                      'padding-right': component.getAttribute('padding-right'),
-                      'padding-bottom': component.getAttribute(
-                        'padding-bottom',
-                      ),
-                      'padding-left': component.getAttribute('padding-left'),
                       'word-break': 'break-word',
+                      ...component.getSafePaddingValues(),
                     },
                   })}
                 >

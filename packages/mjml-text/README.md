@@ -20,7 +20,7 @@ This tag allows you to display text and HTML in your email and has shorthand att
  ```
 
 <p style="text-align: center;" >
-  <a href="https://mjml.io/try-it-live/E7Tk_8zjI">
+  <a href="https://mjml.io/try-it-live/components/text">
     <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
   </a>
 </p>

@@ -1,6 +1,6 @@
 ## mj-text
 
-This tag allows you to display text and HTML in your email and has shorthand attributes for easily styling its children.
+This tag allows you to display text and HTML in your email.
 
  ```xml
 <mjml>

@@ -140,7 +140,7 @@ console.log(htmlOutput)
 
 オプション   | 型   | 説明  | 初期値
 -------------|--------|--------------|---------------
-fonts  | object | 初期フォントをインポートしたHTMLを描画する | 初期フォントについては[index.js](https://github.com/mjmlio/mjml/blob/master/packages/mjml-core/src/index.js#L36-L44)をご覧ください。
+fonts  | object | 初期フォントをインポートしたHTMLを描画する | 初期フォントについては[index.js](https://github.com/mjmlio/mjml/blob/master/packages/mjml-core/src/index.js#L100-L108)をご覧ください。
 keepComments | boolean | 出力されるHTMLにコメントを残すオプション | true
 ignoreIncludes | boolean | mj-includesを無視するオプション | false
 beautify | boolean | 出力されるHTMLを整えるオプション | false

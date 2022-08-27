@@ -22,7 +22,6 @@ https://github.com/SebastianStehle/mjml-net
 ### Missing implementations / components
 
 - `mj-style[inline]`: not yet implemented for performance reasons.
-- `mj-include`: not yet implemented because the library is used by server applications where the template is stored in the database.
 - `mj-html-attributes`: not yet implemented for performance reasons.
 
 ## Elixir: MJML (Rust NIFs for Elixir)

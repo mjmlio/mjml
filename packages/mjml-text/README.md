@@ -1,16 +1,17 @@
 ## mj-text
 
-This tag allows you to display text in your email.
+This tag allows you to display text and HTML in your email.
 
  ```xml
 <mjml>
   <mj-body>
     <mj-section>
       <mj-column>
-        <mj-text>
-          <h1>
-            Hey Title!
-          </h1>
+        <mj-text font-family="Helvetica" color="#F45E43">
+          <h1>Title</h1>
+
+          <p>Paragraph</p>
+          <p style="font-family:Comic Sans Ms">Another paragraph</p>
         </mj-text>
       </mj-column>
     </mj-section>

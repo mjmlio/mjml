@@ -1,7 +1,7 @@
 {
   "name": "mjml-parser-xml",
   "description": "mjml-parser-xml",
-  "version": "4.12.0",
+  "version": "4.13.0",
   "main": "lib/index.js",
   "files": [
     "lib"
@@ -30,8 +30,8 @@
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "chai": "^4.1.1",
-    "mjml": "4.12.0",
-    "mjml-core": "4.12.0",
+    "mjml": "4.13.0",
+    "mjml-core": "4.13.0",
     "rimraf": "^3.0.2"
   }
 }

@@ -29,6 +29,7 @@ import globalComponents, {
   assignComponents,
 } from './components'
 
+import makeLowerBreakpoint from './helpers/makeLowerBreakpoint'
 import suffixCssClasses from './helpers/suffixCssClasses'
 import mergeOutlookConditionnals from './helpers/mergeOutlookConditionnals'
 import minifyOutlookConditionnals from './helpers/minifyOutlookConditionnals'
@@ -75,7 +76,11 @@ export default function mjml2html(mjml, options = {}) {
     const mjmlConfigContent = readMjmlConfig(options.mjmlConfigPath)
 
     ;({
-      mjmlConfig: { packages, options: confOptions, preprocessors: confPreprocessors },
+      mjmlConfig: {
+        packages,
+        options: confOptions,
+        preprocessors: confPreprocessors,
+      },
       componentRootPath,
       error,
     } = mjmlConfigContent)
@@ -117,7 +122,9 @@ export default function mjml2html(mjml, options = {}) {
   } = {
     ...mjmlConfigOptions,
     ...options,
-    preprocessors: options.preprocessors ? [...confPreprocessors, ...options.preprocessors] : confPreprocessors,
+    preprocessors: options.preprocessors
+      ? [...confPreprocessors, ...options.preprocessors]
+      : confPreprocessors,
   }
 
   const components = { ...globalComponents }
@@ -140,7 +147,7 @@ export default function mjml2html(mjml, options = {}) {
 
   mjml = handleMjml3(mjml, { noMigrateWarn })
 
-  const globalDatas = {
+  const globalData = {
     backgroundColor: '',
     beforeDoctype: '',
     breakpoint: '480px',
@@ -159,6 +166,7 @@ export default function mjml2html(mjml, options = {}) {
     title: '',
     forceOWADesktop: get(mjml, 'attributes.owa', 'mobile') === 'desktop',
     lang: get(mjml, 'attributes.lang'),
+    dir: get(mjml, 'attributes.dir'),
   }
 
   const validatorOptions = {
@@ -177,7 +185,7 @@ export default function mjml2html(mjml, options = {}) {
       if (errors.length > 0) {
         throw new ValidationError(
           `ValidationError: \n ${errors
-            .map((e) => e.formattedMessage)
+            .map(e => e.formattedMessage)
             .join('\n')}`,
           errors,
         )
@@ -218,14 +226,14 @@ export default function mjml2html(mjml, options = {}) {
     }
   }
 
-  const applyAttributes = (mjml) => {
+  const applyAttributes = mjml => {
     const parse = (mjml, parentMjClass = '') => {
       const { attributes, tagName, children } = mjml
       const classes = get(mjml.attributes, 'mj-class', '').split(' ')
       const attributesClasses = reduce(
         classes,
         (acc, value) => {
-          const mjClassValues = globalDatas.classes[value]
+          const mjClassValues = globalData.classes[value]
           let multipleClasses = {}
           if (acc['css-class'] && get(mjClassValues, 'css-class')) {
             multipleClasses = {
@@ -246,7 +254,7 @@ export default function mjml2html(mjml, options = {}) {
         parentMjClass.split(' '),
         (acc, value) => ({
           ...acc,
-          ...get(globalDatas.classesDefault, `${value}.${tagName}`),
+          ...get(globalData.classesDefault, `${value}.${tagName}`),
         }),
         {},
       )
@@ -255,15 +263,15 @@ export default function mjml2html(mjml, options = {}) {
       return {
         ...mjml,
         attributes: {
-          ...globalDatas.defaultAttributes[tagName],
+          ...globalData.defaultAttributes[tagName],
           ...attributesClasses,
           ...defaultAttributesForClasses,
           ...omit(attributes, ['mj-class']),
         },
         globalAttributes: {
-          ...globalDatas.defaultAttributes['mj-all'],
+          ...globalData.defaultAttributes['mj-all'],
         },
-        children: map(children, (mjml) => parse(mjml, nextParentMjClass)),
+        children: map(children, mjml => parse(mjml, nextParentMjClass)),
       }
     }
 
@@ -272,42 +280,44 @@ export default function mjml2html(mjml, options = {}) {
 
   const bodyHelpers = {
     components,
+    globalData,
     addMediaQuery(className, { parsedWidth, unit }) {
-      globalDatas.mediaQueries[
+      globalData.mediaQueries[
         className
       ] = `{ width:${parsedWidth}${unit} !important; max-width: ${parsedWidth}${unit}; }`
     },
     addHeadStyle(identifier, headStyle) {
-      globalDatas.headStyle[identifier] = headStyle
+      globalData.headStyle[identifier] = headStyle
     },
     addComponentHeadSyle(headStyle) {
-      globalDatas.componentsHeadStyle.push(headStyle)
+      globalData.componentsHeadStyle.push(headStyle)
     },
-    setBackgroundColor: (color) => {
-      globalDatas.backgroundColor = color
+    setBackgroundColor: color => {
+      globalData.backgroundColor = color
     },
     processing: (node, context) => processing(node, context, applyAttributes),
   }
 
   const headHelpers = {
     components,
+    globalData,
     add(attr, ...params) {
-      if (Array.isArray(globalDatas[attr])) {
-        globalDatas[attr].push(...params)
-      } else if (Object.prototype.hasOwnProperty.call(globalDatas, attr)) {
+      if (Array.isArray(globalData[attr])) {
+        globalData[attr].push(...params)
+      } else if (Object.prototype.hasOwnProperty.call(globalData, attr)) {
         if (params.length > 1) {
-          if (isObject(globalDatas[attr][params[0]])) {
-            globalDatas[attr][params[0]] = {
-              ...globalDatas[attr][params[0]],
+          if (isObject(globalData[attr][params[0]])) {
+            globalData[attr][params[0]] = {
+              ...globalData[attr][params[0]],
               ...params[1],
             }
           } else {
             // eslint-disable-next-line prefer-destructuring
-            globalDatas[attr][params[0]] = params[1]
+            globalData[attr][params[0]] = params[1]
           }
         } else {
           // eslint-disable-next-line prefer-destructuring
-          globalDatas[attr] = params[0]
+          globalData[attr] = params[0]
         }
       } else {
         throw Error(
@@ -319,32 +329,37 @@ export default function mjml2html(mjml, options = {}) {
     },
   }
 
-  globalDatas.headRaw = processing(mjHead, headHelpers)
+  globalData.headRaw = processing(mjHead, headHelpers)
 
   content = processing(mjBody, bodyHelpers, applyAttributes)
-  
+
   if (!content) {
-    throw new Error('Malformed MJML. Check that your structure is correct and enclosed in <mjml> tags.')
+    throw new Error(
+      'Malformed MJML. Check that your structure is correct and enclosed in <mjml> tags.',
+    )
   }
 
   content = minifyOutlookConditionnals(content)
-  
+
   if (mjOutsideRaws.length) {
-    const toAddBeforeDoctype = mjOutsideRaws.filter(elt =>
-      elt.attributes.position && elt.attributes.position === 'file-start',
+    const toAddBeforeDoctype = mjOutsideRaws.filter(
+      elt =>
+        elt.attributes.position && elt.attributes.position === 'file-start',
     )
     if (toAddBeforeDoctype.length) {
-      globalDatas.beforeDoctype = toAddBeforeDoctype.map(elt => elt.content).join('\n')
+      globalData.beforeDoctype = toAddBeforeDoctype
+        .map(elt => elt.content)
+        .join('\n')
     }
   }
 
-  if (!isEmpty(globalDatas.htmlAttributes)) {
+  if (!isEmpty(globalData.htmlAttributes)) {
     const $ = cheerio.load(content, {
       xmlMode: true, // otherwise it may move contents that aren't in any tag
       decodeEntities: false, // won't escape special characters
     })
 
-    each(globalDatas.htmlAttributes, (data, selector) => {
+    each(globalData.htmlAttributes, (data, selector) => {
       each(data, (value, attrName) => {
         $(selector).each(function getAttr() {
           $(this).attr(attrName, value || '')
@@ -357,10 +372,10 @@ export default function mjml2html(mjml, options = {}) {
 
   content = skeleton({
     content,
-    ...globalDatas,
+    ...globalData,
   })
 
-  if (globalDatas.inlineStyle.length > 0) {
+  if (globalData.inlineStyle.length > 0) {
     if (juicePreserveTags) {
       each(juicePreserveTags, (val, key) => {
         juice.codeBlocks[key] = val
@@ -369,7 +384,7 @@ export default function mjml2html(mjml, options = {}) {
 
     content = juice(content, {
       applyStyleTags: false,
-      extraCss: globalDatas.inlineStyle.join(''),
+      extraCss: globalData.inlineStyle.join(''),
       insertPreservedExtraCss: false,
       removeStyleTags: false,
       ...juiceOptions,
@@ -422,6 +437,7 @@ export {
   initComponent,
   registerComponent,
   assignComponents,
+  makeLowerBreakpoint,
   suffixCssClasses,
   handleMjmlConfig,
   initializeType,

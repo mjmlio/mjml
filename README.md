@@ -139,7 +139,7 @@ You can pass optional `options` as an object to the `mjml2html` function:
 
 option   | unit   | description  | default value
 -------------|--------|--------------|---------------
-fonts  | object | Default fonts imported in the HTML rendered by HTML | See in [index.js](https://github.com/mjmlio/mjml/blob/master/packages/mjml-core/src/index.js#L36-L44)
+fonts  | object | Default fonts imported in the HTML rendered by MJML | See in [index.js](https://github.com/mjmlio/mjml/blob/master/packages/mjml-core/src/index.js#L100-L108)
 keepComments | boolean | Option to keep comments in the HTML output | true
 ignoreIncludes | boolean | Option to ignore mj-includes | false
 beautify | boolean | Option to beautify the HTML output | false

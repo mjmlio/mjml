@@ -1,6 +1,6 @@
 import { min } from 'lodash'
 
-import { BodyComponent } from 'mjml-core'
+import { BodyComponent, makeLowerBreakpoint } from 'mjml-core'
 
 import widthParser from 'mjml-core/lib/helpers/widthParser'
 
@@ -133,7 +133,7 @@ export default class MjImage extends BodyComponent {
   }
 
   headStyle = (breakpoint) => `
-    @media only screen and (max-width:${breakpoint}) {
+    @media only screen and (max-width:${makeLowerBreakpoint(breakpoint)}) {
       table.mj-full-width-mobile { width: 100% !important; }
       td.mj-full-width-mobile { width: auto !important; }
     }

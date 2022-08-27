@@ -6,7 +6,7 @@ import buildMediaQueriesTags from './mediaQueries'
 export default function skeleton(options) {
   const {
     backgroundColor = '',
-    beforeDoctype= '',
+    beforeDoctype = '',
     breakpoint = '480px',
     content = '',
     fonts = {},
@@ -20,16 +20,16 @@ export default function skeleton(options) {
     forceOWADesktop,
     inlineStyle,
     lang,
+    dir,
   } = options
 
   const langAttribute = lang ? `lang="${lang}" ` : ''
+  const dirAttribute = dir ? `dir="${dir}" ` : ''
 
   return `${beforeDoctype ? `${beforeDoctype}\n` : ''}<!doctype html>
-<html ${langAttribute}xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<html ${langAttribute}${dirAttribute}xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
   <head>
-    <title>
-      ${title}
-    </title>
+    <title>${title}</title>
     <!--[if !mso]><!-->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!--<![endif]-->

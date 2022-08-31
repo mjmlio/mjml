@@ -9,7 +9,7 @@ export default class MjCarousel extends BodyComponent {
 
   static allowedAttributes = {
     align: 'enum(left,center,right)',
-    'border-radius': 'unit(px,%)',
+    'border-radius': 'unit(px,%){1,4}',
     'container-background-color': 'color',
     'icon-width': 'unit(px,%)',
     'left-icon': 'string',

@@ -1,7 +1,7 @@
 import { get } from 'lodash'
 
 export default function (cssValue, direction) {
-  const splittedCssValue = cssValue.split(' ')
+  const splittedCssValue = cssValue.trim().replace(/\s+/g,' ').split(' ', 4)
   let directions = {}
 
   switch (splittedCssValue.length) {

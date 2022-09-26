@@ -30,6 +30,10 @@ In addition to the language plugin, a linter is available to highlight errors in
 
 Gulp is a tool designed to help you automate and enhance your workflow. Our plugin enables you to plug the MJML translation engine into your workflow, helping you to streamline your development workflow. It is available here on [Github](https://github.com/mjmlio/gulp-mjml)
 
+## Neos CMS
+
+[Neos CMS](https://www.neos.io/) is a content management system that combines structured content with application. This package adds the helper for compiling `MJML` markup as well as some prototypes which allow to use TailwindCSS like classes in your `MJML` markup. It is available on [packagist](https://packagist.org/packages/garagist/mjml)
+
 ## Contribute to the MJML ecosystem
 
 The MJML ecosystem is still young and we're also counting on your help to help us make it grow and provide its community with even more awesome tools, always aiming to making development with MJML an efficient and fun process!

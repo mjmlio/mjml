@@ -196,15 +196,15 @@ export class BodyComponent extends Component {
   }
 
   renderAsMJML() {
-  const stringAttrs = Object.keys(this.attributes)
-    .map((attr) => `${attr}="${this.attributes[attr]}"`)
-    .join(' ')
+    const stringAttrs = Object.keys(this.attributes)
+      .map((attr) => `${attr}="${this.attributes[attr]}"`)
+      .join(' ')
 
-  return `<${this.tagName}${
-    stringAttrs === '' ? '>' : ` ${stringAttrs}>`
-  }${this.renderChildren(this.children, {
-    rawXML: true,
-  })}</${this.tagName}>`
+    return `<${this.tagName}${
+      stringAttrs === '' ? '>' : ` ${stringAttrs}>`
+    }${this.renderChildren(this.children, {
+      rawXML: true,
+    })}</${this.tagName}>`
   }
 
   renderChildren(children, options = {}) {

@@ -1,4 +1,4 @@
-require('./jsonToXml-test')
+require('./createComponent-test')
 require('./mergeOutlookConditionnals-test')
 require('./minifyOutlookConditionnals-test')
 require('./shorthandParser-test')

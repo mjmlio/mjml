@@ -3,11 +3,17 @@ const chai = require('chai')
 const { BodyComponent } = require('../lib/createComponent')
 
 class MockParent extends BodyComponent {
-  tagName = 'mock-parent'
+  constructor(...args) {
+    super(...args)
+    this.tagName = 'mock-parent'
+  }
 }
 
 class MockChild extends BodyComponent {
-  tagName = 'mock-child'
+  constructor(...args) {
+    super(...args)
+    this.tagName = 'mock-child'
+  }
 }
 
 const child = new MockChild({

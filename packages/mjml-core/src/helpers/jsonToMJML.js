@@ -1,13 +1,15 @@
 const jsonToMJML = ({ tagName, attributes, children, content }) => {
   const subNode =
     children && children.length > 0
-      ? children.map((child) => {
-        if (typeof child.toMJML === 'function') {
-         return child.toMJML()
-        }
+      ? children
+          .map((child) => {
+            if (typeof child.toMJML === 'function') {
+              return child.toMJML()
+            }
 
-        return jsonToMJML(child)
-      }).join('\n')
+            return jsonToMJML(child)
+          })
+          .join('\n')
       : content || ''
 
   const stringAttrs = Object.keys(attributes)

@@ -200,6 +200,10 @@ export class BodyComponent extends Component {
     return jsonToMJML(this)
   }
 
+  get children() {
+    return this.props.children
+  }
+
   renderChildren(children, options = {}) {
     const {
       props = {},

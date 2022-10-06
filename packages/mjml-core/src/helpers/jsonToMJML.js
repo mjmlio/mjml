@@ -1,12 +1,12 @@
-const jsonToXML = ({ tagName, attributes, children, content }) => {
+const jsonToMJML = ({ tagName, attributes, children, content }) => {
   const subNode =
     children && children.length > 0
       ? children.map((child) => {
-        if (typeof child.renderAsMJML === 'function') {
-         return child.renderAsMJML()
+        if (typeof child.toMJML === 'function') {
+         return child.toMJML()
         }
 
-        return jsonToXML(child)
+        return jsonToMJML(child)
       }).join('\n')
       : content || ''
 
@@ -19,4 +19,4 @@ const jsonToXML = ({ tagName, attributes, children, content }) => {
   }${subNode}</${tagName}>`
 }
 
-export default jsonToXML
+export default jsonToMJML

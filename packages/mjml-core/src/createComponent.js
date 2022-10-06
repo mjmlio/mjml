@@ -15,7 +15,7 @@ import MJMLParser from 'mjml-parser-xml'
 
 import shorthandParser, { borderParser } from './helpers/shorthandParser'
 import formatAttributes from './helpers/formatAttributes'
-import jsonToXML from './helpers/jsonToXML'
+import jsonToMJML from './helpers/jsonToMJML'
 
 export function initComponent({ initialDatas, name }) {
   const Component = initialDatas.context.components[name]
@@ -196,8 +196,8 @@ export class BodyComponent extends Component {
     )
   }
 
-  renderAsMJML() {
-    return jsonToXML(this)
+  toMJML() {
+    return jsonToMJML(this)
   }
 
   renderChildren(children, options = {}) {
@@ -205,13 +205,13 @@ export class BodyComponent extends Component {
       props = {},
       renderer = component => component.render(),
       attributes = {},
-      rawXML = false,
+      markupLanguage = 'html',
     } = options
 
     children = children || this.props.children
 
-    if (rawXML) {
-      return children.map(child => child.renderAsMJML()).join('\n')
+    if (markupLanguage === 'mjml') {
+      return children.map(child => child.toMJML()).join('\n')
     }
 
     const sibling = children.length

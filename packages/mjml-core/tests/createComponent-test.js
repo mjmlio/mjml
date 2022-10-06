@@ -24,10 +24,10 @@ const parent = new MockParent({
   attributes: {},
 })
 
-const mjml = parent.renderAsMJML()
+const mjml = parent.toMJML()
 
 chai
-  .expect(mjml, 'renderAsMJML test failed')
+  .expect(mjml, 'toMJML test failed')
   .to.equal(
     '<mock-parent><mock-child font-size="20px" color="#F45E43" font-family="helvetica"></mock-child></mock-parent>',
   )

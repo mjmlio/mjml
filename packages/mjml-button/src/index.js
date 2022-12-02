@@ -78,7 +78,7 @@ export default class MjButton extends BodyComponent {
         cursor: 'auto',
         'font-style': this.getAttribute('font-style'),
         height: this.getAttribute('height'),
-        'mso-padding-alt': this.getAttribute('inner-padding'),
+        // 'mso-padding-alt': this.getAttribute('inner-padding'),
         'text-align': this.getAttribute('text-align'),
         background: this.getAttribute('background-color'),
       },
@@ -97,7 +97,8 @@ export default class MjButton extends BodyComponent {
         'text-decoration': this.getAttribute('text-decoration'),
         'text-transform': this.getAttribute('text-transform'),
         padding: this.getAttribute('inner-padding'),
-        'mso-padding-alt': '0px',
+        //'mso-padding-alt': '0px',
+        border: this.getAttribute('background-color') + ' 1px solid',
         'border-radius': this.getAttribute('border-radius'),
       },
     }

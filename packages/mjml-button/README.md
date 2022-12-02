@@ -7,23 +7,6 @@
 
 Displays a customizable button.
 
-<aside style="text-decoration: line-through">
-  The `mj-button` won't be fully clickable because of client support.
-  See discussion at
-    <a href="https://github.com/mjmlio/mjml/issues/359">Issue #359</a>.
-</aside>
-<br>
-<aside class="notice">
-Notes for the Fixed previous <a href="https://github.com/mjmlio/mjml/issues/359">Issue #359</a> in discussion at <a href="https://github.com/mjmlio/mjml/issues/2565">Issue #2565</a>
-  <ul>
-    <li style="padding-bottom: 8px"><strong>in getStyles.td:</strong><br>Removed the mso-padding-alt as inner padding cause is no longer needed when the size of the button is controlled by the padding in the anchor. If I keep the MSO-attribute, the button will be shown as twice the size in MSO-PC.</li>
-    <li style="padding-bottom: 8px"><strong>in getStyles.content:</strong><br>
-    Removed the mso-padding-alt: 0px cause is nullifying the effect of activating the anchor as a button in MSO-PC. The padding in the anchor is now effectively creating the internal size of the button.</li>
-    <li style="padding-bottom: 8px"><strong>Added border:</strong><br>1px solid which activates a "bug" in MSO-PC, forcing MSO to read the display attribute of the button (default: inline-block) and thus, changing the behavior of the anchor in MSO to act like a common anchor in all the other readers/browsers.</li>
-    <li style="padding-bottom: 8px">To avoid non-corresponding colours between the background of the container TD and the border created in the anchor, I added the this.getAttribute('background-color') property to the style, aligning both colours, minimizing the unwilling mismatching.</li>
-  </ul>
-</aside>
-
 ```xml
 <mjml>
   <mj-body>

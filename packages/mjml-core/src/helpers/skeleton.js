@@ -38,7 +38,9 @@ export default function skeleton(options) {
     <style type="text/css">
       #outlook a { padding:0; }
       body { margin:0;padding:0;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%; }
-      table, td { border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt; }
+      table, td { border-collapse:collapse;mso-table-lspace:0pt; }
+      table.not(.fluid-image-table), td { mso-table-rspace:0pt; }
+      table.fluid-image-table { mso-table-rspace:8pt; }
       img { border:0;height:auto;line-height:100%; outline:none;text-decoration:none;-ms-interpolation-mode:bicubic; }
       p { display:block;margin:13px 0; }
     </style>

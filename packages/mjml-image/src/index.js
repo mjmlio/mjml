@@ -101,7 +101,6 @@ export default class MjImage extends BodyComponent {
       <img
         ${this.htmlAttributes({
           alt: this.getAttribute('alt'),
-          height: height && (height === 'auto' ? height : parseInt(height, 10)),
           src: this.getAttribute('src'),
           srcset: this.getAttribute('srcset'),
           sizes: this.getAttribute('sizes'),
@@ -109,6 +108,9 @@ export default class MjImage extends BodyComponent {
           title: this.getAttribute('title'),
           width: this.getContentWidth(),
           usemap: this.getAttribute('usemap'),
+          ...(height
+            ? { height: height === 'auto' ? height : parseInt(height, 10) }
+            : {}),
         })}
       />
     `

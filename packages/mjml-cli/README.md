@@ -133,7 +133,7 @@ See html-minifier documentation for more available options
 ### Change juice options (library used for inlining mj-style css)
 
 ```bash
-$> mjml input.mjml --config.minifyOptions='{"preserveImportant": true}'
+$> mjml input.mjml --config.juiceOptions='{"preserveImportant": true}'
 ```
 
 The defaults are "applyStyleTags": false, "insertPreservedExtraCss": false, "removeStyleTags": false  

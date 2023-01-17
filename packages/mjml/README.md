@@ -131,7 +131,7 @@ preprocessors | array of functions | Preprocessors applied to the xml before par
 juicePreserveTags | Preserve some tags when inlining css, see [mjml-cli documentation](https://github.com/mjmlio/mjml/blob/master/packages/mjml-cli/README.md) for more info | NA
 minifyOptions | Options for html minifier, see [mjml-cli documentation](https://github.com/mjmlio/mjml/blob/master/packages/mjml-cli/README.md) for more info | NA
 mjmlConfigPath | string | The path or directory of the `.mjmlconfig` file (for custom components use) | `process.cwd()`
-useMjmlConfigOptions | Allows to use the `config` attribute from `.mjmlconfig` file | false
+useMjmlConfigOptions | Allows to use the `options` attribute from `.mjmlconfig` file | false
 
 Note that it's also possible to define preprocessors in your mjmlconfig file. For this, you need to use a `.mjmlconfig.js` file. This js file needs to export an Object with the same structure as a standard JSON .mjmlconfig file.  
 

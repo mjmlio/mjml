@@ -149,7 +149,7 @@ preprocessors | array of functions | Preprocessors applied to the xml before par
 juicePreserveTags | Preserve some tags when inlining css, see [mjml-cli documentation](https://github.com/mjmlio/mjml/blob/master/packages/mjml-cli/README.md) for more info | NA
 minifyOptions | Options for html minifier, see [mjml-cli documentation](https://github.com/mjmlio/mjml/blob/master/packages/mjml-cli/README.md) for more info | NA
 mjmlConfigPath | string | The path or directory of the `.mjmlconfig` file (for custom components use) | `process.cwd()`
-useMjmlConfigOptions | Allows to use the `config` attribute from `.mjmlconfig` file | false
+useMjmlConfigOptions | Allows to use the `options` attribute from `.mjmlconfig` file | false
 
 ## Client-side (in browser)
 

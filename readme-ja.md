@@ -151,7 +151,7 @@ preprocessors | array of functions | xmlのパース前に適用するプリプ�
 juicePreserveTags | cssをインライン化する際にタグを保持する。詳しくは[mjml-cli documentation](https://github.com/mjmlio/mjml/blob/master/packages/mjml-cli/README.md)をご覧ください。 | NA
 minifyOptions | htmlのminify化に関するオプション。詳しくは[mjml-cli documentation](https://github.com/mjmlio/mjml/blob/master/packages/mjml-cli/README.md)をご覧ください。 | NA
 mjmlConfigPath | string | `.mjmlconfig`ファイルのパスもしくはディレクトリー(カスタムコンポーネントの場合) | `process.cwd()`
-useMjmlConfigOptions | `.mjmlconfig`ファイルで`config`属性の使用を許可する | false
+useMjmlConfigOptions | `.mjmlconfig`ファイルで`options`属性の使用を許可する | false
 
 ## クライアントサイド (ブラウザー)
 

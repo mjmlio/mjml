@@ -1,8 +1,8 @@
 import { BodyComponent } from 'mjml-core'
 import { range, repeat, min, map } from 'lodash'
-import crypto from 'crypto'
 
 import { msoConditionalTag } from 'mjml-core/lib/helpers/conditionalTag'
+import genRandomHexString from 'mjml-core/lib/helpers/genRandomHexString'
 
 export default class MjCarousel extends BodyComponent {
   static componentName = 'mj-carousel'
@@ -42,7 +42,7 @@ export default class MjCarousel extends BodyComponent {
 
   constructor(initialDatas = {}) {
     super(initialDatas)
-    this.carouselId = crypto.randomBytes(6).toString('hex')
+    this.carouselId = genRandomHexString(16)
   }
 
   componentHeadStyle = () => {
@@ -58,7 +58,7 @@ export default class MjCarousel extends BodyComponent {
       user-select: none;
     }
 
-    .mj-carousel-${this.carouselId}-icons-cell {
+    .mj-carousel-${carouselId}-icons-cell {
       display: table-cell !important;
       width: ${this.getAttribute('icon-width')} !important;
     }

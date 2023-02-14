@@ -1,9 +1,9 @@
 import { BodyComponent, makeLowerBreakpoint } from 'mjml-core'
-import crypto from 'crypto'
 
 import conditionalTag, {
   msoConditionalTag,
 } from 'mjml-core/lib/helpers/conditionalTag'
+import genRandomHexString from 'mjml-core/lib/helpers/genRandomHexString'
 
 export default class MjNavbar extends BodyComponent {
   static componentName = 'mj-navbar'
@@ -105,12 +105,12 @@ export default class MjNavbar extends BodyComponent {
   }
 
   renderHamburger() {
-    const key = crypto.randomBytes(8).toString('hex')
+    const labelKey = genRandomHexString(16)
 
     return `
       ${msoConditionalTag(
         `
-        <input type="checkbox" id="${key}" class="mj-menu-checkbox" style="display:none !important; max-height:0; visibility:hidden;" />
+        <input type="checkbox" id="${labelKey}" class="mj-menu-checkbox" style="display:none !important; max-height:0; visibility:hidden;" />
       `,
         true,
       )}
@@ -122,7 +122,7 @@ export default class MjNavbar extends BodyComponent {
       >
         <label
           ${this.htmlAttributes({
-            for: key,
+            for: labelKey,
             class: 'mj-menu-label',
             style: 'label',
             align: this.getAttribute('ico-align'),

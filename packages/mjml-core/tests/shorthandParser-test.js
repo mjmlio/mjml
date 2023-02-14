@@ -20,6 +20,10 @@ const testValues = [
     input: '1px 2px 3px 4px',
     output: { top: 1, right: 2, bottom: 3, left: 4 },
   },
+  {
+    input: ' 1px 2px  3px 4px ',
+    output: { top: 1, right: 2, bottom: 3, left: 4 },
+  },
 ]
 
 testValues.forEach(testUnit => {

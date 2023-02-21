@@ -344,8 +344,8 @@ export default class MjCarousel extends BodyComponent {
         ${this.htmlAttributes({
           style: 'carousel.table',
           border: '0',
-          'cell-padding': '0',
-          'cell-spacing': '0',
+          'cellpadding': '0',
+          'cellspacing': '0',
           width: '100%',
           role: 'presentation',
           class: 'mj-carousel-main',

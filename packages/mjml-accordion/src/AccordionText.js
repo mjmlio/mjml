@@ -71,8 +71,8 @@ export default class MjAccordionText extends BodyComponent {
       >
         <table
           ${this.htmlAttributes({
-            'cell-spacing': '0',
-            'cell-padding': '0',
+            'cellspacing': '0',
+            'cellpadding': '0',
             style: 'table',
           })}
         >

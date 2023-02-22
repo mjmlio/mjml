@@ -40,7 +40,7 @@ https://github.com/hardpixel/mrml-ruby
 
 React components for MJML components.
 
-https://github.com/wix-incubator/mjml-react
+https://github.com/faire/mjml-react#readme
 
 ## Python / Django: django-mjml
 

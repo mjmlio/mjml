@@ -99,18 +99,6 @@ export default class MjHero extends BodyComponent {
         'padding-bottom': `${backgroundRatio}%`,
         'mso-padding-bottom-alt': '0',
       },
-      hero: {
-        background: this.getBackground(),
-        'background-position': this.getAttribute('background-position'),
-        'background-repeat': 'no-repeat',
-        'border-radius': this.getAttribute('border-radius'),
-        padding: this.getAttribute('padding'),
-        'padding-top': this.getAttribute('padding-top'),
-        'padding-left': this.getAttribute('padding-left'),
-        'padding-right': this.getAttribute('padding-right'),
-        'padding-bottom': this.getAttribute('padding-bottom'),
-        'vertical-align': this.getAttribute('vertical-align'),
-      },
       'outlook-table': {
         width: containerWidth,
       },
@@ -270,7 +258,18 @@ export default class MjHero extends BodyComponent {
   renderMode() {
     const commonAttributes = {
       background: this.getAttribute('background-url'),
-      style: 'hero',
+      style: {
+        background: this.getBackground(),
+        'background-position': this.getAttribute('background-position'),
+        'background-repeat': 'no-repeat',
+        'border-radius': this.getAttribute('border-radius'),
+        padding: this.getAttribute('padding'),
+        'padding-top': this.getAttribute('padding-top'),
+        'padding-left': this.getAttribute('padding-left'),
+        'padding-right': this.getAttribute('padding-right'),
+        'padding-bottom': this.getAttribute('padding-bottom'),
+        'vertical-align': this.getAttribute('vertical-align'),
+      },
     }
 
     /* eslint-disable no-alert, no-case-declarations */
@@ -297,6 +296,10 @@ export default class MjHero extends BodyComponent {
             ${this.htmlAttributes({
               ...commonAttributes,
               height,
+              style: {
+                ...commonAttributes.style,
+                height: `${height}px`,
+              },
             })}
           >
             ${this.renderContent()}

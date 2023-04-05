@@ -14,6 +14,7 @@ const MJMLRulesCollection = {
 
 export function registerRule(rule, name) {
   if (typeof rule !== 'function') {
+    // eslint-disable-next-line no-console
     return console.error('Your rule must be a function')
   }
 

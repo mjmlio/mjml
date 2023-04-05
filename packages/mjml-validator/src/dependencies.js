@@ -16,10 +16,12 @@ export const assignDependencies = (target, ...sources) => {
           }
           target[tag] = Array.from(new Set(list))
         } else {
+          // eslint-disable-next-line no-console
           console.warn('dependency "tag" must be of type string')
         }
       }
     } else {
+      // eslint-disable-next-line no-console
       console.warn('"dependencies" must be an object.')
     }
   }

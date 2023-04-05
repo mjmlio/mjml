@@ -12,8 +12,6 @@ import {
 } from 'lodash'
 import path from 'path'
 import juice from 'juice'
-import { html as htmlBeautify } from 'js-beautify'
-import { minify as htmlMinify } from 'html-minifier'
 import { load } from 'cheerio'
 
 import MJMLParser from 'mjml-parser-xml'
@@ -21,7 +19,6 @@ import MJMLValidator, {
   dependencies as globalDependencies,
   assignDependencies,
 } from 'mjml-validator'
-import { handleMjml3 } from 'mjml-migrate'
 
 import { initComponent } from './createComponent'
 import globalComponents, {
@@ -116,7 +113,6 @@ export default function mjml2html(mjml, options = {}) {
     validationLevel = 'soft',
     filePath = '.',
     actualPath = '.',
-    noMigrateWarn = false,
     preprocessors,
     presets = [],
     printerSupport = false,
@@ -145,8 +141,6 @@ export default function mjml2html(mjml, options = {}) {
       ignoreIncludes,
     })
   }
-
-  mjml = handleMjml3(mjml, { noMigrateWarn })
 
   const globalData = {
     backgroundColor: '',
@@ -186,7 +180,7 @@ export default function mjml2html(mjml, options = {}) {
       if (errors.length > 0) {
         throw new ValidationError(
           `ValidationError: \n ${errors
-            .map(e => e.formattedMessage)
+            .map((e) => e.formattedMessage)
             .join('\n')}`,
           errors,
         )
@@ -227,7 +221,7 @@ export default function mjml2html(mjml, options = {}) {
     }
   }
 
-  const applyAttributes = mjml => {
+  const applyAttributes = (mjml) => {
     const parse = (mjml, parentMjClass = '') => {
       const { attributes, tagName, children } = mjml
       const classes = get(mjml.attributes, 'mj-class', '').split(' ')
@@ -272,7 +266,7 @@ export default function mjml2html(mjml, options = {}) {
         globalAttributes: {
           ...globalData.defaultAttributes['mj-all'],
         },
-        children: map(children, mjml => parse(mjml, nextParentMjClass)),
+        children: map(children, (mjml) => parse(mjml, nextParentMjClass)),
       }
     }
 
@@ -293,7 +287,7 @@ export default function mjml2html(mjml, options = {}) {
     addComponentHeadSyle(headStyle) {
       globalData.componentsHeadStyle.push(headStyle)
     },
-    setBackgroundColor: color => {
+    setBackgroundColor: (color) => {
       globalData.backgroundColor = color
     },
     processing: (node, context) => processing(node, context, applyAttributes),
@@ -344,12 +338,12 @@ export default function mjml2html(mjml, options = {}) {
 
   if (mjOutsideRaws.length) {
     const toAddBeforeDoctype = mjOutsideRaws.filter(
-      elt =>
+      (elt) =>
         elt.attributes.position && elt.attributes.position === 'file-start',
     )
     if (toAddBeforeDoctype.length) {
       globalData.beforeDoctype = toAddBeforeDoctype
-        .map(elt => elt.content)
+        .map((elt) => elt.content)
         .join('\n')
     }
   }
@@ -396,31 +390,43 @@ export default function mjml2html(mjml, options = {}) {
   content = mergeOutlookConditionnals(content)
 
   if (beautify) {
-    // eslint-disable-next-line no-console
-    console.warn(
-      '"beautify" option is deprecated in mjml-core and only available in mjml cli.',
-    )
-    content = htmlBeautify(content, {
-      indent_size: 2,
-      wrap_attributes_indent_size: 2,
-      max_preserve_newline: 0,
-      preserve_newlines: false,
-    })
+    try {
+      // eslint-disable-next-line global-require, import/no-extraneous-dependencies
+      const htmlBeautify = require('js-beautify')
+
+      content = htmlBeautify(content, {
+        indent_size: 2,
+        wrap_attributes_indent_size: 2,
+        max_preserve_newline: 0,
+        preserve_newlines: false,
+        end_with_newline: true,
+      })
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        'js-beautify is now an optional library to reduce bundle size. To continue using it please do npm install js-beautify / yarn add js-beautify',
+      )
+    }
   }
 
   if (minify) {
-    // eslint-disable-next-line no-console
-    console.warn(
-      '"minify" option is deprecated in mjml-core and only available in mjml cli.',
-    )
+    try {
+      // eslint-disable-next-line global-require, import/no-extraneous-dependencies
+      const htmlMinify = require('html-minifier')
 
-    content = htmlMinify(content, {
-      collapseWhitespace: true,
-      minifyCSS: false,
-      caseSensitive: true,
-      removeEmptyAttributes: true,
-      ...minifyOptions,
-    })
+      content = htmlMinify(content, {
+        collapseWhitespace: true,
+        minifyCSS: false,
+        caseSensitive: true,
+        removeEmptyAttributes: true,
+        ...minifyOptions,
+      })
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        'html-minifier is now an optional library as it has some potential ReDos Attack. To continue using it please do npm install html-minifier / yarn add html-minifier',
+      )
+    }
   }
 
   return {

@@ -391,7 +391,7 @@ export default function mjml2html(mjml, options = {}) {
 
   if (beautify) {
     try {
-      // eslint-disable-next-line global-require, import/no-extraneous-dependencies
+      // eslint-disable-next-line global-require, import/no-extraneous-dependencies, import/no-unresolved
       const htmlBeautify = require('js-beautify')
 
       content = htmlBeautify(content, {
@@ -411,7 +411,7 @@ export default function mjml2html(mjml, options = {}) {
 
   if (minify) {
     try {
-      // eslint-disable-next-line global-require, import/no-extraneous-dependencies
+      // eslint-disable-next-line global-require, import/no-extraneous-dependencies, import/no-unresolved
       const htmlMinify = require('html-minifier')
 
       content = htmlMinify(content, {

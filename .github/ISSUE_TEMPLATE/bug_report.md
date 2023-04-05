@@ -19,14 +19,14 @@ A clear and concise description of what you expected to happen.
 
 **MJML environment (please complete the following information):**
  - OS: [e.g. MacOS]
- - MJML Version [e.g. 4.2.0]
+ - MJML Version [e.g. 5.x.x]
  - MJML tool used [e.g MJML App]
 
 **Email sending environment(for rendering issues)**:
- - Platform used to send the email [e.g [Putsmail](https://putsmail.com/)]  
+ - Platform used to send the email [e.g [Putsmail](https://putsmail.com/)]
 
 **Affected email clients (for rendering issues):**
- - Email Client [e.g Gmail] 
+ - Email Client [e.g Gmail]
  - OS: [e.g. Windows]
  - Browser [e.g. Google Chrome]
 

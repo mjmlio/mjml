@@ -1,5 +1,5 @@
 const chai = require('chai')
-const cheerio = require('cheerio')
+const { load } = require('cheerio')
 const { sortBy } = require('lodash')
 const mjml = require('../lib')
 
@@ -36,7 +36,7 @@ const input = `
 `
 
 const { html } = mjml(input)
-const $ = cheerio.load(html)
+const $ = load(html)
 
 // should put the attributes at the right place
 chai

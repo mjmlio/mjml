@@ -14,7 +14,7 @@ import path from 'path'
 import juice from 'juice'
 import { html as htmlBeautify } from 'js-beautify'
 import { minify as htmlMinify } from 'html-minifier'
-import cheerio from 'cheerio'
+import { load } from 'cheerio'
 
 import MJMLParser from 'mjml-parser-xml'
 import MJMLValidator, {
@@ -354,7 +354,7 @@ export default function mjml2html(mjml, options = {}) {
   }
 
   if (!isEmpty(globalData.htmlAttributes)) {
-    const $ = cheerio.load(content, {
+    const $ = load(content, {
       xmlMode: true, // otherwise it may move contents that aren't in any tag
       decodeEntities: false, // won't escape special characters
     })

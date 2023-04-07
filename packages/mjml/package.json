@@ -37,7 +37,7 @@
     "@babel/cli": "^7.8.4",
     "chai": "^4.1.1",
     "chai-spies": "^1.0.0",
-    "cheerio": "1.0.0-rc.10",
+    "cheerio": "1.0.0-rc.12",
     "lodash": "^4.17.21",
     "rimraf": "^3.0.2"
   }

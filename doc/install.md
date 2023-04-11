@@ -7,6 +7,14 @@ head over to <a href="#usage">Usage</a> for other ways to use MJML.
 npm install mjml
 ```
 
+Note that `html-minifier` and `js-beautify` become fully optional in MJML 5.
+
+You can add them to your `package.json` if you need to.
+
+```bash
+npm install html-minifier js-beautify
+```
+
 # Development
 
 To work on MJML, make changes and create merge requests, download and
@@ -40,7 +48,7 @@ MJML comes with an ecosystem of tools and plugins, check out:
 - [Atom plugin](https://atom.io/users/mjmlio) (MJML needs to be installed separately)
 - [Sublime Text plugin](https://packagecontrol.io/packages/MJML-syntax) (MJML needs to be installed separately)
 
-For more information, check the [Tooling](#tooling) section.  
+For more information, check the [Tooling](#tooling) section.
 For more tools, check the [Community](https://mjml.io/community) page.
 
 ## Command line interface

@@ -97,7 +97,7 @@ export default class MjButton extends BodyComponent {
         'text-decoration': this.getAttribute('text-decoration'),
         'text-transform': this.getAttribute('text-transform'),
         padding: this.getAttribute('inner-padding'),
-        //'mso-padding-alt': '0px',
+        // 'mso-padding-alt': '0px',
         border: this.getAttribute('background-color') + ' 1px solid',
         'border-radius': this.getAttribute('border-radius'),
       },
@@ -127,36 +127,36 @@ export default class MjButton extends BodyComponent {
     return `
       <table
         ${this.htmlAttributes({
-          border: '0',
-          cellpadding: '0',
-          cellspacing: '0',
-          role: 'presentation',
-          style: 'table',
-        })}
+      border: '0',
+      cellpadding: '0',
+      cellspacing: '0',
+      role: 'presentation',
+      style: 'table',
+    })}
       >
         <tbody>
           <tr>
             <td
               ${this.htmlAttributes({
-                align: 'center',
-                bgcolor:
-                  this.getAttribute('background-color') === 'none'
-                    ? undefined
-                    : this.getAttribute('background-color'),
-                role: 'presentation',
-                style: 'td',
-                valign: this.getAttribute('vertical-align'),
-              })}
+      align: 'center',
+      bgcolor:
+        this.getAttribute('background-color') === 'none'
+          ? undefined
+          : this.getAttribute('background-color'),
+      role: 'presentation',
+      style: 'td',
+      valign: this.getAttribute('vertical-align'),
+    })}
             >
               <${tag}
                 ${this.htmlAttributes({
-                  href: this.getAttribute('href'),
-                  name: this.getAttribute('name'),
-                  rel: this.getAttribute('rel'),
-                  title: this.getAttribute('title'),
-                  style: 'content',
-                  target: tag === 'a' ? this.getAttribute('target') : undefined,
-                })}
+      href: this.getAttribute('href'),
+      name: this.getAttribute('name'),
+      rel: this.getAttribute('rel'),
+      title: this.getAttribute('title'),
+      style: 'content',
+      target: tag === 'a' ? this.getAttribute('target') : undefined,
+    })}
               >
                 ${this.getContent()}
               </${tag}>

@@ -18,6 +18,7 @@ export default function skeleton(options) {
     title = '',
     style = [],
     forceOWADesktop,
+    printerSupport,
     inlineStyle,
     lang,
     dir,
@@ -58,7 +59,10 @@ export default function skeleton(options) {
     </style>
     <![endif]-->
     ${buildFontsTags(content, inlineStyle, fonts)}
-    ${buildMediaQueriesTags(breakpoint, mediaQueries, forceOWADesktop)}
+    ${buildMediaQueriesTags(breakpoint, mediaQueries, {
+      forceOWADesktop,
+      printerSupport,
+    })}
     <style type="text/css">
     ${reduce(
       componentsHeadStyle,

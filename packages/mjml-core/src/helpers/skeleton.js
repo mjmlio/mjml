@@ -1,7 +1,8 @@
-import { map, reduce, negate, isNil, isFunction } from 'lodash'
+import { negate, isNil } from 'lodash'
 import buildPreview from './preview'
 import { buildFontsTags } from './fonts'
 import buildMediaQueriesTags from './mediaQueries'
+import { buildStyleFromComponents, buildStyleFromTags } from './styles'
 
 export default function skeleton(options) {
   const {
@@ -11,8 +12,8 @@ export default function skeleton(options) {
     content = '',
     fonts = {},
     mediaQueries = {},
-    headStyle = [],
-    componentsHeadStyle = {},
+    headStyle = {},
+    componentsHeadStyle = [],
     headRaw = [],
     preview,
     title = '',
@@ -63,21 +64,8 @@ export default function skeleton(options) {
       forceOWADesktop,
       printerSupport,
     })}
-    <style type="text/css">
-    ${reduce(
-      componentsHeadStyle,
-      (result, compHeadStyle) => `${result}\n${compHeadStyle(breakpoint)}`,
-      '',
-    )}
-    ${reduce(
-      headStyle,
-      (result, headStyle) => `${result}\n${headStyle(breakpoint)}`,
-      '',
-    )}
-    </style>
-    <style type="text/css">
-    ${map(style, (s) => (isFunction(s) ? s(breakpoint) : s)).join('')}
-    </style>
+    ${buildStyleFromComponents(breakpoint, componentsHeadStyle, headStyle)}
+    ${buildStyleFromTags(breakpoint, style)}
     ${headRaw.filter(negate(isNil)).join('\n')}
   </head>
   <body style="word-spacing:normal;${

@@ -5,8 +5,6 @@ import dependencies, {
   assignDependencies,
 } from './dependencies'
 
-const SKIP_ELEMENTS = ['mjml']
-
 export const formatValidationError = ruleError
 
 export { rulesCollection, registerRule }
@@ -17,7 +15,7 @@ export default function MJMLValidator(element, options = {}) {
   const { children, tagName } = element
   const errors = []
 
-  const skipElements = options.skipElements || SKIP_ELEMENTS
+  const skipElements = options.skipElements || []
 
   if (options.dependencies == null) {
     console.warn('"dependencies" option should be provided to mjml validator')

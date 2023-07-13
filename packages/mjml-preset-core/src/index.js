@@ -7,6 +7,7 @@ import {
   AccordionText,
   AccordionTitle,
 } from 'mjml-accordion'
+import Document from 'mjml-document'
 import Body from 'mjml-body'
 import Head from 'mjml-head'
 import HeadAttributes from 'mjml-head-attributes'
@@ -31,6 +32,7 @@ import Wrapper from 'mjml-wrapper'
 import dependencies from './dependencies'
 
 const components = [
+  Document,
   Body,
   Head,
   HeadAttributes,

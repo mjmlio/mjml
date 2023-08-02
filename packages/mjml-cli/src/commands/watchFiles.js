@@ -6,7 +6,7 @@ import mjml2html from 'mjml-core'
 import { flow, pickBy, flatMap, uniq, difference, remove } from 'lodash/fp'
 import { omit } from 'lodash'
 import { html as htmlBeautify } from 'js-beautify'
-import { minify as htmlMinify } from 'html-minifier'
+import { minify as htmlMinify } from 'html-minifier-terser'
 
 import readFile from './readFile'
 import makeOutputToFile from './outputToFile'

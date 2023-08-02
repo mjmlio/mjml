@@ -13,7 +13,7 @@ import {
 import path from 'path'
 import juice from 'juice'
 import { html as htmlBeautify } from 'js-beautify'
-import { minify as htmlMinify } from 'html-minifier'
+import { minify as htmlMinify } from 'html-minifier-terser'
 import { load } from 'cheerio'
 
 import MJMLParser from 'mjml-parser-xml'

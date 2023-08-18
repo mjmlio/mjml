@@ -117,6 +117,10 @@ export class BodyComponent extends Component {
     const mjAttributeDirection = this.getAttribute(`${attribute}-${direction}`)
     const mjAttribute = this.getAttribute(attribute)
 
+    if (attribute === 'border' || attribute === 'inner-border') {
+      return borderParser(mjAttributeDirection || mjAttribute || '0')
+    }
+
     if (mjAttributeDirection) {
       return parseInt(mjAttributeDirection, 10)
     }

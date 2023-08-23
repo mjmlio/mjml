@@ -42,6 +42,12 @@ React components for MJML components.
 
 https://github.com/faire/mjml-react#readme
 
+## Python: mjml-python
+
+Python implementation for MJML.
+
+https://github.com/FelixSchwarz/mjml-python
+
 ## Python / Django: django-mjml
 
 The simplest way to use MJML in Django templates.
@@ -51,6 +57,5 @@ https://github.com/liminspace/django-mjml
 ## PHP / Laravel: Laravel MJML
 
 Build responsive e-mails easily using MJML and Laravel Mailables.
-
 
 https://github.com/asahasrabuddhe/laravel-mjml

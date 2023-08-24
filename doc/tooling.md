@@ -34,6 +34,10 @@ Gulp is a tool designed to help you automate and enhance your workflow. Our plug
 
 [Neos CMS](https://www.neos.io/) is a content management system that combines structured content with application. This package adds the helper for compiling `MJML` markup as well as some prototypes which allow to use TailwindCSS like classes in your `MJML` markup. It is available on [packagist](https://packagist.org/packages/garagist/mjml)
 
+## Easy-email
+
+[Easy-email](https://github.com/zalify/easy-email) is a Drag-and-Drop Email Editor based on MJML. Transform structured JSON data into major email clients compatible HTML. Written in Typescript and supported both in browser and Node.js.
+
 ## Contribute to the MJML ecosystem
 
 The MJML ecosystem is still young and we're also counting on your help to help us make it grow and provide its community with even more awesome tools, always aiming to making development with MJML an efficient and fun process!

@@ -119,6 +119,7 @@ export default function mjml2html(mjml, options = {}) {
     noMigrateWarn = false,
     preprocessors,
     presets = [],
+    printerSupport = false,
   } = {
     ...mjmlConfigOptions,
     ...options,
@@ -373,6 +374,7 @@ export default function mjml2html(mjml, options = {}) {
   content = skeleton({
     content,
     ...globalData,
+    printerSupport,
   })
 
   if (globalData.inlineStyle.length > 0) {

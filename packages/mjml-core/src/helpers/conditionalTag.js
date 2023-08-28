@@ -2,7 +2,7 @@ export const startConditionalTag = '<!--[if mso | IE]>'
 export const startMsoConditionalTag = '<!--[if mso]>'
 export const endConditionalTag = '<![endif]-->'
 export const startNegationConditionalTag = '<!--[if !mso | IE]><!-->'
-export const startMsoNegationConditionalTag = '<!--[if !mso><!-->'
+export const startMsoNegationConditionalTag = '<!--[if !mso]><!-->'
 export const endNegationConditionalTag = '<!--<![endif]-->'
 
 export default function conditionalTag(content, negation = false) {

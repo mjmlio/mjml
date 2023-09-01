@@ -39,6 +39,7 @@ export default class MjImage extends BodyComponent {
   }
 
   static defaultAttributes = {
+    alt: '',
     align: 'center',
     border: '0',
     height: 'auto',

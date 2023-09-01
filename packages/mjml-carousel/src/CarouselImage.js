@@ -19,6 +19,7 @@ export default class MjCarouselImage extends BodyComponent {
   }
 
   static defaultAttributes = {
+    alt: '',
     target: '_blank',
   }
 

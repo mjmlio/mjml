@@ -57,7 +57,7 @@ This component enables you to add and style the images in the carousel.
 
 attribute | unit | description | default value
 ----------|------|-------------|---------------
-alt | string | image description | n/a
+alt | string | image description | ''
 css-class | string | class name, added to the root HTML element created | n/a
 href | url | link to redirect to on click | n/a
 rel | string | specify the rel attribute | n/a

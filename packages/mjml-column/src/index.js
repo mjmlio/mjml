@@ -40,8 +40,8 @@ export default class MjColumn extends BodyComponent {
     const { nonRawSiblings } = this.props
     const { borders, paddings } = this.getBoxWidths()
     const innerBorders =
-      this.getShorthandAttrValue('inner-border', 'left') +
-      this.getShorthandAttrValue('inner-border', 'right')
+      this.getShorthandBorderValue('left', 'inner-border') +
+      this.getShorthandBorderValue('right', 'inner-border')
 
     const allPaddings = paddings + borders + innerBorders
 

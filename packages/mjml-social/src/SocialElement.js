@@ -125,6 +125,7 @@ export default class MjSocialElement extends BodyComponent {
   }
 
   static defaultAttributes = {
+    alt: '',
     align: 'left',
     color: '#000',
     'border-radius': '3px',

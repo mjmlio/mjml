@@ -73,7 +73,7 @@ Note that default icons are transparent, which allows `background-color` to actu
 attribute                   | unit        | description                   | default value
 ----------------------------|-------------|-------------------------------|---------------------------
 align                       | string      | left/right/center             | center
-alt                         | string      | image alt attribute           | none
+alt                         | string      | image alt attribute           | ''
 background-color            | color       | icon color                    | Each social `name` has its own default
 border-radius               | px          | border radius                 | 3px
 color                       | color       | text color                    | #333333

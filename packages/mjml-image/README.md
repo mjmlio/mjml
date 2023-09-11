@@ -25,7 +25,7 @@ Note that if no width is provided, the image will use the parent column width.
 attribute                     | unit          | description                    | default value
 ------------------------------|---------------|--------------------------------|-----------------------------
 align                         | position      | image alignment                | center
-alt                           | string        | image description              | n/a
+alt                           | string        | image description              | ''
 border                        | string        | css border definition          | none
 border-top                    | string        | css border definition          | none
 border-bottom                 | string        | css border definition          | none

@@ -166,8 +166,8 @@ export default function mjml2html(mjml, options = {}) {
     style: [],
     title: '',
     forceOWADesktop: get(mjml, 'attributes.owa', 'mobile') === 'desktop',
-    lang: get(mjml, 'attributes.lang'),
-    dir: get(mjml, 'attributes.dir'),
+    lang: get(mjml, 'attributes.lang') || 'und',
+    dir: get(mjml, 'attributes.dir') || 'auto',
   }
 
   const validatorOptions = {

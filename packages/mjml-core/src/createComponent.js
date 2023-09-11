@@ -128,10 +128,10 @@ export class BodyComponent extends Component {
     return shorthandParser(mjAttribute, direction)
   }
 
-  getShorthandBorderValue(direction) {
+  getShorthandBorderValue(direction, attribute = 'border') {
     const borderDirection =
-      direction && this.getAttribute(`border-${direction}`)
-    const border = this.getAttribute('border')
+      direction && this.getAttribute(`${attribute}-${direction}`)
+    const border = this.getAttribute(attribute)
 
     return borderParser(borderDirection || border || '0')
   }

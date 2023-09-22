@@ -1,6 +1,6 @@
 # Installation
 
-You can install MJML with NPM to use it with NodeJS or the Command Line Interface. If you're not sure what those are,
+You can install [MJML](https://www.npmjs.com/package/mjml) with NPM to use it with NodeJS or the Command Line Interface. If you're not sure what those are,
 head over to <a href="#usage">Usage</a> for other ways to use MJML.
 
 ```bash

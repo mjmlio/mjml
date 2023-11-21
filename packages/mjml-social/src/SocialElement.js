@@ -16,8 +16,8 @@ const defaultSocialNetworks = {
   },
   x: {
     'share-url': 'https://twitter.com/intent/tweet?url=[[URL]]',
-    'background-color': '000000',
-    src: `${IMG_BASE_URL}x.png`,
+    'background-color': '#000000',
+    src: `${IMG_BASE_URL}twitter-x.png`,
   },
   google: {
     'share-url': 'https://plus.google.com/share?url=[[URL]]',

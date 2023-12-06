@@ -35,6 +35,7 @@ import mergeOutlookConditionnals from './helpers/mergeOutlookConditionnals'
 import minifyOutlookConditionnals from './helpers/minifyOutlookConditionnals'
 import defaultSkeleton from './helpers/skeleton'
 import { initializeType } from './types/type'
+import jsonToXML from './helpers/jsonToXML'
 
 import handleMjmlConfig, {
   readMjmlConfig,
@@ -443,6 +444,7 @@ export {
   suffixCssClasses,
   handleMjmlConfig,
   initializeType,
+  jsonToXML,
 }
 
 export { BodyComponent, HeadComponent } from './createComponent'

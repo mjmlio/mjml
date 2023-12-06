@@ -4,7 +4,7 @@ const jsonToXML = ({ tagName, attributes, children, content }) => {
       ? children.map(jsonToXML).join('\n')
       : content || ''
 
-  const stringAttrs = Object.keys(attributes)
+  const stringAttrs = Object.keys(attributes || {})
     .map((attr) => `${attr}="${attributes[attr]}"`)
     .join(' ')
 

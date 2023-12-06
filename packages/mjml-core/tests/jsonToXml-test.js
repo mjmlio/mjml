@@ -30,7 +30,7 @@ const json = {
                          color: '#F45E43',
                          'font-family': 'helvetica' },
                       content: 'Hello World' } ],
-                 attributes: {} } ],
+                  } ],
             attributes: {} } ],
        attributes: {} } ],
   attributes: {} }

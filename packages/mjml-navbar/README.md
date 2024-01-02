@@ -32,7 +32,7 @@ Displays a menu for navigation with an optional hamburger mode for mobile device
 
 ### mj-navbar
 
-Individual links of the menu should we wrapped inside mj-navbar.
+Individual links of the menu should be wrapped inside mj-navbar.
 
 
 Standard Desktop:

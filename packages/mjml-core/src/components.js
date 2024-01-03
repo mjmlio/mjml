@@ -1,5 +1,5 @@
 import { kebabCase } from 'lodash'
-import { registerDependencies } from "mjml-validator";
+import { registerDependencies } from 'mjml-validator'
 
 const components = {}
 

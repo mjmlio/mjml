@@ -93,6 +93,7 @@ export default class MjSection extends BodyComponent {
         'padding-right': this.getAttribute('padding-right'),
         'padding-top': this.getAttribute('padding-top'),
         'text-align': this.getAttribute('text-align'),
+        'border-radius': this.getAttribute('border-radius'),
       },
       div: {
         ...(fullWidth ? {} : background),

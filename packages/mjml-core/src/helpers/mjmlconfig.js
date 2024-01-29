@@ -8,12 +8,13 @@ export function readMjmlConfig(configPathOrDir = process.cwd()) {
   let componentRootPath = process.cwd()
   let mjmlConfigPath = configPathOrDir
   try {
-    mjmlConfigPath =
-      path.basename(configPathOrDir).match(/^\.mjmlconfig(\.js)?$/)
-        ? path.resolve(configPathOrDir)
-        : path.resolve(configPathOrDir, '.mjmlconfig')
+    mjmlConfigPath = path
+      .basename(configPathOrDir)
+      .match(/^\.mjmlconfig(\.js)?$/)
+      ? path.resolve(configPathOrDir)
+      : path.resolve(configPathOrDir, '.mjmlconfig')
     componentRootPath = path.dirname(mjmlConfigPath)
-    
+
     const fullPath = path.resolve(mjmlConfigPath)
 
     let mjmlConfig
@@ -21,9 +22,7 @@ export function readMjmlConfig(configPathOrDir = process.cwd()) {
       delete require.cache[fullPath]
       mjmlConfig = require(fullPath) // eslint-disable-line global-require, import/no-dynamic-require
     } else {
-      mjmlConfig = JSON.parse(
-        fs.readFileSync(fullPath, 'utf8'),
-      )
+      mjmlConfig = JSON.parse(fs.readFileSync(fullPath, 'utf8'))
     }
 
     return { mjmlConfig, componentRootPath }

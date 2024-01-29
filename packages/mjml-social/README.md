@@ -4,6 +4,12 @@
   <img src="https://cloud.githubusercontent.com/assets/6558790/12751360/0c78ce48-c9bd-11e5-98ca-4a2ac9e6341b.png" alt="desktop" style="width: 250px;"/>
 </p>
 
+<aside class="warning">
+  `mj-social-element`'s `name` attribute is a shortcut for some common social elements. <br />
+  You should avoid rely too much on this as those icons are hosted by Mailjet for their Email Builder.<br />
+  Use <a href="#custom-social-element">custom element syntax instead.</a>
+</aside>
+
 Displays calls-to-action for various social networks with their associated logo. You can add social networks with the `mj-social-element` tag.
 
 ```xml

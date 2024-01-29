@@ -1,4 +1,5 @@
 import { kebabCase } from 'lodash'
+import { registerDependencies } from 'mjml-validator'
 
 const components = {}
 
@@ -8,8 +9,12 @@ export function assignComponents(target, source) {
   }
 }
 
-export function registerComponent(Component) {
+export function registerComponent(Component, options = {}) {
   assignComponents(components, [Component])
+
+  if (Component.dependencies && options.registerDependencies) {
+    registerDependencies(Component.dependencies)
+  }
 }
 
 export default components

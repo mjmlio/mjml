@@ -100,17 +100,18 @@ export default class MjAccordionTitle extends BodyComponent {
 
   render() {
     const contentElements = [this.renderTitle(), this.renderIcons()]
-    const content = (this.getAttribute('icon-position') === 'right'
-      ? contentElements
-      : contentElements.reverse()
+    const content = (
+      this.getAttribute('icon-position') === 'right'
+        ? contentElements
+        : contentElements.reverse()
     ).join('\n')
 
     return `
       <div ${this.htmlAttributes({ class: 'mj-accordion-title' })}>
         <table
           ${this.htmlAttributes({
-            'cellspacing': '0',
-            'cellpadding': '0',
+            cellspacing: '0',
+            cellpadding: '0',
             style: 'table',
           })}
         >

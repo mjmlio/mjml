@@ -1,7 +1,7 @@
 export default ({ compiled: { html }, file }, addFileHeaderComment) =>
   new Promise((resolve) => {
     let output = ''
-    if(addFileHeaderComment) {
+    if (addFileHeaderComment) {
       output = `<!-- FILE: ${file} -->\n`
     }
     output += `${html}\n`

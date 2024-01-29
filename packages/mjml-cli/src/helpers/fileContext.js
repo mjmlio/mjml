@@ -1,11 +1,12 @@
 import fs from 'fs'
 import path from 'path'
 
-const includeRegexp = /<mj-include[^<>]+path=['"](.*(?:\.mjml|\.css|\.html))['"]\s*[^<>]*(\/>|>\s*<\/mj-include>)/gi
+const includeRegexp =
+  /<mj-include[^<>]+path=['"](.*(?:\.mjml|\.css|\.html))['"]\s*[^<>]*(\/>|>\s*<\/mj-include>)/gi
 
-const ensureIncludeIsSupportedFile = (file) => 
+const ensureIncludeIsSupportedFile = (file) =>
   path.extname(file).match(/\.mjml|\.css|\.html/) ? file : `${file}.mjml`
-  
+
 const error = (e) => console.error(e.stack || e) // eslint-disable-line no-console
 
 export default (baseFile, filePath) => {

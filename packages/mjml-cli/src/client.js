@@ -322,7 +322,11 @@ export default async () => {
     }
     case 's': {
       const addFileHeaderComment = !argv.noStdoutFileComment
-      Promise.all(convertedStream.map(converted => outputToConsole(converted, addFileHeaderComment)))
+      Promise.all(
+        convertedStream.map((converted) =>
+          outputToConsole(converted, addFileHeaderComment),
+        ),
+      )
         .then(() => (process.exitCode = EXIT_CODE)) // eslint-disable-line no-return-assign
         .catch(() => (process.exitCode = 1)) // eslint-disable-line no-return-assign
       break

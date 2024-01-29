@@ -92,8 +92,8 @@ export default class MjAccordion extends BodyComponent {
     return `
       <table
         ${this.htmlAttributes({
-          'cellspacing': '0',
-          'cellpadding': '0',
+          cellspacing: '0',
+          cellpadding: '0',
           class: 'mj-accordion',
           style: 'table',
         })}

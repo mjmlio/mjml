@@ -58,9 +58,11 @@ export default function mjml2html(mjml, options = {}) {
   if (isNode && typeof options.skeleton === 'string') {
     /* eslint-disable global-require */
     /* eslint-disable import/no-dynamic-require */
-    options.skeleton = require(options.skeleton.charAt(0) === '.'
-      ? path.resolve(process.cwd(), options.skeleton)
-      : options.skeleton)
+    options.skeleton = require(
+      options.skeleton.charAt(0) === '.'
+        ? path.resolve(process.cwd(), options.skeleton)
+        : options.skeleton,
+    )
     /* eslint-enable global-require */
     /* eslint-enable import/no-dynamic-require */
   }
@@ -186,7 +188,7 @@ export default function mjml2html(mjml, options = {}) {
       if (errors.length > 0) {
         throw new ValidationError(
           `ValidationError: \n ${errors
-            .map(e => e.formattedMessage)
+            .map((e) => e.formattedMessage)
             .join('\n')}`,
           errors,
         )
@@ -227,7 +229,7 @@ export default function mjml2html(mjml, options = {}) {
     }
   }
 
-  const applyAttributes = mjml => {
+  const applyAttributes = (mjml) => {
     const parse = (mjml, parentMjClass = '') => {
       const { attributes, tagName, children } = mjml
       const classes = get(mjml.attributes, 'mj-class', '').split(' ')
@@ -272,7 +274,7 @@ export default function mjml2html(mjml, options = {}) {
         globalAttributes: {
           ...globalData.defaultAttributes['mj-all'],
         },
-        children: map(children, mjml => parse(mjml, nextParentMjClass)),
+        children: map(children, (mjml) => parse(mjml, nextParentMjClass)),
       }
     }
 
@@ -283,9 +285,8 @@ export default function mjml2html(mjml, options = {}) {
     components,
     globalData,
     addMediaQuery(className, { parsedWidth, unit }) {
-      globalData.mediaQueries[
-        className
-      ] = `{ width:${parsedWidth}${unit} !important; max-width: ${parsedWidth}${unit}; }`
+      globalData.mediaQueries[className] =
+        `{ width:${parsedWidth}${unit} !important; max-width: ${parsedWidth}${unit}; }`
     },
     addHeadStyle(identifier, headStyle) {
       globalData.headStyle[identifier] = headStyle
@@ -293,7 +294,7 @@ export default function mjml2html(mjml, options = {}) {
     addComponentHeadSyle(headStyle) {
       globalData.componentsHeadStyle.push(headStyle)
     },
-    setBackgroundColor: color => {
+    setBackgroundColor: (color) => {
       globalData.backgroundColor = color
     },
     processing: (node, context) => processing(node, context, applyAttributes),
@@ -344,12 +345,12 @@ export default function mjml2html(mjml, options = {}) {
 
   if (mjOutsideRaws.length) {
     const toAddBeforeDoctype = mjOutsideRaws.filter(
-      elt =>
+      (elt) =>
         elt.attributes.position && elt.attributes.position === 'file-start',
     )
     if (toAddBeforeDoctype.length) {
       globalData.beforeDoctype = toAddBeforeDoctype
-        .map(elt => elt.content)
+        .map((elt) => elt.content)
         .join('\n')
     }
   }

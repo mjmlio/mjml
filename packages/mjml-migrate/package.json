@@ -30,6 +30,6 @@
     "lodash": "^4.17.21",
     "mjml-core": "4.14.1",
     "mjml-parser-xml": "4.14.1",
-    "yargs": "^16.1.0"
+    "yargs": "^17.7.2"
   }
 }

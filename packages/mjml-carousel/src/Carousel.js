@@ -186,9 +186,9 @@ export default class MjCarousel extends BodyComponent {
           }
 
           .mj-carousel-${carouselId}-radio-1:checked ${repeat(
-      '+ *',
-      length - 1,
-    )}+ .mj-carousel-content .mj-carousel-${carouselId}-thumbnail-1 {
+            '+ *',
+            length - 1,
+          )}+ .mj-carousel-content .mj-carousel-${carouselId}-thumbnail-1 {
               border-color: transparent;
           }
       }
@@ -344,8 +344,8 @@ export default class MjCarousel extends BodyComponent {
         ${this.htmlAttributes({
           style: 'carousel.table',
           border: '0',
-          'cellpadding': '0',
-          'cellspacing': '0',
+          cellpadding: '0',
+          cellspacing: '0',
           width: '100%',
           role: 'presentation',
           class: 'mj-carousel-main',

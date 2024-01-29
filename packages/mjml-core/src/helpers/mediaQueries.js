@@ -1,15 +1,16 @@
 import { map, isEmpty } from 'lodash'
 
 // eslint-disable-next-line import/prefer-default-export
-export default function buildMediaQueriesTags(breakpoint, mediaQueries = {}, options = {}) {
+export default function buildMediaQueriesTags(
+  breakpoint,
+  mediaQueries = {},
+  options = {},
+) {
   if (isEmpty(mediaQueries)) {
     return ''
   }
 
-  const { 
-    forceOWADesktop = false, 
-    printerSupport = false,
-  } = options
+  const { forceOWADesktop = false, printerSupport = false } = options
 
   const baseMediaQueries = map(
     mediaQueries,
@@ -31,7 +32,7 @@ export default function buildMediaQueriesTags(breakpoint, mediaQueries = {}, opt
       ${thunderbirdMediaQueries.join('\n')}
     </style>
     ${
-      printerSupport 
+      printerSupport
         ? `<style type="text/css">
             @media only print {
               ${baseMediaQueries.join('\n')}

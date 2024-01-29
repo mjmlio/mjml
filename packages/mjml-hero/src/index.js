@@ -219,18 +219,14 @@ export default class MjHero extends BodyComponent {
                                 ),
                                 'font-size': '0px',
                                 padding: component.getAttribute('padding'),
-                                'padding-top': component.getAttribute(
-                                  'padding-top',
-                                ),
-                                'padding-right': component.getAttribute(
-                                  'padding-right',
-                                ),
-                                'padding-bottom': component.getAttribute(
-                                  'padding-bottom',
-                                ),
-                                'padding-left': component.getAttribute(
-                                  'padding-left',
-                                ),
+                                'padding-top':
+                                  component.getAttribute('padding-top'),
+                                'padding-right':
+                                  component.getAttribute('padding-right'),
+                                'padding-bottom':
+                                  component.getAttribute('padding-bottom'),
+                                'padding-left':
+                                  component.getAttribute('padding-left'),
                                 'word-break': 'break-word',
                               },
                             })}

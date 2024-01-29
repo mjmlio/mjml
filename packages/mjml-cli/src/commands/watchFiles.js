@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import chokidar from 'chokidar'
-import glob from 'glob'
+import { glob } from 'glob'
 import path from 'path'
 import mjml2html from 'mjml-core'
 import { flow, pickBy, flatMap, uniq, difference, remove } from 'lodash/fp'

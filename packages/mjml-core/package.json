@@ -22,7 +22,7 @@
     "test": "node ./tests/index.js"
   },
   "dependencies": {
-    "@babel/runtime": "^7.14.6",
+    "@babel/runtime": "^7.23.9",
     "cheerio": "1.0.0-rc.12",
     "detect-node": "^2.0.4",
     "html-minifier": "^4.0.0",

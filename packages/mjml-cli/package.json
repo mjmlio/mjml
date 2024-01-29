@@ -25,7 +25,7 @@
     "build": "babel src --out-dir lib --root-mode upward"
   },
   "dependencies": {
-    "@babel/runtime": "^7.14.6",
+    "@babel/runtime": "^7.23.9",
     "chokidar": "^3.0.0",
     "glob": "^10.3.10",
     "html-minifier": "^4.0.0",

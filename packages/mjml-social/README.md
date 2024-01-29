@@ -18,8 +18,11 @@ Displays calls-to-action for various social networks with their associated logo.
           <mj-social-element name="google" href="https://mjml.io/">
             Google
           </mj-social-element>
-          <mj-social-element  name="twitter" href="https://mjml.io/">
+          <mj-social-element name="twitter" href="https://mjml.io/">
             Twitter
+          </mj-social-element>
+          <mj-social-element name="x" href="https://mjml.io/">
+            X
           </mj-social-element>
         </mj-social>
       </mj-column>
@@ -106,6 +109,7 @@ vertical-align              | string      | top/middle/bottom             | midd
 Supported networks with a share url:
 - facebook
 - twitter
+- x
 - google
 - pinterest
 - linkedin

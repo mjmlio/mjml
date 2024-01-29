@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import chokidar from 'chokidar'
-import { sync } from 'glob'
+import { glob } from 'glob'
 import path from 'path'
 import mjml2html from 'mjml-core'
 import { flow, pickBy, flatMap, uniq, difference, remove } from 'lodash/fp'
@@ -99,7 +99,7 @@ export default (input, options) => {
 
       const matchInputOption = input.reduce(
         (found, file) =>
-          found || sync(path.resolve(file)).minimatch.match(filePath),
+          found || glob(path.resolve(file)).minimatch.match(filePath),
         false,
       )
 

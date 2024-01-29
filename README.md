@@ -1,6 +1,7 @@
-# MJML 4
+# MJML 5
 
 If you're looking for MJML 3.3.X check [this branch](https://github.com/mjmlio/mjml/tree/3.3.x)
+If you're looking for MJML 4.14.X check [this branch](https://github.com/mjmlio/mjml/tree/4.14.x)
 
 <p style="text-align: center;" >
   <a href="https://mjml.io" target="_blank">
@@ -96,12 +97,11 @@ You can pass optional `arguments` to the CLI and combine them.
 
 argument | description | default value
 ---------|--------|--------------
-`mjml -m [input]` | Migrates a v3 MJML file to the v4 syntax | NA
 `mjml [input] -o [output]` | Writes the output to [output] | NA
 `mjml [input] -s` | Writes the output to `stdout` | NA
 `mjml -w [input]` | Watches the changes made to `[input]` (file or folder) | NA
-`mjml [input] --config.beautify` | Beautifies the output (`true` or `false`) | true
-`mjml [input] --config.minify` | Minifies the output (`true` or `false`) | false
+`mjml [input] --config.beautify` | Beautifies the output (`true` or `false`) requires js-beautify in package.json | true
+`mjml [input] --config.minify` | Minifies the output (`true` or `false`) requires html-minifier in package.json  | false
 
 See [mjml-cli documentation](https://github.com/mjmlio/mjml/blob/master/packages/mjml-cli/README.md) for more information about config options.
 

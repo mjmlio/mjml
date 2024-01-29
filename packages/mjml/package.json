@@ -29,7 +29,6 @@
     "@babel/runtime": "^7.14.6",
     "mjml-cli": "4.14.1",
     "mjml-core": "4.14.1",
-    "mjml-migrate": "4.14.1",
     "mjml-preset-core": "4.14.1",
     "mjml-validator": "4.13.0"
   },

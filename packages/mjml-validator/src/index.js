@@ -20,6 +20,7 @@ export default function MJMLValidator(element, options = {}) {
   const skipElements = options.skipElements || SKIP_ELEMENTS
 
   if (options.dependencies == null) {
+    // eslint-disable-next-line no-console
     console.warn('"dependencies" option should be provided to mjml validator')
   }
 

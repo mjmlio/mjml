@@ -1,7 +1,7 @@
 {
   "name": "mjml-core",
   "description": "mjml-core",
-  "version": "5.0.0-alpha.0",
+  "version": "5.0.0-alpha.1",
   "main": "lib/index.js",
   "files": [
     "lib"
@@ -29,9 +29,8 @@
     "htmlnano": "^2.1.0",
     "juice": "^10.0.0",
     "lodash": "^4.17.21",
-    "mjml-migrate": "5.0.0-alpha.0",
-    "mjml-parser-xml": "5.0.0-alpha.0",
-    "mjml-validator": "5.0.0-alpha.0",
+    "mjml-parser-xml": "5.0.0-alpha.1",
+    "mjml-validator": "5.0.0-alpha.1",
     "postcss": "^8.4.33",
     "prettier": "^3.2.5"
   },

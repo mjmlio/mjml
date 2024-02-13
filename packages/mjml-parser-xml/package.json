@@ -25,7 +25,7 @@
     "@babel/runtime": "^7.23.9",
     "detect-node": "2.1.0",
     "htmlparser2": "^9.1.0",
-    "lodash": "^4.17.15"
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",

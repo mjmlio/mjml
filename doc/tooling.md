@@ -6,6 +6,10 @@ In order to provide you with the best experience with MJML and help you use it m
 
 [Visual Studio Code](https://code.visualstudio.com/) is a free code editor made by [Microsoft](https://www.microsoft.com/). We recommend this package as it is among the most feature-rich MJML plugins for code editors with live previews, syntax highlighting and linting as well as export features including HTML and screenshots. It is available [on Github](https://github.com/mjmlio/vscode-mjml) and through the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=mjmlio.vscode-mjml).
 
+## Easy Email Pro
+
+[Easy Email Pro](https://demo.easyemail.pro/full?utm_source=mjml) is a visual drag-and-drop email editor. Based on MJML and Slate.js, providing users with a top-notch email editing experience. It not only boasts excellent performance but also outstanding extensibility and compatibility. Supports importing and exporting MJML.
+
 ## Parcel
 
 [Parcel](https://parcel.io) is the code editor built for email. This feature packed tool includes syntax highlighting, Emmet, inline documentation, autocomplete, live preview, screenshots, and full MJML, CSS, and HTML validation. Use Focus Mode to keep the preview aligned with the code you're working on, or Inspect Element to easily find the code that produces specific elements in the preview. Export MJML to HTML with a click.

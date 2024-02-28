@@ -99,7 +99,8 @@ export default (input, options) => {
       console.log(`Now watching file: ${filePath}`)
 
       const matchInputOption = input.reduce(
-        (found, file) =>  found || match(sync(path.resolve(file)), filePath),
+        (found, file) =>
+          found || match(sync(path.resolve(file)), filePath)?.length > 0,
         false,
       )
 

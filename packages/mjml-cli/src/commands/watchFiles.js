@@ -5,9 +5,6 @@ import { match } from 'minimatch'
 import path from 'path'
 import mjml2html from 'mjml-core'
 import { flow, pickBy, flatMap, uniq, difference, remove } from 'lodash/fp'
-import { omit } from 'lodash'
-import { html as htmlBeautify } from 'js-beautify'
-import { minify as htmlMinify } from 'html-minifier'
 
 import readFile from './readFile'
 import makeOutputToFile from './outputToFile'
@@ -51,25 +48,18 @@ export default (input, options) => {
   }
   const readAndCompile = flow(
     (file) => ({ file, content: readFile(file).mjml }),
-    (args) => {
-      const { config, beautifyConfig, minifyConfig } = options
+    async (args) => {
+      const { config } = options
       const beautify = config.beautify && config.beautify !== 'false'
       const minify = config.minify && config.minify !== 'false'
 
-      const compiled = mjml2html(args.content, {
+      const compiled = await mjml2html(args.content, {
+        ...config,
+        beautify,
+        minify,
         filePath: args.file,
         actualPath: args.file,
-        ...omit(config, ['minify', 'beautify']),
       })
-      if (beautify) {
-        compiled.html = htmlBeautify(compiled.html, beautifyConfig)
-      }
-      if (minify) {
-        compiled.html = htmlMinify(compiled.html, {
-          ...minifyConfig,
-          ...config.minifyOptions,
-        })
-      }
 
       return {
         ...args,

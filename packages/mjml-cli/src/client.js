@@ -1,12 +1,9 @@
 import path from 'path'
 import yargs from 'yargs'
 import { flow, pick, isNil, negate, pickBy } from 'lodash/fp'
-import { isArray, isEmpty, map, get, omit } from 'lodash'
-import { html as htmlBeautify } from 'js-beautify'
-import { minify as htmlMinify } from 'html-minifier'
+import { isArray, isEmpty, map, get } from 'lodash'
 
 import mjml2html, { components, initializeType } from 'mjml-core'
-import migrate from 'mjml-migrate'
 import validate, { dependencies } from 'mjml-validator'
 import MJMLParser from 'mjml-parser-xml'
 
@@ -58,11 +55,6 @@ export default async () => {
       r: {
         alias: 'read',
         describe: 'Compile MJML File(s)',
-        type: 'array',
-      },
-      m: {
-        alias: 'migrate',
-        describe: 'Migrate MJML3 File(s) (deprecated)',
         type: 'array',
       },
       v: {
@@ -212,13 +204,11 @@ export default async () => {
   const convertedStream = []
   const failedStream = []
 
-  inputs.forEach((i) => {
+  // eslint-disable-next-line guard-for-in
+  for (const i in inputs) {
     try {
       let compiled
       switch (inputOpt) {
-        case 'm':
-          compiled = { html: migrate(i.mjml, { beautify: true }) }
-          break
         case 'v': // eslint-disable-next-line no-case-declarations
           const mjmlJson = MJMLParser(i.mjml, {
             components,
@@ -238,20 +228,16 @@ export default async () => {
           const beautify = config.beautify && config.beautify !== 'false'
           const minify = config.minify && config.minify !== 'false'
 
-          compiled = mjml2html(i.mjml, {
-            ...omit(config, ['minify', 'beautify']),
+          // eslint-disable-next-line no-await-in-loop
+          compiled = await mjml2html(i.mjml, {
+            ...config,
+            minify,
+            beautify,
+            beautifyConfig,
+            minifyConfig,
             filePath: filePath || i.file,
             actualPath: i.file,
           })
-          if (beautify) {
-            compiled.html = htmlBeautify(compiled.html, beautifyConfig)
-          }
-          if (minify) {
-            compiled.html = htmlMinify(compiled.html, {
-              ...minifyConfig,
-              ...config.minifyOptions,
-            })
-          }
         }
       }
 
@@ -260,7 +246,7 @@ export default async () => {
       EXIT_CODE = 2
       failedStream.push({ file: i.file, error: e })
     }
-  })
+  }
 
   convertedStream.forEach((s) => {
     if (get(s, 'compiled.errors.length')) {

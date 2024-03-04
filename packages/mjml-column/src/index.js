@@ -137,8 +137,9 @@ export default class MjColumn extends BodyComponent {
       case '%':
         return width
       case 'px':
+        return width
       default:
-        return `${parsedWidth / parseInt(containerWidth, 10) * 100}%`
+        return `${(parsedWidth / parseInt(containerWidth, 10)) * 100}%`
     }
   }
 
@@ -267,9 +268,8 @@ export default class MjColumn extends BodyComponent {
                       padding: component.getAttribute('padding'),
                       'padding-top': component.getAttribute('padding-top'),
                       'padding-right': component.getAttribute('padding-right'),
-                      'padding-bottom': component.getAttribute(
-                        'padding-bottom',
-                      ),
+                      'padding-bottom':
+                        component.getAttribute('padding-bottom'),
                       'padding-left': component.getAttribute('padding-left'),
                       'word-break': 'break-word',
                     },

@@ -11,7 +11,6 @@ https://github.com/jdrouet/mrml
 ### Missing implementations / components:
 
 - `mj-style[inline]`: not yet implemented. It requires parsing the generated html to apply the inline styles afterward (that's how it's done in mjml) which would kill the performances. Applying it at render time would improve the performance but it would still require to parse the CSS.
-- `mj-include`: not yet implemented. It requires to handle loading remote templates when using mrml in a wasm (browser or server side) format, which implies being able to load from a different location (`file://`, `https://`, relative, etc).
 
 ## .NET: MJML.NET
 
@@ -41,6 +40,12 @@ https://github.com/hardpixel/mrml-ruby
 React components for MJML components.
 
 https://github.com/faire/mjml-react#readme
+
+## Python: mjml-python
+
+Python wrapper for MRML, the MJML markup language implementation in Rust.
+
+https://github.com/mgd020/mjml-python
 
 ## Python: mjml-python
 

@@ -7,12 +7,6 @@
 
 Displays a customizable button.
 
-<aside class="notice">
-  The `mj-button` won't be fully clickable because of client support.
-  See discussion at
-    <a href="https://github.com/mjmlio/mjml/issues/359">Issue #359</a>.
-</aside>
-
 ```xml
 <mjml>
   <mj-body>

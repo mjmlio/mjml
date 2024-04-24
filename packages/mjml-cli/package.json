@@ -28,7 +28,7 @@
     "@babel/runtime": "^7.23.9",
     "chokidar": "^3.0.0",
     "glob": "^10.3.10",
-    "html-minifier": "^4.0.0",
+    "html-minifier-terser": "^7.2.0",
     "js-beautify": "^1.6.14",
     "lodash": "^4.17.21",
     "minimatch": "^9.0.3",

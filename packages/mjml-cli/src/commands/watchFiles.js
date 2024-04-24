@@ -7,7 +7,7 @@ import mjml2html from 'mjml-core'
 import { flow, pickBy, flatMap, uniq, difference, remove } from 'lodash/fp'
 import { omit } from 'lodash'
 import { html as htmlBeautify } from 'js-beautify'
-import { minify as htmlMinify } from 'html-minifier'
+import { minify as htmlMinify } from 'html-minifier-terser'
 
 import readFile from './readFile'
 import makeOutputToFile from './outputToFile'
@@ -49,9 +49,11 @@ export default (input, options) => {
     watcher.unwatch(difference(files.watched, files.toWatch))
     /* eslint-enable no-use-before-define */
   }
-  const readAndCompile = flow(
-    (file) => ({ file, content: readFile(file).mjml }),
-    (args) => {
+  const readAndCompile = async (file) => () =>
+    new Promise((resolve) => {
+      // Could be made async too using fs.readFile
+      resolve(({ file, content: readFile(file).mjml }))
+    }).then(async (args) => {
       const { config, beautifyConfig, minifyConfig } = options
       const beautify = config.beautify && config.beautify !== 'false'
       const minify = config.minify && config.minify !== 'false'
@@ -65,7 +67,7 @@ export default (input, options) => {
         compiled.html = htmlBeautify(compiled.html, beautifyConfig)
       }
       if (minify) {
-        compiled.html = htmlMinify(compiled.html, {
+        compiled.html = await htmlMinify(compiled.html, {
           ...minifyConfig,
           ...config.minifyOptions,
         })
@@ -75,8 +77,7 @@ export default (input, options) => {
         ...args,
         compiled,
       }
-    },
-    (args) => {
+    }).then(args => {
       const {
         compiled: { errors },
       } = args
@@ -84,12 +85,12 @@ export default (input, options) => {
       errors.forEach((e) => console.warn(e.formattedMessage))
 
       return args
-    },
-    (args) =>
+    }).then((args) => {
       outputToFile(args)
-        .then(() => console.log(`${args.file} - Successfully compiled`))
-        .catch(() => console.log(`${args.file} - Error while compiling file`)),
-  )
+      return args
+    })
+      .then((args) => console.log(`${args.file} - Successfully compiled`))
+      .catch((args) => console.log(`${args.file} - Error while compiling file`))
 
   const watcher = chokidar
     .watch(input.map((i) => i.replace(/\\/g, '/')))

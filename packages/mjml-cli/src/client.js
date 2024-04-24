@@ -3,7 +3,7 @@ import yargs from 'yargs'
 import { flow, pick, isNil, negate, pickBy } from 'lodash/fp'
 import { isArray, isEmpty, map, get, omit } from 'lodash'
 import { html as htmlBeautify } from 'js-beautify'
-import { minify as htmlMinify } from 'html-minifier'
+import { minify as htmlMinify } from 'html-minifier-terser'
 
 import mjml2html, { components, initializeType } from 'mjml-core'
 import migrate from 'mjml-migrate'
@@ -212,7 +212,7 @@ export default async () => {
   const convertedStream = []
   const failedStream = []
 
-  inputs.forEach((i) => {
+  await Promise.all(inputs.map(async (i) => {
     try {
       let compiled
       switch (inputOpt) {
@@ -247,7 +247,7 @@ export default async () => {
             compiled.html = htmlBeautify(compiled.html, beautifyConfig)
           }
           if (minify) {
-            compiled.html = htmlMinify(compiled.html, {
+            compiled.html = await htmlMinify(compiled.html, {
               ...minifyConfig,
               ...config.minifyOptions,
             })
@@ -260,7 +260,7 @@ export default async () => {
       EXIT_CODE = 2
       failedStream.push({ file: i.file, error: e })
     }
-  })
+  }))
 
   convertedStream.forEach((s) => {
     if (get(s, 'compiled.errors.length')) {

@@ -205,7 +205,7 @@ export default async () => {
   const failedStream = []
 
   // eslint-disable-next-line guard-for-in
-  for (const i in inputs) {
+  for (const i of inputs) {
     try {
       let compiled
       switch (inputOpt) {

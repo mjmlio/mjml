@@ -1,7 +1,7 @@
 {
   "name": "mjml-body",
   "description": "mjml-body",
-  "version": "5.0.0-alpha.2",
+  "version": "5.0.0-alpha.3",
   "main": "lib/index.js",
   "files": [
     "lib"
@@ -23,7 +23,7 @@
   "dependencies": {
     "@babel/runtime": "^7.23.9",
     "lodash": "^4.17.21",
-    "mjml-core": "5.0.0-alpha.2"
+    "mjml-core": "5.0.0-alpha.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",

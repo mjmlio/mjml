@@ -24,15 +24,15 @@
   "dependencies": {
     "@babel/runtime": "^7.23.9",
     "cheerio": "1.0.0-rc.12",
-    "cssnano": "^6.0.3",
+    "cssnano": "^7.0.1",
     "detect-node": "^2.0.4",
-    "htmlnano": "^2.1.0",
+    "htmlnano": "^2.1.1",
     "juice": "^10.0.0",
     "lodash": "^4.17.21",
     "mjml-parser-xml": "5.0.0-alpha.2",
     "mjml-validator": "5.0.0-alpha.2",
     "postcss": "^8.4.33",
-    "prettier": "^3.2.5"
+    "prettier": "^3.2.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",

@@ -80,17 +80,3 @@ Let's take the following layout to illustrate this:
   </mj-body>
 </mjml>
 ```
-
-## Nesting
-
-```html
-<mjml>
-  <mj-body>
-    <mj-section>
-      <mj-column>
-        <!-- Column content -->
-      </mj-column>
-    </mj-section>
-  </mj-body>
-</mjml>
-```

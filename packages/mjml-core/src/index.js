@@ -12,16 +12,15 @@ import {
 } from 'lodash'
 import path from 'path'
 import juice from 'juice'
-import { html as htmlBeautify } from 'js-beautify'
-import { minify as htmlMinify } from 'html-minifier'
 import { load } from 'cheerio'
+import prettier from 'prettier'
+import minifier from 'htmlnano'
 
 import MJMLParser from 'mjml-parser-xml'
 import MJMLValidator, {
   dependencies as globalDependencies,
   assignDependencies,
 } from 'mjml-validator'
-import { handleMjml3 } from 'mjml-migrate'
 
 import { initComponent } from './createComponent'
 import globalComponents, {
@@ -51,7 +50,7 @@ class ValidationError extends Error {
   }
 }
 
-export default function mjml2html(mjml, options = {}) {
+export default async function mjml2html(mjml, options = {}) {
   let content = ''
   let errors = []
 
@@ -147,8 +146,6 @@ export default function mjml2html(mjml, options = {}) {
       ignoreIncludes,
     })
   }
-
-  mjml = handleMjml3(mjml, { noMigrateWarn })
 
   const globalData = {
     backgroundColor: '',
@@ -397,31 +394,21 @@ export default function mjml2html(mjml, options = {}) {
   content = mergeOutlookConditionnals(content)
 
   if (beautify) {
-    // eslint-disable-next-line no-console
-    console.warn(
-      '"beautify" option is deprecated in mjml-core and only available in mjml cli.',
-    )
-    content = htmlBeautify(content, {
-      indent_size: 2,
-      wrap_attributes_indent_size: 2,
-      max_preserve_newline: 0,
-      preserve_newlines: false,
+    content = await prettier.format(content, {
+      parser: 'html',
+      printWidth: 240,
     })
   }
 
   if (minify) {
-    // eslint-disable-next-line no-console
-    console.warn(
-      '"minify" option is deprecated in mjml-core and only available in mjml cli.',
-    )
-
-    content = htmlMinify(content, {
-      collapseWhitespace: true,
-      minifyCSS: false,
-      caseSensitive: true,
-      removeEmptyAttributes: true,
-      ...minifyOptions,
-    })
+    content = await minifier
+      .process(content, {
+        collapseWhitespace: true,
+        minifyCSS: false,
+        removeEmptyAttributes: true,
+        ...minifyOptions,
+      })
+      .then((res) => res.html)
   }
 
   return {

@@ -236,8 +236,7 @@ export default class MjSocialElement extends BodyComponent {
     const hasLink = !!this.getAttribute('href')
     const direction = this.getAttribute('direction')
 
-    const makeIcon = () => {
-      return `
+    const makeIcon = () => `
         <td ${this.htmlAttributes({ style: 'td' })}>
           <table
             ${this.htmlAttributes({
@@ -279,7 +278,6 @@ export default class MjSocialElement extends BodyComponent {
           </table>
         </td>
       `
-    }
 
     const makeContent = () => `
         ${

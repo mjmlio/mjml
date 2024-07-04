@@ -99,7 +99,7 @@ export default class MjSocialElement extends BodyComponent {
 
   static allowedAttributes = {
     align: 'enum(left,center,right)',
-    direction: 'enum(left,right)',
+    'icon-position': 'enum(left,right)',
     'background-color': 'color',
     color: 'color',
     'border-radius': 'unit(px)',
@@ -133,7 +133,7 @@ export default class MjSocialElement extends BodyComponent {
   static defaultAttributes = {
     alt: '',
     align: 'left',
-    direction: 'left',
+    'icon-position': 'left',
     color: '#000',
     'border-radius': '3px',
     'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
@@ -234,7 +234,7 @@ export default class MjSocialElement extends BodyComponent {
     } = this.getSocialAttributes()
 
     const hasLink = !!this.getAttribute('href')
-    const direction = this.getAttribute('direction')
+    const iconPosition = this.getAttribute('icon-position')
 
     const makeIcon = () => `
         <td ${this.htmlAttributes({ style: 'td' })}>
@@ -315,7 +315,7 @@ export default class MjSocialElement extends BodyComponent {
           class: this.getAttribute('css-class'),
         })}
       >
-        ${direction === 'left' ? renderLeft() : renderRight() }
+        ${iconPosition === 'left' ? renderLeft() : renderRight() }
       </tr>
     `
   }

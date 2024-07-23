@@ -63,4 +63,5 @@ https://github.com/liminspace/django-mjml
 
 Build responsive e-mails easily using MJML and Laravel Mailables.
 
-https://github.com/asahasrabuddhe/laravel-mjml
+- https://github.com/EvanSchleret/lara-mjml
+- https://github.com/asahasrabuddhe/laravel-mjml (not maintained)

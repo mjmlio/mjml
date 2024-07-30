@@ -117,7 +117,6 @@ export default async function mjml2html(mjml, options = {}) {
     validationLevel = 'soft',
     filePath = '.',
     actualPath = '.',
-    noMigrateWarn = false,
     preprocessors,
     presets = [],
     printerSupport = false,

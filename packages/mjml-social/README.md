@@ -102,6 +102,7 @@ padding-left                | px          | left offset                      | n
 padding-right               | px          | right offset                       | n/a
 padding-top                 | px          | top offset                         | n/a
 icon-padding                | px          | padding around the icon       | 0px
+icon-position               | string      | left/right                    | right
 text-padding                | px          | padding around the text       | 4px 4px 4px 0
 sizes                       | media query & width | set icon width based on query | n/a
 src                         | url         | image source                  | Each social `name` has its own default

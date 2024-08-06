@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [ 16.x, 18.x, 20.x]
+        node-version: [20.x, 22.x]
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
@@ -13,7 +13,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Run linting & tests
-        run:  |
+        run: |
           yarn install
           yarn build
           yarn lint

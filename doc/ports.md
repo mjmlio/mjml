@@ -18,11 +18,6 @@ A blazingly-fast unofficial port of MJML 4 to .NET 6.
 
 https://github.com/SebastianStehle/mjml-net
 
-### Missing implementations / components
-
-- `mj-style[inline]`: not yet implemented for performance reasons.
-- `mj-html-attributes`: not yet implemented for performance reasons.
-
 ## Elixir: MJML (Rust NIFs for Elixir)
 
 Native Implemented Function (NIF) bindings for the MJML Rust implementation (mrml).

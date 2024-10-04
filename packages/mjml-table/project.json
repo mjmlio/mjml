@@ -1,0 +1,21 @@
+{
+  "name": "mjml-table",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:package",
+      "options": {
+        "outputPath": "dist/packages/mjml-table",
+        "tsConfig": "packages/mjml-table/tsconfig.json",
+        "packageJson": "packages/mjml-table/package.json",
+        "main": "packages/mjml-table/src/index.ts",
+        "assets": ["packages/mjml-table/README.md"]
+      }
+    },
+    "release": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish dist/packages/mjml-table --access public"
+      }
+    }
+  }
+}

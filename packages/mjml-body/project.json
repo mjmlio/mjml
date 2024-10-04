@@ -1,0 +1,21 @@
+{
+  "name": "mjml-body",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:package",
+      "options": {
+        "outputPath": "dist/packages/mjml-body",
+        "tsConfig": "packages/mjml-body/tsconfig.json",
+        "packageJson": "packages/mjml-body/package.json",
+        "main": "packages/mjml-body/src/index.ts",
+        "assets": ["packages/mjml-body/README.md"]
+      }
+    },
+    "release": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish dist/packages/mjml-body --access public"
+      }
+    }
+  }
+}

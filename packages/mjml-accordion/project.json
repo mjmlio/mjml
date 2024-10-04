@@ -1,0 +1,21 @@
+{
+  "name": "mjml-accordion",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:package",
+      "options": {
+        "outputPath": "dist/packages/mjml-accordion",
+        "tsConfig": "packages/mjml-accordion/tsconfig.json",
+        "packageJson": "packages/mjml-accordion/package.json",
+        "main": "packages/mjml-accordion/src/index.ts",
+        "assets": ["packages/mjml-accordion/README.md"]
+      }
+    },
+    "release": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish dist/packages/mjml-accordion --access public"
+      }
+    }
+  }
+}

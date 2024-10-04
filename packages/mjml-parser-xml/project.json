@@ -1,0 +1,21 @@
+{
+  "name": "mjml-parser-xml",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:package",
+      "options": {
+        "outputPath": "dist/packages/mjml-parser-xml",
+        "tsConfig": "packages/mjml-parser-xml/tsconfig.json",
+        "packageJson": "packages/mjml-parser-xml/package.json",
+        "main": "packages/mjml-parser-xml/src/index.ts",
+        "assets": ["packages/mjml-parser-xml/README.md"]
+      }
+    },
+    "release": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish dist/packages/mjml-parser-xml --access public"
+      }
+    }
+  }
+}

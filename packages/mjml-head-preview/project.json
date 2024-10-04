@@ -1,0 +1,21 @@
+{
+  "name": "mjml-head-preview",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:package",
+      "options": {
+        "outputPath": "dist/packages/mjml-head-preview",
+        "tsConfig": "packages/mjml-head-preview/tsconfig.json",
+        "packageJson": "packages/mjml-head-preview/package.json",
+        "main": "packages/mjml-head-preview/src/index.ts",
+        "assets": ["packages/mjml-head-preview/README.md"]
+      }
+    },
+    "release": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish dist/packages/mjml-head-preview --access public"
+      }
+    }
+  }
+}

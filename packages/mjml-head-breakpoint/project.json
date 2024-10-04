@@ -1,0 +1,21 @@
+{
+  "name": "mjml-head-breakpoint",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:package",
+      "options": {
+        "outputPath": "dist/packages/mjml-head-breakpoint",
+        "tsConfig": "packages/mjml-head-breakpoint/tsconfig.json",
+        "packageJson": "packages/mjml-head-breakpoint/package.json",
+        "main": "packages/mjml-head-breakpoint/src/index.ts",
+        "assets": ["packages/mjml-head-breakpoint/README.md"]
+      }
+    },
+    "release": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish dist/packages/mjml-head-breakpoint --access public"
+      }
+    }
+  }
+}

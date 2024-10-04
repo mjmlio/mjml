@@ -1,0 +1,21 @@
+{
+  "name": "mjml-wrapper",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:package",
+      "options": {
+        "outputPath": "dist/packages/mjml-wrapper",
+        "tsConfig": "packages/mjml-wrapper/tsconfig.json",
+        "packageJson": "packages/mjml-wrapper/package.json",
+        "main": "packages/mjml-wrapper/src/index.ts",
+        "assets": ["packages/mjml-wrapper/README.md"]
+      }
+    },
+    "release": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish dist/packages/mjml-wrapper --access public"
+      }
+    }
+  }
+}

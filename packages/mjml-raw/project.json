@@ -1,0 +1,21 @@
+{
+  "name": "mjml-raw",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:package",
+      "options": {
+        "outputPath": "dist/packages/mjml-raw",
+        "tsConfig": "packages/mjml-raw/tsconfig.json",
+        "packageJson": "packages/mjml-raw/package.json",
+        "main": "packages/mjml-raw/src/index.ts",
+        "assets": ["packages/mjml-raw/README.md"]
+      }
+    },
+    "release": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish dist/packages/mjml-raw --access public"
+      }
+    }
+  }
+}

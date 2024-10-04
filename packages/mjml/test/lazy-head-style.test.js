@@ -1,22 +1,19 @@
-const chai = require('chai')
-const spies = require('chai-spies')
-const mjml = require('../lib')
-const {
-  HeadComponent,
-  registerComponent,
-} = require('../../mjml-core/lib/index')
+import chai from 'chai'
+import spies from 'chai-spies'
+import mjml from '../src'
+import { HeadComponent, registerComponent } from '../../mjml-core/src/index'
 
 async function run() {
   chai.use(spies)
 
   const addStyle = chai.spy(
-    (breakpoint) => `
+    breakpoint => `
       @media only screen and (max-width:${breakpoint}) {
         h1 {
           font-size: 20px;
         }
       }
-    `,
+    `
   )
 
   class HeadComponentWithFunctionStyle extends HeadComponent {
@@ -25,8 +22,7 @@ async function run() {
       add('style', addStyle)
     }
   }
-  HeadComponentWithFunctionStyle.componentName =
-    'mj-head-component-with-function-style'
+  HeadComponentWithFunctionStyle.componentName = 'mj-head-component-with-function-style'
   HeadComponentWithFunctionStyle.endingTag = true
   HeadComponentWithFunctionStyle.allowedAttributes = {}
 

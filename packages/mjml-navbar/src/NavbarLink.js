@@ -1,6 +1,6 @@
 import { BodyComponent, suffixCssClasses } from 'mjml-core'
 
-import conditionalTag from 'mjml-core/lib/helpers/conditionalTag'
+import conditionalTag from 'mjml-core/src/helpers/conditionalTag'
 
 export default class MjNavbarLink extends BodyComponent {
   static componentName = 'mj-navbar-link'
@@ -25,7 +25,7 @@ export default class MjNavbarLink extends BodyComponent {
     'padding-top': 'unit(px,%)',
     padding: 'unit(px,%){1,4}',
     'text-decoration': 'string',
-    'text-transform': 'string',
+    'text-transform': 'string'
   }
 
   static defaultAttributes = {
@@ -37,7 +37,7 @@ export default class MjNavbarLink extends BodyComponent {
     padding: '15px 10px',
     target: '_blank',
     'text-decoration': 'none',
-    'text-transform': 'uppercase',
+    'text-transform': 'uppercase'
   }
 
   getStyles() {
@@ -57,15 +57,15 @@ export default class MjNavbarLink extends BodyComponent {
         'padding-top': this.getAttribute('padding-top'),
         'padding-left': this.getAttribute('padding-left'),
         'padding-right': this.getAttribute('padding-right'),
-        'padding-bottom': this.getAttribute('padding-bottom'),
+        'padding-bottom': this.getAttribute('padding-bottom')
       },
       td: {
         padding: this.getAttribute('padding'),
         'padding-top': this.getAttribute('padding-top'),
         'padding-left': this.getAttribute('padding-left'),
         'padding-right': this.getAttribute('padding-right'),
-        'padding-bottom': this.getAttribute('padding-bottom'),
-      },
+        'padding-bottom': this.getAttribute('padding-bottom')
+      }
     }
   }
 
@@ -74,9 +74,7 @@ export default class MjNavbarLink extends BodyComponent {
     const navbarBaseUrl = this.getAttribute('navbarBaseUrl')
     const link = navbarBaseUrl ? `${navbarBaseUrl}${href}` : href
 
-    const cssClass = this.getAttribute('css-class')
-      ? ` ${this.getAttribute('css-class')}`
-      : ''
+    const cssClass = this.getAttribute('css-class') ? ` ${this.getAttribute('css-class')}` : ''
 
     return `
       <a
@@ -86,7 +84,7 @@ export default class MjNavbarLink extends BodyComponent {
           rel: this.getAttribute('rel'),
           target: this.getAttribute('target'),
           name: this.getAttribute('name'),
-          style: 'a',
+          style: 'a'
         })}
       >
         ${this.getContent()}
@@ -100,10 +98,7 @@ export default class MjNavbarLink extends BodyComponent {
           <td
             ${this.htmlAttributes({
               style: 'td',
-              class: suffixCssClasses(
-                this.getAttribute('css-class'),
-                'outlook',
-              ),
+              class: suffixCssClasses(this.getAttribute('css-class'), 'outlook')
             })}
           >
         `)}

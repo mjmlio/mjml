@@ -1,0 +1,21 @@
+{
+  "name": "mjml-cli",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:package",
+      "options": {
+        "outputPath": "dist/packages/mjml-cli",
+        "tsConfig": "packages/mjml-cli/tsconfig.json",
+        "packageJson": "packages/mjml-cli/package.json",
+        "main": "packages/mjml-cli/src/index.ts",
+        "assets": ["packages/mjml-cli/README.md"]
+      }
+    },
+    "release": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish dist/packages/mjml-cli --access public"
+      }
+    }
+  }
+}

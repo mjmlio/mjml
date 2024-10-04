@@ -1,0 +1,21 @@
+{
+  "name": "mjml-preset-core",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:package",
+      "options": {
+        "outputPath": "dist/packages/mjml-preset-core",
+        "tsConfig": "packages/mjml-preset-core/tsconfig.json",
+        "packageJson": "packages/mjml-preset-core/package.json",
+        "main": "packages/mjml-preset-core/src/index.ts",
+        "assets": ["packages/mjml-preset-core/README.md"]
+      }
+    },
+    "release": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish dist/packages/mjml-preset-core --access public"
+      }
+    }
+  }
+}

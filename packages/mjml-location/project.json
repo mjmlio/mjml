@@ -1,0 +1,21 @@
+{
+  "name": "mjml-location",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:package",
+      "options": {
+        "outputPath": "dist/packages/mjml-location",
+        "tsConfig": "packages/mjml-location/tsconfig.json",
+        "packageJson": "packages/mjml-location/package.json",
+        "main": "packages/mjml-location/src/index.ts",
+        "assets": ["packages/mjml-location/README.md"]
+      }
+    },
+    "release": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish dist/packages/mjml-location --access public"
+      }
+    }
+  }
+}

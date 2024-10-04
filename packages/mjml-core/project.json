@@ -1,0 +1,21 @@
+{
+  "name": "mjml-core",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:package",
+      "options": {
+        "outputPath": "dist/packages/mjml-core",
+        "tsConfig": "packages/mjml-core/tsconfig.json",
+        "packageJson": "packages/mjml-core/package.json",
+        "main": "packages/mjml-core/src/index.ts",
+        "assets": ["packages/mjml-core/README.md"]
+      }
+    },
+    "release": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish dist/packages/mjml-core --access public"
+      }
+    }
+  }
+}

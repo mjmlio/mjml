@@ -1,0 +1,21 @@
+{
+  "name": "mjml-hero",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:package",
+      "options": {
+        "outputPath": "dist/packages/mjml-hero",
+        "tsConfig": "packages/mjml-hero/tsconfig.json",
+        "packageJson": "packages/mjml-hero/package.json",
+        "main": "packages/mjml-hero/src/index.ts",
+        "assets": ["packages/mjml-hero/README.md"]
+      }
+    },
+    "release": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish dist/packages/mjml-hero --access public"
+      }
+    }
+  }
+}

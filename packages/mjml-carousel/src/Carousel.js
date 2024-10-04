@@ -1,8 +1,8 @@
 import { BodyComponent } from 'mjml-core'
 import { range, repeat, min, map } from 'lodash'
 
-import { msoConditionalTag } from 'mjml-core/lib/helpers/conditionalTag'
-import genRandomHexString from 'mjml-core/lib/helpers/genRandomHexString'
+import { msoConditionalTag } from 'mjml-core/src/helpers/conditionalTag'
+import genRandomHexString from 'mjml-core/src/helpers/genRandomHexString'
 
 export default class MjCarousel extends BodyComponent {
   static componentName = 'mj-carousel'
@@ -24,7 +24,7 @@ export default class MjCarousel extends BodyComponent {
     'tb-border-radius': 'unit(px,%)',
     'tb-hover-border-color': 'color',
     'tb-selected-border-color': 'color',
-    'tb-width': 'unit(px,%)',
+    'tb-width': 'unit(px,%)'
   }
 
   static defaultAttributes = {
@@ -37,7 +37,7 @@ export default class MjCarousel extends BodyComponent {
     'tb-border': '2px solid transparent',
     'tb-border-radius': '6px',
     'tb-hover-border-color': '#fead0d',
-    'tb-selected-border-color': '#ccc',
+    'tb-selected-border-color': '#ccc'
   }
 
   constructor(initialDatas = {}) {
@@ -77,11 +77,7 @@ export default class MjCarousel extends BodyComponent {
 
     ${range(0, length)
       .map(
-        (i) =>
-          `.mj-carousel-${carouselId}-radio:checked ${repeat(
-            '+ * ',
-            i,
-          )}+ .mj-carousel-content .mj-carousel-image`,
+        i => `.mj-carousel-${carouselId}-radio:checked ${repeat('+ * ', i)}+ .mj-carousel-content .mj-carousel-image`
       )
       .join(',')} {
       display: none !important;
@@ -89,11 +85,11 @@ export default class MjCarousel extends BodyComponent {
 
     ${range(0, length)
       .map(
-        (i) =>
+        i =>
           `.mj-carousel-${carouselId}-radio-${i + 1}:checked ${repeat(
             '+ * ',
-            length - i - 1,
-          )}+ .mj-carousel-content .mj-carousel-image-${i + 1}`,
+            length - i - 1
+          )}+ .mj-carousel-content .mj-carousel-image-${i + 1}`
       )
       .join(',')} {
       display: block !important;
@@ -102,35 +98,29 @@ export default class MjCarousel extends BodyComponent {
     .mj-carousel-previous-icons,
     .mj-carousel-next-icons,
     ${range(0, length).map(
-      (i) =>
+      i =>
         `.mj-carousel-${carouselId}-radio-${i + 1}:checked ${repeat(
           '+ * ',
-          length - i - 1,
-        )}+ .mj-carousel-content .mj-carousel-next-${
-          ((i + (1 % length) + length) % length) + 1
-        }`,
+          length - i - 1
+        )}+ .mj-carousel-content .mj-carousel-next-${((i + (1 % length) + length) % length) + 1}`
     )},
     ${range(0, length).map(
-      (i) =>
+      i =>
         `.mj-carousel-${carouselId}-radio-${i + 1}:checked ${repeat(
           '+ * ',
-          length - i - 1,
-        )}+ .mj-carousel-content .mj-carousel-previous-${
-          ((i - (1 % length) + length) % length) + 1
-        }`,
+          length - i - 1
+        )}+ .mj-carousel-content .mj-carousel-previous-${((i - (1 % length) + length) % length) + 1}`
     )} {
       display: block !important;
     }
 
     ${range(0, length)
       .map(
-        (i) =>
+        i =>
           `.mj-carousel-${carouselId}-radio-${i + 1}:checked ${repeat(
             '+ * ',
-            length - i - 1,
-          )}+ .mj-carousel-content .mj-carousel-${carouselId}-thumbnail-${
-            i + 1
-          }`,
+            length - i - 1
+          )}+ .mj-carousel-content .mj-carousel-${carouselId}-thumbnail-${i + 1}`
       )
       .join(',')} {
       border-color: ${this.getAttribute('tb-selected-border-color')} !important;
@@ -143,11 +133,11 @@ export default class MjCarousel extends BodyComponent {
 
     ${range(0, length)
       .map(
-        (i) =>
+        i =>
           `.mj-carousel-${carouselId}-thumbnail:hover ${repeat(
             '+ * ',
-            length - i - 1,
-          )}+ .mj-carousel-main .mj-carousel-image`,
+            length - i - 1
+          )}+ .mj-carousel-main .mj-carousel-image`
       )
       .join(',')} {
       display: none !important;
@@ -159,11 +149,11 @@ export default class MjCarousel extends BodyComponent {
 
     ${range(0, length)
       .map(
-        (i) =>
+        i =>
           `.mj-carousel-${carouselId}-thumbnail-${i + 1}:hover ${repeat(
             '+ * ',
-            length - i - 1,
-          )}+ .mj-carousel-main .mj-carousel-image-${i + 1}`,
+            length - i - 1
+          )}+ .mj-carousel-main .mj-carousel-image-${i + 1}`
       )
       .join(',')} {
       display: block !important;
@@ -177,7 +167,7 @@ export default class MjCarousel extends BodyComponent {
       .mj-carousel noinput .mj-carousel-thumbnails { display: none !important; }
 
       [owa] .mj-carousel-thumbnail { display: none !important; }
-      
+
       @media screen yahoo {
           .mj-carousel-${this.carouselId}-icons-cell,
           .mj-carousel-previous-icons,
@@ -187,7 +177,7 @@ export default class MjCarousel extends BodyComponent {
 
           .mj-carousel-${carouselId}-radio-1:checked ${repeat(
             '+ *',
-            length - 1,
+            length - 1
           )}+ .mj-carousel-content .mj-carousel-${carouselId}-thumbnail-1 {
               border-color: transparent;
           }
@@ -205,46 +195,43 @@ export default class MjCarousel extends BodyComponent {
           width: '100%',
           'table-layout': 'fixed',
           'text-align': 'center',
-          'font-size': '0px',
+          'font-size': '0px'
         },
         table: {
           'caption-side': 'top',
           display: 'table-caption',
           'table-layout': 'fixed',
-          width: '100%',
-        },
+          width: '100%'
+        }
       },
       images: {
         td: {
-          padding: '0px',
-        },
+          padding: '0px'
+        }
       },
       controls: {
         div: {
           display: 'none',
-          'mso-hide': 'all',
+          'mso-hide': 'all'
         },
         img: {
           display: 'block',
           width: this.getAttribute('icon-width'),
-          height: 'auto',
+          height: 'auto'
         },
         td: {
           'font-size': '0px',
           display: 'none',
           'mso-hide': 'all',
-          padding: '0px',
-        },
-      },
+          padding: '0px'
+        }
+      }
     }
   }
 
   thumbnailsWidth() {
     if (!this.props.children.length) return 0
-    return (
-      this.getAttribute('tb-width') ||
-      `${min([this.context.parentWidth / this.props.children.length, 110])}px`
-    )
+    return this.getAttribute('tb-width') || `${min([this.context.parentWidth / this.props.children.length, 110])}px`
   }
 
   imagesAttributes() {
@@ -253,10 +240,10 @@ export default class MjCarousel extends BodyComponent {
 
   generateRadios() {
     return this.renderChildren(this.props.children, {
-      renderer: (component) => component.renderRadio(),
+      renderer: component => component.renderRadio(),
       attributes: {
-        carouselId: this.carouselId,
-      },
+        carouselId: this.carouselId
+      }
     })
   }
 
@@ -268,9 +255,9 @@ export default class MjCarousel extends BodyComponent {
         'tb-border': this.getAttribute('tb-border'),
         'tb-border-radius': this.getAttribute('tb-border-radius'),
         'tb-width': this.thumbnailsWidth(),
-        carouselId: this.carouselId,
+        carouselId: this.carouselId
       },
-      renderer: (component) => component.renderThumbnail(),
+      renderer: component => component.renderThumbnail()
     })
   }
 
@@ -281,22 +268,22 @@ export default class MjCarousel extends BodyComponent {
       <td
         ${this.htmlAttributes({
           class: `mj-carousel-${this.carouselId}-icons-cell`,
-          style: 'controls.td',
+          style: 'controls.td'
         })}
       >
         <div
           ${this.htmlAttributes({
             class: `mj-carousel-${direction}-icons`,
-            style: 'controls.div',
+            style: 'controls.div'
           })}
         >
           ${range(1, this.props.children.length + 1)
             .map(
-              (i) => `
+              i => `
               <label
                 ${this.htmlAttributes({
                   for: `mj-carousel-${this.carouselId}-radio-${i}`,
-                  class: `mj-carousel-${direction} mj-carousel-${direction}-${i}`,
+                  class: `mj-carousel-${direction} mj-carousel-${direction}-${i}`
                 })}
               >
                 <img
@@ -304,11 +291,11 @@ export default class MjCarousel extends BodyComponent {
                     src: icon,
                     alt: direction,
                     style: 'controls.img',
-                    width: iconWidth,
+                    width: iconWidth
                   })}
                 />
               </label>
-            `,
+            `
             )
             .join('')}
         </div>
@@ -320,18 +307,18 @@ export default class MjCarousel extends BodyComponent {
     return `
       <td
         ${this.htmlAttributes({
-          style: 'images.td',
+          style: 'images.td'
         })}
       >
         <div
           ${this.htmlAttributes({
-            class: 'mj-carousel-images',
+            class: 'mj-carousel-images'
           })}
         >
           ${this.renderChildren(this.props.children, {
             attributes: {
-              'border-radius': this.getAttribute('border-radius'),
-            },
+              'border-radius': this.getAttribute('border-radius')
+            }
           })}
         </div>
       </td>
@@ -348,7 +335,7 @@ export default class MjCarousel extends BodyComponent {
           cellspacing: '0',
           width: '100%',
           role: 'presentation',
-          class: 'mj-carousel-main',
+          class: 'mj-carousel-main'
         })}
       >
         <tbody>
@@ -369,9 +356,9 @@ export default class MjCarousel extends BodyComponent {
     return msoConditionalTag(
       this.renderChildren([children[0]], {
         attributes: {
-          'border-radius': this.getAttribute('border-radius'),
-        },
-      }),
+          'border-radius': this.getAttribute('border-radius')
+        }
+      })
     )
   }
 
@@ -381,14 +368,14 @@ export default class MjCarousel extends BodyComponent {
         `
         <div
           ${this.htmlAttributes({
-            class: 'mj-carousel',
+            class: 'mj-carousel'
           })}
         >
           ${this.generateRadios()}
           <div
             ${this.htmlAttributes({
               class: `mj-carousel-content mj-carousel-${this.carouselId}-content`,
-              style: 'carousel.div',
+              style: 'carousel.div'
             })}
           >
             ${this.generateThumbnails()}
@@ -396,7 +383,7 @@ export default class MjCarousel extends BodyComponent {
           </div>
         </div>
       `,
-        true,
+        true
       )}
       ${this.renderFallback()}
     `

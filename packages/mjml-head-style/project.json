@@ -1,0 +1,21 @@
+{
+  "name": "mjml-head-style",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:package",
+      "options": {
+        "outputPath": "dist/packages/mjml-head-style",
+        "tsConfig": "packages/mjml-head-style/tsconfig.json",
+        "packageJson": "packages/mjml-head-style/package.json",
+        "main": "packages/mjml-head-style/src/index.ts",
+        "assets": ["packages/mjml-head-style/README.md"]
+      }
+    },
+    "release": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish dist/packages/mjml-head-style --access public"
+      }
+    }
+  }
+}

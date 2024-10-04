@@ -1,0 +1,21 @@
+{
+  "name": "mjml-invoice",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:package",
+      "options": {
+        "outputPath": "dist/packages/mjml-invoice",
+        "tsConfig": "packages/mjml-invoice/tsconfig.json",
+        "packageJson": "packages/mjml-invoice/package.json",
+        "main": "packages/mjml-invoice/src/index.ts",
+        "assets": ["packages/mjml-invoice/README.md"]
+      }
+    },
+    "release": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish dist/packages/mjml-invoice --access public"
+      }
+    }
+  }
+}

@@ -4,7 +4,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 module.exports = {
   mode: 'production',
   entry: {
-    "mjml": ['../mjml/lib/index'],
+    mjml: ['../mjml/src/index']
   },
   optimization: {
     minimizer: [
@@ -15,53 +15,28 @@ module.exports = {
           keep_fnames: true,
           compress: {
             passes: 2,
-            keep_fargs: false,
+            keep_fargs: false
           },
           output: {
-            beautify: false,
+            beautify: false
           },
-          mangle: true,
-        },
-      }),
-    ],
+          mangle: true
+        }
+      })
+    ]
   },
   output: {
     library: 'mjml',
     filename: 'index.js',
-    path: path.resolve(__dirname, './lib'),
+    path: path.resolve(__dirname, './src'),
     libraryTarget: 'umd',
-    umdNamedDefine: true,
+    umdNamedDefine: true
   },
   resolve: {
     alias: {
-      'path': path.resolve(__dirname, 'browser-mocks/path'),
-      'fs': path.resolve(__dirname, 'browser-mocks/fs'),
-      'uglify-js': path.resolve(__dirname, 'browser-mocks/uglify-js'),
-    },
-  },
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: path.join(__dirname, 'node_modules'),
-        use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              presets: [
-                '@babel/preset-env',
-              ],
-              plugins: [
-                ["@babel/plugin-proposal-decorators", { "legacy": true }],
-                ["@babel/plugin-proposal-class-properties", { "loose" : true }],
-                "@babel/plugin-proposal-function-bind",
-                "@babel/plugin-proposal-export-default-from",
-              ],
-              babelrc: false,
-            },
-          },
-        ],
-      },
-  	],
-  },
+      path: path.resolve(__dirname, 'browser-mocks/path'),
+      fs: path.resolve(__dirname, 'browser-mocks/fs'),
+      'uglify-js': path.resolve(__dirname, 'browser-mocks/uglify-js')
+    }
+  }
 }

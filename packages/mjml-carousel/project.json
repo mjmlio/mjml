@@ -1,0 +1,21 @@
+{
+  "name": "mjml-carousel",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:package",
+      "options": {
+        "outputPath": "dist/packages/mjml-carousel",
+        "tsConfig": "packages/mjml-carousel/tsconfig.json",
+        "packageJson": "packages/mjml-carousel/package.json",
+        "main": "packages/mjml-carousel/src/index.ts",
+        "assets": ["packages/mjml-carousel/README.md"]
+      }
+    },
+    "release": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish dist/packages/mjml-carousel --access public"
+      }
+    }
+  }
+}

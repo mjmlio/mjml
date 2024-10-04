@@ -1,0 +1,21 @@
+{
+  "name": "mjml-group",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:package",
+      "options": {
+        "outputPath": "dist/packages/mjml-group",
+        "tsConfig": "packages/mjml-group/tsconfig.json",
+        "packageJson": "packages/mjml-group/package.json",
+        "main": "packages/mjml-group/src/index.ts",
+        "assets": ["packages/mjml-group/README.md"]
+      }
+    },
+    "release": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish dist/packages/mjml-group --access public"
+      }
+    }
+  }
+}

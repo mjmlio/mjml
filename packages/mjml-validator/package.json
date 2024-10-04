@@ -1,7 +1,7 @@
 {
   "name": "mjml-validator",
   "description": "mjml-validator",
-  "version": "5.0.0-alpha.5",
+  "version": "5.0.0-alpha.6",
   "main": "lib/index.js",
   "files": [
     "lib"

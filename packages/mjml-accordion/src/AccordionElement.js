@@ -1,6 +1,6 @@
 import { BodyComponent } from 'mjml-core'
 import { find } from 'lodash'
-import conditionalTag from 'mjml-core/lib/helpers/conditionalTag'
+import conditionalTag from 'mjml-core/src/helpers/conditionalTag'
 import AccordionText from './AccordionText'
 import AccordionTitle from './AccordionTitle'
 
@@ -18,31 +18,31 @@ export default class MjAccordionElement extends BodyComponent {
     'icon-wrapped-alt': 'string',
     'icon-unwrapped-url': 'string',
     'icon-unwrapped-alt': 'string',
-    'icon-position': 'enum(left,right)',
+    'icon-position': 'enum(left,right)'
   }
 
   static defaultAttributes = {
     title: {
       img: {
         width: '32px',
-        height: '32px',
-      },
-    },
+        height: '32px'
+      }
+    }
   }
 
   getStyles() {
     return {
       td: {
         padding: '0px',
-        'background-color': this.getAttribute('background-color'),
+        'background-color': this.getAttribute('background-color')
       },
       label: {
         'font-size': '13px',
-        'font-family': this.getAttribute('font-family'),
+        'font-family': this.getAttribute('font-family')
       },
       input: {
-        display: 'none',
-      },
+        display: 'none'
+      }
     }
   }
 
@@ -57,13 +57,13 @@ export default class MjAccordionElement extends BodyComponent {
       'icon-wrapped-url',
       'icon-wrapped-alt',
       'icon-unwrapped-url',
-      'icon-unwrapped-alt',
+      'icon-unwrapped-alt'
     ].reduce(
       (res, val) => ({
         ...res,
-        [val]: this.getAttribute(val),
+        [val]: this.getAttribute(val)
       }),
-      {},
+      {}
     )
 
     const result = []
@@ -72,8 +72,8 @@ export default class MjAccordionElement extends BodyComponent {
       result.push(
         new AccordionTitle({
           attributes: childrenAttr,
-          context: this.getChildContext(),
-        }).render(),
+          context: this.getChildContext()
+        }).render()
       )
     }
 
@@ -83,8 +83,8 @@ export default class MjAccordionElement extends BodyComponent {
       result.push(
         new AccordionText({
           attributes: childrenAttr,
-          context: this.getChildContext(),
-        }).render(),
+          context: this.getChildContext()
+        }).render()
       )
     }
 
@@ -95,14 +95,14 @@ export default class MjAccordionElement extends BodyComponent {
     return `
       <tr
         ${this.htmlAttributes({
-          class: this.getAttribute('css-class'),
+          class: this.getAttribute('css-class')
         })}
       >
         <td ${this.htmlAttributes({ style: 'td' })}>
           <label
             ${this.htmlAttributes({
               class: 'mj-accordion-element',
-              style: 'label',
+              style: 'label'
             })}
           >
             ${conditionalTag(
@@ -111,11 +111,11 @@ export default class MjAccordionElement extends BodyComponent {
                 ${this.htmlAttributes({
                   class: 'mj-accordion-checkbox',
                   type: 'checkbox',
-                  style: 'input',
+                  style: 'input'
                 })}
               />
             `,
-              true,
+              true
             )}
             <div>
               ${this.handleMissingChildren()}

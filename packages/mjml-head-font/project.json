@@ -1,0 +1,21 @@
+{
+  "name": "mjml-head-font",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:package",
+      "options": {
+        "outputPath": "dist/packages/mjml-head-font",
+        "tsConfig": "packages/mjml-head-font/tsconfig.json",
+        "packageJson": "packages/mjml-head-font/package.json",
+        "main": "packages/mjml-head-font/src/index.ts",
+        "assets": ["packages/mjml-head-font/README.md"]
+      }
+    },
+    "release": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish dist/packages/mjml-head-font --access public"
+      }
+    }
+  }
+}

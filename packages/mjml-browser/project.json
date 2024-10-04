@@ -1,0 +1,21 @@
+{
+  "name": "mjml-browser",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:package",
+      "options": {
+        "outputPath": "dist/packages/mjml-browser",
+        "tsConfig": "packages/mjml-browser/tsconfig.json",
+        "packageJson": "packages/mjml-browser/package.json",
+        "main": "packages/mjml-browser/src/index.ts",
+        "assets": ["packages/mjml-browser/README.md"]
+      }
+    },
+    "release": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish dist/packages/mjml-browser --access public"
+      }
+    }
+  }
+}

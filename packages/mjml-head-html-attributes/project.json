@@ -1,0 +1,21 @@
+{
+  "name": "mjml-head-html-attributes",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:package",
+      "options": {
+        "outputPath": "dist/packages/mjml-head-html-attributes",
+        "tsConfig": "packages/mjml-head-html-attributes/tsconfig.json",
+        "packageJson": "packages/mjml-head-html-attributes/package.json",
+        "main": "packages/mjml-head-html-attributes/src/index.ts",
+        "assets": ["packages/mjml-head-html-attributes/README.md"]
+      }
+    },
+    "release": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish dist/packages/mjml-head-html-attributes --access public"
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "mjml-section",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:package",
+      "options": {
+        "outputPath": "dist/packages/mjml-section",
+        "tsConfig": "packages/mjml-section/tsconfig.json",
+        "packageJson": "packages/mjml-section/package.json",
+        "main": "packages/mjml-section/src/index.ts",
+        "assets": ["packages/mjml-section/README.md"]
+      }
+    },
+    "release": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish dist/packages/mjml-section --access public"
+      }
+    }
+  }
+}

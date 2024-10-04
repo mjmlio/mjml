@@ -1,0 +1,21 @@
+{
+  "name": "mjml-button",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:package",
+      "options": {
+        "outputPath": "dist/packages/mjml-button",
+        "tsConfig": "packages/mjml-button/tsconfig.json",
+        "packageJson": "packages/mjml-button/package.json",
+        "main": "packages/mjml-button/src/index.ts",
+        "assets": ["packages/mjml-button/README.md"]
+      }
+    },
+    "release": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish dist/packages/mjml-button --access public"
+      }
+    }
+  }
+}

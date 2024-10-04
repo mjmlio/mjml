@@ -1,0 +1,21 @@
+{
+  "name": "mjml-validator",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:package",
+      "options": {
+        "outputPath": "dist/packages/mjml-validator",
+        "tsConfig": "packages/mjml-validator/tsconfig.json",
+        "packageJson": "packages/mjml-validator/package.json",
+        "main": "packages/mjml-validator/src/index.ts",
+        "assets": ["packages/mjml-validator/README.md"]
+      }
+    },
+    "release": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish dist/packages/mjml-validator --access public"
+      }
+    }
+  }
+}

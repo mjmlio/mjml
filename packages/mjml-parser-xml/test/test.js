@@ -1,20 +1,20 @@
-const MJMLParser = require('../lib/index.js')
-require('mjml')
-const components = require('mjml-core').components
-const chai = require('chai')
-const displayDiff = require('./test-utils').displayDiff
-const omitDeepLodash = require('./test-utils').omitDeepLodash
-const testValues = require('./test-values')
+import MJMLParser from '../src/index.js'
+import mjml from 'mjml'
+import { components } from 'mjml-core'
+import chai from 'chai'
+import { displayDiff, omitDeepLodash } from './test-utils'
+import testValues from './test-values'
 
 /*
   If test fails, run it with --debug to log the details of the diff
 */
 
-const parse = mjml => MJMLParser(mjml, {
-  keepComments: true,
-  components,
-  filePath: '.'
-})
+const parse = mjml =>
+  MJMLParser(mjml, {
+    keepComments: true,
+    components,
+    filePath: '.'
+  })
 
 testValues.forEach(testUnit => {
   const { test, mjml, validJson } = testUnit
@@ -23,6 +23,7 @@ testValues.forEach(testUnit => {
     displayDiff(omitDeepLodash(validJson, 'file'), omitDeepLodash(parse(mjml), ['absoluteFilePath', 'file']))
   }
 
-  chai.expect(omitDeepLodash(validJson, 'file'), `${test} test failed`)
-      .to.deep.equal(omitDeepLodash(parse(mjml), ['absoluteFilePath', 'file']))
+  chai
+    .expect(omitDeepLodash(validJson, 'file'), `${test} test failed`)
+    .to.deep.equal(omitDeepLodash(parse(mjml), ['absoluteFilePath', 'file']))
 })

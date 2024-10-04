@@ -1,0 +1,21 @@
+{
+  "name": "mjml-social",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:package",
+      "options": {
+        "outputPath": "dist/packages/mjml-social",
+        "tsConfig": "packages/mjml-social/tsconfig.json",
+        "packageJson": "packages/mjml-social/package.json",
+        "main": "packages/mjml-social/src/index.ts",
+        "assets": ["packages/mjml-social/README.md"]
+      }
+    },
+    "release": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish dist/packages/mjml-social --access public"
+      }
+    }
+  }
+}

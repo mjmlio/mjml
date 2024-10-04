@@ -1,0 +1,21 @@
+{
+  "name": "mjml-divider",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:package",
+      "options": {
+        "outputPath": "dist/packages/mjml-divider",
+        "tsConfig": "packages/mjml-divider/tsconfig.json",
+        "packageJson": "packages/mjml-divider/package.json",
+        "main": "packages/mjml-divider/src/index.ts",
+        "assets": ["packages/mjml-divider/README.md"]
+      }
+    },
+    "release": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish dist/packages/mjml-divider --access public"
+      }
+    }
+  }
+}

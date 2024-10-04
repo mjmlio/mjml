@@ -1,0 +1,21 @@
+{
+  "name": "mjml",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:package",
+      "options": {
+        "outputPath": "dist/packages/mjml",
+        "tsConfig": "packages/mjml/tsconfig.json",
+        "packageJson": "packages/mjml/package.json",
+        "main": "packages/mjml/src/index.ts",
+        "assets": ["packages/mjml/README.md"]
+      }
+    },
+    "release": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish dist/packages/mjml --access public"
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "mjml-spacer",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:package",
+      "options": {
+        "outputPath": "dist/packages/mjml-spacer",
+        "tsConfig": "packages/mjml-spacer/tsconfig.json",
+        "packageJson": "packages/mjml-spacer/package.json",
+        "main": "packages/mjml-spacer/src/index.ts",
+        "assets": ["packages/mjml-spacer/README.md"]
+      }
+    },
+    "release": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish dist/packages/mjml-spacer --access public"
+      }
+    }
+  }
+}

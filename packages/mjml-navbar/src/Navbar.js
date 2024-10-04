@@ -1,9 +1,7 @@
 import { BodyComponent, makeLowerBreakpoint } from 'mjml-core'
 
-import conditionalTag, {
-  msoConditionalTag,
-} from 'mjml-core/lib/helpers/conditionalTag'
-import genRandomHexString from 'mjml-core/lib/helpers/genRandomHexString'
+import conditionalTag, { msoConditionalTag } from 'mjml-core/src/helpers/conditionalTag'
+import genRandomHexString from 'mjml-core/src/helpers/genRandomHexString'
 
 export default class MjNavbar extends BodyComponent {
   static componentName = 'mj-navbar'
@@ -30,7 +28,7 @@ export default class MjNavbar extends BodyComponent {
     'padding-right': 'unit(px,%)',
     'padding-bottom': 'unit(px,%)',
     'ico-text-decoration': 'string',
-    'ico-line-height': 'unit(px,%,)',
+    'ico-line-height': 'unit(px,%,)'
   }
 
   static defaultAttributes = {
@@ -46,10 +44,10 @@ export default class MjNavbar extends BodyComponent {
     'ico-text-transform': 'uppercase',
     'ico-padding': '10px',
     'ico-text-decoration': 'none',
-    'ico-line-height': '30px',
+    'ico-line-height': '30px'
   }
 
-  headStyle = (breakpoint) =>
+  headStyle = breakpoint =>
     `
       noinput.mj-menu-checkbox { display:block!important; max-height:none!important; visibility:visible!important; }
 
@@ -67,7 +65,7 @@ export default class MjNavbar extends BodyComponent {
     return {
       div: {
         align: this.getAttribute('align'),
-        width: '100%',
+        width: '100%'
       },
       label: {
         display: 'block',
@@ -85,22 +83,22 @@ export default class MjNavbar extends BodyComponent {
         'padding-right': this.getAttribute('ico-padding-right'),
         'padding-bottom': this.getAttribute('ico-padding-bottom'),
         'padding-left': this.getAttribute('ico-padding-left'),
-        padding: this.getAttribute('ico-padding'),
+        padding: this.getAttribute('ico-padding')
       },
       trigger: {
         display: 'none',
         'max-height': '0px',
         'max-width': '0px',
         'font-size': '0px',
-        overflow: 'hidden',
+        overflow: 'hidden'
       },
       icoOpen: {
-        'mso-hide': 'all',
+        'mso-hide': 'all'
       },
       icoClose: {
         display: 'none',
-        'mso-hide': 'all',
-      },
+        'mso-hide': 'all'
+      }
     }
   }
 
@@ -112,12 +110,12 @@ export default class MjNavbar extends BodyComponent {
         `
         <input type="checkbox" id="${labelKey}" class="mj-menu-checkbox" style="display:none !important; max-height:0; visibility:hidden;" />
       `,
-        true,
+        true
       )}
       <div
         ${this.htmlAttributes({
           class: 'mj-menu-trigger',
-          style: 'trigger',
+          style: 'trigger'
         })}
       >
         <label
@@ -125,13 +123,13 @@ export default class MjNavbar extends BodyComponent {
             for: labelKey,
             class: 'mj-menu-label',
             style: 'label',
-            align: this.getAttribute('ico-align'),
+            align: this.getAttribute('ico-align')
           })}
         >
           <span
             ${this.htmlAttributes({
               class: 'mj-menu-icon-open',
-              style: 'icoOpen',
+              style: 'icoOpen'
             })}
           >
             ${this.getAttribute('ico-open')}
@@ -139,7 +137,7 @@ export default class MjNavbar extends BodyComponent {
           <span
             ${this.htmlAttributes({
               class: 'mj-menu-icon-close',
-              style: 'icoClose',
+              style: 'icoClose'
             })}
           >
             ${this.getAttribute('ico-close')}
@@ -151,27 +149,21 @@ export default class MjNavbar extends BodyComponent {
 
   render() {
     return `
-        ${
-          this.getAttribute('hamburger') === 'hamburger'
-            ? this.renderHamburger()
-            : ''
-        }
+        ${this.getAttribute('hamburger') === 'hamburger' ? this.renderHamburger() : ''}
         <div
           ${this.htmlAttributes({
             class: 'mj-inline-links',
-            style: this.htmlAttributes('div'),
+            style: this.htmlAttributes('div')
           })}
         >
         ${conditionalTag(`
-          <table role="presentation" border="0" cellpadding="0" cellspacing="0" align="${this.getAttribute(
-            'align',
-          )}">
+          <table role="presentation" border="0" cellpadding="0" cellspacing="0" align="${this.getAttribute('align')}">
             <tr>
         `)}
           ${this.renderChildren(this.props.children, {
             attributes: {
-              navbarBaseUrl: this.getAttribute('base-url'),
-            },
+              navbarBaseUrl: this.getAttribute('base-url')
+            }
           })}
           ${conditionalTag(`
             </tr></table>

@@ -1,7 +1,7 @@
 const { template } = require('lodash')
-const MJMLParser = require('../lib')
-const mjml2html = require('../../mjml/lib')
-const { components } = require('../../mjml-core/lib')
+const MJMLParser = require('../src')
+const mjml2html = require('../../mjml/src')
+const { components } = require('../../mjml-core/src')
 
 const parse = mjml =>
   MJMLParser(mjml, {
@@ -12,11 +12,11 @@ const parse = mjml =>
         template(data, {
           evaluate: /{{([\s\S]+?)}}/g,
           interpolate: /{{=([\s\S]+?)}}/g,
-          escape: /{{-([\s\S]+?)}}/g,
+          escape: /{{-([\s\S]+?)}}/g
         })({
-          buttons: [{ title: 'Title' }, { title: 'Title2' }],
-        }),
-    ],
+          buttons: [{ title: 'Title' }, { title: 'Title2' }]
+        })
+    ]
   })
 
 const xml = `<mjml>

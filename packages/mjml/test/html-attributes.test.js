@@ -1,7 +1,7 @@
-const chai = require('chai')
-const { load } = require('cheerio')
-const { sortBy } = require('lodash')
-const mjml = require('../lib')
+import chai from 'chai'
+import { load } from 'cheerio'
+import { sortBy } from 'lodash'
+import mjml from '../src'
 
 async function run() {
   const input = `
@@ -47,7 +47,7 @@ async function run() {
           return $(this).attr('data-id')
         })
         .get(),
-      'Custom attributes added on texts',
+      'Custom attributes added on texts'
     )
     .to.eql(['42', '42'])
 
@@ -58,7 +58,7 @@ async function run() {
           return $(this).attr('data-name')
         })
         .get(),
-      'Custom attributes added on image',
+      'Custom attributes added on image'
     )
     .to.eql(['43'])
 
@@ -70,15 +70,13 @@ async function run() {
     'class="text"',
     '{ item }',
     '{ end if }',
-    '{ item + 1 }',
+    '{ item + 1 }'
   ]
-  const indexes = expected.map((str) => html.indexOf(str))
+  const indexes = expected.map(str => html.indexOf(str))
 
   chai.expect(indexes, 'Templating syntax unaltered').to.not.include(-1)
 
-  chai
-    .expect(sortBy(indexes), 'Mj-raws kept same positions')
-    .to.deep.eql(indexes)
+  chai.expect(sortBy(indexes), 'Mj-raws kept same positions').to.deep.eql(indexes)
 }
 
 run()

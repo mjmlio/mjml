@@ -1,0 +1,21 @@
+{
+  "name": "mjml-column",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:package",
+      "options": {
+        "outputPath": "dist/packages/mjml-column",
+        "tsConfig": "packages/mjml-column/tsconfig.json",
+        "packageJson": "packages/mjml-column/package.json",
+        "main": "packages/mjml-column/src/index.ts",
+        "assets": ["packages/mjml-column/README.md"]
+      }
+    },
+    "release": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish dist/packages/mjml-column --access public"
+      }
+    }
+  }
+}

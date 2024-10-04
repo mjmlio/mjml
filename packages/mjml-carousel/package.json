@@ -1,8 +1,8 @@
 {
   "name": "mjml-carousel",
   "description": "mjml-carousel",
-  "version": "5.0.0-alpha.6",
-  "main": "lib/index.js",
+  "version": "5.0.0-alpha.4",
+  "main": "src/index.js",
   "files": [
     "lib"
   ],
@@ -16,17 +16,8 @@
     "url": "https://github.com/mjmlio/mjml/issues"
   },
   "homepage": "https://mjml.io",
-  "scripts": {
-    "clean": "rimraf lib",
-    "build": "babel src --out-dir lib --root-mode upward"
-  },
   "dependencies": {
-    "@babel/runtime": "^7.23.9",
     "lodash": "^4.17.21",
-    "mjml-core": "5.0.0-alpha.6"
-  },
-  "devDependencies": {
-    "@babel/cli": "^7.8.4",
-    "rimraf": "^3.0.2"
+    "mjml-core": "5.0.0-alpha.4"
   }
 }

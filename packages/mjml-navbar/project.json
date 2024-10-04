@@ -1,0 +1,21 @@
+{
+  "name": "mjml-navbar",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:package",
+      "options": {
+        "outputPath": "dist/packages/mjml-navbar",
+        "tsConfig": "packages/mjml-navbar/tsconfig.json",
+        "packageJson": "packages/mjml-navbar/package.json",
+        "main": "packages/mjml-navbar/src/index.ts",
+        "assets": ["packages/mjml-navbar/README.md"]
+      }
+    },
+    "release": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish dist/packages/mjml-navbar --access public"
+      }
+    }
+  }
+}

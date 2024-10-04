@@ -1,7 +1,7 @@
 {
   "name": "mjml-core",
   "description": "mjml-core",
-  "version": "4.15.3",
+  "version": "5.0.0-alpha.6",
   "main": "lib/index.js",
   "files": [
     "lib"
@@ -24,14 +24,15 @@
   "dependencies": {
     "@babel/runtime": "^7.23.9",
     "cheerio": "1.0.0-rc.12",
+    "cssnano": "^7.0.1",
     "detect-node": "^2.0.4",
-    "html-minifier": "^4.0.0",
-    "js-beautify": "^1.6.14",
-    "juice": "^10.0.0",
+    "htmlnano": "^2.1.1",
+    "juice": "^11.0.0",
     "lodash": "^4.17.21",
-    "mjml-migrate": "4.15.3",
-    "mjml-parser-xml": "4.15.3",
-    "mjml-validator": "4.15.3"
+    "mjml-parser-xml": "5.0.0-alpha.6",
+    "mjml-validator": "5.0.0-alpha.6",
+    "postcss": "^8.4.33",
+    "prettier": "^3.2.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",

@@ -209,7 +209,7 @@ export class BodyComponent extends Component {
     if (rawXML) {
       return children.map((child) => {
         child.attributes = {...attributes, ...child.attributes}
-        jsonToXML(child)
+        return jsonToXML(child)
       }).join('\n')
     }
 

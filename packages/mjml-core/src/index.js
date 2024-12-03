@@ -14,7 +14,7 @@ import path from 'path'
 import juice from 'juice'
 import { load } from 'cheerio'
 import prettier from 'prettier'
-import minifier from 'htmlnano'
+import { crush } from 'html-crush'
 
 import MJMLParser from 'mjml-parser-xml'
 import MJMLValidator, {
@@ -396,18 +396,12 @@ export default async function mjml2html(mjml, options = {}) {
     content = await prettier.format(content, {
       parser: 'html',
       printWidth: 240,
+      singleQuote: true,
     })
   }
 
   if (minify) {
-    content = await minifier
-      .process(content, {
-        collapseWhitespace: true,
-        minifyCSS: false,
-        removeEmptyAttributes: true,
-        ...minifyOptions,
-      })
-      .then((res) => res.html)
+    content = crush(content, { ...options.minifyOptions }).result
   }
 
   return {

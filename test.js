@@ -6,13 +6,7 @@ const xml = `
 <mjml>
     <mj-head>
         <mj-attributes>
-            <mj-all
-                padding="0px"
-            />
-            <mj-wrapper
-                background-color="yellow"
-                padding="80px"
-            />
+          <mj-all font-family="'Source Sans 3', Arial, sans-serif" font-size="16px" line-height="1.4" color="#0f3549" />
         </mj-attributes>
     </mj-head>
     <mj-body>
@@ -35,7 +29,10 @@ async function run() {
   console.time('mjml2html')
   const { html } = await mjml2html(xml, {
     minify: true,
+    beautify: false,
   })
+
+  console.log(html)
 
   console.timeEnd('mjml2html')
 
@@ -50,8 +47,6 @@ async function run() {
 
     open(testFile)
   }
-
-  await run()
 }
 
 run()

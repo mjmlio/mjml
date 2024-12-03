@@ -6,13 +6,7 @@ const xml = `
 <mjml>
     <mj-head>
         <mj-attributes>
-            <mj-all
-                padding="0px"
-            />
-            <mj-wrapper
-                background-color="yellow"
-                padding="80px"
-            />
+          <mj-all font-family="'Source Sans 3', Arial, sans-serif" font-size="16px" line-height="1.4" color="#0f3549" />
         </mj-attributes>
     </mj-head>
     <mj-body>
@@ -31,24 +25,28 @@ const xml = `
 
 console.time('mjml2html')
 
-const { html } = mjml2html(xml, {
-  beautify: true,
-})
+async function run() {
+  console.time('mjml2html')
+  const { html } = await mjml2html(xml, {
+    minify: true,
+    beautify: false,
+  })
 
-console.timeEnd('mjml2html')
-
-if (process.argv.includes('--output')) {
   console.log(html)
+
+  console.timeEnd('mjml2html')
+
+  if (process.argv.includes('--open')) {
+    const open = require('open')
+    const path = require('path')
+    const fs = require('fs')
+
+    const testFile = path.resolve(__dirname, './test.html')
+
+    fs.writeFileSync(testFile, html)
+
+    open(testFile)
+  }
 }
 
-if (process.argv.includes('--open')) {
-  const open = require('open')
-  const path = require('path')
-  const fs = require('fs')
-
-  const testFile = path.resolve(__dirname, './test.html')
-
-  fs.writeFileSync(testFile, html)
-
-  open(testFile)
-}
+run()

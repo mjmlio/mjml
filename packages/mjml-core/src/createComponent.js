@@ -207,7 +207,10 @@ export class BodyComponent extends Component {
     children = children || this.props.children
 
     if (rawXML) {
-      return children.map((child) => jsonToXML(child)).join('\n')
+      return children.map((child) => {
+        child.attributes = {...attributes, ...child.attributes}
+        return jsonToXML(child)
+      }).join('\n')
     }
 
     const sibling = children.length

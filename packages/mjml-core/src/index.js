@@ -108,7 +108,7 @@ export default async function mjml2html(mjml, options = {}) {
       Ubuntu: 'https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700',
     },
     keepComments,
-    minify = false,
+    minify = true,
     minifyOptions = {},
     ignoreIncludes = false,
     juiceOptions = {},
@@ -392,22 +392,22 @@ export default async function mjml2html(mjml, options = {}) {
 
   content = mergeOutlookConditionnals(content)
 
-  if (beautify) {
-    content = await prettier.format(content, {
-      parser: 'html',
-      printWidth: 240,
-    })
-  }
-
+  // PostProcessors
   if (minify) {
     content = await minifier
       .process(content, {
         collapseWhitespace: true,
         minifyCSS: false,
         removeEmptyAttributes: true,
+        minifyJs: false,
         ...minifyOptions,
       })
       .then((res) => res.html)
+  } else if (beautify) {
+    content = await prettier.format(content, {
+      parser: 'html',
+      printWidth: 240,
+    })
   }
 
   return {

@@ -27,7 +27,7 @@ export default class MjTable extends BodyComponent {
     role: 'enum(none,presentation)',
     'table-layout': 'enum(auto,fixed,initial,inherit)',
     'vertical-align': 'enum(top,bottom,middle)',
-    width: 'unit(px,%)',
+    width: 'unit(px,%,auto)',
   }
 
   static defaultAttributes = {
@@ -60,8 +60,12 @@ export default class MjTable extends BodyComponent {
 
   getWidth() {
     const width = this.getAttribute('width')
-    const { parsedWidth, unit } = widthParser(width)
 
+    if (width === 'auto') {
+      return width
+    }
+
+    const { parsedWidth, unit } = widthParser(width)
     return unit === '%' ? width : parsedWidth
   }
 

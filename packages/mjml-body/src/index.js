@@ -30,16 +30,18 @@ export default class MjBody extends BodyComponent {
   render() {
     const {
       setBackgroundColor,
-      globalData: { lang, dir },
+      globalData: { lang, dir, title },
     } = this.context
     setBackgroundColor(this.getAttribute('background-color'))
 
     return `
       <div
         ${this.htmlAttributes({
+          ...(title && { 'aria-label': title }),
+          'aria-roledescription': 'email',
           class: this.getAttribute('css-class'),
           style: 'div',
-          role: 'main',
+          role: 'article',
           lang,
           dir,
         })}

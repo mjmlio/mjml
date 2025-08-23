@@ -5,6 +5,8 @@
     "build:watch": "lerna run build --parallel -- -- -w",
     "build": "lerna run build --parallel --ignore mjml-browser",
     "build-browser": "cd packages/mjml-browser && yarn build",
+    "build-executables": "node scripts/build-executables.js",
+    "test-executables": "node scripts/test-executable.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "postinstall": "lerna bootstrap",

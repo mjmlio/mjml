@@ -22,7 +22,8 @@
   "homepage": "https://mjml.io",
   "scripts": {
     "clean": "rimraf lib",
-    "build": "babel src --out-dir lib --root-mode upward"
+    "build": "babel src --out-dir lib --root-mode upward",
+    "pkg": "pkg . --targets node18-linux-x64,node18-win-x64,node18-macos-x64 --output mjml"
   },
   "dependencies": {
     "@babel/runtime": "^7.23.9",
@@ -41,5 +42,17 @@
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "rimraf": "^3.0.2"
+  },
+  "pkg": {
+    "assets": [
+      "lib/**/*",
+      "node_modules/**/*"
+    ],
+    "targets": [
+      "node18-linux-x64",
+      "node18-win-x64",
+      "node18-macos-x64"
+    ],
+    "outputPath": "dist"
   }
 }

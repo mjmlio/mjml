@@ -1,6 +1,6 @@
 ## mj-body
 
-This is the starting point of your email.
+This is the starting point of your email. To aid accessibility, MJML automatically adds a `div` tag as the child of the body, with the following ARIA attributes `role="article"`, `aria-roledescription="email"` and `aria-label="EMAIL NAME"`, where 'EMAIL NAME' is taken from the content of the `mj-title` tag. The `lang` and `dir` attributes are also added here, with values taken from the `mjml` tag.
 
 ```xml
 <mjml>

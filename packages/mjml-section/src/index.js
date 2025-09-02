@@ -55,6 +55,8 @@ export default class MjSection extends BodyComponent {
 
     const fullWidth = this.isFullWidth()
 
+    const hasBorderRadius = this.hasBorderRadius()
+
     const background = this.getAttribute('background-url')
       ? {
           background: this.getBackground(),
@@ -72,12 +74,11 @@ export default class MjSection extends BodyComponent {
       tableFullwidth: {
         ...(fullWidth ? background : {}),
         width: '100%',
-        'border-radius': this.getAttribute('border-radius'),
       },
       table: {
         ...(fullWidth ? {} : background),
         width: '100%',
-        'border-radius': this.getAttribute('border-radius'),
+        ...(hasBorderRadius && { 'border-collapse': 'separate' }),
       },
       td: {
         border: this.getAttribute('border'),
@@ -85,6 +86,7 @@ export default class MjSection extends BodyComponent {
         'border-left': this.getAttribute('border-left'),
         'border-right': this.getAttribute('border-right'),
         'border-top': this.getAttribute('border-top'),
+        'border-radius': this.getAttribute('border-radius'),
         direction: this.getAttribute('direction'),
         'font-size': '0px',
         padding: this.getAttribute('padding'),
@@ -97,7 +99,6 @@ export default class MjSection extends BodyComponent {
       div: {
         ...(fullWidth ? {} : background),
         margin: '0px auto',
-        'border-radius': this.getAttribute('border-radius'),
         'max-width': containerWidth,
       },
       innerDiv: {
@@ -185,6 +186,11 @@ export default class MjSection extends BodyComponent {
 
   isFullWidth() {
     return this.getAttribute('full-width') === 'full-width'
+  }
+
+  hasBorderRadius() {
+    const borderRadius = this.getAttribute('border-radius')
+    return borderRadius !== '' && typeof borderRadius !== 'undefined'
   }
 
   renderBefore() {

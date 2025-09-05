@@ -5,12 +5,18 @@ export function buildFontsTags(content, inlineStyle, fonts = {}) {
   const toImport = []
 
   forEach(fonts, (url, name) => {
-    const regex = new RegExp(`"[^"]*font-family:[^"]*${name}[^"]*"`, 'gmi')
-    const inlineRegex = new RegExp(`font-family:[^;}]*${name}`, 'gmi')
+    const urls = url.split('|')
+    urls.forEach((url) => {
+      const regex = new RegExp(`"[^"]*font-family:[^"]*${name}[^"]*"`, 'gmi')
+      const inlineRegex = new RegExp(`font-family:[^;}]*${name}`, 'gmi')
 
-    if (content.match(regex) || inlineStyle.some((s) => s.match(inlineRegex))) {
-      toImport.push(url)
-    }
+      if (
+        content.match(regex) ||
+        inlineStyle.some((s) => s.match(inlineRegex))
+      ) {
+        toImport.push(url)
+      }
+    })
   })
 
   if (toImport.length > 0) {

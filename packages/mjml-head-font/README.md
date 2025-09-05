@@ -6,6 +6,9 @@ The `href` attribute points to a hosted css file; that file contains a `@font-fa
 Example: [https://fonts
 .googleapis.com/css?family=Raleway](https://fonts.googleapis.com/css?family=Raleway)
 
+The tag supports adding multiple URLs in the `href` with a `|` delimeter. This will output separate `link` and `@import` tags for each URL added.
+
+
  ```xml
  <mjml>
    <mj-head>

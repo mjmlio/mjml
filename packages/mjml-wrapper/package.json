@@ -21,7 +21,7 @@
     "build": "babel src --out-dir lib --root-mode upward"
   },
   "dependencies": {
-    "@babel/runtime": "^7.23.9",
+    "@babel/runtime": "^7.28.4",
     "lodash": "^4.17.21",
     "mjml-core": "4.15.3",
     "mjml-section": "4.15.3"

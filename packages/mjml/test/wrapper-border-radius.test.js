@@ -23,7 +23,9 @@ const $ = load(html)
 // border radius values should be correct
 chai
   .expect(
-    $('body > div > div > table:first-child > tbody > tr > td')
+    $(
+      'body > div > div > table:first-child > tbody > tr > td, body > div > div',
+    )
       .map(function getAttr() {
         const start = $(this).attr('style').indexOf('border-radius:') + 14
         const end = $(this).attr('style').indexOf(';', start)
@@ -32,7 +34,21 @@ chai
       .get(),
     'Border-radius in CSS style values on mj-wrapper',
   )
-  .to.eql(['10px'])
+  .to.eql(['10px', '10px'])
+
+// overflow value should be correct
+chai
+  .expect(
+    $('body > div > div')
+      .map(function getAttr() {
+        const start = $(this).attr('style').indexOf('overflow:') + 9
+        const end = $(this).attr('style').indexOf(';', start)
+        return $(this).attr('style').substring(start, end)
+      })
+      .get(),
+    'Overflow in CSS style values on mj-wrapper',
+  )
+  .to.eql(['hidden'])
 
 // border collapse values should be correct
 chai

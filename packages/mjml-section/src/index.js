@@ -100,6 +100,8 @@ export default class MjSection extends BodyComponent {
         ...(fullWidth ? {} : background),
         margin: '0px auto',
         'max-width': containerWidth,
+        'border-radius': this.getAttribute('border-radius'),
+        ...(hasBorderRadius && { overflow: 'hidden' }),
       },
       innerDiv: {
         'line-height': '0',

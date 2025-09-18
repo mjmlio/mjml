@@ -1,7 +1,7 @@
 {
   "name": "mjml-core",
   "description": "mjml-core",
-  "version": "4.16.0",
+  "version": "4.16.1",
   "main": "lib/index.js",
   "files": [
     "lib"
@@ -29,9 +29,9 @@
     "js-beautify": "^1.6.14",
     "juice": "^10.0.0",
     "lodash": "^4.17.21",
-    "mjml-migrate": "4.16.0",
-    "mjml-parser-xml": "4.16.0",
-    "mjml-validator": "4.16.0"
+    "mjml-migrate": "4.16.1",
+    "mjml-parser-xml": "4.16.1",
+    "mjml-validator": "4.16.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",

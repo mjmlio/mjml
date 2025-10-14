@@ -1,6 +1,0 @@
-require('./html-attributes.test')
-require('./lazy-head-style.test')
-require('./tableWidth.test')
-require('./wrapper-border-radius.test')
-require('./accordionTitle-fontWeight.test')
-require('./html-comments.test')

@@ -8,7 +8,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "postinstall": "lerna bootstrap",
-    "prettier": "prettier --write \"packages/**/{src,bin}/**/*.?(js|json)\""
+    "prettier": "prettier --write \"packages/**/{src,bin}/**/*.?(js|json)\"",
+    "test": "mocha packages/mjml/test/*.test.js"
   },
   "workspaces": [
     "packages/*"
@@ -27,6 +28,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.21.1",
     "lerna": "^3.22.1",
+    "mocha": "10",
     "open": "^7.3.0",
     "prettier": "^3.2.4",
     "rimraf": "^3.0.2"

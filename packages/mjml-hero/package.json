@@ -1,7 +1,7 @@
 {
   "name": "mjml-hero",
   "description": "mjml-hero",
-  "version": "4.15.3",
+  "version": "4.16.1",
   "main": "lib/index.js",
   "files": [
     "lib"
@@ -21,9 +21,9 @@
     "build": "babel src --out-dir lib --root-mode upward"
   },
   "dependencies": {
-    "@babel/runtime": "^7.23.9",
+    "@babel/runtime": "^7.28.4",
     "lodash": "^4.17.21",
-    "mjml-core": "4.15.3"
+    "mjml-core": "4.16.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",

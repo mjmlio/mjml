@@ -1,17 +1,15 @@
 const chai = require('chai')
 const spies = require('chai-spies')
 const mjml = require('../lib')
+const {
+  HeadComponent,
+  registerComponent,
+} = require('../../mjml-core/lib/index')
 
 chai.use(spies)
 
 describe('lazy-head-style', function () {
   it('should call style with correct breakpoint', function () {
-    // eslint-disable-next-line global-require
-    const {
-      HeadComponent,
-      registerComponent,
-    } = require('../../mjml-core/lib/index')
-
     const addStyle = chai.spy(
       (breakpoint) => `
         @media only screen and (max-width:${breakpoint}) {

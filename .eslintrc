@@ -1,18 +1,16 @@
 {
-  "extends": [
-    "airbnb-base",
-    "prettier"
-  ],
+  "extends": ["airbnb-base", "prettier"],
   "parser": "babel-eslint",
   "rules": {
-    "comma-dangle": [ 2, "always-multiline" ],
-    "semi": [ 2, "never" ],
+    "comma-dangle": [2, "always-multiline"],
+    "semi": [2, "never"],
     "no-mixed-operators": 0,
     "no-shadow": 0,
     "no-param-reassign": 0,
-    "no-restricted-syntax": 0
+    "no-restricted-syntax": 0,
   },
   "env": {
-    "node": true
-  }
+    "node": true,
+    "mocha": true,
+  },
 }

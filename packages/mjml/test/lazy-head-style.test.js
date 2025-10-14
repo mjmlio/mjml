@@ -6,6 +6,7 @@ chai.use(spies)
 
 describe('lazy-head-style', function () {
   it('should call style with correct breakpoint', function () {
+    // eslint-disable-next-line global-require
     const {
       HeadComponent,
       registerComponent,

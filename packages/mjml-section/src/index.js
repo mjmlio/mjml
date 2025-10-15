@@ -63,7 +63,6 @@ export default class MjSection extends BodyComponent {
     return {
       ...this.context,
       containerWidth: `${box}px`,
-      'text-align': textAlign,
       align: textAlign,
     }
   }

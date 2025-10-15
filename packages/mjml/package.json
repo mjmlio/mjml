@@ -23,7 +23,7 @@
   "scripts": {
     "clean": "rimraf lib",
     "build": "babel src --out-dir lib --root-mode upward",
-    "test": "node ./test/index.js"
+    "test": "mocha ./test/*.test.js"
   },
   "dependencies": {
     "@babel/runtime": "^7.28.4",

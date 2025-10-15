@@ -36,4 +36,11 @@ export default class MjWrapper extends MjSection {
       })}
     `
   }
+
+  getChildContext() {
+    return {
+      ...this.context,
+      'text-align': this.getAttribute('text-align'),
+    }
+  }
 }

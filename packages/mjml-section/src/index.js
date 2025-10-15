@@ -41,12 +41,30 @@ export default class MjSection extends BodyComponent {
     'text-padding': '4px 4px 4px 0',
   }
 
+  resolveTextAlign() {
+    if (
+      this.props &&
+      this.props.rawAttrs &&
+      Object.prototype.hasOwnProperty.call(this.props.rawAttrs, 'text-align')
+    ) {
+      return this.getAttribute('text-align')
+    } else if (this.context['text-align']) {
+      return this.context['text-align']
+    } else {
+      return this.constructor.defaultAttributes['text-align']
+    }
+  }
+
   getChildContext() {
     const { box } = this.getBoxWidths()
+
+    const textAlign = this.resolveTextAlign()
 
     return {
       ...this.context,
       containerWidth: `${box}px`,
+      'text-align': textAlign,
+      align: textAlign,
     }
   }
 
@@ -56,6 +74,8 @@ export default class MjSection extends BodyComponent {
     const fullWidth = this.isFullWidth()
 
     const hasBorderRadius = this.hasBorderRadius()
+
+    const textAlign = this.resolveTextAlign()
 
     const background = this.getAttribute('background-url')
       ? {
@@ -78,6 +98,7 @@ export default class MjSection extends BodyComponent {
       table: {
         ...(fullWidth ? {} : background),
         width: '100%',
+        'border-radius': this.getAttribute('border-radius'),
         ...(hasBorderRadius && { 'border-collapse': 'separate' }),
       },
       td: {
@@ -94,14 +115,13 @@ export default class MjSection extends BodyComponent {
         'padding-left': this.getAttribute('padding-left'),
         'padding-right': this.getAttribute('padding-right'),
         'padding-top': this.getAttribute('padding-top'),
-        'text-align': this.getAttribute('text-align'),
+        'text-align': textAlign,
       },
       div: {
         ...(fullWidth ? {} : background),
         margin: '0px auto',
         'max-width': containerWidth,
         'border-radius': this.getAttribute('border-radius'),
-        ...(hasBorderRadius && { overflow: 'hidden' }),
       },
       innerDiv: {
         'line-height': '0',

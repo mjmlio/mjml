@@ -39,6 +39,22 @@ export default class MjText extends BodyComponent {
   }
 
   getStyles() {
+    // 1. Check if align is explicitly set on mj-text
+    let align
+    if (
+      this.props &&
+      this.props.rawAttrs &&
+      Object.prototype.hasOwnProperty.call(this.props.rawAttrs, 'align')
+    ) {
+      align = this.getAttribute('align')
+    } else if (this.context['align']) {
+      // 2. Inherit from parent context (mj-section or mj-wrapper)
+      align = this.context['align']
+    } else {
+      // 3. Fallback to default
+      align = this.constructor.defaultAttributes['align']
+    }
+
     return {
       text: {
         'font-family': this.getAttribute('font-family'),
@@ -47,7 +63,7 @@ export default class MjText extends BodyComponent {
         'font-weight': this.getAttribute('font-weight'),
         'letter-spacing': this.getAttribute('letter-spacing'),
         'line-height': this.getAttribute('line-height'),
-        'text-align': this.getAttribute('align'),
+        'text-align': align,
         'text-decoration': this.getAttribute('text-decoration'),
         'text-transform': this.getAttribute('text-transform'),
         color: this.getAttribute('color'),

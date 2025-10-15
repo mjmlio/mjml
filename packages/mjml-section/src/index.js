@@ -48,11 +48,11 @@ export default class MjSection extends BodyComponent {
       Object.prototype.hasOwnProperty.call(this.props.rawAttrs, 'text-align')
     ) {
       return this.getAttribute('text-align')
-    } else if (this.context['text-align']) {
-      return this.context['text-align']
-    } else {
-      return this.constructor.defaultAttributes['text-align']
     }
+    if (this.context['text-align']) {
+      return this.context['text-align']
+    }
+    return this.constructor.defaultAttributes['text-align']
   }
 
   getChildContext() {

@@ -47,12 +47,10 @@ export default class MjText extends BodyComponent {
       Object.prototype.hasOwnProperty.call(this.props.rawAttrs, 'align')
     ) {
       align = this.getAttribute('align')
-    } else if (this.context['align']) {
-      // 2. Inherit from parent context (mj-section or mj-wrapper)
-      align = this.context['align']
+    } else if (this.context.align) {
+      align = this.context.align
     } else {
-      // 3. Fallback to default
-      align = this.constructor.defaultAttributes['align']
+      align = this.constructor.defaultAttributes.align
     }
 
     return {

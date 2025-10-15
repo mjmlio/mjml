@@ -9,7 +9,7 @@
     "lint:fix": "eslint . --fix",
     "postinstall": "lerna bootstrap",
     "prettier": "prettier --write \"packages/**/{src,bin}/**/*.?(js|json)\"",
-    "test": "mocha packages/mjml/test/*.test.js"
+    "test": "lerna run test"
   },
   "workspaces": [
     "packages/*"

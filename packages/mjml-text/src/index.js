@@ -39,7 +39,6 @@ export default class MjText extends BodyComponent {
   }
 
   getStyles() {
-    // 1. Check if align is explicitly set on mj-text
     let align
     if (
       this.props &&
@@ -50,7 +49,7 @@ export default class MjText extends BodyComponent {
     } else if (this.context.align) {
       align = this.context.align
     } else {
-      align = this.constructor.defaultAttributes.align
+      align = MjText.defaultAttributes.align
     }
 
     return {

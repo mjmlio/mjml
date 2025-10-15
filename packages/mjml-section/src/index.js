@@ -52,7 +52,7 @@ export default class MjSection extends BodyComponent {
     if (this.context['text-align']) {
       return this.context['text-align']
     }
-    return this.constructor.defaultAttributes['text-align']
+    return MjSection.defaultAttributes['text-align']
   }
 
   getChildContext() {

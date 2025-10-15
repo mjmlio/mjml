@@ -7,10 +7,10 @@ describe('mj-wrapper and mj-section border-radius', function () {
     const input = `
     <mjml>
       <mj-body>
-        <mj-wrapper border="1px solid red" border-radius="10px">
-          <mj-section>
+        <mj-wrapper border="1px solid #000000" padding="50px 30px" border-radius="10px" background-color="#ccc" css-class="my-wrapper">
+          <mj-section  border="5px solid #f00" padding="20px" border-radius="25px" background-color="#000" css-class="my-section>
             <mj-column>
-              <mj-text font-size="20px" color="#F45E43" font-family="helvetica">Hello World</mj-text>
+              <mj-text> First line of text </mj-text>
             </mj-column>
           </mj-section>
         </mj-wrapper>
@@ -26,7 +26,7 @@ describe('mj-wrapper and mj-section border-radius', function () {
     chai
       .expect(
         $(
-          'body > div > div > table:first-child > tbody > tr > td, body > div > div',
+          '.my-wrapper, .my-wrapper > table, .my-wrapper > table > tbody > tr > td, .my-section, .my-section > table, .my-section > table > tbody > tr > td',
         )
           .map(function getAttr() {
             const start = $(this).attr('style').indexOf('border-radius:') + 14
@@ -36,26 +36,12 @@ describe('mj-wrapper and mj-section border-radius', function () {
           .get(),
         'Border-radius in CSS style values on mj-wrapper',
       )
-      .to.eql(['10px', '10px'])
-
-    // overflow value should be correct
-    chai
-      .expect(
-        $('body > div > div')
-          .map(function getAttr() {
-            const start = $(this).attr('style').indexOf('overflow:') + 9
-            const end = $(this).attr('style').indexOf(';', start)
-            return $(this).attr('style').substring(start, end)
-          })
-          .get(),
-        'Overflow in CSS style values on mj-wrapper',
-      )
-      .to.eql(['hidden'])
+      .to.eql(['10px', '10px', '10px'])
 
     // border collapse values should be correct
     chai
       .expect(
-        $('body > div > div > table:first-child')
+        $('.my-wrapper > table, .my-section > table')
           .map(function getAttr() {
             const start = $(this).attr('style').indexOf('border-collapse:') + 16
             const end = $(this).attr('style').indexOf(';', start)

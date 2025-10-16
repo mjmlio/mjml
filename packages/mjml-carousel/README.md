@@ -49,7 +49,7 @@ tb-border-radius | px | border-radius of the thumbnails | none
 tb-hover-border-color | string | css border color of the hovered thumbnail | none
 tb-selected-border-color | string | css border color of the selected thumbnail | none
 tb-width | px | thumbnail width | null
-thumbnails | String | display or not the thumbnails (visible | hidden)
+thumbnails | String | visible / hidden / supported ('supported' shows only for clients that support full carousel functionality) | visible
 
 ### mj-carousel-image
 

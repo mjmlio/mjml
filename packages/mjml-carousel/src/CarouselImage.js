@@ -66,11 +66,7 @@ export default class MjCarouselImage extends BodyComponent {
   hasThumbnailsSupported() {
     const thumbnails =
       this.getAttribute('thumbnails') || this.context.thumbnails
-    return (
-      thumbnails !== '' &&
-      typeof thumbnails !== 'undefined' &&
-      thumbnails === 'supported'
-    )
+    return thumbnails === 'supported'
   }
 
   renderThumbnail() {

@@ -45,7 +45,6 @@ export default class MjAccordionText extends BodyComponent {
       table: {
         width: '100%',
         'border-bottom': this.getAttribute('border'),
-        test: 'test',
       },
     }
   }

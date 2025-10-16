@@ -31,20 +31,21 @@ export default class MjAccordionText extends BodyComponent {
       td: {
         background: this.getAttribute('background-color'),
         'font-size': this.getAttribute('font-size'),
-        'font-family': this.getAttribute('font-family'),
+        'font-family': this.resolveFontFamily(),
         'font-weight': this.getAttribute('font-weight'),
         'letter-spacing': this.getAttribute('letter-spacing'),
         'line-height': this.getAttribute('line-height'),
         color: this.getAttribute('color'),
+        padding: this.getAttribute('padding'),
         'padding-bottom': this.getAttribute('padding-bottom'),
         'padding-left': this.getAttribute('padding-left'),
         'padding-right': this.getAttribute('padding-right'),
         'padding-top': this.getAttribute('padding-top'),
-        padding: this.getAttribute('padding'),
       },
       table: {
         width: '100%',
         'border-bottom': this.getAttribute('border'),
+        test: 'test',
       },
     }
   }
@@ -60,6 +61,23 @@ export default class MjAccordionText extends BodyComponent {
         ${this.getContent()}
       </td>
     `
+  }
+
+  resolveFontFamily() {
+    if (
+      this.props &&
+      this.props.rawAttrs &&
+      Object.prototype.hasOwnProperty.call(this.props.rawAttrs, 'font-family')
+    ) {
+      return this.getAttribute('font-family')
+    }
+    if (this.context && this.context.elementFontFamily) {
+      return this.context.elementFontFamily
+    }
+    if (this.context && this.context.accordionFontFamily) {
+      return this.context.accordionFontFamily
+    }
+    return MjAccordionText.defaultAttributes.fontFamily
   }
 
   render() {

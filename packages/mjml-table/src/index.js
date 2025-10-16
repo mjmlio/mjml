@@ -45,6 +45,7 @@ export default class MjTable extends BodyComponent {
   }
 
   getStyles() {
+    const hasCellspacing = this.hasCellspacing()
     return {
       table: {
         color: this.getAttribute('color'),
@@ -54,6 +55,7 @@ export default class MjTable extends BodyComponent {
         'table-layout': this.getAttribute('table-layout'),
         width: this.getAttribute('width'),
         border: this.getAttribute('border'),
+        ...(hasCellspacing && { 'border-collapse': 'separate' }),
       },
     }
   }
@@ -67,6 +69,12 @@ export default class MjTable extends BodyComponent {
 
     const { parsedWidth, unit } = widthParser(width)
     return unit === '%' ? width : parsedWidth
+  }
+
+  hasCellspacing() {
+    const cellspacing = this.getAttribute('cellspacing')
+    const numericValue = parseFloat(String(cellspacing).replace(/[^\d.]/g, ''))
+    return !Number.isNaN(numericValue) && numericValue > 0
   }
 
   render() {

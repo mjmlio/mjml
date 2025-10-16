@@ -74,7 +74,7 @@ export default class MjTable extends BodyComponent {
   hasCellspacing() {
     const cellspacing = this.getAttribute('cellspacing')
     const numericValue = parseFloat(String(cellspacing).replace(/[^\d.]/g, ''))
-    return numericValue > 0 && typeof cellspacing !== 'undefined'
+    return !Number.isNaN(numericValue) && numericValue > 0
   }
 
   render() {

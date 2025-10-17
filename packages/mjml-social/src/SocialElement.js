@@ -231,7 +231,6 @@ export default class MjSocialElement extends BodyComponent {
       sizes,
       href,
       'icon-size': iconSize,
-      'icon-height': iconHeight,
     } = this.getSocialAttributes()
 
     const hasLink = !!this.getAttribute('href')

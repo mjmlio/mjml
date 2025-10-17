@@ -181,6 +181,7 @@ export default class MjSocialElement extends BodyComponent {
       tdText: {
         'vertical-align': 'middle',
         padding: this.getAttribute('text-padding'),
+        'text-align': this.getAttribute('align'),
       },
       text: {
         color: this.getAttribute('color'),
@@ -263,7 +264,6 @@ export default class MjSocialElement extends BodyComponent {
                       ${this.htmlAttributes({
                         alt: this.getAttribute('alt'),
                         title: this.getAttribute('title'),
-                        height: parseInt(iconHeight || iconSize, 10),
                         src,
                         style: 'img',
                         width: parseInt(iconSize, 10),
@@ -315,7 +315,7 @@ export default class MjSocialElement extends BodyComponent {
           class: this.getAttribute('css-class'),
         })}
       >
-        ${iconPosition === 'left' ? renderLeft() : renderRight() }
+        ${iconPosition === 'left' ? renderLeft() : renderRight()}
       </tr>
     `
   }

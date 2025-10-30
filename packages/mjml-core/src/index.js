@@ -50,7 +50,49 @@ class ValidationError extends Error {
   }
 }
 
+const fs = require('fs')
+
 export default async function mjml2html(mjml, options = {}) {
+  // Merge options from .mjmlconfig.js when requested.
+  // If the caller passes useMjmlConfigOptions: true or mjmlConfigPath, load and merge file options.
+  if (isNode && (options.useMjmlConfigOptions || options.mjmlConfigPath)) {
+    try {
+      let cfgPath
+      if (options.mjmlConfigPath) {
+        if (path.isAbsolute(options.mjmlConfigPath)) {
+          cfgPath = options.mjmlConfigPath
+        } else {
+          cfgPath = path.resolve(process.cwd(), options.mjmlConfigPath)
+        }
+      } else {
+        cfgPath = path.resolve(process.cwd(), '.mjmlconfig.js')
+      }
+
+      if (fs.existsSync(cfgPath)) {
+        // expected shape: { mjmlConfig: { options: { ... } } }
+        // fallback to allowing direct options export
+        // require is fine here (cached)
+        // eslint-disable-next-line global-require, import/no-dynamic-require
+        const cfg = require(cfgPath)
+        const fileOptions =
+          (cfg && cfg.mjmlConfig && cfg.mjmlConfig.options) || cfg || {}
+
+        // merge: fileOptions are defaults, explicit `options` override them
+        options = { ...fileOptions, ...options }
+      } else {
+        // no config file found — continue with provided options
+      }
+    } catch (err) {
+      // don't throw: log and continue with provided options
+      // eslint-disable-next-line no-console
+      console.warn(
+        'Failed to load mjml config at',
+        options.mjmlConfigPath || '.mjmlconfig.js',
+        err,
+      )
+    }
+  }
+
   let content = ''
   let errors = []
 
@@ -93,7 +135,12 @@ export default async function mjml2html(mjml, options = {}) {
 
   // if mjmlConfigPath is specified then we need to register components it on each call
   if (isNode && !error && options.mjmlConfigPath) {
-    handleMjmlConfigComponents(packages, componentRootPath, registerComponent)
+    // only call handler when packages is a proper array (avoid forEach on undefined)
+    if (Array.isArray(packages) && packages.length > 0) {
+      handleMjmlConfigComponents(packages, componentRootPath, registerComponent)
+    } else {
+      // nothing to register — skip safely
+    }
   }
 
   const {
@@ -394,14 +441,43 @@ export default async function mjml2html(mjml, options = {}) {
 
   // PostProcessors
   if (minify) {
+    // Ensure user-provided minifyCss is respected and not accidentally overwritten
+    const { minifyCss: userMinifyCss, ...minifyOptionsRest } =
+      minifyOptions || {}
+
+    // console.log('minifyOptions from caller/config:', minifyOptions)
+
+    // Normalize user-provided minifyCss so htmlnano receives the same shapes
+    // it would get when using the internal defaults. If the user passed
+    // { minifyCss: { options: { preset: ... } } } unwrap the `options`
+    // so htmlnano gets { minifyCss: { preset: ... } } (or whatever cssnano expects).
+    let resolvedUserMinifyCss
+    if (typeof userMinifyCss !== 'undefined') {
+      if (userMinifyCss.options) {
+        resolvedUserMinifyCss = userMinifyCss.options
+      } else {
+        resolvedUserMinifyCss = userMinifyCss
+      }
+    } else {
+      resolvedUserMinifyCss = undefined
+    }
+
+    const htmlnanoOptions = {
+      collapseWhitespace: true,
+      // use normalized user value or fall back to the internal lite preset
+      minifyCss:
+        typeof resolvedUserMinifyCss !== 'undefined'
+          ? resolvedUserMinifyCss
+          : { preset: 'lite' },
+      removeEmptyAttributes: true,
+      minifyJs: false,
+      // spread remaining minifyOptions (other htmlnano options)
+      ...minifyOptionsRest,
+    }
+    // console.log('htmlnano resolved options:', htmlnanoOptions)
+
     content = await minifier
-      .process(content, {
-        collapseWhitespace: true,
-        minifyCSS: false,
-        removeEmptyAttributes: true,
-        minifyJs: false,
-        ...minifyOptions,
-      })
+      .process(content, htmlnanoOptions)
       .then((res) => res.html)
   } else if (beautify) {
     content = await prettier.format(content, {

@@ -1,7 +1,7 @@
 ## mj-carousel
 
 <p style="text-align: center;" >
-  <img src="https://i.imgur.com/wHqIzgd.gif" alt="desktop" />
+  <img src="https://static.mailjet.com/mjml-website/documentation/carousel-example.gif" alt="desktop" />
 </p>
 
 `mj-carousel` displays a gallery of images or "carousel". Readers can interact by hovering and clicking on thumbnails depending on the email client they use.
@@ -14,9 +14,9 @@ This component enables you to set the styles of the carousel elements.
     <mj-section>
       <mj-column>
         <mj-carousel>
-          <mj-carousel-image src="https://www.mailjet.com/wp-content/uploads/2016/11/ecommerce-guide.jpg" />
-          <mj-carousel-image src="https://www.mailjet.com/wp-content/uploads/2016/09/3@1x.png" />
-          <mj-carousel-image src="https://www.mailjet.com/wp-content/uploads/2016/09/1@1x.png" />
+          <mj-carousel-image src="https://static.mailjet.com/mjml-website/documentation/carousel-1.jpg" />
+          <mj-carousel-image src="https://static.mailjet.com/mjml-website/documentation/carousel-2.jpg" />
+          <mj-carousel-image src="https://static.mailjet.com/mjml-website/documentation/carousel-3.jpg" />
         </mj-carousel>
       </mj-column>
     </mj-section>

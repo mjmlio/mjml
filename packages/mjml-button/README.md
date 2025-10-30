@@ -1,7 +1,7 @@
 ## mj-button
 
 <p style="text-align: center;" >
-  <img src="https://cloud.githubusercontent.com/assets/6558790/12751346/fd993192-c9bc-11e5-8c91-37d616bf5874.png"
+  <img src="https://static.mailjet.com/mjml-website/documentation/button-example.png"
        alt="desktop" width="150px" />
 </p>
 

@@ -3,7 +3,7 @@
 This is a responsive email
 
 <p style="text-align: center;" >
-  <img width="300px" src="https://cloud.githubusercontent.com/assets/6558790/12751054/322b2c8c-c9bb-11e5-98b9-942f6ea4d585.png" alt="layout">
+  <img width="300px" src="https://static.mailjet.com/mjml-website/documentation/getting-started-1.png" alt="layout">
 </p>
 
 Like a regular HTML template, we can split this one into different parts to fit in a grid.
@@ -11,19 +11,19 @@ Like a regular HTML template, we can split this one into different parts to fit 
 The body of your email, represented by the `mj-body` tag contains the entire content of your document:
 
 <p style="text-align: center;" >
-  <img width="300px" src="https://cloud.githubusercontent.com/assets/6558790/12751043/1fd499c4-c9bb-11e5-828f-e0e6e18180b8.png" alt="body">
+  <img width="300px" src="https://static.mailjet.com/mjml-website/documentation/getting-started-2.png" alt="body">
 </p>
 
 From here, you can first define your sections:
 
 <p style="text-align: center;" >
-  <img width="300px" src="https://cloud.githubusercontent.com/assets/6558790/12751042/1fd191b6-c9bb-11e5-9450-cc15acec72b4.png" alt="sections">
+  <img width="300px" src="https://static.mailjet.com/mjml-website/documentation/getting-started-3.png" alt="sections">
 </p>
 
 Inside any section, there should be columns (even if you need only one column). Columns are what makes MJML responsive.
 
 <p style="text-align: center;" >
-  <img width="300px" src="https://cloud.githubusercontent.com/assets/6558790/12751041/1fd112d6-c9bb-11e5-97e7-d9c93c743c4d.png" alt="columns">
+  <img width="300px" src="https://static.mailjet.com/mjml-website/documentation/getting-started-4.png" alt="columns">
 </p>
 
 Below, you'll find some basic rules of MJML to keep in mind for later. We'll remind them when useful but better start learning them early on.

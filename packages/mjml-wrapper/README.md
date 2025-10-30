@@ -1,7 +1,7 @@
 ## mj-wrapper
 
 <p style="text-align: center;" >
-  <img src="https://i.imgur.com/6YKq83B.png" alt="wrapper" />
+  <img src="https://static.mailjet.com/mjml-website/documentation/wrapper-example.png" alt="wrapper" />
 </p>
 
 Wrapper enables to wrap multiple sections together. It's especially useful to achieve nested layouts with shared border or background images across sections.

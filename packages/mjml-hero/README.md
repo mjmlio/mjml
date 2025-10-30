@@ -20,7 +20,7 @@ Use `background-color` to provide a fallback color
 Fixed height
 
 <p style="text-align: center;" >
-  <img src="https://cloud.githubusercontent.com/assets/1830348/15354833/bfe7faaa-1cef-11e6-8d38-15e8951b6636.png"
+  <img src="https://static.mailjet.com/mjml-website/documentation/hero-example-1.png"
      alt="demo background picture with fixed height" />
 </p>
 
@@ -33,7 +33,7 @@ Fixed height
       background-width="600px"
       background-height="469px"
       background-url=
-          "https://cloud.githubusercontent.com/assets/1830348/15354890/1442159a-1cf0-11e6-92b1-b861dadf1750.jpg"
+          "https://static.mailjet.com/mjml-website/documentation/hero.jpg"
       background-color="#2a3448"
       padding="100px 0px">
       <mj-text
@@ -63,7 +63,7 @@ Fixed height
 Fluid height
 
 <p style="text-align: center;" >
-  <img src="https://cloud.githubusercontent.com/assets/1830348/15354867/fc2f404a-1cef-11e6-92ac-92de9e438210.png"
+  <img src="https://static.mailjet.com/mjml-website/documentation/hero-example-2.png"
       alt="demo background picture with fixed height" />
 </p>
 
@@ -75,7 +75,7 @@ Fluid height
       background-width="600px"
       background-height="469px"
       background-url=
-          "https://cloud.githubusercontent.com/assets/1830348/15354890/1442159a-1cf0-11e6-92b1-b861dadf1750.jpg"
+          "https://static.mailjet.com/mjml-website/documentation/hero.jpg"
       background-color="#2a3448"
       padding="100px 0px">
       <mj-text

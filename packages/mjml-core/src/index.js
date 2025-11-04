@@ -10,7 +10,6 @@ import {
   each,
   isEmpty,
 } from 'lodash'
-import path from 'path'
 import juice from 'juice'
 import { load } from 'cheerio'
 import prettier from 'prettier'
@@ -50,62 +49,18 @@ class ValidationError extends Error {
   }
 }
 
-const fs = require('fs')
-
 export default async function mjml2html(mjml, options = {}) {
-  // Merge options from .mjmlconfig.js when requested.
-  // If the caller passes useMjmlConfigOptions: true or mjmlConfigPath, load and merge file options.
-  if (isNode && (options.useMjmlConfigOptions || options.mjmlConfigPath)) {
-    try {
-      let cfgPath
-      if (options.mjmlConfigPath) {
-        if (path.isAbsolute(options.mjmlConfigPath)) {
-          cfgPath = options.mjmlConfigPath
-        } else {
-          cfgPath = path.resolve(process.cwd(), options.mjmlConfigPath)
-        }
-      } else {
-        cfgPath = path.resolve(process.cwd(), '.mjmlconfig.js')
-      }
-
-      if (fs.existsSync(cfgPath)) {
-        // expected shape: { mjmlConfig: { options: { ... } } }
-        // fallback to allowing direct options export
-        // require is fine here (cached)
-        // eslint-disable-next-line global-require, import/no-dynamic-require
-        const cfg = require(cfgPath)
-        const fileOptions =
-          (cfg && cfg.mjmlConfig && cfg.mjmlConfig.options) || cfg || {}
-
-        // merge: fileOptions are defaults, explicit `options` override them
-        options = { ...fileOptions, ...options }
-      } else {
-        // no config file found — continue with provided options
-      }
-    } catch (err) {
-      // don't throw: log and continue with provided options
-      // eslint-disable-next-line no-console
-      console.warn(
-        'Failed to load mjml config at',
-        options.mjmlConfigPath || '.mjmlconfig.js',
-        err,
-      )
-    }
-  }
-
   let content = ''
   let errors = []
 
+  // Resolve skeleton path if in Node.js
   if (isNode && typeof options.skeleton === 'string') {
-    /* eslint-disable global-require */
-    /* eslint-disable import/no-dynamic-require */
-    options.skeleton = require(
-      options.skeleton.charAt(0) === '.'
-        ? path.resolve(process.cwd(), options.skeleton)
-        : options.skeleton,
-    )
-    /* eslint-enable global-require */
-    /* eslint-enable import/no-dynamic-require */
+    // eslint-disable-next-line global-require
+    const path = require('path')
+    const sk = options.skeleton
+    const resolved = path.isAbsolute(sk) ? sk : path.resolve(process.cwd(), sk)
+    // eslint-disable-next-line global-require, import/no-dynamic-require
+    options.skeleton = require(resolved)
   }
 
   let packages = {}
@@ -115,32 +70,57 @@ export default async function mjml2html(mjml, options = {}) {
   let error = null
   let componentRootPath = null
 
+  // Use the existing readMjmlConfig helper
   if ((isNode && options.useMjmlConfigOptions) || options.mjmlConfigPath) {
     const mjmlConfigContent = readMjmlConfig(options.mjmlConfigPath)
 
-    ;({
-      mjmlConfig: {
-        packages,
-        options: confOptions,
-        preprocessors: confPreprocessors,
-      },
-      componentRootPath,
-      error,
-    } = mjmlConfigContent)
+    if (mjmlConfigContent) {
+      // The options can be nested one or two levels deep.
+      // This safely gets the options from either structure.
+      confOptions =
+        get(mjmlConfigContent, 'mjmlConfig.mjmlConfig.options') || // For double-nested structure
+        get(mjmlConfigContent, 'mjmlConfig.options') || // For single-nested structure
+        get(mjmlConfigContent, 'options') || // If options are at the top level
+        confOptions
+
+      // This safely gets packages and preprocessors
+      const packagesWrapper =
+        get(mjmlConfigContent, 'mjmlConfig.mjmlConfig') ||
+        get(mjmlConfigContent, 'mjmlConfig') ||
+        mjmlConfigContent
+      packages = packagesWrapper.packages || packages
+      confPreprocessors = packagesWrapper.preprocessors || confPreprocessors
+
+      componentRootPath =
+        mjmlConfigContent.componentRootPath || componentRootPath
+      error = mjmlConfigContent.error || error
+    }
 
     if (options.useMjmlConfigOptions) {
-      mjmlConfigOptions = confOptions
+      mjmlConfigOptions = confOptions || {}
     }
   }
 
   // if mjmlConfigPath is specified then we need to register components it on each call
   if (isNode && !error && options.mjmlConfigPath) {
-    // only call handler when packages is a proper array (avoid forEach on undefined)
     if (Array.isArray(packages) && packages.length > 0) {
       handleMjmlConfigComponents(packages, componentRootPath, registerComponent)
-    } else {
-      // nothing to register — skip safely
     }
+  }
+
+  // Merge config options with explicit options (explicit wins)
+  const mergedOptions = {
+    ...mjmlConfigOptions,
+    ...options,
+    // Deep merge minifyOptions
+    minifyOptions: {
+      ...(mjmlConfigOptions.minifyOptions || {}),
+      ...(options.minifyOptions || {}),
+    },
+    // Merge preprocessors arrays
+    preprocessors: options.preprocessors
+      ? [...confPreprocessors, ...options.preprocessors]
+      : confPreprocessors,
   }
 
   const {
@@ -156,7 +136,7 @@ export default async function mjml2html(mjml, options = {}) {
     },
     keepComments,
     minify = true,
-    minifyOptions = {},
+    minifyOptions,
     ignoreIncludes = false,
     juiceOptions = {},
     juicePreserveTags = null,
@@ -167,13 +147,7 @@ export default async function mjml2html(mjml, options = {}) {
     preprocessors,
     presets = [],
     printerSupport = false,
-  } = {
-    ...mjmlConfigOptions,
-    ...options,
-    preprocessors: options.preprocessors
-      ? [...confPreprocessors, ...options.preprocessors]
-      : confPreprocessors,
-  }
+  } = mergedOptions
 
   const components = { ...globalComponents }
   const dependencies = assignDependencies({}, globalDependencies)
@@ -441,16 +415,9 @@ export default async function mjml2html(mjml, options = {}) {
 
   // PostProcessors
   if (minify) {
-    // Ensure user-provided minifyCss is respected and not accidentally overwritten
     const { minifyCss: userMinifyCss, ...minifyOptionsRest } =
       minifyOptions || {}
 
-    // console.log('minifyOptions from caller/config:', minifyOptions)
-
-    // Normalize user-provided minifyCss so htmlnano receives the same shapes
-    // it would get when using the internal defaults. If the user passed
-    // { minifyCss: { options: { preset: ... } } } unwrap the `options`
-    // so htmlnano gets { minifyCss: { preset: ... } } (or whatever cssnano expects).
     let resolvedUserMinifyCss
     if (typeof userMinifyCss !== 'undefined') {
       if (userMinifyCss.options) {
@@ -464,17 +431,14 @@ export default async function mjml2html(mjml, options = {}) {
 
     const htmlnanoOptions = {
       collapseWhitespace: true,
-      // use normalized user value or fall back to the internal lite preset
       minifyCss:
         typeof resolvedUserMinifyCss !== 'undefined'
           ? resolvedUserMinifyCss
           : { preset: 'lite' },
       removeEmptyAttributes: true,
       minifyJs: false,
-      // spread remaining minifyOptions (other htmlnano options)
       ...minifyOptionsRest,
     }
-    // console.log('htmlnano resolved options:', htmlnanoOptions)
 
     content = await minifier
       .process(content, htmlnanoOptions)

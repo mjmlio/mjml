@@ -1,0 +1,52 @@
+name: Publish Package to NPM
+on:
+  workflow_dispatch:
+    inputs:
+      release_type:
+        description: 'Version bump type'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          registry-url: 'https://registry.npmjs.org'
+      - run: yarn install
+      - run: yarn build
+      - run: yarn build-browser
+      - name: Configure git user
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+      - name: Bump version
+        id: bump
+        run: |
+          yarn lerna version ${{ github.event.inputs.release_type }} --no-push --no-git-tag-version --yes --no-private --force-publish
+          NEW_VERSION=$(jq -r '.version' lerna.json)
+          echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
+      - name: Commit & tag release
+        run: |
+          git add lerna.json packages/*/package.json
+          git commit -m "chore(release): v${{ steps.bump.outputs.version }}"
+          git push origin HEAD
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.bump.outputs.version }}
+          generate_release_notes: true
+      - name: Publish packages to NPM
+        run: yarn lerna exec npm publish

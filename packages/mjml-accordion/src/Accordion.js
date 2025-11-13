@@ -70,6 +70,13 @@ export default class MjAccordion extends BodyComponent {
     }
   }
 
+  getChildContext() {
+    return {
+      ...this.context,
+      accordionFontFamily: this.getAttribute('font-family'),
+    }
+  }
+
   render() {
     const childrenAttr = [
       'border',

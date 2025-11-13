@@ -91,6 +91,13 @@ export default class MjAccordionElement extends BodyComponent {
     return result.join('\n')
   }
 
+  getChildContext() {
+    return {
+      ...this.context,
+      elementFontFamily: this.getAttribute('font-family'),
+    }
+  }
+
   render() {
     return `
       <tr

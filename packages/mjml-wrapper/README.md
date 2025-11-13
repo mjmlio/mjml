@@ -64,6 +64,7 @@ border-right        | string      | css border format              | n/a
 border-top          | string      | css border format              | n/a
 css-class           | string      | class name, added to the root HTML element created | n/a
 full-width          | string      | make the wrapper full-width    | n/a
+gap                 | px          | applies a vertical gap between child mj-sections   | n/a
 padding             | px          | supports up to 4 parameters    | 20px 0
 padding-bottom      | px          | section bottom offset          | n/a
 padding-left        | px          | section left offset            | n/a

@@ -47,6 +47,7 @@ export default class MjSection extends BodyComponent {
     return {
       ...this.context,
       containerWidth: `${box}px`,
+      gap: this.getAttribute('gap'),
     }
   }
 
@@ -56,6 +57,8 @@ export default class MjSection extends BodyComponent {
     const fullWidth = this.isFullWidth()
 
     const hasBorderRadius = this.hasBorderRadius()
+
+    const isFirstSection = this.props.index === 0
 
     const background = this.getAttribute('background-url')
       ? {
@@ -102,6 +105,7 @@ export default class MjSection extends BodyComponent {
         'max-width': containerWidth,
         'border-radius': this.getAttribute('border-radius'),
         ...(hasBorderRadius && { overflow: 'hidden' }),
+        'margin-top': !isFirstSection ? this.context.gap : undefined,
       },
       innerDiv: {
         'line-height': '0',
@@ -195,11 +199,20 @@ export default class MjSection extends BodyComponent {
     return borderRadius !== '' && typeof borderRadius !== 'undefined'
   }
 
+  hasGap() {
+    const { gap } = this.context
+    return gap != null && gap !== ''
+  }
+
   renderBefore() {
     const { containerWidth } = this.context
     const bgcolorAttr = this.getAttribute('background-color')
       ? { bgcolor: this.getAttribute('background-color') }
       : {}
+
+    const isFirstSection = this.props.index === 0
+
+    const hasGap = this.hasGap()
 
     return `
       <!--[if mso | IE]>
@@ -211,9 +224,12 @@ export default class MjSection extends BodyComponent {
           cellspacing: '0',
           class: suffixCssClasses(this.getAttribute('css-class'), 'outlook'),
           role: 'presentation',
-          style: { width: `${containerWidth}` },
+          style: {
+            width: `${containerWidth}`,
+            'padding-top': !isFirstSection ? this.context.gap : undefined,
+          },
           width: parseInt(containerWidth, 10),
-          ...bgcolorAttr,
+          ...(!hasGap && { ...bgcolorAttr }),
         })}
       >
         <tr>

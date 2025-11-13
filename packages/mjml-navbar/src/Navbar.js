@@ -81,11 +81,11 @@ export default class MjNavbar extends BodyComponent {
         'text-transform': this.getAttribute('ico-text-transform'),
         'text-decoration': this.getAttribute('ico-text-decoration'),
         'line-height': this.getAttribute('ico-line-height'),
+        padding: this.getAttribute('ico-padding'),
         'padding-top': this.getAttribute('ico-padding-top'),
         'padding-right': this.getAttribute('ico-padding-right'),
         'padding-bottom': this.getAttribute('ico-padding-bottom'),
         'padding-left': this.getAttribute('ico-padding-left'),
-        padding: this.getAttribute('ico-padding'),
       },
       trigger: {
         display: 'none',

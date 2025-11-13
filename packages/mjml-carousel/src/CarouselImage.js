@@ -24,6 +24,7 @@ export default class MjCarouselImage extends BodyComponent {
   }
 
   getStyles() {
+    const hasThumbnailsSupported = this.hasThumbnailsSupported()
     return {
       images: {
         img: {
@@ -49,7 +50,7 @@ export default class MjCarouselImage extends BodyComponent {
         a: {
           border: this.getAttribute('tb-border'),
           'border-radius': this.getAttribute('tb-border-radius'),
-          display: 'inline-block',
+          display: hasThumbnailsSupported ? 'none' : 'inline-block',
           overflow: 'hidden',
           width: this.getAttribute('tb-width'),
         },
@@ -60,6 +61,12 @@ export default class MjCarouselImage extends BodyComponent {
         },
       },
     }
+  }
+
+  hasThumbnailsSupported() {
+    const thumbnails =
+      this.getAttribute('thumbnails') || this.context.thumbnails
+    return thumbnails === 'supported'
   }
 
   renderThumbnail() {

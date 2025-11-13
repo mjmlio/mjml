@@ -49,4 +49,4 @@ jobs:
           tag_name: v${{ steps.bump.outputs.version }}
           generate_release_notes: true
       - name: Publish packages to NPM
-        run: yarn lerna exec npm publish
+        run: yarn lerna publish from-package --yes

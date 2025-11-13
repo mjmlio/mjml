@@ -8,6 +8,5 @@
     }
   },
   "npmClient": "yarn",
-  "useWorkspaces": true,
   "version": "4.16.1"
 }

@@ -1,9 +1,10 @@
 const chai = require('chai')
 const { load } = require('cheerio')
 const mjml = require('../lib')
+const { extractStyle } = require('./utils')
 
 describe('mj-table cellspacing', function () {
-  it('should render correct cellspacing (and border-collapse) in HTML tag / CSS style values on mj-table', function () {
+  it('should render correct cellspacing (and border-collapse) in HTML tag / CSS style values on mj-table', async function () {
     const input = `
     <mjml>
       <mj-body>
@@ -27,7 +28,7 @@ describe('mj-table cellspacing', function () {
     </mjml>
     `
 
-    const { html } = mjml(input)
+    const { html } = await mjml(input)
 
     const $ = load(html)
 
@@ -48,9 +49,8 @@ describe('mj-table cellspacing', function () {
       .expect(
         $('.my-table > table')
           .map(function getAttr() {
-            const start = $(this).attr('style').indexOf('border-collapse:') + 16
-            const end = $(this).attr('style').indexOf(';', start)
-            return $(this).attr('style').substring(start, end)
+            const style = $(this).attr('style')
+            return extractStyle(style, 'border-collapse')
           })
           .get(),
         'Border-collapse in CSS style values on mj-table',

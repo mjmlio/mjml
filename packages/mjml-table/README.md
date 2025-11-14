@@ -60,4 +60,4 @@ padding-right               | percent/px                  | right offset        
 padding-top                 | percent/px                  | top offset                     | n/a
 role                        | none/presentation           | specify the role attribute     | n/a
 table-layout                | auto/fixed/initial/inherit  | sets the table layout.         | auto
-width                       | percent/px                  | table width                    | 100%
+width                       | percent/px/auto             | table width                    | 100%

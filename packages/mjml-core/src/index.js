@@ -288,6 +288,7 @@ export default async function mjml2html(mjml, options = {}) {
           ...defaultAttributesForClasses,
           ...omit(attributes, ['mj-class']),
         },
+        rawAttrs: { ...omit(attributes, ['mj-class']) },
         globalAttributes: {
           ...globalData.defaultAttributes['mj-all'],
         },

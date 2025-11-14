@@ -56,6 +56,7 @@ class Component {
       props = {},
       globalAttributes = {},
       absoluteFilePath = null,
+      rawAttrs = {},
     } = initialDatas
 
     this.props = {
@@ -63,6 +64,7 @@ class Component {
       ...props,
       children,
       content,
+      rawAttrs,
     }
 
     this.attributes = formatAttributes(
@@ -207,10 +209,12 @@ export class BodyComponent extends Component {
     children = children || this.props.children
 
     if (rawXML) {
-      return children.map((child) => {
-        child.attributes = {...attributes, ...child.attributes}
-        return jsonToXML(child)
-      }).join('\n')
+      return children
+        .map((child) => {
+          child.attributes = { ...attributes, ...child.attributes }
+          return jsonToXML(child)
+        })
+        .join('\n')
     }
 
     const sibling = children.length

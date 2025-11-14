@@ -26,6 +26,11 @@ For instance, the `mj-button` component is, on the inside, a complex HTML layout
 </table>
 ```
 
+## Which email clients/versions are supported?
+
+For full details of component support, [please visit our support matrix](https://mjml.io/compatibility).
+
+
 ## mjml
 
 A MJML document starts with a `<mjml>` tag, it can contain only `mj-head` and `mj-body` tags. Both have the same purpose of `head` and `body` in a HTML document.

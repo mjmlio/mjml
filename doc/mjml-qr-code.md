@@ -5,6 +5,6 @@ This component displays QR codes in your email.  It's available on [Github](http
 By default, mj-qr-code uses the open-source QuickChart [QR code API](https://quickchart.io/).
 
 <p style="text-align: center;" >
-  <img src="https://quickchart.io/qr?text=mjml is easy!" alt="mj-qr-code demo" />
+  <img src="https://static.mailjet.com/mjml-website/documentation/qr-code-example.webp" alt="mj-qr-code demo" />
 </p>
 

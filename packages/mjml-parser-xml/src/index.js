@@ -319,7 +319,7 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
           cur.children.push({
             line: findLastIndex(lineIndexes, (i) => i <= parser.startIndex) + 1,
             tagName: 'mj-raw',
-            content: `<!-- ${data.trim()} -->`,
+            content: `<!--${data}-->`,
             includedIn,
           })
         }

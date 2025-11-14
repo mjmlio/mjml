@@ -68,6 +68,9 @@ export default class MjColumn extends BodyComponent {
   }
 
   getStyles() {
+    const hasBorderRadius = this.hasBorderRadius()
+    const hasInnerBorderRadius = this.hasInnerBorderRadius()
+
     const tableStyle = {
       'background-color': this.getAttribute('background-color'),
       border: this.getAttribute('border'),
@@ -77,6 +80,7 @@ export default class MjColumn extends BodyComponent {
       'border-right': this.getAttribute('border-right'),
       'border-top': this.getAttribute('border-top'),
       'vertical-align': this.getAttribute('vertical-align'),
+      ...(hasBorderRadius && { 'border-collapse': 'separate' }),
     }
 
     return {
@@ -100,6 +104,7 @@ export default class MjColumn extends BodyComponent {
               'border-top': this.getAttribute('inner-border-top'),
             }
           : tableStyle),
+        ...(hasInnerBorderRadius && { 'border-collapse': 'separate' }),
       },
       tdOutlook: {
         'vertical-align': this.getAttribute('vertical-align'),
@@ -202,6 +207,16 @@ export default class MjColumn extends BodyComponent {
     return className
   }
 
+  hasBorderRadius() {
+    const borderRadius = this.getAttribute('border-radius')
+    return borderRadius !== '' && typeof borderRadius !== 'undefined'
+  }
+
+  hasInnerBorderRadius() {
+    const innerBorderRadius = this.getAttribute('inner-border-radius')
+    return innerBorderRadius !== '' && typeof innerBorderRadius !== 'undefined'
+  }
+
   hasGutter() {
     return [
       'padding',
@@ -213,6 +228,8 @@ export default class MjColumn extends BodyComponent {
   }
 
   renderGutter() {
+    const hasBorderRadius = this.hasBorderRadius()
+
     return `
       <table
         ${this.htmlAttributes({
@@ -221,6 +238,9 @@ export default class MjColumn extends BodyComponent {
           cellspacing: '0',
           role: 'presentation',
           width: '100%',
+          ...(hasBorderRadius && {
+            style: { 'border-collapse': 'separate' },
+          }),
         })}
       >
         <tbody>

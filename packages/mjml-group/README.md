@@ -3,13 +3,13 @@
 
 <p style="text-align: center;" >
   Desktop<br />
-  <img src="https://cloud.githubusercontent.com/assets/570317/15677458/a6ad2c1c-274a-11e6-8fdf-6853d748ef27.png"
+  <img src="https://static.mailjet.com/mjml-website/documentation/group-example-1.png"
        alt="easy and quick; responsive" />
 </p>
 
 <p style="text-align: center;" >
   Mobile<br />
-  <img src="https://cloud.githubusercontent.com/assets/570317/15677396/6bb62708-274a-11e6-8c59-0d8b3944a2ae.png"
+  <img src="https://static.mailjet.com/mjml-website/documentation/group-example-2.png"
       alt="easy and quick; responsive" />
 </p>
 
@@ -21,14 +21,14 @@ mj-group allows you to prevent columns from stacking on mobile. To do so, wrap t
     <mj-section>
       <mj-group>
         <mj-column>
-          <mj-image width="137px" height="185px" padding="0"    src="https://mjml.io/assets/img/easy-and-quick.png" />
+          <mj-image width="137px" height="185px" padding="0" src="https://static.mailjet.com/mjml-website/documentation/group-1.png" />
           <mj-text align="center">
             <h2>Easy and quick</h2>
             <p>Write less code, save time and code more efficiently with MJML’s semantic syntax.</p>
           </mj-text>
         </mj-column>
         <mj-column>
-          <mj-image width="166px" height="185px" padding="0" src="https://mjml.io/assets/img/responsive.png" />
+          <mj-image width="166px" height="185px" padding="0" src="https://static.mailjet.com/mjml-website/documentation/group-2.png" />
           <mj-text align="center">
             <h2>Responsive</h2>
             <p>MJML is responsive by design on most-popular email clients, even Outlook.</p>

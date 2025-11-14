@@ -23,10 +23,10 @@
   "scripts": {
     "clean": "rimraf lib",
     "build": "babel src --out-dir lib --root-mode upward",
-    "test": "node ./test/index.js"
+    "test": "mocha ./test/*.test.js"
   },
   "dependencies": {
-    "@babel/runtime": "^7.23.9",
+    "@babel/runtime": "^7.28.4",
     "mjml-cli": "5.0.0-alpha.6",
     "mjml-core": "5.0.0-alpha.6",
     "mjml-preset-core": "5.0.0-alpha.6",

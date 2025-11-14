@@ -6,7 +6,7 @@ In this section, you're going to learn how to code a basic email template using 
 Here is the final render we want to end with:
 
 <p style="text-align: center;" >
-  <a href="https://mjml.io/try-it-live/templates/basic"><img width="350px" src="https://cloud.githubusercontent.com/assets/6558790/12779864/d9c20556-ca6a-11e5-9007-d40ac89c5088.png" alt="sexy"></a>
+  <a href="https://mjml.io/try-it-live/templates/basic"><img width="350px" src="https://static.mailjet.com/mjml-website/documentation/basic-layout-example.png" alt="sexy"></a>
 </p>
 
 <p style="text-align: center;" >
@@ -51,10 +51,10 @@ First, we will implement the skeleton which are the sections. Here, our email is
 <!-- Company Header -->
 <mj-section background-color="#f0f0f0">
   <mj-column>
-    <mj-text  align="center"
-	      font-style="italic"
-              font-size="20px"
-              color="#626262">
+    <mj-text align="center"
+             font-style="italic"
+             font-size="20px"
+             color="#626262">
       My Company
     </mj-text>
   </mj-column>
@@ -78,18 +78,17 @@ The text padding represents the inner space around the content within the `mj-te
               background-repeat="no-repeat">
 
     <mj-column width="600px">
-	<mj-text  align="center"
-                  color="#fff"
-                  font-size="40px"
-                  font-family="Helvetica Neue">
-	  Slogan here
-	</mj-text>
+      <mj-text align="center"
+               color="#fff"
+               font-size="40px"
+               font-family="Helvetica Neue">
+        Slogan here
+      </mj-text>
 
       <mj-button background-color="#F63A4D"
                  href="#">
       	Promotion
       </mj-button>
-
     </mj-column>
 
   </mj-section>
@@ -109,20 +108,21 @@ In order to have the background rendered full-width in the column, set the colum
 
 <!-- Intro text -->
   <mj-section background-color="#fafafa">
-    	<mj-column width="400px">
+    <mj-column width="400px">
+      <mj-text font-style="italic"
+               font-size="20px"
+               font-family="Helvetica Neue"
+               color="#626262">
+        My Awesome Text
+      </mj-text>
+      <mj-text color="#525252">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum enim eget magna efficitur, eu semper augue semper. Aliquam erat volutpat. Cras id dui lectus. Vestibulum sed finibus lectus, sit amet suscipit nibh. Proin nec commodo purus. Sed eget nulla elit. Nulla aliquet mollis faucibus.
+      </mj-text>
 
-          <mj-text font-style="italic"
-                   font-size="20px"
-                   font-family="Helvetica Neue"
-                   color="#626262">My Awesome Text</mj-text>
-
-      		<mj-text color="#525252">
-          		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum enim eget magna efficitur, eu semper augue semper. Aliquam erat volutpat. Cras id dui lectus. Vestibulum sed finibus lectus, sit amet suscipit nibh. Proin nec commodo purus. Sed eget nulla elit. Nulla aliquet mollis faucibus.
-          </mj-text>
-
-        	<mj-button background-color="#F45E43"
-                     href="#">Learn more</mj-button>
-
+      <mj-button background-color="#F45E43"
+                 href="#">
+        Learn more
+      </mj-button>
     </mj-column>
   </mj-section>
 
@@ -154,7 +154,8 @@ The title is a regular `mj-text` that can be customized.
       </mj-text>
 
       <mj-text color="#525252">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum enim eget magna efficitur, eu semper augue semper. Aliquam erat volutpat. Cras id dui lectus. Vestibulum sed finibus lectus.</mj-text>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum enim eget magna efficitur, eu semper augue semper. Aliquam erat volutpat. Cras id dui lectus. Vestibulum sed finibus lectus.
+      </mj-text>
 
   </mj-column>
 </mj-section>

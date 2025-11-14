@@ -22,7 +22,7 @@
     "test": "node ./tests/index.js"
   },
   "dependencies": {
-    "@babel/runtime": "^7.23.9",
+    "@babel/runtime": "^7.28.4",
     "cheerio": "1.0.0",
     "cssnano": "^7.0.6",
     "detect-node": "^2.0.4",

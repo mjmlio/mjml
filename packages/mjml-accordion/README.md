@@ -1,7 +1,7 @@
 ## mj-accordion
 
 <p style="text-align: center;" >
-  <img src="https://i.imgur.com/C4S9MVc.gif" alt="accordion" />
+  <img src="https://static.mailjet.com/mjml-website/documentation/accordion-example.gif" alt="accordion" />
 </p>
 
 `mj-accordion` is an interactive MJML component to stack content in tabs, so the information is collapsed and only the titles are visible. Readers can interact by clicking on the tabs to reveal the content, providing a great experience on mobile devices where space is scarce.
@@ -16,7 +16,7 @@
   <mj-head>
     <mj-attributes>
       <mj-accordion border="none" padding="1px" />
-      <mj-accordion-element icon-wrapped-url="https://i.imgur.com/Xvw0vjq.png" icon-unwrapped-url="https://i.imgur.com/KKHenWa.png" icon-height="24px" icon-width="24px" />
+      <mj-accordion-element icon-wrapped-url="https://static.mailjet.com/mjml-website/documentation/accordion-arrow-down.png" icon-unwrapped-url="https://static.mailjet.com/mjml-website/documentation/accordion-arrow-up.png" icon-height="24px" icon-width="24px" />
       <mj-accordion-title font-family="Roboto, Open Sans, Helvetica, Arial, sans-serif" background-color="#fff" color="#031017" padding="15px" font-size="18px" />
       <mj-accordion-text font-family="Open Sans, Helvetica, Arial, sans-serif" background-color="#fafafa" padding="15px" color="#505050" font-size="14px" />
     </mj-attributes>
@@ -111,6 +111,7 @@ color | n/a | text color | n/a
 css-class | string | class name, added to the root HTML element created | n/a
 font-family | n/a | font family | Ubuntu, Helvetica, Arial, sans-serif
 font-size | px | font size | 13px
+font-weight | string | text thickness | n/a
 padding | px | padding | 16px
 padding-bottom | px | padding bottom | n/a
 padding-left | px | padding left | n/a
@@ -128,7 +129,7 @@ color | n/a | text color | n/a
 css-class | string | class name, added to the root HTML element created | n/a
 font-family | n/a | font family | Ubuntu, Helvetica, Arial, sans-serif
 font-size | px | font size | 13px
-font-weight | number | text thickness | n/a
+font-weight | string | text thickness | n/a
 letter-spacing | px,em | letter spacing | none
 line-height | px | space between the lines | 1
 padding | px | padding | 16px

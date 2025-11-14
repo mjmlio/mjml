@@ -1,9 +1,10 @@
 const chai = require('chai')
 const { load } = require('cheerio')
 const mjml = require('../lib')
+const { extractStyle } = require('./utils')
 
 describe('mj-accordion padding-X', function () {
-  it('should render correct padding in CSS style values on accordion-title and accordion-text', function () {
+  it('should render correct padding in CSS style values on accordion-title and accordion-text', async function () {
     const input = `
     <mjml>
       <mj-body>
@@ -23,14 +24,8 @@ describe('mj-accordion padding-X', function () {
     </mjml>
     `
 
-    const { html } = mjml(input)
+    const { html } = await mjml(input)
     const $ = load(html)
-
-    function extractPadding(style, prop) {
-      const start = style.indexOf(`${prop}:`) + prop.length + 1
-      const end = style.indexOf(';', start)
-      return style.substring(start, end).trim()
-    }
 
     const paddings = [
       'padding-left',
@@ -44,7 +39,7 @@ describe('mj-accordion padding-X', function () {
       )
         .map(function () {
           const style = $(this).attr('style')
-          return extractPadding(style, padding)
+          return extractStyle(style, padding)
         })
         .get(),
     )

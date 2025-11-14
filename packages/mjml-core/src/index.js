@@ -10,18 +10,16 @@ import {
   each,
   isEmpty,
 } from 'lodash'
-import path from 'path'
 import juice from 'juice'
-import { html as htmlBeautify } from 'js-beautify'
-import { minify as htmlMinify } from 'html-minifier'
 import { load } from 'cheerio'
+import prettier from 'prettier'
+import minifier from 'htmlnano'
 
 import MJMLParser from 'mjml-parser-xml'
 import MJMLValidator, {
   dependencies as globalDependencies,
   assignDependencies,
 } from 'mjml-validator'
-import { handleMjml3 } from 'mjml-migrate'
 
 import { initComponent } from './createComponent'
 import globalComponents, {
@@ -51,20 +49,18 @@ class ValidationError extends Error {
   }
 }
 
-export default function mjml2html(mjml, options = {}) {
+export default async function mjml2html(mjml, options = {}) {
   let content = ''
   let errors = []
 
+  // Resolve skeleton path if in Node.js
   if (isNode && typeof options.skeleton === 'string') {
-    /* eslint-disable global-require */
-    /* eslint-disable import/no-dynamic-require */
-    options.skeleton = require(
-      options.skeleton.charAt(0) === '.'
-        ? path.resolve(process.cwd(), options.skeleton)
-        : options.skeleton,
-    )
-    /* eslint-enable global-require */
-    /* eslint-enable import/no-dynamic-require */
+    // eslint-disable-next-line global-require
+    const path = require('path')
+    const sk = options.skeleton
+    const resolved = path.isAbsolute(sk) ? sk : path.resolve(process.cwd(), sk)
+    // eslint-disable-next-line global-require, import/no-dynamic-require
+    options.skeleton = require(resolved)
   }
 
   let packages = {}
@@ -74,27 +70,57 @@ export default function mjml2html(mjml, options = {}) {
   let error = null
   let componentRootPath = null
 
+  // Use the existing readMjmlConfig helper
   if ((isNode && options.useMjmlConfigOptions) || options.mjmlConfigPath) {
     const mjmlConfigContent = readMjmlConfig(options.mjmlConfigPath)
 
-    ;({
-      mjmlConfig: {
-        packages,
-        options: confOptions,
-        preprocessors: confPreprocessors,
-      },
-      componentRootPath,
-      error,
-    } = mjmlConfigContent)
+    if (mjmlConfigContent) {
+      // The options can be nested one or two levels deep.
+      // This safely gets the options from either structure.
+      confOptions =
+        get(mjmlConfigContent, 'mjmlConfig.mjmlConfig.options') || // For double-nested structure
+        get(mjmlConfigContent, 'mjmlConfig.options') || // For single-nested structure
+        get(mjmlConfigContent, 'options') || // If options are at the top level
+        confOptions
+
+      // This safely gets packages and preprocessors
+      const packagesWrapper =
+        get(mjmlConfigContent, 'mjmlConfig.mjmlConfig') ||
+        get(mjmlConfigContent, 'mjmlConfig') ||
+        mjmlConfigContent
+      packages = packagesWrapper.packages || packages
+      confPreprocessors = packagesWrapper.preprocessors || confPreprocessors
+
+      componentRootPath =
+        mjmlConfigContent.componentRootPath || componentRootPath
+      error = mjmlConfigContent.error || error
+    }
 
     if (options.useMjmlConfigOptions) {
-      mjmlConfigOptions = confOptions
+      mjmlConfigOptions = confOptions || {}
     }
   }
 
   // if mjmlConfigPath is specified then we need to register components it on each call
   if (isNode && !error && options.mjmlConfigPath) {
-    handleMjmlConfigComponents(packages, componentRootPath, registerComponent)
+    if (Array.isArray(packages) && packages.length > 0) {
+      handleMjmlConfigComponents(packages, componentRootPath, registerComponent)
+    }
+  }
+
+  // Merge config options with explicit options (explicit wins)
+  const mergedOptions = {
+    ...mjmlConfigOptions,
+    ...options,
+    // Deep merge minifyOptions
+    minifyOptions: {
+      ...(mjmlConfigOptions.minifyOptions || {}),
+      ...(options.minifyOptions || {}),
+    },
+    // Merge preprocessors arrays
+    preprocessors: options.preprocessors
+      ? [...confPreprocessors, ...options.preprocessors]
+      : confPreprocessors,
   }
 
   const {
@@ -108,9 +134,9 @@ export default function mjml2html(mjml, options = {}) {
       Roboto: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700',
       Ubuntu: 'https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700',
     },
-    keepComments,
-    minify = false,
-    minifyOptions = {},
+    keepComments = true,
+    minify = true,
+    minifyOptions,
     ignoreIncludes = false,
     juiceOptions = {},
     juicePreserveTags = null,
@@ -118,17 +144,10 @@ export default function mjml2html(mjml, options = {}) {
     validationLevel = 'soft',
     filePath = '.',
     actualPath = '.',
-    noMigrateWarn = false,
     preprocessors,
     presets = [],
     printerSupport = false,
-  } = {
-    ...mjmlConfigOptions,
-    ...options,
-    preprocessors: options.preprocessors
-      ? [...confPreprocessors, ...options.preprocessors]
-      : confPreprocessors,
-  }
+  } = mergedOptions
 
   const components = { ...globalComponents }
   const dependencies = assignDependencies({}, globalDependencies)
@@ -147,8 +166,6 @@ export default function mjml2html(mjml, options = {}) {
       ignoreIncludes,
     })
   }
-
-  mjml = handleMjml3(mjml, { noMigrateWarn })
 
   const globalData = {
     backgroundColor: '',
@@ -397,31 +414,41 @@ export default function mjml2html(mjml, options = {}) {
 
   content = mergeOutlookConditionnals(content)
 
-  if (beautify) {
-    // eslint-disable-next-line no-console
-    console.warn(
-      '"beautify" option is deprecated in mjml-core and only available in mjml cli.',
-    )
-    content = htmlBeautify(content, {
-      indent_size: 2,
-      wrap_attributes_indent_size: 2,
-      max_preserve_newline: 0,
-      preserve_newlines: false,
-    })
-  }
-
+  // PostProcessors
   if (minify) {
-    // eslint-disable-next-line no-console
-    console.warn(
-      '"minify" option is deprecated in mjml-core and only available in mjml cli.',
-    )
+    const { minifyCss: userMinifyCss, ...minifyOptionsRest } =
+      minifyOptions || {}
 
-    content = htmlMinify(content, {
+    let resolvedUserMinifyCss
+    if (typeof userMinifyCss !== 'undefined') {
+      if (userMinifyCss.options) {
+        resolvedUserMinifyCss = userMinifyCss.options
+      } else {
+        resolvedUserMinifyCss = userMinifyCss
+      }
+    } else {
+      resolvedUserMinifyCss = undefined
+    }
+
+    const htmlnanoOptions = {
       collapseWhitespace: true,
-      minifyCSS: false,
-      caseSensitive: true,
+      minifyCss:
+        typeof resolvedUserMinifyCss !== 'undefined'
+          ? resolvedUserMinifyCss
+          : { preset: 'lite' },
       removeEmptyAttributes: true,
-      ...minifyOptions,
+      minifyJs: false,
+      removeComments: keepComments ? false : 'safe',
+      ...minifyOptionsRest,
+    }
+
+    content = await minifier
+      .process(content, htmlnanoOptions)
+      .then((res) => res.html)
+  } else if (beautify) {
+    content = await prettier.format(content, {
+      parser: 'html',
+      printWidth: 240,
     })
   }
 

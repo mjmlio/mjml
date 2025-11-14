@@ -134,7 +134,7 @@ export default async function mjml2html(mjml, options = {}) {
       Roboto: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700',
       Ubuntu: 'https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700',
     },
-    keepComments,
+    keepComments = true,
     minify = true,
     minifyOptions,
     ignoreIncludes = false,
@@ -438,6 +438,7 @@ export default async function mjml2html(mjml, options = {}) {
           : { preset: 'lite' },
       removeEmptyAttributes: true,
       minifyJs: false,
+      removeComments: keepComments ? false : 'safe',
       ...minifyOptionsRest,
     }
 

@@ -1,9 +1,10 @@
 const chai = require('chai')
 const { load } = require('cheerio')
 const mjml = require('../lib')
+const { extractStyle } = require('./utils')
 
 describe('mj-social-element align', function () {
-  it('should render correct align in CSS style values on mj-social-element', function () {
+  it('should render correct align in CSS style values on mj-social-element', async function () {
     const input = `
     <mjml>
       <mj-body>
@@ -20,7 +21,7 @@ describe('mj-social-element align', function () {
     </mjml>
     `
 
-    const { html } = mjml(input)
+    const { html } = await mjml(input)
 
     const $ = load(html)
 
@@ -29,9 +30,8 @@ describe('mj-social-element align', function () {
       .expect(
         $('.my-social-element > td:first-child')
           .map(function getAttr() {
-            const start = $(this).attr('style').indexOf('text-align:') + 11
-            const end = $(this).attr('style').indexOf(';', start)
-            return $(this).attr('style').substring(start, end)
+            const style = $(this).attr('style')
+            return extractStyle(style, 'text-align')
           })
           .get(),
         'align values on social elements',

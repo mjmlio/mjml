@@ -1,9 +1,10 @@
 const chai = require('chai')
 const { load } = require('cheerio')
 const mjml = require('../lib')
+const { extractStyle } = require('./utils')
 
 describe('mj-wrapper gap', function () {
-  it('should render correct gap values in CSS style values on children mj-section', function () {
+  it('should render correct gap values in CSS style values on children mj-section', async function () {
     const input = `
     <mjml>
       <mj-body>
@@ -28,7 +29,7 @@ describe('mj-wrapper gap', function () {
     </mjml>
     `
 
-    const { html } = mjml(input)
+    const { html } = await mjml(input)
 
     const $ = load(html)
 
@@ -41,9 +42,8 @@ describe('mj-wrapper gap', function () {
             const substr = 'margin-top:'
 
             if (str.includes(substr)) {
-              const start = $(this).attr('style').indexOf(substr) + 11
-              const end = $(this).attr('style').indexOf(';', start)
-              return $(this).attr('style').substring(start, end)
+              const style = $(this).attr('style')
+              return extractStyle(style, 'margin-top')
             }
             return undefined
           })

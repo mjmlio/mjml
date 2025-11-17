@@ -5,6 +5,7 @@ export default class MjWrapper extends MjSection {
   static componentName = 'mj-wrapper'
 
   static allowedAttributes = {
+    ...MjSection.allowedAttributes,
     gap: 'unit(px)',
   }
 

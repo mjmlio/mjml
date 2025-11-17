@@ -27,7 +27,7 @@
   "dependencies": {
     "@babel/runtime": "^7.28.4",
     "chokidar": "^3.0.0",
-    "glob": "^10.3.10",
+    "glob": "^11.1.0",
     "html-minifier": "^4.0.0",
     "js-beautify": "^1.6.14",
     "lodash": "^4.17.21",

@@ -1,7 +1,7 @@
 {
   "name": "mjml-browser",
   "description": "MJML: the only framework that makes responsive-email easy",
-  "version": "5.0.0-alpha.6",
+  "version": "5.0.0-alpha.7",
   "main": "lib/index.js",
   "files": [
     "lib"

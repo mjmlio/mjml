@@ -1,7 +1,7 @@
 {
   "name": "mjml-spacer",
   "description": "mjml-spacer",
-  "version": "5.0.0-alpha.6",
+  "version": "5.0.0-alpha.7",
   "main": "lib/index.js",
   "files": [
     "lib"
@@ -23,7 +23,7 @@
   "dependencies": {
     "@babel/runtime": "^7.28.4",
     "lodash": "^4.17.21",
-    "mjml-core": "5.0.0-alpha.6"
+    "mjml-core": "5.0.0-alpha.7"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",

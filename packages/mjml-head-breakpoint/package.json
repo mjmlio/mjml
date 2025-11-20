@@ -1,7 +1,7 @@
 {
   "name": "mjml-head-breakpoint",
   "description": "mjml-head-breakpoint",
-  "version": "5.0.0-alpha.7",
+  "version": "5.0.0-alpha.8",
   "main": "lib/index.js",
   "files": [
     "lib"
@@ -23,7 +23,7 @@
   "dependencies": {
     "@babel/runtime": "^7.28.4",
     "lodash": "^4.17.21",
-    "mjml-core": "5.0.0-alpha.7"
+    "mjml-core": "5.0.0-alpha.8"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",

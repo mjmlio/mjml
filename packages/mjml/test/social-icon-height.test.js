@@ -3,7 +3,7 @@ const { load } = require('cheerio')
 const mjml = require('../lib')
 
 describe('mj-social icon-height', function () {
-  it('should render correct icon-height align in CSS style values on mj-social', function () {
+  it('should render correct icon-height align in CSS style values on mj-social', async function () {
     const input = `
     <mjml>
       <mj-body>
@@ -20,7 +20,7 @@ describe('mj-social icon-height', function () {
     </mjml>
     `
 
-    const { html } = mjml(input)
+    const { html } = await mjml(input)
 
     const $ = load(html)
 

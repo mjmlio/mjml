@@ -1,7 +1,7 @@
-## mj-include
+### mj-include
 
-The `mjml-core` package allows you to include external `mjml` files
-  to build your email template.
+The `mjml-core` package allows you to include external `.mjml` files
+to build your email template.
 
 ```xml
 <!-- header.mjml -->
@@ -12,9 +12,8 @@ The `mjml-core` package allows you to include external `mjml` files
 </mj-section>
 ```
 
-You can wrap your external mjml files inside the default `mjml > mj-body`
-  tags to make it easier to preview outside the main template.
-
+You can wrap your external `.mjml` files inside the default `mjml > mj-body`
+tags to make it easier to preview outside the main template.
 
 ```xml
 <!-- main.mjml -->
@@ -25,25 +24,23 @@ You can wrap your external mjml files inside the default `mjml > mj-body`
 </mjml>
 ```
 
+The MJML engine will then replace your included files before starting the rendering process.
 
-The `MJML` engine will then replace your included files before starting the rendering process.
+#### Other file types
 
-### Other file types
+You can include external `.css` files which will be inserted in the same way as using an `mj-style` tag. You need to specify that you're including a CSS file using the attribute `type="css"` attribute.
 
-You can include external `css` files. They will be inserted the same way as when using a `mj-style`.  
-You need to specify that you're including a css file using the `type="css"` attribute.  
-If you want the css to be inlined, you can use the `css-inline="inline"` attribute.
+If you want the CSS to be inlined, you can use the `css-inline="inline"` attribute.
 
 ```xml
 <!-- main.mjml -->
-  <mj-include path="./styles.css" type="css" />
-  <mj-include path="./inline-styles.css" type="css" css-inline="inline" />
+<mj-include path="./styles.css" type="css" />
+<mj-include path="./inline-styles.css" type="css" css-inline="inline" />
 ```
 
-You can also include external `html` files. They will be inserted the same way as when using a `mj-raw`.  
-You need to specify that you're including a html file using the `type="html"` attribute.  
+You can also include external `html` files. They will be inserted the same way as when using an `mj-raw` tag. You need to specify that you're including an HTML file using the attribute `type="html"`.
 
 ```xml
 <!-- main.mjml -->
-  <mj-include path="./partial.html" type="html" />
+<mj-include path="./partial.html" type="html" />
 ```

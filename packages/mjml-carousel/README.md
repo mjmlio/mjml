@@ -1,12 +1,10 @@
-## mj-carousel
+### mj-carousel
 
-<p style="text-align: center;" >
+Displays a gallery of images or "carousel". Readers can interact by hovering and clicking on thumbnails depending on the email client they use.
+
+<figure>
   <img src="https://static.mailjet.com/mjml-website/documentation/carousel-example.gif" alt="desktop" />
-</p>
-
-`mj-carousel` displays a gallery of images or "carousel". Readers can interact by hovering and clicking on thumbnails depending on the email client they use.
-
-This component enables you to set the styles of the carousel elements.
+</figure>
 
 ```xml
 <mjml>
@@ -24,44 +22,53 @@ This component enables you to set the styles of the carousel elements.
 </mjml>
 ```
 
-<p style="text-align: center;" >
-  <a href="https://mjml.io/try-it-live/components/carousel">
-    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="sexy" />
-  </a>
-</p>
+#### Attributes
 
-<aside class="notice">
-  `mj-carousel-image` is an "ending tag", which means it can contain HTML code which will be left as it is, so it can contain HTML tags with attributes, but it cannot contain other MJML components. More information about ending tags <a href="#ending-tags">in this section</a>.
-</aside>
+| attribute                  | accepts                        | description                                            | default value                     |
+| -------------------------- | ------------------------------ | ------------------------------------------------------ | --------------------------------- |
+| align                      | `left` `center` `right`        | horizontal alignment                                   | `center`                          |
+| border-radius              | `px` `%`                       | border radius                                          | `6px`                             |
+| container-background-color | CSS color formats              | column background color                                |                                   |
+| css-class                  | string                         | class name, added to the root HTML element created     |                                   |
+| icon-width                 | `px` `%`                       | width of the icons on left and right of the main image | `44px`                            |
+| left-icon                  | string                         | icon on the left of the main image                     | `https://i.imgur.com/xTh3hln.png` |
+| padding                    | `px` `%`                       | carousel padding, supports up to 4 parameters          |                                   |
+| padding-bottom             | `px` `%`                       | carousel bottom padding                                |                                   |
+| padding-left               | `px` `%`                       | carousel left padding                                  |                                   |
+| padding-right              | `px` `%`                       | carousel right padding                                 |                                   |
+| padding-top                | `px` `%`                       | carousel top padding                                   |                                   |
+| right-icon                 | string                         | icon on the right of the main image                    | `https://i.imgur.com/os7o9kz.png` |
+| tb-border                  | string                         | border of the thumbnails in CSS border format          | `2px solid transparent`           |
+| tb-border-radius           | `px` `%`                       | border-radius of the thumbnails                        | `6px`                             |
+| tb-hover-border-color      | CSS color formats              | border color of the hovered thumbnail                  | `#fead0d`                         |
+| tb-selected-border-color   | CSS color formats              | border color of the selected thumbnail                 | `#ccc`                            |
+| tb-width                   | `px` `%`                       | thumbnail width                                        |                                   |
+| thumbnails                 | `visible` `hidden` `supported` | display the thumbnails                                 | `hidden`                          |
 
+<p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/carousel">Try it live</a></p>
 
-attribute | unit | description | default value
-----------|------|-------------|---------------
-align | string | horizontal alignment | center
-container-background-color | string | column background color | none
-border-radius | px | border radius | n/a
-css-class | string | class name, added to the root HTML element created | n/a
-icon-width | px | width of the icons on left and right of the main image | 44px
-left-icon | url | icon on the left of the main image | https://i.imgur.com/xTh3hln.png
-right-icon | url | icon on the right of the main image | https://i.imgur.com/os7o9kz.png
-tb-border | css border format | border of the thumbnails | none
-tb-border-radius | px | border-radius of the thumbnails | none
-tb-hover-border-color | string | css border color of the hovered thumbnail | none
-tb-selected-border-color | string | css border color of the selected thumbnail | none
-tb-width | px | thumbnail width | null
-thumbnails | String | visible / hidden / supported ('supported' shows only for clients that support full carousel functionality) | visible
+#### mj-carousel-image
 
-### mj-carousel-image
+Enables you to add and style the images in the carousel.
 
-This component enables you to add and style the images in the carousel.
+<div class="alert alert-note" role="alert">
+  <p>Note</p>
+  <p><code>mj-carousel-image</code> is an "ending tag", which means that it can contain HTML code but it cannot contain other MJML components.</p>
+  <p>More information about ending tags <a href="#ending-tags">in this section</a>.</p>
+</div>
 
-attribute | unit | description | default value
-----------|------|-------------|---------------
-alt | string | image description | ''
-css-class | string | class name, added to the root HTML element created | n/a
-href | url | link to redirect to on click | n/a
-rel | string | specify the rel attribute | n/a
-src | url | image source | n/a
-target | string | link target on click | \_blank
-thumbnails-src | url | image source to have a thumbnail different than the image it's linked to | null
-title | string | tooltip & accessibility | n/a
+#### Attributes
+
+| attribute        | accepts  | description                                        | default value |
+| ---------------- | -------- | -------------------------------------------------- | ------------- |
+| alt              | string   | image description                                  | `''`          |
+| border-radius    | `px` `%` | border radius of the main image                    |               |
+| css-class        | string   | class name, added to the root HTML element created |               |
+| href             | string   | link to redirect to on click, <br>URL format       |               |
+| rel              | string   | specify the rel attribute                          |               |
+| src              | string   | URL format                                         |               |
+| target           | string   | link target on click                               | `_blank`      |
+| tb-border        | string   | CSS border format                                  |               |
+| tb-border-radius | `px` `%` | border radius of the thumbnail                     |               |
+| thumbnails-src   | string   | specify a different thumbnail image in URL format  |               |
+| title            | string   | tooltip & accessibility                            |               |

@@ -1,7 +1,6 @@
-## mj-section
+### mj-section
 
-Sections are intended to be used as rows within your email.
-They will be used to structure the layout.
+Sections are rows within your email. They will be used to structure the layout.
 
 ```xml
 <mjml>
@@ -13,52 +12,52 @@ They will be used to structure the layout.
 </mjml>
 ```
 
-<p style="text-align: center;" >
-  <a href="https://mjml.io/try-it-live/components/section">
-    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
-  </a>
-</p>
+The `full-width` attribute will be used to manage the background width. Setting it will change the width of the section from the default 600px to 100%.
 
-The `full-width` property will be used to manage the background width.
-By default, it will be 600px. With the `full-width` property on, it will be
-changed to 100%.
+<div class="alert alert-note" role="alert">
+  <p>Note</p>
+  <p>To invert the order in which columns display in the desktop view, first setup your columns in the order you want them to appear stacked in the mobile view and then add <code>direction="rtl"</code> to the <code>mj-section</code> tag.</p>
+</div>
 
-<aside class="notice">
-  <b>Inverting the order in which columns display:</b> set the `direction` attribute to `rtl` to change the order in which columns display on desktop. Because MJML is mobile-first, structure the columns in the <b>order you want them to stack on mobile</b>, and use `direction` to change the order they display <b>on desktop</b>.
-</aside>
+<div class="alert alert-caution" role="alert">
+  <p>Caution</p>
+  <p><code>mj-section</code> tags cannot nest in other <code>mj-section</code> tags</p>
+</div>
 
-<aside class="warning">
-  Sections cannot nest in sections. Columns can nest in sections; all content must be in a column.
-</aside>
+<div class="alert alert-important" role="alert">
+  <p>Important</p>
+  <p>Limitations of <code>background-image</code> <code>background-size</code> and <code>background-position</code> in Outlook desktop :</p>
+  <ul>
+    <li>If <code>background-size</code> is not specified, <code>no-repeat</code> will be ignored in Outlook.</li>
+    <li>If the specified <code>background-size</code> is a single attribute in percent, the height will be <code>auto</code> as in standard CSS. In Outlook, the image will never overflow the element, it will shrink instead of being cropped similar to other clients.</li>
+  </ul>
+</div>
 
-attribute             | unit        | description                    | default value
-----------------------|-------------|--------------------------------|---------------
-background-color      | color       | section color                  | n/a
-background-position   | percent / 'left','top',... (2 values max) | css background position (see outlook limitations below)        | top center
-background-position-x | percent / keyword   | css background position x      | none
-background-position-y | percent / keyword   | css background position y      | none
-background-repeat     | string      | css background repeat          | repeat
-background-size       | px/percent/'cover'/'contain'     | css background size    | auto
-background-url        | url         | background url                 | n/a
-border                | string      | css border format              | none
-border-bottom         | string      | css border format              | n/a
-border-left           | string      | css border format              | n/a
-border-radius         | px          | border radius                  | n/a
-border-right          | string      | css border format              | n/a
-border-top            | string      | css border format              | n/a
-css-class             | string      | class name, added to the root HTML element created | n/a
-direction             | ltr / rtl   | set the display order of direct children | ltr
-full-width            | string      | make the section full-width    | n/a
-padding               | px          | supports up to 4 parameters    | 20px 0
-padding-bottom        | px          | section bottom offset          | n/a
-padding-left          | px          | section left offset            | n/a
-padding-right         | px          | section right offset           | n/a
-padding-top           | px          | section top offset             | n/a
-text-align            | string      | css text-align                 | center
+#### Attributes
 
+| attribute             | accepts                 | description                                                                                            | default value |
+| --------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------ | ------------- |
+| background-color      | CSS color formats       | section color                                                                                          |               |
+| background-position   | string                  | CSS values, i.e. `left` `center` `right` + `top` `center` `bottom` <br>(see outlook limitations below) | `top center`  |
+| background-position-x | string                  | CSS values, i.e. `left` `center` `right` <br>(see outlook limitations below)                           |               |
+| background-position-y | string                  | CSS values, i.e. `top` `center` `bottom` <br>(see outlook limitations below)                           |               |
+| background-repeat     | `repeat` `no-repeat`    | set the background image to repeat                                                                     |
+| background-size       | string                  | CSS values e.g. `auto` `cover` `contain` `px` `%` size                                                 | `auto`        |
+| background-url        | string                  | background image, in URL format                                                                        |               |
+| border                | string                  | CSS border format                                                                                      |               |
+| border-bottom         | string                  | CSS border format                                                                                      |               |
+| border-left           | string                  | CSS border format                                                                                      |               |
+| border-radius         | string                  | border radius                                                                                          |               |
+| border-right          | string                  | CSS border format                                                                                      |               |
+| border-top            | string                  | CSS border format                                                                                      |               |
+| css-class             | string                  | class name, added to the root HTML element created                                                     |               |
+| direction             | `ltr` `rtl`             | set the display order of direct children                                                               | `ltr`         |
+| full-width            | `full-width` `false`    | make the section full-width                                                                            |               |
+| padding               | `px` `%`                | section padding, supports up to 4 parameters                                                           | `20px 0`      |
+| padding-bottom        | `px` `%`                | section bottom padding                                                                                 |               |
+| padding-left          | `px` `%`                | section left padding                                                                                   |               |
+| padding-right         | `px` `%`                | section right padding                                                                                  |               |
+| padding-top           | `px` `%`                | section top padding                                                                                    |               |
+| text-align            | `left` `center` `right` | CSS text-align                                                                                         | `center`      |
 
-<aside class="notice">
-  Limitations of background-images size and position on Outlook desktop :  
-  - If background-size is not specified, no-repeat will be ignored on Outlook.
-  - If the specified size is a single attribute in percent, the height will be auto as in standard css. On outlook, the image will never overflow the element, and it will be shrinked instead of being cropped like on other clients.
-</aside>
+<p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/section">Try it live</a></p>

@@ -1,28 +1,21 @@
-## mj-hero
+### mj-hero
 
-This element displays a hero image.
-It behaves like an `mj-section` with a single `mj-column`.
+Displays a hero image and behaves like an `mj-section` tag with a single `mj-column` tag.
 
-`background-height` and `background-width` attributes are mandatory.
+The `background-height` and `background-width` attributes are mandatory and it's best to use an image with width the same as the `mj-body` (`width="600px"` by default) and height the same or larger than the `height` of `mj-hero`.
 
-It's best to use an image with width the same as the `mj-body` width
-  (`width="600px"` by default).
-For better results, it's best to use an image with height the same or larger
-  than the `height` of `mj-hero`.
+Use `background-color` to provide a fallback color in case an email client doesn't support `background-url`.
 
-Use `background-color` to provide a fallback color
-  in case an email client doesn't support `background-url`.
+<div class="alert alert-note" role="alert">
+  <p>Note</p>
+  <p>The <code>height</code> attribute is only required for <code>mode="fixed-height"</code>.</p>
+</div>
 
-<aside class="notice">
-  The "height" attribute is required only for 'mode="fixed-height"'.
-</aside>
-
-Fixed height
-
-<p style="text-align: center;" >
+<figure>
+  <figcaption>Fixed height</figcaption>
   <img src="https://static.mailjet.com/mjml-website/documentation/hero-example-1.png"
      alt="demo background picture with fixed height" />
-</p>
+</figure>
 
 ```xml
 <mjml>
@@ -52,20 +45,13 @@ Fixed height
     </mj-hero>
   </mj-body>
 </mjml>
- ```
+```
 
- <p style="text-align: center;" >
-   <a href="https://mjml.io/try-it-live/components/hero">
-     <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
-   </a>
- </p>
-
-Fluid height
-
-<p style="text-align: center;" >
-  <img src="https://static.mailjet.com/mjml-website/documentation/hero-example-2.png"
-      alt="demo background picture with fixed height" />
-</p>
+<figure>
+  <figcaption>Fluid height</figcaption>
+  <img src="https://static.mailjet.com/mjml-website/documentation/hero-example-1.png"
+     alt="demo background picture with fixed height" />
+</figure>
 
 ```xml
 <mjml>
@@ -96,26 +82,28 @@ Fluid height
 </mjml>
 ```
 
-<p style="text-align: center;" >
-  <a href="https://mjml.io/try-it-live/components/hero/1">
-    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg"
-      alt="try it live" />
-  </a>
-</p>
+#### Attributes
 
-attribute           | unit                                | description                                                          | default value
---------------------|-------------------------------------|----------------------------------------------------------------------|--------------
-background-color    | color                               | hero background color                                                | #ffffff
-background-height   | px                                  | height of the image used, mandatory                                  | none
-background-position | top/center/bottom left/center/right | background image position                                            | center center
-background-url      | url                                 | absolute background url                                              | n/a
-background-width    | px                                  | width of the image used, mandatory                                   | parent element width
-border-radius       | px                                  | border radius                                                        | n/a
-height              | px                                  | hero section height (required for fixed-height mode)                 | 0px
-mode                | fluid-height/fixed-height           | choose if the height is fixed based on the height attribute or fluid | fluid-height
-padding             | px                                  | supports up to 4 parameters                                          | 0px
-padding-bottom      | px                                  | bottom offset                                                        | 0px
-padding-left        | px                                  | left offset                                                          | 0px
-padding-right       | px                                  | right offset                                                         | 0px
-padding-top         | px                                  | top offset                                                           | 0px
-vertical-align      | top/middle/bottom                   | content vertical alignment                                           | top
+| attribute              | accepts                 | description                                                        | default value                 |
+| ---------------------- | ----------------------- | ------------------------------------------------------------------ | ----------------------------- |
+| background-color       | CSS color formats       | hero background color                                              | #ffffff                       |
+| background-height      | `px` `%`                | height of the image used, mandatory                                |                               |
+| background-position    | string                  | CSS values, i.e. `left` `center` `right` + `top` `center` `bottom` | `center center`               |
+| background-url         | string                  | absolute background in URL format                                  | `null`                        |
+| background-width       | `px` `%`                | width of the image used, mandatory                                 | inherits parent element width |
+| border-radius          | string                  | border radius                                                      |                               |
+| css-class              | string                  | class name, added to the root HTML element created                 |                               |
+| height                 | `px` `%`                | hero section height, (required for `fixed-height` mode)            | `0px`                         |
+| inner-background-color | CSS color formats       | content background color                                           |                               |
+| mode                   | string                  | `fluid-height` or `fixed-height`                                   | `fluid-height`                |
+| padding                | `px` `%`                | hero padding, supports up to 4 parameters                          | `0px`                         |
+| padding-bottom         | `px` `%`                | hero bottom padding                                                | `null`                        |
+| padding-left           | `px` `%`                | hero left padding                                                  | `null`                        |
+| padding-right          | `px` `%`                | hero right padding                                                 | `null`                        |
+| padding-top            | `px` `%`                | hero top padding                                                   | `null`                        |
+| vertical-align         | `top` `middle` `bottom` | content vertical alignment                                         | `top`                         |
+
+<ul class="cta-container">
+  <li>Fixed height: <br><a class="cta" href="https://mjml.io/try-it-live/components/hero">Try it live</a></li>
+  <li>Fluid height: <br><a class="cta" href="https://mjml.io/try-it-live/components/hero/1">Try it live</a></li>
+</ul>

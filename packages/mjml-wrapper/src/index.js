@@ -9,13 +9,6 @@ export default class MjWrapper extends MjSection {
     gap: 'unit(px)',
   }
 
-  getChildContext() {
-    return {
-      ...this.context,
-      gap: this.getAttribute('gap'),
-    }
-  }
-
   renderWrappedChildren() {
     const { children } = this.props
     const { containerWidth } = this.context

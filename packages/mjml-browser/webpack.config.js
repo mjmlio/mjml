@@ -31,6 +31,7 @@ module.exports = {
     path: path.resolve(__dirname, './lib'),
     libraryTarget: 'umd',
     umdNamedDefine: true,
+    globalObject: 'this',
   },
   resolve: {
     alias: {

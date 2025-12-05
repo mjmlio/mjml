@@ -1,12 +1,12 @@
 ### mj-accordion
 
-<figure>
-  <img src="https://static.mailjet.com/mjml-website/documentation/accordion-example.gif" alt="accordion" />
-</figure>
-
 An interactive MJML component that stacks content in tabs, so the information is collapsed and only the titles are visible.
 
 Readers can interact by clicking on the tabs to reveal the content, providing a better experience for mobile users by reducing the amount of scrolling.
+
+<figure>
+  <img src="https://static.mailjet.com/mjml-website/documentation/accordion-example.gif" alt="accordion" />
+</figure>
 
 <div class="alert alert-note" role="alert">
   <p>Note</p>

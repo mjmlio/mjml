@@ -1,3 +1,3 @@
-# Standard Body components
+## Standard Body components
 
-MJML comes out of the box with a set of standard components to help you build easily your first templates without having to reinvent the wheel.
+Body components ease your development process by providing ready made responsive layouts that you can use to create your email template.

@@ -1,4 +1,4 @@
-## mj-divider
+### mj-divider
 
 Displays a horizontal divider that can be customized like a HTML border.
 
@@ -14,23 +14,21 @@ Displays a horizontal divider that can be customized like a HTML border.
 </mjml>
 ```
 
-<p style="text-align: center;" >
-  <a href="https://mjml.io/try-it-live/components/divider">
-    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
-  </a>
-</p>
+#### Attributes
 
-| attribute                  | unit       | description                                        | default value |
-| -------------------------- | -----------| -------------------------------------------------- | ------------- |
-| align                      | string     | left/right/center                                  | center        |
-| border-color               | color      | divider color                                      | #000000       |
-| border-style               | string     | dashed/dotted/solid                                | solid         |
-| border-width               | px         | divider's border width                             | 4px           |
-| container-background-color | color      | inner element background color                     | n/a           |
-| css-class                  | string     | class name, added to the root HTML element created | n/a           |
-| padding                    | px         | supports up to 4 parameters                        | 10px 25px     |
-| padding-bottom             | px         | bottom offset                                      | n/a           |
-| padding-left               | px         | left offset                                        | n/a           |
-| padding-right              | px         | right offset                                       | n/a           |
-| padding-top                | px         | top offset                                         | n/a           |
-| width                      | px/percent | divider width                                      | 100%          |
+| attribute                  | accepts                 | description                                        | default value |
+| -------------------------- | ----------------------- | -------------------------------------------------- | ------------- |
+| align                      | `left` `center` `right` | horizontal alignment                               | `center`      |
+| border-color               | CSS color formats       | divider color                                      | `#000000`     |
+| border-style               | string                  | CSS values, e.g. `dashed` `dotted` `solid`         | `solid`       |
+| border-width               | `px`                    | divider's border width                             | `4px`         |
+| container-background-color | CSS color formats       | inner element background color                     |               |
+| css-class                  | string                  | class name, added to the root HTML element created |               |
+| padding                    | `px` `%`                | divider padding, supports up to 4 parameters       | `10px 25px`   |
+| padding-bottom             | `px` `%`                | divider bottom padding                             |               |
+| padding-left               | `px` `%`                | divider left padding                               |               |
+| padding-right              | `px` `%`                | divider right padding                              |               |
+| padding-top                | `px` `%`                | divider top padding                                |               |
+| width                      | `px` `%`                | divider width                                      | `100%`        |
+
+<p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/divider">Try it live</a></p>

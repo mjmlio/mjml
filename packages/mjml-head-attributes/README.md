@@ -1,48 +1,43 @@
-## mj-attributes
+### mj-attributes
 
-Inside `mj-attributes`, a tag citing one MJML component (like `mj-text`;
-see example) overrides default settings for listed MJML attributes
-on the one component.
+Inside the `mj-attributes` tag, you can cite other MJML components, like `mj-text` for example, to override the default settings for that component.
 
-An `mj-all` is like the above, but affects all MJML components via the one tag.
+An `mj-all` tag is like the above, but affects all MJML components.
 
-`mj-class` tags create a named group of MJML attributes you can apply to MJML
-components. To apply them, use `mj-class="<name>"`.
+An `mj-class` tag creates a named group of MJML attributes you can apply to MJML
+components using `mj-class="<name>"`.
 
- ```xml
+```xml
 <mjml>
-  <mj-head>
-    <mj-attributes>
-      <mj-text padding="0" />
-      <mj-class name="blue" color="blue" />
-      <mj-class name="big" font-size="20px" />
-      <mj-all font-family="Arial" />
-    </mj-attributes>
-  </mj-head>
-  <mj-body>
-    <mj-section>
-      <mj-column>
-        <mj-text mj-class="blue big">
-          Hello World!
-        </mj-text>
-      </mj-column>
-    </mj-section>
-  </mj-body>
+ <mj-head>
+   <mj-attributes>
+     <mj-text padding="0" />
+     <mj-class name="blue" color="blue" />
+     <mj-class name="big" font-size="20px" />
+     <mj-all font-family="Arial" />
+   </mj-attributes>
+ </mj-head>
+ <mj-body>
+   <mj-section>
+     <mj-column>
+       <mj-text mj-class="blue big">
+         Hello World!
+       </mj-text>
+     </mj-column>
+   </mj-section>
+ </mj-body>
 </mjml>
- ```
+```
 
-<p style="text-align: center;" >
-  <a href="https://mjml.io/try-it-live/components/head-attributes">
-    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
-  </a>
-</p>
-
-<aside class="notice">
-  In the following list, MJML applies only the first MJML attributes found:
+<div class="alert alert-important" role="alert">
+  <p>Important</p>
+  <p>MJML will apply found attributes in the following order:</p>
   <ul>
-    <li>inline MJML attributes,</li>
-    <li>the entry for the same MJML component (like, "mj-text") in "mj-attributes",</li>
-    <li>"mj-all" in "mj-attributes", and</li>
-    <li>default MJML values.</li>
+    <li>inline attributes within tags,</li>
+    <li>attributes found in tags within the <code>mj-attributes</code> tag, e.g. <code>mj-text</code>,</li>
+    <li>the <code>mj-all</code> tag wuthin <code>mj-attributes</code>, and</li>
+    <li>the default MJML values.</li>
   </ul>
-</aside>
+</div>
+
+<p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/head-attributes">Try it live</a></p>

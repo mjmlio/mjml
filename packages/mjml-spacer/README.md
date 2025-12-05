@@ -1,6 +1,6 @@
-## mj-spacer
+### mj-spacer
 
-Displays a blank space.
+Displays a blank space, that can be used to separate content.
 
 ```xml
 <mjml>
@@ -16,19 +16,17 @@ Displays a blank space.
 </mjml>
 ```
 
-<p style="text-align: center;" >
-  <a href="https://mjml.io/try-it-live/components/spacer">
-    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
-  </a>
-</p>
+#### Attributes
 
-attribute                   | unit        | description                    | default value
-----------------------------|-------------|--------------------------------|------------------------------
-container-background-color   | color         | inner element background color  | n/a
-css-class                   | string      | class name, added to the root HTML element created | n/a
-height                      | px          | spacer height                  | 20px
-padding                      | px            | supports up to 4 parameters     | none
-padding-bottom               | px            | bottom offset                   | n/a
-padding-left                 | px            | left offset                     | n/a
-padding-right                | px            | right offset                    | n/a
-padding-top                  | px            | top offset                      | n/a
+| attribute                  | accepts           | description                                        | default value |
+| -------------------------- | ----------------- | -------------------------------------------------- | ------------- |
+| container-background-color | CSS color formats | inner element background color                     |               |
+| css-class                  | string            | class name, added to the root HTML element created |               |
+| height                     | `px` `%`          | spacer height                                      | `0px`         |
+| padding                    | `px` `%`          | spacer padding, supports up to 4 parameters        |               |
+| padding-bottom             | `px` `%`          | bottom padding                                     |               |
+| padding-left               | `px` `%`          | left padding                                       |               |
+| padding-right              | `px` `%`          | right padding                                      |               |
+| padding-top                | `px` `%`          | top padding                                        |               |
+
+<p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/spacer">Try it live</a></p>

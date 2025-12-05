@@ -1,19 +1,18 @@
-## mj-group
+### mj-group
 
+Prevent adjacent `mj-column` instances from stacking on mobile by wrapping them inside an `mj-group` tag, keeping them side by side on mobile.
 
-<p style="text-align: center;" >
-  Desktop<br />
+<figure>
+  <figcaption>Desktop</figcaption>
   <img src="https://static.mailjet.com/mjml-website/documentation/group-example-1.png"
        alt="easy and quick; responsive" />
-</p>
+</figure>
 
-<p style="text-align: center;" >
-  Mobile<br />
+<figure>
+  <figcaption>Mobile</figcaption>
   <img src="https://static.mailjet.com/mjml-website/documentation/group-example-2.png"
       alt="easy and quick; responsive" />
-</p>
-
-mj-group allows you to prevent columns from stacking on mobile. To do so, wrap the columns inside a `mj-group` tag, so they'll stay side by side on mobile.
+</figure>
 
 ```xml
 <mjml>
@@ -40,28 +39,25 @@ mj-group allows you to prevent columns from stacking on mobile. To do so, wrap t
 </mjml>
 ```
 
-<p style="text-align: center;" >
-  <a href="https://mjml.io/try-it-live/components/group"><img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" /></a>
-</p>
+<div class="alert alert-important" role="alert">
+  <p>Important</p>
+  <p>Column inside a group must have a width in percentage, not in pixel.</p>
+</div>
 
-<aside class="notice">
-  Column inside a group must have a width in percentage, not in pixel
-</aside>
-
-
-<aside class="notice">
-  You can have both column and group inside a Section
-</aside>
-
-<aside class="notice">
-  <b>iOS 9 Issue:</b> If you use a HTML beautifier for MJML output, iOS9 will render your columns inside a mj-group as stacked. On the output HTML, remove the <b>blank space</b> between the two columns inside a mj-group.
-</aside>
+<div class="alert alert-note" role="alert">
+  <p>Note</p>
+  <p>You can nest both <code>mj-column</code> and <code>mj-group</code> inside a <code>mj-section</code>.</p>
+</div>
 
 
-attribute           | unit        | description                    | default attributes
---------------------|-------------|--------------------------------|--------------------------------------
-width               | percent/px  | group width                    | (100 / number of non-raw elements in section)%
-vertical-align      | string      | middle/top/bottom              | top
-background-color    | string      | background color for a group   | n/a
-direction           | ltr / rtl   | set the display order of direct children | ltr
-css-class           | string      | class name, added to the root HTML element created | n/a
+#### Attributes
+
+| attribute        | accepts           | description                                        | default attributes                             |
+| ---------------- | ----------------- | -------------------------------------------------- | ---------------------------------------------- |
+| background-color | CSS color formats | background color for a group                       |                                                |
+| css-class        | string            | class name, added to the root HTML element created |                                                |
+| direction        | `ltr` `rtl`       | set the display order of direct children           | `ltr`                                          |
+| vertical-align   | string            | CSS values, e.g. `middle` `top` `bottom`           |                                                |
+| width            | `px` `%`          | group width                                        | (100 / number of non-raw elements in section)% |
+
+<p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/group">Try it live</a></p>

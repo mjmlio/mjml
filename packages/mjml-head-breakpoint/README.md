@@ -1,5 +1,6 @@
-## mj-breakpoint
-This tag allows you to control on which breakpoint the layout should go desktop/mobile.
+### mj-breakpoint
+
+Allows you to control at what width the layout should change from the desktop/mobile view to the desktop one.
 
 ```xml
 <mjml>
@@ -18,13 +19,10 @@ This tag allows you to control on which breakpoint the layout should go desktop/
 </mjml>
 ```
 
-<p style="text-align: center;" >
-  <a href="https://mjml.io/try-it-live/components/head-breakpoint">
-    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
-  </a>
-</p>
+#### Attributes
 
+| attribute | accepts | description        | default value |
+| --------- | ------- | ------------------ | ------------- |
+| width     | `px`    | breakpoint's value |               |
 
-attribute            | unit          | description                    | default value
----------------------|---------------|--------------------------------|---------------
-width                | px            | breakpoint's value             | n/a
+<p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/head-breakpoint">Try it live</a></p>

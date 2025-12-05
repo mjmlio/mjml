@@ -1,10 +1,10 @@
-## mj-wrapper
+### mj-wrapper
 
-<p style="text-align: center;" >
+Enables you to wrap multiple `mj-section` tags together. It's especially useful to achieve nested layouts with shared border or background images across sections.
+
+<figure>
   <img src="https://static.mailjet.com/mjml-website/documentation/wrapper-example.png" alt="wrapper" />
-</p>
-
-Wrapper enables to wrap multiple sections together. It's especially useful to achieve nested layouts with shared border or background images across sections.
+</figure>
 
 ```xml
 <mjml>
@@ -27,47 +27,45 @@ Wrapper enables to wrap multiple sections together. It's especially useful to ac
 </mjml>
 ```
 
-<p style="text-align: center;" >
-  <a href="https://mjml.io/try-it-live/components/wrapper">
-    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
-  </a>
-</p>
+The `full-width` attribute will be used to manage the background width.
+Setting it will change the width of the section from the default 600px to 100%.
 
-The `full-width` property will be used to manage the background width.
-By default, it will be 600px. With the `full-width` property on, it will be
-changed to 100%.
+<div class="alert alert-important" role="alert">
+  <p>Important</p>
+  <p>When applying <code>full-width</code> to <code>mj-wrapper</code>, any <code>mj-section</code> tags which are also set to <code>full-width</code> will default to standard width.</p>
+</div>
 
-<aside class="notice">
-  You can't nest a full-width section inside a full-width wrapper, section will act as a non-full-width section.
-</aside>
+<div class="alert alert-caution" role="alert">
+  <p>Caution</p>
+  <p>If you're using the <code>background-url</code> attribute for <code>mj-wrapper</code> then do not add one into a child <code>mj-section</code> as this is not supported for Outlook desktop</p>
+  <p>Also, if you’re using the <code>background-color</code> attribute for <code>mj-wrapper</code> and the <code>background-url</code> attribute on its <code>mj-section</code> or <code>mj-hero</code> children, the <code>background-color</code> will appear over the <code>background-image</code> on Outlook desktop.</p>
+</div>
 
-<aside class="notice">
-  If you're using a background-url on a `mj-wrapper` then do not add one into a section within the mj-wrapper. Outlook Desktop doesn't support nested VML, so it will most likely break your email.
-  Also, if you use a background-color on mj-wrapper and a background-url on its section/hero child, the background-color will be over the background-image on Outlook desktop. There is no way to keep the vml image under the content and over the wrapper's background-color due to z-index being ignored on most tags.
-</aside>
+#### Attributes
 
+| attribute             | accepts                 | description                                                                                            | default value |
+| --------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------ | ------------- |
+| background-color      | CSS color formats       | section color                                                                                          |               |
+| background-position   | string                  | CSS values, i.e. `left` `center` `right` + `top` `center` `bottom` <br>(see outlook limitations below) | `top center`  |
+| background-position-x | string                  | CSS values, i.e. `left` `center` `right` <br>(see outlook limitations below)                           |               |
+| background-position-y | string                  | CSS values, i.e. `top` `center` `bottom` <br>(see outlook limitations below)                           |               |
+| background-repeat     | `repeat` `no-repeat`    | set the background image to repeat                                                                     |
+| background-size       | string                  | CSS values e.g. `auto` `cover` `contain` `px` `%` size                                                 | `auto`        |
+| background-url        | string                  | background image, in URL format                                                                        |               |
+| border                | string                  | CSS border format                                                                                      |               |
+| border-bottom         | string                  | CSS border format                                                                                      |               |
+| border-left           | string                  | CSS border format                                                                                      |               |
+| border-radius         | string                  | border radius                                                                                          |               |
+| border-right          | string                  | CSS border format                                                                                      |               |
+| border-top            | string                  | CSS border format                                                                                      |               |
+| css-class             | string                  | class name, added to the root HTML element created                                                     |               |
+| full-width            | `full-width` `false`    | applies a vertical gap between child `mj-section` instances                                            |               |
+| gap                   | `px`                    | make the section full-width                                                                            |               |
+| padding               | `px` `%`                | section padding, supports up to 4 parameters                                                           | `20px 0`      |
+| padding-bottom        | `px` `%`                | section bottom padding                                                                                 |               |
+| padding-left          | `px` `%`                | section left padding                                                                                   |               |
+| padding-right         | `px` `%`                | section right padding                                                                                  |               |
+| padding-top           | `px` `%`                | section top padding                                                                                    |               |
+| text-align            | `left` `center` `right` | CSS text-align                                                                                         | `center`      |
 
-attribute           | unit        | description                    | default value
---------------------|-------------|--------------------------------|---------------
-background-color    | color       | section color                  | n/a
-background-position   | percent / 'left','top',... (2 values max) | css background position (see outlook limitations in mj-section doc)        | top center
-background-position-x | percent / keyword   | css background position x      | none
-background-position-y | percent / keyword   | css background position y      | none
-background-repeat     | string      | css background repeat          | repeat
-background-size       | px/percent/'cover'/'contain'     | css background size    | auto
-background-url      | url         | background url                 | n/a
-border              | string      | css border format              | none
-border-bottom       | string      | css border format              | n/a
-border-left         | string      | css border format              | n/a
-border-radius       | px          | border radius                  | n/a
-border-right        | string      | css border format              | n/a
-border-top          | string      | css border format              | n/a
-css-class           | string      | class name, added to the root HTML element created | n/a
-full-width          | string      | make the wrapper full-width    | n/a
-gap                 | px          | applies a vertical gap between child mj-sections   | n/a
-padding             | px          | supports up to 4 parameters    | 20px 0
-padding-bottom      | px          | section bottom offset          | n/a
-padding-left        | px          | section left offset            | n/a
-padding-right       | px          | section right offset           | n/a
-padding-top         | px          | section top offset             | n/a
-text-align          | string      | css text-align                 | center
+<p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/wrapper">Try it live</a></p>

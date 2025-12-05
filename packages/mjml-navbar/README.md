@@ -1,11 +1,6 @@
-## mj-navbar
+### mj-navbar
 
-<p style="text-align: center;" >
-  <img src="https://static.mailjet.com/mjml-website/documentation/navbar-example.png"
-      alt="example desktop width navbar" width="800px" />
-</p>
-
-Displays a menu for navigation with an optional hamburger mode for mobile devices.
+Displays a navigation menu with an optional `hamburger` mode for mobile devices.
 
 ```xml
 <mjml>
@@ -24,100 +19,100 @@ Displays a menu for navigation with an optional hamburger mode for mobile device
 </mjml>
 ```
 
-<p style="text-align: center;" >
-  <a target="_blank" href="https://mjml.io/try-it-live/components/navbar">
-    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
-  </a>
-</p>
-
-### mj-navbar
-
-Individual links of the menu should be wrapped inside mj-navbar.
-
-
-Standard Desktop:
-
-<p style="text-align: center;" >
+<figure>
+  <figcaption>Standard Desktop</figcaption>
   <img src="https://static.mailjet.com/mjml-website/documentation/navbar-example.png"
       alt="example desktop width navbar" width="800px" />
-</p>
+</figure>
 
-Standard Mobile:
-
-<p style="text-align: center;" >
+<figure>
+  <figcaption>Standard Mobile</figcaption>
   <img src="https://static.mailjet.com/mjml-website/documentation/navbar-mobile.png"
       alt="example mobile width navbar" width="318px" />
-</p>
+</figure>
 
-Mode hamburger enabled:
-
-<p style="text-align: center;" >
+<figure>
+  <figcaption>Mode hamburger enabled:</figcaption>
   <img src="https://static.mailjet.com/mjml-website/documentation/navbar-hamburger.gif"
       alt="hamburger mode animation shows menu expansion after clicking hamburger icon"
       width="309px" />
-</p>
+</figure>
 
-<aside class="notice">
-  The "hamburger" feature only work on mobile device with all iOS mail client, for others mail clients the render is performed on an normal way, the links are displayed inline and the hamburger is not visible.
-</aside>
+<div class="alert alert-note" role="alert">
+  <p>Note</p>
+  <p>The hamburger feature works only on Apple Mail clients, when the width is below the specified (or default) breakpoint. For other email clients, the links are displayed inline and the hamburger icon is not visible.</p>
+</div>
 
-<aside class="notice">
-  All the attributes prefixed with <code>ico-</code> help to customize the hamburger icon. They only work with the hamburger mode enabled.
-</aside>
+<div class="alert alert-note" role="alert">
+  <p>Note</p>
+  <p>All attributes prefixed with <code>ico-</code> help to customize the hamburger icon, hence they only work with the hamburger mode enabled.</p>
+</div>
 
-attribute                   | unit               | description                                                                                      | default value
-----------------------------|--------------------|--------------------------------------------------------------------------------------------------|-----------------
-align                       | string             | align content left/center/right                                                                  | center
-base url                    | string             | base url for children components                                                                 | n/a
-css-class                   | string             | class name, added to the root HTML element created                                               | n/a
-hamburger                   | string             | activate the hamburger navigation on mobile if the value is hamburger                            | n/a
-ico-align                   | string             | hamburger icon alignment, left/center/right (hamburger mode required)                            | center
-ico-close                   | ASCII code decimal | char code for a custom close icon (hamburger mode required)                                      | 8855
-ico-color                   | color format       | hamburger icon color (hamburger mode required)                                                   | #000000
-ico-font-family             | string             | hamburger icon font (only on hamburger mode)                                                     | Ubuntu, Helvetica, Arial, sans-serif
-ico-font-size               | px                 | hamburger icon size (hamburger mode required)                                                    | 30px
-ico-line-height             | px                 | hamburger icon line height (hamburger mode required)                                             | 30px
-ico-open                    | ASCII code decimal | char code for a custom open icon (hamburger mode required)                                       | 9776
-ico-padding                 | px                 | hamburger icon padding, supports up to 4 parameters (hamburger mode required)                    | 10px
-ico-padding-bottom          | px                 | hamburger icon bottom offset (hamburger mode required)                                           | 10px
-ico-padding-left            | px                 | hamburger icon left offset (hamburger mode required)                                             | 10px
-ico-padding-right           | px                 | hamburger icon right offset (hamburger mode required)                                            | 10px
-ico-padding-top             | px                 | hamburger icon top offset (hamburger mode required)                                              | 10px
-ico-text-decoration         | string             | hamburger icon text decoration none/underline/overline/line-through (hamburger mode required)    | none
-ico-text-transform          | string             | hamburger icon text transformation none/capitalize/uppercase/lowercase (hamburger mode required) | none
+#### Attributes
 
+| attribute           | accepts                       | description                                                                                                             | default value                          |
+| ------------------- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------- | -------------------------------------- |
+| align               | `left`<br>`center`<br>`right` | align content                                                                                                           | `center`                               |
+| base-url            | string                        | base URL for child components                                                                                           | `null`                                 |
+| css-class           | string                        | class name, added to the root HTML element created                                                                      |                                        |
+| hamburger           | string                        | activate the hamburger navigation on mobile if the value is hamburger                                                   | `null`                                 |
+| ico-align           | `left`<br>`center`<br>`right` | hamburger icon alignment<br> (`hamburger="hamburger"` required)                                                         | `center`                               |
+| ico-close           | string                        | char code for a custom close icon, e.g. ASCII code decimal<br> (`hamburger="hamburger"` required)                       | `&#8855;`                              |
+| ico-color           | CSS color formats             | hamburger icon color<br> (`hamburger="hamburger"` required)                                                             | `#000000`                              |
+| ico-font-family     | string                        | hamburger icon font<br> (`hamburger="hamburger"` required)                                                              | `Ubuntu, Helvetica, Arial, sans-serif` |
+| ico-font-size       | `px` `%`                      | hamburger icon size<br> (`hamburger="hamburger"` required)                                                              | `30px`                                 |
+| ico-line-height     | `px` `%`                      | hamburger icon line height<br> (`hamburger="hamburger"` required)                                                       | `30px`                                 |
+| ico-open            | string                        | char code for a custom open icon, e.g. ASCII code decimal<br> (`hamburger="hamburger"` required)                        | `&#9776;`                              |
+| ico-padding         | `px` `%`                      | hamburger icon padding, supports up to 4 parameters<br> (`hamburger="hamburger"` required)                              | `10px`                                 |
+| ico-padding-bottom  | `px` `%`                      | hamburger icon bottom padding<br> (`hamburger="hamburger"` required)                                                    |                                        |
+| ico-padding-left    | `px` `%`                      | hamburger icon left padding<br> (`hamburger="hamburger"` required)                                                      |                                        |
+| ico-padding-right   | `px` `%`                      | hamburger icon right padding<br> (`hamburger="hamburger"` required)                                                     |                                        |
+| ico-padding-top     | `px` `%`                      | hamburger icon top padding<br> (`hamburger="hamburger"` required)                                                       |                                        |
+| ico-text-decoration | string                        | hamburger icon text decoration e.g. `none` `underline` `overline` `line-through`<br> (`hamburger="hamburger"` required) | `none`                                 |
+| ico-text-transform  | string                        | hamburger icon text transformation `none` `capitalize` `uppercase` `lowercase`<br> (`hamburger="hamburger"` required)   | `uppercase`                            |
+| padding             | `px` `%`                      | navbar padding, supports up to 4 parameters                                                                             |                                        |
+| padding-bottom      | `px` `%`                      | navbar bottom padding                                                                                                   |                                        |
+| padding-left        | `px` `%`                      | navbar left padding                                                                                                     |                                        |
+| padding-right       | `px` `%`                      | navbar right padding                                                                                                    |                                        |
+| padding-top         | `px` `%`                      | navbar top padding                                                                                                      |                                        |
 
-### mj-navbar-link
+<p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/navbar">Try it live</a></p>
 
+#### mj-navbar-link
 
-This component should be used to display an individual link in the navbar.
+Used to display an individual link in the navbar. Individual links of the menu should be wrapped inside `mj-navbar`.
 
-<aside class="notice">
-  The mj-navbar-link component must be used inside a mj-navbar component only.
-</aside>
+<div class="alert alert-important" role="alert">
+  <p>Important</p>
+  <p>The <code>mj-navbar-link</code> component must be used inside an <code>mj-navbar</code> component only.</p>
+</div>
 
+<div class="alert alert-note" role="alert">
+  <p>Note</p>
+  <p><code>mj-navbar-link</code> is an "ending tag", which means that it can contain HTML code but it cannot contain other MJML components.</p> 
+  <p>More information about ending tags <a href="#ending-tags">in this section</a>.</p>
+</div>
 
-<aside class="notice">
-  `mj-navbar-link` is an "ending tag", which means it can contain HTML code which will be left as it is, so it can contain HTML tags with attributes, but it cannot contain other MJML components. More information about ending tags <a href="#ending-tags">in this section</a>.
-</aside>
+#### Attributes
 
-attribute        | unit          | description                           | default value
------------------|---------------|---------------------------------------|------------------------------
-color            | color         | text color                                         | #000000
-css-class        | string        | class name, added to the root HTML element created | n/a
-font-family      | string        | font                                               | Ubuntu, Helvetica, Arial, sans-serif
-font-size        | px            | text size                                          | 13px
-font-style       | string        | normal/italic/oblique                              | n/a
-font-weight      | number        | text thickness                                     | n/a
-href             | string        | link to redirect to on click                       | n/a
-letter-spacing   | px,em         | letter-spacing                                     | n/a
-line-height      | px            | space between the lines                            | 22px
-padding          | px            | supports up to 4 parameters                        | 15px 10px
-padding-bottom   | px            | bottom offset                                      | n/a
-padding-left     | px            | left offset                                        | n/a
-padding-right    | px            | right offset                                       | n/a
-padding-top      | px            | top offset                                         | n/a
-rel              | string        | specify the rel attribute                          | n/a
-target           | string        | link target on click                               | n/a
-text-decoration  | string        | underline/overline/none                            | n/a
-text-transform   | string        | capitalize/uppercase/lowercase/none                | uppercase
+| attribute       | accepts           | description                                                  | default value                          |
+| --------------- | ----------------- | ------------------------------------------------------------ | -------------------------------------- |
+| color           | CSS color formats | text color                                                   | `#000000`                              |
+| css-class       | string            | class name, added to the root HTML element created           |                                        |
+| font-family     | string            | font                                                         | `Ubuntu, Helvetica, Arial, sans-serif` |
+| font-size       | `px`              | text size                                                    | `13px`                                 |
+| font-style      | string            | CSS values, i.e. `normal` `italic` `oblique`                 |                                        |
+| font-weight     | string            | text thickness                                               |                                        |
+| href            | string            | link to redirect to on click, in URL format                  |                                        |
+| letter-spacing  | `px` `em`         | letter-spacing                                               |                                        |
+| line-height     | `px` `%`          | space between the lines                                      | `22px`                                 |
+| name            | string            | specify the link name attribute                              |                                        |
+| padding         | `px` `%`          | navbar link padding, supports up to 4 parameters             | `15px 10px`                            |
+| padding-bottom  | `px` `%`          | bottom padding                                               |                                        |
+| padding-left    | `px` `%`          | left padding                                                 |                                        |
+| padding-right   | `px` `%`          | right padding                                                |                                        |
+| padding-top     | `px` `%`          | top padding                                                  |                                        |
+| rel             | string            | specify the rel attribute                                    |                                        |
+| target          | string            | link target on click                                         |                                        |
+| text-decoration | string            | CSS values, i.e. `underline` `overline` `none`               | `none`                                 |
+| text-transform  | string            | CSS values, i.e. `capitalize` `uppercase` `lowercase` `none` | `uppercase`                            |

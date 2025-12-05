@@ -1,6 +1,6 @@
-## mj-table
+### mj-table
 
-This tag allows you to display table and filled it with data. It only accepts plain HTML.
+Display a data table. It only accepts plain HTML.
 
 ```xml
 <mjml>
@@ -30,34 +30,33 @@ This tag allows you to display table and filled it with data. It only accepts pl
 </mjml>
 ```
 
-<p style="text-align: center;" >
-  <a href="https://mjml.io/try-it-live/components/table">
-    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
-  </a>
-</p>
+<div class="alert alert-note" role="alert">
+  <p>Note</p>
+  <p><code>mj-table</code> is an "ending tag", which means that it can contain HTML code but it cannot contain other MJML components. Therefore, it will accept any tag you would add inside an HTML table tag.</p>
+  <p>More information about ending tags <a href="#ending-tags">in this section</a>.</p>
+</div>
 
-<aside class="notice">
-  `mj-table` is an "ending tag", which means it can contain HTML code which will be left as it is, so it can contain HTML tags with attributes, but it cannot contain other MJML components. In `mj-table` specifically, you can put anything you would put in a `&lt;table&gt;` element. More information about ending tags <a href="#ending-tags">in this section</a>.
-</aside>
+#### Attributes
 
+| attribute                  | accepts                            | description                                        | default value                          |
+| -------------------------- | ---------------------------------- | -------------------------------------------------- | -------------------------------------- |
+| align                      | `left` `right` `center`            | table horizontal alignment                         | `left`                                 |
+| border                     | string                             | CSS border format                                  | `none`                                 |
+| cellpadding                | integer                            | space between cells                                | `0`                                    |
+| cellspacing                | integer                            | space between cell and border                      | `0`                                    |
+| color                      | CSS color formats                  | text header & footer color                         | `#000000`                              |
+| container-background-color | CSS color formats                  | inner element background color                     |                                        |
+| css-class                  | string                             | class name, added to the root HTML element created |                                        |
+| font-family                | string                             | font name                                          | `Ubuntu, Helvetica, Arial, sans-serif` |
+| font-size                  | `px`                               | font size                                          | `13px`                                 |
+| line-height                | `px` `%`                           | space between lines                                | `22px`                                 |
+| padding                    | `px` `%`                           | outer table padding, supports up to 4 parameters   | `10px 25px`                            |
+| padding-bottom             | `px` `%`                           | bottom padding                                     |                                        |
+| padding-left               | `px` `%`                           | left padding                                       |                                        |
+| padding-right              | `px` `%`                           | right padding                                      |                                        |
+| padding-top                | `px` `%`                           | top padding                                        |                                        |
+| role                       | `none` `presentation`              | specify the role attribute                         |                                        |
+| table-layout               | `auto` `fixed` `initial` `inherit` | sets the table layout                              | `auto`                                 |
+| width                      | `px` `%` `auto`                    | table width                                        | `100%`                                 |
 
-attribute                   | unit                        | description                    | default value
-----------------------------|-----------------------------|------------------------------- |--------------
-align                       | left/right/center           | self horizontal alignment      | left
-border                      | border                      | table external border          | none
-cellpadding                 | pixels                      | space between cells            | n/a
-cellspacing                 | pixels                      | space between cell and border  | n/a
-color                       | color                       | text header & footer color     | #000000
-container-background-color  | color                       | inner element background color | n/a
-css-class                   | string                      | class name, added to the root HTML element created | n/a
-font-family                 | string                      | font name                      | Ubuntu, Helvetica, Arial, sans-serif
-font-size                   | px                          | font size                      | 13px
-line-height                 | percent/px                  | space between lines            | 22px
-padding                     | percent/px                  | supports up to 4 parameters    | 10px 25px
-padding-bottom              | percent/px                  | bottom offset                  | n/a
-padding-left                | percent/px                  | left offset                    | n/a
-padding-right               | percent/px                  | right offset                   | n/a
-padding-top                 | percent/px                  | top offset                     | n/a
-role                        | none/presentation           | specify the role attribute     | n/a
-table-layout                | auto/fixed/initial/inherit  | sets the table layout.         | auto
-width                       | percent/px/auto             | table width                    | 100%
+<p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/table">Try it live</a></p>

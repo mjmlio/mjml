@@ -1,4 +1,4 @@
-## mj-body
+### mj-body
 
 This is the starting point of your email. To aid accessibility, MJML automatically adds a `div` tag as the child of the body, with the following ARIA attributes `role="article"`, `aria-roledescription="email"` and `aria-label="EMAIL NAME"`, where 'EMAIL NAME' is taken from the content of the `mj-title` tag. The `lang` and `dir` attributes are also added here, with values taken from the `mjml` tag.
 
@@ -10,19 +10,12 @@ This is the starting point of your email. To aid accessibility, MJML automatical
 </mjml>
 ```
 
-<p style="text-align: center;" >
-  <a target="_blank" href="https://mjml.io/try-it-live/components/body">
-    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
-  </a>
-</p>
+#### Attributes
 
-<aside class="notice">
-  mj-body replaces the couple mj-body and mj-container of MJML v3.
-</aside>
+| attribute           | accepts           | description                                        | default value |
+| ------------------- | ----------------- | -------------------------------------------------- | ------------- |
+| background-color    | CSS color formats | the general background color                       |               |
+| css-class           | string            | class name, added to the root HTML element created |               |
+| width               | `px`              | email width                                        | `600px`       |
 
-attribute            | unit          | description                    | default value
----------------------|---------------|--------------------------------|---------------
-background-color     | color formats | the general background color   | n/a
-css-class            | string        | class name, added to the root HTML element created | n/a
-width                | px            | email's width                  | 600px
-
+<p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/body">Try it live</a></p>

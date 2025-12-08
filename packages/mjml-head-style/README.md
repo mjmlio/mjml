@@ -1,8 +1,10 @@
-## mj-style
+### mj-style
 
-This tag allows you to set CSS styles that will be applied to the <b>HTML</b> in your MJML document as well as the HTML outputted. The CSS styles will be added to the head of the rendered HTML by default, but can also be inlined by using the `inline="inline"` attribute.
+Allows you to set CSS styles that will be applied to your MJML document as well as the outputted HTML.
 
-Here is an example showing the use in combination with the `css-class` attribute, which is supported by all body components.
+The CSS styles will be added to the `head` tag of the rendered HTML by default, but can also be inlined by using the `inline="inline"` attribute.
+
+Here is an example showing its use in combination with the `css-class` attribute, which is supported by all body components.
 
 ```xml
 <mjml>
@@ -34,16 +36,15 @@ Here is an example showing the use in combination with the `css-class` attribute
 </mjml>
 ```
 
-<p style="text-align: center;" >
-  <a href="https://mjml.io/try-it-live/components/head-style">
-    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
-  </a>
-</p>
+<div class="alert alert-tip" role="alert">
+  <p>Tip</p>
+  <p>MJML generates multiple HTML tags from a single MJML tag. For optimal flexibility, the <code>css-class</code> will be applied to the most outer HTML tag, therefore if you want to target a specific child tag with a CSS selector, you may need to look at the generated HTML to determine the exact selector you need.</p>
+</div>
 
-attribute            | unit          | description                         | default value
----------------------|---------------|-------------------------------------|---------------
-inline               | string        | set to "inline" to inline styles    | n/a
+#### Attributes
 
-<aside class="notice">
-  Mjml generates multiple html elements from a single mjml element. For optimal flexibility, the `css-class` will be applied to the most outer html element, so if you want to target a specific sub-element with a css selector, you may need to look at the generated html to see which exact selector you need.
-</aside>
+| attribute | accepts | description                      | default value |
+| --------- | ------- | -------------------------------- | ------------- |
+| inline    | string  | set to `inline` to inline styles |               |
+
+<p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/head-style">Try it live</a></p>

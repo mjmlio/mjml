@@ -1,15 +1,18 @@
-## mj-accordion
+### mj-accordion
 
-<p style="text-align: center;" >
+An interactive MJML component that stacks content in tabs, so the information is collapsed and only the titles are visible.
+
+Readers can interact by clicking on the tabs to reveal the content, providing a better experience for mobile users by reducing the amount of scrolling.
+
+<figure>
   <img src="https://static.mailjet.com/mjml-website/documentation/accordion-example.gif" alt="accordion" />
-</p>
+</figure>
 
-`mj-accordion` is an interactive MJML component to stack content in tabs, so the information is collapsed and only the titles are visible. Readers can interact by clicking on the tabs to reveal the content, providing a great experience on mobile devices where space is scarce.
-
-<aside class="notice">
-  `mj-accordion-text` and `mj-accordion-title` are "ending tags", which means they can contain HTML code which will be left as it is, so they can contain HTML tags with attributes, but they cannot contain other MJML components. More information about ending tags <a href="#ending-tags">in this section</a>.
-</aside>
-
+<div class="alert alert-note" role="alert">
+  <p>Note</p>
+  <p><code>mj-accordion-text</code> and <code>mj-accordion-title</code> are "ending tags", which means that they can contain HTML code but they cannot contain other MJML components.</p>
+  <p>More information about ending tags <a href="#ending-tags">in this section</a>.</p>
+</div>
 
 ```xml
 <mjml>
@@ -49,91 +52,95 @@
 </mjml>
 ```
 
-<p style="text-align: center;" >
-  <a href="https://mjml.io/try-it-live/components/accordion">
-    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="sexy" />
-  </a>
-</p>
+#### Attributes
 
-attribute | unit | description | default value
-----------|------|-------------|---------------
-border | string | CSS border format | 2px solid black
-container-background-color | n/a | background-color of the cell | n/a
-css-class | string | class name, added to the root HTML element created | n/a
-font-family | n/a | font | Ubuntu, Helvetica, Arial, sans-serif
-icon-align | n/a | icon alignment | middle
-icon-height | px | icon width | 32px
-icon-position | n/a | display icon left or right | right
-icon-unwrapped-alt | n/a | alt text when accordion is unwrapped | -
-icon-unwrapped-url | n/a | icon when accordion is unwrapped | https://i.imgur.com/w4uTygT.png
-icon-width | px | icon height | 32px
-icon-wrapped-alt | n/a | alt text when accordion is wrapped | +
-icon-wrapped-url | n/a | icon when accordion is wrapped | https://i.imgur.com/bIXv1bk.png
-padding | px | padding | 10px 25px
-padding-bottom | px | padding bottom | n/a
-padding-left | px | padding left | n/a
-padding-right | px | padding right | n/a
-padding-top | px | padding top | n/a
+| attribute                  | accepts                 | description                                        | default value                          |
+| -------------------------- | ----------------------- | -------------------------------------------------- | -------------------------------------- |
+| border                     | string                  | CSS border format                                  | `2px solid black`                      |
+| container-background-color | CSS color formats       | background-color of the cell                       |                                        |
+| css-class                  | string                  | class name, added to the root HTML element created |                                        |
+| font-family                | string                  | font                                               | `Ubuntu, Helvetica, Arial, sans-serif` |
+| icon-align                 | `top` `middle` `bottom` | icon alignment                                     | `middle`                               |
+| icon-height                | `px` `%`                | icon height                                        | `32px`                                 |
+| icon-position              | left,<br>right          | display icon left or right                         | `right`                                |
+| icon-unwrapped-alt         | string                  | alt text when accordion is unwrapped               | `-`                                    |
+| icon-unwrapped-url         | string                  | icon when accordion is unwrapped                   | `https://i.imgur.com/w4uTygT.png`      |
+| icon-width                 | `px` `%`                | icon width                                         | `32px`                                 |
+| icon-wrapped-alt           | string                  | alt text when accordion is wrapped                 | `+`                                    |
+| icon-wrapped-url           | string                  | icon when accordion is wrapped                     | `https://i.imgur.com/bIXv1bk.png`      |
+| padding                    | `px` `%`                | accordion padding, supports up to 4 parameters     | `10px 25px`                            |
+| padding-bottom             | `px` `%`                | accordion bottom padding                           |                                        |
+| padding-left               | `px` `%`                | accordion left padding                             |                                        |
+| padding-right              | `px` `%`                | accordion right padding                            |                                        |
+| padding-top                | `px` `%`                | accordion top padding                              |                                        |
 
-### mj-accordion-element
+<p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/accordion">Try it live</a></p>
 
-Creates an accordion title/text pair.
-An accordion can have any number of these pairs.
+#### mj-accordion-element
 
-<aside class="notice">
-Inheritance applies between attributes supported in both `mj-accordion` and
-`mj-accordion-element` unless `mj-accordion-element` overrides.
-</aside>
+Creates an accordion title/text pair. An accordion can have any number of these pairs.
 
-attribute | unit | description | default value
-----------|------|-------------|---------------
-background-color | n/a | background color | n/a
-border | n/a | border | affects each horizontal border in the accordion except the top one
-css-class | string | class name, added to the root HTML element created | n/a
-font-family | n/a | font | Ubuntu, Helvetica, Arial, sans-serif
-icon-align | n/a | icon alignment | middle
-icon-height | n/a | icon width | 32px
-icon-position | n/a | display icon left or right | right
-icon-unwrapped-alt | n/a | alt text when accordion is unwrapped | -
-icon-unwrapped-url | n/a | icon when accordion is unwrapped | https://i.imgur.com/w4uTygT.png
-icon-width | n/a | icon height | 32px
-icon-wrapped-alt | n/a | alt text when accordion is wrapped | +
-icon-wrapped-url | n/a | icon when accordion is wrapped | https://i.imgur.com/bIXv1bk.png
+<div class="alert alert-note" role="alert">
+  <p>Note</p>
+  <p>Inheritance applies for attributes supported in both <code>mj-accordion</code> and
+<code>mj-accordion-element</code> except where the latter overrides.</p>
+</div>
 
-### mj-accordion-title
+##### Attributes
 
-The title in a title/text pair.
+| attribute          | accepts                 | description                                                                               | default value |
+| ------------------ | ----------------------- | ----------------------------------------------------------------------------------------- | ------------- |
+| background-color   | CSS color formats       | background color                                                                          |               |
+| border             | string                  | CSS border format. <br>affects each horizontal border in the accordion except the top one |               |
+| css-class          | string                  | class name, added to the root HTML element created                                        |               |
+| font-family        | string                  | font                                                                                      |               |
+| icon-align         | `top` `middle` `bottom` | icon alignment                                                                            |               |
+| icon-height        | `px` `%`                | icon width                                                                                | `32px`        |
+| icon-position      | `left` `right`          | postion of icon                                                                           |               |
+| icon-unwrapped-alt | string                  | alt text when accordion is unwrapped                                                      |               |
+| icon-unwrapped-url | string                  | icon when accordion is unwrapped                                                          |               |
+| icon-width         | `px` `%`                | icon height                                                                               | `32px`        |
+| icon-wrapped-alt   | string                  | alt text when accordion is wrapped                                                        |               |
+| icon-wrapped-url   | string                  | icon when accordion is wrapped                                                            |               |
 
-attribute | unit | description | default value
-----------|------|-------------|---------------
-background-color | n/a | background color | n/a
-color | n/a | text color | n/a
-css-class | string | class name, added to the root HTML element created | n/a
-font-family | n/a | font family | Ubuntu, Helvetica, Arial, sans-serif
-font-size | px | font size | 13px
-font-weight | string | text thickness | n/a
-padding | px | padding | 16px
-padding-bottom | px | padding bottom | n/a
-padding-left | px | padding left | n/a
-padding-right | px | padding right | n/a
-padding-top | px | padding top | n/a
+#### mj-accordion-title
 
-### mj-accordion-text
+Displays the title in a title/text pair.
 
-The text in a title/text pair.
+##### Attributes
 
-attribute | unit | description | default value
-----------|------|-------------|---------------
-background-color | n/a | background color | n/a
-color | n/a | text color | n/a
-css-class | string | class name, added to the root HTML element created | n/a
-font-family | n/a | font family | Ubuntu, Helvetica, Arial, sans-serif
-font-size | px | font size | 13px
-font-weight | string | text thickness | n/a
-letter-spacing | px,em | letter spacing | none
-line-height | px | space between the lines | 1
-padding | px | padding | 16px
-padding-bottom | px | padding bottom | n/a
-padding-left | px | padding left | n/a
-padding-right | px | padding right | n/a
-padding-top | px | padding top | n/a
+| attribute        | accepts           | description                                          | default value |
+| ---------------- | ----------------- | ---------------------------------------------------- | ------------- |
+| background-color | CSS color formats | background color                                     |               |
+| color            | CSS color formats | text color                                           |               |
+| css-class        | string            | class name, added to the root HTML element created   |               |
+| font-family      | string            | font family                                          |               |
+| font-size        | `px`              | font size                                            | `13px`        |
+| font-weight      | string            | text thickness                                       |               |
+| padding          | `px` `%`          | accordion title padding, supports up to 4 parameters | `16px`        |
+| padding-bottom   | `px` `%`          | accordion title bottom padding                       |               |
+| padding-left     | `px` `%`          | accordion title left padding                         |               |
+| padding-right    | `px` `%`          | accordion title right padding                        |               |
+| padding-top      | `px` `%`          | accordion title top padding                          |               |
+
+#### mj-accordion-text
+
+Displays the text in a title/text pair.
+
+##### Attributes
+
+| attribute        | accepts           | description                                         | default value |
+| ---------------- | ----------------- | --------------------------------------------------- | ------------- |
+| background-color | CSS color formats | background color                                    |               |
+| color            | CSS color formats | text color                                          |               |
+| css-class        | string            | class name, added to the root HTML element created  |               |
+| font-family      | string            | font family                                         |               |
+| font-size        | `px`              | font size                                           | `13px`        |
+| font-weight      | string            | text thickness                                      |               |
+| letter-spacing   | `px` `em`         | letter spacing                                      |               |
+| line-height      | `px` `%`          | space between the lines                             | `1`           |
+| padding          | `px` `%`          | accordion text padding, supports up to 4 parameters | `16px`        |
+| padding-bottom   | `px` `%`          | accordion text bottom padding                       |               |
+| padding-left     | `px` `%`          | accordion text left padding                         |               |
+| padding-right    | `px` `%`          | accordion text right padding                        |               |
+| padding-top      | `px` `%`          | accordion text top padding                          |               |

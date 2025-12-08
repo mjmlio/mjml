@@ -1,12 +1,14 @@
-## mj-column
+### mj-column
 
-Columns enable you to horizontally organize the content within your sections. They must be located under `mj-section` tags in order to be considered by the engine.
-To be responsive, columns are expressed in terms of percentage.
+Columns enable you to organize the content of your sections into distinct columns which stack when viewed on a mobile device.
 
-<aside class="notice">
-  The sum of columns in a section cannot be greater than
-      the width of the parent `mj-section` (or 100%).
-</aside>
+They must be located within `mj-section` tags in order to be considered by the engine.
+
+<div class="alert alert-caution" role="alert">
+  <p>Caution</p>
+  <p>The sum of columns in a section cannot be greater than
+      the width of the parent <code>mj-section</code> (or 100%).</p>
+</div>
 
 Every single column has to contain something because they are responsive containers, and will be vertically stacked on a mobile view. Any standard component, or component that you have defined and registered, can be placed within a column – except `mj-column` or `mj-section` elements.
 
@@ -25,41 +27,42 @@ Every single column has to contain something because they are responsive contain
 </mjml>
 ```
 
-<p style="text-align: center;" >
-  <a href="https://mjml.io/try-it-live/components/column">
-    <img width="100px" src="https://mjml.io/assets/img/svg/TRYITLIVE.svg" alt="try it live" />
-  </a>
-</p>
+<div class="alert alert-caution" role="alert">
+  <p>Caution</p>
+  <p>Columns are used as a container for your content and should not be used to offset. Any MJML component included in a column will have a width equivalent to 100% of this column's width.</p>
+</div>
 
-<aside class="notice">
-  Columns are meant to be used as a container for your content. They must not be used as offset. Any mj-element included in a column will have a width equivalent to 100% of this column's width.
-</aside>
+<div class="alert alert-caution" role="alert">
+  <p>Caution</p>
+  <p>Neither the <code>mj-column</code> or <code>mj-section</code> tags can be nested in an <code>mj-column</code> tag</p>
+</div>
 
-<aside class="warning">
-  Columns cannot be nested into columns, and sections cannot be nested into columns as well.
-</aside>
+#### Attributes
 
-attribute              | unit        | description                                                                                  | default attributes
------------------------|-------------|----------------------------------------------------------------------------------------------|----------------------------------------------
-background-color       | color       | background color for a column                                                                | n/a
-inner-background-color | color       | requires: a padding, inner background color for column                                       | n/a
-border                 | string      | css border format                                                                            | none
-border-bottom          | string      | css border format                                                                            | n/a
-border-left            | string      | css border format                                                                            | n/a
-border-right           | string      | css border format                                                                            | n/a
-border-top             | string      | css border format                                                                            | n/a
-border-radius          | percent/px  | border radius                                                                                | n/a
-inner-border           | string      | css border format                                                                            | n/a
-inner-border-bottom    | string      | css border format ; requires a padding                                                       | n/a
-inner-border-left      | string      | css border format ; requires a padding                                                       | n/a
-inner-border-right     | string      | css border format ; requires a padding                                                       | n/a
-inner-border-top       | string      | css border format ; requires a padding                                                       | n/a
-inner-border-radius    | percent/px  | border radius ; requires a padding                                                           | n/a
-width                  | percent/px  | column width                                                                                 | (100 / number of non-raw elements in section)%
-vertical-align         | string      | middle/top/bottom (note: middle works only when adjacent mj-column is also set to middle)    | top
-padding                | px          | supports up to 4 parameters                                                                  | n/a
-padding-top            | px          | section top offset                                                                           | n/a
-padding-bottom         | px          | section bottom offset                                                                        | n/a
-padding-left           | px          | section left offset                                                                          | n/a
-padding-right          | px          | section right offset                                                                         | n/a
-css-class              | string      | class name, added to the root HTML element created                                           | n/a
+| attribute              | accepts                 | description                                                                              | default attributes                             |
+| ---------------------- | ----------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------- |
+| background-color       | CSS color formats       | background color for a column                                                            |                                                |
+| border                 | string                  | CSS border format                                                                        |                                                |
+| border-bottom          | string                  | CSS border format                                                                        |                                                |
+| border-left            | string                  | CSS border format                                                                        |                                                |
+| border-radius          | `px` `%`                | border radius                                                                            |                                                |
+| border-right           | string                  | CSS border format                                                                        |                                                |
+| border-top             | string                  | CSS border format                                                                        |                                                |
+| css-class              | string                  | class name, added to the root HTML element created                                       |                                                |
+| direction              | `ltr` `rtl`             | set the display order of direct children                                                 | `ltr`                                          |
+| inner-background-color | CSS color formats       | inner background color for column; requires a padding                                    |                                                |
+| inner-border           | string                  | CSS border; requires a padding format                                                    |                                                |
+| inner-border-bottom    | string                  | CSS border format; requires a padding                                                    |                                                |
+| inner-border-left      | string                  | CSS border format; requires a padding                                                    |                                                |
+| inner-border-radius    | `px` `%`                | border radius ; requires a padding                                                       |                                                |
+| inner-border-right     | string                  | CSS border format; requires a padding                                                    |                                                |
+| inner-border-top       | string                  | CSS border format; requires a padding                                                    |                                                |
+| padding                | `px` `%`                | column padding, supports up to 4 parameters                                              |                                                |
+| padding-bottom         | `px` `%`                | column bottom padding                                                                    |                                                |
+| padding-left           | `px` `%`                | column left padding                                                                      |                                                |
+| padding-right          | `px` `%`                | column right padding                                                                     |                                                |
+| padding-top            | `px` `%`                | column top padding                                                                       |                                                |
+| width                  | `px` `%`                | column width                                                                             | (100 / number of non-raw elements in section)% |
+| vertical-align         | `top` `middle` `bottom` | vertical alignment.<br>Note: `middle` only applies when all `mj-column` instances use it | `top`                                          |
+
+<p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/column">Try it live</a></p>

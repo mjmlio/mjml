@@ -6,6 +6,20 @@ module.exports = {
   entry: {
     "mjml": ['../mjml/lib/index'],
   },
+  externals: {
+    'cheerio': 'cheerio',
+    'undici': 'undici',
+    'cosmiconfig': 'cosmiconfig',
+  },
+  resolve: {
+    alias: {
+      'path': path.resolve(__dirname, 'browser-mocks/path'),
+      'fs': path.resolve(__dirname, 'browser-mocks/fs'),
+      'uglify-js': path.resolve(__dirname, 'browser-mocks/uglify-js'),
+      'mjml-migrate': path.resolve(__dirname, 'browser-mocks/mjml-migrate'),
+      'htmlnano': path.resolve(__dirname, 'browser-mocks/htmlnano'),
+    },
+  },
   optimization: {
     minimizer: [
       new UglifyJsPlugin({
@@ -31,13 +45,7 @@ module.exports = {
     path: path.resolve(__dirname, './lib'),
     libraryTarget: 'umd',
     umdNamedDefine: true,
-  },
-  resolve: {
-    alias: {
-      'path': path.resolve(__dirname, 'browser-mocks/path'),
-      'fs': path.resolve(__dirname, 'browser-mocks/fs'),
-      'uglify-js': path.resolve(__dirname, 'browser-mocks/uglify-js'),
-    },
+    globalObject: 'this',
   },
   module: {
     rules: [
@@ -62,6 +70,6 @@ module.exports = {
           },
         ],
       },
-  	],
+    ],
   },
 }

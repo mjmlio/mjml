@@ -1,7 +1,11 @@
-export default {
-  async process(html) {
+// eslint-disable-next-line import/no-unresolved
+const minifyMock = require('minify')
+
+module.exports = {
+  async process(html, options = {}) {
+    const minified = await minifyMock(html, options)
     return {
-      html,
+      html: minified.result,
     }
   },
 }

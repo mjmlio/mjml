@@ -1,4 +1,5 @@
 const path = require('path')
+const webpack = require('webpack')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = {
@@ -13,12 +14,26 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'path': path.resolve(__dirname, 'browser-mocks/path'),
+      'path': 'path-browserify',
       'fs': path.resolve(__dirname, 'browser-mocks/fs'),
       'uglify-js': path.resolve(__dirname, 'browser-mocks/uglify-js'),
-      'mjml-migrate': path.resolve(__dirname, 'browser-mocks/mjml-migrate'),
+      'minify': path.resolve(__dirname, 'browser-mocks/minify'), 
       'htmlnano': path.resolve(__dirname, 'browser-mocks/htmlnano'),
+      'terser': path.resolve(__dirname, 'browser-mocks/empty'),
+      'os': 'os-browserify/browser',
     },
+  },
+  plugins: [
+    new webpack.ProvidePlugin({
+      process: 'process/browser',
+      Buffer: ['buffer', 'Buffer'],
+    }),
+  ],
+  node: {
+    fs: 'empty',
+    global: true,
+    process: true,
+    Buffer: true,
   },
   optimization: {
     minimizer: [
@@ -50,8 +65,16 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.mjs$/,
+        include: /node_modules/,
+        type: 'javascript/auto',
+      },
+      {
         test: /\.js$/,
-        exclude: path.join(__dirname, 'node_modules'),
+        exclude: [
+          path.join(__dirname, 'node_modules'),
+          /html-minifier-terser/, 
+        ],
         use: [
           {
             loader: 'babel-loader',

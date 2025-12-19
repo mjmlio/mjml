@@ -30,10 +30,9 @@ module.exports = {
     }),
   ],
   node: {
-    fs: 'empty',
-    global: true,
-    process: true,
-    Buffer: true,
+    fs: false,
+    process: false,
+    Buffer: false,
   },
   optimization: {
     minimizer: [
@@ -65,16 +64,8 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.mjs$/,
-        include: /node_modules/,
-        type: 'javascript/auto',
-      },
-      {
         test: /\.js$/,
-        exclude: [
-          path.join(__dirname, 'node_modules'),
-          /html-minifier-terser/, 
-        ],
+        exclude: file => /node_modules/.test(file) && !/node_modules\/(htmlparser2|prettier)/.test(file),
         use: [
           {
             loader: 'babel-loader',

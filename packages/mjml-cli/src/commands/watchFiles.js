@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import chokidar from 'chokidar'
-import { sync } from 'glob'
+import { globSync } from 'fs'
 import { match } from 'minimatch'
 import path from 'path'
 import mjml2html from 'mjml-core'
@@ -90,7 +90,7 @@ export default (input, options) => {
 
       const matchInputOption = input.reduce(
         (found, file) =>
-          found || match(sync(path.resolve(file)), filePath)?.length > 0,
+          found || match(globSync(path.resolve(file)), filePath)?.length > 0,
         false,
       )
 

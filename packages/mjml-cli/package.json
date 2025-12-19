@@ -27,7 +27,6 @@
   "dependencies": {
     "@babel/runtime": "^7.28.4",
     "chokidar": "^3.0.0",
-    "glob": "^10.3.10",
     "lodash": "^4.17.21",
     "minimatch": "^9.0.3",
     "mjml-core": "5.0.0-alpha.8",

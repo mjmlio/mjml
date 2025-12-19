@@ -1,10 +1,38 @@
 const path = require('path')
+const webpack = require('webpack')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = {
   mode: 'production',
   entry: {
     "mjml": ['../mjml/lib/index'],
+  },
+  externals: {
+    'cheerio': 'cheerio',
+    'undici': 'undici',
+    'cosmiconfig': 'cosmiconfig',
+  },
+  resolve: {
+    alias: {
+      'path': 'path-browserify',
+      'fs': path.resolve(__dirname, 'browser-mocks/fs'),
+      'uglify-js': path.resolve(__dirname, 'browser-mocks/uglify-js'),
+      'minify': path.resolve(__dirname, 'browser-mocks/minify'), 
+      'htmlnano': path.resolve(__dirname, 'browser-mocks/htmlnano'),
+      'terser': path.resolve(__dirname, 'browser-mocks/empty'),
+      'os': 'os-browserify/browser',
+    },
+  },
+  plugins: [
+    new webpack.ProvidePlugin({
+      process: 'process/browser',
+      Buffer: ['buffer', 'Buffer'],
+    }),
+  ],
+  node: {
+    fs: false,
+    process: false,
+    Buffer: false,
   },
   optimization: {
     minimizer: [
@@ -31,19 +59,13 @@ module.exports = {
     path: path.resolve(__dirname, './lib'),
     libraryTarget: 'umd',
     umdNamedDefine: true,
-  },
-  resolve: {
-    alias: {
-      'path': path.resolve(__dirname, 'browser-mocks/path'),
-      'fs': path.resolve(__dirname, 'browser-mocks/fs'),
-      'uglify-js': path.resolve(__dirname, 'browser-mocks/uglify-js'),
-    },
+    globalObject: 'this',
   },
   module: {
     rules: [
       {
         test: /\.js$/,
-        exclude: path.join(__dirname, 'node_modules'),
+        exclude: file => /node_modules/.test(file) && !/node_modules\/(htmlparser2|prettier)/.test(file),
         use: [
           {
             loader: 'babel-loader',
@@ -62,6 +84,6 @@ module.exports = {
           },
         ],
       },
-  	],
+    ],
   },
 }

@@ -6,3 +6,4 @@ node_modules
 test.html
 /**/npmignore
 /testing-manual
+/packages/mjml-browser/test/

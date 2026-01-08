@@ -3,8 +3,9 @@ import yargs from 'yargs'
 import { flow, pick, isNil, negate, pickBy } from 'lodash/fp'
 import { isArray, isEmpty, map, get } from 'lodash'
 
-import mjml2html, { components, initializeType } from 'mjml-core'
-import validate, { dependencies } from 'mjml-validator'
+import mjml2htmlCore, { components, initializeType, assignComponents } from 'mjml-core'
+import validate, { dependencies, assignDependencies } from 'mjml-validator'
+import presetCore from 'mjml-preset-core'
 import MJMLParser from 'mjml-parser-xml'
 
 import { version as coreVersion } from 'mjml-core/package.json'
@@ -27,7 +28,7 @@ const beautifyConfig = {
 
 const minifyConfig = {
   collapseWhitespace: true,
-  minifyCSS: false,
+  minifyCss: false,
   caseSensitive: true,
   removeEmptyAttributes: true,
 }
@@ -85,6 +86,11 @@ export default async () => {
         type: 'object',
         describe: 'Option to pass to mjml-core',
       },
+      sanitizeStyles: {
+        type: 'boolean',
+        describe:
+          'Sanitize template variables inside CSS before minification',
+      },
       version: {
         alias: 'V',
       },
@@ -100,6 +106,7 @@ export default async () => {
   let minifyOptions
   let juicePreserveTags
   let fonts
+  let templateSyntax
 
   try {
     juiceOptions =
@@ -128,6 +135,13 @@ export default async () => {
     error(`Failed to decode JSON for config.fonts argument`)
   }
 
+  try {
+    templateSyntax =
+      argv.c && argv.c.templateSyntax && JSON.parse(argv.c.templateSyntax)
+  } catch (e) {
+    error(`Failed to decode JSON for config.templateSyntax argument`)
+  }
+
   const filePath = argv.c && argv.c.filePath
 
   const config = Object.assign(
@@ -137,11 +151,26 @@ export default async () => {
     minifyOptions && { minifyOptions },
     juiceOptions && { juiceOptions },
     juicePreserveTags && { juicePreserveTags },
+    templateSyntax && { templateSyntax },
     argv.c && argv.c.keepComments === 'false' && { keepComments: false },
   )
 
+  if (typeof config.sanitizeStyles === 'string') {
+    config.sanitizeStyles = config.sanitizeStyles === 'true'
+  }
+  if (typeof config.minify === 'string') {
+    config.minify = config.minify === 'true'
+  }
+
+  if (typeof argv.sanitizeStyles !== 'undefined') {
+    config.sanitizeStyles = argv.sanitizeStyles
+  }
+
   const inputArgs = pickArgs(['r', 'w', 'i', '_', 'm', 'v'])(argv)
   const outputArgs = pickArgs(['o', 's'])(argv)
+
+  assignComponents(components, presetCore.components)
+  assignDependencies(dependencies, presetCore.dependencies)
 
   // implies (until yargs pr is accepted)
   ;[
@@ -229,12 +258,13 @@ export default async () => {
           const minify = config.minify && config.minify !== 'false'
 
           // eslint-disable-next-line no-await-in-loop
-          compiled = await mjml2html(i.mjml, {
+          compiled = await mjml2htmlCore(i.mjml, {
             ...config,
             minify,
             beautify,
             beautifyConfig,
             minifyConfig,
+            useMjmlConfigOptions: config?.useMjmlConfigOptions ?? false,
             filePath: filePath || i.file,
             actualPath: i.file,
           })

@@ -124,11 +124,50 @@ These are the default options.
 ### Change minify options
 
 ```bash
-$> mjml input.mjml --config.minifyOptions='{"minifyCSS": true, "removeEmptyAttributes": false}'
+$> mjml input.mjml --config.minifyOptions='{"minifyCss": true, "removeEmptyAttributes": false}'
 ```
 
-The defaults are "collapseWhitespace": true, "minifyCSS": false, "removeEmptyAttributes": true  
-See html-minifier documentation for more available options
+Defaults when minify is enabled (htmlnano):
+- collapseWhitespace: true
+- minifyCss: 'lite' (if not provided)
+- removeEmptyAttributes: true
+- removeComments: 'safe'
+- minifyJs: false
+
+See htmlnano documentation for more options, and cssnano for `minifyCss` presets/options.
+
+Compatibility note:
+- The CSS minifier is configured via `minifyCss`. For backward compatibility, `minifyCSS` is still accepted and mapped internally:
+	- `{"minifyCSS": false}` → disables CSS minification
+	- `{"minifyCSS": true}` → enables CSS minification with the `'lite'` preset
+- To customize string quotation, pass a cssnano option, for example:
+	- `--config.minifyOptions '{"minifyCss":{"preset":["default", {"normalizeString":{"preferredQuote":"single"}}]}}'`
+
+### Sanitize template variables in CSS
+
+When your MJML contains template variables inside `<mj-style>` or inline `style="..."`, enable sanitization so CSS minification (PostCSS/cssnano) doesn't parse your template tokens:
+
+```bash
+$> mjml input.mjml --config.sanitizeStyles true --config.minify true
+```
+
+Alternatively, keep HTML minification but skip CSS minification entirely:
+
+```bash
+$> mjml input.mjml --config.minify true --config.minifyOptions='{"minifyCss": false}'
+```
+
+### Specify template syntax delimiters
+
+You can provide one or more template syntaxes via JSON. Each entry is an object with `prefix` and `suffix`:
+
+```bash
+$> mjml input.mjml \
+	--config.sanitizeStyles true \
+	--config.templateSyntax='[{"prefix":"[[","suffix":"]]"},{"prefix":"{{","suffix":"}}"}]'
+```
+
+This is equivalent to setting the same `templateSyntax` array in `.mjmlconfig.js` or passing it programmatically.
 
 ### Change juice options (library used for inlining mj-style css)
 

@@ -14,6 +14,9 @@
   "workspaces": [
     "packages/*"
   ],
+  "dependencies": {
+    "cssnano-preset-lite": "^4.0.4"
+  },
   "devDependencies": {
     "@babel/core": "^7.28.4",
     "@babel/plugin-proposal-class-properties": "^7.18.6",
@@ -24,8 +27,7 @@
     "babel-plugin-add-module-exports": "^1.0.2",
     "babel-plugin-lodash": "^3.3.4",
     "cssnano": "^7.1.2",
-    "cssnano-preset-lite": "^4.0.4",
-    "eslint": "^6.8.0",
+    "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.21.1",

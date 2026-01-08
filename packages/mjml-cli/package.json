@@ -31,6 +31,7 @@
     "lodash": "^4.17.21",
     "minimatch": "^9.0.3",
     "mjml-core": "5.0.0-alpha.8",
+    "mjml-preset-core": "5.0.0-alpha.8",
     "mjml-parser-xml": "5.0.0-alpha.8",
     "mjml-validator": "5.0.0-alpha.8",
     "yargs": "^17.7.2"

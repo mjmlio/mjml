@@ -13,7 +13,8 @@ const testValues = require('./test-values')
 const parse = mjml => MJMLParser(mjml, {
   keepComments: true,
   components,
-  filePath: '.'
+  filePath: '.',
+  ignoreIncludes: false,
 })
 
 testValues.forEach(testUnit => {

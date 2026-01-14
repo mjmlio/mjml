@@ -81,6 +81,7 @@ export default async () => {
       },
       s: {
         alias: 'stdout',
+        type: 'boolean',
         describe: 'Output HTML to stdout',
       },
       o: {
@@ -147,6 +148,11 @@ export default async () => {
     juicePreserveTags && { juicePreserveTags },
     argv.c && argv.c.keepComments === 'false' && { keepComments: false },
   )
+
+  const configAllowIncludes = argv.c && (argv.c.allowIncludes === true || argv.c.allowIncludes === 'true')
+  if (configAllowIncludes) {
+    config.ignoreIncludes = false
+  }
 
   const inputArgs = pickArgs(['r', 'w', 'i', '_', 'm', 'v'])(argv)
   const outputArgs = pickArgs(['o', 's'])(argv)

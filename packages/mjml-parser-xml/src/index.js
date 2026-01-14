@@ -34,7 +34,7 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
     keepComments = true,
     filePath = '.',
     actualPath = '.',
-    ignoreIncludes = false,
+    ignoreIncludes = true,
     preprocessors = [],
   } = options
 
@@ -64,8 +64,42 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
   const findTag = (tagName, tree) => find(tree.children, { tagName })
   const lineIndexes = indexesForNewLine(xml)
 
+  const isPathAllowed = (absolutePath) => {
+    try {
+      const root = fs.realpathSync(cwd)
+      const target = fs.realpathSync(absolutePath)
+      const rel = path.relative(root, target)
+      return rel && !rel.startsWith('..') && !path.isAbsolute(rel)
+    } catch (e) {
+      return false
+    }
+  }
+
+  const denyInclude = (line) => {
+    const newNode = {
+      line,
+      file: actualPath,
+      absoluteFilePath: path.resolve(cwd, actualPath),
+      parent: cur,
+      tagName: 'mj-raw',
+      content: '<!-- mj-include denied -->',
+      children: [],
+      errors: [
+        {
+          type: 'include-denied',
+          params: {},
+        },
+      ],
+    }
+    cur.children.push(newNode)
+  }
+
   const handleCssHtmlInclude = (file, attrs, line) => {
     const partialPath = path.resolve(cwd, file)
+    if (!isPathAllowed(partialPath)) {
+      denyInclude(line)
+      return
+    }
     let content
     try {
       content = fs.readFileSync(partialPath, 'utf8')
@@ -122,6 +156,11 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
   const handleInclude = (file, line) => {
     const partialPath = path.resolve(cwd, file)
     const curBeforeInclude = cur
+
+    if (!isPathAllowed(partialPath)) {
+      denyInclude(line)
+      return
+    }
 
     if (find(cur.includedIn, { file: partialPath }))
       throw new Error(`Circular inclusion detected on file : ${partialPath}`)

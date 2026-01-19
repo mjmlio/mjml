@@ -3,11 +3,10 @@
   "private": true,
   "scripts": {
     "build:watch": "lerna run build --parallel -- -- -w",
-    "build": "lerna run build --parallel --ignore mjml-browser",
+    "build": "lerna run build --ignore mjml-browser",
     "build-browser": "cd packages/mjml-browser && yarn build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "postinstall": "lerna bootstrap",
     "prettier": "prettier --write \"packages/**/{src,bin}/**/*.?(js|json)\"",
     "test": "lerna run test"
   },
@@ -31,7 +30,7 @@
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.21.1",
-    "lerna": "^3.22.1",
+    "lerna": "^9.0.0",
     "mocha": "10",
     "open": "^7.3.0",
     "postcss": "^8.5.6",

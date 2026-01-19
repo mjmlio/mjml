@@ -25,6 +25,7 @@ jobs:
         with:
           node-version: '20.x'
           registry-url: 'https://registry.npmjs.org'
+          always-auth: true
       - run: yarn install
       - run: yarn build
       - run: yarn build-browser

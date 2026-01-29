@@ -212,6 +212,36 @@ $> mjml input.mjml --config.allowIncludes true
 
 When enabled, include paths are restricted to the directory of the input file and its subdirectories. Absolute paths and paths escaping the project directory are denied.
 
+### Allowlist include directories
+
+If your includes live outside the template folder (e.g., a sibling `_common` directory), you can explicitly allow additional roots with `includePath`. Paths are resolved relative to `--config.filePath` when provided.
+
+```bash
+# Allow includes and declare two additional roots (JSON array)
+$> mjml template.mjml \
+	--config.filePath /project/templates/newsletter \
+	--config.allowIncludes true \
+	--config.includePath '["../_common","../vendor"]'
+
+# Or provide absolute paths
+$> mjml template.mjml \
+	--config.filePath /project/templates/newsletter \
+	--config.allowIncludes true \
+	--config.includePath '["/project/templates/_common","/project/vendor"]'
+```
+
+Notes:
+
+- `includePath` accepts a string or a JSON array of paths.
+- Allowed roots are the `filePath` directory plus any `includePath` entries; absolute paths outside these roots and parent-directory escapes remain denied.
+- Relative `includePath` entries are resolved against `filePath` (or the template file’s directory when `filePath` isn’t set).
+
+### Best practices for shared partials
+
+- If templates reference partials relative to a shared base (e.g., `./_common/header.mjml`), set `--config.filePath` to that base.
+- If templates use relative paths to siblings (e.g., `../_common/header.mjml`), keep paths as-is and use `--config.includePath` to allowlist the sibling directories.
+- Always run with `--config.allowIncludes true` when developing locally; production defaults should keep includes ignored unless explicitly needed.
+
 ### Log error stack
 
 ```bash

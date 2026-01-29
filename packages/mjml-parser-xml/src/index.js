@@ -36,6 +36,7 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
     actualPath = '.',
     ignoreIncludes = true,
     preprocessors = [],
+    includePath,
   } = options
 
   const endingTags = flow(
@@ -64,23 +65,41 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
   const findTag = (tagName, tree) => find(tree.children, { tagName })
   const lineIndexes = indexesForNewLine(xml)
 
+  const extraAllowedRoots = []
+  const addAllowedRoot = (p) => {
+    if (!p) return
+    try {
+      const resolved = fs.realpathSync(path.resolve(cwd, p))
+      extraAllowedRoots.push(resolved)
+    } catch (_) {
+      // ignore non-existent paths
+    }
+  }
+
+  if (Array.isArray(includePath)) {
+    includePath.forEach(addAllowedRoot)
+  } else {
+    addAllowedRoot(includePath)
+  }
+
   const isPathAllowed = (absolutePath) => {
     try {
-      const root = fs.realpathSync(cwd)
       const target = fs.realpathSync(absolutePath)
-      const relative = path.relative(root, target)
+      const root = fs.realpathSync(cwd)
+      const roots = [root, ...extraAllowedRoots]
 
-      return relative && !relative.startsWith('..') && !path.isAbsolute(relative)
+      return roots.some((r) => {
+        const relative = path.relative(r, target)
+        return (
+          relative && !relative.startsWith('..') && !path.isAbsolute(relative)
+        )
+      })
     } catch (e) {
       return false
     }
   }
 
   const denyInclude = (line) => {
-    if (!cur) {
-      return
-    }
-
     const newNode = {
       line,
       file: actualPath,

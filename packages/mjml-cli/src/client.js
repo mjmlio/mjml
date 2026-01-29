@@ -108,6 +108,7 @@ export default async () => {
   let juicePreserveTags
   let fonts
   let templateSyntax
+  let includePath
 
   try {
     juiceOptions =
@@ -143,6 +144,16 @@ export default async () => {
     error(`Failed to decode JSON for config.templateSyntax argument`)
   }
 
+  // Support includePath as string or JSON array in CLI
+  includePath = argv.c && argv.c.includePath
+  if (typeof includePath === 'string') {
+    try {
+      includePath = JSON.parse(includePath)
+    } catch (_) {
+      // keep as string when not JSON
+    }
+  }
+
   const filePath = argv.c && argv.c.filePath
 
   const config = Object.assign(
@@ -153,6 +164,7 @@ export default async () => {
     juiceOptions && { juiceOptions },
     juicePreserveTags && { juicePreserveTags },
     templateSyntax && { templateSyntax },
+    typeof includePath !== 'undefined' && { includePath },
     argv.c && argv.c.keepComments === 'false' && { keepComments: false },
   )
 

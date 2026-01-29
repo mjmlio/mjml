@@ -12,7 +12,7 @@ export default class MjButton extends BodyComponent {
     'background-color': 'color',
     'border-bottom': 'string',
     'border-left': 'string',
-    'border-radius': 'string',
+    'border-radius': 'unit(px,%){1,4}',
     'border-right': 'string',
     'border-top': 'string',
     border: 'string',

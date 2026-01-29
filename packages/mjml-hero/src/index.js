@@ -15,8 +15,7 @@ export default class MjHero extends BodyComponent {
     'background-width': 'unit(px,%)',
     'background-height': 'unit(px,%)',
     'background-position': 'string',
-    'border-radius': 'string',
-    'container-background-color': 'color',
+    'border-radius': 'unit(px,%){1,4}',
     'inner-background-color': 'color',
     'inner-padding': 'unit(px,%){1,4}',
     'inner-padding-top': 'unit(px,%)',
@@ -75,6 +74,7 @@ export default class MjHero extends BodyComponent {
 
   getStyles() {
     const { containerWidth } = this.context
+    const { containerWidth: currentContainerWidth } = this.getChildContext()
     const backgroundRatio = Math.round(
       (parseInt(this.getAttribute('background-height'), 10) /
         parseInt(this.getAttribute('background-width'), 10)) *
@@ -108,7 +108,7 @@ export default class MjHero extends BodyComponent {
         'mso-line-height-rule': 'exactly',
       },
       'outlook-inner-table': {
-        width: containerWidth,
+        width: currentContainerWidth,
       },
       'outlook-image': {
         border: '0',
@@ -127,15 +127,20 @@ export default class MjHero extends BodyComponent {
         'padding-right': this.getAttribute('inner-padding-right'),
         'padding-bottom': this.getAttribute('inner-padding-bottom'),
       },
-      'inner-table': {
-        width: '100%',
-        margin: '0px',
-      },
       'inner-div': {
         'background-color': this.getAttribute('inner-background-color'),
         float: this.getAttribute('align'),
         margin: '0px auto',
         width: this.getAttribute('width'),
+        padding: this.getAttribute('inner-padding'),
+        'padding-top': this.getAttribute('inner-padding-top'),
+        'padding-left': this.getAttribute('inner-padding-left'),
+        'padding-right': this.getAttribute('inner-padding-right'),
+        'padding-bottom': this.getAttribute('inner-padding-bottom'),
+      },
+      'inner-table': {
+        width: '100%',
+        margin: '0px',
       },
     }
   }
@@ -153,7 +158,7 @@ export default class MjHero extends BodyComponent {
     ])
 
   renderContent() {
-    const { containerWidth } = this.context
+    const { containerWidth: currentContainerWidth } = this.getChildContext()
     const { children } = this.props
 
     return `
@@ -165,7 +170,7 @@ export default class MjHero extends BodyComponent {
             cellpadding: '0',
             cellspacing: '0',
             style: 'outlook-inner-table',
-            width: containerWidth.replace('px', ''),
+            width: parseInt(currentContainerWidth, 10),
           })}
         >
           <tr>

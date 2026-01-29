@@ -102,7 +102,7 @@ export default class MjSocialElement extends BodyComponent {
     'icon-position': 'enum(left,right)',
     'background-color': 'color',
     color: 'color',
-    'border-radius': 'unit(px)',
+    'border-radius': 'unit(px,%){1,4}',
     'font-family': 'string',
     'font-size': 'unit(px)',
     'font-style': 'string',

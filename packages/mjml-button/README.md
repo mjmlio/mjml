@@ -43,7 +43,7 @@ Displays a customizable button.
 | border                     | string                             | CSS border format                                     | `none`                                 |
 | border-bottom              | string                             | CSS border format                                     |                                        |
 | border-left                | string                             | CSS border format                                     |                                        |
-| border-radius              | string                             | border radius                                         | `3px`                                  |
+| border-radius              | `px` `%`                           | border radius                                         | `3px`                                  |
 | border-right               | string                             | CSS border format                                     |                                        |
 | border-top                 | string                             | CSS border format                                     |                                        |
 | color                      | CSS color formats                  | text color                                            | `#ffffff`                              |
@@ -58,7 +58,7 @@ Displays a customizable button.
 | inner-padding              | `px` `%`                           | inner button padding, <br>supports up to 4 parameters | `10px 25px`                            |
 | letter-spacing             | `px` `em`                          | letter-spacing                                        |                                        |
 | line-height                | `px` `%`                           | line-height on link                                   | `120%`                                 |
-| name                       | string                             | specify the name attribute for the button link        |
+| name                       | string                             | specify the name attribute for the button link        |                                        |
 | padding                    | `px` `%`                           | button container padding, supports up to 4 parameters | `10px 25px`                            |
 | padding-bottom             | `px` `%`                           | button container bottom padding                       |                                        |
 | padding-left               | `px` `%`                           | button container left padding                         |                                        |

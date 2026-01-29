@@ -17,7 +17,7 @@ export default class MjSection extends BodyComponent {
     border: 'string',
     'border-bottom': 'string',
     'border-left': 'string',
-    'border-radius': 'string',
+    'border-radius': 'unit(px,%){1,4}',
     'border-right': 'string',
     'border-top': 'string',
     direction: 'enum(ltr,rtl)',

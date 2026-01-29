@@ -41,13 +41,13 @@ The `full-width` attribute will be used to manage the background width. Setting 
 | background-position   | string                  | CSS values, i.e. `left` `center` `right` + `top` `center` `bottom` <br>(see outlook limitations below) | `top center`  |
 | background-position-x | string                  | CSS values, i.e. `left` `center` `right` <br>(see outlook limitations below)                           |               |
 | background-position-y | string                  | CSS values, i.e. `top` `center` `bottom` <br>(see outlook limitations below)                           |               |
-| background-repeat     | `repeat` `no-repeat`    | set the background image to repeat                                                                     |
+| background-repeat     | `repeat` `no-repeat`    | set the background image to repeat                                                                     |               |
 | background-size       | string                  | CSS values e.g. `auto` `cover` `contain` `px` `%` size                                                 | `auto`        |
 | background-url        | string                  | background image, in URL format                                                                        |               |
 | border                | string                  | CSS border format                                                                                      |               |
 | border-bottom         | string                  | CSS border format                                                                                      |               |
 | border-left           | string                  | CSS border format                                                                                      |               |
-| border-radius         | string                  | border radius                                                                                          |               |
+| border-radius         | `px` `%`                | border radius                                                                                          |               |
 | border-right          | string                  | CSS border format                                                                                      |               |
 | border-top            | string                  | CSS border format                                                                                      |               |
 | css-class             | string                  | class name, added to the root HTML element created                                                     |               |

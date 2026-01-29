@@ -86,15 +86,20 @@ Use `background-color` to provide a fallback color in case an email client doesn
 
 | attribute              | accepts                 | description                                                        | default value                 |
 | ---------------------- | ----------------------- | ------------------------------------------------------------------ | ----------------------------- |
-| background-color       | CSS color formats       | hero background color                                              | #ffffff                       |
+| background-color       | CSS color formats       | hero background color                                              | #ffffff                     |
 | background-height      | `px` `%`                | height of the image used, mandatory                                |                               |
 | background-position    | string                  | CSS values, i.e. `left` `center` `right` + `top` `center` `bottom` | `center center`               |
 | background-url         | string                  | absolute background in URL format                                  | `null`                        |
 | background-width       | `px` `%`                | width of the image used, mandatory                                 | inherits parent element width |
-| border-radius          | string                  | border radius                                                      |                               |
+| border-radius          | `px` `%`                | border radius                                                      |                               |
 | css-class              | string                  | class name, added to the root HTML element created                 |                               |
 | height                 | `px` `%`                | hero section height, (required for `fixed-height` mode)            | `0px`                         |
 | inner-background-color | CSS color formats       | content background color                                           |                               |
+| inner-padding          | `px` `%`                | hero inner padding, supports up to 4 parameters                    |                               |
+| inner-padding-bottom   | `px` `%`                | hero bottom inner padding                                          |                               |
+| inner-padding-left     | `px` `%`                | hero left inner padding                                            |                               |
+| inner-padding-right    | `px` `%`                | hero right inner padding                                           |                               |
+| inner-padding-top      | `px` `%`                | hero top inner padding                                             |                               |
 | mode                   | string                  | `fluid-height` or `fixed-height`                                   | `fluid-height`                |
 | padding                | `px` `%`                | hero padding, supports up to 4 parameters                          | `0px`                         |
 | padding-bottom         | `px` `%`                | hero bottom padding                                                | `null`                        |

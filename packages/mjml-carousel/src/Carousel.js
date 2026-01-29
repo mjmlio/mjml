@@ -21,7 +21,7 @@ export default class MjCarousel extends BodyComponent {
     'right-icon': 'string',
     thumbnails: 'enum(visible,hidden,supported)',
     'tb-border': 'string',
-    'tb-border-radius': 'unit(px,%)',
+    'tb-border-radius': 'unit(px,%){1,4}',
     'tb-hover-border-color': 'color',
     'tb-selected-border-color': 'color',
     'tb-width': 'unit(px,%)',

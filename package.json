@@ -14,9 +14,6 @@
   "workspaces": [
     "packages/*"
   ],
-  "dependencies": {
-    "cssnano-preset-lite": "^4.0.4"
-  },
   "devDependencies": {
     "@babel/core": "^7.28.4",
     "@babel/plugin-proposal-class-properties": "^7.18.6",

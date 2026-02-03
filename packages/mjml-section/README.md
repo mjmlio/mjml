@@ -47,7 +47,7 @@ The `full-width` attribute will be used to manage the background width. Setting 
 | border                | string                  | CSS border format                                                                                      |               |
 | border-bottom         | string                  | CSS border format                                                                                      |               |
 | border-left           | string                  | CSS border format                                                                                      |               |
-| border-radius         | `px` `%`                | border radius                                                                                          |               |
+| border-radius         | string                  | border radius                                                                                          |               |
 | border-right          | string                  | CSS border format                                                                                      |               |
 | border-top            | string                  | CSS border format                                                                                      |               |
 | css-class             | string                  | class name, added to the root HTML element created                                                     |               |

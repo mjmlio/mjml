@@ -45,7 +45,7 @@ Every single column has to contain something because they are responsive contain
 | border                 | string                  | CSS border format                                                                        |                                                |
 | border-bottom          | string                  | CSS border format                                                                        |                                                |
 | border-left            | string                  | CSS border format                                                                        |                                                |
-| border-radius          | `px` `%`                | border radius                                                                            |                                                |
+| border-radius          | string                  | border radius                                                                            |                                                |
 | border-right           | string                  | CSS border format                                                                        |                                                |
 | border-top             | string                  | CSS border format                                                                        |                                                |
 | css-class              | string                  | class name, added to the root HTML element created                                       |                                                |
@@ -54,7 +54,7 @@ Every single column has to contain something because they are responsive contain
 | inner-border           | string                  | CSS border; requires a padding format                                                    |                                                |
 | inner-border-bottom    | string                  | CSS border format; requires a padding                                                    |                                                |
 | inner-border-left      | string                  | CSS border format; requires a padding                                                    |                                                |
-| inner-border-radius    | `px` `%`                | border radius ; requires a padding                                                       |                                                |
+| inner-border-radius    | string                  | border radius ; requires a padding                                                       |                                                |
 | inner-border-right     | string                  | CSS border format; requires a padding                                                    |                                                |
 | inner-border-top       | string                  | CSS border format; requires a padding                                                    |                                                |
 | padding                | `px` `%`                | column padding, supports up to 4 parameters                                              |                                                |

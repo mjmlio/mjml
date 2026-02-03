@@ -91,7 +91,7 @@ Use `background-color` to provide a fallback color in case an email client doesn
 | background-position    | string                  | CSS values, i.e. `left` `center` `right` + `top` `center` `bottom` | `center center`               |
 | background-url         | string                  | absolute background in URL format                                  | `null`                        |
 | background-width       | `px` `%`                | width of the image used, mandatory                                 | inherits parent element width |
-| border-radius          | `px` `%`                | border radius                                                      |                               |
+| border-radius          | string                  | border radius                                                      |                               |
 | css-class              | string                  | class name, added to the root HTML element created                 |                               |
 | height                 | `px` `%`                | hero section height, (required for `fixed-height` mode)            | `0px`                         |
 | inner-background-color | CSS color formats       | content background color                                           |                               |

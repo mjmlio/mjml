@@ -55,7 +55,7 @@ Setting it will change the width of the section from the default 600px to 100%.
 | border                | string                  | CSS border format                                                                                      |               |
 | border-bottom         | string                  | CSS border format                                                                                      |               |
 | border-left           | string                  | CSS border format                                                                                      |               |
-| border-radius         | `px` `%`                | border radius                                                                                          |               |
+| border-radius         | string                  | border radius                                                                                          |               |
 | border-right          | string                  | CSS border format                                                                                      |               |
 | border-top            | string                  | CSS border format                                                                                      |               |
 | css-class             | string                  | class name, added to the root HTML element created                                                     |               |

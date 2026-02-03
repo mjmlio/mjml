@@ -15,7 +15,7 @@ export default class MjHero extends BodyComponent {
     'background-width': 'unit(px,%)',
     'background-height': 'unit(px,%)',
     'background-position': 'string',
-    'border-radius': 'unit(px,%){1,4}',
+    'border-radius': 'string',
     'inner-background-color': 'color',
     'inner-padding': 'unit(px,%){1,4}',
     'inner-padding-top': 'unit(px,%)',

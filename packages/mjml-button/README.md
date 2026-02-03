@@ -43,7 +43,7 @@ Displays a customizable button.
 | border                     | string                             | CSS border format                                     | `none`                                 |
 | border-bottom              | string                             | CSS border format                                     |                                        |
 | border-left                | string                             | CSS border format                                     |                                        |
-| border-radius              | `px` `%`                           | border radius                                         | `3px`                                  |
+| border-radius              | string                             | border radius                                         | `3px`                                  |
 | border-right               | string                             | CSS border format                                     |                                        |
 | border-top                 | string                             | CSS border format                                     |                                        |
 | color                      | CSS color formats                  | text color                                            | `#ffffff`                              |

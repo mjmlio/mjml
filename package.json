@@ -7,7 +7,7 @@
     "build-browser": "cd packages/mjml-browser && yarn build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "postinstall": "lerna bootstrap",
+    "postinstall": "lerna bootstrap && patch-package",
     "prettier": "prettier --write \"packages/**/{src,bin}/**/*.?(js|json)\"",
     "test": "lerna run test"
   },
@@ -36,6 +36,7 @@
     "open": "^7.3.0",
     "postcss": "^8.5.6",
     "prettier": "^3.2.4",
+    "patch-package": "^8.0.0",
     "rimraf": "^3.0.2"
   },
   "resolutions": {

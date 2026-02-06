@@ -181,8 +181,12 @@ const { html, errors } = mjml2html(source, {
 })
 ```
 
-Security note: Only files under `filePath` and the directories listed in `includePath` are allowed. Absolute paths and parent-directory escapes are denied.
+Security notes:
 
+- Includes are ignored by default (`ignoreIncludes: true`). Enable explicitly and scope allowed folders with `includePath`.
+- Paths are fully URL-decoded before validation (handles double/triple encoding like `%252F`).
+- Early rejects: absolute paths, UNC-style paths (`//server/...` or `\\server\\...`), Windows drive letters (`C:\...`), and null bytes (`%00`).
+- Canonical boundary checks: we resolve and follow symlinks with `realpath` and require the target to stay inside `filePath` or any `includePath` roots.
 ### Best practices for shared partials
 
 - Project templates root: Set `filePath` to your templates root and write includes relative to that base (e.g., `./_common/header.mjml`). Simple setup; templates must use base-relative paths.

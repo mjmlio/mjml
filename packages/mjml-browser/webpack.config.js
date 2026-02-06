@@ -2,11 +2,24 @@ const path = require('path')
 const webpack = require('webpack')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
+const QUIET = process.env.QUIET_BUILD === 'true'
+
 module.exports = {
   mode: 'production',
   entry: {
     "mjml": ['../mjml/lib/index'],
   },
+  performance: {
+    hints: QUIET ? false : 'warning',
+  },
+  stats: QUIET ? {
+    warningsFilter: [
+      /Critical dependency: the request of a dependency is an expression/,
+      /asset size limit/,
+      /entrypoint size limit/,
+      /webpack performance recommendations/,
+    ],
+  } : undefined,
   externals: {
     'cheerio': 'cheerio',
     'undici': 'undici',
@@ -62,6 +75,9 @@ module.exports = {
     globalObject: 'this',
   },
   module: {
+    // Suppress critical dependency warnings from dynamic requires in quiet mode
+    exprContextCritical: !QUIET,
+    unknownContextCritical: !QUIET,
     rules: [
       {
         test: /\.js$/,
@@ -76,6 +92,8 @@ module.exports = {
               plugins: [
                 ["@babel/plugin-proposal-decorators", { "legacy": true }],
                 ["@babel/plugin-proposal-class-properties", { "loose" : true }],
+                ["@babel/plugin-transform-private-methods", { "loose": true }],
+                ["@babel/plugin-transform-private-property-in-object", { "loose": true }],
                 "@babel/plugin-proposal-function-bind",
                 "@babel/plugin-proposal-export-default-from",
               ],

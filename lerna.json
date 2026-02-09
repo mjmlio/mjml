@@ -5,6 +5,11 @@
   "command": {
     "publish": {
       "exact": true
+    },
+    "run": {
+      "stream": true,
+      "parallel": true,
+      "concurrency": 1
     }
   },
   "npmClient": "yarn",

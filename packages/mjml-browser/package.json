@@ -18,8 +18,7 @@
   "homepage": "https://mjml.io",
   "scripts": {
     "clean": "rimraf lib",
-    "build": "webpack",
-    "build:quiet": "NODE_OPTIONS=--no-deprecation QUIET_BUILD=true webpack"
+    "build": "webpack"
   },
   "devDependencies": {
     "@babel/cli": "^7.28.4",

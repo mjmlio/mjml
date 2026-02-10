@@ -40,6 +40,8 @@ import handleMjmlConfig, {
 } from './helpers/mjmlconfig'
 
 const isNode = require('detect-node')
+const fs = require('fs')
+const path = require('path')
 
 function escapeRegex(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
@@ -435,6 +437,7 @@ export default async function mjml2html(mjml, options = {}) {
     sanitizeStyles = false,
     templateSyntax,
     allowMixedSyntax = false,
+    includePath,
   } = mergedOptions
 
   const components = { ...globalComponents }
@@ -445,6 +448,45 @@ export default async function mjml2html(mjml, options = {}) {
   }
 
   if (typeof mjml === 'string') {
+    const pathsArr = []
+    if (Array.isArray(includePath)) {
+      pathsArr.push(
+        ...includePath.filter((p) => typeof p === 'string' && p.length > 0),
+      )
+    } else if (includePath) {
+      pathsArr.push(includePath)
+    }
+
+    if (pathsArr.length) {
+      let base = filePath || '.'
+      if (fs.existsSync(base)) {
+        const isDir = fs.lstatSync(base).isDirectory()
+        base = isDir ? base : path.dirname(base)
+      } else {
+        base = process.cwd()
+      }
+      const baseReal = fs.existsSync(base) ? fs.realpathSync(base) : base
+      for (const p of pathsArr) {
+        if (fs.existsSync(p)) {
+          const r = fs.realpathSync(p)
+          const relToBase = path.relative(baseReal, r)
+          const isOutsideBase =
+            !relToBase ||
+            relToBase.startsWith('..') ||
+            path.isAbsolute(relToBase)
+          const isRootDir = r === path.parse(r).root
+          if (isRootDir || isOutsideBase) {
+            // eslint-disable-next-line no-console
+            console.warn(
+              `[MJML security] includePath "${p}" is outside the template base "${baseReal}"${
+                isRootDir ? ' (root directory)' : ''
+              }. Consider scoping includePath to a project templates folder.`,
+            )
+          }
+        }
+      }
+    }
+
     mjml = MJMLParser(mjml, {
       keepComments,
       components,
@@ -452,6 +494,7 @@ export default async function mjml2html(mjml, options = {}) {
       actualPath,
       preprocessors,
       ignoreIncludes,
+      includePath,
     })
   }
 

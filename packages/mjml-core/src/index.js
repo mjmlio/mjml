@@ -139,7 +139,8 @@ function sanitizeCssValueVariablesHtml(html, syntaxes) {
 
     syntaxes.forEach(({ prefix, suffix }) => {
       const regex = new RegExp(
-        `:\\s*${escapeRegex(prefix)}\\s*([\\s\\S]*?)\\s*${escapeRegex(suffix)}`,
+          `:\\s*${escapeRegex(prefix)}\\s*([\\s\\S]*?)\\s*${escapeRegex(suffix)}`,
+          'g',
         'g',
       )
       let m = regex.exec(content)
@@ -336,14 +337,15 @@ export default async function mjml2html(mjml, options = {}) {
   let content = ''
   let errors = []
 
-  // Resolve skeleton path if in Node.js
+  // Resolve skeleton path via node-only helper to avoid dynamic require in browser builds
   if (isNode && typeof options.skeleton === 'string') {
     // eslint-disable-next-line global-require
-    const path = require('path')
-    const sk = options.skeleton
-    const resolved = path.isAbsolute(sk) ? sk : path.resolve(process.cwd(), sk)
-    // eslint-disable-next-line global-require, import/no-dynamic-require
-    options.skeleton = require(resolved)
+    const skeletonLoader = require('./node-only/skeleton-loader')
+    const loadSkeleton = skeletonLoader.default || skeletonLoader.loadSkeleton
+    const loadedSk = loadSkeleton && loadSkeleton(options.skeleton)
+    if (loadedSk) {
+      options.skeleton = loadedSk
+    }
   }
 
   let packages = {}

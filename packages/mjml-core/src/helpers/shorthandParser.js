@@ -1,6 +1,6 @@
 import { get } from 'lodash'
 
-export default function (cssValue, direction) {
+export default function shorthandParser(cssValue, direction) {
   const splittedCssValue = cssValue.trim().replace(/\s+/g, ' ').split(' ', 4)
   let directions = {}
 

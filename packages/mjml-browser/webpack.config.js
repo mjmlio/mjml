@@ -2,6 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
+
 module.exports = {
   mode: 'production',
   entry: {
@@ -21,12 +22,19 @@ module.exports = {
       'htmlnano': path.resolve(__dirname, 'browser-mocks/htmlnano'),
       'terser': path.resolve(__dirname, 'browser-mocks/empty'),
       'os': 'os-browserify/browser',
+      [path.resolve(__dirname, '../mjml-core/lib/helpers/mjmlconfig.js')]: path.resolve(__dirname, 'browser-mocks/mjmlconfig'),
+      [path.resolve(__dirname, '../mjml-core/lib/helpers/mjmlconfig')]: path.resolve(__dirname, 'browser-mocks/mjmlconfig'),
+      [path.resolve(__dirname, '../mjml-core/lib/node-only/skeleton-loader.js')]: path.resolve(__dirname, 'browser-mocks/skeleton-loader'),
+      [path.resolve(__dirname, '../mjml-core/lib/node-only/skeleton-loader')]: path.resolve(__dirname, 'browser-mocks/skeleton-loader'),
     },
   },
   plugins: [
     new webpack.ProvidePlugin({
       process: 'process/browser',
       Buffer: ['buffer', 'Buffer'],
+    }),
+    new webpack.DefinePlugin({
+      'process.env.MJML_BROWSER': JSON.stringify('true'),
     }),
   ],
   node: {
@@ -76,8 +84,9 @@ module.exports = {
               plugins: [
                 ["@babel/plugin-proposal-decorators", { "legacy": true }],
                 ["@babel/plugin-proposal-class-properties", { "loose" : true }],
+                ["@babel/plugin-transform-private-methods", { "loose": true }],
+                ["@babel/plugin-transform-private-property-in-object", { "loose": true }],
                 "@babel/plugin-proposal-function-bind",
-                "@babel/plugin-proposal-export-default-from",
               ],
               babelrc: false,
             },

@@ -84,7 +84,7 @@ Note that default icons are transparent, which allows `background-color` to actu
 | align            | `left` `center` `right` | align content                                                                   | `center`                               |
 | alt              | string                  | image alt attribute                                                             | `''`                                   |
 | background-color | CSS color formats       | icon color                                                                      | Each social `name` has its own default |
-| border-radius    | `px`                    | border radius                                                                   | `3px`                                  |
+| border-radius    | string                  | border radius                                                                   | `3px`                                  |
 | color            | CSS color formats       | text color                                                                      | `#000`                                 |
 | css-class        | string                  | class name, added to the root HTML element created                              |                                        |
 | font-family      | string                  | font name                                                                       | `Ubuntu, Helvetica, Arial, sans-serif` |

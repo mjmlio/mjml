@@ -31,7 +31,7 @@
     "html-minifier": "^4.0.0",
     "js-beautify": "^1.6.14",
     "lodash": "^4.17.21",
-    "minimatch": "^9.0.3",
+    "minimatch": "^10.2.1",
     "mjml-core": "4.18.0",
     "mjml-migrate": "4.18.0",
     "mjml-parser-xml": "4.18.0",

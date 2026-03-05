@@ -2,6 +2,8 @@ import { BodyComponent } from 'mjml-core'
 
 import widthParser from 'mjml-core/lib/helpers/widthParser'
 
+import { msoConditionalTag } from 'mjml-core/lib/helpers/conditionalTag'
+
 export default class MjGroup extends BodyComponent {
   static componentName = 'mj-group'
 
@@ -13,7 +15,6 @@ export default class MjGroup extends BodyComponent {
   }
 
   static defaultAttributes = {
-    direction: 'ltr',
   }
 
   getChildContext() {
@@ -51,7 +52,6 @@ export default class MjGroup extends BodyComponent {
       div: {
         'font-size': '0',
         'line-height': '0',
-        'text-align': 'left',
         display: 'inline-block',
         width: '100%',
         direction: this.getAttribute('direction'),
@@ -148,7 +148,7 @@ export default class MjGroup extends BodyComponent {
       return `${parsedWidth}${unit}`
     }
 
-    let classesName = `${this.getColumnClass()} mj-outlook-group-fix`
+    let classesName = `${this.getColumnClass()}`
 
     if (this.getAttribute('css-class')) {
       classesName += ` ${this.getAttribute('css-class')}`
@@ -161,7 +161,7 @@ export default class MjGroup extends BodyComponent {
           style: 'div',
         })}
       >
-        <!--[if mso | IE]>
+        ${msoConditionalTag(`
         <table
           ${this.htmlAttributes({
             bgcolor:
@@ -171,19 +171,19 @@ export default class MjGroup extends BodyComponent {
             border: '0',
             cellpadding: '0',
             cellspacing: '0',
-            role: 'presentation',
+            role: 'none',
           })}
         >
           <tr>
-        <![endif]-->
+      `)}
           ${this.renderChildren(children, {
             attributes: { mobileWidth: 'mobileWidth' },
             renderer: (component) =>
               component.constructor.isRawElement()
                 ? component.render()
                 : `
-              <!--[if mso | IE]>
-              <td
+              ${msoConditionalTag(`
+                <td
                 ${component.htmlAttributes({
                   style: {
                     align: component.getAttribute('align'),
@@ -196,17 +196,16 @@ export default class MjGroup extends BodyComponent {
                   },
                 })}
               >
-              <![endif]-->
+              `)}
                 ${component.render()}
-              <!--[if mso | IE]>
-              </td>
-              <![endif]-->
+              ${msoConditionalTag(`
+                </td>
+              `)}
           `,
           })}
-        <!--[if mso | IE]>
-          </tr>
-          </table>
-        <![endif]-->
+        ${msoConditionalTag(`
+                </tr>
+          </table>`)}
       </div>
     `
   }

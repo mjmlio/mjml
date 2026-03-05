@@ -17,25 +17,23 @@ For instance, the `mj-button` component is, on the inside, a complex HTML layout
   style="border:none;border-radius:3px;"
   align="center"
 >
-  <tbody>
-    <tr>
-      <td
-        style="background-color:#414141;border-radius:3px;color:#ffffff;cursor:auto;"
-        align="center"
-        valign="middle"
-        bgcolor="#414141"
+  <tr>
+    <td
+      style="background-color:#414141;border-radius:3px;color:#ffffff;cursor:auto;"
+      align="center"
+      valign="middle"
+      bgcolor="#414141"
+    >
+      <a
+        class="mj-content"
+        href="#"
+        style="display:inline-block;text-decoration:none;background-color:#414141;border:1px solid #414141;border-radius:3px;color:#ffffff;font-size:13px;font-weight:bold;padding:15px 30px;"
+        target="_blank"
       >
-        <a
-          class="mj-content"
-          href="#"
-          style="display:inline-block;text-decoration:none;background-color:#414141;border:1px solid #414141;border-radius:3px;color:#ffffff;font-size:13px;font-weight:bold;padding:15px 30px;"
-          target="_blank"
-        >
-          Hello There!
-        </a>
-      </td>
-    </tr>
-  </tbody>
+        Hello There!
+      </a>
+    </td>
+  </tr>
 </table>
 ```
 
@@ -49,11 +47,14 @@ An MJML document starts with an `mjml` tag. It can contain only `mj-head` and `m
 
 #### Attributes
 
-| attribute | accepts | description                                                                                                                                                                                              | default value |
-| --------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
-| owa       | string  | if set to `desktop`, this will force the desktop version for older (self-hosted) versions of Outlook.com that don't support media queries (cf. [this issue](https://github.com/mjmlio/mjml/issues/2241)) | `none`        |
-| lang      | string  | adds a `lang` attribute in the `html` and `body > div` tags                                                                                                                                              | `und`         |
-| dir       | string  | adds a `dir` attribute in the `html` and `body > div` tags                                                                                                                                               | `auto`        |
+| attribute               | accepts | description                                                                                                                                                                                              | default value |
+| ----------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| dir                     | string  | adds a `dir` attribute in the `html` and `body > div` tags                                                                                                                                               | `auto`        |
+| lang                    | string  | adds a `lang` attribute in the `html` and `body > div` tags                                                                                                                                              | `und`         |
+| support-dark-mode       | boolean | setting to `true` will add `<meta>` tags and `:root` CSS to enable support                                                                                                                               | `false`       |
+| support-outlook-classic | boolean | setting to `false` will remove all Outlook specific code when compiled to HTML                                                                                                                           | `true`        |
+| owa                     | string  | if set to `desktop`, this will force the desktop version for older (self-hosted) versions of Outlook.com that don't support media queries (cf. [this issue](https://github.com/mjmlio/mjml/issues/2241)) | `none`        |
+
 
 ### mj-head
 

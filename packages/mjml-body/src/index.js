@@ -23,10 +23,6 @@ export default class MjBody extends BodyComponent {
 
   getStyles() {
     return {
-      body: {
-        'word-spacing': 'normal',
-        'background-color': this.getAttribute('background-color'),
-      },
       div: {
         'word-spacing': 'normal',
         'background-color': this.getAttribute('background-color'),
@@ -39,26 +35,22 @@ export default class MjBody extends BodyComponent {
       globalData: { lang, dir, title, preview },
     } = this.context
 
-    return `
-      <body ${this.htmlAttributes({
-        id: this.getAttribute('id'),
-        class: this.getAttribute('css-class'),
-        style: 'body',
+    return `<body${this.htmlAttributes({
+      id: this.getAttribute('id'),
+      class: this.getAttribute('css-class'),
+      'xml:lang': lang,
+    })}>
+    ${buildPreview(preview)}
+    <div${this.htmlAttributes({
+        ...(title && { 'aria-label': title }),
+        'aria-roledescription': 'email',
+        role: 'article',
+        lang,
+        dir,
+        style: 'div',
       })}>
-        ${buildPreview(preview)}
-        <div
-          ${this.htmlAttributes({
-            ...(title && { 'aria-label': title }),
-            'aria-roledescription': 'email',
-            role: 'article',
-            lang,
-            dir,
-            style: 'div',
-          })}
-        >
-        ${this.renderChildren()}
-      </div>
-      </body>
-    `
+    ${this.renderChildren()}
+    </div>
+  </body>`
   }
 }

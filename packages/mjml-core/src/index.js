@@ -32,6 +32,7 @@ import suffixCssClasses from './helpers/suffixCssClasses'
 import mergeOutlookConditionnals from './helpers/mergeOutlookConditionnals'
 import minifyOutlookConditionnals from './helpers/minifyOutlookConditionnals'
 import defaultSkeleton from './helpers/skeleton'
+import { setSupportOutlookClassicFlag } from './helpers/conditionalTag'
 import { initializeType } from './types/type'
 
 import handleMjmlConfig, {
@@ -75,6 +76,90 @@ function restoreInlineStyleAttributes(html, syntaxes) {
     restoredValue = restoredValue.replace(/;$/, '')
     return `style="${restoredValue}"`
   })
+}
+
+function mergeHeadStyleBlocks(html) {
+  const headOpen = html.indexOf('<head')
+  if (headOpen === -1) {
+    return html
+  }
+
+  const headOpenEnd = html.indexOf('>', headOpen)
+  if (headOpenEnd === -1) {
+    return html
+  }
+
+  const headClose = html.indexOf('</head>', headOpenEnd)
+  if (headClose === -1) {
+    return html
+  }
+
+  const headOpenTag = html.slice(headOpen, headOpenEnd + 1)
+  const headInner = html.slice(headOpenEnd + 1, headClose)
+  const before = html.slice(0, headOpen)
+  const after = html.slice(headClose)
+
+  const $ = load(`<root>${headInner}</root>`, {
+    decodeEntities: false,
+  })
+
+  const root = $('root')
+  const children = root.contents().toArray()
+
+  let firstStyle = null
+  let combinedCss = ''
+
+  const isPlainHeadStyle = (node) => {
+    if (
+      node.tagName !== 'style' ||
+      (node.attribs && Object.keys(node.attribs).length > 0)
+    ) {
+      return false
+    }
+
+    const hasConditionalCommentSibling = (sibling) => {
+      if (!sibling || sibling.type !== 'comment') {
+        return false
+      }
+      const data = sibling.data || ''
+      return /\[if\s|<!\[endif]/i.test(data)
+    }
+
+    return (
+      !hasConditionalCommentSibling(node.prev) &&
+      !hasConditionalCommentSibling(node.next)
+    )
+  }
+
+  children.forEach((node) => {
+    if (isPlainHeadStyle(node)) {
+      const styleNode = $(node)
+      const css = styleNode.html() || ''
+
+      if (!firstStyle) {
+        firstStyle = styleNode
+        combinedCss = css
+      } else {
+        combinedCss += css ? `\n${css}` : ''
+        styleNode.remove()
+      }
+    } else if (node.type === 'text' && (!node.data || node.data.trim() === '')) {
+      // Ignore pure-whitespace text nodes between styles so they
+      // don't break a merge group.
+    } else if (firstStyle) {
+      firstStyle.html(combinedCss)
+      firstStyle = null
+      combinedCss = ''
+    }
+  })
+
+  if (firstStyle) {
+    firstStyle.html(combinedCss)
+  }
+
+  const newHeadInner = root.html() || ''
+
+  return `${before}${headOpenTag}${newHeadInner}${after}`
 }
 
 function sanitizeStyleTagBlocks(html, syntaxes) {
@@ -498,6 +583,30 @@ export default async function mjml2html(mjml, options = {}) {
     })
   }
 
+  const usesVML = (() => {
+    const stack = [...(mjml.children || [])]
+
+    while (stack.length) {
+      const node = stack.pop()
+
+      if (node) {
+        if (node.tagName === 'mj-section' || node.tagName === 'mj-hero') {
+          const attrs = node.attributes || {}
+          const bg = attrs['background-url']
+          if (typeof bg === 'string' ? bg.trim().length > 0 : Boolean(bg)) {
+            return true
+          }
+        }
+
+        if (node.children && node.children.length) {
+          stack.push(...node.children)
+        }
+      }
+    }
+
+    return false
+  })()
+
   const globalData = {
     beforeDoctype: '',
     breakpoint: '480px',
@@ -517,7 +626,17 @@ export default async function mjml2html(mjml, options = {}) {
     forceOWADesktop: get(mjml, 'attributes.owa', 'mobile') === 'desktop',
     lang: get(mjml, 'attributes.lang') || 'und',
     dir: get(mjml, 'attributes.dir') || 'auto',
+    supportDarkMode:
+      String(get(mjml, 'attributes.support-dark-mode', false)).toLowerCase() ===
+      'true',
+    supportOutlookClassic: get(mjml, 'attributes.support-outlook-classic', true) !== false,
+    usesVML,
+    carouselSharedStylesEmitted: false,
+    navbarHamburgerStyleEmitted: false,
+    imageFluidOnMobileStyleEmitted: false,
   }
+
+  setSupportOutlookClassicFlag(globalData.supportOutlookClassic)
 
   const validatorOptions = {
     components,
@@ -633,8 +752,17 @@ export default async function mjml2html(mjml, options = {}) {
     components,
     globalData,
     addMediaQuery(className, { parsedWidth, unit }) {
-      globalData.mediaQueries[className] =
-        `{ width:${parsedWidth}${unit} !important; max-width: ${parsedWidth}${unit}; }`
+      const widthValue = `${parsedWidth}${unit}`
+
+      const declarations = []
+
+      if (!(parsedWidth === 100 && unit === '%')) {
+        declarations.push(`width:${widthValue} !important;`)
+      }
+
+      declarations.push(`max-width: ${widthValue};`)
+
+      globalData.mediaQueries[className] = `{ ${declarations.join(' ')} }`
     },
     addHeadStyle(identifier, headStyle) {
       globalData.headStyle[identifier] = headStyle
@@ -723,6 +851,8 @@ export default async function mjml2html(mjml, options = {}) {
     ...globalData,
     printerSupport,
   })
+  
+  content = mergeHeadStyleBlocks(content)
 
   if (globalData.inlineStyle.length > 0) {
     if (juicePreserveTags) {
@@ -850,9 +980,12 @@ export default async function mjml2html(mjml, options = {}) {
   } else if (beautify) {
     content = await prettier.format(content, {
       parser: 'html',
-      printWidth: 240,
+      printWidth: 1024,
     })
   }
+
+  content = content.replace(/\/\* prettier-ignore \*\//g, '')
+  content = content.replace(/<!-- prettier-ignore -->/g, '')
 
   return {
     html: content,

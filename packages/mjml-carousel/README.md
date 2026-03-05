@@ -67,7 +67,7 @@ Enables you to add and style the images in the carousel.
 | href             | string   | link to redirect to on click, <br>URL format       |               |
 | rel              | string   | specify the rel attribute                          |               |
 | src              | string   | URL format                                         |               |
-| target           | string   | link target on click                               | `_blank`      |
+| target           | string   | link target on click                               |               |
 | tb-border        | string   | CSS border format                                  |               |
 | tb-border-radius | string   | border radius of the thumbnail                     |               |
 | thumbnails-src   | string   | specify a different thumbnail image in URL format  |               |

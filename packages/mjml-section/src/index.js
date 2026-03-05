@@ -1,5 +1,6 @@
 import { BodyComponent, suffixCssClasses } from 'mjml-core'
 import { flow, identity, join, filter } from 'lodash/fp'
+import { msoConditionalTag } from 'mjml-core/lib/helpers/conditionalTag'
 
 const makeBackgroundString = flow(filter(identity), join(' '))
 
@@ -27,18 +28,21 @@ export default class MjSection extends BodyComponent {
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
+    'column-align': 'enum(left,center,right)',
     'text-align': 'enum(left,center,right)',
     'text-padding': 'unit(px,%){1,4}',
   }
 
   static defaultAttributes = {
-    'background-repeat': 'repeat',
-    'background-size': 'auto',
     'background-position': 'top center',
-    direction: 'ltr',
+    'column-align': 'center',
     padding: '20px 0',
     'text-align': 'center',
     'text-padding': '4px 4px 4px 0',
+  }
+
+  getColumnAlign() {
+    return this.getAttribute('column-align') || this.getAttribute('text-align')
   }
 
   getChildContext() {
@@ -97,7 +101,7 @@ export default class MjSection extends BodyComponent {
         'padding-left': this.getAttribute('padding-left'),
         'padding-right': this.getAttribute('padding-right'),
         'padding-top': this.getAttribute('padding-top'),
-        'text-align': this.getAttribute('text-align'),
+        'text-align': this.getColumnAlign(),
       },
       div: {
         ...(fullWidth ? {} : background),
@@ -215,7 +219,7 @@ export default class MjSection extends BodyComponent {
     const hasGap = this.hasGap()
 
     return `
-      <!--[if mso | IE]>
+      ${msoConditionalTag(`
       <table
         ${this.htmlAttributes({
           align: 'center',
@@ -223,7 +227,7 @@ export default class MjSection extends BodyComponent {
           cellpadding: '0',
           cellspacing: '0',
           class: suffixCssClasses(this.getAttribute('css-class'), 'outlook'),
-          role: 'presentation',
+          role: 'none',
           style: {
             width: `${containerWidth}`,
             'padding-top': !isFirstSection ? this.context.gap : undefined,
@@ -234,18 +238,18 @@ export default class MjSection extends BodyComponent {
       >
         <tr>
           <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
-      <![endif]-->
+      `)}
     `
   }
 
   // eslint-disable-next-line class-methods-use-this
   renderAfter() {
     return `
-      <!--[if mso | IE]>
+      ${msoConditionalTag(`
           </td>
         </tr>
       </table>
-      <![endif]-->
+      `)}
     `
   }
 
@@ -253,15 +257,15 @@ export default class MjSection extends BodyComponent {
     const { children } = this.props
 
     return `
-      <!--[if mso | IE]>
+      ${msoConditionalTag(`
         <tr>
-      <![endif]-->
+      `)}
       ${this.renderChildren(children, {
         renderer: (component) =>
           component.constructor.isRawElement()
             ? component.render()
             : `
-          <!--[if mso | IE]>
+          ${msoConditionalTag(`
             <td
               ${component.htmlAttributes({
                 align: component.getAttribute('align'),
@@ -272,17 +276,17 @@ export default class MjSection extends BodyComponent {
                 style: 'tdOutlook',
               })}
             >
-          <![endif]-->
+          `)}
             ${component.render()}
-          <!--[if mso | IE]>
+          ${msoConditionalTag(`
             </td>
-          <![endif]-->
+          `)}
     `,
       })}
 
-      <!--[if mso | IE]>
+      ${msoConditionalTag(`
         </tr>
-      <![endif]-->
+      `)}
     `
   }
 
@@ -403,7 +407,7 @@ export default class MjSection extends BodyComponent {
     }
 
     return `
-      <!--[if mso | IE]>
+      ${msoConditionalTag(`
         <v:rect ${this.htmlAttributes({
           style: fullWidth
             ? { 'mso-width-percent': '1000' }
@@ -421,17 +425,22 @@ export default class MjSection extends BodyComponent {
           ...vSizeAttributes,
         })} />
         <v:textbox style="mso-fit-shape-to-text:true" inset="0,0,0,0">
-      <![endif]-->
+      `)}
           ${content}
-        <!--[if mso | IE]>
+      ${msoConditionalTag(`
         </v:textbox>
       </v:rect>
-    <![endif]-->
+      `)}
     `
   }
 
   renderSection() {
     const hasBackground = this.hasBackground()
+
+    const paddingLeft = this.getShorthandAttrValue('padding', 'left')
+    const spacerTd = hasBackground
+      ? `${msoConditionalTag(`<td style="padding-left:${paddingLeft}px;"></td>`)}`
+      : ''
 
     return `
       <div ${this.htmlAttributes({
@@ -452,27 +461,26 @@ export default class MjSection extends BodyComponent {
             border: '0',
             cellpadding: '0',
             cellspacing: '0',
-            role: 'presentation',
+            role: 'none',
             style: 'table',
           })}
         >
-          <tbody>
-            <tr>
-              <td
-                ${this.htmlAttributes({
-                  style: 'td',
-                })}
-              >
-                <!--[if mso | IE]>
-                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                <![endif]-->
-                  ${this.renderWrappedChildren()}
-                <!--[if mso | IE]>
-                  </table>
-                <![endif]-->
-              </td>
-            </tr>
-          </tbody>
+          <tr>
+            ${spacerTd}
+            <td
+              ${this.htmlAttributes({
+                style: 'td',
+              })}
+            >
+              ${msoConditionalTag(`
+                <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+              `)}
+                ${this.renderWrappedChildren()}
+              ${msoConditionalTag(`
+                </table>
+              `)}
+            </td>
+          </tr>
         </table>
         ${hasBackground ? '</div>' : ''}
       </div>
@@ -501,17 +509,15 @@ export default class MjSection extends BodyComponent {
           border: '0',
           cellpadding: '0',
           cellspacing: '0',
-          role: 'presentation',
+          role: 'none',
           style: 'tableFullwidth',
         })}
       >
-        <tbody>
-          <tr>
-            <td>
-              ${content}
-            </td>
-          </tr>
-        </tbody>
+        <tr>
+          <td>
+            ${content}
+          </td>
+        </tr>
       </table>
     `
   }

@@ -68,3 +68,26 @@ testValues.forEach((testUnit) => {
     .expect($('head style').get().length, 'Unexpected number of style tags')
     .to.equal(outputStyleCount)
 })
+
+// Dark mode support is opt-in
+{
+  const $ = load(skeleton({}))
+
+  chai
+    .expect($('meta[name="color-scheme"]').get().length)
+    .to.equal(0)
+  chai
+    .expect($('meta[name="supported-color-schemes"]').get().length)
+    .to.equal(0)
+}
+
+{
+  const $ = load(skeleton({ supportDarkMode: true }))
+
+  chai
+    .expect($('meta[name="color-scheme"]').get().length)
+    .to.equal(1)
+  chai
+    .expect($('meta[name="supported-color-schemes"]').get().length)
+    .to.equal(1)
+}

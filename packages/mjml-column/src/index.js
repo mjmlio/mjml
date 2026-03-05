@@ -31,7 +31,6 @@ export default class MjColumn extends BodyComponent {
   }
 
   static defaultAttributes = {
-    direction: 'ltr',
     'vertical-align': 'top',
   }
 
@@ -79,7 +78,6 @@ export default class MjColumn extends BodyComponent {
       'border-radius': this.getAttribute('border-radius'),
       'border-right': this.getAttribute('border-right'),
       'border-top': this.getAttribute('border-top'),
-      'vertical-align': this.getAttribute('vertical-align'),
       ...(hasBorderRadius && { 'border-collapse': 'separate' }),
     }
 
@@ -236,20 +234,18 @@ export default class MjColumn extends BodyComponent {
           border: '0',
           cellpadding: '0',
           cellspacing: '0',
-          role: 'presentation',
+          role: 'none',
           width: '100%',
           ...(hasBorderRadius && {
             style: { 'border-collapse': 'separate' },
           }),
         })}
       >
-        <tbody>
-          <tr>
-            <td ${this.htmlAttributes({ style: 'gutter' })}>
-              ${this.renderColumn()}
-            </td>
-          </tr>
-        </tbody>
+        <tr>
+          <td ${this.htmlAttributes({ style: 'gutter' })}>
+            ${this.renderColumn()}
+          </td>
+        </tr>
       </table>
     `
   }
@@ -263,49 +259,45 @@ export default class MjColumn extends BodyComponent {
           border: '0',
           cellpadding: '0',
           cellspacing: '0',
-          role: 'presentation',
+          role: 'none',
           style: 'table',
           width: '100%',
         })}
       >
-        <tbody>
-          ${this.renderChildren(children, {
-            renderer: (component) =>
-              component.constructor.isRawElement()
-                ? component.render()
-                : `
-              <tr>
-                <td
-                  ${component.htmlAttributes({
-                    align: component.getAttribute('align'),
-                    class: component.getAttribute('css-class'),
-                    style: {
-                      background: component.getAttribute(
-                        'container-background-color',
-                      ),
-                      'font-size': '0px',
-                      padding: component.getAttribute('padding'),
-                      'padding-top': component.getAttribute('padding-top'),
-                      'padding-right': component.getAttribute('padding-right'),
-                      'padding-bottom':
-                        component.getAttribute('padding-bottom'),
-                      'padding-left': component.getAttribute('padding-left'),
-                      'word-break': 'break-word',
-                    },
-                  })}
-                >
-                  ${component.render()}
-                </td>
-              </tr>
-            `,
-          })}
-        </tbody>
+        ${this.renderChildren(children, {
+          renderer: (component) =>
+            component.constructor.isRawElement()
+              ? component.render()
+              : `<tr>
+              <td
+                ${component.htmlAttributes({
+                  align: component.getAttribute('align'),
+                  class: component.getAttribute('css-class'),
+                  style: {
+                    background: component.getAttribute(
+                      'container-background-color',
+                    ),
+                    'font-size': '0px',
+                    padding: component.getAttribute('padding'),
+                    'padding-top': component.getAttribute('padding-top'),
+                    'padding-right': component.getAttribute('padding-right'),
+                    'padding-bottom':
+                      component.getAttribute('padding-bottom'),
+                    'padding-left': component.getAttribute('padding-left'),
+                    'word-break': 'break-word',
+                  },
+                })}
+              >
+                ${component.render()}
+              </td>
+            </tr>`,
+        })}
       </table>
     `
   }
 
   render() {
-    let classesName = `${this.getColumnClass()} mj-outlook-group-fix`
+    let classesName = `${this.getColumnClass()}`
 
     if (this.getAttribute('css-class')) {
       classesName += ` ${this.getAttribute('css-class')}`

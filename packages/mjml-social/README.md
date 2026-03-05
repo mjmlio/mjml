@@ -45,7 +45,7 @@ Displays calls-to-action for various social networks with their associated logo.
 | color                      | CSS color formats       | text color                                         | `#333333`                              |
 | css-class                  | string                  | class name, added to the root HTML element created |                                        |
 | container-background-color | CSS color formats       | inner element background color                     |                                        |
-| font-family                | string                  | font name                                          | `Ubuntu, Helvetica, Arial, sans-serif` |
+| font-family                | string                  | font name                                          | `Ubuntu, sans-serif`                   |
 | font-size                  | `px`                    | font size                                          | `13px`                                 |
 | font-style                 | string                  | font style                                         | normal                                 |
 | font-weight                | string                  | font weight                                        | normal                                 |
@@ -81,13 +81,13 @@ Note that default icons are transparent, which allows `background-color` to actu
 
 | attribute        | accepts                 | description                                                                     | default value                          |
 | ---------------- | ----------------------- | ------------------------------------------------------------------------------- | -------------------------------------- |
-| align            | `left` `center` `right` | align content                                                                   | `center`                               |
+| align            | `left` `center` `right` | align content                                                                   |                                        |
 | alt              | string                  | image alt attribute                                                             | `''`                                   |
 | background-color | CSS color formats       | icon color                                                                      | Each social `name` has its own default |
 | border-radius    | string                  | border radius                                                                   | `3px`                                  |
 | color            | CSS color formats       | text color                                                                      | `#000`                                 |
 | css-class        | string                  | class name, added to the root HTML element created                              |                                        |
-| font-family      | string                  | font name                                                                       | `Ubuntu, Helvetica, Arial, sans-serif` |
+| font-family      | string                  | font name                                                                       | `Ubuntu, sans-serif`                   |
 | font-size        | `px`                    | font size                                                                       | `13px`                                 |
 | font-style       | string                  | font style                                                                      |                                        |
 | font-weight      | string                  | font weight                                                                     |                                        |
@@ -107,11 +107,11 @@ Note that default icons are transparent, which allows `background-color` to actu
 | sizes            | string                  | set icon width based on query                                                   |                                        |
 | src              | string                  | image source, in URL format                                                     | Each social `name` has its own default |
 | srcset           | string                  | enables to set a different image source based on the viewport, using CSS syntax |                                        |
-| target           | string                  | link target                                                                     | `_blank`                               |
+| target           | string                  | link target                                                                     |                                        |
 | text-decoration  | string                  | CSS values, e.g. `underline` `overline` `none`                                  | `none`                                 |
 | text-padding     | `px` `%`                | padding around the text                                                         | `4px 4px 4px 0`                        |
 | title            | string                  | image title attribute                                                           |                                        |
-| vertical-align   | `top` `middle` `bottom` | vertically align elements                                                       | `middle`                               |
+| vertical-align   | `top` `middle` `bottom` | vertically align elements                                                       |                                        |
 
 Supported networks with a share url:
 

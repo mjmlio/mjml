@@ -50,7 +50,7 @@ Setting it will change the width of the section from the default 600px to 100%.
 | background-position-x | string                  | CSS values, i.e. `left` `center` `right` <br>(see outlook limitations below)                           |               |
 | background-position-y | string                  | CSS values, i.e. `top` `center` `bottom` <br>(see outlook limitations below)                           |               |
 | background-repeat     | `repeat` `no-repeat`    | set the background image to repeat                                                                     |               |
-| background-size       | string                  | CSS values e.g. `auto` `cover` `contain` `px` `%` size                                                 | `auto`        |
+| background-size       | string                  | CSS values e.g. `auto` `cover` `contain` `px` `%` size                                                 |               |
 | background-url        | string                  | background image, in URL format                                                                        |               |
 | border                | string                  | CSS border format                                                                                      |               |
 | border-bottom         | string                  | CSS border format                                                                                      |               |
@@ -66,6 +66,5 @@ Setting it will change the width of the section from the default 600px to 100%.
 | padding-left          | `px` `%`                | section left padding                                                                                   |               |
 | padding-right         | `px` `%`                | section right padding                                                                                  |               |
 | padding-top           | `px` `%`                | section top padding                                                                                    |               |
-| text-align            | `left` `center` `right` | CSS text-align                                                                                         | `center`      |
 
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/wrapper">Try it live</a></p>

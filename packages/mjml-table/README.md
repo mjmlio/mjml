@@ -47,7 +47,7 @@ Display a data table. It only accepts plain HTML.
 | color                      | CSS color formats                  | text header & footer color                         | `#000000`                              |
 | container-background-color | CSS color formats                  | inner element background color                     |                                        |
 | css-class                  | string                             | class name, added to the root HTML element created |                                        |
-| font-family                | string                             | font name                                          | `Ubuntu, Helvetica, Arial, sans-serif` |
+| font-family                | string                             | font name                                          | `Ubuntu, sans-serif`                   |
 | font-size                  | `px`                               | font size                                          | `13px`                                 |
 | line-height                | `px` `%`                           | space between lines                                | `22px`                                 |
 | padding                    | `px` `%`                           | outer table padding, supports up to 4 parameters   | `10px 25px`                            |
@@ -56,7 +56,7 @@ Display a data table. It only accepts plain HTML.
 | padding-right              | `px` `%`                           | right padding                                      |                                        |
 | padding-top                | `px` `%`                           | top padding                                        |                                        |
 | role                       | `none` `presentation`              | specify the role attribute                         |                                        |
-| table-layout               | `auto` `fixed` `initial` `inherit` | sets the table layout                              | `auto`                                 |
+| table-layout               | `auto` `fixed` `initial` `inherit` | sets the table layout                              |                                        |
 | width                      | `px` `%` `auto`                    | table width                                        | `100%`                                 |
 
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/table">Try it live</a></p>

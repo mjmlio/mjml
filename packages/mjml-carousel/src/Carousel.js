@@ -1,7 +1,7 @@
 import { BodyComponent } from 'mjml-core'
 import { range, repeat, min, map } from 'lodash'
 
-import { msoConditionalTag } from 'mjml-core/lib/helpers/conditionalTag'
+import conditionalTag, { msoConditionalTag } from 'mjml-core/lib/helpers/conditionalTag'
 import genRandomHexString from 'mjml-core/lib/helpers/genRandomHexString'
 
 export default class MjCarousel extends BodyComponent {
@@ -42,39 +42,61 @@ export default class MjCarousel extends BodyComponent {
 
   constructor(initialDatas = {}) {
     super(initialDatas)
-    this.carouselId = genRandomHexString(16)
+    this.carouselId = genRandomHexString(6)
   }
 
   componentHeadStyle = () => {
     const { length } = this.props.children
     const { carouselId } = this
 
-    if (!length) return ''
+    const globalData = this.context && this.context.globalData
+    const includeSharedStyles =
+      !globalData || globalData.carouselSharedStylesEmitted === false
 
-    const carouselCss = `
+    if (globalData && includeSharedStyles) {
+      globalData.carouselSharedStylesEmitted = true
+    }
+
+    if (!length) return ''
+    const sharedCss = `
     .mj-carousel {
       -webkit-user-select: none;
       -moz-user-select: none;
       user-select: none;
     }
-
-    .mj-carousel-${carouselId}-icons-cell {
-      display: table-cell !important;
-      width: ${this.getAttribute('icon-width')} !important;
-    }
-
-    .mj-carousel-radio,
-    .mj-carousel-next,
-    .mj-carousel-previous {
-      display: none !important;
-    }
-
     .mj-carousel-thumbnail,
     .mj-carousel-next,
     .mj-carousel-previous {
       touch-action: manipulation;
     }
+    .mj-carousel-radio,
+    .mj-carousel-next,
+    .mj-carousel-previous,
+    .mj-carousel-image img + div,
+    .mj-carousel-thumbnail img + div,
+    .mj-carousel noinput .mj-carousel-arrows,
+    .mj-carousel noinput .mj-carousel-thumbnails {
+      display: none !important;
+    }
+    .mj-carousel-previous-icons,
+    .mj-carousel-next-icons,
+    .mj-carousel noinput,
+    .mj-carousel noinput .mj-carousel-image-1 {
+      display: block !important;
+    }
+    @media screen yahoo {
+      .mj-carousel-previous-icons,
+      .mj-carousel-next-icons {
+        display: none !important;
+      }
+    }
+    `
 
+    const instanceCss = `
+    .mj-carousel-${carouselId}-icons-cell {
+      display: table-cell !important;
+      width: ${this.getAttribute('icon-width')} !important;
+    }
     ${range(0, length)
       .map(
         (i) =>
@@ -86,7 +108,6 @@ export default class MjCarousel extends BodyComponent {
       .join(',')} {
       display: none !important;
     }
-
     ${range(0, length)
       .map(
         (i) =>
@@ -95,33 +116,31 @@ export default class MjCarousel extends BodyComponent {
             length - i - 1,
           )}+ .mj-carousel-content .mj-carousel-image-${i + 1}`,
       )
+      .join(',')},
+    ${range(0, length)
+      .map(
+        (i) =>
+          `.mj-carousel-${carouselId}-radio-${i + 1}:checked ${repeat(
+            '+ * ',
+            length - i - 1,
+          )}+ .mj-carousel-content .mj-carousel-next-${
+            ((i + (1 % length) + length) % length) + 1
+          }`,
+      )
+      .join(',')},
+    ${range(0, length)
+      .map(
+        (i) =>
+          `.mj-carousel-${carouselId}-radio-${i + 1}:checked ${repeat(
+            '+ * ',
+            length - i - 1,
+          )}+ .mj-carousel-content .mj-carousel-previous-${
+            ((i - (1 % length) + length) % length) + 1
+          }`,
+      )
       .join(',')} {
       display: block !important;
     }
-
-    .mj-carousel-previous-icons,
-    .mj-carousel-next-icons,
-    ${range(0, length).map(
-      (i) =>
-        `.mj-carousel-${carouselId}-radio-${i + 1}:checked ${repeat(
-          '+ * ',
-          length - i - 1,
-        )}+ .mj-carousel-content .mj-carousel-next-${
-          ((i + (1 % length) + length) % length) + 1
-        }`,
-    )},
-    ${range(0, length).map(
-      (i) =>
-        `.mj-carousel-${carouselId}-radio-${i + 1}:checked ${repeat(
-          '+ * ',
-          length - i - 1,
-        )}+ .mj-carousel-content .mj-carousel-previous-${
-          ((i - (1 % length) + length) % length) + 1
-        }`,
-    )} {
-      display: block !important;
-    }
-
     ${range(0, length)
       .map(
         (i) =>
@@ -135,25 +154,17 @@ export default class MjCarousel extends BodyComponent {
       .join(',')} {
       border-color: ${this.getAttribute('tb-selected-border-color')} !important;
     }
-
     ${range(0, length)
       .map(
         (i) =>
           `.mj-carousel-${carouselId}-radio-${i + 1}:checked ${repeat(
             '+ * ',
             length - i - 1,
-          )}+ .mj-carousel-content .mj-carousel-${carouselId}-thumbnail
-          `,
+          )}+ .mj-carousel-content .mj-carousel-${carouselId}-thumbnail`,
       )
       .join(',')} {
       display: inline-block !important;
     }
-
-    .mj-carousel-image img + div,
-    .mj-carousel-thumbnail img + div {
-      display: none !important;
-    }
-
     ${range(0, length)
       .map(
         (i) =>
@@ -165,11 +176,9 @@ export default class MjCarousel extends BodyComponent {
       .join(',')} {
       display: none !important;
     }
-
     .mj-carousel-thumbnail:hover {
       border-color: ${this.getAttribute('tb-hover-border-color')} !important;
     }
-
     ${range(0, length)
       .map(
         (i) =>
@@ -183,21 +192,11 @@ export default class MjCarousel extends BodyComponent {
     }
     `
 
-    const fallback = `
-      .mj-carousel noinput { display:block !important; }
-      .mj-carousel noinput .mj-carousel-image-1 { display: block !important;  }
-      .mj-carousel noinput .mj-carousel-arrows,
-      .mj-carousel noinput .mj-carousel-thumbnails { display: none !important; }
-
-      [owa] .mj-carousel-thumbnail { display: none !important; }
-      
+    const instanceFallback = `
       @media screen yahoo {
-          .mj-carousel-${this.carouselId}-icons-cell,
-          .mj-carousel-previous-icons,
-          .mj-carousel-next-icons {
+          .mj-carousel-${this.carouselId}-icons-cell {
               display: none !important;
           }
-
           .mj-carousel-${carouselId}-radio-1:checked ${repeat(
             '+ *',
             length - 1,
@@ -206,8 +205,9 @@ export default class MjCarousel extends BodyComponent {
           }
       }
     `
-
-    return `${carouselCss}\n${fallback}`
+    return `${includeSharedStyles ? sharedCss : ''}${instanceCss}${
+      includeSharedStyles ? '\n' : ''
+    }${instanceFallback}`
   }
 
   getStyles() {
@@ -235,17 +235,14 @@ export default class MjCarousel extends BodyComponent {
       controls: {
         div: {
           display: 'none',
-          'mso-hide': 'all',
         },
         img: {
           display: 'block',
           width: this.getAttribute('icon-width'),
-          height: 'auto',
         },
         td: {
           'font-size': '0px',
           display: 'none',
-          'mso-hide': 'all',
           padding: '0px',
         },
       },
@@ -361,17 +358,15 @@ export default class MjCarousel extends BodyComponent {
           cellpadding: '0',
           cellspacing: '0',
           width: '100%',
-          role: 'presentation',
+          role: 'none',
           class: 'mj-carousel-main',
         })}
       >
-        <tbody>
-          <tr>
-            ${this.generateControls('previous', this.getAttribute('left-icon'))}
-            ${this.generateImages()}
-            ${this.generateControls('next', this.getAttribute('right-icon'))}
-          </tr>
-        </tbody>
+        <tr>
+          ${this.generateControls('previous', this.getAttribute('left-icon'))}
+          ${this.generateImages()}
+          ${this.generateControls('next', this.getAttribute('right-icon'))}
+        </tr>
       </table>
     `
   }
@@ -380,13 +375,9 @@ export default class MjCarousel extends BodyComponent {
     const { children } = this.props
     if (children.length === 0) return ''
 
-    return msoConditionalTag(
-      this.renderChildren([children[0]], {
-        attributes: {
-          'border-radius': this.getAttribute('border-radius'),
-        },
-      }),
-    )
+    return `<!-- prettier-ignore -->${msoConditionalTag(
+      this.renderChildren([children[0]]),
+    )}`
   }
 
   getChildContext() {
@@ -398,7 +389,7 @@ export default class MjCarousel extends BodyComponent {
 
   render() {
     return `
-      ${msoConditionalTag(
+      ${conditionalTag(
         `
         <div
           ${this.htmlAttributes({

@@ -168,6 +168,20 @@ export class BodyComponent extends Component {
       omitBy(attributes, isNil),
       (output, v, name) => {
         const value = (specialAttributes[name] || specialAttributes.default)(v)
+        if (
+          (name === 'class' || name === 'style') &&
+          String(value).trim().length === 0
+        ) {
+          return output
+        }
+
+        if (value === false) {
+          return output
+        }
+
+        if (value === true) {
+          return `${output} ${name}`
+        }
 
         return `${output} ${name}="${value}"`
       },

@@ -4,6 +4,14 @@ Defines the document's title by populating the title tag. This can be shown in t
 
 Its content is also used to populate the value of the `aria-label` attribute located in the immediate child `div` of the `body` tag, which is used to aid accessibility.
 
+#### Validation
+
+- The validator emits a warning when `mj-title` does not exist or is empty or whitespace-only.
+
+Note: MJML always outputs a `<title>` element in the final HTML. If you omit `mj-title`, the `<title>` is included but may be empty; provide a meaningful `mj-title` to avoid empty titles.
+
+In projects using `validationLevel: 'strict'`, this warning becomes an error and will stop rendering.
+
 ```xml
 <mjml>
  <mj-head>

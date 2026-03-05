@@ -41,7 +41,7 @@ export default class MjAccordionTitle extends BodyComponent {
       },
       table: {
         width: '100%',
-        'border-bottom': this.getAttribute('border'),
+        ...(this.getAttribute('border') !== 'none' && this.getAttribute('border') !== '0' && this.getAttribute('border') !== '0px' && { 'border-bottom': this.getAttribute('border') }),
       },
       td2: {
         padding: '16px',
@@ -82,8 +82,7 @@ export default class MjAccordionTitle extends BodyComponent {
         })}
       >
         ${this.getContent()}
-      </td>
-    `
+      </td>`
   }
 
   renderIcons() {
@@ -134,13 +133,10 @@ export default class MjAccordionTitle extends BodyComponent {
             style: 'table',
           })}
         >
-          <tbody>
-            <tr>
-              ${content}
-            </tr>
-          </tbody>
+          <tr>
+            ${content}
+          </tr>
         </table>
-      </div>
-    `
+      </div>`
   }
 }

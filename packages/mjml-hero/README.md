@@ -88,8 +88,8 @@ Use `background-color` to provide a fallback color in case an email client doesn
 | ---------------------- | ----------------------- | ------------------------------------------------------------------ | ----------------------------- |
 | background-color       | CSS color formats       | hero background color                                              | #ffffff                     |
 | background-height      | `px` `%`                | height of the image used, mandatory                                |                               |
-| background-position    | string                  | CSS values, i.e. `left` `center` `right` + `top` `center` `bottom` | `center center`               |
-| background-url         | string                  | absolute background in URL format                                  | `null`                        |
+| background-position    | string                  | CSS values, i.e. `left` `center` `right` + `top` `center` `bottom` | `center`                      |
+| background-url         | string                  | absolute background in URL format                                  |                               |
 | background-width       | `px` `%`                | width of the image used, mandatory                                 | inherits parent element width |
 | border-radius          | string                  | border radius                                                      |                               |
 | css-class              | string                  | class name, added to the root HTML element created                 |                               |
@@ -101,11 +101,11 @@ Use `background-color` to provide a fallback color in case an email client doesn
 | inner-padding-right    | `px` `%`                | hero right inner padding                                           |                               |
 | inner-padding-top      | `px` `%`                | hero top inner padding                                             |                               |
 | mode                   | string                  | `fluid-height` or `fixed-height`                                   | `fluid-height`                |
-| padding                | `px` `%`                | hero padding, supports up to 4 parameters                          | `0px`                         |
-| padding-bottom         | `px` `%`                | hero bottom padding                                                | `null`                        |
-| padding-left           | `px` `%`                | hero left padding                                                  | `null`                        |
-| padding-right          | `px` `%`                | hero right padding                                                 | `null`                        |
-| padding-top            | `px` `%`                | hero top padding                                                   | `null`                        |
+| padding                | `px` `%`                | hero padding, supports up to 4 parameters                          |                               |
+| padding-bottom         | `px` `%`                | hero bottom padding                                                |                               |
+| padding-left           | `px` `%`                | hero left padding                                                  |                               |
+| padding-right          | `px` `%`                | hero right padding                                                 |                               |
+| padding-top            | `px` `%`                | hero top padding                                                   |                               |
 | vertical-align         | `top` `middle` `bottom` | content vertical alignment                                         | `top`                         |
 
 <ul class="cta-container">

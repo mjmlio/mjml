@@ -1,7 +1,5 @@
 import { BodyComponent } from 'mjml-core'
 
-import widthParser from 'mjml-core/lib/helpers/widthParser'
-
 export default class MjDivider extends BodyComponent {
   static componentName = 'mj-divider'
 
@@ -42,65 +40,45 @@ export default class MjDivider extends BodyComponent {
       'font-size': '1px',
       margin: computeAlign,
       width: this.getAttribute('width'),
+      'max-width': '100%',
     }
 
     return {
       p,
-      outlook: {
+      table: {
         ...p,
-        width: this.getOutlookWidth(),
       },
     }
   }
 
-  getOutlookWidth() {
-    const { containerWidth } = this.context
-    const paddingSize =
-      this.getShorthandAttrValue('padding', 'left') +
-      this.getShorthandAttrValue('padding', 'right')
-
-    const width = this.getAttribute('width')
-
-    const { parsedWidth, unit } = widthParser(width)
-
-    switch (unit) {
-      case '%': {
-        const effectiveWidth = parseInt(containerWidth, 10) - paddingSize
-        const percentMultiplier = parseInt(parsedWidth, 10) / 100
-        return `${effectiveWidth * percentMultiplier}px`
-      }
-      case 'px':
-        return width
-      default:
-        return `${parseInt(containerWidth, 10) - paddingSize}px`
-    }
-  }
-
-  renderAfter() {
-    return `
-      <!--[if mso | IE]>
-        <table
-          ${this.htmlAttributes({
-            align: this.getAttribute('align'),
-            border: '0',
-            cellpadding: '0',
-            cellspacing: '0',
-            style: 'outlook',
-            role: 'presentation',
-            width: this.getOutlookWidth(),
-          })}
-        >
-          <tr>
-            <td style="height:0;line-height:0;">
-              &nbsp;
-            </td>
-          </tr>
-        </table>
-      <![endif]-->
-    `
-  }
-
   render() {
+    const supportOutlookClassic =
+      !this.context ||
+      !this.context.globalData ||
+      this.context.globalData.supportOutlookClassic !== false
+
+    if (supportOutlookClassic) {
+      return `
+      <table
+        ${this.htmlAttributes({
+          align: this.getAttribute('align'),
+          border: '0',
+          cellpadding: '0',
+          cellspacing: '0',
+          style: 'table',
+          role: 'none',
+          width: typeof this.getAttribute('width') === 'string' ? this.getAttribute('width').replace(/px$/, '') : this.getAttribute('width'),
+        })}
+      >
+        <tr>
+          <td style="height:0;line-height:0;">
+            &nbsp;
+          </td>
+        </tr>
+      </table>
+    `
+    }
+
     return `
       <p
         ${this.htmlAttributes({
@@ -108,7 +86,6 @@ export default class MjDivider extends BodyComponent {
         })}
       >
       </p>
-      ${this.renderAfter()}
     `
   }
 }

@@ -44,8 +44,6 @@ export default class MjImage extends BodyComponent {
     border: '0',
     height: 'auto',
     padding: '10px 25px',
-    target: '_blank',
-    'font-size': '13px',
   }
 
   getStyles() {
@@ -63,14 +61,11 @@ export default class MjImage extends BodyComponent {
         'border-bottom': this.getAttribute('border-bottom'),
         'border-radius': this.getAttribute('border-radius'),
         display: 'block',
-        outline: 'none',
-        'text-decoration': 'none',
         height: this.getAttribute('height'),
         'max-height': this.getAttribute('max-height'),
         'min-width': fullWidth ? '100%' : null,
         width: '100%',
         'max-width': fullWidth ? '100%' : null,
-        'font-size': this.getAttribute('font-size'),
       },
       td: {
         width: fullWidth ? null : `${parsedWidth}${unit}`,
@@ -80,7 +75,6 @@ export default class MjImage extends BodyComponent {
         'max-width': fullWidth ? '100%' : null,
         width: fullWidth ? `${parsedWidth}${unit}` : null,
         'border-collapse': 'collapse',
-        'border-spacing': '0px',
       },
     }
   }
@@ -135,12 +129,33 @@ export default class MjImage extends BodyComponent {
     return img
   }
 
-  headStyle = (breakpoint) => `
+  componentHeadStyle = (breakpoint) => {
+    const globalData = this.context && this.context.globalData
+
+    const fluidOnMobile = this.getAttribute('fluid-on-mobile')
+
+    if (!fluidOnMobile) {
+      return ''
+    }
+
+    const includeStyles =
+      !globalData || globalData.imageFluidOnMobileStyleEmitted === false
+
+    if (!includeStyles) {
+      return ''
+    }
+
+    if (globalData) {
+      globalData.imageFluidOnMobileStyleEmitted = true
+    }
+
+    return `
     @media only screen and (max-width:${makeLowerBreakpoint(breakpoint)}) {
-      table.mj-full-width-mobile { width: 100% !important; }
-      td.mj-full-width-mobile { width: auto !important; }
+      .mj-full-width-mobile { width: 100% !important; }
+      .mj-full-width-mobile td { width: auto !important; }
     }
   `
+  }
 
   render() {
     return `
@@ -149,25 +164,20 @@ export default class MjImage extends BodyComponent {
           border: '0',
           cellpadding: '0',
           cellspacing: '0',
-          role: 'presentation',
+          role: 'none',
           style: 'table',
           class: this.getAttribute('fluid-on-mobile')
             ? 'mj-full-width-mobile'
             : null,
         })}
       >
-        <tbody>
-          <tr>
-            <td ${this.htmlAttributes({
-              style: 'td',
-              class: this.getAttribute('fluid-on-mobile')
-                ? 'mj-full-width-mobile'
-                : null,
-            })}>
-              ${this.renderImage()}
-            </td>
-          </tr>
-        </tbody>
+        <tr>
+          <td ${this.htmlAttributes({
+            style: 'td',
+          })}>
+            ${this.renderImage()}
+          </td>
+        </tr>
       </table>
     `
   }

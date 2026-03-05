@@ -49,7 +49,7 @@ Every single column has to contain something because they are responsive contain
 | border-right           | string                  | CSS border format                                                                        |                                                |
 | border-top             | string                  | CSS border format                                                                        |                                                |
 | css-class              | string                  | class name, added to the root HTML element created                                       |                                                |
-| direction              | `ltr` `rtl`             | set the display order of direct children                                                 | `ltr`                                          |
+| direction              | `ltr` `rtl`             | set the display order of direct children                                                 |                                                |
 | inner-background-color | CSS color formats       | inner background color for column; requires a padding                                    |                                                |
 | inner-border           | string                  | CSS border; requires a padding format                                                    |                                                |
 | inner-border-bottom    | string                  | CSS border format; requires a padding                                                    |                                                |

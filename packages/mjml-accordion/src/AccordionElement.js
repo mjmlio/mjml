@@ -33,11 +33,9 @@ export default class MjAccordionElement extends BodyComponent {
   getStyles() {
     return {
       td: {
-        padding: '0px',
         'background-color': this.getAttribute('background-color'),
       },
       label: {
-        'font-size': '13px',
         'font-family': this.getAttribute('font-family'),
       },
       input: {
@@ -129,7 +127,6 @@ export default class MjAccordionElement extends BodyComponent {
             </div>
           </label>
         </td>
-      </tr>
-    `
+      </tr>`
   }
 }

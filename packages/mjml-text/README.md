@@ -32,7 +32,7 @@ Displays text which can be styled.
 | color                      | CSS color formats                 | text color                                                   | `#000000`                              |
 | container-background-color | CSS color formats                 | inner element background color                               |                                        |
 | css-class                  | string                            | class name, added to the root HTML element created           |                                        |
-| font-family                | string                            | font                                                         | `Ubuntu, Helvetica, Arial, sans-serif` |
+| font-family                | string                            | font                                                         | `Ubuntu, sans-serif`                   |
 | font-size                  | `px`                              | text size                                                    | `13px`                                 |
 | font-style                 | string                            | CSS values, e.g. `normal` `italic` `oblique`                 |                                        |
 | font-weight                | string                            | text thickness                                               |                                        |
@@ -44,7 +44,7 @@ Displays text which can be styled.
 | padding-left               | `px` `%`                          | left offset                                                  |                                        |
 | padding-right              | `px` `%`                          | right offset                                                 |                                        |
 | padding-top                | `px` `%`                          | top offset                                                   |                                        |
-| text-decoration            | string                            | CSS values, e.g. `underline` `overline` `none`               |
+| text-decoration            | string                            | CSS values, e.g. `underline` `overline` `none`               |                                        |
 | text-transform             | string                            | CSS values, i.e. `capitalize` `uppercase` `lowercase` `none` |                                        |
 
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/text">Try it live</a></p>

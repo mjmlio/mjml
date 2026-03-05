@@ -59,7 +59,7 @@ Displays a navigation menu with an optional `hamburger` mode for mobile devices.
 | ico-align           | `left`<br>`center`<br>`right` | hamburger icon alignment<br> (`hamburger="hamburger"` required)                                                         | `center`                               |
 | ico-close           | string                        | char code for a custom close icon, e.g. ASCII code decimal<br> (`hamburger="hamburger"` required)                       | `&#8855;`                              |
 | ico-color           | CSS color formats             | hamburger icon color<br> (`hamburger="hamburger"` required)                                                             | `#000000`                              |
-| ico-font-family     | string                        | hamburger icon font<br> (`hamburger="hamburger"` required)                                                              | `Ubuntu, Helvetica, Arial, sans-serif` |
+| ico-font-family     | string                        | hamburger icon font<br> (`hamburger="hamburger"` required)                                                              | `Ubuntu, sans-serif`                   |
 | ico-font-size       | `px` `%`                      | hamburger icon size<br> (`hamburger="hamburger"` required)                                                              | `30px`                                 |
 | ico-line-height     | `px` `%`                      | hamburger icon line height<br> (`hamburger="hamburger"` required)                                                       | `30px`                                 |
 | ico-open            | string                        | char code for a custom open icon, e.g. ASCII code decimal<br> (`hamburger="hamburger"` required)                        | `&#9776;`                              |
@@ -68,7 +68,7 @@ Displays a navigation menu with an optional `hamburger` mode for mobile devices.
 | ico-padding-left    | `px` `%`                      | hamburger icon left padding<br> (`hamburger="hamburger"` required)                                                      |                                        |
 | ico-padding-right   | `px` `%`                      | hamburger icon right padding<br> (`hamburger="hamburger"` required)                                                     |                                        |
 | ico-padding-top     | `px` `%`                      | hamburger icon top padding<br> (`hamburger="hamburger"` required)                                                       |                                        |
-| ico-text-decoration | string                        | hamburger icon text decoration e.g. `none` `underline` `overline` `line-through`<br> (`hamburger="hamburger"` required) | `none`                                 |
+| ico-text-decoration | string                        | hamburger icon text decoration e.g. `none` `underline` `overline` `line-through`<br> (`hamburger="hamburger"` required) |                                        |
 | ico-text-transform  | string                        | hamburger icon text transformation `none` `capitalize` `uppercase` `lowercase`<br> (`hamburger="hamburger"` required)   | `uppercase`                            |
 | padding             | `px` `%`                      | navbar padding, supports up to 4 parameters                                                                             |                                        |
 | padding-bottom      | `px` `%`                      | navbar bottom padding                                                                                                   |                                        |
@@ -99,7 +99,7 @@ Used to display an individual link in the navbar. Individual links of the menu s
 | --------------- | ----------------- | ------------------------------------------------------------ | -------------------------------------- |
 | color           | CSS color formats | text color                                                   | `#000000`                              |
 | css-class       | string            | class name, added to the root HTML element created           |                                        |
-| font-family     | string            | font                                                         | `Ubuntu, Helvetica, Arial, sans-serif` |
+| font-family     | string            | font                                                         | `Ubuntu, sans-serif`                   |
 | font-size       | `px`              | text size                                                    | `13px`                                 |
 | font-style      | string            | CSS values, i.e. `normal` `italic` `oblique`                 |                                        |
 | font-weight     | string            | text thickness                                               |                                        |

@@ -7,15 +7,22 @@ export function buildStyleFromComponents(
 ) {
   const headStyles = Object.values(headStylesObject)
 
-  if (componentsHeadStyles.length === 0 && headStyles.length === 0) {
+  const styleFunctions = [...componentsHeadStyles, ...headStyles]
+
+  if (styleFunctions.length === 0) {
     return ''
   }
 
-  return `
-    <style type="text/css">${[...componentsHeadStyles, ...headStyles].reduce(
-      (result, styleFunction) => `${result}\n${styleFunction(breakpoint)}`,
-      '',
-    )}
+  const css = styleFunctions
+    .map((style) => (isFunction(style) ? style(breakpoint) : style))
+    .filter((s) => s && String(s).trim().length > 0)
+    .reduce((result, style) => `${result}\n${style}`, '')
+
+  if (!css || css.trim().length === 0) {
+    return ''
+  }
+
+  return `<style>${css}
     </style>`
 }
 
@@ -24,11 +31,10 @@ export function buildStyleFromTags(breakpoint, styles) {
     return ''
   }
 
-  return ` 
-    <style type="text/css">${styles.reduce(
-      (result, style) =>
-        `${result}\n${isFunction(style) ? style(breakpoint) : style}`,
-      '',
-    )}
+  return `    <style>${styles.reduce(
+    (result, style) =>
+      `${result}\n${isFunction(style) ? style(breakpoint) : style}`,
+    '',
+  )}
     </style>`
 }

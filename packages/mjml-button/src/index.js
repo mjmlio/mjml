@@ -24,6 +24,7 @@ export default class MjButton extends BodyComponent {
     'font-weight': 'string',
     height: 'unit(px,%)',
     href: 'string',
+    multiline: 'boolean',
     name: 'string',
     title: 'string',
     'inner-padding': 'unit(px,%){1,4}',
@@ -49,15 +50,13 @@ export default class MjButton extends BodyComponent {
     border: 'none',
     'border-radius': '3px',
     color: '#ffffff',
-    'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
+    'font-family': 'Ubuntu, sans-serif',
     'font-size': '13px',
-    'font-weight': 'normal',
     'inner-padding': '10px 25px',
     'line-height': '120%',
+    multiline: 'false',
     padding: '10px 25px',
-    target: '_blank',
     'text-decoration': 'none',
-    'text-transform': 'none',
     'vertical-align': 'middle',
   }
 
@@ -75,15 +74,13 @@ export default class MjButton extends BodyComponent {
         'border-radius': this.getAttribute('border-radius'),
         'border-right': this.getAttribute('border-right'),
         'border-top': this.getAttribute('border-top'),
-        cursor: 'auto',
         'font-style': this.getAttribute('font-style'),
         height: this.getAttribute('height'),
-        'mso-padding-alt': this.getAttribute('inner-padding'),
         'text-align': this.getAttribute('text-align'),
         background: this.getAttribute('background-color'),
       },
       content: {
-        display: 'inline-block',
+        ...(this.getAttribute('multiline') === true ? { display: 'inline-block' } : { display: 'block' }),
         width: this.calculateAWidth(this.getAttribute('width')),
         background: this.getAttribute('background-color'),
         color: this.getAttribute('color'),
@@ -93,11 +90,12 @@ export default class MjButton extends BodyComponent {
         'font-weight': this.getAttribute('font-weight'),
         'line-height': this.getAttribute('line-height'),
         'letter-spacing': this.getAttribute('letter-spacing'),
-        margin: '0',
+        ...(!this.getAttribute('href') && { margin: '0' }),
         'text-decoration': this.getAttribute('text-decoration'),
         'text-transform': this.getAttribute('text-transform'),
         padding: this.getAttribute('inner-padding'),
-        'mso-padding-alt': '0px',
+        border: `1px solid ${this.getAttribute('background-color')}`,
+        ...(this.getAttribute('multiline') === true && { 'mso-padding-alt': '0px' }),
         'border-radius': this.getAttribute('border-radius'),
       },
     }
@@ -129,39 +127,35 @@ export default class MjButton extends BodyComponent {
           border: '0',
           cellpadding: '0',
           cellspacing: '0',
-          role: 'presentation',
+          role: 'none',
           style: 'table',
         })}
       >
-        <tbody>
-          <tr>
-            <td
+        <tr>
+          <td
+            ${this.htmlAttributes({
+              align: 'center',
+              bgcolor:
+                this.getAttribute('background-color') === 'none'
+                  ? undefined
+                  : this.getAttribute('background-color'),
+              role: 'none',
+              style: 'td',
+              valign: this.getAttribute('vertical-align'),
+            })}
+          >
+            <${tag}
               ${this.htmlAttributes({
-                align: 'center',
-                bgcolor:
-                  this.getAttribute('background-color') === 'none'
-                    ? undefined
-                    : this.getAttribute('background-color'),
-                role: 'presentation',
-                style: 'td',
-                valign: this.getAttribute('vertical-align'),
+                href: this.getAttribute('href'),
+                name: this.getAttribute('name'),
+                rel: this.getAttribute('rel'),
+                title: this.getAttribute('title'),
+                style: 'content',
+                target: tag === 'a' ? this.getAttribute('target') : undefined,
               })}
-            >
-              <${tag}
-                ${this.htmlAttributes({
-                  href: this.getAttribute('href'),
-                  name: this.getAttribute('name'),
-                  rel: this.getAttribute('rel'),
-                  title: this.getAttribute('title'),
-                  style: 'content',
-                  target: tag === 'a' ? this.getAttribute('target') : undefined,
-                })}
-              >
-                ${this.getContent()}
-              </${tag}>
-            </td>
-          </tr>
-        </tbody>
+            >${this.getContent()}</${tag}>
+          </td>
+        </tr>
       </table>
     `
   }

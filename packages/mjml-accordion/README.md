@@ -59,8 +59,8 @@ Readers can interact by clicking on the tabs to reveal the content, providing a 
 | border                     | string                  | CSS border format                                  | `2px solid black`                      |
 | container-background-color | CSS color formats       | background-color of the cell                       |                                        |
 | css-class                  | string                  | class name, added to the root HTML element created |                                        |
-| font-family                | string                  | font                                               | `Ubuntu, Helvetica, Arial, sans-serif` |
-| icon-align                 | `top` `middle` `bottom` | icon alignment                                     | `middle`                               |
+| font-family                | string                  | font                                               | `Ubuntu, sans-serif`                   |
+| icon-align                 | `top` `middle` `bottom` | icon alignment                                     |                                        |
 | icon-height                | `px` `%`                | icon height                                        | `32px`                                 |
 | icon-position              | left,<br>right          | display icon left or right                         | `right`                                |
 | icon-unwrapped-alt         | string                  | alt text when accordion is unwrapped               | `-`                                    |

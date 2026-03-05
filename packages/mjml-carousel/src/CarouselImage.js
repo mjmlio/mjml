@@ -20,7 +20,6 @@ export default class MjCarouselImage extends BodyComponent {
 
   static defaultAttributes = {
     alt: '',
-    target: '_blank',
   }
 
   getStyles() {
@@ -32,18 +31,15 @@ export default class MjCarouselImage extends BodyComponent {
           display: 'block',
           width: this.context.containerWidth,
           'max-width': '100%',
-          height: 'auto',
         },
         firstImageDiv: {},
         otherImageDiv: {
           display: 'none',
-          'mso-hide': 'all',
         },
       },
       radio: {
         input: {
           display: 'none',
-          'mso-hide': 'all',
         },
       },
       thumbnails: {
@@ -57,7 +53,6 @@ export default class MjCarouselImage extends BodyComponent {
         img: {
           display: 'block',
           width: '100%',
-          height: 'auto',
         },
       },
     }
@@ -112,7 +107,7 @@ export default class MjCarouselImage extends BodyComponent {
           class: `mj-carousel-radio mj-carousel-${carouselId}-radio mj-carousel-${carouselId}-radio-${
             index + 1
           }`,
-          checked: index === 0 ? 'checked' : null,
+          checked: index === 0 ? true : null,
           type: 'radio',
           name: `mj-carousel-radio-${carouselId}`,
           id: `mj-carousel-${carouselId}-radio-${index + 1}`,
@@ -123,7 +118,7 @@ export default class MjCarouselImage extends BodyComponent {
   }
 
   render() {
-    const { src, alt, href, rel, title } = this.attributes
+    const { src, alt, href, rel, target, title } = this.attributes
     const { index } = this.props
 
     const image = `
@@ -140,8 +135,7 @@ export default class MjCarouselImage extends BodyComponent {
 
     const cssClass = this.getAttribute('css-class') || ''
 
-    return `
-      <div
+    return `<div
         ${this.htmlAttributes({
           class: `mj-carousel-image mj-carousel-image-${index + 1} ${cssClass}`,
           style: index === 0 ? 'images.firstImageDiv' : 'images.otherImageDiv',
@@ -149,10 +143,9 @@ export default class MjCarouselImage extends BodyComponent {
       >
         ${
           href
-            ? `<a ${this.htmlAttributes({ href, rel, target: '_blank' })}>${image}</a>`
+            ? `<a ${this.htmlAttributes({ href, rel, target })}>${image}</a>`
             : image
         }
-      </div>
-    `
+      </div>`
   }
 }

@@ -1,9 +1,9 @@
-const MJMLParser = require('../lib/index.js')
+const chai = require('chai')
 require('mjml')
 const { components } = require('mjml-core')
-const chai = require('chai')
-const displayDiff = require('./test-utils').displayDiff
-const omitDeepLodash = require('./test-utils').omitDeepLodash
+
+const MJMLParser = require('../lib')
+const { displayDiff, omitDeepLodash } = require('./test-utils')
 const testValues = require('./test-values')
 
 /*

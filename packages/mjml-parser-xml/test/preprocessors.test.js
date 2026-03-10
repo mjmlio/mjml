@@ -1,8 +1,9 @@
 const chai = require('chai')
 const { template } = require('lodash')
-const MJMLParser = require('../lib')
 const mjml2html = require('mjml')
 const { components } = require('mjml-core')
+
+const MJMLParser = require('../lib')
 
 describe('mjml-parser-xml preprocessors', () => {
   it('applies preprocessors before parsing', async () => {

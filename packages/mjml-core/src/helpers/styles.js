@@ -5,25 +5,44 @@ export function buildStyleFromComponents(
   componentsHeadStyles,
   headStylesObject,
 ) {
-  const headStyles = Object.values(headStylesObject)
+  const { 'mj-accordion': accordionHeadStyle, ...headStylesWithoutAccordion } =
+    headStylesObject || {}
 
+  const headStyles = Object.values(headStylesWithoutAccordion)
   const styleFunctions = [...componentsHeadStyles, ...headStyles]
 
-  if (styleFunctions.length === 0) {
+  const buildCss = (styles) => {
+    const css = (styles || [])
+      .map((style) => (isFunction(style) ? style(breakpoint) : style))
+      .filter((s) => s && String(s).trim().length > 0)
+      .reduce((result, style) => `${result}\n${style}`, '')
+
+    return css && css.trim().length > 0 ? css : ''
+  }
+
+  const css = buildCss(styleFunctions)
+
+  const accordionCss = accordionHeadStyle
+    ? buildCss([accordionHeadStyle])
+    : ''
+
+  if (!css && !accordionCss) {
     return ''
   }
 
-  const css = styleFunctions
-    .map((style) => (isFunction(style) ? style(breakpoint) : style))
-    .filter((s) => s && String(s).trim().length > 0)
-    .reduce((result, style) => `${result}\n${style}`, '')
+  const blocks = []
 
-  if (!css || css.trim().length === 0) {
-    return ''
+  if (css) {
+    blocks.push(`<style>${css}
+    </style>`)
   }
 
-  return `<style>${css}
-    </style>`
+  if (accordionCss) {
+    blocks.push(`<style type="text/css">${accordionCss}
+    </style>`)
+  }
+
+  return blocks.join('\n')
 }
 
 export function buildStyleFromTags(breakpoint, styles) {

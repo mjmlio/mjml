@@ -69,6 +69,22 @@ testValues.forEach((testUnit) => {
     .to.equal(outputStyleCount)
 })
 
+{
+  const $ = load(
+    skeleton({
+      headStyle: {
+        'custom-component': () => '.custom-component { background: orange; }',
+        'mj-accordion': () => '@goodbye { @gmail }',
+      },
+    }),
+  )
+
+  chai.expect($('head style').get().length).to.equal(3)
+  chai.expect($('head style[type="text/css"]').get().length).to.equal(
+    1,
+  )
+}
+
 // Dark mode support is opt-in
 {
   const $ = load(skeleton({}))

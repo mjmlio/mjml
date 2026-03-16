@@ -981,6 +981,7 @@ export default async function mjml2html(mjml, options = {}) {
     content = await prettier.format(content, {
       parser: 'html',
       printWidth: 1024,
+      singleQuote: true,
     })
   }
 

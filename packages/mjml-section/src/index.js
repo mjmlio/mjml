@@ -62,6 +62,8 @@ export default class MjSection extends BodyComponent {
 
     const hasBorderRadius = this.hasBorderRadius()
 
+    const hasBackground = this.hasBackground()
+
     const isFirstSection = this.props.index === 0
 
     const background = this.getAttribute('background-url')
@@ -74,7 +76,6 @@ export default class MjSection extends BodyComponent {
         }
       : {
           background: this.getAttribute('background-color'),
-          'background-color': this.getAttribute('background-color'),
         }
 
     return {
@@ -104,16 +105,12 @@ export default class MjSection extends BodyComponent {
         'text-align': this.getColumnAlign(),
       },
       div: {
-        ...(fullWidth ? {} : background),
         margin: '0px auto',
         'max-width': containerWidth,
         'border-radius': this.getAttribute('border-radius'),
         ...(hasBorderRadius && { overflow: 'hidden' }),
         'margin-top': !isFirstSection ? this.context.gap : undefined,
-      },
-      innerDiv: {
-        'line-height': '0',
-        'font-size': '0',
+        ...(hasBackground && { 'line-height': '0','font-size': '0' }),
       },
     }
   }
@@ -295,6 +292,8 @@ export default class MjSection extends BodyComponent {
 
     const { containerWidth } = this.context
 
+    const backgroundSize = this.getAttribute('background-size') || 'auto'
+
     const isPercentage = (str) => /^\d+(\.\d+)?%$/.test(str)
 
     let vSizeAttributes = {}
@@ -337,7 +336,8 @@ export default class MjSection extends BodyComponent {
     let [[vOriginX, vPosX], [vOriginY, vPosY]] = ['x', 'y'].map(
       (coordinate) => {
         const isX = coordinate === 'x'
-        const bgRepeat = this.getAttribute('background-repeat') === 'repeat'
+        const bgRepeat =
+          (this.getAttribute('background-repeat') ?? 'repeat') === 'repeat'
         let pos = isX ? bgPosX : bgPosY
         let origin = isX ? bgPosX : bgPosY
 
@@ -369,23 +369,18 @@ export default class MjSection extends BodyComponent {
 
     // If background size is either cover or contain, we tell VML to keep the aspect
     // and fill the entire element.
-    if (
-      this.getAttribute('background-size') === 'cover' ||
-      this.getAttribute('background-size') === 'contain'
-    ) {
+    if (backgroundSize === 'cover' || backgroundSize === 'contain') {
       vSizeAttributes = {
         size: '1,1',
         aspect:
-          this.getAttribute('background-size') === 'cover'
-            ? 'atleast'
-            : 'atmost',
+          backgroundSize === 'cover' ? 'atleast' : 'atmost',
       }
-    } else if (this.getAttribute('background-size') !== 'auto') {
-      const bgSplit = this.getAttribute('background-size').split(' ')
+    } else if (backgroundSize !== 'auto') {
+      const bgSplit = backgroundSize.split(' ')
 
       if (bgSplit.length === 1) {
         vSizeAttributes = {
-          size: this.getAttribute('background-size'),
+          size: backgroundSize,
           aspect: 'atmost', // reproduces height auto
         }
       } else {
@@ -398,7 +393,7 @@ export default class MjSection extends BodyComponent {
     let vmlType =
       this.getAttribute('background-repeat') === 'no-repeat' ? 'frame' : 'tile'
 
-    if (this.getAttribute('background-size') === 'auto') {
+    if (backgroundSize === 'auto') {
       vmlType = 'tile' // if no size provided, keep old behavior because outlook can't use original image size with "frame"
       ;[[vOriginX, vPosX], [vOriginY, vPosY]] = [
         [0.5, 0.5],
@@ -447,11 +442,6 @@ export default class MjSection extends BodyComponent {
         class: this.isFullWidth() ? null : this.getAttribute('css-class'),
         style: 'div',
       })}>
-        ${
-          hasBackground
-            ? `<div ${this.htmlAttributes({ style: 'innerDiv' })}>`
-            : ''
-        }
         <table
           ${this.htmlAttributes({
             align: 'center',
@@ -473,7 +463,7 @@ export default class MjSection extends BodyComponent {
               })}
             >
               ${msoConditionalTag(`
-                <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                <table role="none" border="0" cellpadding="0" cellspacing="0">
               `)}
                 ${this.renderWrappedChildren()}
               ${msoConditionalTag(`
@@ -482,7 +472,6 @@ export default class MjSection extends BodyComponent {
             </td>
           </tr>
         </table>
-        ${hasBackground ? '</div>' : ''}
       </div>
     `
   }

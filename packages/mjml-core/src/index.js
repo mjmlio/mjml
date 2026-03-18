@@ -871,7 +871,7 @@ export default async function mjml2html(mjml, options = {}) {
       if (parsedWidth != null && unit != null) {
         const widthValue = `${parsedWidth}${unit}`
 
-        if (!(parsedWidth === 100 && unit === '%')) {
+        if (parsedWidth !== 100 || unit !== '%') {
           declarations.push(`width:${widthValue} !important;`)
         }
 

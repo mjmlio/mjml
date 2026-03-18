@@ -30,4 +30,5 @@ jobs:
       - name: Build browser bundle + smoke test
         run: |
           yarn install
+          yarn build
           yarn build-browser

@@ -1,7 +1,7 @@
 {
   "name": "mjml-browser",
   "description": "MJML: the only framework that makes responsive-email easy",
-  "version": "5.0.0-alpha.11",
+  "version": "5.0.0-beta.1",
   "main": "lib/index.js",
   "files": [
     "lib"
@@ -18,7 +18,8 @@
   "homepage": "https://mjml.io",
   "scripts": {
     "clean": "rimraf lib",
-    "build": "webpack"
+    "build": "webpack && yarn test:smoke",
+    "test:smoke": "node ./smoke-browser-global.js"
   },
   "devDependencies": {
     "@babel/cli": "^7.28.4",

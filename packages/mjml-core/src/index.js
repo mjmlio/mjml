@@ -44,6 +44,29 @@ const isNode = require('detect-node')
 const fs = require('fs')
 const path = require('path')
 
+const cssnanoLitePreset = require('cssnano-preset-lite')
+
+function normalizeMinifyCssOption(minifyCss) {
+  if (minifyCss === 'lite') {
+    return { preset: cssnanoLitePreset }
+  }
+
+  if (minifyCss && typeof minifyCss === 'object') {
+    if (minifyCss.preset === 'lite') {
+      return { ...minifyCss, preset: cssnanoLitePreset }
+    }
+
+    if (Array.isArray(minifyCss.preset) && minifyCss.preset[0] === 'lite') {
+      return {
+        ...minifyCss,
+        preset: [cssnanoLitePreset, minifyCss.preset[1] || {}],
+      }
+    }
+  }
+
+  return minifyCss
+}
+
 function escapeRegex(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 }
@@ -880,7 +903,7 @@ export default async function mjml2html(mjml, options = {}) {
       typeof minifyOptions.minifyCss === 'undefined' &&
       typeof minifyOptions.minifyCSS !== 'undefined'
     ) {
-      const mapped = minifyOptions.minifyCSS ? { preset: 'lite' } : false
+      const mapped = minifyOptions.minifyCSS ? { preset: cssnanoLitePreset } : false
       const { minifyCSS, ...rest } = minifyOptions
       normalizedMinifyOptions = { ...rest, minifyCss: mapped }
     }
@@ -899,12 +922,14 @@ export default async function mjml2html(mjml, options = {}) {
       resolvedUserMinifyCss = undefined
     }
 
+    resolvedUserMinifyCss = normalizeMinifyCssOption(resolvedUserMinifyCss)
+
     const htmlnanoOptions = {
       collapseWhitespace: true,
       minifyCss:
         typeof resolvedUserMinifyCss !== 'undefined'
           ? resolvedUserMinifyCss
-          : { preset: 'lite' },
+          : { preset: cssnanoLitePreset },
       removeEmptyAttributes: true,
       minifyJs: false,
       removeComments: keepComments ? false : 'safe',

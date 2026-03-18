@@ -17,6 +17,7 @@ module.exports = {
     alias: {
       'path': 'path-browserify',
       'fs': path.resolve(__dirname, 'browser-mocks/fs'),
+      'cssnano-preset-lite': path.resolve(__dirname, 'browser-mocks/empty'),
       'uglify-js': path.resolve(__dirname, 'browser-mocks/uglify-js'),
       'minify': path.resolve(__dirname, 'browser-mocks/minify'), 
       'htmlnano': path.resolve(__dirname, 'browser-mocks/htmlnano'),
@@ -54,6 +55,7 @@ module.exports = {
             keep_fargs: false,
           },
           output: {
+            ascii_only: true,
             beautify: false,
           },
           mangle: true,

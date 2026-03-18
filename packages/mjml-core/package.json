@@ -24,16 +24,16 @@
   "dependencies": {
     "@babel/runtime": "^7.28.4",
     "cheerio": "1.0.0",
-    "cssnano": "^7.0.6",
+    "cssnano": "^7.1.2",
     "cssnano-preset-lite": "^4.0.4",
     "detect-node": "^2.0.4",
-    "htmlnano": "^2.1.1",
+    "htmlnano": "^3.2.0",
     "juice": "^11.0.0",
     "lodash": "^4.17.21",
     "mjml-parser-xml": "5.0.0-beta.1",
     "mjml-validator": "5.0.0-beta.1",
-    "postcss": "^8.5.3",
-    "prettier": "^3.5.1"
+    "postcss": "^8.5.8",
+    "prettier": "^3.8.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",

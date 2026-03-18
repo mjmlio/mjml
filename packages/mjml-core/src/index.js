@@ -122,67 +122,120 @@ function mergeHeadStyleBlocks(html) {
   const before = html.slice(0, headOpen)
   const after = html.slice(headClose)
 
-  const $ = load(`<root>${headInner}</root>`, {
-    decodeEntities: false,
-  })
+  // Tokenise <head> inner content with a plain character scanner so that
+  // this function works in browser environments where cheerio is not bundled.
+  //
+  // Token types:
+  //   'plain-style'  – <style> with no attributes        (eligible for merging)
+  //   'whitespace'   – whitespace-only text between tags (transparent to groups)
+  //   'other'        – everything else                   (breaks an open merge group)
+  const tokens = []
+  let pos = 0
+  while (pos < headInner.length) {
+    let advanced = false
 
-  const root = $('root')
-  const children = root.contents().toArray()
-
-  let firstStyle = null
-  let combinedCss = ''
-
-  const isPlainHeadStyle = (node) => {
+    // HTML comment (<!-- ... -->), including MSO conditionals and negations
     if (
-      node.tagName !== 'style' ||
-      (node.attribs && Object.keys(node.attribs).length > 0)
+      headInner[pos] === '<' &&
+      headInner[pos + 1] === '!' &&
+      headInner[pos + 2] === '-' &&
+      headInner[pos + 3] === '-'
     ) {
-      return false
-    }
-
-    const hasConditionalCommentSibling = (sibling) => {
-      if (!sibling || sibling.type !== 'comment') {
-        return false
+      const end = headInner.indexOf('-->', pos + 4)
+      if (end !== -1) {
+        tokens.push({ type: 'other', raw: headInner.slice(pos, end + 3) })
+        pos = end + 3
+        advanced = true
       }
-      const data = sibling.data || ''
-      return /\[if\s|<!\[endif]/i.test(data)
     }
 
-    return (
-      !hasConditionalCommentSibling(node.prev) &&
-      !hasConditionalCommentSibling(node.next)
-    )
-  }
+    // Plain <style> with no attributes — eligible for merging
+    if (!advanced && headInner.startsWith('<style>', pos)) {
+      const end = headInner.indexOf('</style>', pos + 7)
+      if (end !== -1) {
+        const css = headInner.slice(pos + 7, end)
+        tokens.push({ type: 'plain-style', css, raw: headInner.slice(pos, end + 8) })
+        pos = end + 8
+        advanced = true
+      }
+    }
 
-  children.forEach((node) => {
-    if (isPlainHeadStyle(node)) {
-      const styleNode = $(node)
-      const css = styleNode.html() || ''
+    // <style> with attributes (e.g. media=) — not eligible for merging
+    if (
+      !advanced &&
+      headInner.startsWith('<style', pos) &&
+      pos + 6 < headInner.length &&
+      headInner[pos + 6] !== '>'
+    ) {
+      const tagEnd = headInner.indexOf('>', pos + 6)
+      if (tagEnd !== -1) {
+        const bodyEnd = headInner.indexOf('</style>', tagEnd + 1)
+        if (bodyEnd !== -1) {
+          tokens.push({ type: 'other', raw: headInner.slice(pos, bodyEnd + 8) })
+          pos = bodyEnd + 8
+          advanced = true
+        }
+      }
+    }
 
-      if (!firstStyle) {
-        firstStyle = styleNode
-        combinedCss = css
+    // Text content between tags
+    if (!advanced && headInner[pos] !== '<') {
+      const nextTag = headInner.indexOf('<', pos)
+      const end = nextTag === -1 ? headInner.length : nextTag
+      const raw = headInner.slice(pos, end)
+      tokens.push({ type: raw.trim() === '' ? 'whitespace' : 'other', raw })
+      pos = end
+      advanced = true
+    }
+
+    // Any other tag (<meta>, <title>, etc.)
+    if (!advanced) {
+      const tagEnd = headInner.indexOf('>', pos)
+      if (tagEnd !== -1) {
+        tokens.push({ type: 'other', raw: headInner.slice(pos, tagEnd + 1) })
+        pos = tagEnd + 1
       } else {
-        combinedCss += css ? `\n${css}` : ''
-        styleNode.remove()
+        tokens.push({ type: 'other', raw: headInner.slice(pos) })
+        pos = headInner.length
       }
-    } else if (node.type === 'text' && (!node.data || node.data.trim() === '')) {
-      // Ignore pure-whitespace text nodes between styles so they
-      // don't break a merge group.
-    } else if (firstStyle) {
-      firstStyle.html(combinedCss)
-      firstStyle = null
-      combinedCss = ''
     }
-  })
-
-  if (firstStyle) {
-    firstStyle.html(combinedCss)
   }
 
-  const newHeadInner = root.html() || ''
+  // Walk the token list merging consecutive plain-style groups.
+  // Whitespace-only tokens inside a group are absorbed; whitespace trailing
+  // after the final merged style is re-emitted. Any other token breaks
+  // the current group (matching the behaviour of the original DOM-based walk).
+  const out = []
+  let i = 0
+  while (i < tokens.length) {
+    const t = tokens[i]
+    if (t.type === 'plain-style') {
+      let combinedCss = t.css
+      let trailingWhitespace = ''
+      let j = i + 1
+      while (j < tokens.length) {
+        const nt = tokens[j]
+        if (nt.type === 'whitespace') {
+          trailingWhitespace += nt.raw
+          j += 1
+        } else if (nt.type === 'plain-style') {
+          combinedCss += `\n${nt.css}`
+          trailingWhitespace = ''
+          j += 1
+        } else {
+          break
+        }
+      }
+      out.push(`<style>${combinedCss}</style>`)
+      if (trailingWhitespace) out.push(trailingWhitespace)
+      i = j
+    } else {
+      out.push(t.raw)
+      i += 1
+    }
+  }
 
-  return `${before}${headOpenTag}${newHeadInner}${after}`
+  return `${before}${headOpenTag}${out.join('')}${after}`
 }
 
 function sanitizeStyleTagBlocks(html, syntaxes) {

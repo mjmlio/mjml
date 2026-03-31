@@ -8,10 +8,10 @@ export default function errorAttr(element) {
   return errors.map((error) => {
     switch (error.type) {
       case 'include': {
-        const { file, partialPath } = error.params
+        const { file } = error.params
 
         return ruleError(
-          `mj-include fails to read file : ${file} at ${partialPath}`,
+          `mj-include fails to read file : ${file}`,
           element,
         )
       }

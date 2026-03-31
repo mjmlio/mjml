@@ -26,6 +26,8 @@ tags to make it easier to preview outside the main template.
 
 The MJML engine will then replace your included files before starting the rendering process.
 
+**Note:** For security, the `path` attribute must be a relative path that resolves to a location within the project directory (the directory of the file being compiled, or the `filePath` option). Absolute paths and paths that traverse outside the project root (e.g. `../../outside-project/file.mjml`) will be rejected.
+
 #### Other file types
 
 You can include external `.css` files which will be inserted in the same way as using an `mj-style` tag. You need to specify that you're including a CSS file using the attribute `type="css"` attribute.

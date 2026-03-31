@@ -8,6 +8,7 @@ import fs from 'fs'
 import cleanNode from './helpers/cleanNode'
 import convertBooleansOnAttrs from './helpers/convertBooleansOnAttrs'
 import setEmptyAttributes from './helpers/setEmptyAttributes'
+import assertPathWithinRoot from './helpers/assertPathWithinRoot'
 
 const isNode = require('detect-node')
 
@@ -25,6 +26,8 @@ const indexesForNewLine = (xml) => {
 const isSelfClosing = (indexes, parser) =>
   indexes.startIndex === parser.startIndex &&
   indexes.endIndex === parser.endIndex
+
+export { default as assertPathWithinRoot } from './helpers/assertPathWithinRoot'
 
 export default function MJMLParser(xml, options = {}, includedIn = []) {
   const {
@@ -65,7 +68,13 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
   const lineIndexes = indexesForNewLine(xml)
 
   const handleCssHtmlInclude = (file, attrs, line) => {
+    if (path.isAbsolute(file)) {
+      throw new Error('mj-include rejected: absolute paths are not allowed')
+    }
+
     const partialPath = path.resolve(cwd, file)
+    assertPathWithinRoot(partialPath, cwd)
+
     let content
     try {
       content = fs.readFileSync(partialPath, 'utf8')
@@ -76,12 +85,12 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
         absoluteFilePath: path.resolve(cwd, actualPath),
         parent: cur,
         tagName: 'mj-raw',
-        content: `<!-- mj-include fails to read file : ${file} at ${partialPath} -->`,
+        content: `<!-- mj-include fails to read file : ${file} -->`,
         children: [],
         errors: [
           {
             type: 'include',
-            params: { file, partialPath },
+            params: { file },
           },
         ],
       }
@@ -120,11 +129,17 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
   }
 
   const handleInclude = (file, line) => {
+    if (path.isAbsolute(file)) {
+      throw new Error('mj-include rejected: absolute paths are not allowed')
+    }
+
     const partialPath = path.resolve(cwd, file)
+    assertPathWithinRoot(partialPath, cwd)
+
     const curBeforeInclude = cur
 
     if (find(cur.includedIn, { file: partialPath }))
-      throw new Error(`Circular inclusion detected on file : ${partialPath}`)
+      throw new Error(`Circular inclusion detected on file : ${file}`)
 
     let content
 
@@ -137,12 +152,12 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
         absoluteFilePath: path.resolve(cwd, actualPath),
         parent: cur,
         tagName: 'mj-raw',
-        content: `<!-- mj-include fails to read file : ${file} at ${partialPath} -->`,
+        content: `<!-- mj-include fails to read file : ${file} -->`,
         children: [],
         errors: [
           {
             type: 'include',
-            params: { file, partialPath },
+            params: { file },
           },
         ],
       }

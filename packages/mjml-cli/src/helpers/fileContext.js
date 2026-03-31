@@ -1,5 +1,6 @@
 import fs from 'fs'
 import path from 'path'
+import { assertPathWithinRoot } from 'mjml-parser-xml'
 
 const includeRegexp =
   /<mj-include[^<>]+path=['"](.*(?:\.mjml|\.css|\.html))['"]\s*[^<>]*(\/>|>\s*<\/mj-include>)/gi
@@ -56,6 +57,16 @@ export default (baseFile, filePath) => {
         filePath && file === baseFile ? filePathDirectory : currentDirectory
 
       const includedFilePath = path.resolve(path.join(targetDir, includedFile))
+
+      const rootDir =
+        filePathDirectory || path.dirname(path.resolve(baseFile))
+      try {
+        assertPathWithinRoot(includedFilePath, rootDir)
+      } catch (e) {
+        error(e.message)
+        matchgroup = includes.exec(content)
+        continue // eslint-disable-line no-continue
+      }
 
       filesIncluded.push(includedFilePath)
 

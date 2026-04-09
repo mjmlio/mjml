@@ -23,6 +23,9 @@ export default class MjBody extends BodyComponent {
 
   getStyles() {
     return {
+      body: {
+        'background-color': this.getAttribute('background-color'),
+      },
       div: {
         'word-spacing': 'normal',
         'background-color': this.getAttribute('background-color'),
@@ -38,6 +41,7 @@ export default class MjBody extends BodyComponent {
     return `<body${this.htmlAttributes({
       id: this.getAttribute('id'),
       class: this.getAttribute('css-class'),
+      style: 'body',
       'xml:lang': lang,
     })}>
     ${buildPreview(preview)}

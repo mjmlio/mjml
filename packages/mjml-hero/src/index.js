@@ -1,6 +1,12 @@
 import { BodyComponent } from 'mjml-core'
 import { flow, identity, join, filter } from 'lodash/fp'
 
+import {
+  emitDarkModeHeadStyle,
+  registerDarkModeRule,
+} from 'mjml-core/lib/helpers/colorSchemeDarkMode'
+import { OUTLOOK_DARK_MODE_CLASS } from 'mjml-core/lib/helpers/outlookDarkMode'
+
 import widthParser from 'mjml-core/lib/helpers/widthParser'
 import { msoConditionalTag } from 'mjml-core/lib/helpers/conditionalTag'
 
@@ -10,25 +16,28 @@ export default class MjHero extends BodyComponent {
   static componentName = 'mj-hero'
 
   static allowedAttributes = {
-    mode: 'string',
-    height: 'unit(px,%)',
-    'background-url': 'string',
-    'background-width': 'unit(px,%)',
+    'background-color': 'color',
     'background-height': 'unit(px,%)',
     'background-position': 'string',
+    'background-url': 'string',
+    'background-width': 'unit(px,%)',
     'border-radius': 'string',
+    'dark-background-color': 'color',
+    'dark-background-url': 'string',
+    'dark-inner-background-color': 'color',
+    height: 'unit(px,%)',
     'inner-background-color': 'color',
     'inner-padding': 'unit(px,%){1,4}',
     'inner-padding-top': 'unit(px,%)',
     'inner-padding-left': 'unit(px,%)',
     'inner-padding-right': 'unit(px,%)',
     'inner-padding-bottom': 'unit(px,%)',
+    mode: 'string',
     padding: 'unit(px,%){1,4}',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
-    'background-color': 'color',
     'vertical-align': 'enum(top,bottom,middle)',
   }
 
@@ -38,6 +47,81 @@ export default class MjHero extends BodyComponent {
     'background-position': 'center',
     'background-color': '#ffffff',
     'vertical-align': 'top',
+  }
+
+  darkClasses = null
+
+  registerDarkBackgroundImageClass() {
+    const globalData = this.context && this.context.globalData
+
+    if (!globalData) {
+      return null
+    }
+
+    if (typeof globalData.outlookDarkModeImageCount !== 'number') {
+      globalData.outlookDarkModeImageCount = 0
+    }
+
+    globalData.outlookDarkModeImageCount += 1
+
+    return `${OUTLOOK_DARK_MODE_CLASS}-${globalData.outlookDarkModeImageCount}`
+  }
+
+  getDarkBackgroundImageCssValue() {
+    const darkBackgroundUrl = this.getAttribute('dark-background-url')
+
+    return darkBackgroundUrl ? `url(${JSON.stringify(darkBackgroundUrl)})` : null
+  }
+
+  componentHeadStyle = () => {
+    const {
+      backgroundClass,
+      backgroundImageClass,
+      innerBackgroundClass,
+    } = this.getDarkClasses()
+    const styles = []
+
+    if (backgroundClass || innerBackgroundClass) {
+      emitDarkModeHeadStyle(this.context && this.context.globalData)
+    }
+
+    if (backgroundImageClass) {
+      const backgroundImageCssValue = this.getDarkBackgroundImageCssValue()
+
+      styles.push(`
+@media (prefers-color-scheme: dark) {
+  .${backgroundImageClass} { background-image: ${backgroundImageCssValue} !important; }
+}
+`)
+    }
+
+    return styles.join('\n')
+  }
+
+  getDarkClasses() {
+    if (this.darkClasses) {
+      return this.darkClasses
+    }
+
+    this.darkClasses = {
+      backgroundClass: this.getAttribute('dark-background-color')
+        ? registerDarkModeRule(this.context && this.context.globalData, {
+            cssProperty: 'background-color',
+            cssValue: this.getAttribute('dark-background-color'),
+          })
+        : null,
+      backgroundImageClass: this.getAttribute('dark-background-url')
+        ? this.registerDarkBackgroundImageClass()
+        : null,
+      innerBackgroundClass: this.getAttribute('dark-inner-background-color')
+        ? registerDarkModeRule(this.context && this.context.globalData, {
+            cssProperty: 'background-color',
+            cssValue: this.getAttribute('dark-inner-background-color'),
+          })
+        : null,
+    }
+
+    return this.darkClasses
   }
 
   getChildContext() {
@@ -154,6 +238,7 @@ export default class MjHero extends BodyComponent {
   renderContent() {
     const { containerWidth: currentContainerWidth } = this.getChildContext()
     const { children } = this.props
+    const { innerBackgroundClass } = this.getDarkClasses()
 
     return `
       ${msoConditionalTag(`
@@ -173,7 +258,7 @@ export default class MjHero extends BodyComponent {
       <div
         ${this.htmlAttributes({
           align: this.getAttribute('align'),
-          class: 'mj-hero-content',
+          class: ['mj-hero-content', innerBackgroundClass].filter(Boolean).join(' '),
           style: 'inner-div',
         })}
       >
@@ -247,9 +332,13 @@ export default class MjHero extends BodyComponent {
   }
 
   renderMode() {
+    const { backgroundClass, backgroundImageClass } = this.getDarkClasses()
 
     const commonAttributes = {
       background: this.getAttribute('background-url'),
+      class:
+        [backgroundClass, backgroundImageClass].filter(Boolean).join(' ') ||
+        undefined,
       style: {
         background: this.getBackground(),
         'background-position': this.getAttribute('background-position'),

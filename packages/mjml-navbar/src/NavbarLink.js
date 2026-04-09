@@ -1,6 +1,10 @@
 import { BodyComponent, suffixCssClasses } from 'mjml-core'
 
 import conditionalTag from 'mjml-core/lib/helpers/conditionalTag'
+import {
+  emitDarkModeHeadStyle,
+  registerDarkModeRule,
+} from 'mjml-core/lib/helpers/colorSchemeDarkMode'
 
 export default class MjNavbarLink extends BodyComponent {
   static componentName = 'mj-navbar-link'
@@ -9,21 +13,22 @@ export default class MjNavbarLink extends BodyComponent {
 
   static allowedAttributes = {
     color: 'color',
+    'dark-color': 'color',
     'font-family': 'string',
     'font-size': 'unit(px)',
     'font-style': 'string',
     'font-weight': 'string',
     href: 'string',
-    name: 'string',
-    target: 'string',
-    rel: 'string',
     'letter-spacing': 'unitWithNegative(px,em)',
     'line-height': 'unit(px,%,)',
+    name: 'string',
+    padding: 'unit(px,%){1,4}',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
-    padding: 'unit(px,%){1,4}',
+    rel: 'string',
+    target: 'string',
     'text-decoration': 'string',
     'text-transform': 'string',
   }
@@ -36,6 +41,33 @@ export default class MjNavbarLink extends BodyComponent {
     padding: '15px 10px',
     'text-decoration': 'none',
     'text-transform': 'uppercase',
+  }
+
+  darkClasses = null
+
+  getDarkClasses() {
+    if (this.darkClasses !== null) {
+      return this.darkClasses
+    }
+
+    this.darkClasses = {}
+
+    const globalData = this.context && this.context.globalData
+
+    const darkColor = this.getAttribute('dark-color')
+    if (darkColor) {
+      this.darkClasses.color = registerDarkModeRule(globalData, {
+        cssProperty: 'color',
+        cssValue: darkColor,
+      })
+    }
+
+    return this.darkClasses
+  }
+
+  componentHeadStyle = () => {
+    emitDarkModeHeadStyle(this.context && this.context.globalData)
+    return ''
   }
 
   getStyles() {
@@ -75,11 +107,13 @@ export default class MjNavbarLink extends BodyComponent {
     const cssClass = this.getAttribute('css-class')
       ? ` ${this.getAttribute('css-class')}`
       : ''
+    
+    const darkClass = this.getDarkClasses().color ? ` ${this.getDarkClasses().color}` : ''
 
     return `
       <a
         ${this.htmlAttributes({
-          class: `mj-link${cssClass}`,
+          class: `mj-link${cssClass}${darkClass}`,
           href: link,
           rel: this.getAttribute('rel'),
           target: this.getAttribute('target'),

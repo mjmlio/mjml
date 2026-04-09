@@ -1,25 +1,33 @@
 import { BodyComponent } from 'mjml-core'
+import {
+  emitDarkModeHeadStyle,
+  registerDarkModeRule,
+} from 'mjml-core/lib/helpers/colorSchemeDarkMode'
 
 export default class MjAccordion extends BodyComponent {
   static componentName = 'mj-accordion'
 
   static allowedAttributes = {
-    'container-background-color': 'color',
     border: 'string',
+    'container-background-color': 'color',
+    'dark-border-color': 'color',
+    'dark-container-background-color': 'color',
+    'dark-icon-wrapped-url': 'string',
+    'dark-icon-unwrapped-url': 'string',
     'font-family': 'string',
     'icon-align': 'enum(top,middle,bottom)',
-    'icon-width': 'unit(px,%)',
     'icon-height': 'unit(px,%)',
+    'icon-position': 'enum(left,right)',
+    'icon-width': 'unit(px,%)',
     'icon-wrapped-url': 'string',
     'icon-wrapped-alt': 'string',
     'icon-unwrapped-url': 'string',
     'icon-unwrapped-alt': 'string',
-    'icon-position': 'enum(left,right)',
+    padding: 'unit(px,%){1,4}',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
-    padding: 'unit(px,%){1,4}',
   }
 
   static defaultAttributes = {
@@ -33,6 +41,53 @@ export default class MjAccordion extends BodyComponent {
     'icon-height': '32px',
     'icon-width': '32px',
     padding: '10px 25px',
+  }
+
+  darkClasses = null
+
+  getDarkClasses() {
+    if (this.darkClasses !== null) {
+      return this.darkClasses
+    }
+
+    this.darkClasses = {}
+
+    const globalData = this.context && this.context.globalData
+
+    const darkContainerBg = this.attributes['dark-container-background-color']
+    if (darkContainerBg) {
+      this.darkClasses.container = registerDarkModeRule(globalData, {
+        cssProperty: 'background-color',
+        cssValue: darkContainerBg,
+      })
+    }
+
+    const darkBorderColor = this.attributes['dark-border-color']
+    if (darkBorderColor) {
+      this.darkClasses.border = registerDarkModeRule(globalData, {
+        cssProperty: 'border-color',
+        cssValue: darkBorderColor,
+      })
+    }
+
+    return this.darkClasses
+  }
+
+  // container-background-color is rendered on the wrapper <td> by the core
+  // renderer, so merge the dark container class into css-class.
+  getAttribute(name) {
+    if (name === 'css-class') {
+      const base = this.attributes['css-class']
+      const containerDarkClass = this.getDarkClasses().container
+      return [base, containerDarkClass].filter(Boolean).join(' ') || undefined
+    }
+
+    return this.attributes[name]
+  }
+
+  componentHeadStyle = () => {
+    emitDarkModeHeadStyle(this.context && this.context.globalData)
+    return ''
   }
 
   headStyle = () =>
@@ -77,8 +132,11 @@ export default class MjAccordion extends BodyComponent {
   }
 
   render() {
+    const borderDarkClass = this.getDarkClasses().border
+
     const childrenAttr = [
       'border',
+      'dark-border-color',
       'icon-align',
       'icon-width',
       'icon-height',
@@ -87,6 +145,8 @@ export default class MjAccordion extends BodyComponent {
       'icon-wrapped-alt',
       'icon-unwrapped-url',
       'icon-unwrapped-alt',
+      'dark-icon-wrapped-url',
+      'dark-icon-unwrapped-url',
     ].reduce(
       (res, val) => ({
         ...res,
@@ -100,7 +160,7 @@ export default class MjAccordion extends BodyComponent {
         ${this.htmlAttributes({
           cellspacing: '0',
           cellpadding: '0',
-          class: 'mj-accordion',
+          class: ['mj-accordion', borderDarkClass].filter(Boolean).join(' '),
           style: 'table',
         })}
       >

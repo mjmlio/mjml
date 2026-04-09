@@ -1,4 +1,8 @@
 import { BodyComponent } from 'mjml-core'
+import {
+  emitDarkModeHeadStyle,
+  registerDarkModeRule,
+} from 'mjml-core/lib/helpers/colorSchemeDarkMode'
 
 import widthParser from 'mjml-core/lib/helpers/widthParser'
 
@@ -9,12 +13,20 @@ export default class MjGroup extends BodyComponent {
 
   static allowedAttributes = {
     'background-color': 'color',
+    'dark-background-color': 'color',
     direction: 'enum(ltr,rtl)',
     'vertical-align': 'enum(top,bottom,middle)',
     width: 'unit(px,%)',
   }
 
   static defaultAttributes = {
+  }
+
+  componentHeadStyle = () => {
+    const darkBgColor = this.getAttribute('dark-background-color')
+    if (!darkBgColor) return ''
+    emitDarkModeHeadStyle(this.context && this.context.globalData)
+    return ''
   }
 
   getChildContext() {
@@ -148,10 +160,22 @@ export default class MjGroup extends BodyComponent {
       return `${parsedWidth}${unit}`
     }
 
+    const darkBgColor = this.getAttribute('dark-background-color')
+    const darkClass = darkBgColor
+      ? registerDarkModeRule(this.context && this.context.globalData, {
+          cssProperty: 'background-color',
+          cssValue: darkBgColor,
+        })
+      : null
+
     let classesName = `${this.getColumnClass()}`
 
     if (this.getAttribute('css-class')) {
       classesName += ` ${this.getAttribute('css-class')}`
+    }
+
+    if (darkClass) {
+      classesName += ` ${darkClass}`
     }
 
     return `

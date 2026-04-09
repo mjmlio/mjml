@@ -1,20 +1,26 @@
 import { BodyComponent } from 'mjml-core'
+import {
+  emitDarkModeHeadStyle,
+  registerDarkModeRule,
+} from 'mjml-core/lib/helpers/colorSchemeDarkMode'
 
 export default class MjDivider extends BodyComponent {
   static componentName = 'mj-divider'
 
   static allowedAttributes = {
+    align: 'enum(left,center,right)',
     'border-color': 'color',
     'border-style': 'string',
     'border-width': 'unit(px)',
     'container-background-color': 'color',
+    'dark-border-color': 'color',
+    'dark-container-background-color': 'color',
     padding: 'unit(px,%){1,4}',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
     width: 'unit(px,%)',
-    align: 'enum(left,center,right)',
   }
 
   static defaultAttributes = {
@@ -24,6 +30,51 @@ export default class MjDivider extends BodyComponent {
     padding: '10px 25px',
     width: '100%',
     align: 'center',
+  }
+
+  darkClasses = null
+
+  getDarkClasses() {
+    if (this.darkClasses !== null) {
+      return this.darkClasses
+    }
+
+    this.darkClasses = {}
+
+    const globalData = this.context && this.context.globalData
+
+    const darkContainerBg = this.attributes['dark-container-background-color']
+    if (darkContainerBg) {
+      this.darkClasses.container = registerDarkModeRule(globalData, {
+        cssProperty: 'background-color',
+        cssValue: darkContainerBg,
+      })
+    }
+
+    const darkBorderColor = this.attributes['dark-border-color']
+    if (darkBorderColor) {
+      this.darkClasses.border = registerDarkModeRule(globalData, {
+        cssProperty: 'border-top-color',
+        cssValue: darkBorderColor,
+      })
+    }
+
+    return this.darkClasses
+  }
+
+  getAttribute(name) {
+    if (name === 'css-class') {
+      const base = this.attributes['css-class']
+      const containerDarkClass = this.getDarkClasses().container
+      return [base, containerDarkClass].filter(Boolean).join(' ') || undefined
+    }
+
+    return this.attributes[name]
+  }
+
+  componentHeadStyle = () => {
+    emitDarkModeHeadStyle(this.context && this.context.globalData)
+    return ''
   }
 
   getStyles() {
@@ -57,6 +108,8 @@ export default class MjDivider extends BodyComponent {
       !this.context.globalData ||
       this.context.globalData.supportOutlookClassic !== false
 
+    const borderDarkClass = this.getDarkClasses().border
+
     if (supportOutlookClassic) {
       return `
       <table
@@ -64,6 +117,7 @@ export default class MjDivider extends BodyComponent {
           align: this.getAttribute('align'),
           border: '0',
           cellpadding: '0',
+          class: borderDarkClass,
           cellspacing: '0',
           style: 'table',
           role: 'none',
@@ -82,6 +136,7 @@ export default class MjDivider extends BodyComponent {
     return `
       <p
         ${this.htmlAttributes({
+          class: borderDarkClass,
           style: 'p',
         })}
       >

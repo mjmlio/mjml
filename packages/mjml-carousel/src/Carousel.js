@@ -2,6 +2,10 @@ import { BodyComponent } from 'mjml-core'
 import { range, repeat, min, map } from 'lodash'
 
 import conditionalTag, { msoConditionalTag } from 'mjml-core/lib/helpers/conditionalTag'
+import {
+  emitDarkModeHeadStyle,
+  registerDarkModeRule,
+} from 'mjml-core/lib/helpers/colorSchemeDarkMode'
 import genRandomHexString from 'mjml-core/lib/helpers/genRandomHexString'
 
 export default class MjCarousel extends BodyComponent {
@@ -11,6 +15,12 @@ export default class MjCarousel extends BodyComponent {
     align: 'enum(left,center,right)',
     'border-radius': 'string',
     'container-background-color': 'color',
+    'dark-container-background-color': 'color',
+    'dark-left-icon': 'string',
+    'dark-right-icon': 'string',
+    'dark-tb-border-color': 'color',
+    'dark-tb-hover-border-color': 'color',
+    'dark-tb-selected-border-color': 'color',
     'icon-width': 'unit(px,%)',
     'left-icon': 'string',
     padding: 'unit(px,%){1,4}',
@@ -19,12 +29,13 @@ export default class MjCarousel extends BodyComponent {
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
     'right-icon': 'string',
-    thumbnails: 'enum(visible,hidden,supported)',
+    'support-dark-mode-image': 'enum(outlook)',
     'tb-border': 'string',
     'tb-border-radius': 'string',
     'tb-hover-border-color': 'color',
     'tb-selected-border-color': 'color',
     'tb-width': 'unit(px,%)',
+    thumbnails: 'enum(visible,hidden,supported)',
   }
 
   static defaultAttributes = {
@@ -40,9 +51,42 @@ export default class MjCarousel extends BodyComponent {
     'tb-selected-border-color': '#ccc',
   }
 
+  darkClasses = null
+
   constructor(initialDatas = {}) {
     super(initialDatas)
     this.carouselId = genRandomHexString(6)
+  }
+
+  getDarkClasses() {
+    if (this.darkClasses !== null) {
+      return this.darkClasses
+    }
+
+    this.darkClasses = {}
+
+    const globalData = this.context && this.context.globalData
+
+    const darkContainerBackgroundColor =
+      this.attributes['dark-container-background-color']
+    if (darkContainerBackgroundColor) {
+      this.darkClasses.container = registerDarkModeRule(globalData, {
+        cssProperty: 'background-color',
+        cssValue: darkContainerBackgroundColor,
+      })
+    }
+
+    return this.darkClasses
+  }
+
+  getAttribute(name) {
+    if (name === 'css-class') {
+      const base = this.attributes['css-class']
+      const containerDarkClass = this.getDarkClasses().container
+      return [base, containerDarkClass].filter(Boolean).join(' ') || undefined
+    }
+
+    return this.attributes[name]
   }
 
   componentHeadStyle = () => {
@@ -52,12 +96,105 @@ export default class MjCarousel extends BodyComponent {
     const globalData = this.context && this.context.globalData
     const includeSharedStyles =
       !globalData || globalData.carouselSharedStylesEmitted === false
+    const darkClasses = this.getDarkClasses()
+
+    if (darkClasses.container) {
+      emitDarkModeHeadStyle(globalData)
+    }
 
     if (globalData && includeSharedStyles) {
       globalData.carouselSharedStylesEmitted = true
     }
 
     if (!length) return ''
+
+    const hideImageSelectors = range(0, length)
+      .map(
+        (i) =>
+          `.mj-carousel-${carouselId}-radio:checked ${repeat(
+            '+ * ',
+            i,
+          )}+ .mj-carousel-content .mj-carousel-image`,
+      )
+      .join(',\n')
+
+    const visibleImageSelectors = range(0, length)
+      .map(
+        (i) =>
+          `.mj-carousel-${carouselId}-radio-${i + 1}:checked ${repeat(
+            '+ * ',
+            length - i - 1,
+          )}+ .mj-carousel-content .mj-carousel-image-${i + 1}`,
+      )
+      .join(',\n')
+
+    const visibleNextSelectors = range(0, length)
+      .map(
+        (i) =>
+          `.mj-carousel-${carouselId}-radio-${i + 1}:checked ${repeat(
+            '+ * ',
+            length - i - 1,
+          )}+ .mj-carousel-content .mj-carousel-next-${
+            ((i + (1 % length) + length) % length) + 1
+          }`,
+      )
+      .join(',\n')
+
+    const visiblePreviousSelectors = range(0, length)
+      .map(
+        (i) =>
+          `.mj-carousel-${carouselId}-radio-${i + 1}:checked ${repeat(
+            '+ * ',
+            length - i - 1,
+          )}+ .mj-carousel-content .mj-carousel-previous-${
+            ((i - (1 % length) + length) % length) + 1
+          }`,
+      )
+      .join(',\n')
+
+    const selectedThumbnailSelectors = range(0, length)
+      .map(
+        (i) =>
+          `.mj-carousel-${carouselId}-radio-${i + 1}:checked ${repeat(
+            '+ * ',
+            length - i - 1,
+          )}+ .mj-carousel-content .mj-carousel-${carouselId}-thumbnail-${
+            i + 1
+          }`,
+      )
+      .join(',\n')
+
+    const visibleThumbnailSelectors = range(0, length)
+      .map(
+        (i) =>
+          `.mj-carousel-${carouselId}-radio-${i + 1}:checked ${repeat(
+            '+ * ',
+            length - i - 1,
+          )}+ .mj-carousel-content .mj-carousel-${carouselId}-thumbnail`,
+      )
+      .join(',\n')
+
+    const hoverHideImageSelectors = range(0, length)
+      .map(
+        (i) =>
+          `.mj-carousel-${carouselId}-thumbnail:hover ${repeat(
+            '+ * ',
+            length - i - 1,
+          )}+ .mj-carousel-main .mj-carousel-image`,
+      )
+      .join(',\n')
+
+    const hoverShowImageSelectors = range(0, length)
+      .map(
+        (i) =>
+          `.mj-carousel-${carouselId}-thumbnail-${i + 1}:hover ${repeat(
+            '+ * ',
+            length - i - 1,
+          )}+ .mj-carousel-main .mj-carousel-image-${i + 1}`,
+      )
+      .join(',\n')
+
+    const hoverBorderSelector = `.mj-carousel-${carouselId}-thumbnail:hover`
     const sharedCss = `
     .mj-carousel {
       -webkit-user-select: none;
@@ -97,100 +234,57 @@ export default class MjCarousel extends BodyComponent {
       display: table-cell !important;
       width: ${this.getAttribute('icon-width')} !important;
     }
-    ${range(0, length)
-      .map(
-        (i) =>
-          `.mj-carousel-${carouselId}-radio:checked ${repeat(
-            '+ * ',
-            i,
-          )}+ .mj-carousel-content .mj-carousel-image`,
-      )
-      .join(',')} {
+    ${hideImageSelectors} {
       display: none !important;
     }
-    ${range(0, length)
-      .map(
-        (i) =>
-          `.mj-carousel-${carouselId}-radio-${i + 1}:checked ${repeat(
-            '+ * ',
-            length - i - 1,
-          )}+ .mj-carousel-content .mj-carousel-image-${i + 1}`,
-      )
-      .join(',')},
-    ${range(0, length)
-      .map(
-        (i) =>
-          `.mj-carousel-${carouselId}-radio-${i + 1}:checked ${repeat(
-            '+ * ',
-            length - i - 1,
-          )}+ .mj-carousel-content .mj-carousel-next-${
-            ((i + (1 % length) + length) % length) + 1
-          }`,
-      )
-      .join(',')},
-    ${range(0, length)
-      .map(
-        (i) =>
-          `.mj-carousel-${carouselId}-radio-${i + 1}:checked ${repeat(
-            '+ * ',
-            length - i - 1,
-          )}+ .mj-carousel-content .mj-carousel-previous-${
-            ((i - (1 % length) + length) % length) + 1
-          }`,
-      )
-      .join(',')} {
+    ${visibleImageSelectors},
+    ${visibleNextSelectors},
+    ${visiblePreviousSelectors} {
       display: block !important;
     }
-    ${range(0, length)
-      .map(
-        (i) =>
-          `.mj-carousel-${carouselId}-radio-${i + 1}:checked ${repeat(
-            '+ * ',
-            length - i - 1,
-          )}+ .mj-carousel-content .mj-carousel-${carouselId}-thumbnail-${
-            i + 1
-          }`,
-      )
-      .join(',')} {
+    ${selectedThumbnailSelectors} {
       border-color: ${this.getAttribute('tb-selected-border-color')} !important;
     }
-    ${range(0, length)
-      .map(
-        (i) =>
-          `.mj-carousel-${carouselId}-radio-${i + 1}:checked ${repeat(
-            '+ * ',
-            length - i - 1,
-          )}+ .mj-carousel-content .mj-carousel-${carouselId}-thumbnail`,
-      )
-      .join(',')} {
+    ${visibleThumbnailSelectors} {
       display: inline-block !important;
     }
-    ${range(0, length)
-      .map(
-        (i) =>
-          `.mj-carousel-${carouselId}-thumbnail:hover ${repeat(
-            '+ * ',
-            length - i - 1,
-          )}+ .mj-carousel-main .mj-carousel-image`,
-      )
-      .join(',')} {
+    ${hoverHideImageSelectors} {
       display: none !important;
     }
-    .mj-carousel-thumbnail:hover {
+    ${hoverBorderSelector} {
       border-color: ${this.getAttribute('tb-hover-border-color')} !important;
     }
-    ${range(0, length)
-      .map(
-        (i) =>
-          `.mj-carousel-${carouselId}-thumbnail-${i + 1}:hover ${repeat(
-            '+ * ',
-            length - i - 1,
-          )}+ .mj-carousel-main .mj-carousel-image-${i + 1}`,
-      )
-      .join(',')} {
+    ${hoverShowImageSelectors} {
       display: block !important;
     }
     `
+
+    const darkCss = []
+    const darkSelectedBorderColor = this.getAttribute(
+      'dark-tb-selected-border-color',
+    )
+
+    if (darkSelectedBorderColor) {
+      darkCss.push(`
+    @media (prefers-color-scheme: dark) {
+      ${selectedThumbnailSelectors} {
+        border-color: ${darkSelectedBorderColor} !important;
+      }
+    }
+    `)
+    }
+
+    const darkHoverBorderColor = this.getAttribute('dark-tb-hover-border-color')
+
+    if (darkHoverBorderColor) {
+      darkCss.push(`
+    @media (prefers-color-scheme: dark) {
+      ${hoverBorderSelector} {
+        border-color: ${darkHoverBorderColor} !important;
+      }
+    }
+    `)
+    }
 
     const instanceFallback = `
       @media screen yahoo {
@@ -207,7 +301,7 @@ export default class MjCarousel extends BodyComponent {
     `
     return `${includeSharedStyles ? sharedCss : ''}${instanceCss}${
       includeSharedStyles ? '\n' : ''
-    }${instanceFallback}`
+    }${darkCss.join('\n')}${instanceFallback}`
   }
 
   getStyles() {
@@ -261,11 +355,18 @@ export default class MjCarousel extends BodyComponent {
     return map(this.children, 'attributes')
   }
 
+  getSupportDarkModeImage() {
+    return this.getAttribute('support-dark-mode-image')
+  }
+
   generateRadios() {
+    const supportDarkModeImage = this.getSupportDarkModeImage()
+
     return this.renderChildren(this.props.children, {
       renderer: (component) => component.renderRadio(),
       attributes: {
         carouselId: this.carouselId,
+        'support-dark-mode-image': supportDarkModeImage,
       },
     })
   }
@@ -274,19 +375,49 @@ export default class MjCarousel extends BodyComponent {
     if (!['visible', 'supported'].includes(this.getAttribute('thumbnails')))
       return ''
 
+    const supportDarkModeImage = this.getSupportDarkModeImage()
+
     return this.renderChildren(this.props.children, {
       attributes: {
+        'dark-tb-border-color': this.getAttribute('dark-tb-border-color'),
         'tb-border': this.getAttribute('tb-border'),
         'tb-border-radius': this.getAttribute('tb-border-radius'),
         'tb-width': this.thumbnailsWidth(),
         carouselId: this.carouselId,
+        'support-dark-mode-image': supportDarkModeImage,
       },
       renderer: (component) => component.renderThumbnail(),
     })
   }
 
-  generateControls(direction, icon) {
+  generateControls(direction, icon, darkIcon) {
     const iconWidth = parseInt(this.getAttribute('icon-width'), 10)
+
+    const renderIcon = `${
+      darkIcon
+        ? `<picture>
+                  <source ${this.htmlAttributes({
+                    srcset: darkIcon,
+                    media: '(prefers-color-scheme: dark)',
+                  })} />
+                  <img
+                    ${this.htmlAttributes({
+                      src: icon,
+                      alt: direction,
+                      style: 'controls.img',
+                      width: iconWidth,
+                    })}
+                  />
+                </picture>`
+        : `<img
+                  ${this.htmlAttributes({
+                    src: icon,
+                    alt: direction,
+                    style: 'controls.img',
+                    width: iconWidth,
+                  })}
+                />`
+    }`
 
     return `
       <td
@@ -310,14 +441,7 @@ export default class MjCarousel extends BodyComponent {
                   class: `mj-carousel-${direction} mj-carousel-${direction}-${i}`,
                 })}
               >
-                <img
-                  ${this.htmlAttributes({
-                    src: icon,
-                    alt: direction,
-                    style: 'controls.img',
-                    width: iconWidth,
-                  })}
-                />
+                ${renderIcon}
               </label>
             `,
             )
@@ -328,6 +452,8 @@ export default class MjCarousel extends BodyComponent {
   }
 
   generateImages() {
+    const supportDarkModeImage = this.getSupportDarkModeImage()
+
     return `
       <td
         ${this.htmlAttributes({
@@ -342,6 +468,8 @@ export default class MjCarousel extends BodyComponent {
           ${this.renderChildren(this.props.children, {
             attributes: {
               'border-radius': this.getAttribute('border-radius'),
+              carouselId: this.carouselId,
+              'support-dark-mode-image': supportDarkModeImage,
             },
           })}
         </div>
@@ -363,9 +491,9 @@ export default class MjCarousel extends BodyComponent {
         })}
       >
         <tr>
-          ${this.generateControls('previous', this.getAttribute('left-icon'))}
+          ${this.generateControls('previous', this.getAttribute('left-icon'), this.getAttribute('dark-left-icon'))}
           ${this.generateImages()}
-          ${this.generateControls('next', this.getAttribute('right-icon'))}
+          ${this.generateControls('next', this.getAttribute('right-icon'), this.getAttribute('dark-right-icon'))}
         </tr>
       </table>
     `
@@ -376,7 +504,11 @@ export default class MjCarousel extends BodyComponent {
     if (children.length === 0) return ''
 
     return `<!-- prettier-ignore -->${msoConditionalTag(
-      this.renderChildren([children[0]]),
+      this.renderChildren([children[0]], {
+        attributes: {
+          isFallback: true,
+        },
+      }),
     )}`
   }
 

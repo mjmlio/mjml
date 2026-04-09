@@ -4,6 +4,7 @@ import validTag from './rules/validTag'
 import validTypes from './rules/validTypes'
 import errorAttr from './rules/errorAttr'
 import requiredTitle from './rules/requiredTitle'
+import requireSupportDarkModeForDarkSrc from './rules/requireSupportDarkModeForDarkSrc'
 
 const MJMLRulesCollection = {
   validAttributes,
@@ -12,6 +13,7 @@ const MJMLRulesCollection = {
   validTypes,
   errorAttr,
   requiredTitle,
+  requireSupportDarkModeForDarkSrc,
 }
 
 export function registerRule(rule, name) {

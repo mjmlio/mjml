@@ -530,7 +530,7 @@ export default async function mjml2html(mjml, options = {}) {
       const node = stack.pop()
 
       if (node) {
-        if (node.tagName === 'mj-section' || node.tagName === 'mj-hero') {
+        if (node.tagName === 'mj-section' || node.tagName === 'mj-hero' || node.tagName === 'mj-wrapper') {
           const attrs = node.attributes || {}
           const bg = attrs['background-url']
           if (typeof bg === 'string' ? bg.trim().length > 0 : Boolean(bg)) {
@@ -569,7 +569,8 @@ export default async function mjml2html(mjml, options = {}) {
     supportDarkMode:
       String(get(mjml, 'attributes.support-dark-mode', false)).toLowerCase() ===
       'true',
-    supportOutlookClassic: get(mjml, 'attributes.support-outlook-classic', true) !== false,
+    supportOutlookClassic:
+      String(get(mjml, 'attributes.support-outlook-classic', true)).toLowerCase() !== 'false',
     usesVML,
     carouselSharedStylesEmitted: false,
     navbarHamburgerStyleEmitted: false,

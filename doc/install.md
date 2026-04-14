@@ -9,7 +9,7 @@ npm install mjml
 
 ## Development
 
-To work on MJML, make changes and create merge requests, [download and
+To work on MJML, make changes and create pull requests, [download and
 install yarn](https://yarnpkg.com/lang/en/docs/install/) for easy development.
 
 ```bash
@@ -36,8 +36,7 @@ Don't want to install anything? [Use the free online editor](https://mjml.io/try
 
 MJML comes with an ecosystem of tools and plugins, check out:
 
-- The [MJML App](https://mjmlio.github.io/mjml-app/) (MJML is included)
-- [Visual Studio Code plugin](https://github.com/mjmlio/vscode-mjml) (MJML is included)
+- [Visual Studio Code plugin](https://github.com/mjmlio/vscode-mjml) (**MJML** is included). <br>Also available at [Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=mjmlio.vscode-mjml) and the [Open VSX Registry](https://open-vsx.org/extension/mjmlio/vscode-mjml) or in the extensions tab of the Visual Studio Code app.
 - [Sublime Text plugin](https://packagecontrol.io/packages/MJML-syntax) (MJML needs to be installed separately)
 
 For more information, [check the Tooling section](#tooling).  
@@ -55,19 +54,20 @@ You can pass optional `arguments` to the CLI and combine them.
 
 | argument                                                | description                                                                                                                                                                                                                        | default value                                                                      |
 | ------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| `mjml -m [input]`                                       | Migrates a v3 MJML file to the v4 syntax                                                                                                                                                                                           |                                                                                    |
 | `mjml [input] -o [output]`                              | Writes the output to [output]                                                                                                                                                                                                      |                                                                                    |
 | `mjml [input] -s`                                       | Writes the output to `stdout`                                                                                                                                                                                                      |                                                                                    |
 | `mjml [input] -s --noStdoutFileComment`                 | Writes the output to `stdout` without an comment containing the source file in the first line                                                                                                                                      | the outputs first line contains the file in the format `<!-- FILE: {filename} -->` |
 | `mjml -w [input]`                                       | Watches the changes made to `[input]` (file or folder)                                                                                                                                                                             |                                                                                    |
-| `mjml [input] --config.beautify`                        | Beautifies the output (`true` or `false`)                                                                                                                                                                                          | `true`                                                                             |
-| `mjml [input] --config.minify`                          | Minifies the output (`true` or `false`)                                                                                                                                                                                            | `false`                                                                            |
-| `mjml [input] --config.juicePreserveTags`               | Preserve some tags when inlining css, see [mjml-cli documentation](https://github.com/mjmlio/mjml/blob/master/packages/mjml-cli/README.md) for more info                                                                           |                                                                                    |
-| `mjml [input] --config.minifyOptions`                   | Options for HTML minifier. Use `minifyCss` to control CSS minification (legacy: `minifyCSS` is still accepted). See [mjml-cli documentation](https://github.com/mjmlio/mjml/blob/master/packages/mjml-cli/README.md) for more info |                                                                                    |
-| `mjml [input] --config.templateSyntax`                  | JSON array of `{ prefix, suffix }` objects to declare templating delimiters (used by sanitization and restore)                                                                                                                     |                                                                                    |
+| `mjml [input] --config.allowIncludes`                   | Enables `mj-include` processing (`true` or `false`)                                                                                                                                                                                | `false`                                                                            |
 | `mjml [input] --config.allowMixedSyntax`                | Allow mixing block tokens (e.g. `{%...%}`) with CSS tokens (e.g. `color: {{...}}`) in the same document                                                                                                                            | `false`                                                                            |
+| `mjml [input] --config.beautify`                        | Beautifies the output (`true` or `false`)                                                                                                                                                                                          | `true`                                                                             |
+| `mjml [input] --config.includePath`                     | Adds allowlisted include root(s), as a string path or JSON array of paths                                                                                                                                                          |                                                                                    |
+| `mjml [input] --config.juicePreserveTags`               | Preserve some tags when inlining css, see [mjml-cli documentation](https://github.com/mjmlio/mjml/blob/master/packages/mjml-cli/README.md) for more info                                                                           |                                                                                    |
+| `mjml [input] --config.minify`                          | Minifies the output (`true` or `false`)                                                                                                                                                                                            | `false`                                                                            |
+| `mjml [input] --config.minifyOptions`                   | Options for HTML minifier. Use `minifyCss` to control CSS minification (legacy: `minifyCSS` is still accepted). See [mjml-cli documentation](https://github.com/mjmlio/mjml/blob/master/packages/mjml-cli/README.md) for more info |                                                                                    |
 | `mjml [input] --config.mjmlConfigPath [mjmlconfigPath]` | Uses the `.mjmlconfig` file in the specified path or directory to include custom components                                                                                                                                        | _The `.mjmlconfig` file in the current working directory, if any_                  |
 | `mjml [input] --config.sanitizeStyles`                  | Optional setting when using templating syntax to sanitize the input to PostCSS preventing (`true` or `false`) errors                                                                                                               | `false`                                                                            |
+| `mjml [input] --config.templateSyntax`                  | JSON array of `{ prefix, suffix }` objects to declare templating delimiters (used by sanitization and restore)                                                                                                                     |                                                                                    |
 | `mjml [input] --config.useMjmlConfigOptions`            | Allows to use the `options` attribute from `.mjmlconfig` file                                                                                                                                                                      | `false`                                                                            |
 | `mjml [input] --config.validationLevel`                 | [Validation level](https://github.com/mjmlio/mjml/tree/master/packages/mjml-validator#validating-mjml): `strict`, `soft` or `skip`                                                                                                 | `soft`                                                                             |
 
@@ -104,27 +104,31 @@ import mjml2html from 'mjml'
 /*
   Compile an mjml string
 */
-const htmlOutput = mjml2html(
-  `
-  <mjml>
-    <mj-body>
-      <mj-section>
-        <mj-column>
-          <mj-text>
-            Hello World!
-          </mj-text>
-        </mj-column>
-      </mj-section>
-    </mj-body>
-  </mjml>
-`,
-  options,
-)
+async function renderMjml() {
+  const htmlOutput = await mjml2html(
+    `
+    <mjml>
+      <mj-body>
+        <mj-section>
+          <mj-column>
+            <mj-text>
+              Hello World!
+            </mj-text>
+          </mj-column>
+        </mj-section>
+      </mj-body>
+    </mjml>
+  `,
+    options,
+  )
 
-/*
-  Print the responsive HTML generated and MJML errors if any
-*/
-console.log(htmlOutput)
+  /*
+    Print the responsive HTML generated and MJML errors if any
+  */
+  console.log(htmlOutput)
+}
+
+renderMjml()
 ```
 
 You can pass optional `options` as an object to the `mjml2html` function:
@@ -134,15 +138,17 @@ You can pass optional `options` as an object to the `mjml2html` function:
 | allowMixedSyntax     | boolean                    | Allow mixing block tokens and CSS tokens within the same document when sanitizing/minifying CSS                                                        | `false`                                                                                                                                                                                                                                                                                                                                                                           |
 | beautify             | boolean                    | Option to beautify the HTML output                                                                                                                     | `false`                                                                                                                                                                                                                                                                                                                                                                           |
 | filePath             | string                     | Path of the input file or a base directory; determines the default include sandbox (includes are allowed only under this directory when enabled)       | '.'                                                                                                                                                                                                                                                                                                                                                                               |
+| ignoreIncludes       | boolean                    | Option to ignore `mj-include` instances                                                                                                                  | `true`                                                                                                                                                                                                                                                                                                                                                                            |
 | includePath          | string or array of strings | One or more explicit directories where includes are allowed, in addition to `filePath`. Paths outside these directories are denied.                    |                                                                                                                                                                                                                                                                                                                                                                                   |
-| fonts                | object                     | Default fonts imported in the HTML rendered by MJML                                                                                                    | See in [index.js](https://github.com/mjmlio/mjml/blob/master/packages/mjml-core/src/index.js#L100-L108)                                                                                                                                                                                                                                                                           |
-| juicePreserveTags    | boolean                    | Optional setting when inlining CSS, see [mjml-cli documentation](https://github.com/mjmlio/mjml/blob/master/packages/mjml-cli/README.md) for more info |                                                                                                                                                                                                                                                                                                                                                                                   |
+| fonts                | object                     | Default fonts imported in the HTML rendered by MJML                                                                                                    | See in [index.js](https://github.com/mjmlio/mjml/blob/master/packages/mjml-core/src/index.js)                                                                                                                                                                                                                                                                                     |
+| juicePreserveTags    | object                     | Optional setting when inlining CSS, see [mjml-cli documentation](https://github.com/mjmlio/mjml/blob/master/packages/mjml-cli/README.md) for more info |                                                                                                                                                                                                                                                                                                                                                                                   |
 | keepComments         | boolean                    | Option to keep comments in the HTML output                                                                                                             | `true`                                                                                                                                                                                                                                                                                                                                                                            |
 | minify               | boolean                    | Option to minify the HTML output                                                                                                                       | `false`                                                                                                                                                                                                                                                                                                                                                                           |
-| minifyOptions        | object                     | Options for HTML minifier, see [mjml-cli documentation](https://github.com/mjmlio/mjml/blob/master/packages/mjml-cli/README.md) for more info          | `{"collapseWhitespace": true, "minifyCss": false, "removeEmptyAttributes": true}` <br><br> `minifyCss` can take a value of `false` or one of the two preset options `lite` or `default`. Within either preset, you can specify specific options from cssnano, for example `minifyCss: { options: { preset: [ 'default', { minifyFontValues: { removeQuotes: false }, }, ], }, },` |
+| minifyOptions        | object                     | Options for HTML minifier, see [mjml-cli documentation](https://github.com/mjmlio/mjml/blob/master/packages/mjml-cli/README.md) for more info          | `{"collapseWhitespace": true, "minifyCss": "lite", "removeEmptyAttributes": true}` <br><br> `minifyCss` can be `false`, `lite`, `default`, or a cssnano preset object, for example `minifyCss: { preset: ['default', { normalizeString: { preferredQuote: 'single' } }] }` |
 | mjmlConfigPath       | string                     | The path or directory of the [`.mjmlconfig` file](#community-components)                                                                               | `process.cwd()`                                                                                                                                                                                                                                                                                                                                                                   |
+| preprocessors        | array of functions         | Preprocessors applied to the xml before parsing. Functions must be `(xml: string) => string`                                                           | `[]`                                                                                                                                                                                                                                                                                                                                                                              |
 | sanitizeStyles       | boolean                    | Optional setting when using templating syntax to sanitize the input to PostCSS preventing errors                                                       | `false`                                                                                                                                                                                                                                                                                                                                                                           |
-| templateSyntax       | array of objects           | When `sanitizeStyles` is `true`, you can pass optional syntax e.g. `templateSyntax: [{prefix: '{{',suffix: '}}',},{prefix: '{=',suffix: '=}',},]`      | `{{}}`                                                                                                                                                                                                                                                                                                                                                                            |
+| templateSyntax       | array of objects           | When `sanitizeStyles` is `true`, you can pass optional syntax e.g. `templateSyntax: [{ prefix: '{{', suffix: '}}' }, { prefix: '{=', suffix: '=}' }]`   | `[{"prefix":"{{","suffix":"}}"},{"prefix":"[[","suffix":"]]"}]`                                                                                                                                                                                                                                                                                                   |
 | useMjmlConfigOptions | boolean                    | Allows to use the `options` attribute from `.mjmlconfig` file                                                                                          | `false`                                                                                                                                                                                                                                                                                                                                                                           |
 | validationLevel      | string                     | Available values for the [validator](https://github.com/mjmlio/mjml/tree/master/packages/mjml-validator#validating-mjml): `strict` `soft` `skip`       | `soft`                                                                                                                                                                                                                                                                                                                                                                            |
 
@@ -164,21 +170,25 @@ $> mjml template.mjml \
 ```js
 import mjml2html from 'mjml'
 
-const { html, errors } = mjml2html(source, {
-  ignoreIncludes: false,
-  filePath: '/project/templates/campaignA/email1.mjml',
-  includePath: '/project/templates/_common',
-})
+async function compileOne(source) {
+  const { html, errors } = await mjml2html(source, {
+    ignoreIncludes: false,
+    filePath: '/project/templates/campaignA/email1.mjml',
+    includePath: '/project/templates/_common',
+  })
+}
 ```
 
 - Multiple include directories
 
 ```js
-const { html, errors } = mjml2html(source, {
-  ignoreIncludes: false,
-  filePath: '/project/templates/campaignA/email1.mjml',
-  includePath: ['/project/templates/_common', '/project/templates/_footers'],
-})
+async function compileMany(source) {
+  const { html, errors } = await mjml2html(source, {
+    ignoreIncludes: false,
+    filePath: '/project/templates/campaignA/email1.mjml',
+    includePath: ['/project/templates/_common', '/project/templates/_footers'],
+  })
+}
 ```
 
 Security notes:

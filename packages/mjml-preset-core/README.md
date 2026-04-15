@@ -14,5 +14,10 @@ This is the set of mjml components bundled together for simple setup.
 import mjml2html from 'mjml-core'
 import presetCore from 'mjml-preset-core'
 
-console.log(mjml2html(`code`, { presets: [presetCore] }))
+async function example() {
+  const result = await mjml2html(`code`, { presets: [presetCore] })
+  console.log(result)
+}
+
+example()
 ```

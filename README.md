@@ -1,35 +1,31 @@
-<p style="text-align: center;" >
+<p>
   <a href="https://mjml.io" target="_blank">
     <img width="250" src="https://documentation.mjml.io/images/logo.svg" />
   </a>
-  <b style="display: block; margin: 0.75em 0 1em;">by</b>
+</p>
+<b>Developed by</b>
+<p>
   <a href="https://mailjet.com" target="_blank">
-    <img width="125" src="https://mjml.io/assets/img/community/sinch-mailjet-color.svg" style="vertical-align:middle"  />
+    <img width="125" src="https://static.mailjet.com/mjml-website/github/sinch-mailjet-purple-on-white.png" style="vertical-align:middle"  />
   </a>
 </p>
 
 ---
 
-<p style="text-align: center;" >
+<p>
   <a href="https://github.com/mjmlio/mjml/actions">
     <img src="https://github.com/mjmlio/mjml/actions/workflows/mjml-workflow.yml/badge.svg" alt="github actions">
   </a>
 </p>
 
 
-<p style="text-align: center;" >
-  | <b><a href="#translated-documentation">Translated documentation</a></b>
+<p>
   | <b><a href="#introduction">Introduction</a></b>
   | <b><a href="#installation">Installation</a></b>
   | <b><a href="#usage">Usage</a></b> |
 </p>
 
 ---
-# Translated documentation
-
- | Language | Link for documentation                                                     |
- | :-:      | :-:                                                                        |
- | 日本語    | [日本語ドキュメント](https://github.com/mjmlio/mjml/blob/master/readme-ja.md) |
 
 # Introduction
 

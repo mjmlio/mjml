@@ -36,41 +36,52 @@ Displays a customizable button.
 
 #### Attributes
 
-| attribute                  | accepts                            | description                                           | default value                          |
-| -------------------------- | ---------------------------------- | ----------------------------------------------------- | -------------------------------------- |
-| align                      | `left` `center` `right`            | horizontal alignment                                  | `center`                               |
-| background-color           | CSS color formats                  | button background-color                               | `#414141`                              |
-| border                     | string                             | CSS border format                                     | `none`                                 |
-| border-bottom              | string                             | CSS border format                                     |                                        |
-| border-left                | string                             | CSS border format                                     |                                        |
-| border-radius              | string                             | border radius                                         | `3px`                                  |
-| border-right               | string                             | CSS border format                                     |                                        |
-| border-top                 | string                             | CSS border format                                     |                                        |
-| color                      | CSS color formats                  | text color                                            | `#ffffff`                              |
-| container-background-color | CSS color formats                  | button container background color                     |                                        |
-| css-class                  | string                             | class name, added to the root HTML element created    |                                        |
-| font-family                | string                             | font name                                             | `Ubuntu, Helvetica, Arial, sans-serif` |
-| font-size                  | `px`                               | text size                                             | `13px`                                 |
-| font-style                 | string                             | CSS values, e.g. `normal` `italic` `oblique`          |                                        |
-| font-weight                | string                             | text thickness                                        | `normal`                               |
-| height                     | `px` `%`                           | button height                                         |                                        |
-| href                       | string                             | URL format                                            |                                        |
-| inner-padding              | `px` `%`                           | inner button padding, <br>supports up to 4 parameters | `10px 25px`                            |
-| letter-spacing             | `px` `em`                          | letter-spacing                                        |                                        |
-| line-height                | `px` `%`                           | line-height on link                                   | `120%`                                 |
-| name                       | string                             | specify the name attribute for the button link        |                                        |
-| padding                    | `px` `%`                           | button container padding, supports up to 4 parameters | `10px 25px`                            |
-| padding-bottom             | `px` `%`                           | button container bottom padding                       |                                        |
-| padding-left               | `px` `%`                           | button container left padding                         |                                        |
-| padding-right              | `px` `%`                           | button container right padding                        |                                        |
-| padding-top                | `px` `%`                           | button container top padding                          |                                        |
-| rel                        | string                             | specify the rel attribute for the button link         |                                        |
-| target                     | string                             | specify the target attribute for the button link      | `_blank`                               |
-| text-align                 | `left` `center` `right`            | text-align button content                             |                                        |
-| text-decoration            | string                             | underline/overline/none                               | `none`                                 |
-| text-transform             | string                             | capitalize/uppercase/lowercase                        | `none`                                 |
-| title                      | string                             | tooltip & accessibility                               |                                        |
-| vertical-align             | `top` `bottom` `middle` `vertical` | vertical alignment                                    | `middle`                               |
-| width                      | `px` `%`                           | button width                                          |                                        |
+| attribute                       | accepts                            | description                                           | default value                          |
+| ------------------------------- | ---------------------------------- | ----------------------------------------------------- | -------------------------------------- |
+| align                           | `left` `center` `right`            | horizontal alignment                                  | `center`                               |
+| background-color                | CSS color formats                  | button background-color                               | `#414141`                              |
+| border                          | string                             | CSS border format                                     | `none`                                 |
+| border-bottom                   | string                             | CSS border format                                     |                                        |
+| border-left                     | string                             | CSS border format                                     |                                        |
+| border-radius                   | string                             | border radius                                         | `3px`                                  |
+| border-right                    | string                             | CSS border format                                     |                                        |
+| border-top                      | string                             | CSS border format                                     |                                        |
+| color                           | CSS color formats                  | text color                                            | `#ffffff`                              |
+| container-background-color      | CSS color formats                  | button container background color                     |                                        |
+| css-class                       | string                             | class name, added to the root HTML element created    |                                        |
+| dark-background-color           | CSS color formats                  | button background-color in dark mode                  |                                        |
+| dark-border-color               | CSS color formats                  | button border color in dark mode                      |                                        |
+| dark-border-bottom-color        | CSS color formats                  | button bottom border color in dark mode               |                                        |
+| dark-border-left-color          | CSS color formats                  | button left border color in dark mode                 |                                        |
+| dark-border-right-color         | CSS color formats                  | button right border color in dark mode                |                                        |
+| dark-border-top-color           | CSS color formats                  | button top border color in dark mode                  |                                        |
+| dark-color                      | CSS color formats                  | button text color in dark mode                        |                                        |
+| dark-container-background-color | CSS color formats                  | button container background color in dark mode        |                                        |
+| font-family                     | string                             | font name                                             | `Ubuntu, sans-serif`                   |
+| font-size                       | `px`                               | text size                                             | `13px`                                 |
+| font-style                      | string                             | CSS values, e.g. `normal` `italic` `oblique`          |                                        |
+| font-weight                     | string                             | text thickness                                        |                                        |
+| height                          | `px` `%`                           | button height                                         |                                        |
+| href                            | string                             | URL format                                            |                                        |
+| inner-padding                   | `px` `%`                           | inner button padding, <br>supports up to 4 parameters | `10px 25px`                            |
+| letter-spacing                  | `px` `em`                          | letter-spacing                                        |                                        |
+| line-height                     | `px` `%`                           | line-height on link                                   | `120%`                                 |
+| multiline                       | boolean                            | improve button display in Outlook classic             |                                        |
+| name                            | string                             | specify the name attribute for the button link        |                                        |
+| padding                         | `px` `%`                           | button container padding, supports up to 4 parameters | `10px 25px`                            |
+| padding-bottom                  | `px` `%`                           | button container bottom padding                       |                                        |
+| padding-left                    | `px` `%`                           | button container left padding                         |                                        |
+| padding-right                   | `px` `%`                           | button container right padding                        |                                        |
+| padding-top                     | `px` `%`                           | button container top padding                          |                                        |
+| rel                             | string                             | specify the rel attribute for the button link         |                                        |
+| target                          | string                             | specify the target attribute for the button link      |                                        |
+| text-align                      | `left` `center` `right`            | text-align button content                             |                                        |
+| text-decoration                 | string                             | underline/overline/none                               | `none`                                 |
+| text-transform                  | string                             | capitalize/uppercase/lowercase                        |                                        |
+| title                           | string                             | tooltip & accessibility                               |                                        |
+| vertical-align                  | `top` `bottom` `middle` `vertical` | vertical alignment                                    | `middle`                               |
+| width                           | `px` `%`                           | button width                                          |                                        |
+
+NOTE: All `dark-` prefixed attributes require `support-dark-mode="true"` to be set on the `<mjml>` tag to work effectively in all supported clients.
 
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/button">Try it live</a></p>

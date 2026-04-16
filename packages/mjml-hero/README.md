@@ -84,29 +84,34 @@ Use `background-color` to provide a fallback color in case an email client doesn
 
 #### Attributes
 
-| attribute              | accepts                 | description                                                        | default value                 |
-| ---------------------- | ----------------------- | ------------------------------------------------------------------ | ----------------------------- |
-| background-color       | CSS color formats       | hero background color                                              | #ffffff                     |
-| background-height      | `px` `%`                | height of the image used, mandatory                                |                               |
-| background-position    | string                  | CSS values, i.e. `left` `center` `right` + `top` `center` `bottom` | `center center`               |
-| background-url         | string                  | absolute background in URL format                                  | `null`                        |
-| background-width       | `px` `%`                | width of the image used, mandatory                                 | inherits parent element width |
-| border-radius          | string                  | border radius                                                      |                               |
-| css-class              | string                  | class name, added to the root HTML element created                 |                               |
-| height                 | `px` `%`                | hero section height, (required for `fixed-height` mode)            | `0px`                         |
-| inner-background-color | CSS color formats       | content background color                                           |                               |
-| inner-padding          | `px` `%`                | hero inner padding, supports up to 4 parameters                    |                               |
-| inner-padding-bottom   | `px` `%`                | hero bottom inner padding                                          |                               |
-| inner-padding-left     | `px` `%`                | hero left inner padding                                            |                               |
-| inner-padding-right    | `px` `%`                | hero right inner padding                                           |                               |
-| inner-padding-top      | `px` `%`                | hero top inner padding                                             |                               |
-| mode                   | string                  | `fluid-height` or `fixed-height`                                   | `fluid-height`                |
-| padding                | `px` `%`                | hero padding, supports up to 4 parameters                          | `0px`                         |
-| padding-bottom         | `px` `%`                | hero bottom padding                                                | `null`                        |
-| padding-left           | `px` `%`                | hero left padding                                                  | `null`                        |
-| padding-right          | `px` `%`                | hero right padding                                                 | `null`                        |
-| padding-top            | `px` `%`                | hero top padding                                                   | `null`                        |
-| vertical-align         | `top` `middle` `bottom` | content vertical alignment                                         | `top`                         |
+| attribute                   | accepts                 | description                                                        | default value                 |
+| --------------------------- | ----------------------- | ------------------------------------------------------------------ | ----------------------------- |
+| background-color            | CSS color formats       | hero background color                                              | #ffffff                       |
+| background-height           | `px` `%`                | height of the image used, mandatory                                |                               |
+| background-position         | string                  | CSS values, i.e. `left` `center` `right` + `top` `center` `bottom` | `center`                      |
+| background-url              | string                  | absolute background in URL format                                  |                               |
+| background-width            | `px` `%`                | width of the image used, mandatory                                 | inherits parent element width |
+| border-radius               | string                  | border radius                                                      |                               |
+| css-class                   | string                  | class name, added to the root HTML element created                 |                               |
+| dark-background-color       | CSS color formats       | hero background color in dark mode                                 |                               |
+| dark-background-url         | string                  | hero background image URL in dark mode                             |                               |
+| dark-inner-background-color | CSS color formats       | hero content background color in dark mode                         |                               |
+| height                      | `px` `%`                | hero section height, (required for `fixed-height` mode)            | `0px`                         |
+| inner-background-color      | CSS color formats       | content background color                                           |                               |
+| inner-padding               | `px` `%`                | hero inner padding, supports up to 4 parameters                    |                               |
+| inner-padding-bottom        | `px` `%`                | hero bottom inner padding                                          |                               |
+| inner-padding-left          | `px` `%`                | hero left inner padding                                            |                               |
+| inner-padding-right         | `px` `%`                | hero right inner padding                                           |                               |
+| inner-padding-top           | `px` `%`                | hero top inner padding                                             |                               |
+| mode                        | string                  | `fluid-height` or `fixed-height`                                   | `fluid-height`                |
+| padding                     | `px` `%`                | hero padding, supports up to 4 parameters                          |                               |
+| padding-bottom              | `px` `%`                | hero bottom padding                                                |                               |
+| padding-left                | `px` `%`                | hero left padding                                                  |                               |
+| padding-right               | `px` `%`                | hero right padding                                                 |                               |
+| padding-top                 | `px` `%`                | hero top padding                                                   |                               |
+| vertical-align              | `top` `middle` `bottom` | content vertical alignment                                         | `top`                         |
+
+NOTE: All `dark-` prefixed attributes require `support-dark-mode="true"` to be set on the `<mjml>` tag to work effectively in all supported clients.
 
 <ul class="cta-container">
   <li>Fixed height: <br><a class="cta" href="https://mjml.io/try-it-live/components/hero">Try it live</a></li>

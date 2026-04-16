@@ -1,22 +1,26 @@
 import { BodyComponent } from 'mjml-core'
-
-import widthParser from 'mjml-core/lib/helpers/widthParser'
+import {
+  emitDarkModeHeadStyle,
+  registerDarkModeRule,
+} from 'mjml-core/lib/helpers/colorSchemeDarkMode'
 
 export default class MjDivider extends BodyComponent {
   static componentName = 'mj-divider'
 
   static allowedAttributes = {
+    align: 'enum(left,center,right)',
     'border-color': 'color',
     'border-style': 'string',
     'border-width': 'unit(px)',
     'container-background-color': 'color',
+    'dark-border-color': 'color',
+    'dark-container-background-color': 'color',
     padding: 'unit(px,%){1,4}',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
     width: 'unit(px,%)',
-    align: 'enum(left,center,right)',
   }
 
   static defaultAttributes = {
@@ -26,6 +30,51 @@ export default class MjDivider extends BodyComponent {
     padding: '10px 25px',
     width: '100%',
     align: 'center',
+  }
+
+  darkClasses = null
+
+  getDarkClasses() {
+    if (this.darkClasses !== null) {
+      return this.darkClasses
+    }
+
+    this.darkClasses = {}
+
+    const globalData = this.context && this.context.globalData
+
+    const darkContainerBg = this.attributes['dark-container-background-color']
+    if (darkContainerBg) {
+      this.darkClasses.container = registerDarkModeRule(globalData, {
+        cssProperty: 'background-color',
+        cssValue: darkContainerBg,
+      })
+    }
+
+    const darkBorderColor = this.attributes['dark-border-color']
+    if (darkBorderColor) {
+      this.darkClasses.border = registerDarkModeRule(globalData, {
+        cssProperty: 'border-top-color',
+        cssValue: darkBorderColor,
+      })
+    }
+
+    return this.darkClasses
+  }
+
+  getAttribute(name) {
+    if (name === 'css-class') {
+      const base = this.attributes['css-class']
+      const containerDarkClass = this.getDarkClasses().container
+      return [base, containerDarkClass].filter(Boolean).join(' ') || undefined
+    }
+
+    return this.attributes[name]
+  }
+
+  componentHeadStyle = () => {
+    emitDarkModeHeadStyle(this.context && this.context.globalData)
+    return ''
   }
 
   getStyles() {
@@ -42,73 +91,56 @@ export default class MjDivider extends BodyComponent {
       'font-size': '1px',
       margin: computeAlign,
       width: this.getAttribute('width'),
+      'max-width': '100%',
     }
 
     return {
       p,
-      outlook: {
+      table: {
         ...p,
-        width: this.getOutlookWidth(),
       },
     }
   }
 
-  getOutlookWidth() {
-    const { containerWidth } = this.context
-    const paddingSize =
-      this.getShorthandAttrValue('padding', 'left') +
-      this.getShorthandAttrValue('padding', 'right')
-
-    const width = this.getAttribute('width')
-
-    const { parsedWidth, unit } = widthParser(width)
-
-    switch (unit) {
-      case '%': {
-        const effectiveWidth = parseInt(containerWidth, 10) - paddingSize
-        const percentMultiplier = parseInt(parsedWidth, 10) / 100
-        return `${effectiveWidth * percentMultiplier}px`
-      }
-      case 'px':
-        return width
-      default:
-        return `${parseInt(containerWidth, 10) - paddingSize}px`
-    }
-  }
-
-  renderAfter() {
-    return `
-      <!--[if mso | IE]>
-        <table
-          ${this.htmlAttributes({
-            align: this.getAttribute('align'),
-            border: '0',
-            cellpadding: '0',
-            cellspacing: '0',
-            style: 'outlook',
-            role: 'presentation',
-            width: this.getOutlookWidth(),
-          })}
-        >
-          <tr>
-            <td style="height:0;line-height:0;">
-              &nbsp;
-            </td>
-          </tr>
-        </table>
-      <![endif]-->
-    `
-  }
-
   render() {
+    const supportOutlookClassic =
+      !this.context ||
+      !this.context.globalData ||
+      this.context.globalData.supportOutlookClassic !== false
+
+    const borderDarkClass = this.getDarkClasses().border
+
+    if (supportOutlookClassic) {
+      return `
+      <table
+        ${this.htmlAttributes({
+          align: this.getAttribute('align'),
+          border: '0',
+          cellpadding: '0',
+          class: borderDarkClass,
+          cellspacing: '0',
+          style: 'table',
+          role: 'none',
+          width: typeof this.getAttribute('width') === 'string' ? this.getAttribute('width').replace(/px$/, '') : this.getAttribute('width'),
+        })}
+      >
+        <tr>
+          <td style="height:0;line-height:0;">
+            &nbsp;
+          </td>
+        </tr>
+      </table>
+    `
+    }
+
     return `
       <p
         ${this.htmlAttributes({
+          class: borderDarkClass,
           style: 'p',
         })}
       >
       </p>
-      ${this.renderAfter()}
     `
   }
 }

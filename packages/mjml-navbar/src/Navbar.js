@@ -1,9 +1,11 @@
 import { BodyComponent, makeLowerBreakpoint } from 'mjml-core'
 
-import conditionalTag, {
-  msoConditionalTag,
-} from 'mjml-core/lib/helpers/conditionalTag'
+import conditionalTag from 'mjml-core/lib/helpers/conditionalTag'
 import genRandomHexString from 'mjml-core/lib/helpers/genRandomHexString'
+import {
+  emitDarkModeHeadStyle,
+  registerDarkModeRule,
+} from 'mjml-core/lib/helpers/colorSchemeDarkMode'
 
 export default class MjNavbar extends BodyComponent {
   static componentName = 'mj-navbar'
@@ -11,26 +13,27 @@ export default class MjNavbar extends BodyComponent {
   static allowedAttributes = {
     align: 'enum(left,center,right)',
     'base-url': 'string',
+    'dark-ico-color': 'color',
     hamburger: 'string',
     'ico-align': 'enum(left,center,right)',
-    'ico-open': 'string',
     'ico-close': 'string',
     'ico-color': 'color',
     'ico-font-size': 'unit(px,%)',
     'ico-font-family': 'string',
-    'ico-text-transform': 'string',
+    'ico-line-height': 'unit(px,%,)',
+    'ico-open': 'string',
     'ico-padding': 'unit(px,%){1,4}',
     'ico-padding-left': 'unit(px,%)',
     'ico-padding-top': 'unit(px,%)',
     'ico-padding-right': 'unit(px,%)',
     'ico-padding-bottom': 'unit(px,%)',
+    'ico-text-decoration': 'string',
+    'ico-text-transform': 'string',
     padding: 'unit(px,%){1,4}',
     'padding-left': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
     'padding-bottom': 'unit(px,%)',
-    'ico-text-decoration': 'string',
-    'ico-line-height': 'unit(px,%,)',
   }
 
   static defaultAttributes = {
@@ -42,28 +45,91 @@ export default class MjNavbar extends BodyComponent {
     'ico-close': '&#8855;',
     'ico-color': '#000000',
     'ico-font-size': '30px',
-    'ico-font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
+    'ico-font-family': 'Ubuntu, sans-serif',
     'ico-text-transform': 'uppercase',
     'ico-padding': '10px',
-    'ico-text-decoration': 'none',
     'ico-line-height': '30px',
   }
 
-  headStyle = (breakpoint) =>
-    `
-      noinput.mj-menu-checkbox { display:block!important; max-height:none!important; visibility:visible!important; }
+  darkClasses = null
 
+  getDarkClasses() {
+    if (this.darkClasses !== null) {
+      return this.darkClasses
+    }
+
+    this.darkClasses = {}
+
+    const globalData = this.context && this.context.globalData
+
+    const darkIcoColor = this.getAttribute('dark-ico-color')
+    if (darkIcoColor) {
+      this.darkClasses.icoColor = registerDarkModeRule(globalData, {
+        cssProperty: 'color',
+        cssValue: darkIcoColor,
+      })
+    }
+
+    return this.darkClasses
+  }
+
+  componentHeadStyle = (breakpoint) => {
+    const globalData = this.context && this.context.globalData
+
+    const hasHamburger = this.getAttribute('hamburger') === 'hamburger'
+
+    if (hasHamburger) {
+      const includeStyles =
+        !globalData || globalData.navbarHamburgerStyleEmitted === false
+
+      if (includeStyles) {
+        if (globalData) {
+          globalData.navbarHamburgerStyleEmitted = true
+        }
+
+        const hamburgerStyles = `
+      noinput.mj-menu-checkbox { display:block!important; max-height:none!important; visibility:visible!important; }
       @media only screen and (max-width:${makeLowerBreakpoint(breakpoint)}) {
-        .mj-menu-checkbox[type="checkbox"] ~ .mj-inline-links { display:none!important; }
+        .mj-menu-checkbox[type="checkbox"] ~ .mj-inline-links,
+        .mj-menu-checkbox[type="checkbox"]:checked ~ .mj-menu-trigger .mj-menu-icon-open { display:none!important; }
+        .mj-menu-checkbox[type="checkbox"] ~ .mj-inline-links > a,
+        .mj-menu-checkbox[type="checkbox"]:checked ~ .mj-menu-trigger .mj-menu-icon-close { display:block!important; }
         .mj-menu-checkbox[type="checkbox"]:checked ~ .mj-inline-links,
         .mj-menu-checkbox[type="checkbox"] ~ .mj-menu-trigger { display:block!important; max-width:none!important; max-height:none!important; font-size:inherit!important; }
-        .mj-menu-checkbox[type="checkbox"] ~ .mj-inline-links > a { display:block!important; }
-        .mj-menu-checkbox[type="checkbox"]:checked ~ .mj-menu-trigger .mj-menu-icon-close { display:block!important; }
-        .mj-menu-checkbox[type="checkbox"]:checked ~ .mj-menu-trigger .mj-menu-icon-open { display:none!important; }
       }
     `
+        emitDarkModeHeadStyle(globalData)
+        return hamburgerStyles
+      }
+    }
+
+    emitDarkModeHeadStyle(globalData)
+    return ''
+  }
 
   getStyles() {
+    const icoFontFamilySet =
+      this.props && this.props.rawAttrs &&
+      Object.prototype.hasOwnProperty.call(this.props.rawAttrs, 'ico-font-family')
+    const icoFontSizeSet =
+      this.props && this.props.rawAttrs &&
+      Object.prototype.hasOwnProperty.call(this.props.rawAttrs, 'ico-font-size')
+    const icoLineHeightSet =
+      this.props && this.props.rawAttrs &&
+      Object.prototype.hasOwnProperty.call(this.props.rawAttrs, 'ico-line-height')
+
+    const effectiveFontFamily = icoFontFamilySet
+      ? this.getAttribute('ico-font-family')
+      : (this.getAttribute('font-family') || this.constructor.defaultAttributes['ico-font-family'])
+
+    const effectiveFontSize = icoFontSizeSet
+      ? this.getAttribute('ico-font-size')
+      : (this.getAttribute('font-size') || this.constructor.defaultAttributes['ico-font-size'])
+    
+    const effectiveLineHeight = icoLineHeightSet
+      ? this.getAttribute('ico-line-height')
+      : (this.getAttribute('line-height') || this.constructor.defaultAttributes['ico-line-height'])
+
     return {
       div: {
         align: this.getAttribute('align'),
@@ -72,15 +138,13 @@ export default class MjNavbar extends BodyComponent {
       label: {
         display: 'block',
         cursor: 'pointer',
-        'mso-hide': 'all',
-        '-moz-user-select': 'none',
         'user-select': 'none',
         color: this.getAttribute('ico-color'),
-        'font-size': this.getAttribute('ico-font-size'),
-        'font-family': this.getAttribute('ico-font-family'),
+        'font-size': effectiveFontSize,
+        'font-family': effectiveFontFamily,
         'text-transform': this.getAttribute('ico-text-transform'),
         'text-decoration': this.getAttribute('ico-text-decoration'),
-        'line-height': this.getAttribute('ico-line-height'),
+        'line-height': effectiveLineHeight,
         padding: this.getAttribute('ico-padding'),
         'padding-top': this.getAttribute('ico-padding-top'),
         'padding-right': this.getAttribute('ico-padding-right'),
@@ -95,25 +159,29 @@ export default class MjNavbar extends BodyComponent {
         overflow: 'hidden',
       },
       icoOpen: {
-        'mso-hide': 'all',
       },
       icoClose: {
         display: 'none',
-        'mso-hide': 'all',
       },
     }
   }
 
   renderHamburger() {
-    const labelKey = genRandomHexString(16)
+    const labelKey = genRandomHexString(6)
+
+    const supportOutlookClassic =
+      !this.context ||
+      !this.context.globalData ||
+      this.context.globalData.supportOutlookClassic !== false
+
+    const checkbox = `<input type="checkbox" id="${labelKey}" class="mj-menu-checkbox" style="display:none !important; max-height:0; visibility:hidden;" />\n      `
+
+    const checkboxOutput = supportOutlookClassic
+      ? conditionalTag(checkbox, true)
+      : checkbox
 
     return `
-      ${msoConditionalTag(
-        `
-        <input type="checkbox" id="${labelKey}" class="mj-menu-checkbox" style="display:none !important; max-height:0; visibility:hidden;" />
-      `,
-        true,
-      )}
+      ${checkboxOutput}
       <div
         ${this.htmlAttributes({
           class: 'mj-menu-trigger',
@@ -123,7 +191,9 @@ export default class MjNavbar extends BodyComponent {
         <label
           ${this.htmlAttributes({
             for: labelKey,
-            class: 'mj-menu-label',
+            class: ['mj-menu-label', this.getDarkClasses().icoColor]
+              .filter(Boolean)
+              .join(' '),
             style: 'label',
             align: this.getAttribute('ico-align'),
           })}
@@ -133,23 +203,35 @@ export default class MjNavbar extends BodyComponent {
               class: 'mj-menu-icon-open',
               style: 'icoOpen',
             })}
-          >
-            ${this.getAttribute('ico-open')}
-          </span>
+          >${this.getAttribute('ico-open')}</span>
           <span
             ${this.htmlAttributes({
               class: 'mj-menu-icon-close',
               style: 'icoClose',
             })}
-          >
-            ${this.getAttribute('ico-close')}
-          </span>
+          >${this.getAttribute('ico-close')}</span>
         </label>
       </div>
     `
   }
 
   render() {
+    const supportOutlookClassic =
+      !this.context ||
+      !this.context.globalData ||
+      this.context.globalData.supportOutlookClassic !== false
+
+    const openTable = supportOutlookClassic
+      ? conditionalTag(`<table role="none" border="0" cellpadding="0" cellspacing="0" align="${this.getAttribute(
+          'align',
+        )}">
+            <tr>`)
+      : ''
+
+    const closeTable = supportOutlookClassic
+      ? conditionalTag(`</tr></table>`)
+      : ''
+
     return `
         ${
           this.getAttribute('hamburger') === 'hamburger'
@@ -162,20 +244,13 @@ export default class MjNavbar extends BodyComponent {
             style: this.htmlAttributes('div'),
           })}
         >
-        ${conditionalTag(`
-          <table role="presentation" border="0" cellpadding="0" cellspacing="0" align="${this.getAttribute(
-            'align',
-          )}">
-            <tr>
-        `)}
+        ${openTable}
           ${this.renderChildren(this.props.children, {
             attributes: {
               navbarBaseUrl: this.getAttribute('base-url'),
             },
           })}
-          ${conditionalTag(`
-            </tr></table>
-          `)}
+          ${closeTable}
         </div>
     `
   }

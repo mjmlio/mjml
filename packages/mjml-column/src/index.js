@@ -1,4 +1,8 @@
 import { BodyComponent } from 'mjml-core'
+import {
+  DARK_MODE_CLASS_PREFIX,
+  emitDarkModeHeadStyle,
+} from 'mjml-core/lib/helpers/colorSchemeDarkMode'
 
 import widthParser from 'mjml-core/lib/helpers/widthParser'
 
@@ -13,12 +17,20 @@ export default class MjColumn extends BodyComponent {
     'border-radius': 'string',
     'border-right': 'string',
     'border-top': 'string',
+    'dark-background-color': 'color',
+    'dark-border-color': 'color',
+    'dark-border-bottom-color': 'color',
+    'dark-border-left-color': 'color',
+    'dark-border-right-color': 'color',
+    'dark-border-top-color': 'color',
+    'dark-inner-background-color': 'color',
+    'dark-inner-border-color': 'color',
+    'dark-inner-border-bottom-color': 'color',
+    'dark-inner-border-left-color': 'color',
+    'dark-inner-border-right-color': 'color',
+    'dark-inner-border-top-color': 'color',
     direction: 'enum(ltr,rtl)',
     'inner-background-color': 'color',
-    'padding-bottom': 'unit(px,%)',
-    'padding-left': 'unit(px,%)',
-    'padding-right': 'unit(px,%)',
-    'padding-top': 'unit(px,%)',
     'inner-border': 'string',
     'inner-border-bottom': 'string',
     'inner-border-left': 'string',
@@ -26,13 +38,130 @@ export default class MjColumn extends BodyComponent {
     'inner-border-right': 'string',
     'inner-border-top': 'string',
     padding: 'unit(px,%){1,4}',
+    'padding-bottom': 'unit(px,%)',
+    'padding-left': 'unit(px,%)',
+    'padding-right': 'unit(px,%)',
+    'padding-top': 'unit(px,%)',
     'vertical-align': 'enum(top,bottom,middle)',
     width: 'unit(px,%)',
   }
 
   static defaultAttributes = {
-    direction: 'ltr',
     'vertical-align': 'top',
+  }
+
+  darkClasses = null
+
+  registerDarkModeRuleGroup({
+    cssDeclarations,
+    supportOutlookDarkMode = false,
+  }) {
+    const globalData = this.context && this.context.globalData
+    const validDeclarations = Array.isArray(cssDeclarations)
+      ? cssDeclarations.filter(
+          ({ cssProperty, cssValue }) => Boolean(cssProperty && cssValue),
+        )
+      : []
+
+    if (!globalData || validDeclarations.length === 0) {
+      return null
+    }
+
+    if (typeof globalData.darkModeRuleCount !== 'number') {
+      globalData.darkModeRuleCount = 0
+    }
+
+    globalData.darkModeRuleCount += 1
+
+    const className = `${DARK_MODE_CLASS_PREFIX}-${globalData.darkModeRuleCount}`
+
+    if (!Array.isArray(globalData.darkModeRules)) {
+      globalData.darkModeRules = []
+    }
+
+    validDeclarations.forEach(({ cssProperty, cssValue }) => {
+      globalData.darkModeRules.push({
+        className,
+        cssProperty,
+        cssValue,
+        supportOutlookDarkMode: Boolean(supportOutlookDarkMode),
+      })
+    })
+
+    return className
+  }
+
+  getDarkClasses() {
+    if (this.darkClasses !== null) {
+      return this.darkClasses
+    }
+
+    this.darkClasses = {}
+
+    // Outer: background-color + border (applied to gutter td when gutter exists,
+    // or to the column table when no gutter).
+    const outerDeclarations = []
+
+    const darkBgColor = this.attributes['dark-background-color']
+    if (darkBgColor) {
+      outerDeclarations.push({ cssProperty: 'background-color', cssValue: darkBgColor })
+    }
+
+    const darkBorderColor = this.attributes['dark-border-color']
+    if (darkBorderColor) {
+      outerDeclarations.push({ cssProperty: 'border-color', cssValue: darkBorderColor })
+    }
+
+    ;[
+      ['border-top-color', 'dark-border-top-color'],
+      ['border-bottom-color', 'dark-border-bottom-color'],
+      ['border-left-color', 'dark-border-left-color'],
+      ['border-right-color', 'dark-border-right-color'],
+    ].forEach(([cssProperty, attrName]) => {
+      const cssValue = this.attributes[attrName]
+      if (!cssValue || (darkBorderColor && cssValue === darkBorderColor)) return
+      outerDeclarations.push({ cssProperty, cssValue })
+    })
+
+    this.darkClasses.outer = this.registerDarkModeRuleGroup({
+      cssDeclarations: outerDeclarations,
+    })
+
+    // Inner: inner-background-color + inner-border (always applied to the inner
+    // column table; only relevant when a gutter/padding exists).
+    const innerDeclarations = []
+
+    const darkInnerBgColor = this.attributes['dark-inner-background-color']
+    if (darkInnerBgColor) {
+      innerDeclarations.push({ cssProperty: 'background-color', cssValue: darkInnerBgColor })
+    }
+
+    const darkInnerBorderColor = this.attributes['dark-inner-border-color']
+    if (darkInnerBorderColor) {
+      innerDeclarations.push({ cssProperty: 'border-color', cssValue: darkInnerBorderColor })
+    }
+
+    ;[
+      ['border-top-color', 'dark-inner-border-top-color'],
+      ['border-bottom-color', 'dark-inner-border-bottom-color'],
+      ['border-left-color', 'dark-inner-border-left-color'],
+      ['border-right-color', 'dark-inner-border-right-color'],
+    ].forEach(([cssProperty, attrName]) => {
+      const cssValue = this.attributes[attrName]
+      if (!cssValue || (darkInnerBorderColor && cssValue === darkInnerBorderColor)) return
+      innerDeclarations.push({ cssProperty, cssValue })
+    })
+
+    this.darkClasses.inner = this.registerDarkModeRuleGroup({
+      cssDeclarations: innerDeclarations,
+    })
+
+    return this.darkClasses
+  }
+
+  componentHeadStyle = () => {
+    emitDarkModeHeadStyle(this.context && this.context.globalData)
+    return ''
   }
 
   getChildContext() {
@@ -79,7 +208,6 @@ export default class MjColumn extends BodyComponent {
       'border-radius': this.getAttribute('border-radius'),
       'border-right': this.getAttribute('border-right'),
       'border-top': this.getAttribute('border-top'),
-      'vertical-align': this.getAttribute('vertical-align'),
       ...(hasBorderRadius && { 'border-collapse': 'separate' }),
     }
 
@@ -229,6 +357,7 @@ export default class MjColumn extends BodyComponent {
 
   renderGutter() {
     const hasBorderRadius = this.hasBorderRadius()
+    const { outer: outerDarkClass } = this.getDarkClasses()
 
     return `
       <table
@@ -236,26 +365,34 @@ export default class MjColumn extends BodyComponent {
           border: '0',
           cellpadding: '0',
           cellspacing: '0',
-          role: 'presentation',
+          role: 'none',
           width: '100%',
           ...(hasBorderRadius && {
             style: { 'border-collapse': 'separate' },
           }),
         })}
       >
-        <tbody>
-          <tr>
-            <td ${this.htmlAttributes({ style: 'gutter' })}>
-              ${this.renderColumn()}
-            </td>
-          </tr>
-        </tbody>
+        <tr>
+          <td ${this.htmlAttributes({
+            class: outerDarkClass || undefined,
+            style: 'gutter',
+          })}>
+            ${this.renderColumn()}
+          </td>
+        </tr>
       </table>
     `
   }
 
   renderColumn() {
     const { children } = this.props
+    const { outer: outerDarkClass, inner: innerDarkClass } = this.getDarkClasses()
+    // When a gutter exists the outer dark class is on the gutter <td>;
+    // the column table carries the inner dark class instead.
+    // When there is no gutter the column table IS the outer element.
+    const columnTableDarkClass = this.hasGutter()
+      ? (innerDarkClass || undefined)
+      : (outerDarkClass || undefined)
 
     return `
       <table
@@ -263,49 +400,46 @@ export default class MjColumn extends BodyComponent {
           border: '0',
           cellpadding: '0',
           cellspacing: '0',
-          role: 'presentation',
+          role: 'none',
+          class: columnTableDarkClass,
           style: 'table',
           width: '100%',
         })}
       >
-        <tbody>
-          ${this.renderChildren(children, {
-            renderer: (component) =>
-              component.constructor.isRawElement()
-                ? component.render()
-                : `
-              <tr>
-                <td
-                  ${component.htmlAttributes({
-                    align: component.getAttribute('align'),
-                    class: component.getAttribute('css-class'),
-                    style: {
-                      background: component.getAttribute(
-                        'container-background-color',
-                      ),
-                      'font-size': '0px',
-                      padding: component.getAttribute('padding'),
-                      'padding-top': component.getAttribute('padding-top'),
-                      'padding-right': component.getAttribute('padding-right'),
-                      'padding-bottom':
-                        component.getAttribute('padding-bottom'),
-                      'padding-left': component.getAttribute('padding-left'),
-                      'word-break': 'break-word',
-                    },
-                  })}
-                >
-                  ${component.render()}
-                </td>
-              </tr>
-            `,
-          })}
-        </tbody>
+        ${this.renderChildren(children, {
+          renderer: (component) =>
+            component.constructor.isRawElement()
+              ? component.render()
+              : `<tr>
+              <td
+                ${component.htmlAttributes({
+                  align: component.getAttribute('align'),
+                  class: component.getAttribute('css-class'),
+                  style: {
+                    background: component.getAttribute(
+                      'container-background-color',
+                    ),
+                    'font-size': '0px',
+                    padding: component.getAttribute('padding'),
+                    'padding-top': component.getAttribute('padding-top'),
+                    'padding-right': component.getAttribute('padding-right'),
+                    'padding-bottom':
+                      component.getAttribute('padding-bottom'),
+                    'padding-left': component.getAttribute('padding-left'),
+                    'word-break': 'break-word',
+                  },
+                })}
+              >
+                ${component.render()}
+              </td>
+            </tr>`,
+        })}
       </table>
     `
   }
 
   render() {
-    let classesName = `${this.getColumnClass()} mj-outlook-group-fix`
+    let classesName = `${this.getColumnClass()}`
 
     if (this.getAttribute('css-class')) {
       classesName += ` ${this.getAttribute('css-class')}`

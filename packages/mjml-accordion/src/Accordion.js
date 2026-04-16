@@ -1,31 +1,38 @@
 import { BodyComponent } from 'mjml-core'
+import {
+  emitDarkModeHeadStyle,
+  registerDarkModeRule,
+} from 'mjml-core/lib/helpers/colorSchemeDarkMode'
 
 export default class MjAccordion extends BodyComponent {
   static componentName = 'mj-accordion'
 
   static allowedAttributes = {
-    'container-background-color': 'color',
     border: 'string',
+    'container-background-color': 'color',
+    'dark-border-color': 'color',
+    'dark-container-background-color': 'color',
+    'dark-icon-wrapped-url': 'string',
+    'dark-icon-unwrapped-url': 'string',
     'font-family': 'string',
     'icon-align': 'enum(top,middle,bottom)',
-    'icon-width': 'unit(px,%)',
     'icon-height': 'unit(px,%)',
+    'icon-position': 'enum(left,right)',
+    'icon-width': 'unit(px,%)',
     'icon-wrapped-url': 'string',
     'icon-wrapped-alt': 'string',
     'icon-unwrapped-url': 'string',
     'icon-unwrapped-alt': 'string',
-    'icon-position': 'enum(left,right)',
+    padding: 'unit(px,%){1,4}',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
-    padding: 'unit(px,%){1,4}',
   }
 
   static defaultAttributes = {
     border: '2px solid black',
-    'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
-    'icon-align': 'middle',
+    'font-family': 'Ubuntu, sans-serif',
     'icon-wrapped-url': 'https://i.imgur.com/bIXv1bk.png',
     'icon-wrapped-alt': '+',
     'icon-unwrapped-url': 'https://i.imgur.com/w4uTygT.png',
@@ -36,25 +43,73 @@ export default class MjAccordion extends BodyComponent {
     padding: '10px 25px',
   }
 
+  darkClasses = null
+
+  getDarkClasses() {
+    if (this.darkClasses !== null) {
+      return this.darkClasses
+    }
+
+    this.darkClasses = {}
+
+    const globalData = this.context && this.context.globalData
+
+    const darkContainerBg = this.attributes['dark-container-background-color']
+    if (darkContainerBg) {
+      this.darkClasses.container = registerDarkModeRule(globalData, {
+        cssProperty: 'background-color',
+        cssValue: darkContainerBg,
+      })
+    }
+
+    const darkBorderColor = this.attributes['dark-border-color']
+    if (darkBorderColor) {
+      this.darkClasses.border = registerDarkModeRule(globalData, {
+        cssProperty: 'border-color',
+        cssValue: darkBorderColor,
+      })
+    }
+
+    return this.darkClasses
+  }
+
+  // container-background-color is rendered on the wrapper <td> by the core
+  // renderer, so merge the dark container class into css-class.
+  getAttribute(name) {
+    if (name === 'css-class') {
+      const base = this.attributes['css-class']
+      const containerDarkClass = this.getDarkClasses().container
+      return [base, containerDarkClass].filter(Boolean).join(' ') || undefined
+    }
+
+    return this.attributes[name]
+  }
+
+  componentHeadStyle = () => {
+    emitDarkModeHeadStyle(this.context && this.context.globalData)
+    return ''
+  }
+
   headStyle = () =>
     `
       noinput.mj-accordion-checkbox { display:block!important; }
 
       @media yahoo, only screen and (min-width:0) {
-        .mj-accordion-element { display:block; }
-        input.mj-accordion-checkbox, .mj-accordion-less { display:none!important; }
         input.mj-accordion-checkbox + * .mj-accordion-title { cursor:pointer; touch-action:manipulation; -webkit-user-select:none; -moz-user-select:none; user-select:none; }
         input.mj-accordion-checkbox + * .mj-accordion-content { overflow:hidden; display:none; }
-        input.mj-accordion-checkbox + * .mj-accordion-more { display:block!important; }
-        input.mj-accordion-checkbox:checked + * .mj-accordion-content { display:block; }
+        
+        input.mj-accordion-checkbox, .mj-accordion-less,
         input.mj-accordion-checkbox:checked + * .mj-accordion-more { display:none!important; }
+
+        .mj-accordion-element,
+        input.mj-accordion-checkbox + * .mj-accordion-more,
+        input.mj-accordion-checkbox:checked + * .mj-accordion-content,
         input.mj-accordion-checkbox:checked + * .mj-accordion-less { display:block!important; }
       }
-
       .moz-text-html input.mj-accordion-checkbox + * .mj-accordion-title { cursor: auto; touch-action: auto; -webkit-user-select: auto; -moz-user-select: auto; user-select: auto; }
       .moz-text-html input.mj-accordion-checkbox + * .mj-accordion-content { overflow: hidden; display: block; }
       .moz-text-html input.mj-accordion-checkbox + * .mj-accordion-ico { display: none; }
-
+      /* prettier-ignore */
       @goodbye { @gmail }
     `
 
@@ -64,8 +119,7 @@ export default class MjAccordion extends BodyComponent {
         width: '100%',
         'border-collapse': 'collapse',
         border: this.getAttribute('border'),
-        'border-bottom': 'none',
-        'font-family': this.getAttribute('font-family'),
+        ...(this.getAttribute('border') !== 'none' && this.getAttribute('border') !== '0' && this.getAttribute('border') !== '0px' && { 'border-bottom': '0' }),
       },
     }
   }
@@ -78,8 +132,11 @@ export default class MjAccordion extends BodyComponent {
   }
 
   render() {
+    const borderDarkClass = this.getDarkClasses().border
+
     const childrenAttr = [
       'border',
+      'dark-border-color',
       'icon-align',
       'icon-width',
       'icon-height',
@@ -88,6 +145,8 @@ export default class MjAccordion extends BodyComponent {
       'icon-wrapped-alt',
       'icon-unwrapped-url',
       'icon-unwrapped-alt',
+      'dark-icon-wrapped-url',
+      'dark-icon-unwrapped-url',
     ].reduce(
       (res, val) => ({
         ...res,
@@ -101,16 +160,14 @@ export default class MjAccordion extends BodyComponent {
         ${this.htmlAttributes({
           cellspacing: '0',
           cellpadding: '0',
-          class: 'mj-accordion',
+          class: ['mj-accordion', borderDarkClass].filter(Boolean).join(' '),
           style: 'table',
         })}
       >
-        <tbody>
-          ${this.renderChildren(this.props.children, {
-            attributes: childrenAttr,
-          })}
-        </tbody>
+        ${this.renderChildren(this.props.children, {
+          attributes: childrenAttr,
+        })}
       </table>
-    `
+      `
   }
 }

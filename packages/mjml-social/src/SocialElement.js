@@ -1,22 +1,34 @@
 import { BodyComponent } from 'mjml-core'
 import { get, each } from 'lodash'
+import {
+  emitDarkModeHeadStyle,
+  registerDarkModeRule,
+} from 'mjml-core/lib/helpers/colorSchemeDarkMode'
+import {
+  emitOutlookDarkModeHeadRaw,
+  getOutlookDarkModeMediaQuery,
+  OUTLOOK_DARK_MODE_BACKGROUND_CLASS,
+  OUTLOOK_DARK_MODE_CLASS,
+  registerOutlookDarkModeBackgroundRule,
+  registerOutlookDarkModeImage,
+} from 'mjml-core/lib/helpers/outlookDarkMode'
 
 const IMG_BASE_URL = 'https://www.mailjet.com/images/theme/v1/icons/ico-social/'
 
 const defaultSocialNetworks = {
   facebook: {
-    'share-url': 'https://www.facebook.com/sharer/sharer.php?u=[[URL]]',
+    'share-url': 'https://www.facebook.com/sharer.php?u=[[URL]]',
     'background-color': '#3b5998',
     src: `${IMG_BASE_URL}facebook.png`,
   },
   twitter: {
-    'share-url': 'https://twitter.com/intent/tweet?url=[[URL]]',
+    'share-url': 'https://x.com/intent/tweet?url=[[URL]]',
     'background-color': '#55acee',
     src: `${IMG_BASE_URL}twitter.png`,
   },
   x: {
-    'share-url': 'https://twitter.com/intent/tweet?url=[[URL]]',
-    'background-color': '#000000',
+    'share-url': 'https://x.com/intent/tweet?url=[[URL]]',
+    'background-color': '#030303',
     src: `${IMG_BASE_URL}twitter-x.png`,
   },
   google: {
@@ -26,13 +38,13 @@ const defaultSocialNetworks = {
   },
   pinterest: {
     'share-url':
-      'https://pinterest.com/pin/create/button/?url=[[URL]]&media=&description=',
+      'https://pinterest.com/pin/create/button/?url=[[URL]]',
     'background-color': '#bd081c',
     src: `${IMG_BASE_URL}pinterest.png`,
   },
   linkedin: {
     'share-url':
-      'https://www.linkedin.com/shareArticle?mini=true&url=[[URL]]&title=&summary=&source=',
+      'https://www.linkedin.com/sharing/share-offsite/?url=[[URL]]',
     'background-color': '#0077b5',
     src: `${IMG_BASE_URL}linkedin.png`,
   },
@@ -99,51 +111,105 @@ export default class MjSocialElement extends BodyComponent {
 
   static allowedAttributes = {
     align: 'enum(left,center,right)',
-    'icon-position': 'enum(left,right)',
+    alt: 'string',
     'background-color': 'color',
-    color: 'color',
     'border-radius': 'string',
+    color: 'color',
+    'dark-background-color': 'color',
+    'dark-color': 'color',
+    'dark-src': 'string',
     'font-family': 'string',
     'font-size': 'unit(px)',
     'font-style': 'string',
     'font-weight': 'string',
     href: 'string',
-    'icon-size': 'unit(px,%)',
     'icon-height': 'unit(px,%)',
     'icon-padding': 'unit(px,%){1,4}',
+    'icon-position': 'enum(left,right)',
+    'icon-size': 'unit(px,%)',
     'line-height': 'unit(px,%,)',
     name: 'string',
+    padding: 'unit(px,%){1,4}',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
-    padding: 'unit(px,%){1,4}',
-    'text-padding': 'unit(px,%){1,4}',
     rel: 'string',
     src: 'string',
     srcset: 'string',
     sizes: 'string',
-    alt: 'string',
-    title: 'string',
     target: 'string',
+    title: 'string',
+    'support-dark-mode-image': 'enum(outlook)',
     'text-decoration': 'string',
+    'text-padding': 'unit(px,%){1,4}',
     'vertical-align': 'enum(top,middle,bottom)',
   }
 
   static defaultAttributes = {
     alt: '',
-    align: 'left',
     'icon-position': 'left',
     color: '#000',
     'border-radius': '3px',
-    'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
+    'font-family': 'Ubuntu, sans-serif',
     'font-size': '13px',
     'line-height': '1',
     padding: '4px',
     'text-padding': '4px 4px 4px 0',
-    target: '_blank',
     'text-decoration': 'none',
-    'vertical-align': 'middle',
+  }
+
+  darkClasses = null
+
+  outlookDarkBackgroundClass = null
+
+  getOutlookDarkBackgroundClass() {
+    if (this.outlookDarkBackgroundClass !== null) {
+      return this.outlookDarkBackgroundClass
+    }
+
+    const globalData = this.context && this.context.globalData
+
+    if (!globalData) {
+      return null
+    }
+
+    if (typeof globalData.outlookDarkModeBackgroundCount !== 'number') {
+      globalData.outlookDarkModeBackgroundCount = 0
+    }
+
+    globalData.outlookDarkModeBackgroundCount += 1
+    this.outlookDarkBackgroundClass = `mj-dark-image-bg-${globalData.outlookDarkModeBackgroundCount}`
+
+    return this.outlookDarkBackgroundClass
+  }
+
+  getDarkClasses() {
+    if (this.darkClasses !== null) {
+      return this.darkClasses
+    }
+
+    this.darkClasses = {}
+
+    const globalData = this.context && this.context.globalData
+
+    const darkBackgroundColor = this.getAttribute('dark-background-color')
+    if (darkBackgroundColor) {
+      this.darkClasses.background = registerDarkModeRule(globalData, {
+        cssProperty: 'background-color',
+        cssValue: darkBackgroundColor,
+      })
+    }
+
+    const darkColor = this.getAttribute('dark-color')
+    if (darkColor) {
+      this.darkClasses.color = registerDarkModeRule(globalData, {
+        cssProperty: 'color',
+        cssValue: darkColor,
+      })
+    }
+
+    return this.darkClasses
   }
 
   getStyles() {
@@ -165,21 +231,17 @@ export default class MjSocialElement extends BodyComponent {
       table: {
         background: backgroundColor,
         'border-radius': this.getAttribute('border-radius'),
-        width: iconSize,
       },
       icon: {
         padding: this.getAttribute('icon-padding'),
         'font-size': '0',
         height: iconHeight || iconSize,
-        'vertical-align': 'middle',
-        width: iconSize,
       },
       img: {
         'border-radius': this.getAttribute('border-radius'),
         display: 'block',
       },
       tdText: {
-        'vertical-align': 'middle',
         padding: this.getAttribute('text-padding'),
         'text-align': this.getAttribute('align'),
       },
@@ -191,6 +253,19 @@ export default class MjSocialElement extends BodyComponent {
         'font-family': this.getAttribute('font-family'),
         'line-height': this.getAttribute('line-height'),
         'text-decoration': this.getAttribute('text-decoration'),
+      },
+      outlookDarkBackground: {
+        'background-color': backgroundColor || '#f7f7f7',
+        'mso-margin-top-alt': '0',
+        'mso-margin-bottom-alt': '0',
+      },
+      outlookDarkPicture: {
+        margin: 'auto',
+        'text-align': 'center',
+        width: '100%',
+        height: 'auto',
+        'mso-margin-top-alt': '0',
+        'mso-margin-bottom-alt': '0',
       },
     }
   }
@@ -224,6 +299,34 @@ export default class MjSocialElement extends BodyComponent {
     }
   }
 
+  componentHeadStyle = () => {
+    const globalData = this.context && this.context.globalData
+    const darkClasses = this.getDarkClasses()
+    const styles = []
+
+    if (darkClasses.background || darkClasses.color) {
+      emitDarkModeHeadStyle(globalData)
+    }
+
+    const darkSrc = this.getAttribute('dark-src')
+    const supportOutlookDarkMode =
+      this.getAttribute('support-dark-mode-image') === 'outlook'
+
+    if (!darkSrc || !supportOutlookDarkMode) {
+      return ''
+    }
+
+    const includeDarkStyles =
+      !globalData || globalData.outlookDarkModeStyleEmitted === false
+
+    if (includeDarkStyles) {
+      emitOutlookDarkModeHeadRaw(globalData)
+      styles.push(getOutlookDarkModeMediaQuery(globalData))
+    }
+
+    return styles.join('\n')
+  }
+
   render() {
     const {
       src,
@@ -235,72 +338,142 @@ export default class MjSocialElement extends BodyComponent {
 
     const hasLink = !!this.getAttribute('href')
     const iconPosition = this.getAttribute('icon-position')
+    const darkSrc = this.getAttribute('dark-src')
+    const supportOutlookDarkMode =
+      this.getAttribute('support-dark-mode-image') === 'outlook'
+    const globalData = this.context && this.context.globalData
+    const darkClasses = this.getDarkClasses()
+    const darkBackgroundColor = this.getAttribute('dark-background-color')
 
-    const makeIcon = () => `
-        <td ${this.htmlAttributes({ style: 'td' })}>
+    const darkPictureClass =
+      darkSrc && supportOutlookDarkMode
+        ? registerOutlookDarkModeImage(globalData, { darkSrc })
+        : null
+
+    const darkBackgroundClass =
+      darkSrc && supportOutlookDarkMode && darkBackgroundColor
+        ? this.getOutlookDarkBackgroundClass()
+        : null
+
+    if (darkBackgroundClass) {
+      registerOutlookDarkModeBackgroundRule(globalData, {
+        className: darkBackgroundClass,
+        backgroundColor: darkBackgroundColor,
+      })
+    }
+
+    const img = `
+      <img
+        ${this.htmlAttributes({
+          alt: this.getAttribute('alt'),
+          title: this.getAttribute('title'),
+          src,
+          style: 'img',
+          width: parseInt(iconSize, 10),
+          sizes,
+          srcset,
+        })}
+      />
+    `
+
+    const picture = darkSrc
+      ? `
+        <picture>
+          <source ${this.htmlAttributes({
+            srcset: darkSrc,
+            media: '(prefers-color-scheme: dark)',
+          })} />
+          ${img}
+        </picture>
+      `
+      : null
+
+    const darkImg = darkSrc && supportOutlookDarkMode
+      ? `
+        <div ${this.htmlAttributes({
+          style: 'outlookDarkBackground',
+          class: [
+            OUTLOOK_DARK_MODE_BACKGROUND_CLASS,
+            darkBackgroundClass,
+          ]
+            .filter(Boolean)
+            .join(' '),
+        })}>
+          <div ${this.htmlAttributes({
+            style: 'outlookDarkPicture',
+            class: `${OUTLOOK_DARK_MODE_CLASS}${
+            darkPictureClass ? ` ${darkPictureClass}` : ''
+          }`,
+          })}>
+            ${
+              hasLink
+                ? `<a ${this.htmlAttributes({
+                    href,
+                    rel: this.getAttribute('rel'),
+                    target: this.getAttribute('target'),
+                  })}>` : ''
+            }
+            ${picture}
+            ${hasLink ? `</a>` : ''}
+          </div>
+        </div>
+      `
+      : null
+
+    const content = darkImg || picture || img
+
+    const makeIcon = () => `<td ${this.htmlAttributes({ style: 'td' })}>
           <table
             ${this.htmlAttributes({
               border: '0',
               cellpadding: '0',
               cellspacing: '0',
-              role: 'presentation',
+              role: 'none',
               style: 'table',
+              class: darkClasses.background || null,
             })}
           >
-            <tbody>
-              <tr>
-                <td ${this.htmlAttributes({ style: 'icon' })}>
-                  ${
-                    hasLink
-                      ? `<a ${this.htmlAttributes({
-                          href,
-                          rel: this.getAttribute('rel'),
-                          target: this.getAttribute('target'),
-                        })}>`
-                      : ''
-                  }
-                    <img
-                      ${this.htmlAttributes({
-                        alt: this.getAttribute('alt'),
-                        title: this.getAttribute('title'),
-                        src,
-                        style: 'img',
-                        width: parseInt(iconSize, 10),
-                        sizes,
-                        srcset,
-                      })}
-                    />
-                  ${hasLink ? `</a>` : ''}
-                </td>
-              </tr>
-            </tbody>
+            <tr>
+              <td ${this.htmlAttributes({ style: 'icon' })}>
+                ${
+                  hasLink && !darkImg
+                    ? `<a ${this.htmlAttributes({
+                        href,
+                        rel: this.getAttribute('rel'),
+                        target: this.getAttribute('target'),
+                      })}>`
+                    : ''
+                }
+                  ${content}
+                ${hasLink && !darkImg ? `</a>` : ''}
+              </td>
+            </tr>
           </table>
-        </td>
-      `
+        </td>`
 
     const makeContent = () => `
         ${
           this.getContent()
-            ? `
-          <td ${this.htmlAttributes({ style: 'tdText' })}>
+            ? `<td ${this.htmlAttributes({ style: 'tdText' })}>
             ${
               hasLink
                 ? `<a
                 ${this.htmlAttributes({
                   href,
                   style: 'text',
+                  class: darkClasses.color || null,
                   rel: this.getAttribute('rel'),
                   target: this.getAttribute('target'),
                 })}>`
                 : `<span
                     ${this.htmlAttributes({
                       style: 'text',
+                      class: darkClasses.color || null,
                     })}>`
             }
               ${this.getContent()}
             ${hasLink ? `</a>` : '</span>'}
-          </td>
-          `
+          </td>`
             : ''
         }
       `
@@ -308,14 +481,12 @@ export default class MjSocialElement extends BodyComponent {
     const renderLeft = () => `${makeIcon()} ${makeContent()}`
     const renderRight = () => `${makeContent()} ${makeIcon()}`
 
-    return `
-      <tr
+    return `<tr
         ${this.htmlAttributes({
           class: this.getAttribute('css-class'),
         })}
       >
         ${iconPosition === 'left' ? renderLeft() : renderRight()}
-      </tr>
-    `
+      </tr>`
   }
 }

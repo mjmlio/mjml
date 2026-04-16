@@ -1,19 +1,32 @@
 import { BodyComponent } from 'mjml-core'
+import {
+  emitDarkModeHeadStyle,
+  registerDarkModeRule,
+} from 'mjml-core/lib/helpers/colorSchemeDarkMode'
 
 import widthParser from 'mjml-core/lib/helpers/widthParser'
+
+import { msoConditionalTag } from 'mjml-core/lib/helpers/conditionalTag'
 
 export default class MjGroup extends BodyComponent {
   static componentName = 'mj-group'
 
   static allowedAttributes = {
     'background-color': 'color',
+    'dark-background-color': 'color',
     direction: 'enum(ltr,rtl)',
     'vertical-align': 'enum(top,bottom,middle)',
     width: 'unit(px,%)',
   }
 
   static defaultAttributes = {
-    direction: 'ltr',
+  }
+
+  componentHeadStyle = () => {
+    const darkBgColor = this.getAttribute('dark-background-color')
+    if (!darkBgColor) return ''
+    emitDarkModeHeadStyle(this.context && this.context.globalData)
+    return ''
   }
 
   getChildContext() {
@@ -51,7 +64,6 @@ export default class MjGroup extends BodyComponent {
       div: {
         'font-size': '0',
         'line-height': '0',
-        'text-align': 'left',
         display: 'inline-block',
         width: '100%',
         direction: this.getAttribute('direction'),
@@ -148,10 +160,22 @@ export default class MjGroup extends BodyComponent {
       return `${parsedWidth}${unit}`
     }
 
-    let classesName = `${this.getColumnClass()} mj-outlook-group-fix`
+    const darkBgColor = this.getAttribute('dark-background-color')
+    const darkClass = darkBgColor
+      ? registerDarkModeRule(this.context && this.context.globalData, {
+          cssProperty: 'background-color',
+          cssValue: darkBgColor,
+        })
+      : null
+
+    let classesName = `${this.getColumnClass()}`
 
     if (this.getAttribute('css-class')) {
       classesName += ` ${this.getAttribute('css-class')}`
+    }
+
+    if (darkClass) {
+      classesName += ` ${darkClass}`
     }
 
     return `
@@ -161,7 +185,7 @@ export default class MjGroup extends BodyComponent {
           style: 'div',
         })}
       >
-        <!--[if mso | IE]>
+        ${msoConditionalTag(`
         <table
           ${this.htmlAttributes({
             bgcolor:
@@ -171,19 +195,19 @@ export default class MjGroup extends BodyComponent {
             border: '0',
             cellpadding: '0',
             cellspacing: '0',
-            role: 'presentation',
+            role: 'none',
           })}
         >
           <tr>
-        <![endif]-->
+      `)}
           ${this.renderChildren(children, {
             attributes: { mobileWidth: 'mobileWidth' },
             renderer: (component) =>
               component.constructor.isRawElement()
                 ? component.render()
                 : `
-              <!--[if mso | IE]>
-              <td
+              ${msoConditionalTag(`
+                <td
                 ${component.htmlAttributes({
                   style: {
                     align: component.getAttribute('align'),
@@ -196,17 +220,16 @@ export default class MjGroup extends BodyComponent {
                   },
                 })}
               >
-              <![endif]-->
+              `)}
                 ${component.render()}
-              <!--[if mso | IE]>
-              </td>
-              <![endif]-->
+              ${msoConditionalTag(`
+                </td>
+              `)}
           `,
           })}
-        <!--[if mso | IE]>
-          </tr>
-          </table>
-        <![endif]-->
+        ${msoConditionalTag(`
+                </tr>
+          </table>`)}
       </div>
     `
   }

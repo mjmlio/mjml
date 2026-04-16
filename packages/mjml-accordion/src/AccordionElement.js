@@ -1,6 +1,10 @@
 import { BodyComponent } from 'mjml-core'
 import { find } from 'lodash'
 import conditionalTag from 'mjml-core/lib/helpers/conditionalTag'
+import {
+  emitDarkModeHeadStyle,
+  registerDarkModeRule,
+} from 'mjml-core/lib/helpers/colorSchemeDarkMode'
 import AccordionText from './AccordionText'
 import AccordionTitle from './AccordionTitle'
 
@@ -10,15 +14,19 @@ export default class MjAccordionElement extends BodyComponent {
   static allowedAttributes = {
     'background-color': 'color',
     border: 'string',
+    'dark-background-color': 'color',
+    'dark-border-color': 'color',
+    'dark-icon-wrapped-url': 'string',
+    'dark-icon-unwrapped-url': 'string',
     'font-family': 'string',
     'icon-align': 'enum(top,middle,bottom)',
-    'icon-width': 'unit(px,%)',
     'icon-height': 'unit(px,%)',
-    'icon-wrapped-url': 'string',
-    'icon-wrapped-alt': 'string',
+    'icon-position': 'enum(left,right)',
     'icon-unwrapped-url': 'string',
     'icon-unwrapped-alt': 'string',
-    'icon-position': 'enum(left,right)',
+    'icon-wrapped-url': 'string',
+    'icon-wrapped-alt': 'string',
+    'icon-width': 'unit(px,%)',
   }
 
   static defaultAttributes = {
@@ -30,14 +38,39 @@ export default class MjAccordionElement extends BodyComponent {
     },
   }
 
+  darkClasses = null
+
+  getDarkClasses() {
+    if (this.darkClasses !== null) {
+      return this.darkClasses
+    }
+
+    this.darkClasses = {}
+
+    const globalData = this.context && this.context.globalData
+
+    const darkBackgroundColor = this.getAttribute('dark-background-color')
+    if (darkBackgroundColor) {
+      this.darkClasses.background = registerDarkModeRule(globalData, {
+        cssProperty: 'background-color',
+        cssValue: darkBackgroundColor,
+      })
+    }
+
+    return this.darkClasses
+  }
+
+  componentHeadStyle = () => {
+    emitDarkModeHeadStyle(this.context && this.context.globalData)
+    return ''
+  }
+
   getStyles() {
     return {
       td: {
-        padding: '0px',
         'background-color': this.getAttribute('background-color'),
       },
       label: {
-        'font-size': '13px',
         'font-family': this.getAttribute('font-family'),
       },
       input: {
@@ -58,6 +91,9 @@ export default class MjAccordionElement extends BodyComponent {
       'icon-wrapped-alt',
       'icon-unwrapped-url',
       'icon-unwrapped-alt',
+      'dark-icon-wrapped-url',
+      'dark-icon-unwrapped-url',
+      'dark-border-color',
     ].reduce(
       (res, val) => ({
         ...res,
@@ -99,13 +135,20 @@ export default class MjAccordionElement extends BodyComponent {
   }
 
   render() {
+    const backgroundDarkClass = this.getDarkClasses().background
+
     return `
       <tr
         ${this.htmlAttributes({
           class: this.getAttribute('css-class'),
         })}
       >
-        <td ${this.htmlAttributes({ style: 'td' })}>
+        <td
+          ${this.htmlAttributes({
+            style: 'td',
+            class: backgroundDarkClass || undefined,
+          })}
+        >
           <label
             ${this.htmlAttributes({
               class: 'mj-accordion-element',
@@ -129,7 +172,6 @@ export default class MjAccordionElement extends BodyComponent {
             </div>
           </label>
         </td>
-      </tr>
-    `
+      </tr>`
   }
 }

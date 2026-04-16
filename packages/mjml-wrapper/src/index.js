@@ -1,5 +1,6 @@
 import MjSection from 'mjml-section'
 import { suffixCssClasses } from 'mjml-core'
+import { msoConditionalTag } from 'mjml-core/lib/helpers/conditionalTag'
 
 export default class MjWrapper extends MjSection {
   static componentName = 'mj-wrapper'
@@ -19,7 +20,7 @@ export default class MjWrapper extends MjSection {
           component.constructor.isRawElement()
             ? component.render()
             : `
-          <!--[if mso | IE]>
+          ${msoConditionalTag(`
             <tr>
               <td
                 ${component.htmlAttributes({
@@ -31,12 +32,12 @@ export default class MjWrapper extends MjSection {
                   width: containerWidth,
                 })}
               >
-          <![endif]-->
+          `)}
             ${component.render()}
-          <!--[if mso | IE]>
+          ${msoConditionalTag(`
               </td>
             </tr>
-          <![endif]-->
+          `)}
         `,
       })}
     `

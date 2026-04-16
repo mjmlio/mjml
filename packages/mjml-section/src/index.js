@@ -1,5 +1,12 @@
 import { BodyComponent, suffixCssClasses } from 'mjml-core'
 import { flow, identity, join, filter } from 'lodash/fp'
+import { msoConditionalTag } from 'mjml-core/lib/helpers/conditionalTag'
+import {
+  DARK_MODE_CLASS_PREFIX,
+  emitDarkModeHeadStyle,
+  registerDarkModeRule,
+} from 'mjml-core/lib/helpers/colorSchemeDarkMode'
+import { OUTLOOK_DARK_MODE_CLASS } from 'mjml-core/lib/helpers/outlookDarkMode'
 
 const makeBackgroundString = flow(filter(identity), join(' '))
 
@@ -8,18 +15,26 @@ export default class MjSection extends BodyComponent {
 
   static allowedAttributes = {
     'background-color': 'color',
-    'background-url': 'string',
-    'background-repeat': 'enum(repeat,no-repeat)',
-    'background-size': 'string',
     'background-position': 'string',
     'background-position-x': 'string',
     'background-position-y': 'string',
+    'background-repeat': 'enum(repeat,no-repeat)',
+    'background-size': 'string',
+    'background-url': 'string',
     border: 'string',
     'border-bottom': 'string',
     'border-left': 'string',
     'border-radius': 'string',
     'border-right': 'string',
     'border-top': 'string',
+    'column-align': 'enum(left,center,right)',
+    'dark-background-color': 'color',
+    'dark-background-url': 'string',
+    'dark-border-color': 'color',
+    'dark-border-bottom-color': 'color',
+    'dark-border-left-color': 'color',
+    'dark-border-right-color': 'color',
+    'dark-border-top-color': 'color',
     direction: 'enum(ltr,rtl)',
     'full-width': 'enum(full-width,false,)',
     padding: 'unit(px,%){1,4}',
@@ -32,13 +47,158 @@ export default class MjSection extends BodyComponent {
   }
 
   static defaultAttributes = {
-    'background-repeat': 'repeat',
-    'background-size': 'auto',
     'background-position': 'top center',
-    direction: 'ltr',
+    'column-align': 'center',
     padding: '20px 0',
     'text-align': 'center',
     'text-padding': '4px 4px 4px 0',
+  }
+
+  darkClasses = null
+
+  registerDarkBackgroundImageClass() {
+    const globalData = this.context && this.context.globalData
+
+    if (!globalData) {
+      return null
+    }
+
+    if (typeof globalData.outlookDarkModeImageCount !== 'number') {
+      globalData.outlookDarkModeImageCount = 0
+    }
+
+    globalData.outlookDarkModeImageCount += 1
+
+    return `${OUTLOOK_DARK_MODE_CLASS}-${globalData.outlookDarkModeImageCount}`
+  }
+
+  getDarkBackgroundImageCssValue() {
+    const darkBackgroundUrl = this.getAttribute('dark-background-url')
+
+    return darkBackgroundUrl ? `url(${JSON.stringify(darkBackgroundUrl)})` : null
+  }
+
+  registerDarkModeRuleGroup({
+    cssDeclarations,
+    supportOutlookDarkMode = false,
+  }) {
+    const globalData = this.context && this.context.globalData
+    const validDeclarations = Array.isArray(cssDeclarations)
+      ? cssDeclarations.filter(
+          ({ cssProperty, cssValue }) => Boolean(cssProperty && cssValue),
+        )
+      : []
+
+    if (
+      !globalData ||
+      validDeclarations.length === 0
+    ) {
+      return null
+    }
+
+    if (typeof globalData.darkModeRuleCount !== 'number') {
+      globalData.darkModeRuleCount = 0
+    }
+
+    globalData.darkModeRuleCount += 1
+
+    const className = `${DARK_MODE_CLASS_PREFIX}-${globalData.darkModeRuleCount}`
+
+    if (!Array.isArray(globalData.darkModeRules)) {
+      globalData.darkModeRules = []
+    }
+
+    validDeclarations.forEach(({ cssProperty, cssValue }) => {
+      globalData.darkModeRules.push({
+        className,
+        cssProperty,
+        cssValue,
+        supportOutlookDarkMode: Boolean(supportOutlookDarkMode),
+      })
+    })
+
+    return className
+  }
+
+  getDarkClasses() {
+    if (this.darkClasses !== null) {
+      return this.darkClasses
+    }
+
+    this.darkClasses = {}
+
+    const globalData = this.context && this.context.globalData
+
+    const darkBackgroundColor = this.attributes['dark-background-color']
+    if (darkBackgroundColor) {
+      this.darkClasses.background = registerDarkModeRule(globalData, {
+        cssProperty: 'background-color',
+        cssValue: darkBackgroundColor,
+      })
+    }
+
+    if (this.attributes['dark-background-url']) {
+      this.darkClasses.backgroundImage = this.registerDarkBackgroundImageClass()
+    }
+
+    const darkBorderColor = this.attributes['dark-border-color']
+    const borderDarkDeclarations = []
+
+    if (darkBorderColor) {
+      borderDarkDeclarations.push({
+        cssProperty: 'border-color',
+        cssValue: darkBorderColor,
+      })
+    }
+
+    const sideOverrides = [
+      ['border-top-color', this.attributes['dark-border-top-color']],
+      ['border-bottom-color', this.attributes['dark-border-bottom-color']],
+      ['border-left-color', this.attributes['dark-border-left-color']],
+      ['border-right-color', this.attributes['dark-border-right-color']],
+    ]
+
+    sideOverrides.forEach(([cssProperty, cssValue]) => {
+      if (!cssValue || (darkBorderColor && cssValue === darkBorderColor)) {
+        return
+      }
+
+      borderDarkDeclarations.push({
+        cssProperty,
+        cssValue,
+      })
+    })
+
+    this.darkClasses.border = this.registerDarkModeRuleGroup({
+      cssDeclarations: borderDarkDeclarations,
+    })
+
+    return this.darkClasses
+  }
+
+  componentHeadStyle = () => {
+    const { background, backgroundImage, border } = this.getDarkClasses()
+    const styles = []
+
+    if (background || border) {
+      emitDarkModeHeadStyle(this.context && this.context.globalData)
+    }
+
+    if (backgroundImage) {
+      const backgroundImageCssValue = this.getDarkBackgroundImageCssValue()
+
+      styles.push(`
+@media (prefers-color-scheme: dark) {
+  .${backgroundImage} { background-image: ${backgroundImageCssValue} !important; }
+}
+`)
+    }
+
+    return styles.join('\n')
+  }
+
+  getColumnAlign() {
+    return this.getAttribute('column-align') || this.getAttribute('text-align')
   }
 
   getChildContext() {
@@ -58,6 +218,8 @@ export default class MjSection extends BodyComponent {
 
     const hasBorderRadius = this.hasBorderRadius()
 
+    const hasBackground = this.hasBackground()
+
     const isFirstSection = this.props.index === 0
 
     const background = this.getAttribute('background-url')
@@ -70,7 +232,6 @@ export default class MjSection extends BodyComponent {
         }
       : {
           background: this.getAttribute('background-color'),
-          'background-color': this.getAttribute('background-color'),
         }
 
     return {
@@ -97,19 +258,15 @@ export default class MjSection extends BodyComponent {
         'padding-left': this.getAttribute('padding-left'),
         'padding-right': this.getAttribute('padding-right'),
         'padding-top': this.getAttribute('padding-top'),
-        'text-align': this.getAttribute('text-align'),
+        'text-align': this.getColumnAlign(),
       },
       div: {
-        ...(fullWidth ? {} : background),
         margin: '0px auto',
         'max-width': containerWidth,
         'border-radius': this.getAttribute('border-radius'),
         ...(hasBorderRadius && { overflow: 'hidden' }),
         'margin-top': !isFirstSection ? this.context.gap : undefined,
-      },
-      innerDiv: {
-        'line-height': '0',
-        'font-size': '0',
+        ...(hasBackground && { 'line-height': '0','font-size': '0' }),
       },
     }
   }
@@ -215,7 +372,7 @@ export default class MjSection extends BodyComponent {
     const hasGap = this.hasGap()
 
     return `
-      <!--[if mso | IE]>
+      ${msoConditionalTag(`
       <table
         ${this.htmlAttributes({
           align: 'center',
@@ -223,7 +380,7 @@ export default class MjSection extends BodyComponent {
           cellpadding: '0',
           cellspacing: '0',
           class: suffixCssClasses(this.getAttribute('css-class'), 'outlook'),
-          role: 'presentation',
+          role: 'none',
           style: {
             width: `${containerWidth}`,
             'padding-top': !isFirstSection ? this.context.gap : undefined,
@@ -234,18 +391,18 @@ export default class MjSection extends BodyComponent {
       >
         <tr>
           <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
-      <![endif]-->
+      `)}
     `
   }
 
   // eslint-disable-next-line class-methods-use-this
   renderAfter() {
     return `
-      <!--[if mso | IE]>
+      ${msoConditionalTag(`
           </td>
         </tr>
       </table>
-      <![endif]-->
+      `)}
     `
   }
 
@@ -253,15 +410,15 @@ export default class MjSection extends BodyComponent {
     const { children } = this.props
 
     return `
-      <!--[if mso | IE]>
+      ${msoConditionalTag(`
         <tr>
-      <![endif]-->
+      `)}
       ${this.renderChildren(children, {
         renderer: (component) =>
           component.constructor.isRawElement()
             ? component.render()
             : `
-          <!--[if mso | IE]>
+          ${msoConditionalTag(`
             <td
               ${component.htmlAttributes({
                 align: component.getAttribute('align'),
@@ -272,17 +429,17 @@ export default class MjSection extends BodyComponent {
                 style: 'tdOutlook',
               })}
             >
-          <![endif]-->
+          `)}
             ${component.render()}
-          <!--[if mso | IE]>
+          ${msoConditionalTag(`
             </td>
-          <![endif]-->
+          `)}
     `,
       })}
 
-      <!--[if mso | IE]>
+      ${msoConditionalTag(`
         </tr>
-      <![endif]-->
+      `)}
     `
   }
 
@@ -290,6 +447,8 @@ export default class MjSection extends BodyComponent {
     const fullWidth = this.isFullWidth()
 
     const { containerWidth } = this.context
+
+    const backgroundSize = this.getAttribute('background-size') || 'auto'
 
     const isPercentage = (str) => /^\d+(\.\d+)?%$/.test(str)
 
@@ -333,7 +492,8 @@ export default class MjSection extends BodyComponent {
     let [[vOriginX, vPosX], [vOriginY, vPosY]] = ['x', 'y'].map(
       (coordinate) => {
         const isX = coordinate === 'x'
-        const bgRepeat = this.getAttribute('background-repeat') === 'repeat'
+        const bgRepeat =
+          (this.getAttribute('background-repeat') ?? 'repeat') === 'repeat'
         let pos = isX ? bgPosX : bgPosY
         let origin = isX ? bgPosX : bgPosY
 
@@ -365,23 +525,18 @@ export default class MjSection extends BodyComponent {
 
     // If background size is either cover or contain, we tell VML to keep the aspect
     // and fill the entire element.
-    if (
-      this.getAttribute('background-size') === 'cover' ||
-      this.getAttribute('background-size') === 'contain'
-    ) {
+    if (backgroundSize === 'cover' || backgroundSize === 'contain') {
       vSizeAttributes = {
         size: '1,1',
         aspect:
-          this.getAttribute('background-size') === 'cover'
-            ? 'atleast'
-            : 'atmost',
+          backgroundSize === 'cover' ? 'atleast' : 'atmost',
       }
-    } else if (this.getAttribute('background-size') !== 'auto') {
-      const bgSplit = this.getAttribute('background-size').split(' ')
+    } else if (backgroundSize !== 'auto') {
+      const bgSplit = backgroundSize.split(' ')
 
       if (bgSplit.length === 1) {
         vSizeAttributes = {
-          size: this.getAttribute('background-size'),
+          size: backgroundSize,
           aspect: 'atmost', // reproduces height auto
         }
       } else {
@@ -394,7 +549,7 @@ export default class MjSection extends BodyComponent {
     let vmlType =
       this.getAttribute('background-repeat') === 'no-repeat' ? 'frame' : 'tile'
 
-    if (this.getAttribute('background-size') === 'auto') {
+    if (backgroundSize === 'auto') {
       vmlType = 'tile' // if no size provided, keep old behavior because outlook can't use original image size with "frame"
       ;[[vOriginX, vPosX], [vOriginY, vPosY]] = [
         [0.5, 0.5],
@@ -403,7 +558,7 @@ export default class MjSection extends BodyComponent {
     }
 
     return `
-      <!--[if mso | IE]>
+      ${msoConditionalTag(`
         <v:rect ${this.htmlAttributes({
           style: fullWidth
             ? { 'mso-width-percent': '1000' }
@@ -421,28 +576,41 @@ export default class MjSection extends BodyComponent {
           ...vSizeAttributes,
         })} />
         <v:textbox style="mso-fit-shape-to-text:true" inset="0,0,0,0">
-      <![endif]-->
+      `)}
           ${content}
-        <!--[if mso | IE]>
+      ${msoConditionalTag(`
         </v:textbox>
       </v:rect>
-    <![endif]-->
+      `)}
     `
   }
 
   renderSection() {
     const hasBackground = this.hasBackground()
+    const darkClasses = this.getDarkClasses()
+
+    const paddingLeft = this.getShorthandAttrValue('padding', 'left')
+    const spacerTd = hasBackground
+      ? `${msoConditionalTag(`<td style="padding-left:${paddingLeft}px;"></td>`)}`
+      : ''
+
+    const borderDarkClasses = [
+      darkClasses.border,
+    ]
+      .filter(Boolean)
+      .join(' ')
+
+    const tableDarkClass = this.isFullWidth()
+      ? null
+      : [darkClasses.background, darkClasses.backgroundImage]
+        .filter(Boolean)
+        .join(' ') || undefined
 
     return `
       <div ${this.htmlAttributes({
         class: this.isFullWidth() ? null : this.getAttribute('css-class'),
         style: 'div',
       })}>
-        ${
-          hasBackground
-            ? `<div ${this.htmlAttributes({ style: 'innerDiv' })}>`
-            : ''
-        }
         <table
           ${this.htmlAttributes({
             align: 'center',
@@ -452,34 +620,43 @@ export default class MjSection extends BodyComponent {
             border: '0',
             cellpadding: '0',
             cellspacing: '0',
-            role: 'presentation',
+            class: tableDarkClass,
+            role: 'none',
             style: 'table',
           })}
         >
-          <tbody>
-            <tr>
-              <td
-                ${this.htmlAttributes({
-                  style: 'td',
-                })}
-              >
-                <!--[if mso | IE]>
-                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                <![endif]-->
-                  ${this.renderWrappedChildren()}
-                <!--[if mso | IE]>
-                  </table>
-                <![endif]-->
-              </td>
-            </tr>
-          </tbody>
+          <tr>
+            ${spacerTd}
+            <td
+              ${this.htmlAttributes({
+                class: borderDarkClasses || undefined,
+                style: 'td',
+              })}
+            >
+              ${msoConditionalTag(`
+                <table role="none" border="0" cellpadding="0" cellspacing="0">
+              `)}
+                ${this.renderWrappedChildren()}
+              ${msoConditionalTag(`
+                </table>
+              `)}
+            </td>
+          </tr>
         </table>
-        ${hasBackground ? '</div>' : ''}
       </div>
     `
   }
 
   renderFullWidth() {
+    const { background, backgroundImage } = this.getDarkClasses()
+    const fullWidthClass = [
+      this.getAttribute('css-class'),
+      background,
+      backgroundImage,
+    ]
+      .filter(Boolean)
+      .join(' ') || undefined
+
     const content = this.hasBackground()
       ? this.renderWithBackground(`
         ${this.renderBefore()}
@@ -496,22 +673,20 @@ export default class MjSection extends BodyComponent {
       <table
         ${this.htmlAttributes({
           align: 'center',
-          class: this.getAttribute('css-class'),
+          class: fullWidthClass,
           background: this.getAttribute('background-url'),
           border: '0',
           cellpadding: '0',
           cellspacing: '0',
-          role: 'presentation',
+          role: 'none',
           style: 'tableFullwidth',
         })}
       >
-        <tbody>
-          <tr>
-            <td>
-              ${content}
-            </td>
-          </tr>
-        </tbody>
+        <tr>
+          <td>
+            ${content}
+          </td>
+        </tr>
       </table>
     `
   }

@@ -54,25 +54,31 @@ Readers can interact by clicking on the tabs to reveal the content, providing a 
 
 #### Attributes
 
-| attribute                  | accepts                 | description                                        | default value                          |
-| -------------------------- | ----------------------- | -------------------------------------------------- | -------------------------------------- |
-| border                     | string                  | CSS border format                                  | `2px solid black`                      |
-| container-background-color | CSS color formats       | background-color of the cell                       |                                        |
-| css-class                  | string                  | class name, added to the root HTML element created |                                        |
-| font-family                | string                  | font                                               | `Ubuntu, Helvetica, Arial, sans-serif` |
-| icon-align                 | `top` `middle` `bottom` | icon alignment                                     | `middle`                               |
-| icon-height                | `px` `%`                | icon height                                        | `32px`                                 |
-| icon-position              | left,<br>right          | display icon left or right                         | `right`                                |
-| icon-unwrapped-alt         | string                  | alt text when accordion is unwrapped               | `-`                                    |
-| icon-unwrapped-url         | string                  | icon when accordion is unwrapped                   | `https://i.imgur.com/w4uTygT.png`      |
-| icon-width                 | `px` `%`                | icon width                                         | `32px`                                 |
-| icon-wrapped-alt           | string                  | alt text when accordion is wrapped                 | `+`                                    |
-| icon-wrapped-url           | string                  | icon when accordion is wrapped                     | `https://i.imgur.com/bIXv1bk.png`      |
-| padding                    | `px` `%`                | accordion padding, supports up to 4 parameters     | `10px 25px`                            |
-| padding-bottom             | `px` `%`                | accordion bottom padding                           |                                        |
-| padding-left               | `px` `%`                | accordion left padding                             |                                        |
-| padding-right              | `px` `%`                | accordion right padding                            |                                        |
-| padding-top                | `px` `%`                | accordion top padding                              |                                        |
+| attribute                       | accepts                 | description                                        | default value                          |
+| ------------------------------- | ----------------------- | -------------------------------------------------- | -------------------------------------- |
+| border                          | string                  | CSS border format                                  | `2px solid black`                      |
+| container-background-color      | CSS color formats       | background-color of the cell                       |                                        |
+| dark-border-color               | CSS color formats       | border color in dark mode                          |                                        |
+| dark-container-background-color | CSS color formats       | container background-color in dark mode            |                                        |
+| css-class                       | string                  | class name, added to the root HTML element created |                                        |
+| dark-icon-unwrapped-url         | string                  | dark-mode icon when accordion is unwrapped         |                                        |
+| dark-icon-wrapped-url           | string                  | dark-mode icon when accordion is wrapped           |                                        |
+| font-family                     | string                  | font                                               | `Ubuntu, sans-serif`                   |
+| icon-align                      | `top` `middle` `bottom` | icon alignment                                     |                                        |
+| icon-height                     | `px` `%`                | icon height                                        | `32px`                                 |
+| icon-position                   | left,<br>right          | display icon left or right                         | `right`                                |
+| icon-unwrapped-alt              | string                  | alt text when accordion is unwrapped               | `-`                                    |
+| icon-unwrapped-url              | string                  | icon when accordion is unwrapped                   | `https://i.imgur.com/w4uTygT.png`      |
+| icon-width                      | `px` `%`                | icon width                                         | `32px`                                 |
+| icon-wrapped-alt                | string                  | alt text when accordion is wrapped                 | `+`                                    |
+| icon-wrapped-url                | string                  | icon when accordion is wrapped                     | `https://i.imgur.com/bIXv1bk.png`      |
+| padding                         | `px` `%`                | accordion padding, supports up to 4 parameters     | `10px 25px`                            |
+| padding-bottom                  | `px` `%`                | accordion bottom padding                           |                                        |
+| padding-left                    | `px` `%`                | accordion left padding                             |                                        |
+| padding-right                   | `px` `%`                | accordion right padding                            |                                        |
+| padding-top                     | `px` `%`                | accordion top padding                              |                                        |
+
+NOTE: All `dark-` prefixed attributes require `support-dark-mode="true"` to be set on the `<mjml>` tag to work effectively in all supported clients.
 
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/accordion">Try it live</a></p>
 
@@ -88,20 +94,26 @@ Creates an accordion title/text pair. An accordion can have any number of these 
 
 ##### Attributes
 
-| attribute          | accepts                 | description                                                                               | default value |
-| ------------------ | ----------------------- | ----------------------------------------------------------------------------------------- | ------------- |
-| background-color   | CSS color formats       | background color                                                                          |               |
-| border             | string                  | CSS border format. <br>affects each horizontal border in the accordion except the top one |               |
-| css-class          | string                  | class name, added to the root HTML element created                                        |               |
-| font-family        | string                  | font                                                                                      |               |
-| icon-align         | `top` `middle` `bottom` | icon alignment                                                                            |               |
-| icon-height        | `px` `%`                | icon width                                                                                | `32px`        |
-| icon-position      | `left` `right`          | postion of icon                                                                           |               |
-| icon-unwrapped-alt | string                  | alt text when accordion is unwrapped                                                      |               |
-| icon-unwrapped-url | string                  | icon when accordion is unwrapped                                                          |               |
-| icon-width         | `px` `%`                | icon height                                                                               | `32px`        |
-| icon-wrapped-alt   | string                  | alt text when accordion is wrapped                                                        |               |
-| icon-wrapped-url   | string                  | icon when accordion is wrapped                                                            |               |
+| attribute                | accepts                 | description                                                                               | default value |
+| ------------------------ | ----------------------- | ----------------------------------------------------------------------------------------- | ------------- |
+| background-color         | CSS color formats       | background color                                                                          |               |
+| border                   | string                  | CSS border format. <br>affects each horizontal border in the accordion except the top one |               |
+| css-class                | string                  | class name, added to the root HTML element created                                        |               |
+| dark-background-color    | CSS color formats       | background color in dark mode                                                             |               |
+| dark-border-color        | CSS color formats       | border color in dark mode                                                                 |               |
+| dark-icon-unwrapped-url  | string                  | dark-mode icon when accordion is unwrapped                                                |               |
+| dark-icon-wrapped-url    | string                  | dark-mode icon when accordion is wrapped                                                  |               |
+| font-family              | string                  | font                                                                                      |               |
+| icon-align               | `top` `middle` `bottom` | icon alignment                                                                            |               |
+| icon-height              | `px` `%`                | icon width                                                                                | `32px`        |
+| icon-position            | `left` `right`          | postion of icon                                                                           |               |
+| icon-unwrapped-alt       | string                  | alt text when accordion is unwrapped                                                      |               |
+| icon-unwrapped-url       | string                  | icon when accordion is unwrapped                                                          |               |
+| icon-width               | `px` `%`                | icon height                                                                               | `32px`        |
+| icon-wrapped-alt         | string                  | alt text when accordion is wrapped                                                        |               |
+| icon-wrapped-url         | string                  | icon when accordion is wrapped                                                            |               |
+
+NOTE: All `dark-` prefixed attributes require `support-dark-mode="true"` to be set on the `<mjml>` tag to work effectively in all supported clients.
 
 #### mj-accordion-title
 
@@ -109,19 +121,25 @@ Displays the title in a title/text pair.
 
 ##### Attributes
 
-| attribute        | accepts           | description                                          | default value |
-| ---------------- | ----------------- | ---------------------------------------------------- | ------------- |
-| background-color | CSS color formats | background color                                     |               |
-| color            | CSS color formats | text color                                           |               |
-| css-class        | string            | class name, added to the root HTML element created   |               |
-| font-family      | string            | font family                                          |               |
-| font-size        | `px`              | font size                                            | `13px`        |
-| font-weight      | string            | text thickness                                       |               |
-| padding          | `px` `%`          | accordion title padding, supports up to 4 parameters | `16px`        |
-| padding-bottom   | `px` `%`          | accordion title bottom padding                       |               |
-| padding-left     | `px` `%`          | accordion title left padding                         |               |
-| padding-right    | `px` `%`          | accordion title right padding                        |               |
-| padding-top      | `px` `%`          | accordion title top padding                          |               |
+| attribute                | accepts           | description                                          | default value |
+| ------------------------ | ----------------- | ---------------------------------------------------- | ------------- |
+| background-color         | CSS color formats | background color                                     |               |
+| color                    | CSS color formats | text color                                           |               |
+| css-class                | string            | class name, added to the root HTML element created   |               |
+| dark-background-color    | CSS color formats | background color in dark mode                        |               |
+| dark-color               | CSS color formats | text color in dark mode                              |               |
+| dark-icon-unwrapped-url  | string            | dark-mode icon when accordion is unwrapped           |               |
+| dark-icon-wrapped-url    | string            | dark-mode icon when accordion is wrapped             |               |
+| font-family              | string            | font family                                          |               |
+| font-size                | `px`              | font size                                            | `13px`        |
+| font-weight              | string            | text thickness                                       |               |
+| padding                  | `px` `%`          | accordion title padding, supports up to 4 parameters | `16px`        |
+| padding-bottom           | `px` `%`          | accordion title bottom padding                       |               |
+| padding-left             | `px` `%`          | accordion title left padding                         |               |
+| padding-right            | `px` `%`          | accordion title right padding                        |               |
+| padding-top              | `px` `%`          | accordion title top padding                          |               |
+
+NOTE: All `dark-` prefixed attributes require `support-dark-mode="true"` to be set on the `<mjml>` tag to work effectively in all supported clients.
 
 #### mj-accordion-text
 
@@ -129,18 +147,22 @@ Displays the text in a title/text pair.
 
 ##### Attributes
 
-| attribute        | accepts           | description                                         | default value |
-| ---------------- | ----------------- | --------------------------------------------------- | ------------- |
-| background-color | CSS color formats | background color                                    |               |
-| color            | CSS color formats | text color                                          |               |
-| css-class        | string            | class name, added to the root HTML element created  |               |
-| font-family      | string            | font family                                         |               |
-| font-size        | `px`              | font size                                           | `13px`        |
-| font-weight      | string            | text thickness                                      |               |
-| letter-spacing   | `px` `em`         | letter spacing                                      |               |
-| line-height      | `px` `%`          | space between the lines                             | `1`           |
-| padding          | `px` `%`          | accordion text padding, supports up to 4 parameters | `16px`        |
-| padding-bottom   | `px` `%`          | accordion text bottom padding                       |               |
-| padding-left     | `px` `%`          | accordion text left padding                         |               |
-| padding-right    | `px` `%`          | accordion text right padding                        |               |
-| padding-top      | `px` `%`          | accordion text top padding                          |               |
+| attribute                | accepts           | description                                         | default value |
+| ------------------------ | ----------------- | --------------------------------------------------- | ------------- |
+| background-color         | CSS color formats | background color                                    |               |
+| color                    | CSS color formats | text color                                          |               |
+| css-class                | string            | class name, added to the root HTML element created  |               |
+| dark-background-color    | CSS color formats | background color in dark mode                       |               |
+| dark-color               | CSS color formats | text color in dark mode                             |               |
+| font-family              | string            | font family                                         |               |
+| font-size                | `px`              | font size                                           | `13px`        |
+| font-weight              | string            | text thickness                                      |               |
+| letter-spacing           | `px` `em`         | letter spacing                                      |               |
+| line-height              | `px` `%`          | space between the lines                             | `1`           |
+| padding                  | `px` `%`          | accordion text padding, supports up to 4 parameters | `16px`        |
+| padding-bottom           | `px` `%`          | accordion text bottom padding                       |               |
+| padding-left             | `px` `%`          | accordion text left padding                         |               |
+| padding-right            | `px` `%`          | accordion text right padding                        |               |
+| padding-top              | `px` `%`          | accordion text top padding                          |               |
+
+NOTE: All `dark-` prefixed attributes require `support-dark-mode="true"` to be set on the `<mjml>` tag to work effectively in all supported clients.

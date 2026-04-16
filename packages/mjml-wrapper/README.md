@@ -43,29 +43,37 @@ Setting it will change the width of the section from the default 600px to 100%.
 
 #### Attributes
 
-| attribute             | accepts                 | description                                                                                            | default value |
-| --------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------ | ------------- |
-| background-color      | CSS color formats       | section color                                                                                          |               |
-| background-position   | string                  | CSS values, i.e. `left` `center` `right` + `top` `center` `bottom` <br>(see outlook limitations below) | `top center`  |
-| background-position-x | string                  | CSS values, i.e. `left` `center` `right` <br>(see outlook limitations below)                           |               |
-| background-position-y | string                  | CSS values, i.e. `top` `center` `bottom` <br>(see outlook limitations below)                           |               |
-| background-repeat     | `repeat` `no-repeat`    | set the background image to repeat                                                                     |               |
-| background-size       | string                  | CSS values e.g. `auto` `cover` `contain` `px` `%` size                                                 | `auto`        |
-| background-url        | string                  | background image, in URL format                                                                        |               |
-| border                | string                  | CSS border format                                                                                      |               |
-| border-bottom         | string                  | CSS border format                                                                                      |               |
-| border-left           | string                  | CSS border format                                                                                      |               |
-| border-radius         | string                  | border radius                                                                                          |               |
-| border-right          | string                  | CSS border format                                                                                      |               |
-| border-top            | string                  | CSS border format                                                                                      |               |
-| css-class             | string                  | class name, added to the root HTML element created                                                     |               |
-| full-width            | `full-width` `false`    | make the section full-width                                                                            |               |
-| gap                   | `px`                    | applies a vertical gap between child `mj-section` instances                                            |               |
-| padding               | `px` `%`                | section padding, supports up to 4 parameters                                                           | `20px 0`      |
-| padding-bottom        | `px` `%`                | section bottom padding                                                                                 |               |
-| padding-left          | `px` `%`                | section left padding                                                                                   |               |
-| padding-right         | `px` `%`                | section right padding                                                                                  |               |
-| padding-top           | `px` `%`                | section top padding                                                                                    |               |
-| text-align            | `left` `center` `right` | CSS text-align                                                                                         | `center`      |
+| attribute                | accepts                 | description                                                                                            | default value |
+| ------------------------ | ----------------------- | ------------------------------------------------------------------------------------------------------ | ------------- |
+| background-color         | CSS color formats       | section color                                                                                          |               |
+| background-position      | string                  | CSS values, i.e. `left` `center` `right` + `top` `center` `bottom` <br>(see outlook limitations below) | `top center`  |
+| background-position-x    | string                  | CSS values, i.e. `left` `center` `right` <br>(see outlook limitations below)                           |               |
+| background-position-y    | string                  | CSS values, i.e. `top` `center` `bottom` <br>(see outlook limitations below)                           |               |
+| background-repeat        | `repeat` `no-repeat`    | set the background image to repeat                                                                     |               |
+| background-size          | string                  | CSS values e.g. `auto` `cover` `contain` `px` `%` size                                                 |               |
+| background-url           | string                  | background image, in URL format                                                                        |               |
+| border                   | string                  | CSS border format                                                                                      |               |
+| border-bottom            | string                  | CSS border format                                                                                      |               |
+| border-left              | string                  | CSS border format                                                                                      |               |
+| border-radius            | string                  | border radius                                                                                          |               |
+| border-right             | string                  | CSS border format                                                                                      |               |
+| border-top               | string                  | CSS border format                                                                                      |               |
+| css-class                | string                  | class name, added to the root HTML element created                                                     |               |
+| dark-background-color    | CSS color formats       | background color to use in dark mode                                                                   |               |
+| dark-background-url      | string                  | background image to use in dark mode                                                                   |               |
+| dark-border-color        | CSS color formats       | border color to use in dark mode for all sides                                                         |               |
+| dark-border-bottom-color | CSS color formats       | bottom border color in dark mode - overrides `dark-border-color` for bottom only                       |               |
+| dark-border-left-color   | CSS color formats       | left border color in dark mode - overrides `dark-border-color` for left only                           |               |
+| dark-border-right-color  | CSS color formats       | right border color in dark mode - overrides `dark-border-color` for right only                         |               |
+| dark-border-top-color    | CSS color formats       | top border color in dark mode - overrides `dark-border-color` for top only                             |               |
+| full-width               | `full-width` `false`    | make the section full-width                                                                            |               |
+| gap                      | `px`                    | applies a vertical gap between child `mj-section` instances                                            |               |
+| padding                  | `px` `%`                | section padding, supports up to 4 parameters                                                           | `20px 0`      |
+| padding-bottom           | `px` `%`                | section bottom padding                                                                                 |               |
+| padding-left             | `px` `%`                | section left padding                                                                                   |               |
+| padding-right            | `px` `%`                | section right padding                                                                                  |               |
+| padding-top              | `px` `%`                | section top padding                                                                                    |               |
+
+NOTE: All `dark-` prefixed attributes require `support-dark-mode="true"` to be set on the `<mjml>` tag to work effectively in all supported clients.
 
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/wrapper">Try it live</a></p>

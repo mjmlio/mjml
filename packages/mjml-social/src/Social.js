@@ -1,5 +1,10 @@
 import { BodyComponent } from 'mjml-core'
 import { isNil } from 'lodash'
+import {
+  emitDarkModeHeadStyle,
+  registerDarkModeRule,
+} from 'mjml-core/lib/helpers/colorSchemeDarkMode'
+import { msoConditionalTag } from 'mjml-core/lib/helpers/conditionalTag'
 
 export default class MjSocial extends BodyComponent {
   static componentName = 'mj-social'
@@ -7,8 +12,10 @@ export default class MjSocial extends BodyComponent {
   static allowedAttributes = {
     align: 'enum(left,right,center)',
     'border-radius': 'string',
-    'container-background-color': 'color',
     color: 'color',
+    'container-background-color': 'color',
+    'dark-color': 'color',
+    'dark-container-background-color': 'color',
     'font-family': 'string',
     'font-size': 'unit(px)',
     'font-style': 'string',
@@ -19,11 +26,11 @@ export default class MjSocial extends BodyComponent {
     'inner-padding': 'unit(px,%){1,4}',
     'line-height': 'unit(px,%,)',
     mode: 'enum(horizontal,vertical)',
+    padding: 'unit(px,%){1,4}',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
-    padding: 'unit(px,%){1,4}',
     'table-layout': 'enum(auto,fixed)',
     'text-padding': 'unit(px,%){1,4}',
     'text-decoration': 'string',
@@ -34,7 +41,7 @@ export default class MjSocial extends BodyComponent {
     align: 'center',
     'border-radius': '3px',
     color: '#333333',
-    'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
+    'font-family': 'Ubuntu, sans-serif',
     'font-size': '13px',
     'icon-size': '20px',
     'inner-padding': null,
@@ -42,6 +49,46 @@ export default class MjSocial extends BodyComponent {
     mode: 'horizontal',
     padding: '10px 25px',
     'text-decoration': 'none',
+  }
+
+  darkContainerClass = undefined
+
+  getDarkContainerClass() {
+    if (typeof this.darkContainerClass !== 'undefined') {
+      return this.darkContainerClass
+    }
+
+    const darkContainerBg = this.attributes['dark-container-background-color']
+
+    if (!darkContainerBg) {
+      this.darkContainerClass = null
+      return this.darkContainerClass
+    }
+
+    this.darkContainerClass = registerDarkModeRule(
+      this.context && this.context.globalData,
+      {
+        cssProperty: 'background-color',
+        cssValue: darkContainerBg,
+      },
+    )
+
+    return this.darkContainerClass
+  }
+
+  getAttribute(name) {
+    if (name === 'css-class') {
+      const base = this.attributes['css-class']
+      const darkClass = this.getDarkContainerClass()
+      return [base, darkClass].filter(Boolean).join(' ') || undefined
+    }
+
+    return this.attributes[name]
+  }
+
+  componentHeadStyle = () => {
+    emitDarkModeHeadStyle(this.context && this.context.globalData)
+    return ''
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -59,9 +106,10 @@ export default class MjSocial extends BodyComponent {
       base.padding = this.getAttribute('inner-padding')
     }
 
-    return [
+    const attributes = [
       'border-radius',
       'color',
+      'dark-color',
       'font-family',
       'font-size',
       'font-weight',
@@ -78,82 +126,74 @@ export default class MjSocial extends BodyComponent {
         res[attr] = this.getAttribute(attr)
         return res
       }, base)
+
+    return attributes
   }
 
   renderHorizontal() {
     const { children } = this.props
 
     return `
-     <!--[if mso | IE]>
-      <table
+      ${msoConditionalTag(`<table
         ${this.htmlAttributes({
           align: this.getAttribute('align'),
           border: '0',
           cellpadding: '0',
           cellspacing: '0',
-          role: 'presentation',
+          role: 'none',
         })}
       >
         <tr>
-      <![endif]-->
+      `)}
       ${this.renderChildren(children, {
         attributes: this.getSocialElementAttributes(),
         renderer: (component) =>
           component.constructor.isRawElement()
             ? component.render()
             : `
-            <!--[if mso | IE]>
+            ${msoConditionalTag(`
               <td>
-            <![endif]-->
+            `)}
               <table
                 ${component.htmlAttributes({
                   align: this.getAttribute('align'),
                   border: '0',
                   cellpadding: '0',
                   cellspacing: '0',
-                  role: 'presentation',
+                  role: 'none',
                   style: {
                     float: 'none',
                     display: 'inline-table',
                   },
                 })}
               >
-                <tbody>
-                  ${component.render()}
-                </tbody>
+                ${component.render()}
               </table>
-            <!--[if mso | IE]>
-              </td>
-            <![endif]-->
+            ${msoConditionalTag(`
+              </td>`)}
           `,
       })}
-      <!--[if mso | IE]>
+      ${msoConditionalTag(`
           </tr>
-        </table>
-      <![endif]-->
-    `
+        </table>`)}`
   }
 
   renderVertical() {
     const { children } = this.props
 
-    return `
-      <table
+    return `<table
         ${this.htmlAttributes({
           border: '0',
           cellpadding: '0',
           cellspacing: '0',
-          role: 'presentation',
+          role: 'none',
           style: 'tableVertical',
         })}
       >
-        <tbody>
-          ${this.renderChildren(children, {
-            attributes: this.getSocialElementAttributes(),
-          })}
-        </tbody>
-      </table>
-    `
+        ${this.renderChildren(children, {
+          attributes: this.getSocialElementAttributes(),
+        })}
+      </table>`
   }
 
   render() {

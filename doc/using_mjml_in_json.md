@@ -13,10 +13,10 @@ Exactly like using MJML as a markup, the JSON definition can be passed as an obj
 Here is working example:
 
 ```javascript
-var mjml2html = require('mjml')
+import mjml2html from 'mjml'
 
-console.log(
-  mjml2html({
+async function example() {
+  const result = await mjml2html({
     tagName: 'mjml',
     attributes: {},
     children: [
@@ -60,7 +60,9 @@ console.log(
           },
         ],
       },
-    ],
-  }),
-)
+    ])
+  console.log(result)
+}
+
+example()
 ```

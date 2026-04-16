@@ -34,8 +34,9 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
     keepComments = true,
     filePath = '.',
     actualPath = '.',
-    ignoreIncludes = false,
+    ignoreIncludes = true,
     preprocessors = [],
+    includePath,
   } = options
 
   const endingTags = flow(
@@ -64,8 +65,98 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
   const findTag = (tagName, tree) => find(tree.children, { tagName })
   const lineIndexes = indexesForNewLine(xml)
 
+  const extraAllowedRoots = []
+  const addAllowedRoot = (p) => {
+    if (!p) return
+    try {
+      const resolved = fs.realpathSync(path.resolve(cwd, p))
+      extraAllowedRoots.push(resolved)
+    } catch (_) {
+      // ignore non-existent paths
+    }
+  }
+
+  // Fully decode URL-encoded strings, handling double/triple encodings
+  const fullyDecode = (input) => {
+    let result = String(input)
+    for (let i = 0; i < 10; i += 1) {
+      try {
+        const decoded = decodeURIComponent(result)
+        if (decoded === result) break
+        result = decoded
+      } catch (_) {
+        break
+      }
+    }
+    return result
+  }
+
+  const isUNCPath = (p) => p.startsWith('\\') || p.startsWith('//')
+  const hasDriveLetter = (p) => /^[a-zA-Z]:/.test(p)
+
+  if (Array.isArray(includePath)) {
+    includePath.forEach(addAllowedRoot)
+  } else {
+    addAllowedRoot(includePath)
+  }
+
+  const isPathAllowed = (absolutePath) => {
+    try {
+      const target = fs.realpathSync(absolutePath)
+      const root = fs.realpathSync(cwd)
+      const roots = [root, ...extraAllowedRoots]
+
+      return roots.some((r) => {
+        const relative = path.relative(r, target)
+        return (
+          relative && !relative.startsWith('..') && !path.isAbsolute(relative)
+        )
+      })
+    } catch (e) {
+      return false
+    }
+  }
+
+  const denyInclude = (line) => {
+    const newNode = {
+      line,
+      file: actualPath,
+      absoluteFilePath: path.resolve(cwd, actualPath),
+      parent: cur,
+      tagName: 'mj-raw',
+      content: '<!-- mj-include denied -->',
+      children: [],
+      errors: [
+        {
+          type: 'include-denied',
+          params: {},
+        },
+      ],
+    }
+
+    cur.children.push(newNode)
+  }
+
   const handleCssHtmlInclude = (file, attrs, line) => {
-    const partialPath = path.resolve(cwd, file)
+    const decoded = fullyDecode(file)
+    // Early rejects for dangerous patterns
+    if (
+      decoded.includes('\0') ||
+      path.isAbsolute(decoded) ||
+      hasDriveLetter(decoded) ||
+      isUNCPath(decoded)
+    ) {
+      denyInclude(line)
+      return
+    }
+
+    const partialPath = path.resolve(cwd, decoded)
+
+    if (!isPathAllowed(partialPath)) {
+      denyInclude(line)
+      return
+    }
+
     let content
     try {
       content = fs.readFileSync(partialPath, 'utf8')
@@ -120,8 +211,25 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
   }
 
   const handleInclude = (file, line) => {
-    const partialPath = path.resolve(cwd, file)
+    const decoded = fullyDecode(file)
+    // Early rejects for dangerous patterns
+    if (
+      decoded.includes('\0') ||
+      path.isAbsolute(decoded) ||
+      hasDriveLetter(decoded) ||
+      isUNCPath(decoded)
+    ) {
+      denyInclude(line)
+      return
+    }
+
+    const partialPath = path.resolve(cwd, decoded)
     const curBeforeInclude = cur
+
+    if (!isPathAllowed(partialPath)) {
+      denyInclude(line)
+      return
+    }
 
     if (find(cur.includedIn, { file: partialPath }))
       throw new Error(`Circular inclusion detected on file : ${partialPath}`)
@@ -238,12 +346,12 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
           if (ignoreIncludes || !isNode) return
 
           if (attrs.type === 'css' || attrs.type === 'html') {
-            handleCssHtmlInclude(decodeURIComponent(attrs.path), attrs, line)
+            handleCssHtmlInclude(attrs.path, attrs, line)
             return
           }
 
           inInclude = true
-          handleInclude(decodeURIComponent(attrs.path), line)
+          handleInclude(attrs.path, line)
           return
         }
 

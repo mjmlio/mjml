@@ -124,11 +124,58 @@ These are the default options.
 ### Change minify options
 
 ```bash
-$> mjml input.mjml --config.minifyOptions='{"minifyCSS": true, "removeEmptyAttributes": false}'
+$> mjml input.mjml --config.minifyOptions='{"minifyCss": true, "removeEmptyAttributes": false}'
 ```
 
-The defaults are "collapseWhitespace": true, "minifyCSS": false, "removeEmptyAttributes": true  
-See html-minifier documentation for more available options
+Defaults when minify is enabled (htmlnano):
+- collapseWhitespace: true
+- minifyCss: 'lite' (if not provided)
+- removeEmptyAttributes: true
+- removeComments: 'safe'
+- minifyJs: false
+
+See htmlnano documentation for more options, and cssnano for `minifyCss` presets/options.
+
+Compatibility note:
+- The CSS minifier is configured via `minifyCss`. For backward compatibility, `minifyCSS` is still accepted and mapped internally:
+	- `{"minifyCSS": false}` → disables CSS minification
+	- `{"minifyCSS": true}` → enables CSS minification with the `'lite'` preset
+- To customize string quotation, pass a cssnano option, for example:
+	- `--config.minifyOptions '{"minifyCss":{"preset":["default", {"normalizeString":{"preferredQuote":"single"}}]}}'`
+
+### Sanitize template variables in CSS
+
+When your MJML contains template variables inside `<mj-style>` or inline `style="..."`, enable sanitization so CSS minification (PostCSS/cssnano) doesn't parse your template tokens:
+
+```bash
+$> mjml input.mjml --config.sanitizeStyles true --config.minify true
+```
+
+Alternatively, keep HTML minification but skip CSS minification entirely:
+
+```bash
+$> mjml input.mjml --config.minify true --config.minifyOptions='{"minifyCss": false}'
+```
+
+### Allow mixed template syntaxes
+
+By default, mixing block tokens and CSS tokens in the same document is disallowed to avoid subtle parsing issues. Opt in with:
+
+```bash
+$> mjml input.mjml --config.sanitizeStyles true --config.minify true --config.allowMixedSyntax true
+```
+
+### Specify template syntax delimiters
+
+You can provide one or more template syntaxes via JSON. Each entry is an object with `prefix` and `suffix`:
+
+```bash
+$> mjml input.mjml \
+	--config.sanitizeStyles true \
+	--config.templateSyntax='[{"prefix":"[[","suffix":"]]"},{"prefix":"{{","suffix":"}}"}]'
+```
+
+This is equivalent to setting the same `templateSyntax` array in `.mjmlconfig.js` or passing it programmatically.
 
 ### Change juice options (library used for inlining mj-style css)
 
@@ -154,6 +201,54 @@ $> mjml ./my-project/input.mjml --config.filePath ./my-partials/
 ```
 
 If you like to keep your partials together and you want to be able to mj-include them without having to change the relative path of the includes depending on the compiled file path, you can use this option. In this exemple, `<mj-include path="./header.mjml" />` will include `./my-partials/header.mjml`, ignoring the actual path of `input.mjml`.
+
+### Allow includes (opt-in)
+
+By default, includes are ignored for security (`ignoreIncludes: true`). Enable them during local development with `--config.allowIncludes true`:
+
+```bash
+$> mjml input.mjml --config.allowIncludes true
+```
+
+When enabled, include paths are restricted to the directory of the input file and its subdirectories. Absolute paths and paths escaping the project directory are denied.
+
+### Allowlist include directories
+
+If your includes live outside the template folder (e.g., a sibling `_common` directory), you can explicitly allow additional roots with `includePath`. Paths are resolved relative to `--config.filePath` when provided.
+
+```bash
+# Allow includes and declare two additional roots (JSON array)
+$> mjml template.mjml \
+	--config.filePath /project/templates/newsletter \
+	--config.allowIncludes true \
+	--config.includePath '["../_common","../vendor"]'
+
+# Or provide absolute paths
+$> mjml template.mjml \
+	--config.filePath /project/templates/newsletter \
+	--config.allowIncludes true \
+	--config.includePath '["/project/templates/_common","/project/vendor"]'
+```
+
+Notes:
+
+- `includePath` accepts a string or a JSON array of paths.
+- Allowed roots are the `filePath` directory plus any `includePath` entries; absolute paths outside these roots and parent-directory escapes remain denied.
+- Relative `includePath` entries are resolved against `filePath` (or the template file’s directory when `filePath` isn’t set).
+
+Security notes:
+
+- Includes are ignored by default (`ignoreIncludes: true`). Enable explicitly only when needed.
+- Paths are fully URL-decoded before validation (handles double/triple encoding).
+- Early rejects: absolute paths, UNC paths (`//server/...` or `\\server\\...`), Windows drive letters (`C:\...`), and null bytes (`%00`).
+- Canonical checks: we resolve and follow symlinks with `realpath` and verify the target stays inside `filePath` or `includePath` roots.
+- Allowed file types: `mjml`, `css`, and `html` via `<mj-include type="...">`; other extensions are not supported.
+
+### Best practices for shared partials
+
+- If templates reference partials relative to a shared base (e.g., `./_common/header.mjml`), set `--config.filePath` to that base.
+- If templates use relative paths to siblings (e.g., `../_common/header.mjml`), keep paths as-is and use `--config.includePath` to allowlist the sibling directories.
+- Always run with `--config.allowIncludes true` when developing locally; production defaults should keep includes ignored unless explicitly needed.
 
 ### Log error stack
 

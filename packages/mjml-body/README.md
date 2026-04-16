@@ -12,10 +12,11 @@ This is the starting point of your email. To aid accessibility, MJML automatical
 
 #### Attributes
 
-| attribute           | accepts           | description                                        | default value |
-| ------------------- | ----------------- | -------------------------------------------------- | ------------- |
-| background-color    | CSS color formats | the general background color                       |               |
-| css-class           | string            | class name, added to the root HTML element created |               |
-| width               | `px`              | email width                                        | `600px`       |
+| attribute           | accepts           | description                                           | default value |
+| ------------------- | ----------------- | ----------------------------------------------------- | ------------- |
+| background-color    | CSS color formats | the general background color                          |               |
+| css-class           | string            | class, added to the `body` tag in the generated HTML. |               |
+| id                  | string            | id, added to the `body` tag in the generated HTML     |               |
+| width               | `px`              | email width                                           | `600px`       |
 
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/body">Try it live</a></p>

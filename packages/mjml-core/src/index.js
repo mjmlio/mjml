@@ -10,18 +10,16 @@ import {
   each,
   isEmpty,
 } from 'lodash'
-import path from 'path'
 import juice from 'juice'
-import { html as htmlBeautify } from 'js-beautify'
-import { minify as htmlMinify } from 'html-minifier'
 import { load } from 'cheerio'
+import prettier from 'prettier'
+import minifier from 'htmlnano'
 
 import MJMLParser from 'mjml-parser-xml'
 import MJMLValidator, {
   dependencies as globalDependencies,
   assignDependencies,
 } from 'mjml-validator'
-import { handleMjml3 } from 'mjml-migrate'
 
 import { initComponent } from './createComponent'
 import globalComponents, {
@@ -42,6 +40,315 @@ import handleMjmlConfig, {
 } from './helpers/mjmlconfig'
 
 const isNode = require('detect-node')
+const fs = require('fs')
+const path = require('path')
+
+const cssnanoLitePreset = require('cssnano-preset-lite')
+
+function normalizeMinifyCssOption(minifyCss) {
+  if (minifyCss === 'lite') {
+    return { preset: cssnanoLitePreset }
+  }
+
+  if (minifyCss && typeof minifyCss === 'object') {
+    if (minifyCss.preset === 'lite') {
+      return { ...minifyCss, preset: cssnanoLitePreset }
+    }
+
+    if (Array.isArray(minifyCss.preset) && minifyCss.preset[0] === 'lite') {
+      return {
+        ...minifyCss,
+        preset: [cssnanoLitePreset, minifyCss.preset[1] || {}],
+      }
+    }
+  }
+
+  return minifyCss
+}
+
+function escapeRegex(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+}
+
+function sanitizeInlineStyleAttributes(html, syntaxes) {
+  return html.replace(/style="([^"]*)"/g, (match, styleValue) => {
+    let sanitizedValue = styleValue
+    syntaxes.forEach(({ prefix, suffix }, idx) => {
+      const regex = new RegExp(
+        `(\\s*)${escapeRegex(prefix)}\\s*([\\s\\S]*?)\\s*${escapeRegex(suffix)}(\\s*)`,
+        'g',
+      )
+      sanitizedValue = sanitizedValue.replace(
+        regex,
+        (m, leading, variable, trailing) => `${leading}sanitized${idx}:${variable};${trailing}`,
+      )
+    })
+    sanitizedValue = sanitizedValue.replace(/;$/, '')
+    return `style="${sanitizedValue}"`
+  })
+}
+
+function restoreInlineStyleAttributes(html, syntaxes) {
+  return html.replace(/style="([^"]*)"/g, (match, styleValue) => {
+    let restoredValue = styleValue
+    syntaxes.forEach(({ prefix, suffix }, idx) => {
+      const regex = new RegExp(`sanitized${idx}:([\\s\\S]*?)(;|$)`, 'g')
+      restoredValue = restoredValue.replace(regex, `${prefix}$1${suffix}`)
+    })
+    restoredValue = restoredValue.replace(/;$/, '')
+    return `style="${restoredValue}"`
+  })
+}
+
+function sanitizeStyleTagBlocks(html, syntaxes) {
+  return html.replace(/<style(?:\b[^>]*)?>([\s\S]*?)<\/style\s*>/g, (block, content) => {
+    let sanitizedContent = content
+    syntaxes.forEach(({ prefix, suffix }, idx) => {
+      const regex = new RegExp(
+        `\\s*${escapeRegex(prefix)}([\\s\\S]*?)${escapeRegex(suffix)}\\s*`,
+        'g',
+      )
+      sanitizedContent = sanitizedContent.replace(regex, `sanitized${idx}:$1;`)
+    })
+    return block.replace(content, sanitizedContent)
+  })
+}
+
+function restoreStyleTagBlocks(html, syntaxes) {
+  return html.replace(/sanitized(\d):([\s\S]*?);/g, (match, idx, variable) => {
+    const { prefix, suffix } = syntaxes[Number(idx)] || {}
+    if (!prefix || !suffix) return match
+    return `${prefix}${variable}${suffix}`
+  })
+}
+
+function sanitizeCssValueVariablesHtml(html, syntaxes) {
+  let counter = 0
+  const variableMap = {}
+
+  // style="..."
+  let result = html.replace(/style="([^"]*)"/g, (match, styleValue) => {
+    let sanitizedValue = styleValue
+    const matches = []
+
+    syntaxes.forEach(({ prefix, suffix }) => {
+      const regex = new RegExp(
+        `:\\s*${escapeRegex(prefix)}\\s*([\\s\\S]*?)\\s*${escapeRegex(suffix)}`,
+        'g',
+      )
+      let m = regex.exec(styleValue)
+      while (m) {
+        // capture the full token only (prefix...suffix)
+        const fullToken = m[0].replace(/^\s*:\s*/, '')
+        matches.push({ index: m.index, full: fullToken })
+        m = regex.exec(styleValue)
+      }
+    })
+
+    matches.sort((a, b) => a.index - b.index)
+    matches.forEach(({ full }) => {
+      const tempVar = `variable_temp_${counter}`
+      variableMap[tempVar] = full
+      sanitizedValue = sanitizedValue.replace(full, ` ${tempVar} `)
+      counter += 1
+    })
+
+    sanitizedValue = sanitizedValue.replace(/\s+/g, ' ').trim()
+    return `style="${sanitizedValue}"`
+  })
+
+  // <style> ... </style>
+  result = result.replace(/<style(?:\b[^>]*)?>([\s\S]*?)<\/style\s*>/g, (block, content) => {
+    let sanitizedContent = content
+    const styleMatches = []
+
+    syntaxes.forEach(({ prefix, suffix }) => {
+      const regex = new RegExp(
+          `:\\s*${escapeRegex(prefix)}\\s*([\\s\\S]*?)\\s*${escapeRegex(suffix)}`,
+          'g',
+        'g',
+      )
+      let m = regex.exec(content)
+      while (m) {
+        const fullToken = m[0].replace(/^\s*:\s*/, '')
+        styleMatches.push({ index: m.index, full: fullToken })
+        m = regex.exec(content)
+      }
+    })
+
+    styleMatches.sort((a, b) => a.index - b.index)
+    styleMatches.forEach(({ full }) => {
+      const tempVar = `variable_temp_${counter}`
+      variableMap[tempVar] = full
+      sanitizedContent = sanitizedContent.replace(full, ` ${tempVar} `)
+      counter += 1
+    })
+
+    return block.replace(content, sanitizedContent)
+  })
+
+  return { result, variableMap }
+}
+
+function restoreCssValueVariablesHtml(html, variableMap) {
+  let restoredHtml = html
+  Object.entries(variableMap).forEach(([tempVar, originalVar]) => {
+    const regex = new RegExp(`\\b${tempVar}\\b`, 'g')
+    restoredHtml = restoredHtml.replace(regex, originalVar)
+  })
+  return restoredHtml
+}
+
+function sanitizeCssPropertyVariablesHtml(html, syntaxes) {
+  let counter = 0
+  const propMap = {}
+
+  // style="..."
+  let result = html.replace(/style="([^"]*)"/g, (match, styleValue) => {
+    let sanitizedValue = styleValue
+    const matches = []
+
+    syntaxes.forEach(({ prefix, suffix }) => {
+      const regex = new RegExp(
+        `${escapeRegex(prefix)}\\s*([\\s\\S]*?)\\s*${escapeRegex(suffix)}\\s*:`,
+        'g',
+      )
+      let m = regex.exec(styleValue)
+      while (m) {
+        matches.push({ index: m.index, full: m[0], varOnly: m[1] })
+        m = regex.exec(styleValue)
+      }
+    })
+
+    // Replace from left to right
+    matches.sort((a, b) => a.index - b.index)
+    matches.forEach(({ full }) => {
+      const tempVar = `--mj-prop-temp_${counter}`
+      const originalToken = full.replace(/\s*:\s*$/, '')
+      propMap[tempVar] = originalToken
+      sanitizedValue = sanitizedValue.replace(full, `${tempVar}:`)
+      counter += 1
+    })
+
+    sanitizedValue = sanitizedValue.replace(/\s+/g, ' ').trim()
+    return `style="${sanitizedValue}"`
+  })
+
+  // <style> ... </style>
+  result = result.replace(/<style(?:\b[^>]*)?>([\s\S]*?)<\/style\s*>/g, (block, content) => {
+    let sanitizedContent = content
+    const styleMatches = []
+
+    syntaxes.forEach(({ prefix, suffix }) => {
+      const regex = new RegExp(
+        `${escapeRegex(prefix)}\\s*([\\s\\S]*?)\\s*${escapeRegex(suffix)}\\s*:`,
+        'g',
+      )
+      let m = regex.exec(content)
+      while (m) {
+        styleMatches.push({ index: m.index, full: m[0], varOnly: m[1] })
+        m = regex.exec(content)
+      }
+    })
+
+    styleMatches.sort((a, b) => a.index - b.index)
+    styleMatches.forEach(({ full }) => {
+      const tempVar = `--mj-prop-temp_${counter}`
+      const originalToken = full.replace(/\s*:\s*$/, '')
+      propMap[tempVar] = originalToken
+      sanitizedContent = sanitizedContent.replace(full, `${tempVar}:`)
+      counter += 1
+    })
+
+    return block.replace(content, sanitizedContent)
+  })
+
+  return { result, propMap }
+}
+
+function restoreCssPropertyVariablesHtml(html, propMap) {
+  let restoredHtml = html
+  Object.entries(propMap).forEach(([tempVar, originalVar]) => {
+    const regex = new RegExp(`${escapeRegex(tempVar)}\\s*:`, 'g')
+    restoredHtml = restoredHtml.replace(regex, `${originalVar}:`)
+  })
+  return restoredHtml
+}
+
+function detectVariableTypeInHtml(html, syntaxes) {
+  const styleAttrValues = []
+  html.replace(/style="([^"]*)"/g, (m, val) => {
+    styleAttrValues.push(val)
+    return m
+  })
+  const styleBlockValues = []
+  html.replace(/<style(?:\b[^>]*)?>([\s\S]*?)<\/style\s*>/g, (m, val) => {
+    styleBlockValues.push(val)
+    return m
+  })
+  const styleContent = [...styleAttrValues, ...styleBlockValues].join('\n')
+
+    const cssValuePattern = syntaxes
+      .map(({ prefix }) => `[a-z-]+\\s*:\\s*[^;}"]*${escapeRegex(prefix)}`)
+    .join('|')
+
+  const isValueVariable = new RegExp(cssValuePattern, 'i').test(styleContent)
+
+  const cssPropertyPattern = syntaxes
+    .map(({ prefix, suffix }) => `${escapeRegex(prefix)}[^${escapeRegex(prefix)}${escapeRegex(suffix)}]*${escapeRegex(suffix)}\\s*:`)
+    .join('|')
+  const isPropertyVariable = new RegExp(cssPropertyPattern, 'i').test(styleContent)
+
+  const allVariablesPattern = syntaxes
+    .map(({ prefix, suffix }) => `${escapeRegex(prefix)}[^${escapeRegex(prefix)}${escapeRegex(suffix)}]*${escapeRegex(suffix)}`)
+    .join('|')
+
+  const allVariablesRegex = new RegExp(allVariablesPattern, 'g')
+  let isBlockVariable = false
+
+  let match = allVariablesRegex.exec(styleContent)
+  while (match) {
+    const beforeVar = styleContent.substring(0, match.index)
+    const afterIndex = match.index + match[0].length
+    const afterVar = styleContent.substring(afterIndex)
+    const isCssValueCtx = /:[^;{]*$/.test(beforeVar)
+    const isCssPropertyCtx = /^\s*:/.test(afterVar)
+    if (!isCssValueCtx && !isCssPropertyCtx) {
+      isBlockVariable = true
+      break
+    }
+    match = allVariablesRegex.exec(styleContent)
+  }
+
+  return { isBlockVariable, isValueVariable, isPropertyVariable }
+}
+
+function detectBrokenTemplateDelimitersInCss(html, syntaxes) {
+  const styleAttrValues = []
+  html.replace(/style="([^"]*)"/g, (m, val) => {
+    styleAttrValues.push(val)
+    return m
+  })
+  const styleBlockValues = []
+  html.replace(/<style(?:\b[^>]*)?>([\s\S]*?)<\/style\s*>/g, (m, val) => {
+    styleBlockValues.push(val)
+    return m
+  })
+  const styleContent = [...styleAttrValues, ...styleBlockValues].join('\n')
+
+  const broken = []
+  syntaxes.forEach(({ prefix, suffix }) => {
+    const prefixRegex = new RegExp(escapeRegex(prefix), 'g')
+    const suffixRegex = new RegExp(escapeRegex(suffix), 'g')
+    const prefixCount = (styleContent.match(prefixRegex) || []).length
+    const suffixCount = (styleContent.match(suffixRegex) || []).length
+    if (prefixCount !== suffixCount) {
+      broken.push({ prefix, suffix, prefixCount, suffixCount })
+    }
+  })
+
+  return broken
+}
 
 class ValidationError extends Error {
   constructor(message, errors) {
@@ -51,20 +358,19 @@ class ValidationError extends Error {
   }
 }
 
-export default function mjml2html(mjml, options = {}) {
+export default async function mjml2html(mjml, options = {}) {
   let content = ''
   let errors = []
 
+  // Resolve skeleton path via node-only helper to avoid dynamic require in browser builds
   if (isNode && typeof options.skeleton === 'string') {
-    /* eslint-disable global-require */
-    /* eslint-disable import/no-dynamic-require */
-    options.skeleton = require(
-      options.skeleton.charAt(0) === '.'
-        ? path.resolve(process.cwd(), options.skeleton)
-        : options.skeleton,
-    )
-    /* eslint-enable global-require */
-    /* eslint-enable import/no-dynamic-require */
+    // eslint-disable-next-line global-require
+    const skeletonLoader = require('./node-only/skeleton-loader')
+    const loadSkeleton = skeletonLoader.default || skeletonLoader.loadSkeleton
+    const loadedSk = loadSkeleton && loadSkeleton(options.skeleton)
+    if (loadedSk) {
+      options.skeleton = loadedSk
+    }
   }
 
   let packages = {}
@@ -74,27 +380,57 @@ export default function mjml2html(mjml, options = {}) {
   let error = null
   let componentRootPath = null
 
+  // Use the existing readMjmlConfig helper
   if ((isNode && options.useMjmlConfigOptions) || options.mjmlConfigPath) {
     const mjmlConfigContent = readMjmlConfig(options.mjmlConfigPath)
 
-    ;({
-      mjmlConfig: {
-        packages,
-        options: confOptions,
-        preprocessors: confPreprocessors,
-      },
-      componentRootPath,
-      error,
-    } = mjmlConfigContent)
+    if (mjmlConfigContent) {
+      // The options can be nested one or two levels deep.
+      // This safely gets the options from either structure.
+      confOptions =
+        get(mjmlConfigContent, 'mjmlConfig.mjmlConfig.options') || // For double-nested structure
+        get(mjmlConfigContent, 'mjmlConfig.options') || // For single-nested structure
+        get(mjmlConfigContent, 'options') || // If options are at the top level
+        confOptions
+
+      // This safely gets packages and preprocessors
+      const packagesWrapper =
+        get(mjmlConfigContent, 'mjmlConfig.mjmlConfig') ||
+        get(mjmlConfigContent, 'mjmlConfig') ||
+        mjmlConfigContent
+      packages = packagesWrapper.packages || packages
+      confPreprocessors = packagesWrapper.preprocessors || confPreprocessors
+
+      componentRootPath =
+        mjmlConfigContent.componentRootPath || componentRootPath
+      error = mjmlConfigContent.error || error
+    }
 
     if (options.useMjmlConfigOptions) {
-      mjmlConfigOptions = confOptions
+      mjmlConfigOptions = confOptions || {}
     }
   }
 
   // if mjmlConfigPath is specified then we need to register components it on each call
   if (isNode && !error && options.mjmlConfigPath) {
-    handleMjmlConfigComponents(packages, componentRootPath, registerComponent)
+    if (Array.isArray(packages) && packages.length > 0) {
+      handleMjmlConfigComponents(packages, componentRootPath, registerComponent)
+    }
+  }
+
+  // Merge config options with explicit options (explicit wins)
+  const mergedOptions = {
+    ...mjmlConfigOptions,
+    ...options,
+    // Deep merge minifyOptions
+    minifyOptions: {
+      ...(mjmlConfigOptions.minifyOptions || {}),
+      ...(options.minifyOptions || {}),
+    },
+    // Merge preprocessors arrays
+    preprocessors: options.preprocessors
+      ? [...confPreprocessors, ...options.preprocessors]
+      : confPreprocessors,
   }
 
   const {
@@ -108,27 +444,24 @@ export default function mjml2html(mjml, options = {}) {
       Roboto: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700',
       Ubuntu: 'https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700',
     },
-    keepComments,
+    keepComments = true,
     minify = false,
-    minifyOptions = {},
-    ignoreIncludes = false,
+    minifyOptions,
+    ignoreIncludes = true,
     juiceOptions = {},
     juicePreserveTags = null,
     skeleton = defaultSkeleton,
     validationLevel = 'soft',
     filePath = '.',
     actualPath = '.',
-    noMigrateWarn = false,
     preprocessors,
     presets = [],
     printerSupport = false,
-  } = {
-    ...mjmlConfigOptions,
-    ...options,
-    preprocessors: options.preprocessors
-      ? [...confPreprocessors, ...options.preprocessors]
-      : confPreprocessors,
-  }
+    sanitizeStyles = false,
+    templateSyntax,
+    allowMixedSyntax = false,
+    includePath,
+  } = mergedOptions
 
   const components = { ...globalComponents }
   const dependencies = assignDependencies({}, globalDependencies)
@@ -138,6 +471,45 @@ export default function mjml2html(mjml, options = {}) {
   }
 
   if (typeof mjml === 'string') {
+    const pathsArr = []
+    if (Array.isArray(includePath)) {
+      pathsArr.push(
+        ...includePath.filter((p) => typeof p === 'string' && p.length > 0),
+      )
+    } else if (includePath) {
+      pathsArr.push(includePath)
+    }
+
+    if (pathsArr.length) {
+      let base = filePath || '.'
+      if (fs.existsSync(base)) {
+        const isDir = fs.lstatSync(base).isDirectory()
+        base = isDir ? base : path.dirname(base)
+      } else {
+        base = process.cwd()
+      }
+      const baseReal = fs.existsSync(base) ? fs.realpathSync(base) : base
+      for (const p of pathsArr) {
+        if (fs.existsSync(p)) {
+          const r = fs.realpathSync(p)
+          const relToBase = path.relative(baseReal, r)
+          const isOutsideBase =
+            !relToBase ||
+            relToBase.startsWith('..') ||
+            path.isAbsolute(relToBase)
+          const isRootDir = r === path.parse(r).root
+          if (isRootDir || isOutsideBase) {
+            // eslint-disable-next-line no-console
+            console.warn(
+              `[MJML security] includePath "${p}" is outside the template base "${baseReal}"${
+                isRootDir ? ' (root directory)' : ''
+              }. Consider scoping includePath to a project templates folder.`,
+            )
+          }
+        }
+      }
+    }
+
     mjml = MJMLParser(mjml, {
       keepComments,
       components,
@@ -145,13 +517,11 @@ export default function mjml2html(mjml, options = {}) {
       actualPath,
       preprocessors,
       ignoreIncludes,
+      includePath,
     })
   }
 
-  mjml = handleMjml3(mjml, { noMigrateWarn })
-
   const globalData = {
-    backgroundColor: '',
     beforeDoctype: '',
     breakpoint: '480px',
     classes: {},
@@ -295,9 +665,7 @@ export default function mjml2html(mjml, options = {}) {
     addComponentHeadSyle(headStyle) {
       globalData.componentsHeadStyle.push(headStyle)
     },
-    setBackgroundColor: (color) => {
-      globalData.backgroundColor = color
-    },
+    getGlobalDatas: () => globalData,
     processing: (node, context) => processing(node, context, applyAttributes),
   }
 
@@ -397,31 +765,117 @@ export default function mjml2html(mjml, options = {}) {
 
   content = mergeOutlookConditionnals(content)
 
-  if (beautify) {
-    // eslint-disable-next-line no-console
-    console.warn(
-      '"beautify" option is deprecated in mjml-core and only available in mjml cli.',
-    )
-    content = htmlBeautify(content, {
-      indent_size: 2,
-      wrap_attributes_indent_size: 2,
-      max_preserve_newline: 0,
-      preserve_newlines: false,
-    })
-  }
-
+  // PostProcessors
   if (minify) {
-    // eslint-disable-next-line no-console
-    console.warn(
-      '"minify" option is deprecated in mjml-core and only available in mjml cli.',
-    )
+    let normalizedMinifyOptions = minifyOptions
+    if (
+      minifyOptions &&
+      typeof minifyOptions.minifyCss === 'undefined' &&
+      typeof minifyOptions.minifyCSS !== 'undefined'
+    ) {
+      const mapped = minifyOptions.minifyCSS ? { preset: cssnanoLitePreset } : false
+      const { minifyCSS, ...rest } = minifyOptions
+      normalizedMinifyOptions = { ...rest, minifyCss: mapped }
+    }
 
-    content = htmlMinify(content, {
+    const { minifyCss: userMinifyCss, ...minifyOptionsRest } =
+      normalizedMinifyOptions || {}
+
+    let resolvedUserMinifyCss
+    if (typeof userMinifyCss !== 'undefined') {
+      if (userMinifyCss.options) {
+        resolvedUserMinifyCss = userMinifyCss.options
+      } else {
+        resolvedUserMinifyCss = userMinifyCss
+      }
+    } else {
+      resolvedUserMinifyCss = undefined
+    }
+
+    resolvedUserMinifyCss = normalizeMinifyCssOption(resolvedUserMinifyCss)
+
+    const htmlnanoOptions = {
       collapseWhitespace: true,
-      minifyCSS: false,
-      caseSensitive: true,
+      minifyCss:
+        typeof resolvedUserMinifyCss !== 'undefined'
+          ? resolvedUserMinifyCss
+          : { preset: cssnanoLitePreset },
       removeEmptyAttributes: true,
-      ...minifyOptions,
+      minifyJs: false,
+      removeComments: keepComments ? false : 'safe',
+      ...minifyOptionsRest,
+    }
+
+    let didSanitize = false
+    let isBlockVariable = false
+    let variableMap = {}
+    let propMap = {}
+    const syntaxes =
+      templateSyntax || [
+        { prefix: '{{', suffix: '}}' },
+        { prefix: '[[', suffix: ']]' },
+      ]
+
+    const cssMinifyEnabled = htmlnanoOptions.minifyCss !== false
+    if (sanitizeStyles === true && cssMinifyEnabled) {
+      const broken = detectBrokenTemplateDelimitersInCss(content, syntaxes)
+      if (broken.length) {
+        const details = broken
+          .map(
+            (b) => `${b.prefix}…${b.suffix} (${b.prefixCount} open, ${b.suffixCount} close)`,
+          )
+          .join(', ')
+        throw new Error(
+          `Unbalanced template delimiters found in CSS: ${details}. Fix template tokens or disable CSS minification via --config.minifyOptions '{"minifyCss": false}'.`,
+        )
+      }
+      const detected = detectVariableTypeInHtml(content, syntaxes)
+      isBlockVariable = detected.isBlockVariable
+      if (!allowMixedSyntax && isBlockVariable && (detected.isValueVariable || detected.isPropertyVariable)) {
+        throw new Error(
+          'Mixed variable syntax detected. Use either CSS property syntax (e.g., color: {{variable}}) OR block syntax (e.g., {{variable}}), not both in the same document.',
+        )
+      }
+      if (detected.isValueVariable) {
+        const sanitized = sanitizeCssValueVariablesHtml(content, syntaxes)
+        content = sanitized.result
+        variableMap = sanitized.variableMap
+        didSanitize = true
+      }
+      if (detected.isPropertyVariable) {
+        const sanitizedProp = sanitizeCssPropertyVariablesHtml(content, syntaxes)
+        content = sanitizedProp.result
+        propMap = sanitizedProp.propMap
+        didSanitize = true
+      }
+      if (isBlockVariable) {
+        content = sanitizeInlineStyleAttributes(content, syntaxes)
+        content = sanitizeStyleTagBlocks(content, syntaxes)
+        didSanitize = true
+      }
+    }
+
+    content = await minifier.process(content, htmlnanoOptions).then((res) => res.html)
+
+    if (didSanitize) {
+      // Always restore CSS value/property placeholders when present
+      if (variableMap && Object.keys(variableMap).length > 0) {
+        content = restoreCssValueVariablesHtml(content, variableMap)
+      }
+      if (propMap && Object.keys(propMap).length > 0) {
+        content = restoreCssPropertyVariablesHtml(content, propMap)
+      }
+
+      // Additionally restore block-style tokens if they were detected
+      if (isBlockVariable) {
+        content = restoreInlineStyleAttributes(content, syntaxes)
+        content = restoreStyleTagBlocks(content, syntaxes)
+      }
+    }
+  } else if (beautify) {
+    content = await prettier.format(content, {
+      parser: 'html',
+      printWidth: 240,
     })
   }
 

@@ -3,7 +3,7 @@ const { load } = require('cheerio')
 const mjml = require('../lib')
 
 describe('mj-accordion font-family inheritance', function () {
-  it('should render correct font-family in CSS style values on accordion-title and accordion-text', function () {
+  it('should render correct font-family in CSS style values on accordion-title and accordion-text', async function () {
     const input = `
     <mjml>
       <mj-body>
@@ -35,7 +35,7 @@ describe('mj-accordion font-family inheritance', function () {
     </mjml>
     `
 
-    const { html } = mjml(input)
+    const { html } = await mjml(input)
 
     const $ = load(html)
 

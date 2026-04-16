@@ -5,9 +5,14 @@
   "command": {
     "publish": {
       "exact": true
+    },
+    "run": {
+      "stream": true,
+      "parallel": true,
+      "concurrency": 1
     }
   },
   "npmClient": "yarn",
   "useWorkspaces": true,
-  "version": "4.18.0"
+  "version": "5.0.0-beta.2"
 }

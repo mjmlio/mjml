@@ -3,7 +3,7 @@ const { load } = require('cheerio')
 const mjml = require('../lib')
 
 describe('mj-accordion-title font-weight', function () {
-  it('should render correct font-weight in CSS style values on accordion-title', function () {
+  it('should render correct font-weight in CSS style values on accordion-title', async function () {
     const input = `
     <mjml>
       <mj-head>
@@ -41,7 +41,7 @@ describe('mj-accordion-title font-weight', function () {
     </mjml>
     `
 
-    const { html } = mjml(input)
+    const { html } = await mjml(input)
 
     const $ = load(html)
 

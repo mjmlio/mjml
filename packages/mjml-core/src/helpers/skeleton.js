@@ -1,12 +1,10 @@
 import { negate, isNil } from 'lodash'
-import buildPreview from './preview'
 import { buildFontsTags } from './fonts'
 import buildMediaQueriesTags from './mediaQueries'
 import { buildStyleFromComponents, buildStyleFromTags } from './styles'
 
 export default function skeleton(options) {
   const {
-    backgroundColor = '',
     beforeDoctype = '',
     breakpoint = '480px',
     content = '',
@@ -15,7 +13,6 @@ export default function skeleton(options) {
     headStyle = {},
     componentsHeadStyle = [],
     headRaw = [],
-    preview,
     title = '',
     style = [],
     forceOWADesktop,
@@ -65,12 +62,7 @@ export default function skeleton(options) {
     ${buildStyleFromTags(breakpoint, style)}
     ${headRaw.filter(negate(isNil)).join('\n')}
   </head>
-  <body style="word-spacing:normal;${
-    backgroundColor ? `background-color:${backgroundColor};` : ''
-  }">
-    ${buildPreview(preview)}
-    ${content}
-  </body>
+  ${content}
 </html>
   `
 }

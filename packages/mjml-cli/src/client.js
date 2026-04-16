@@ -1,13 +1,11 @@
 import path from 'path'
 import yargs from 'yargs'
 import { flow, pick, isNil, negate, pickBy } from 'lodash/fp'
-import { isArray, isEmpty, map, get, omit } from 'lodash'
-import { html as htmlBeautify } from 'js-beautify'
-import { minify as htmlMinify } from 'html-minifier'
+import { isArray, isEmpty, map, get } from 'lodash'
 
-import mjml2html, { components, initializeType } from 'mjml-core'
-import migrate from 'mjml-migrate'
-import validate, { dependencies } from 'mjml-validator'
+import mjml2htmlCore, { components, initializeType, assignComponents } from 'mjml-core'
+import validate, { dependencies, assignDependencies } from 'mjml-validator'
+import presetCore from 'mjml-preset-core'
 import MJMLParser from 'mjml-parser-xml'
 
 import { version as coreVersion } from 'mjml-core/package.json'
@@ -30,7 +28,7 @@ const beautifyConfig = {
 
 const minifyConfig = {
   collapseWhitespace: true,
-  minifyCSS: false,
+  minifyCss: false,
   caseSensitive: true,
   removeEmptyAttributes: true,
 }
@@ -60,11 +58,6 @@ export default async () => {
         describe: 'Compile MJML File(s)',
         type: 'array',
       },
-      m: {
-        alias: 'migrate',
-        describe: 'Migrate MJML3 File(s) (deprecated)',
-        type: 'array',
-      },
       v: {
         alias: 'validate',
         describe: 'Run validator on File(s)',
@@ -81,6 +74,7 @@ export default async () => {
       },
       s: {
         alias: 'stdout',
+        type: 'boolean',
         describe: 'Output HTML to stdout',
       },
       o: {
@@ -92,6 +86,11 @@ export default async () => {
         alias: 'config',
         type: 'object',
         describe: 'Option to pass to mjml-core',
+      },
+      sanitizeStyles: {
+        type: 'boolean',
+        describe:
+          'Sanitize template variables inside CSS before minification',
       },
       version: {
         alias: 'V',
@@ -108,6 +107,8 @@ export default async () => {
   let minifyOptions
   let juicePreserveTags
   let fonts
+  let templateSyntax
+  let includePath
 
   try {
     juiceOptions =
@@ -136,6 +137,23 @@ export default async () => {
     error(`Failed to decode JSON for config.fonts argument`)
   }
 
+  try {
+    templateSyntax =
+      argv.c && argv.c.templateSyntax && JSON.parse(argv.c.templateSyntax)
+  } catch (e) {
+    error(`Failed to decode JSON for config.templateSyntax argument`)
+  }
+
+  // Support includePath as string or JSON array in CLI
+  includePath = argv.c && argv.c.includePath
+  if (typeof includePath === 'string') {
+    try {
+      includePath = JSON.parse(includePath)
+    } catch (_) {
+      // keep as string when not JSON
+    }
+  }
+
   const filePath = argv.c && argv.c.filePath
 
   const config = Object.assign(
@@ -145,11 +163,33 @@ export default async () => {
     minifyOptions && { minifyOptions },
     juiceOptions && { juiceOptions },
     juicePreserveTags && { juicePreserveTags },
+    templateSyntax && { templateSyntax },
+    typeof includePath !== 'undefined' && { includePath },
     argv.c && argv.c.keepComments === 'false' && { keepComments: false },
   )
 
+  const configAllowIncludes =
+    argv.c && (argv.c.allowIncludes === true || argv.c.allowIncludes === 'true')
+  if (configAllowIncludes) {
+    config.ignoreIncludes = false
+  }
+
+  if (typeof config.sanitizeStyles === 'string') {
+    config.sanitizeStyles = config.sanitizeStyles === 'true'
+  }
+  if (typeof config.minify === 'string') {
+    config.minify = config.minify === 'true'
+  }
+
+  if (typeof argv.sanitizeStyles !== 'undefined') {
+    config.sanitizeStyles = argv.sanitizeStyles
+  }
+
   const inputArgs = pickArgs(['r', 'w', 'i', '_', 'm', 'v'])(argv)
   const outputArgs = pickArgs(['o', 's'])(argv)
+
+  assignComponents(components, presetCore.components)
+  assignDependencies(dependencies, presetCore.dependencies)
 
   // implies (until yargs pr is accepted)
   ;[
@@ -212,13 +252,11 @@ export default async () => {
   const convertedStream = []
   const failedStream = []
 
-  inputs.forEach((i) => {
+  // eslint-disable-next-line guard-for-in
+  for (const i of inputs) {
     try {
       let compiled
       switch (inputOpt) {
-        case 'm':
-          compiled = { html: migrate(i.mjml, { beautify: true }) }
-          break
         case 'v': // eslint-disable-next-line no-case-declarations
           const mjmlJson = MJMLParser(i.mjml, {
             components,
@@ -238,20 +276,17 @@ export default async () => {
           const beautify = config.beautify && config.beautify !== 'false'
           const minify = config.minify && config.minify !== 'false'
 
-          compiled = mjml2html(i.mjml, {
-            ...omit(config, ['minify', 'beautify']),
+          // eslint-disable-next-line no-await-in-loop
+          compiled = await mjml2htmlCore(i.mjml, {
+            ...config,
+            minify,
+            beautify,
+            beautifyConfig,
+            minifyConfig,
+            useMjmlConfigOptions: config?.useMjmlConfigOptions ?? false,
             filePath: filePath || i.file,
             actualPath: i.file,
           })
-          if (beautify) {
-            compiled.html = htmlBeautify(compiled.html, beautifyConfig)
-          }
-          if (minify) {
-            compiled.html = htmlMinify(compiled.html, {
-              ...minifyConfig,
-              ...config.minifyOptions,
-            })
-          }
         }
       }
 
@@ -260,7 +295,7 @@ export default async () => {
       EXIT_CODE = 2
       failedStream.push({ file: i.file, error: e })
     }
-  })
+  }
 
   convertedStream.forEach((s) => {
     if (get(s, 'compiled.errors.length')) {

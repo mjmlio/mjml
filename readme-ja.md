@@ -142,7 +142,7 @@ console.log(htmlOutput)
 -------------|--------|--------------|---------------
 fonts  | object | 初期フォントをインポートしたHTMLを描画する | 初期フォントについては[index.js](https://github.com/mjmlio/mjml/blob/master/packages/mjml-core/src/index.js#L100-L108)をご覧ください。
 keepComments | boolean | 出力されるHTMLにコメントを残すオプション | true
-ignoreIncludes | boolean | mj-includesを無視するオプション | false
+ignoreIncludes | boolean | mj-includesを無視するオプション | true
 beautify | boolean | 出力されるHTMLを整えるオプション | false
 minify | boolean | 出力されるHTMLをminify化するオプション | false
 validationLevel | string | [validator](https://github.com/mjmlio/mjml/tree/master/packages/mjml-validator#validating-mjml)で利用する値: 'strict', 'soft', 'skip'  | 'soft'

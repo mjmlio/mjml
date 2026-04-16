@@ -52,17 +52,22 @@ mjml input.mjml -o out.html --config.minify true --config.minifyOptions '{"minif
 ### Programmatic usage
 
 ```js
-const { html } = mjml(input, {
-	minify: true,
-	sanitizeStyles: true,
-	templateSyntax: [
-		{ prefix: '{{', suffix: '}}' },
-		{ prefix: '[[', suffix: ']]' },
-	],
-	allowMixedSyntax: false, // set true to allow block + CSS tokens together
-	// Disable CSS minify if your tokens are broken or your minifier cannot parse them:
-	minifyOptions: { minifyCss: false },
-})
+async function example() {
+	const { html } = await mjml(input, {
+		minify: true,
+		sanitizeStyles: true,
+		templateS­yntax: [
+			{ prefix: '{{', suffix: '}}' },
+			{ prefix: '[[', suffix: ']]' },
+		],
+		allowMixedSyntax: false, // set true to allow block + CSS tokens together
+		// Disable CSS minify if your tokens are broken or your minifier cannot parse them:
+		minifyOptions: { minifyCss: false },
+	})
+	// use html variable
+}
+
+example()
 ```
 
 For the canonical list of CLI flags and Node.js options, see [Usage](https://documentation.mjml.io/#usage)

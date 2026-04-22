@@ -12,9 +12,8 @@ import {
 } from 'lodash'
 import juice from 'juice'
 import { load } from 'cheerio'
-import prettier from 'prettier'
 import minifier from 'htmlnano'
-
+import prettier from 'prettier'
 import MJMLParser from 'mjml-parser-xml'
 import MJMLValidator, {
   dependencies as globalDependencies,
@@ -32,6 +31,8 @@ import suffixCssClasses from './helpers/suffixCssClasses'
 import mergeOutlookConditionnals from './helpers/mergeOutlookConditionnals'
 import minifyOutlookConditionnals from './helpers/minifyOutlookConditionnals'
 import defaultSkeleton from './helpers/skeleton'
+import loadSkeletonFromFile from './node-only/skeleton-loader'
+import nodeFormatter from './node-only/node-formatter'
 import { initializeType } from './types/type'
 
 import handleMjmlConfig, {
@@ -364,9 +365,10 @@ export default async function mjml2html(mjml, options = {}) {
 
   // Resolve skeleton path via node-only helper to avoid dynamic require in browser builds
   if (isNode && typeof options.skeleton === 'string') {
-    // eslint-disable-next-line global-require
-    const skeletonLoader = require('./node-only/skeleton-loader')
-    const loadSkeleton = skeletonLoader.default || skeletonLoader.loadSkeleton
+    const loadSkeleton =
+      loadSkeletonFromFile.default ||
+      loadSkeletonFromFile.loadSkeleton ||
+      loadSkeletonFromFile
     const loadedSk = loadSkeleton && loadSkeleton(options.skeleton)
     if (loadedSk) {
       options.skeleton = loadedSk
@@ -873,10 +875,18 @@ export default async function mjml2html(mjml, options = {}) {
       }
     }
   } else if (beautify) {
-    content = await prettier.format(content, {
-      parser: 'html',
-      printWidth: 240,
-    })
+    if (isNode) {
+      const formatHtml =
+        nodeFormatter.formatHtml ||
+        (nodeFormatter.default && nodeFormatter.default.formatHtml)
+      content = formatHtml(content)
+    } else {
+      // Browser fallback keeps prettier formatting behavior.
+      content = await prettier.format(content, {
+        parser: 'html',
+        printWidth: 240,
+      })
+    }
   }
 
   return {

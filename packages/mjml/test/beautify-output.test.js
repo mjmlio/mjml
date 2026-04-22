@@ -205,6 +205,26 @@ describe('Beautify output', function () {
     })
   })
 
+  it('beautifies documents that contain file-start raw content before the doctype', async function () {
+    const prefix = 'This will be added at the beginning of the file'
+    const input = `
+      <mjml>
+        <mj-raw position="file-start">${prefix}</mj-raw>
+        <mj-body>
+          <!-- Your content goes here -->
+        </mj-body>
+      </mjml>
+    `
+
+    const { plainHtml, beautifiedHtml } = await renderVariants(input)
+
+    chai.expect(plainHtml.startsWith(`${prefix}\n<!doctype html>`)).to.equal(true)
+    chai.expect(beautifiedHtml.startsWith(`${prefix}\n<!doctype html>`)).to.equal(true)
+    chai.expect(beautifiedHtml).to.include('\n  <head>\n')
+    chai.expect(beautifiedHtml).to.include('<!-- Your content goes here -->')
+    chai.expect(beautifiedHtml).to.not.equal(plainHtml)
+  })
+
   it('does not beautify when minify=true even if beautify is also enabled', async function () {
     const input = `
       <mjml>

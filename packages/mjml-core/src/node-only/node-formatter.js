@@ -19,6 +19,12 @@ function initializeBiome() {
   workspace.updateSettings({
     projectKey,
     configuration: {
+      formatter: {
+        // `mj-raw position="file-start"` can prepend arbitrary text before the
+        // HTML document, which Biome reports as parse errors even though the
+        // rest of the output is still a valid HTML email we want to beautify.
+        formatWithErrors: true,
+      },
       html: {
         formatter: {
           enabled: true,

@@ -30,12 +30,10 @@ export default class MjNavbarLink extends BodyComponent {
 
   static defaultAttributes = {
     color: '#000000',
-    'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
+    'font-family': 'Ubuntu, sans-serif',
     'font-size': '13px',
-    'font-weight': 'normal',
     'line-height': '22px',
     padding: '15px 10px',
-    target: '_blank',
     'text-decoration': 'none',
     'text-transform': 'uppercase',
   }
@@ -95,6 +93,15 @@ export default class MjNavbarLink extends BodyComponent {
   }
 
   render() {
+    const supportOutlookClassic =
+      !this.context ||
+      !this.context.globalData ||
+      this.context.globalData.supportOutlookClassic !== false
+
+    if (!supportOutlookClassic) {
+      return this.renderContent()
+    }
+
     return `
         ${conditionalTag(`
           <td
@@ -104,13 +111,9 @@ export default class MjNavbarLink extends BodyComponent {
                 this.getAttribute('css-class'),
                 'outlook',
               ),
-            })}
-          >
-        `)}
+            })}>`)}
         ${this.renderContent()}
-        ${conditionalTag(`
-          </td>
-        `)}
+        ${conditionalTag(`</td>`)}
       `
   }
 }

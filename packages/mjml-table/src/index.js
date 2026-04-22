@@ -36,11 +36,10 @@ export default class MjTable extends BodyComponent {
     cellpadding: '0',
     cellspacing: '0',
     color: '#000000',
-    'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
+    'font-family': 'Ubuntu, sans-serif',
     'font-size': '13px',
     'line-height': '22px',
     padding: '10px 25px',
-    'table-layout': 'auto',
     width: '100%',
   }
 
@@ -52,8 +51,8 @@ export default class MjTable extends BodyComponent {
         'font-family': this.getAttribute('font-family'),
         'font-size': this.getAttribute('font-size'),
         'line-height': this.getAttribute('line-height'),
-        'table-layout': this.getAttribute('table-layout'),
-        width: this.getAttribute('width'),
+        ...(this.getAttribute('table-layout') !== 'auto' && { 'table-layout': this.getAttribute('table-layout') }),
+        ...(this.getAttribute('width') !== 'auto' && { width: this.getAttribute('width') }),
         border: this.getAttribute('border'),
         ...(hasCellspacing && { 'border-collapse': 'separate' }),
       },
@@ -64,7 +63,7 @@ export default class MjTable extends BodyComponent {
     const width = this.getAttribute('width')
 
     if (width === 'auto') {
-      return width
+      return null
     }
 
     const { parsedWidth, unit } = widthParser(width)

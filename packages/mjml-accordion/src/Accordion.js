@@ -24,8 +24,7 @@ export default class MjAccordion extends BodyComponent {
 
   static defaultAttributes = {
     border: '2px solid black',
-    'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
-    'icon-align': 'middle',
+    'font-family': 'Ubuntu, sans-serif',
     'icon-wrapped-url': 'https://i.imgur.com/bIXv1bk.png',
     'icon-wrapped-alt': '+',
     'icon-unwrapped-url': 'https://i.imgur.com/w4uTygT.png',
@@ -41,20 +40,21 @@ export default class MjAccordion extends BodyComponent {
       noinput.mj-accordion-checkbox { display:block!important; }
 
       @media yahoo, only screen and (min-width:0) {
-        .mj-accordion-element { display:block; }
-        input.mj-accordion-checkbox, .mj-accordion-less { display:none!important; }
         input.mj-accordion-checkbox + * .mj-accordion-title { cursor:pointer; touch-action:manipulation; -webkit-user-select:none; -moz-user-select:none; user-select:none; }
         input.mj-accordion-checkbox + * .mj-accordion-content { overflow:hidden; display:none; }
-        input.mj-accordion-checkbox + * .mj-accordion-more { display:block!important; }
-        input.mj-accordion-checkbox:checked + * .mj-accordion-content { display:block; }
+        
+        input.mj-accordion-checkbox, .mj-accordion-less,
         input.mj-accordion-checkbox:checked + * .mj-accordion-more { display:none!important; }
+
+        .mj-accordion-element,
+        input.mj-accordion-checkbox + * .mj-accordion-more,
+        input.mj-accordion-checkbox:checked + * .mj-accordion-content,
         input.mj-accordion-checkbox:checked + * .mj-accordion-less { display:block!important; }
       }
-
       .moz-text-html input.mj-accordion-checkbox + * .mj-accordion-title { cursor: auto; touch-action: auto; -webkit-user-select: auto; -moz-user-select: auto; user-select: auto; }
       .moz-text-html input.mj-accordion-checkbox + * .mj-accordion-content { overflow: hidden; display: block; }
       .moz-text-html input.mj-accordion-checkbox + * .mj-accordion-ico { display: none; }
-
+      /* prettier-ignore */
       @goodbye { @gmail }
     `
 
@@ -64,8 +64,7 @@ export default class MjAccordion extends BodyComponent {
         width: '100%',
         'border-collapse': 'collapse',
         border: this.getAttribute('border'),
-        'border-bottom': 'none',
-        'font-family': this.getAttribute('font-family'),
+        ...(this.getAttribute('border') !== 'none' && this.getAttribute('border') !== '0' && this.getAttribute('border') !== '0px' && { 'border-bottom': '0' }),
       },
     }
   }
@@ -105,12 +104,10 @@ export default class MjAccordion extends BodyComponent {
           style: 'table',
         })}
       >
-        <tbody>
-          ${this.renderChildren(this.props.children, {
-            attributes: childrenAttr,
-          })}
-        </tbody>
+        ${this.renderChildren(this.props.children, {
+          attributes: childrenAttr,
+        })}
       </table>
-    `
+      `
   }
 }

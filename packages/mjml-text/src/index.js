@@ -32,7 +32,7 @@ export default class MjText extends BodyComponent {
   static defaultAttributes = {
     align: 'left',
     color: '#000000',
-    'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
+    'font-family': 'Ubuntu, sans-serif',
     'font-size': '13px',
     'line-height': '1',
     padding: '10px 25px',
@@ -57,28 +57,28 @@ export default class MjText extends BodyComponent {
   }
 
   renderContent() {
-    return `
-      <div
+    return `<div
         ${this.htmlAttributes({
           style: 'text',
         })}
-      >${this.getContent()}</div>
-    `
+      >${this.getContent()}</div>`
   }
 
   render() {
     const height = this.getAttribute('height')
 
-    return height
-      ? `
-        ${conditionalTag(`
-          <table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td height="${height}" style="vertical-align:top;height:${height};">
-        `)}
+    const supportOutlookClassic =
+      !this.context ||
+      !this.context.globalData ||
+      this.context.globalData.supportOutlookClassic !== false
+
+    if (!height || !supportOutlookClassic) {
+      return this.renderContent()
+    }
+
+    return `${conditionalTag(`<table role="none" border="0" cellpadding="0" cellspacing="0"><tr><td height="${height}" style="vertical-align:top;height:${height};">`)}
         ${this.renderContent()}
-        ${conditionalTag(`
-          </td></tr></table>
-        `)}
+        ${conditionalTag(`</td></tr></table>`)}
       `
-      : this.renderContent()
   }
 }

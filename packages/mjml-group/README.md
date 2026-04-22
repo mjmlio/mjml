@@ -56,7 +56,7 @@ Prevent adjacent `mj-column` instances from stacking on mobile by wrapping them 
 | ---------------- | ----------------- | -------------------------------------------------- | ---------------------------------------------- |
 | background-color | CSS color formats | background color for a group                       |                                                |
 | css-class        | string            | class name, added to the root HTML element created |                                                |
-| direction        | `ltr` `rtl`       | set the display order of direct children           | `ltr`                                          |
+| direction        | `ltr` `rtl`       | set the display order of direct children           |                                                |
 | vertical-align   | string            | CSS values, e.g. `middle` `top` `bottom`           |                                                |
 | width            | `px` `%`          | group width                                        | (100 / number of non-raw elements in section)% |
 

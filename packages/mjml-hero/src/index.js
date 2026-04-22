@@ -2,6 +2,7 @@ import { BodyComponent } from 'mjml-core'
 import { flow, identity, join, filter } from 'lodash/fp'
 
 import widthParser from 'mjml-core/lib/helpers/widthParser'
+import { msoConditionalTag } from 'mjml-core/lib/helpers/conditionalTag'
 
 const makeBackgroundString = flow(filter(identity), join(' '))
 
@@ -34,13 +35,7 @@ export default class MjHero extends BodyComponent {
   static defaultAttributes = {
     mode: 'fixed-height',
     height: '0px',
-    'background-url': null,
-    'background-position': 'center center',
-    padding: '0px',
-    'padding-bottom': null,
-    'padding-left': null,
-    'padding-right': null,
-    'padding-top': null,
+    'background-position': 'center',
     'background-color': '#ffffff',
     'vertical-align': 'top',
   }
@@ -92,7 +87,6 @@ export default class MjHero extends BodyComponent {
         width: '100%',
       },
       tr: {
-        'vertical-align': 'top',
       },
       'td-fluid': {
         width: `0.01%`,
@@ -126,6 +120,7 @@ export default class MjHero extends BodyComponent {
         'padding-left': this.getAttribute('inner-padding-left'),
         'padding-right': this.getAttribute('inner-padding-right'),
         'padding-bottom': this.getAttribute('inner-padding-bottom'),
+        ...(!!this.getAttribute('background-url') && { 'width': currentContainerWidth }),
       },
       'inner-div': {
         'background-color': this.getAttribute('inner-background-color'),
@@ -151,7 +146,6 @@ export default class MjHero extends BodyComponent {
       ...(this.getAttribute('background-url')
         ? [
             `url('${this.getAttribute('background-url')}')`,
-            'no-repeat',
             `${this.getAttribute('background-position')} / cover`,
           ]
         : []),
@@ -162,7 +156,7 @@ export default class MjHero extends BodyComponent {
     const { children } = this.props
 
     return `
-      <!--[if mso | IE]>
+      ${msoConditionalTag(`
         <table
           ${this.htmlAttributes({
             align: this.getAttribute('align'),
@@ -175,7 +169,7 @@ export default class MjHero extends BodyComponent {
         >
           <tr>
             <td ${this.htmlAttributes({ style: 'outlook-inner-td' })}>
-      <![endif]-->
+      `)}
       <div
         ${this.htmlAttributes({
           align: this.getAttribute('align'),
@@ -188,75 +182,72 @@ export default class MjHero extends BodyComponent {
             border: '0',
             cellpadding: '0',
             cellspacing: '0',
-            role: 'presentation',
+            role: 'none',
             style: 'inner-table',
           })}
         >
-          <tbody>
-            <tr>
-              <td ${this.htmlAttributes({ style: 'inner-td' })} >
-                <table
-                  ${this.htmlAttributes({
-                    border: '0',
-                    cellpadding: '0',
-                    cellspacing: '0',
-                    role: 'presentation',
-                    style: 'inner-table',
-                  })}
-                >
-                  <tbody>
-                    ${this.renderChildren(children, {
-                      renderer: (component) =>
-                        component.constructor.isRawElement()
-                          ? component.render()
-                          : `
-                        <tr>
-                          <td
-                            ${component.htmlAttributes({
-                              align: component.getAttribute('align'),
-                              background: component.getAttribute(
-                                'container-background-color',
-                              ),
-                              class: component.getAttribute('css-class'),
-                              style: {
-                                background: component.getAttribute(
-                                  'container-background-color',
-                                ),
-                                'font-size': '0px',
-                                padding: component.getAttribute('padding'),
-                                'padding-top':
-                                  component.getAttribute('padding-top'),
-                                'padding-right':
-                                  component.getAttribute('padding-right'),
-                                'padding-bottom':
-                                  component.getAttribute('padding-bottom'),
-                                'padding-left':
-                                  component.getAttribute('padding-left'),
-                                'word-break': 'break-word',
-                              },
-                            })}
-                          >
-                            ${component.render()}
-                          </td>
-                        </tr>
-                      `,
-                    })}
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <!--[if mso | IE]>
+          <tr>
+            <td ${this.htmlAttributes({ style: 'inner-td' })} >
+              <table
+                ${this.htmlAttributes({
+                  border: '0',
+                  cellpadding: '0',
+                  cellspacing: '0',
+                  role: 'none',
+                  style: 'inner-table',
+                })}
+              >
+                ${this.renderChildren(children, {
+                  renderer: (component) =>
+                    component.constructor.isRawElement()
+                      ? component.render()
+                      : `
+                    <tr>
+                      <td
+                        ${component.htmlAttributes({
+                          align: component.getAttribute('align'),
+                          background: component.getAttribute(
+                            'container-background-color',
+                          ),
+                          class: component.getAttribute('css-class'),
+                          style: {
+                            background: component.getAttribute(
+                              'container-background-color',
+                            ),
+                            'font-size': '0px',
+                            padding: component.getAttribute('padding'),
+                            'padding-top':
+                              component.getAttribute('padding-top'),
+                            'padding-right':
+                              component.getAttribute('padding-right'),
+                            'padding-bottom':
+                              component.getAttribute('padding-bottom'),
+                            'padding-left':
+                              component.getAttribute('padding-left'),
+                            'word-break': 'break-word',
+                          },
+                        })}
+                      >
+                        ${component.render()}
+                      </td>
+                    </tr>
+                  `,
+                })}
+              </table>
             </td>
           </tr>
         </table>
-      <![endif]-->
+      </div>
+      ${msoConditionalTag(`
+            </td>
+          </tr>
+        </table>
+      `)}
     `
   }
 
   renderMode() {
+
     const commonAttributes = {
       background: this.getAttribute('background-url'),
       style: {
@@ -279,11 +270,11 @@ export default class MjHero extends BodyComponent {
         const magicTd = this.htmlAttributes({ style: `td-fluid` })
 
         return `
-          <td ${magicTd} />
+          <td ${magicTd}></td>
           <td ${this.htmlAttributes({ ...commonAttributes })}>
             ${this.renderContent()}
           </td>
-          <td ${magicTd} />
+          <td ${magicTd}></td>
         `
       case 'fixed-height':
       default:
@@ -314,14 +305,14 @@ export default class MjHero extends BodyComponent {
     const { containerWidth } = this.context
 
     return `
-      <!--[if mso | IE]>
+      ${msoConditionalTag(`
         <table
           ${this.htmlAttributes({
             align: 'center',
             border: '0',
             cellpadding: '0',
             cellspacing: '0',
-            role: 'presentation',
+            role: 'none',
             style: 'outlook-table',
             width: parseInt(containerWidth, 10),
           })}
@@ -335,7 +326,7 @@ export default class MjHero extends BodyComponent {
                   'xmlns:v': 'urn:schemas-microsoft-com:vml',
                 })}
               />
-      <![endif]-->
+      `)}
       <div
         ${this.htmlAttributes({
           align: this.getAttribute('align'),
@@ -348,26 +339,23 @@ export default class MjHero extends BodyComponent {
             border: '0',
             cellpadding: '0',
             cellspacing: '0',
-            role: 'presentation',
+            role: 'none',
             style: 'table',
           })}
         >
-          <tbody>
-            <tr
-              ${this.htmlAttributes({
-                style: 'tr',
-              })}
-            >
-              ${this.renderMode()}
-            </tr>
-          </tbody>
+          <tr
+            ${this.htmlAttributes({
+            })}
+          >
+            ${this.renderMode()}
+          </tr>
       </table>
     </div>
-    <!--[if mso | IE]>
+    ${msoConditionalTag(`
           </td>
         </tr>
       </table>
-    <![endif]-->
+    `)}
     `
   }
 }

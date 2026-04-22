@@ -1,5 +1,6 @@
 import { BodyComponent } from 'mjml-core'
 import { isNil } from 'lodash'
+import { msoConditionalTag } from 'mjml-core/lib/helpers/conditionalTag'
 
 export default class MjSocial extends BodyComponent {
   static componentName = 'mj-social'
@@ -34,7 +35,7 @@ export default class MjSocial extends BodyComponent {
     align: 'center',
     'border-radius': '3px',
     color: '#333333',
-    'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
+    'font-family': 'Ubuntu, sans-serif',
     'font-size': '13px',
     'icon-size': '20px',
     'inner-padding': null,
@@ -84,76 +85,66 @@ export default class MjSocial extends BodyComponent {
     const { children } = this.props
 
     return `
-     <!--[if mso | IE]>
-      <table
+      ${msoConditionalTag(`<table
         ${this.htmlAttributes({
           align: this.getAttribute('align'),
           border: '0',
           cellpadding: '0',
           cellspacing: '0',
-          role: 'presentation',
+          role: 'none',
         })}
       >
         <tr>
-      <![endif]-->
+      `)}
       ${this.renderChildren(children, {
         attributes: this.getSocialElementAttributes(),
         renderer: (component) =>
           component.constructor.isRawElement()
             ? component.render()
             : `
-            <!--[if mso | IE]>
+            ${msoConditionalTag(`
               <td>
-            <![endif]-->
+            `)}
               <table
                 ${component.htmlAttributes({
                   align: this.getAttribute('align'),
                   border: '0',
                   cellpadding: '0',
                   cellspacing: '0',
-                  role: 'presentation',
+                  role: 'none',
                   style: {
                     float: 'none',
                     display: 'inline-table',
                   },
                 })}
               >
-                <tbody>
-                  ${component.render()}
-                </tbody>
+                ${component.render()}
               </table>
-            <!--[if mso | IE]>
-              </td>
-            <![endif]-->
+            ${msoConditionalTag(`
+              </td>`)}
           `,
       })}
-      <!--[if mso | IE]>
+      ${msoConditionalTag(`
           </tr>
-        </table>
-      <![endif]-->
-    `
+        </table>`)}`
   }
 
   renderVertical() {
     const { children } = this.props
 
-    return `
-      <table
+    return `<table
         ${this.htmlAttributes({
           border: '0',
           cellpadding: '0',
           cellspacing: '0',
-          role: 'presentation',
+          role: 'none',
           style: 'tableVertical',
         })}
       >
-        <tbody>
-          ${this.renderChildren(children, {
-            attributes: this.getSocialElementAttributes(),
-          })}
-        </tbody>
-      </table>
-    `
+        ${this.renderChildren(children, {
+          attributes: this.getSocialElementAttributes(),
+        })}
+      </table>`
   }
 
   render() {

@@ -44,7 +44,7 @@ export default class MjAccordionText extends BodyComponent {
       },
       table: {
         width: '100%',
-        'border-bottom': this.getAttribute('border'),
+        ...(this.getAttribute('border') !== 'none' && this.getAttribute('border') !== '0' && this.getAttribute('border') !== '0px' && { 'border-bottom': this.getAttribute('border') }),
       },
     }
   }
@@ -93,11 +93,9 @@ export default class MjAccordionText extends BodyComponent {
             style: 'table',
           })}
         >
-          <tbody>
-            <tr>
-              ${this.renderContent()}
-            </tr>
-          </tbody>
+          <tr>
+            ${this.renderContent()}
+          </tr>
         </table>
       </div>
     `

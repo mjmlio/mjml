@@ -1,4 +1,5 @@
 import { forEach, map } from 'lodash'
+import conditionalTag from './conditionalTag'
 
 // eslint-disable-next-line import/prefer-default-export
 export function buildFontsTags(content, inlineStyle, fonts = {}) {
@@ -14,17 +15,11 @@ export function buildFontsTags(content, inlineStyle, fonts = {}) {
   })
 
   if (toImport.length > 0) {
-    return `
-      <!--[if !mso]><!-->
-        ${map(
-          toImport,
-          (url) => `<link href="${url}" rel="stylesheet" type="text/css">`,
-        ).join('\n')}
-        <style type="text/css">
-          ${map(toImport, (url) => `@import url(${url});`).join('\n')}
-        </style>
-      <!--<![endif]-->\n
-    `
+    const styleBlock = `<style>
+        ${map(toImport, (url) => `@import url(${url});`).join('\n')}
+      </style>`
+
+    return conditionalTag(styleBlock, true)
   }
 
   return ''

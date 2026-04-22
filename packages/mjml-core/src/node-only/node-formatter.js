@@ -60,10 +60,12 @@ function formatHtml(html) {
     },
   })
 
-  const result = workspace.formatFile({ path: filename, projectKey })
-  workspace.closeFile({ path: filename, projectKey })
-
-  return result.code
+  try {
+    const result = workspace.formatFile({ path: filename, projectKey })
+    return result.code
+  } finally {
+    workspace.closeFile({ path: filename, projectKey })
+  }
 }
 
 export default {

@@ -13,7 +13,6 @@ import {
 import juice from 'juice'
 import { load } from 'cheerio'
 import minifier from 'htmlnano'
-import prettier from 'prettier'
 import MJMLParser from 'mjml-parser-xml'
 import MJMLValidator, {
   dependencies as globalDependencies,
@@ -32,7 +31,6 @@ import mergeOutlookConditionnals from './helpers/mergeOutlookConditionnals'
 import minifyOutlookConditionnals from './helpers/minifyOutlookConditionnals'
 import defaultSkeleton from './helpers/skeleton'
 import loadSkeletonFromFile from './node-only/skeleton-loader'
-import nodeFormatter from './node-only/node-formatter'
 import { initializeType } from './types/type'
 
 import handleMjmlConfig, {
@@ -357,6 +355,111 @@ class ValidationError extends Error {
 
     this.errors = errors
   }
+}
+
+function getTemplateDelimiterRecoveryMessage(contextName) {
+  if (
+    typeof contextName === 'string' &&
+    contextName.toLowerCase() === 'css minification'
+  ) {
+    return 'Fix template tokens or disable CSS minification with minifyOptions.minifyCSS = false.'
+  }
+  return `Fix template tokens or disable ${contextName}.`
+}
+
+/**
+ * Sanitize template syntax in HTML content if enabled
+ * Detects and replaces CSS value/property variables and block variables with placeholders
+ * @param {string} html - HTML content
+ * @param {boolean} shouldSanitize - Whether to perform sanitization
+ * @param {Array} syntaxes - Template syntax delimiters
+ * @param {boolean} allowMixedSyntax - Whether to allow mixed variable syntax
+ * @param {string} contextName - Name for error messages
+ * @returns {{ content: string, didSanitize: boolean, variableMap: object, propMap: object, isBlockVariable: boolean }}
+ */
+function sanitizeTemplateVariablesInHtml(html, shouldSanitize, syntaxes, allowMixedSyntax, contextName) {
+  const result = {
+    content: html,
+    didSanitize: false,
+    variableMap: {},
+    propMap: {},
+    isBlockVariable: false,
+  }
+
+  if (!shouldSanitize) {
+    return result
+  }
+
+  const broken = detectBrokenTemplateDelimitersInCss(html, syntaxes)
+  if (broken.length) {
+    const details = broken
+      .map(
+        (b) => `${b.prefix}…${b.suffix} (${b.prefixCount} open, ${b.suffixCount} close)`,
+      )
+      .join(', ')
+    throw new Error(
+      `Unbalanced template delimiters found in CSS: ${details}. ${getTemplateDelimiterRecoveryMessage(contextName)}`,
+    )
+  }
+
+  const detected = detectVariableTypeInHtml(html, syntaxes)
+  result.isBlockVariable = detected.isBlockVariable
+
+  if (!allowMixedSyntax && result.isBlockVariable && (detected.isValueVariable || detected.isPropertyVariable)) {
+    throw new Error(
+      'Mixed variable syntax detected. Use either CSS property syntax (e.g., color: {{variable}}) OR block syntax (e.g., {{variable}}), not both in the same document.',
+    )
+  }
+
+  if (detected.isValueVariable) {
+    const sanitized = sanitizeCssValueVariablesHtml(html, syntaxes)
+    result.content = sanitized.result
+    result.variableMap = sanitized.variableMap
+    result.didSanitize = true
+  }
+
+  if (detected.isPropertyVariable) {
+    const sanitizedProp = sanitizeCssPropertyVariablesHtml(result.content, syntaxes)
+    result.content = sanitizedProp.result
+    result.propMap = sanitizedProp.propMap
+    result.didSanitize = true
+  }
+
+  if (result.isBlockVariable) {
+    result.content = sanitizeInlineStyleAttributes(result.content, syntaxes)
+    result.content = sanitizeStyleTagBlocks(result.content, syntaxes)
+    result.didSanitize = true
+  }
+
+  return result
+}
+
+/**
+ * Restore template syntax placeholders in HTML content
+ * @param {string} html - HTML content with placeholders
+ * @param {object} variableMap - Map of CSS value variable placeholders to restore
+ * @param {object} propMap - Map of CSS property variable placeholders to restore
+ * @param {boolean} isBlockVariable - Whether block variables were detected
+ * @param {Array} syntaxes - Template syntax delimiters
+ * @returns {string} HTML with restored template variables
+ */
+function restoreTemplateVariablesInHtml(html, variableMap, propMap, isBlockVariable, syntaxes) {
+  let restoredContent = html
+
+  if (variableMap && Object.keys(variableMap).length > 0) {
+    restoredContent = restoreCssValueVariablesHtml(restoredContent, variableMap)
+  }
+
+  if (propMap && Object.keys(propMap).length > 0) {
+    restoredContent = restoreCssPropertyVariablesHtml(restoredContent, propMap)
+  }
+
+  if (isBlockVariable) {
+    restoredContent = restoreInlineStyleAttributes(restoredContent, syntaxes)
+    restoredContent = restoreStyleTagBlocks(restoredContent, syntaxes)
+  }
+
+  return restoredContent
 }
 
 export default async function mjml2html(mjml, options = {}) {
@@ -808,10 +911,6 @@ export default async function mjml2html(mjml, options = {}) {
       ...minifyOptionsRest,
     }
 
-    let didSanitize = false
-    let isBlockVariable = false
-    let variableMap = {}
-    let propMap = {}
     const syntaxes =
       templateSyntax || [
         { prefix: '{{', suffix: '}}' },
@@ -819,73 +918,66 @@ export default async function mjml2html(mjml, options = {}) {
       ]
 
     const cssMinifyEnabled = htmlnanoOptions.minifyCss !== false
-    if (sanitizeStyles === true && cssMinifyEnabled) {
-      const broken = detectBrokenTemplateDelimitersInCss(content, syntaxes)
-      if (broken.length) {
-        const details = broken
-          .map(
-            (b) => `${b.prefix}…${b.suffix} (${b.prefixCount} open, ${b.suffixCount} close)`,
-          )
-          .join(', ')
-        throw new Error(
-          `Unbalanced template delimiters found in CSS: ${details}. Fix template tokens or disable CSS minification via --config.minifyOptions '{"minifyCss": false}'.`,
-        )
-      }
-      const detected = detectVariableTypeInHtml(content, syntaxes)
-      isBlockVariable = detected.isBlockVariable
-      if (!allowMixedSyntax && isBlockVariable && (detected.isValueVariable || detected.isPropertyVariable)) {
-        throw new Error(
-          'Mixed variable syntax detected. Use either CSS property syntax (e.g., color: {{variable}}) OR block syntax (e.g., {{variable}}), not both in the same document.',
-        )
-      }
-      if (detected.isValueVariable) {
-        const sanitized = sanitizeCssValueVariablesHtml(content, syntaxes)
-        content = sanitized.result
-        variableMap = sanitized.variableMap
-        didSanitize = true
-      }
-      if (detected.isPropertyVariable) {
-        const sanitizedProp = sanitizeCssPropertyVariablesHtml(content, syntaxes)
-        content = sanitizedProp.result
-        propMap = sanitizedProp.propMap
-        didSanitize = true
-      }
-      if (isBlockVariable) {
-        content = sanitizeInlineStyleAttributes(content, syntaxes)
-        content = sanitizeStyleTagBlocks(content, syntaxes)
-        didSanitize = true
-      }
-    }
+    const sanitizationResult = sanitizeTemplateVariablesInHtml(
+      content,
+      sanitizeStyles === true && cssMinifyEnabled,
+      syntaxes,
+      allowMixedSyntax,
+      'CSS minification',
+    )
+    content = sanitizationResult.content
 
     content = await minifier.process(content, htmlnanoOptions).then((res) => res.html)
 
-    if (didSanitize) {
-      // Always restore CSS value/property placeholders when present
-      if (variableMap && Object.keys(variableMap).length > 0) {
-        content = restoreCssValueVariablesHtml(content, variableMap)
-      }
-      if (propMap && Object.keys(propMap).length > 0) {
-        content = restoreCssPropertyVariablesHtml(content, propMap)
-      }
-
-      // Additionally restore block-style tokens if they were detected
-      if (isBlockVariable) {
-        content = restoreInlineStyleAttributes(content, syntaxes)
-        content = restoreStyleTagBlocks(content, syntaxes)
-      }
+    if (sanitizationResult.didSanitize) {
+      content = restoreTemplateVariablesInHtml(
+        content,
+        sanitizationResult.variableMap,
+        sanitizationResult.propMap,
+        sanitizationResult.isBlockVariable,
+        syntaxes,
+      )
     }
   } else if (beautify) {
+    const syntaxes =
+      templateSyntax || [
+        { prefix: '{{', suffix: '}}' },
+        { prefix: '[[', suffix: ']]' },
+      ]
+
+    const sanitizationResult = sanitizeTemplateVariablesInHtml(
+      content,
+      sanitizeStyles === true,
+      syntaxes,
+      allowMixedSyntax,
+      'beautification',
+    )
+    content = sanitizationResult.content
+
     if (isNode) {
+      // Lazy-load Node-only formatter to avoid Biome WASM dependency in non-beautify paths
+      const nodeFormatter = await import('./node-only/node-formatter')
       const formatHtml =
         nodeFormatter.formatHtml ||
         (nodeFormatter.default && nodeFormatter.default.formatHtml)
       content = formatHtml(content)
     } else {
-      // Browser fallback keeps prettier formatting behavior.
-      content = await prettier.format(content, {
+      // eslint-disable-next-line global-require
+      const prettierModule = require('prettier')
+      content = await prettierModule.format(content, {
         parser: 'html',
         printWidth: 240,
       })
+    }
+
+    if (sanitizationResult.didSanitize) {
+      content = restoreTemplateVariablesInHtml(
+        content,
+        sanitizationResult.variableMap,
+        sanitizationResult.propMap,
+        sanitizationResult.isBlockVariable,
+        syntaxes,
+      )
     }
   }
 

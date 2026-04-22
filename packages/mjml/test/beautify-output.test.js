@@ -142,7 +142,7 @@ describe('Beautify output', function () {
       ].join('\n'),
     },
     {
-      name: 'wraps long raw html start tags according to prettier print width',
+      name: 'wraps long raw html start tags according to the configured print width',
       input: `
         <mjml>
           <mj-body>
@@ -163,8 +163,7 @@ describe('Beautify output', function () {
           endToken: '</div>',
           label: 'print width probe',
         }),
-      expectedPlain:
-        `<div id="beautify-print-width-probe" data-alpha="${'a'.repeat(80)}" data-beta="${'b'.repeat(80)}" data-gamma="${'c'.repeat(80)}" data-delta="${'d'.repeat(80)}">Wrapped raw tag</div>`,
+      expectedPlain: `<div id="beautify-print-width-probe" data-alpha="${'a'.repeat(80)}" data-beta="${'b'.repeat(80)}" data-gamma="${'c'.repeat(80)}" data-delta="${'d'.repeat(80)}">Wrapped raw tag</div>`,
       expectedBeautified: [
         '<div',
         '                        id="beautify-print-width-probe"',

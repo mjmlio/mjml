@@ -22,12 +22,12 @@ It is available here on [Github](https://github.com/mjmlio/gulp-mjml).
 
 ## Template Tokens in CSS
 
-MJML can safely minify HTML and CSS while preserving template tokens embedded in CSS. This is useful when your templating system (Liquid, Handlebars, etc.) injects dynamic values into style attributes or `<style>` blocks.
+MJML can safely minify and beautify HTML and CSS while preserving template tokens embedded in CSS. This is useful when your templating system (Liquid, Handlebars, etc.) injects dynamic values into style attributes or `<style>` blocks.
 
-- Supported contexts: CSS value tokens (`color: {{primary}}`) and CSS property-name tokens (`{{prop}}: {{value}}`), as well as block tokens inside style contexts.
-- Enable sanitization: pass `sanitizeStyles: true` when you also enable `minify: true`. Configure token wrappers with `templateSyntax` (array of `{ prefix, suffix }` pairs, defaults to `{{…}}` and `[[…]]`).
-- Mixed syntax: by default MJML disallows mixing block tokens with CSS tokens in the same document. Opt-in via `allowMixedSyntax: true` if you need to mix.
-- Broken delimiters pre-check: MJML fails fast when it detects unbalanced token delimiters inside CSS (e.g. more `{{` than `}}`). Fix your tokens or disable CSS minification.
+- **Supported contexts:** CSS value tokens (`color: {{primary}}`) and CSS property-name tokens (`{{prop}}: {{value}}`), as well as block tokens inside style contexts.
+- **Enable sanitization:** pass `sanitizeStyles: true` when you also enable `minify: true` or `beautify: true`. Configure token wrappers with `templateSyntax` (array of `{ prefix, suffix }` pairs, defaults to `{{…}}` and `[[…]]`).
+- **Mixed syntax:** by default MJML disallows mixing block tokens with CSS tokens in the same document. Opt-in via `allowMixedSyntax: true` if you need to mix.
+- **Broken delimiters pre-check:** MJML fails fast when it detects unbalanced token delimiters inside CSS (e.g. more `{{` than `}}`). Fix your tokens or disable CSS minification.
 
 ### CLI examples
 

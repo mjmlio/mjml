@@ -251,4 +251,40 @@ describe('Beautify output', function () {
     chai.expect(minifiedHtml).to.not.include('\n      <noscript>\n')
     chai.expect(minifiedHtml.length).to.be.lessThan(beautifiedHtml.length)
   })
+
+  it('preserves twig-style file-start raw metadata while beautifying the html document', async function () {
+    const prefix = [
+      '{# subject: New submission from {{ form.name }} #}',
+      "{# fromEmail: {{ craft.app.systemSettings.getSettings('email').fromEmail }} #}",
+      "{# fromName: {{ craft.app.systemSettings.getSettings('email').fromName }} #}",
+      '{# cc: #}',
+      '{# bcc: #}',
+      '{# includeAttachments: false #}',
+      '{# presetAssets: #}',
+      '{# description: New form submission - internal notification #}',
+    ].join('\n')
+    const input = `
+      <mjml>
+        <mj-raw position="file-start">
+  ${prefix.split('\n').join('\n  ')}
+        </mj-raw>
+        <mj-body>
+          <!-- Your content goes here -->
+        </mj-body>
+      </mjml>
+    `
+
+    const { plainHtml, beautifiedHtml } = await renderVariants(input)
+    const plainDoctypeIndex = plainHtml.indexOf('<!doctype html>')
+    const beautifiedDoctypeIndex = beautifiedHtml.indexOf('<!doctype html>')
+
+    chai.expect(plainDoctypeIndex).to.be.greaterThan(0)
+    chai.expect(beautifiedDoctypeIndex).to.be.greaterThan(0)
+    prefix.split('\n').forEach((line) => {
+      chai.expect(plainHtml.slice(0, plainDoctypeIndex)).to.include(line)
+      chai.expect(beautifiedHtml.slice(0, beautifiedDoctypeIndex)).to.include(line)
+    })
+    chai.expect(beautifiedHtml).to.include('\n  <head>\n')
+    chai.expect(beautifiedHtml).to.include('<!-- Your content goes here -->')
+  })
 })

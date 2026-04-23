@@ -918,6 +918,22 @@ export default async function mjml2html(mjml, options = {}) {
       ]
 
     const cssMinifyEnabled = htmlnanoOptions.minifyCss !== false
+
+    // Protect content wrapped in <!-- htmlmin:ignore --> pairs from whitespace
+    // collapsing. We extract each protected chunk into an opaque token so
+    // htmlnano never sees the content, then restore it afterwards.
+    const htmlminIgnoreMap = []
+    if (content.includes('htmlmin:ignore')) {
+      content = content.replace(
+        /<!--\s*htmlmin:ignore\s*-->([\s\S]*?)<!--\s*htmlmin:ignore\s*-->/g,
+        (_, inner) => {
+          const token = `MJMLHTMLIGNORE${htmlminIgnoreMap.length}END`
+          htmlminIgnoreMap.push(inner)
+          return token
+        },
+      )
+    }
+
     const sanitizationResult = sanitizeTemplateVariablesInHtml(
       content,
       sanitizeStyles === true && cssMinifyEnabled,
@@ -938,7 +954,21 @@ export default async function mjml2html(mjml, options = {}) {
         syntaxes,
       )
     }
+
+    // Restore the htmlmin:ignore-protected chunks
+    if (htmlminIgnoreMap.length > 0) {
+      content = content.replace(
+        /MJMLHTMLIGNORE(\d+)END/g,
+        (_, i) => htmlminIgnoreMap[parseInt(i, 10)],
+      )
+    }
+
   } else if (beautify) {
+    
+    // Strip <!-- htmlmin:ignore --> markers (they are only meaningful to the
+    // minifier; in beautified output they are just noise).
+    content = content.replace(/<!--\s*htmlmin:ignore\s*-->/g, '')
+
     const syntaxes =
       templateSyntax || [
         { prefix: '{{', suffix: '}}' },
@@ -964,9 +994,13 @@ export default async function mjml2html(mjml, options = {}) {
     } else {
       // eslint-disable-next-line global-require
       const prettierModule = require('prettier')
+      // Prettier v3 standalone (browser) requires plugins to be passed explicitly.
+      // eslint-disable-next-line global-require
+      const prettierHtml = require('prettier/plugins/html')
       content = await prettierModule.format(content, {
         parser: 'html',
         printWidth: 240,
+        plugins: [prettierHtml],
       })
     }
 

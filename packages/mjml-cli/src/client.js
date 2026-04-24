@@ -177,6 +177,9 @@ export default async () => {
   if (typeof config.sanitizeStyles === 'string') {
     config.sanitizeStyles = config.sanitizeStyles === 'true'
   }
+  if (typeof config.allowMixedSyntax === 'string') {
+    config.allowMixedSyntax = config.allowMixedSyntax === 'true'
+  }
   if (typeof config.minify === 'string') {
     config.minify = config.minify === 'true'
   }

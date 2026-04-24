@@ -922,17 +922,15 @@ export default async function mjml2html(mjml, options = {}) {
     // Protect content wrapped in <!-- htmlmin:ignore --> pairs from whitespace
     // collapsing. We extract each protected chunk into an opaque token so
     // htmlnano never sees the content, then restore it afterwards.
-    const htmlminIgnoreMap = []
-    if (content.includes('htmlmin:ignore')) {
-      content = content.replace(
-        /<!--\s*htmlmin:ignore\s*-->([\s\S]*?)<!--\s*htmlmin:ignore\s*-->/g,
-        (_, inner) => {
-          const token = `MJMLHTMLIGNORE${htmlminIgnoreMap.length}END`
-          htmlminIgnoreMap.push(inner)
-          return token
-        },
-      )
-    }
+    const htmlminIgnoreList = []
+    content = content.replace(
+      /<!--\s*htmlmin:ignore\s*-->([\s\S]*?)<!--\s*htmlmin:ignore\s*-->/g,
+      (_, inner) => {
+        const token = `MJMLHTMLIGNORE${htmlminIgnoreList.length}END`
+        htmlminIgnoreList.push(inner)
+        return token
+      },
+    )
 
     const sanitizationResult = sanitizeTemplateVariablesInHtml(
       content,
@@ -956,10 +954,10 @@ export default async function mjml2html(mjml, options = {}) {
     }
 
     // Restore the htmlmin:ignore-protected chunks
-    if (htmlminIgnoreMap.length > 0) {
+    if (htmlminIgnoreList.length > 0) {
       content = content.replace(
         /MJMLHTMLIGNORE(\d+)END/g,
-        (_, i) => htmlminIgnoreMap[parseInt(i, 10)],
+        (_, i) => htmlminIgnoreList[parseInt(i, 10)],
       )
     }
 

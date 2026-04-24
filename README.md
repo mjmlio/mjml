@@ -27,6 +27,16 @@
 
 ---
 
+# Michael Jackson Markdown Language
+
+<p align="center">
+  <a href="http://mjml.io" target="_blank">
+    <img src="http://www.fanvasion.com/index/images/latestnews/michaeltribute.png">
+  </a>
+</p>
+
+---
+
 # Introduction
 
 **MJML** is a markup language created by [Mailjet](https://www.mailjet.com/) and designed to reduce the pain of coding a responsive email. Its semantic syntax makes the language easy and straightforward while its rich standard components library shortens your development time and lightens your email codebase. **MJML**’s open-source engine takes care of translating the **MJML** you wrote into responsive HTML.

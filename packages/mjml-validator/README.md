@@ -26,7 +26,16 @@ mjml --validate template.mjml
 
 ### In Javascript
 
-In Javascript, you can provide the level through the `options` parameters on `mjml2html`. E.g. `mjml2html(inputMJML, { validationLevel: 'strict' })`
+In Javascript, you can provide the level through the `options` parameters on `mjml2html`:
+
+```javascript
+import mjml2html from 'mjml'
+
+async function validate() {
+  const result = await mjml2html(inputMJML, { validationLevel: 'strict' })
+  return result
+}
+```
 
 Setting to `strict` will raise a `MJMLValidationError` exception. This object has 2 methods:
 

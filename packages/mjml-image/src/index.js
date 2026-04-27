@@ -22,7 +22,7 @@ export default class MjImage extends BodyComponent {
     'border-left': 'string',
     'border-right': 'string',
     'border-top': 'string',
-    'border-radius': 'unit(px,%){1,4}',
+    'border-radius': 'string',
     'container-background-color': 'color',
     'fluid-on-mobile': 'boolean',
     padding: 'unit(px,%){1,4}',

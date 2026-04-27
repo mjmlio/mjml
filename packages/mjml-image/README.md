@@ -25,7 +25,7 @@ Note that if no width is provided, the image will use the parent column width.
 | border                     | string                  | CSS border format                                                               | `0`                   |
 | border-bottom              | string                  | CSS border format                                                               |                       |
 | border-left                | string                  | CSS border format                                                               |                       |
-| border-radius              | `px` `%`                | border radius                                                                   |                       |
+| border-radius              | string                  | border radius                                                                   |                       |
 | border-right               | string                  | CSS border format                                                               |                       |
 | border-top                 | string                  | CSS border format                                                               |                       |
 | container-background-color | CSS color formats       | inner element background color                                                  |                       |

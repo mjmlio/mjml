@@ -13,5 +13,10 @@ This is the core mjml library, composed by a set of functions for both parsing, 
 ```javascript
 import mjml2html from 'mjml'
 
-console.log(mjml2html(`code`))
+async function example() {
+  const result = await mjml2html(`code`)
+  console.log(result)
+}
+
+example()
 ```

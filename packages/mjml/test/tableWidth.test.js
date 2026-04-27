@@ -3,7 +3,7 @@ const { load } = require('cheerio')
 const mjml = require('../lib')
 
 describe('mj-table width', function () {
-  it('should render correct width in CSS style values on mj-table', function () {
+  it('should render correct width in CSS style values on mj-table', async function () {
     const input = `
     <mjml>
         <mj-body>
@@ -69,7 +69,7 @@ describe('mj-table width', function () {
     </mjml>
     `
 
-    const { html } = mjml(input)
+    const { html } = await mjml(input)
 
     const $ = load(html)
 

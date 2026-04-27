@@ -4,7 +4,7 @@ const { sortBy } = require('lodash')
 const mjml = require('../lib')
 
 describe('html-attributes', function () {
-  it('should put the attributes at the right place', function () {
+  it('should put the attributes at the right place', async function () {
     const input = `
 <mjml>
   <mj-head>
@@ -37,7 +37,7 @@ describe('html-attributes', function () {
 </mjml>
 `
 
-    const { html } = mjml(input)
+    const { html } = await mjml(input)
     const $ = load(html)
 
     // should put the attributes at the right place

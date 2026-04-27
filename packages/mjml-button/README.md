@@ -58,7 +58,7 @@ Displays a customizable button.
 | inner-padding              | `px` `%`                           | inner button padding, <br>supports up to 4 parameters | `10px 25px`                            |
 | letter-spacing             | `px` `em`                          | letter-spacing                                        |                                        |
 | line-height                | `px` `%`                           | line-height on link                                   | `120%`                                 |
-| name                       | string                             | specify the name attribute for the button link        |
+| name                       | string                             | specify the name attribute for the button link        |                                        |
 | padding                    | `px` `%`                           | button container padding, supports up to 4 parameters | `10px 25px`                            |
 | padding-bottom             | `px` `%`                           | button container bottom padding                       |                                        |
 | padding-left               | `px` `%`                           | button container left padding                         |                                        |

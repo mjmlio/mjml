@@ -2,7 +2,7 @@ const chai = require('chai')
 const mjml = require('../lib')
 
 describe('HTML comments', function () {
-  it('should not alter the whitespace between the opening/closing comment tags and the comment content', function () {
+  it('should not alter the whitespace between the opening/closing comment tags and the comment content', async function () {
     const input = `
     <mjml>
       <mj-body>
@@ -22,7 +22,7 @@ describe('HTML comments', function () {
     </mjml>
     `
 
-    const { html } = mjml(input)
+    const { html } = await mjml(input)
 
     // should not alter templating syntax, or move the content that is outside any tag (mj-raws)
     const expected = [

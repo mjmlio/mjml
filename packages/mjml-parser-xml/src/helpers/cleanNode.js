@@ -1,11 +1,11 @@
-import _ from 'lodash'
+import forEach from 'lodash/forEach'
 
 export default function cleanNode(node) {
   delete node.parent
 
   // Delete children if needed
   if (node.children && node.children.length) {
-    _.forEach(node.children, cleanNode)
+    forEach(node.children, cleanNode)
   } else {
     delete node.children
   }

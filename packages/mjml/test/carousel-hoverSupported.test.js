@@ -3,7 +3,7 @@ const { load } = require('cheerio')
 const mjml = require('../lib')
 
 describe('mj-carousel-thumbnail thumbnails supported', function () {
-  it('should render correct display in CSS style values on mj-carousel-thumbnail', function () {
+  it('should render correct display in CSS style values on mj-carousel-thumbnail', async function () {
     const input = `
     <mjml>
       <mj-body>
@@ -20,7 +20,7 @@ describe('mj-carousel-thumbnail thumbnails supported', function () {
     </mjml>
     `
 
-    const { html } = mjml(input)
+    const { html } = await mjml(input)
 
     const $ = load(html)
 

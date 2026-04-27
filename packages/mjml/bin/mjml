@@ -1,4 +1,3 @@
 #!/usr/bin/env node
 
-require('../lib/index')
-require('mjml-cli')
+require('mjml-cli/lib/client.js')()

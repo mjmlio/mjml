@@ -14,7 +14,7 @@ Displays raw HTML that is not parsed by the MJML engine. Anything left inside th
 
 You can tell the minifier to ignore some content by wrapping it between two `<!-- htmlmin:ignore -->` tags.
 
-You can use `mj-raw` to add a templating language. Note that if you and use the `minify` option, you might get a `Parsing error`, especially when using the `<` character. These can be ignored by using the `<!-- htmlmin:ignore -->` tags.mlmin:ignore -->` tags.
+You can use `mj-raw` to add a templating language. Note that if you and use the `minify` option, you might get a `Parsing error`, especially when using the `<` character. These can be ignored by using the `<!-- htmlmin:ignore -->` tags.
 
 ```xml
 <mjml>

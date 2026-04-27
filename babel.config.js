@@ -15,6 +15,5 @@ module.exports = {
       },
     ],
     'add-module-exports',
-    'lodash',
   ],
 }

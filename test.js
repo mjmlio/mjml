@@ -31,24 +31,27 @@ const xml = `
 
 console.time('mjml2html')
 
-const { html } = mjml2html(xml, {
-  beautify: true,
-})
+async function run() {
+  console.time('mjml2html')
+  const { html } = await mjml2html(xml, {
+    minify: true,
+  })
 
-console.timeEnd('mjml2html')
+  console.timeEnd('mjml2html')
 
-if (process.argv.includes('--output')) {
-  console.log(html)
+  if (process.argv.includes('--open')) {
+    const open = require('open')
+    const path = require('path')
+    const fs = require('fs')
+
+    const testFile = path.resolve(__dirname, './test.html')
+
+    fs.writeFileSync(testFile, html)
+
+    open(testFile)
+  }
+
+  await run()
 }
 
-if (process.argv.includes('--open')) {
-  const open = require('open')
-  const path = require('path')
-  const fs = require('fs')
-
-  const testFile = path.resolve(__dirname, './test.html')
-
-  fs.writeFileSync(testFile, html)
-
-  open(testFile)
-}
+run()

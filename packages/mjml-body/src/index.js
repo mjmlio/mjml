@@ -1,4 +1,5 @@
 import { BodyComponent } from 'mjml-core'
+import buildPreview from './helpers/preview'
 
 export default class MjBody extends BodyComponent {
   static componentName = 'mj-body'
@@ -6,6 +7,7 @@ export default class MjBody extends BodyComponent {
   static allowedAttributes = {
     width: 'unit(px)',
     'background-color': 'color',
+    id: 'string',
   }
 
   static defaultAttributes = {
@@ -21,7 +23,12 @@ export default class MjBody extends BodyComponent {
 
   getStyles() {
     return {
+      body: {
+        'word-spacing': 'normal',
+        'background-color': this.getAttribute('background-color'),
+      },
       div: {
+        'word-spacing': 'normal',
         'background-color': this.getAttribute('background-color'),
       },
     }
@@ -29,25 +36,29 @@ export default class MjBody extends BodyComponent {
 
   render() {
     const {
-      setBackgroundColor,
-      globalData: { lang, dir, title },
+      globalData: { lang, dir, title, preview },
     } = this.context
-    setBackgroundColor(this.getAttribute('background-color'))
 
     return `
-      <div
-        ${this.htmlAttributes({
-          ...(title && { 'aria-label': title }),
-          'aria-roledescription': 'email',
-          class: this.getAttribute('css-class'),
-          style: 'div',
-          role: 'article',
-          lang,
-          dir,
-        })}
-      >
+      <body ${this.htmlAttributes({
+        id: this.getAttribute('id'),
+        class: this.getAttribute('css-class'),
+        style: 'body',
+      })}>
+        ${buildPreview(preview)}
+        <div
+          ${this.htmlAttributes({
+            ...(title && { 'aria-label': title }),
+            'aria-roledescription': 'email',
+            role: 'article',
+            lang,
+            dir,
+            style: 'div',
+          })}
+        >
         ${this.renderChildren()}
       </div>
+      </body>
     `
   }
 }

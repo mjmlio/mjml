@@ -56,11 +56,11 @@ describe('Beautify output', function () {
         }),
       expectedPlain: [
         '<div',
-        '         style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;"',
+        '         style="font-family:Ubuntu, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;"',
         '      >Hello beautify</div>',
       ].join('\n'),
       expectedBeautified:
-        '<div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;">Hello beautify</div>',
+        '<div style="font-family:Ubuntu, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;">Hello beautify</div>',
     },
     {
       name: 'reformats outlook conditional blocks without changing their content',
@@ -106,6 +106,70 @@ describe('Beautify output', function () {
         '    </xml>',
         '    </noscript>',
         '    <![endif]-->',
+      ].join('\n'),
+    },
+    {
+      name: 'keeps raw html comment spacing while reindenting the surrounding block',
+      input: `
+        <mjml>
+          <mj-body>
+            <mj-section>
+              <mj-column>
+                <mj-raw>
+                  <div id="beautify-raw-comment"><!--   keep this spacing   --><span data-kind="raw">Raw</span></div>
+                </mj-raw>
+              </mj-column>
+            </mj-section>
+          </mj-body>
+        </mjml>
+      `,
+      extract: (html) =>
+        extractBlockAroundMarker(html, {
+          marker: 'id="beautify-raw-comment"',
+          startToken: '<div id="beautify-raw-comment"',
+          endToken: '</div>',
+          label: 'raw comment block',
+        }),
+      expectedPlain: [
+        '<div id="beautify-raw-comment"><!--   keep this spacing   --><span data-kind="raw">Raw</span></div>',
+      ].join('\n'),
+      expectedBeautified: [
+        '<div id="beautify-raw-comment"><!--   keep this spacing   --> <span data-kind="raw">Raw</span></div>',
+      ].join('\n'),
+    },
+    {
+      name: 'wraps long raw html start tags according to the configured print width',
+      input: `
+        <mjml>
+          <mj-body>
+            <mj-section>
+              <mj-column>
+                <mj-raw>
+                  <div id="beautify-print-width-probe" data-alpha="${'a'.repeat(80)}" data-beta="${'b'.repeat(80)}" data-gamma="${'c'.repeat(80)}" data-delta="${'d'.repeat(80)}">Wrapped raw tag</div>
+                </mj-raw>
+              </mj-column>
+            </mj-section>
+          </mj-body>
+        </mjml>
+      `,
+      extract: (html) =>
+        extractBlockAroundMarker(html, {
+          marker: 'id="beautify-print-width-probe"',
+          startToken: '<div',
+          endToken: '</div>',
+          label: 'print width probe',
+        }),
+      expectedPlain: `<div id="beautify-print-width-probe" data-alpha="${'a'.repeat(80)}" data-beta="${'b'.repeat(80)}" data-gamma="${'c'.repeat(80)}" data-delta="${'d'.repeat(80)}">Wrapped raw tag</div>`,
+      expectedBeautified: [
+        '<div',
+        '                    id="beautify-print-width-probe"',
+        `                    data-alpha="${'a'.repeat(80)}"`,
+        `                    data-beta="${'b'.repeat(80)}"`,
+        `                    data-gamma="${'c'.repeat(80)}"`,
+        `                    data-delta="${'d'.repeat(80)}"`,
+        '                  >',
+        '                    Wrapped raw tag',
+        '                  </div>',
       ].join('\n'),
     },
   ]

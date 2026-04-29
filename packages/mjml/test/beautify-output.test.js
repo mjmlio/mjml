@@ -56,11 +56,11 @@ describe('Beautify output', function () {
         }),
       expectedPlain: [
         '<div',
-        '         style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;"',
+        '         style="font-family:Ubuntu, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;"',
         '      >Hello beautify</div>',
       ].join('\n'),
       expectedBeautified:
-        '<div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;">Hello beautify</div>',
+        '<div style="font-family:Ubuntu, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;">Hello beautify</div>',
     },
     {
       name: 'reformats outlook conditional blocks without changing their content',
@@ -126,19 +126,15 @@ describe('Beautify output', function () {
       extract: (html) =>
         extractBlockAroundMarker(html, {
           marker: 'id="beautify-raw-comment"',
-          startToken: '<tbody>',
-          endToken: '</tbody>',
+          startToken: '<div id="beautify-raw-comment"',
+          endToken: '</div>',
           label: 'raw comment block',
         }),
       expectedPlain: [
-        '<tbody>',
-        '          <div id="beautify-raw-comment"><!--   keep this spacing   --><span data-kind="raw">Raw</span></div>',
-        '        </tbody>',
+        '<div id="beautify-raw-comment"><!--   keep this spacing   --><span data-kind="raw">Raw</span></div>',
       ].join('\n'),
       expectedBeautified: [
-        '<tbody>',
-        '                      <div id="beautify-raw-comment"><!--   keep this spacing   --> <span data-kind="raw">Raw</span></div>',
-        '                    </tbody>',
+        '<div id="beautify-raw-comment"><!--   keep this spacing   --> <span data-kind="raw">Raw</span></div>',
       ].join('\n'),
     },
     {
@@ -166,14 +162,14 @@ describe('Beautify output', function () {
       expectedPlain: `<div id="beautify-print-width-probe" data-alpha="${'a'.repeat(80)}" data-beta="${'b'.repeat(80)}" data-gamma="${'c'.repeat(80)}" data-delta="${'d'.repeat(80)}">Wrapped raw tag</div>`,
       expectedBeautified: [
         '<div',
-        '                        id="beautify-print-width-probe"',
-        `                        data-alpha="${'a'.repeat(80)}"`,
-        `                        data-beta="${'b'.repeat(80)}"`,
-        `                        data-gamma="${'c'.repeat(80)}"`,
-        `                        data-delta="${'d'.repeat(80)}"`,
-        '                      >',
-        '                        Wrapped raw tag',
-        '                      </div>',
+        '                    id="beautify-print-width-probe"',
+        `                    data-alpha="${'a'.repeat(80)}"`,
+        `                    data-beta="${'b'.repeat(80)}"`,
+        `                    data-gamma="${'c'.repeat(80)}"`,
+        `                    data-delta="${'d'.repeat(80)}"`,
+        '                  >',
+        '                    Wrapped raw tag',
+        '                  </div>',
       ].join('\n'),
     },
   ]

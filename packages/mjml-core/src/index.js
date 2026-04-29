@@ -31,6 +31,8 @@ import mergeOutlookConditionnals from './helpers/mergeOutlookConditionnals'
 import minifyOutlookConditionnals from './helpers/minifyOutlookConditionnals'
 import defaultSkeleton from './helpers/skeleton'
 import loadSkeletonFromFile from './node-only/skeleton-loader'
+import mergeHeadStyleBlocks from './helpers/mergeHeadStyleBlocks'
+import { setSupportOutlookClassicFlag } from './helpers/conditionalTag'
 import { initializeType } from './types/type'
 
 import handleMjmlConfig, {
@@ -626,6 +628,26 @@ export default async function mjml2html(mjml, options = {}) {
     })
   }
 
+  const usesVML = (() => {
+    const stack = [...(mjml.children || [])]
+
+    while (stack.length) {
+      const node = stack.pop()
+
+      if (node && ['mj-section', 'mj-hero', 'mj-wrapper'].includes(node.tagName)) {
+        const attrs = node.attributes || {}
+        const bg = attrs['background-url']
+        if (typeof bg === 'string' ? bg.trim().length > 0 : Boolean(bg)) return true
+      }
+
+      if (node && node.children && node.children.length) {
+        stack.push(...node.children)
+      }
+    }
+
+    return false
+  })()
+
   const globalData = {
     beforeDoctype: '',
     breakpoint: '480px',
@@ -645,7 +667,18 @@ export default async function mjml2html(mjml, options = {}) {
     forceOWADesktop: get(mjml, 'attributes.owa', 'mobile') === 'desktop',
     lang: get(mjml, 'attributes.lang') || 'und',
     dir: get(mjml, 'attributes.dir') || 'auto',
+    supportDarkMode:
+      String(get(mjml, 'attributes.support-dark-mode', false)).toLowerCase() ===
+      'true',
+    supportOutlookClassic:
+      String(get(mjml, 'attributes.support-outlook-classic', true)).toLowerCase() !== 'false',
+    usesVML,
+    carouselSharedStylesEmitted: false,
+    navbarHamburgerStyleEmitted: false,
+    imageFluidOnMobileStyleEmitted: false,
   }
+
+  setSupportOutlookClassicFlag(globalData.supportOutlookClassic)
 
   const validatorOptions = {
     components,
@@ -761,8 +794,17 @@ export default async function mjml2html(mjml, options = {}) {
     components,
     globalData,
     addMediaQuery(className, { parsedWidth, unit }) {
-      globalData.mediaQueries[className] =
-        `{ width:${parsedWidth}${unit} !important; max-width: ${parsedWidth}${unit}; }`
+      const widthValue = `${parsedWidth}${unit}`
+
+      const declarations = []
+
+      if (parsedWidth !== 100 || unit !== '%') {
+        declarations.push(`width:${widthValue} !important;`)
+      }
+
+      declarations.push(`max-width: ${widthValue};`)
+
+      globalData.mediaQueries[className] = `{ ${declarations.join(' ')} }`
     },
     addHeadStyle(identifier, headStyle) {
       globalData.headStyle[identifier] = headStyle
@@ -851,6 +893,8 @@ export default async function mjml2html(mjml, options = {}) {
     ...globalData,
     printerSupport,
   })
+  
+  content = mergeHeadStyleBlocks(content)
 
   if (globalData.inlineStyle.length > 0) {
     if (juicePreserveTags) {
@@ -998,6 +1042,7 @@ export default async function mjml2html(mjml, options = {}) {
       content = await prettierModule.format(content, {
         parser: 'html',
         printWidth: 240,
+        singleQuote: true,
         plugins: [prettierHtml],
       })
     }
@@ -1012,6 +1057,9 @@ export default async function mjml2html(mjml, options = {}) {
       )
     }
   }
+
+  content = content.replace(/\/\* prettier-ignore \*\//g, '')
+  content = content.replace(/<!-- prettier-ignore -->/g, '')
 
   return {
     html: content,

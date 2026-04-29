@@ -33,13 +33,11 @@ export function buildStyleFromComponents(
   const blocks = []
 
   if (css) {
-    blocks.push(`<style>${css}
-    </style>`)
+    blocks.push(`<style>${css}</style>`)
   }
 
   if (accordionCss) {
-    blocks.push(`<style type="text/css">${accordionCss}
-    </style>`)
+    blocks.push(`<style type="text/css">${accordionCss}</style>`)
   }
 
   return blocks.join('\n')

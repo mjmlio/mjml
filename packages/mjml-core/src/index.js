@@ -634,18 +634,14 @@ export default async function mjml2html(mjml, options = {}) {
     while (stack.length) {
       const node = stack.pop()
 
-      if (node) {
-        if (node.tagName === 'mj-section' || node.tagName === 'mj-hero' || node.tagName === 'mj-wrapper') {
-          const attrs = node.attributes || {}
-          const bg = attrs['background-url']
-          if (typeof bg === 'string' ? bg.trim().length > 0 : Boolean(bg)) {
-            return true
-          }
-        }
+      if (node && ['mj-section', 'mj-hero', 'mj-wrapper'].includes(node.tagName)) {
+        const attrs = node.attributes || {}
+        const bg = attrs['background-url']
+        if (typeof bg === 'string' ? bg.trim().length > 0 : Boolean(bg)) return true
+      }
 
-        if (node.children && node.children.length) {
-          stack.push(...node.children)
-        }
+      if (node && node.children && node.children.length) {
+        stack.push(...node.children)
       }
     }
 
@@ -1045,7 +1041,7 @@ export default async function mjml2html(mjml, options = {}) {
       const prettierHtml = require('prettier/plugins/html')
       content = await prettierModule.format(content, {
         parser: 'html',
-        printWidth: 1024,
+        printWidth: 240,
         singleQuote: true,
         plugins: [prettierHtml],
       })

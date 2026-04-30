@@ -1,7 +1,38 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { Workspace } from '@biomejs/wasm-nodejs'
 
 let workspace = null
 let projectKey = null
+
+function normalizeClosingTagWhitespace(html) {
+  return html
+    .replace(/<\/([A-Za-z0-9:-]+)\s*\n\s*>/g, '</$1>')
+    .replace(/<(a|label)([\s\S]*?)\n\s*>/gi, '<$1$2>')
+    .replace(
+      /(^[ \t]*)<(a|label)([^>]*)>\s*<img\b/gim,
+      '$1<$2$3>\n$1  <img',
+    )
+    .replace(/(^[ \t]*)<img\b([^>]*)\/>\s*<\/(a|label)>/gim, (match, indent, attrs, tag) => {
+      const parentIndent = indent.length > 1 ? indent.slice(0, -2) : ''
+      return `${indent}<img${attrs}/>\n${parentIndent}</${tag}>`
+    })
+    .replace(
+      /(^[ \t]*)<(a|label)\b([\s\S]*?)<\/\2>(?=<(?:a|label)\b)/gim,
+      '$1<$2$3</$2>\n$1',
+    )
+    .replace(/(<div class="mj-carousel-(?:next|previous)-icons"[\s\S]*?<\/div>)/g, (block) => {
+      const labelIndentMatch = block.match(/^([ \t]*)<label\b/m)
+      if (!labelIndentMatch) return block
+
+      const labelIndent = labelIndentMatch[1]
+      const imgIndent = `${labelIndent}  `
+
+      return block
+        .replace(/<label([^>]*)>\s*<img/g, `<label$1>\n${imgIndent}<img`)
+        .replace(/\/>\s*<\/label>/g, `/>\n${labelIndent}</label>`)
+        .replace(/<\/label>\s*<label/g, `</label>\n${labelIndent}<label`)
+    })
+}
 
 function initializeBiome() {
   if (workspace !== null) {
@@ -40,7 +71,7 @@ function initializeBiome() {
           indentWidth: 2,
           lineWidth: 240,
           selfCloseVoidElements: 'always',
-          whitespaceSensitivity: 'ignore',
+          whitespaceSensitivity: 'css',
         },
       },
     },
@@ -85,7 +116,7 @@ function formatHtml(html) {
 
   try {
     const result = workspace.formatFile({ path: filename, projectKey })
-    return prefix + result.code
+    return prefix + normalizeClosingTagWhitespace(result.code)
   } finally {
     workspace.closeFile({ path: filename, projectKey })
   }

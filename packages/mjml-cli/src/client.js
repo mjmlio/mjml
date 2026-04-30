@@ -155,6 +155,7 @@ export default async () => {
   }
 
   const filePath = argv.c && argv.c.filePath
+  const beautifyModule = argv.c && argv.c.beautifyModule
 
   const config = Object.assign(
     DEFAULT_OPTIONS,
@@ -186,6 +187,32 @@ export default async () => {
 
   if (typeof argv.sanitizeStyles !== 'undefined') {
     config.sanitizeStyles = argv.sanitizeStyles
+  }
+
+  if (beautifyModule) {
+    const modulePath = path.isAbsolute(beautifyModule)
+      ? beautifyModule
+      : path.resolve(process.cwd(), beautifyModule)
+
+    let loadedBeautifier
+    try {
+      // eslint-disable-next-line import/no-dynamic-require, global-require
+      loadedBeautifier = require(modulePath)
+    } catch (e) {
+      error(`Failed to load beautify module at "${modulePath}": ${e.message}`)
+    }
+
+    const beautifyFn =
+      (loadedBeautifier && loadedBeautifier.default) || loadedBeautifier
+
+    if (typeof beautifyFn !== 'function') {
+      error(
+        `Invalid beautify module at "${modulePath}": expected a function export (html) => string | Promise<string>`,
+      )
+    }
+
+    // Module-provided beautifier overrides built-in beautify modes.
+    config.beautify = beautifyFn
   }
 
   const inputArgs = pickArgs(['r', 'w', 'i', '_', 'm', 'v'])(argv)
@@ -276,7 +303,10 @@ export default async () => {
           break
 
         default: {
-          const beautify = config.beautify && config.beautify !== 'false'
+          const beautify =
+            typeof config.beautify === 'function'
+              ? config.beautify
+              : config.beautify && config.beautify !== 'false'
           const minify = config.minify && config.minify !== 'false'
 
           // eslint-disable-next-line no-await-in-loop

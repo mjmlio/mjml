@@ -982,18 +982,31 @@ export default async function mjml2html(mjml, options = {}) {
     )
     content = sanitizationResult.content
 
-    if (isNode) {
-      // Lazy-load Node-only formatter to avoid Biome WASM dependency in non-beautify paths
-      const nodeFormatter = await import('./node-only/node-formatter')
-      const formatHtml =
-        nodeFormatter.formatHtml ||
-        (nodeFormatter.default && nodeFormatter.default.formatHtml)
+    if (typeof beautify === 'function') {
+      // User-supplied formatter
+      content = await Promise.resolve(beautify(content))
+
+    } else if (isNode) {
+      // Built-in Node.js path: Biome (optional dependency)
+      let nodeFormatter
+      try {
+        nodeFormatter = await import('./node-only/node-formatter')
+      } catch (e) {
+        throw new Error(
+          '[mjml] beautify=true requires @biomejs/wasm-nodejs to be installed, ' +
+          'or pass a custom formatter function as the beautify option. ' +
+          'Run: npm install @biomejs/wasm-nodejs\n' +
+          `Original error: ${e.message}`,
+        )
+      }
+      const formatHtml = nodeFormatter.formatHtml || nodeFormatter.default?.formatHtml
       content = formatHtml(content)
+
     } else {
-      // eslint-disable-next-line global-require
+      // Built-in browser path: Prettier
+      // eslint-disable-next-line global-require, import/no-extraneous-dependencies
       const prettierModule = require('prettier')
-      // Prettier v3 standalone (browser) requires plugins to be passed explicitly.
-      // eslint-disable-next-line global-require
+      // eslint-disable-next-line global-require, import/no-extraneous-dependencies
       const prettierHtml = require('prettier/plugins/html')
       content = await prettierModule.format(content, {
         parser: 'html',

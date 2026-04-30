@@ -288,3 +288,146 @@ describe('Beautify output', function () {
     chai.expect(beautifiedHtml).to.include('<!-- Your content goes here -->')
   })
 })
+
+describe('Beautify as a custom function', function () {
+  this.timeout(10000)
+
+  const simpleInput = `
+    <mjml>
+      <mj-body>
+        <mj-section><mj-column><mj-text>Hello</mj-text></mj-column></mj-section>
+      </mj-body>
+    </mjml>
+  `
+
+  it('calls the function instead of Biome when beautify is a function', async function () {
+    let calledWith = null
+    const { html } = await mjml(simpleInput, {
+      beautify: (rawHtml) => { calledWith = rawHtml; return rawHtml.replace(/></g, '>\n<') },
+    })
+    chai.expect(calledWith).to.be.a('string').and.include('<!doctype html')
+    chai.expect(html).to.include('>\n<')
+  })
+
+  it('supports async beautify functions', async function () {
+    const { html } = await mjml(simpleInput, {
+      beautify: async (rawHtml) => {
+        await new Promise((r) => setTimeout(r, 1))
+        return `${rawHtml}\n<!-- async -->`
+      },
+    })
+    chai.expect(html).to.include('<!-- async -->')
+  })
+
+  it('preserves sanitizeStyles template tokens when beautify is a function', async function () {
+    const input = `
+      <mjml>
+        <mj-body>
+          <mj-section>
+            <mj-column>
+              <mj-raw>
+                <div style="color: {{primaryColor}};">Token</div>
+              </mj-raw>
+            </mj-column>
+          </mj-section>
+        </mj-body>
+      </mjml>
+    `
+
+    const { html } = await mjml(input, {
+      sanitizeStyles: true,
+      beautify: (rawHtml) => rawHtml,
+      templateSyntax: [{ prefix: '{{', suffix: '}}' }],
+    })
+
+    chai.expect(html).to.include('{{primaryColor}}')
+  })
+
+  it('does not call beautify function when minify=true', async function () {
+    let called = false
+    const { html } = await mjml(simpleInput, {
+      beautify: () => { called = true; return '' },
+      minify: true,
+    })
+    chai.expect(called).to.equal(false)
+    chai.expect(html).to.be.a('string').and.have.length.above(0)
+  })
+
+  it('propagates errors thrown by the beautify function', async function () {
+    try {
+      await mjml(simpleInput, {
+        beautify: () => {
+          throw new Error('boom')
+        },
+      })
+      chai.expect.fail('Expected mjml() to throw, but it resolved')
+    } catch (err) {
+      chai.expect(err).to.be.instanceOf(Error)
+      chai.expect(err.message).to.equal('boom')
+    }
+  })
+
+  it('preserves whitespace around inline elements with punctuation (whitespaceSensitivity=css)', async function () {
+    const input = `
+      <mjml>
+        <mj-body>
+          <mj-section>
+            <mj-column>
+              <mj-text>
+                Click <a href="https://example.com">here</a>, then <span style="font-weight:bold;">read</span> the docs.
+              </mj-text>
+            </mj-column>
+          </mj-section>
+        </mj-body>
+      </mjml>
+    `
+
+    const { html: beautifiedHtml } = await mjml(input, { beautify: true })
+
+    // Verify inline punctuation spacing is preserved with whitespaceSensitivity: 'css'
+    // The formatter should preserve the space after comma and before words
+    chai.expect(beautifiedHtml, 'beautified HTML').to.be.a('string')
+    chai.expect(beautifiedHtml).to.include('</a>, then')
+    chai.expect(beautifiedHtml).to.include('</span> the')
+    chai.expect(beautifiedHtml).to.include('<a href="https://example.com">here</a>')
+  })
+
+  it('does not emit whitespace-split closing tags for carousel anchors and labels', async function () {
+    const input = `
+      <mjml>
+        <mj-body>
+          <mj-section>
+            <mj-column>
+              <mj-carousel>
+                <mj-carousel-image
+                  href="https://mjml.io"
+                  src="https://static.mailjet.com/mjml-website/documentation/carousel-1.jpg"
+                />
+                <mj-carousel-image
+                  href="https://mjml.io"
+                  src="https://static.mailjet.com/mjml-website/documentation/carousel-2.jpg"
+                />
+                <mj-carousel-image
+                  href="https://mjml.io"
+                  src="https://static.mailjet.com/mjml-website/documentation/carousel-3.jpg"
+                />
+              </mj-carousel>
+            </mj-column>
+          </mj-section>
+        </mj-body>
+      </mjml>
+    `
+
+    const { html } = await mjml(input, { beautify: true })
+
+    chai.expect(html).to.include('mj-carousel-image')
+    chai.expect(html).to.include('mj-carousel-next')
+    chai.expect(html).to.match(/<a\b[^>]*>\n\s*<img\b[\s\S]*\n\s*<\/a>/)
+    chai.expect(html).to.match(/<label\b[^>]*>\n\s*<img\b[\s\S]*\n\s*<\/label>/)
+    chai.expect(html).to.match(/<\/label>\n\s*<label\b/)
+    const nextInlineLabelCount = (html.match(/class="mj-carousel-next[^"]*"><img\b/g) || []).length
+    chai.expect(nextInlineLabelCount).to.equal(0)
+    chai.expect(html).to.not.match(/<\/a\s*\n\s*>/)
+    chai.expect(html).to.not.match(/<\/label\s*\n\s*>/)
+  })
+})

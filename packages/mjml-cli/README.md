@@ -119,7 +119,9 @@ All the options that can be passed to mjml2html (see general documentation) can 
 $> mjml input.mjml --config.beautify true --config.minify false
 ```
 
-These are the default options.  
+These are the default options.
+
+**Note:** Beautification in Node.js requires @biomejs/wasm-nodejs (an optional dependency of mjml-core). If you have removed it to save bundle size, you may pass a custom function in beautify when using the Node.js API, or keep @biomejs/wasm-nodejs installed for CLI usage.
 
 ### Change minify options
 

@@ -133,17 +133,13 @@ export default class MjNavbar extends BodyComponent {
               class: 'mj-menu-icon-open',
               style: 'icoOpen',
             })}
-          >
-            ${this.getAttribute('ico-open')}
-          </span>
+          >${this.getAttribute('ico-open')}</span>
           <span
             ${this.htmlAttributes({
               class: 'mj-menu-icon-close',
               style: 'icoClose',
             })}
-          >
-            ${this.getAttribute('ico-close')}
-          </span>
+          >${this.getAttribute('ico-close')}</span>
         </label>
       </div>
     `

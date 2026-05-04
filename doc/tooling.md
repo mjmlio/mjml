@@ -71,3 +71,28 @@ example()
 ```
 
 For the canonical list of CLI flags and Node.js options, see [Usage](https://documentation.mjml.io/#usage)
+
+
+## Template syntax in HTML
+
+If you include template syntax within your MJML and you encounter issues with the HTML output when `beautify="true"` then you can optionally choose to exclude it from the `beautify` process by wrapping it in `<!-- htmlbeautify:ignore -->` comments.
+
+### Example usage
+
+```
+<mjml>
+  <mj-body>
+    <mj-section>
+      <mj-column>
+
+        <!-- htmlbeautify:ignore -->{{ for item in items }}<!-- htmlbeautify:ignore -->
+
+        <!-- Your MJML content goes here -->
+
+        <!-- htmlbeautify:ignore -->{{ endfor }}<!-- htmlbeautify:ignore -->
+
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>
+```

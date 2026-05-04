@@ -931,6 +931,8 @@ export default async function mjml2html(mjml, options = {}) {
         return token
       },
     )
+    // htmlbeautify:ignore is beautify-only; strip markers if minifying.
+    content = content.replace(/<!--\s*htmlbeautify:ignore\s*-->/g, '')
 
     const sanitizationResult = sanitizeTemplateVariablesInHtml(
       content,
@@ -962,10 +964,32 @@ export default async function mjml2html(mjml, options = {}) {
     }
 
   } else if (beautify) {
-    
-    // Strip <!-- htmlmin:ignore --> markers (they are only meaningful to the
-    // minifier; in beautified output they are just noise).
+
+    // Protect content wrapped in <!-- htmlbeautify:ignore --> pairs from the
+    // HTML
+    // formatter. Content such as {% for item in items %} uses characters that
+    // some formatters (e.g. Biome) will alter. We extract each protected chunk
+    // into a <span data-mjml-preserve="N"> token that formatters leave
+    // unchanged, then restore the original content after formatting. Any
+    // unpaired markers are stripped.
+    //
+    // Note: HTML comment tokens cannot be used here because Biome silently
+    // removes comments that appear as leading children of block elements when
+    // those elements also contain text nodes.
+    const beautifyIgnoreList = []
+    content = content.replace(
+      /<!--\s*htmlbeautify:ignore\s*-->([\s\S]*?)<!--\s*htmlbeautify:ignore\s*-->/g,
+      (_, inner) => {
+        const token = `<span data-mjml-preserve="${beautifyIgnoreList.length}"></span>`
+        beautifyIgnoreList.push(inner)
+        return token
+      },
+    )
+    // Strip any remaining unpaired markers.
+    // htmlmin:ignore markers are minify-only and should not appear in
+    // beautified output.
     content = content.replace(/<!--\s*htmlmin:ignore\s*-->/g, '')
+    content = content.replace(/<!--\s*htmlbeautify:ignore\s*-->/g, '')
 
     const syntaxes =
       templateSyntax || [
@@ -1013,6 +1037,14 @@ export default async function mjml2html(mjml, options = {}) {
         printWidth: 240,
         plugins: [prettierHtml],
       })
+    }
+
+    // Restore the htmlbeautify:ignore-protected chunks
+    if (beautifyIgnoreList.length > 0) {
+      content = content.replace(
+        /<span data-mjml-preserve="(\d+)"><\/span>/g,
+        (_, i) => beautifyIgnoreList[parseInt(i, 10)],
+      )
     }
 
     if (sanitizationResult.didSanitize) {

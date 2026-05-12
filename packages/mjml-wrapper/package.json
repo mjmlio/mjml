@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.28.4",
-    "lodash": "^4.17.21",
+    "lodash": "^4.18.1",
     "mjml-core": "5.2.1",
     "mjml-section": "5.2.1"
   },

@@ -154,6 +154,22 @@ export default async () => {
     }
   }
 
+  // Resolve relative includePath entries to absolute paths using the CLI's
+  // working directory (process.cwd()), not the template file's directory.
+  // This matches the intuitive expectation that `--config.includePath '["layouts"]'`
+  // refers to a folder relative to where the CLI command is run.
+  const resolveIncludePathEntry = (p) => {
+    if (typeof p === 'string' && p.length > 0 && !path.isAbsolute(p)) {
+      return path.resolve(process.cwd(), p)
+    }
+    return p
+  }
+  if (Array.isArray(includePath)) {
+    includePath = includePath.map(resolveIncludePathEntry)
+  } else if (typeof includePath === 'string' && includePath.length > 0) {
+    includePath = resolveIncludePathEntry(includePath)
+  }
+
   const filePath = argv.c && argv.c.filePath
 
   const config = Object.assign(
@@ -305,6 +321,40 @@ export default async () => {
       console.error(map(s.compiled.errors, 'formattedMessage').join('\n')) // eslint-disable-line no-console
     }
   })
+
+  // Warn when includes were enabled but some include paths were denied (outside allowed roots).
+  if (config.ignoreIncludes === false) {
+    const DENIED_RE = /<!--\s*mj-include denied\s*-->/i
+    const filesWithDeniedIncludes = convertedStream
+      .filter((s) => s.compiled && s.compiled.html && DENIED_RE.test(s.compiled.html))
+      .map((s) => s.file)
+    if (filesWithDeniedIncludes.length) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        `[MJML] Some mj-include paths were denied because they are outside the allowed directories.\n` +
+          `  Files: ${filesWithDeniedIncludes.join(', ')}\n` +
+          `  Add the include directories to --config.includePath to allow them.\n` +
+          `  See https://documentation.mjml.io/#mj-include for security notes.`,
+      )
+    }
+  }
+
+  // Warn when mj-include tags are present but includes are still ignored.
+  if (config.ignoreIncludes !== false) {
+    const MJ_INCLUDE_RE = /<mj-include\b/i
+    const filesWithIgnoredIncludes = inputs
+      .filter((i) => i && i.mjml && MJ_INCLUDE_RE.test(i.mjml))
+      .map((i) => i.file)
+    if (filesWithIgnoredIncludes.length) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        `[MJML] mj-include tags were found but includes are disabled by default.\n` +
+          `  Files: ${filesWithIgnoredIncludes.join(', ')}\n` +
+          `  To enable includes, add --config.allowIncludes true to your command.\n` +
+          `  See https://documentation.mjml.io/#mj-include for security notes.`,
+      )
+    }
+  }
 
   failedStream.forEach(({ error, file }) => {
     console.error(`${file ? `File: ${file}\n` : null}${error}`) // eslint-disable-line no-console

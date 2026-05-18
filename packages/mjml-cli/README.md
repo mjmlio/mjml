@@ -234,14 +234,14 @@ Notes:
 
 - `includePath` accepts a string or a JSON array of paths.
 - Allowed roots are the `filePath` directory plus any `includePath` entries; absolute paths outside these roots and parent-directory escapes remain denied.
-- Relative `includePath` entries are resolved against `filePath` (or the template file’s directory when `filePath` isn’t set).
+- Relative `includePath` entries are resolved against the working directory from which the CLI is invoked (`process.cwd()`), not against `filePath` or the template file's directory.
 
 Security notes:
 
 - Includes are ignored by default (`ignoreIncludes: true`). Enable explicitly only when needed.
 - Paths are fully URL-decoded before validation (handles double/triple encoding).
 - Early rejects: absolute paths, UNC paths (`//server/...` or `\\server\\...`), Windows drive letters (`C:\...`), and null bytes (`%00`).
-- Canonical checks: we resolve and follow symlinks with `realpath` and verify the target stays inside `filePath` or `includePath` roots.
+- Canonical checks: we resolve and follow symlinks and verify the target stays inside `filePath` or `includePath` roots.
 - Allowed file types: `mjml`, `css`, and `html` via `<mj-include type="...">`; other extensions are not supported.
 
 ### Best practices for shared partials

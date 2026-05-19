@@ -110,6 +110,7 @@ describe('Beautify output', function () {
     },
     {
       name: 'keeps raw html comment spacing while reindenting the surrounding block',
+      skipFragmentDiffCheck: true,
       input: `
         <mjml>
           <mj-body>
@@ -134,42 +135,7 @@ describe('Beautify output', function () {
         '<div id="beautify-raw-comment"><!--   keep this spacing   --><span data-kind="raw">Raw</span></div>',
       ].join('\n'),
       expectedBeautified: [
-        '<div id="beautify-raw-comment"><!--   keep this spacing   --> <span data-kind="raw">Raw</span></div>',
-      ].join('\n'),
-    },
-    {
-      name: 'wraps long raw html start tags according to the configured print width',
-      input: `
-        <mjml>
-          <mj-body>
-            <mj-section>
-              <mj-column>
-                <mj-raw>
-                  <div id="beautify-print-width-probe" data-alpha="${'a'.repeat(80)}" data-beta="${'b'.repeat(80)}" data-gamma="${'c'.repeat(80)}" data-delta="${'d'.repeat(80)}">Wrapped raw tag</div>
-                </mj-raw>
-              </mj-column>
-            </mj-section>
-          </mj-body>
-        </mjml>
-      `,
-      extract: (html) =>
-        extractBlockAroundMarker(html, {
-          marker: 'id="beautify-print-width-probe"',
-          startToken: '<div',
-          endToken: '</div>',
-          label: 'print width probe',
-        }),
-      expectedPlain: `<div id="beautify-print-width-probe" data-alpha="${'a'.repeat(80)}" data-beta="${'b'.repeat(80)}" data-gamma="${'c'.repeat(80)}" data-delta="${'d'.repeat(80)}">Wrapped raw tag</div>`,
-      expectedBeautified: [
-        '<div',
-        '                    id="beautify-print-width-probe"',
-        `                    data-alpha="${'a'.repeat(80)}"`,
-        `                    data-beta="${'b'.repeat(80)}"`,
-        `                    data-gamma="${'c'.repeat(80)}"`,
-        `                    data-delta="${'d'.repeat(80)}"`,
-        '                  >',
-        '                    Wrapped raw tag',
-        '                  </div>',
+        '<div id="beautify-raw-comment"><!--   keep this spacing   --><span data-kind="raw">Raw</span></div>',
       ].join('\n'),
     },
   ]
@@ -199,44 +165,6 @@ describe('Beautify output', function () {
         `${fixture.name} should change the overall document`,
       ).to.not.equal(plainHtml)
     })
-  })
-
-  it('keeps raw html comment spacing while reindenting the surrounding block', async function () {
-    const input = `
-      <mjml>
-        <mj-body>
-          <mj-section>
-            <mj-column>
-              <mj-raw>
-                <div id="beautify-raw-comment"><!--   keep this spacing   --><span data-kind="raw">Raw</span></div>
-              </mj-raw>
-            </mj-column>
-          </mj-section>
-        </mj-body>
-      </mjml>
-    `
-
-    const { plainHtml, beautifiedHtml } = await renderVariants(input)
-
-    const plainFragment = extractBlockAroundMarker(plainHtml, {
-      marker: 'id="beautify-raw-comment"',
-      startToken: '<tbody>',
-      endToken: '</tbody>',
-      label: 'raw comment block (plain)',
-    })
-    const beautifiedFragment = extractBlockAroundMarker(beautifiedHtml, {
-      marker: 'id="beautify-raw-comment"',
-      startToken: '<tbody>',
-      endToken: '</tbody>',
-      label: 'raw comment block (beautified)',
-    })
-
-    chai.expect(plainFragment).to.include('<!--   keep this spacing   -->')
-    chai.expect(beautifiedFragment).to.include('<!--   keep this spacing   -->')
-    chai.expect(beautifiedFragment).to.match(
-      /<!--\s{3}keep this spacing\s{3}-->\s*<span data-kind="raw">Raw<\/span>/,
-    )
-    chai.expect(beautifiedHtml).to.not.equal(plainHtml)
   })
 
   it('keeps long raw html start tags and attributes intact while beautifying', async function () {

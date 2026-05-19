@@ -3,6 +3,17 @@
 The `mjml-core` package allows you to include external `.mjml` files
 to build your email template.
 
+<div class="alert alert-important" role="alert">
+  <p>Important</p>
+  <br>
+  <p><b>MJML 5 — includes are disabled by default.</b></p>
+  <p><code>mj-include</code> tags are silently ignored unless you opt in. If your included
+  content is missing from the output, enable includes explicitly using <code>ignoreIncludes: false</code> for <a href="#inside-node-js">Node.js</a> or <code>--config.allowIncludes true</code> for the <a href="#command-line-interface">CLI</a>
+
+  <p>See the <a href="#include-path-examples">include security documentation</a> for details
+  on scoping which directories are allowed.</p>
+</div>
+
 ```xml
 <!-- header.mjml -->
 <mj-section>

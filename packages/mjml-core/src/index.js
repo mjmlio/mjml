@@ -587,29 +587,14 @@ export default async function mjml2html(mjml, options = {}) {
     }
 
     if (pathsArr.length) {
-      let base = filePath || '.'
-      if (fs.existsSync(base)) {
-        const isDir = fs.lstatSync(base).isDirectory()
-        base = isDir ? base : path.dirname(base)
-      } else {
-        base = process.cwd()
-      }
-      const baseReal = fs.existsSync(base) ? fs.realpathSync(base) : base
       for (const p of pathsArr) {
         if (fs.existsSync(p)) {
           const r = fs.realpathSync(p)
-          const relToBase = path.relative(baseReal, r)
-          const isOutsideBase =
-            !relToBase ||
-            relToBase.startsWith('..') ||
-            path.isAbsolute(relToBase)
           const isRootDir = r === path.parse(r).root
-          if (isRootDir || isOutsideBase) {
+          if (isRootDir) {
             // eslint-disable-next-line no-console
             console.warn(
-              `[MJML security] includePath "${p}" is outside the template base "${baseReal}"${
-                isRootDir ? ' (root directory)' : ''
-              }. Consider scoping includePath to a project templates folder.`,
+              `[MJML security] includePath "${p}" is the root directory, which is unsafe. Consider scoping includePath to a project templates folder.`,
             )
           }
         }

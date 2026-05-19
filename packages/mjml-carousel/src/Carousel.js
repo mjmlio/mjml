@@ -375,7 +375,7 @@ export default class MjCarousel extends BodyComponent {
     const { children } = this.props
     if (children.length === 0) return ''
 
-    return `<!-- prettier-ignore -->${msoConditionalTag(
+    return `${msoConditionalTag(
       this.renderChildren([children[0]]),
     )}`
   }

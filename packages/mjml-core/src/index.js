@@ -1031,9 +1031,6 @@ export default async function mjml2html(mjml, options = {}) {
     }
   }
 
-  content = content.replace(/\/\* prettier-ignore \*\//g, '')
-  content = content.replace(/<!-- prettier-ignore -->/g, '')
-
   return {
     html: content,
     json: mjml,

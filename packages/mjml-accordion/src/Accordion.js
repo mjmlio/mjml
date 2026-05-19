@@ -52,7 +52,7 @@ export default class MjAccordion extends BodyComponent {
       .moz-text-html input.mj-accordion-checkbox + * .mj-accordion-title { cursor: auto; touch-action: auto; -webkit-user-select: auto; -moz-user-select: auto; user-select: auto; }
       .moz-text-html input.mj-accordion-checkbox + * .mj-accordion-content { overflow: hidden; display: block; }
       .moz-text-html input.mj-accordion-checkbox + * .mj-accordion-ico { display: none; }
-      /* prettier-ignore */
+
       @goodbye { @gmail }
     `
 

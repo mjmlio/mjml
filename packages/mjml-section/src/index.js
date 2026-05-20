@@ -35,14 +35,13 @@ export default class MjSection extends BodyComponent {
 
   static defaultAttributes = {
     'background-position': 'top center',
-    'column-align': 'center',
     padding: '20px 0',
     'text-align': 'center',
     'text-padding': '4px 4px 4px 0',
   }
 
   getColumnAlign() {
-    return this.getAttribute('column-align') || this.getAttribute('text-align')
+    return this.getAttribute('column-align') || this.getAttribute('text-align') || 'center'
   }
 
   getChildContext() {

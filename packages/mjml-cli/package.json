@@ -26,10 +26,10 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.28.4",
-    "chokidar": "^3.0.0",
-    "glob": "^10.5.0",
+    "chokidar": "^4.0.3",
+    "glob": "^11.1.0",
     "lodash": "^4.17.21",
-    "minimatch": "^9.0.3",
+    "minimatch": "^10.2.5",
     "mjml-core": "5.2.2",
     "mjml-parser-xml": "5.2.2",
     "mjml-preset-core": "5.2.2",

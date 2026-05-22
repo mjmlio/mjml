@@ -46,40 +46,28 @@ export default (input, options) => {
     watcher.unwatch(difference(files.watched, files.toWatch))
     /* eslint-enable no-use-before-define */
   }
-  const readAndCompile = flow(
-    (file) => ({ file, content: readFile(file).mjml }),
-    async (args) => {
-      const { config } = options
-      const beautify = config.beautify && config.beautify !== 'false'
-      const minify = config.minify && config.minify !== 'false'
+  const readAndCompile = async (file) => {
+    const { config } = options
+    const beautify = config.beautify && config.beautify !== 'false'
+    const minify = config.minify && config.minify !== 'false'
+    const content = readFile(file).mjml
+    const compiled = await mjml2html(content, {
+      ...config,
+      beautify,
+      minify,
+      filePath: file,
+      actualPath: file,
+    })
 
-      const compiled = await mjml2html(args.content, {
-        ...config,
-        beautify,
-        minify,
-        filePath: args.file,
-        actualPath: args.file,
-      })
+    compiled.errors.forEach((e) => console.warn(e.formattedMessage))
 
-      return {
-        ...args,
-        compiled,
-      }
-    },
-    (args) => {
-      const {
-        compiled: { errors },
-      } = args
-
-      errors.forEach((e) => console.warn(e.formattedMessage))
-
-      return args
-    },
-    (args) =>
-      outputToFile(args)
-        .then(() => console.log(`${args.file} - Successfully compiled`))
-        .catch(() => console.log(`${args.file} - Error while compiling file`)),
-  )
+    try {
+      await outputToFile({ file, compiled })
+      console.log(`${file} - Successfully compiled`)
+    } catch (e) {
+      console.log(`${file} - Error while compiling file`)
+    }
+  }
 
   const watcher = chokidar
     .watch(input.map((i) => i.replace(/\\/g, '/')))
@@ -113,11 +101,9 @@ export default (input, options) => {
   setInterval(() => {
     dirty.forEach((f) => {
       console.log(`${f} - Change detected`)
-      try {
-        readAndCompile(f)
-      } catch (e) {
+      readAndCompile(f).catch((e) => {
         console.log(`${f} - Error while rendering the file : `, e)
-      }
+      })
     })
     dirty = []
   }, 500)

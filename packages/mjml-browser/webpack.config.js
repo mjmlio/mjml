@@ -18,8 +18,7 @@ module.exports = {
       'path': 'path-browserify',
       'fs': path.resolve(__dirname, 'browser-mocks/fs'),
       'cssnano-preset-lite': path.resolve(__dirname, 'browser-mocks/empty'),
-      'uglify-js': path.resolve(__dirname, 'browser-mocks/uglify-js'),
-      'minify': path.resolve(__dirname, 'browser-mocks/minify'), 
+      'minify': path.resolve(__dirname, 'browser-mocks/minify'),
       'htmlnano': path.resolve(__dirname, 'browser-mocks/htmlnano'),
       'terser': path.resolve(__dirname, 'browser-mocks/empty'),
       'os': 'os-browserify/browser',
@@ -74,8 +73,8 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
-        exclude: file => /node_modules/.test(file) && !/node_modules\/(htmlparser2|prettier)/.test(file),
+        test: /\.m?js$/,
+        exclude: file => /node_modules/.test(file) && !/node_modules\/(htmlparser2|js-beautify)/.test(file),
         use: [
           {
             loader: 'babel-loader',

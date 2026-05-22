@@ -175,14 +175,8 @@ export class BodyComponent extends Component {
           return output
         }
 
-        if (value === false) {
-          return output
-        }
-
-        if (value === true) {
-          return `${output} ${name}`
-        }
-
+        if (value === false) return output
+        if (value === true) return `${output} ${name}`
         return `${output} ${name}="${value}"`
       },
       '',

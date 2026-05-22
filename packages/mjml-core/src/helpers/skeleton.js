@@ -36,7 +36,7 @@ export default function skeleton(options) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
     <meta name="format-detection" content="telephone=no, date=no, address=no, email=no, url=no">
-    <meta name="x-apple-disable-message-reformatting">
+
     ${
       supportDarkMode
         ? '<meta name="color-scheme" content="light dark">\n    <meta name="supported-color-schemes" content="light dark">'

@@ -244,4 +244,185 @@ describe('Template syntax sanitization', function () {
       .join(' ')
     chai.expect(allStyles).to.include('{{ fontTag: {{ fontWeight }};')
   })
+
+  // ---------------------------------------------------------------------------
+  // beautify: true variants
+  // ---------------------------------------------------------------------------
+
+  it('preserves CSS value variables in style attribute (beautify)', async function () {
+    const input = `
+      <mjml>
+        <mj-body>
+          <mj-section>
+            <mj-column>
+              <mj-raw>
+                <div style="color: {{primaryColor}}; font-weight: [[ fontWeight ]];">Token</div>
+              </mj-raw>
+            </mj-column>
+          </mj-section>
+        </mj-body>
+      </mjml>
+    `
+    const { html } = await mjml(input, {
+      sanitizeStyles: true,
+      beautify: true,
+      templateSyntax: syntaxes,
+    })
+    const $ = load(html)
+    const allStyles = $('[style]')
+      .map(function () { return $(this).attr('style') || '' })
+      .get()
+      .join(' ')
+    chai.expect(allStyles).to.include('{{primaryColor}}')
+    chai.expect(allStyles).to.include('[[ fontWeight ]]')
+  })
+
+  it('preserves CSS value variables inside <style> block (beautify)', async function () {
+    const input = `
+      <mjml>
+        <mj-head>
+          <mj-style>
+            .title { color: {{headlineColor}}; }
+          </mj-style>
+        </mj-head>
+        <mj-body>
+          <mj-section><mj-column><mj-text>Token</mj-text></mj-column></mj-section>
+        </mj-body>
+      </mjml>
+    `
+    const { html } = await mjml(input, {
+      sanitizeStyles: true,
+      beautify: true,
+      templateSyntax: syntaxes,
+    })
+    const $ = load(html)
+    const styleText = $('style')
+      .map(function () { return $(this).text() })
+      .get()
+      .find((t) => t.includes('.title')) || ''
+    chai.expect(styleText).to.include('.title')
+    chai.expect(styleText).to.include('{{headlineColor}}')
+  })
+
+  it('preserves CSS property-name variables (beautify)', async function () {
+    const input = `
+      <mjml>
+        <mj-body>
+          <mj-section>
+            <mj-column>
+              <mj-raw>
+                <div style="[[ fontTag ]]: [[ fontWeight ]];">Token</div>
+              </mj-raw>
+            </mj-column>
+          </mj-section>
+        </mj-body>
+      </mjml>
+    `
+    const { html } = await mjml(input, {
+      sanitizeStyles: true,
+      beautify: true,
+      templateSyntax: syntaxes,
+    })
+    const $ = load(html)
+    const allStyles = $('[style]')
+      .map(function () { return $(this).attr('style') || '' })
+      .get()
+      .join(' ')
+    chai.expect(allStyles).to.include('[[ fontTag ]]')
+    chai.expect(allStyles).to.include('[[ fontWeight ]]')
+  })
+
+  it('disallows mixed syntax by default with beautify', async function () {
+    const input = `
+      <mjml>
+        <mj-body>
+          <mj-section>
+            <mj-column>
+              <mj-raw>
+                <div style="{% block %}; color: {{primaryColor}};">Token</div>
+              </mj-raw>
+            </mj-column>
+          </mj-section>
+        </mj-body>
+      </mjml>
+    `
+    let thrown = null
+    try {
+      await mjml(input, {
+        sanitizeStyles: true,
+        beautify: true,
+        templateSyntax: syntaxes,
+      })
+    } catch (e) {
+      thrown = e
+    }
+    chai.expect(thrown).to.be.an('error')
+    chai.expect(thrown.message).to.include('Mixed variable syntax detected')
+  })
+
+  it('allows mixed syntax when allowMixedSyntax=true (beautify)', async function () {
+    const input = `
+      <mjml>
+        <mj-body>
+          <mj-section>
+            <mj-column>
+              <mj-raw>
+                <div style="color: {{primaryColor}}; padding: {%paddingValue%};">Token</div>
+              </mj-raw>
+            </mj-column>
+          </mj-section>
+        </mj-body>
+      </mjml>
+    `
+    const { html } = await mjml(input, {
+      sanitizeStyles: true,
+      beautify: true,
+      templateSyntax: syntaxes,
+      allowMixedSyntax: true,
+    })
+    const $ = load(html)
+    const allStyles = $('[style]')
+      .map(function () { return $(this).attr('style') || '' })
+      .get()
+      .join(' ')
+    chai.expect(allStyles).to.include('{{primaryColor}}')
+    chai.expect(allStyles).to.include('{%paddingValue%}')
+  })
+
+  it('handles multiline tokens in style attributes and blocks (beautify)', async function () {
+    const input = `
+      <mjml>
+        <mj-head>
+          <mj-style>
+            .title { color: {{\nheadlineColor\n}}; }
+          </mj-style>
+        </mj-head>
+        <mj-body>
+          <mj-section>
+            <mj-column>
+              <mj-raw>
+                <div style="font-weight: [[\n fontWeight \n]];">Token</div>
+              </mj-raw>
+            </mj-column>
+          </mj-section>
+        </mj-body>
+      </mjml>
+    `
+    const { html } = await mjml(input, {
+      sanitizeStyles: true,
+      beautify: true,
+      templateSyntax: syntaxes,
+    })
+    const $ = load(html)
+    const styleText = $('style')
+      .map(function () { return $(this).text() })
+      .get()
+      .find((t) => t.includes('.title')) || ''
+    chai.expect(styleText).to.include('{{\nheadlineColor\n}}')
+    const allStyles = $('[style]')
+      .map(function () { return $(this).attr('style') || '' })
+      .get()
+      .join(' ')
+    chai.expect(allStyles).to.include('[[\n fontWeight \n]]')
+  })
 })

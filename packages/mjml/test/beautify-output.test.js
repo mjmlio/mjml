@@ -1,0 +1,315 @@
+const chai = require('chai')
+const mjml = require('../lib')
+
+function extractBlockAroundMarker(html, {
+  marker,
+  startToken,
+  endToken,
+  label,
+}) {
+  const markerIndex = html.indexOf(marker)
+  chai.expect(markerIndex, `Missing marker for ${label}`).to.be.greaterThan(-1)
+
+  const startIndex =
+    startToken === marker ? markerIndex : html.lastIndexOf(startToken, markerIndex)
+  chai.expect(startIndex, `Missing start token for ${label}`).to.be.greaterThan(-1)
+
+  const endIndex = html.indexOf(endToken, markerIndex)
+  chai.expect(endIndex, `Missing end token for ${label}`).to.be.greaterThan(-1)
+
+  return html.slice(startIndex, endIndex + endToken.length)
+}
+
+async function renderVariants(input, options = {}) {
+  const { html: plainHtml } = await mjml(input, { ...options, beautify: false })
+  const { html: beautifiedHtml } = await mjml(input, {
+    ...options,
+    beautify: true,
+  })
+
+  return { plainHtml, beautifiedHtml }
+}
+
+describe('Beautify output', function () {
+  this.timeout(10000)
+
+  const beautifyFixtures = [
+    {
+      name: 'reformats generated mj-text style attributes',
+      input: `
+        <mjml>
+          <mj-body>
+            <mj-section>
+              <mj-column>
+                <mj-text>Hello beautify</mj-text>
+              </mj-column>
+            </mj-section>
+          </mj-body>
+        </mjml>
+      `,
+      extract: (html) =>
+        extractBlockAroundMarker(html, {
+          marker: 'Hello beautify',
+          startToken: '<div',
+          endToken: '</div>',
+          label: 'mj-text block',
+        }),
+      expectedPlain: [
+        '<div',
+        '         style="font-family:Ubuntu, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;"',
+        '      >Hello beautify</div>',
+      ].join('\n'),
+      expectedBeautified:
+        '<div style="font-family:Ubuntu, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;">Hello beautify</div>',
+    },
+    {
+      name: 'reformats outlook conditional blocks without changing their content',
+      skipFragmentDiffCheck: true,
+      input: `
+        <mjml>
+          <mj-body>
+            <mj-section>
+              <mj-column>
+                <mj-text>Conditional comments should survive</mj-text>
+              </mj-column>
+            </mj-section>
+          </mj-body>
+        </mjml>
+      `,
+      extract: (html) =>
+        extractBlockAroundMarker(html, {
+          marker: '<!--[if mso]>',
+          startToken: '<!--[if mso]>',
+          endToken: '<![endif]-->',
+          label: 'outlook conditional block',
+        }),
+      expectedPlain: [
+        '<!--[if mso]>',
+        '    <noscript>',
+        '    <xml>',
+        '    <o:OfficeDocumentSettings>',
+        '      <o:AllowPNG/>',
+        '      <o:PixelsPerInch>96</o:PixelsPerInch>',
+        '    </o:OfficeDocumentSettings>',
+        '    </xml>',
+        '    </noscript>',
+        '    <![endif]-->',
+      ].join('\n'),
+      expectedBeautified: [
+        '<!--[if mso]>',
+        '    <noscript>',
+        '    <xml>',
+        '    <o:OfficeDocumentSettings>',
+        '      <o:AllowPNG/>',
+        '      <o:PixelsPerInch>96</o:PixelsPerInch>',
+        '    </o:OfficeDocumentSettings>',
+        '    </xml>',
+        '    </noscript>',
+        '    <![endif]-->',
+      ].join('\n'),
+    },
+    {
+      name: 'keeps raw html comment spacing while reindenting the surrounding block',
+      skipFragmentDiffCheck: true,
+      input: `
+        <mjml>
+          <mj-body>
+            <mj-section>
+              <mj-column>
+                <mj-raw>
+                  <div id="beautify-raw-comment"><!--   keep this spacing   --><span data-kind="raw">Raw</span></div>
+                </mj-raw>
+              </mj-column>
+            </mj-section>
+          </mj-body>
+        </mjml>
+      `,
+      extract: (html) =>
+        extractBlockAroundMarker(html, {
+          marker: 'id="beautify-raw-comment"',
+          startToken: '<div id="beautify-raw-comment"',
+          endToken: '</div>',
+          label: 'raw comment block',
+        }),
+      expectedPlain: [
+        '<div id="beautify-raw-comment"><!--   keep this spacing   --><span data-kind="raw">Raw</span></div>',
+      ].join('\n'),
+      expectedBeautified: [
+        '<div id="beautify-raw-comment"><!--   keep this spacing   --><span data-kind="raw">Raw</span></div>',
+      ].join('\n'),
+    },
+  ]
+
+  beautifyFixtures.forEach((fixture) => {
+    it(fixture.name, async function () {
+      const { plainHtml, beautifiedHtml } = await renderVariants(fixture.input)
+
+      const plainFragment = fixture.extract(plainHtml)
+      const beautifiedFragment = fixture.extract(beautifiedHtml)
+
+      chai.expect(plainFragment, `${fixture.name} plain fragment`).to.equal(
+        fixture.expectedPlain,
+      )
+      chai.expect(
+        beautifiedFragment,
+        `${fixture.name} beautified fragment`,
+      ).to.equal(fixture.expectedBeautified)
+      if (!fixture.skipFragmentDiffCheck) {
+        chai.expect(
+          beautifiedFragment,
+          `${fixture.name} should differ from non-beautified output`,
+        ).to.not.equal(plainFragment)
+      }
+      chai.expect(
+        beautifiedHtml,
+        `${fixture.name} should change the overall document`,
+      ).to.not.equal(plainHtml)
+    })
+  })
+
+  it('keeps long raw html start tags and attributes intact while beautifying', async function () {
+    const input = `
+      <mjml>
+        <mj-body>
+          <mj-section>
+            <mj-column>
+              <mj-raw>
+                <div id="beautify-print-width-probe" data-alpha="${'a'.repeat(80)}" data-beta="${'b'.repeat(80)}" data-gamma="${'c'.repeat(80)}" data-delta="${'d'.repeat(80)}">Wrapped raw tag</div>
+              </mj-raw>
+            </mj-column>
+          </mj-section>
+        </mj-body>
+      </mjml>
+    `
+
+    const { plainHtml, beautifiedHtml } = await renderVariants(input)
+    const beautifiedFragment = extractBlockAroundMarker(beautifiedHtml, {
+      marker: 'id="beautify-print-width-probe"',
+      startToken: '<div',
+      endToken: '</div>',
+      label: 'print width probe',
+    })
+
+    chai.expect(beautifiedFragment).to.include('id="beautify-print-width-probe"')
+    chai.expect(beautifiedFragment).to.include(`data-alpha="${'a'.repeat(80)}"`)
+    chai.expect(beautifiedFragment).to.include(`data-beta="${'b'.repeat(80)}"`)
+    chai.expect(beautifiedFragment).to.include(`data-gamma="${'c'.repeat(80)}"`)
+    chai.expect(beautifiedFragment).to.include(`data-delta="${'d'.repeat(80)}"`)
+    chai.expect(beautifiedFragment).to.include('Wrapped raw tag')
+    chai.expect(beautifiedHtml).to.not.equal(plainHtml)
+  })
+
+  it('beautifies documents that contain file-start raw content before the doctype', async function () {
+    const prefix = 'This will be added at the beginning of the file'
+    const input = `
+      <mjml>
+        <mj-raw position="file-start">${prefix}</mj-raw>
+        <mj-body>
+          <!-- Your content goes here -->
+        </mj-body>
+      </mjml>
+    `
+
+    const { plainHtml, beautifiedHtml } = await renderVariants(input)
+
+    chai.expect(plainHtml.startsWith(`${prefix}\n<!doctype html>`)).to.equal(true)
+    chai.expect(beautifiedHtml.startsWith(`${prefix}\n<!doctype html>`)).to.equal(true)
+    chai.expect(beautifiedHtml).to.match(/\n\s*<head>\s*\n/)
+    chai.expect(beautifiedHtml).to.include('<!-- Your content goes here -->')
+    chai.expect(beautifiedHtml).to.not.equal(plainHtml)
+  })
+
+  it('does not beautify when minify=true even if beautify is also enabled', async function () {
+    const input = `
+      <mjml>
+        <mj-body>
+          <mj-section>
+            <mj-column>
+              <mj-text>Minify wins</mj-text>
+            </mj-column>
+          </mj-section>
+        </mj-body>
+      </mjml>
+    `
+
+    const { html: plainHtml } = await mjml(input, { beautify: false })
+    const { html: beautifiedHtml } = await mjml(input, { beautify: true })
+    const { html: minifiedHtml } = await mjml(input, {
+      beautify: true,
+      minify: true,
+    })
+
+    chai.expect(beautifiedHtml).to.not.equal(plainHtml)
+    chai.expect(minifiedHtml).to.match(/^<!doctype html><html\b/)
+    chai.expect(minifiedHtml).to.not.equal(beautifiedHtml)
+    chai.expect(minifiedHtml).to.not.include('\n      <noscript>\n')
+    chai.expect(minifiedHtml.length).to.be.lessThan(beautifiedHtml.length)
+  })
+
+  it('preserves twig-style file-start raw metadata while beautifying the html document', async function () {
+    const prefix = [
+      '{# subject: New submission from {{ form.name }} #}',
+      "{# fromEmail: {{ craft.app.systemSettings.getSettings('email').fromEmail }} #}",
+      "{# fromName: {{ craft.app.systemSettings.getSettings('email').fromName }} #}",
+      '{# cc: #}',
+      '{# bcc: #}',
+      '{# includeAttachments: false #}',
+      '{# presetAssets: #}',
+      '{# description: New form submission - internal notification #}',
+    ].join('\n')
+    const input = `
+      <mjml>
+        <mj-raw position="file-start">
+  ${prefix.split('\n').join('\n  ')}
+        </mj-raw>
+        <mj-body>
+          <!-- Your content goes here -->
+        </mj-body>
+      </mjml>
+    `
+
+    const { plainHtml, beautifiedHtml } = await renderVariants(input)
+    const plainDoctypeIndex = plainHtml.indexOf('<!doctype html>')
+    const beautifiedDoctypeIndex = beautifiedHtml.indexOf('<!doctype html>')
+
+    chai.expect(plainDoctypeIndex).to.be.greaterThan(0)
+    chai.expect(beautifiedDoctypeIndex).to.be.greaterThan(0)
+    prefix.split('\n').forEach((line) => {
+      chai.expect(plainHtml.slice(0, plainDoctypeIndex)).to.include(line)
+      chai.expect(beautifiedHtml.slice(0, beautifiedDoctypeIndex)).to.include(line)
+    })
+    chai.expect(beautifiedHtml).to.match(/\n\s*<head>\s*\n/)
+    chai.expect(beautifiedHtml).to.include('<!-- Your content goes here -->')
+  })
+
+  it('preserves twig loop tags in mj-text while beautifying', async function () {
+    const input = `
+      <mjml>
+        <mj-body>
+          <mj-section>
+            <mj-column>
+              <mj-text>{% for item in items %}{{ item }}{% endfor %}</mj-text>
+            </mj-column>
+          </mj-section>
+        </mj-body>
+      </mjml>
+    `
+
+    const { plainHtml, beautifiedHtml } = await renderVariants(input, {
+      templateSyntax: [{ prefix: '{%', suffix: '%}' }, { prefix: '{{', suffix: '}}' }],
+      allowMixedSyntax: true,
+    })
+
+    chai.expect(plainHtml).to.include('{% for item in items %}')
+    chai.expect(plainHtml).to.include('{{ item }}')
+    chai.expect(plainHtml).to.include('{% endfor %}')
+
+    chai.expect(beautifiedHtml).to.include('{% for item in items %}')
+    chai.expect(beautifiedHtml).to.include('{{ item }}')
+    chai.expect(beautifiedHtml).to.include('{% endfor %}')
+
+    chai.expect(beautifiedHtml).to.not.include('{% for item in items % }')
+    chai.expect(beautifiedHtml).to.not.include('{ % for item in items %}')
+    chai.expect(beautifiedHtml).to.not.equal(plainHtml)
+  })
+})

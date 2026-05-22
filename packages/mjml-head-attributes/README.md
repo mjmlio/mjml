@@ -35,7 +35,7 @@ components using `mj-class="<name>"`.
   <ul>
     <li>inline attributes within tags,</li>
     <li>attributes found in tags within the <code>mj-attributes</code> tag, e.g. <code>mj-text</code>,</li>
-    <li>the <code>mj-all</code> tag wuthin <code>mj-attributes</code>, and</li>
+    <li>the <code>mj-all</code> tag within <code>mj-attributes</code>, and</li>
     <li>the default MJML values.</li>
   </ul>
 </div>

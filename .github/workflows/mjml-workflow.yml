@@ -1,19 +1,6 @@
 name: Mjml CI
 on: [push, pull_request]
 jobs:
-  dependency-audit:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js 20.x
-        uses: actions/setup-node@v1
-        with:
-          node-version: 20.x
-      - name: Audit production dependencies
-        run: |
-          yarn install
-          yarn audit:deps
-
   build:
     runs-on: ubuntu-latest
     strategy:

@@ -5,11 +5,13 @@
     "build:watch": "lerna run build --parallel -- -- -w",
     "build": "lerna run build --parallel --ignore mjml-browser",
     "build-browser": "cd packages/mjml-browser && yarn build",
+    "smoke:cli-pack": "./scripts/smoke-cli-pack.sh",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "postinstall": "lerna bootstrap",
     "prettier": "prettier --write \"packages/**/{src,bin}/**/*.?(js|json)\"",
-    "test": "lerna run test"
+    "test": "lerna run test", 
+    "ci":"yarn install && yarn build && yarn test && yarn lint && yarn build-browser"
   },
   "workspaces": [
     "packages/*"
@@ -39,10 +41,12 @@
   "resolutions": {
     "@babel/plugin-transform-modules-systemjs": "7.29.4",
     "@babel/runtime": "7.28.4",
+    "cacache": "20.0.3",
     "cipher-base": "1.0.6",
     "cross-spawn": "7.0.6",
     "diff": "5.2.2",
     "elliptic": "6.6.1",
+    "glob": "11.1.0",
     "fast-uri": "3.1.2",
     "flatted": "3.4.2",
     "form-data": "2.5.4",

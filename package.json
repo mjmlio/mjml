@@ -46,7 +46,6 @@
     "cross-spawn": "7.0.6",
     "diff": "5.2.2",
     "elliptic": "6.6.1",
-    "glob": "11.1.0",
     "fast-uri": "3.1.2",
     "flatted": "3.4.2",
     "form-data": "2.5.4",

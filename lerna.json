@@ -1,7 +1,5 @@
 {
-  "packages": [
-    "packages/*"
-  ],
+  "packages": ["packages/*"],
   "command": {
     "publish": {
       "exact": true
@@ -13,6 +11,6 @@
     }
   },
   "npmClient": "yarn",
-  "useWorkspaces": true,
-  "version": "5.2.2"
+  "version": "5.2.2",
+  "$schema": "node_modules/lerna/schemas/lerna-schema.json"
 }

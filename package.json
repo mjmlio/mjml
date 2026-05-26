@@ -50,6 +50,7 @@
     "flatted": "3.4.2",
     "form-data": "2.5.4",
     "handlebars": "4.7.9",
+    "js-cookie": "3.0.7",
     "parse-url": "8.1.0",
     "pbkdf2": "3.1.5",
     "picomatch": "2.3.2",

@@ -57,7 +57,15 @@ export default (baseFile, filePath) => {
 
       const includedFilePath = path.resolve(path.join(targetDir, includedFile))
 
-      filesIncluded.push(includedFilePath)
+      // Resolve symlinks to their real paths so chokidar's followSymlinks behavior
+      // matches our dependency tracking (chokidar reports changes on real paths)
+      let realPath = includedFilePath
+      try {
+        realPath = fs.realpathSync(includedFilePath)
+      } catch (e) {
+        // If realpathSync fails (file doesn't exist yet), use the resolved path as-is
+      }
+      filesIncluded.push(realPath)
 
       readIncludes(targetDir, includedFile, currentFile)
       matchgroup = includes.exec(content)

@@ -41,6 +41,7 @@ Displays calls-to-action for various social networks with their associated logo.
 | attribute                  | accepts                 | description                                        | default value                          |
 | -------------------------- | ----------------------- | -------------------------------------------------- | -------------------------------------- |
 | align                      | `left` `right` `center` | align content                                      | `center`                               |
+| border                     | string                  | icon border, applied to each `mj-social-element`   |                                        |
 | border-radius              | `px` `%`                | border radius                                      | `3px`                                  |
 | color                      | CSS color formats       | text color                                         | `#333333`                              |
 | css-class                  | string                  | class name, added to the root HTML element created |                                        |
@@ -84,6 +85,7 @@ Note that default icons are transparent, which allows `background-color` to actu
 | align            | `left` `center` `right` | align content                                                                   | `center`                               |
 | alt              | string                  | image alt attribute                                                             | `''`                                   |
 | background-color | CSS color formats       | icon color                                                                      | Each social `name` has its own default |
+| border           | string                  | icon border (CSS shorthand), applied to the `<img>`                             | `0`                                    |
 | border-radius    | string                  | border radius                                                                   | `3px`                                  |
 | color            | CSS color formats       | text color                                                                      | `#000`                                 |
 | css-class        | string                  | class name, added to the root HTML element created                              |                                        |

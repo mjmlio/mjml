@@ -60,6 +60,29 @@ export default class MjButton extends BodyComponent {
     'vertical-align': 'middle',
   }
 
+  getContentPadding() {
+    const innerPadding = this.getAttribute('inner-padding')
+
+    if (!innerPadding) return innerPadding
+
+    return innerPadding
+      .split(/\s+/)
+      .map((value) => this.constructor.subtractContentBorder(value))
+      .join(' ')
+  }
+
+  static subtractContentBorder(value) {
+    const match = /^(\d*\.?\d+)(px|%)$/.exec(value)
+
+    if (!match) return value
+
+    const [, rawAmount, unit] = match
+
+    if (unit !== 'px') return value
+
+    return `${Math.max(parseFloat(rawAmount) - 1, 0)}px`
+  }
+
   getStyles() {
     return {
       table: {
@@ -76,6 +99,7 @@ export default class MjButton extends BodyComponent {
         'border-top': this.getAttribute('border-top'),
         'font-style': this.getAttribute('font-style'),
         height: this.getAttribute('height'),
+        ...(this.getAttribute('multiline') === true && { 'mso-padding-alt': this.getContentPadding() }),
         'text-align': this.getAttribute('text-align'),
         background: this.getAttribute('background-color'),
       },
@@ -93,7 +117,7 @@ export default class MjButton extends BodyComponent {
         ...(!this.getAttribute('href') && { margin: '0' }),
         'text-decoration': this.getAttribute('text-decoration'),
         'text-transform': this.getAttribute('text-transform'),
-        padding: this.getAttribute('inner-padding'),
+        padding: this.getContentPadding(),
         border: `1px solid ${this.getAttribute('background-color')}`,
         ...(this.getAttribute('multiline') === true && { 'mso-padding-alt': '0px' }),
         'border-radius': this.getAttribute('border-radius'),

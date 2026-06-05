@@ -35,7 +35,6 @@ export default function skeleton(options) {
     <title>${title}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
-    <meta name="format-detection" content="telephone=no, date=no, address=no, email=no, url=no">
     ${
       supportDarkMode
         ? '<meta name="color-scheme" content="light dark">\n    <meta name="supported-color-schemes" content="light dark">'
@@ -57,6 +56,12 @@ export default function skeleton(options) {
       supportDarkMode
         ? ':root { color-scheme: light dark; supported-color-schemes:light dark; }'
         : ''
+      }
+      a[x-apple-data-detectors],
+      u + #body a,
+      #MessageViewBody a {
+        color: inherit !important;
+        text-decoration: none !important;
       }
     </style>
     ${[

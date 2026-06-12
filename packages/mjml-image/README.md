@@ -31,7 +31,7 @@ Note that if no width is provided, the image will use the parent column width.
 | container-background-color | CSS color formats       | inner element background color                                                  |                       |
 | css-class                  | string                  | class name, added to the root HTML element created                              |                       |
 | fluid-on-mobile            | boolean                 | if `true`, will be full width on mobile even if `width` is set                  |                       |
-| font-size                  | `px`                    | size of the alt text when image is not rendered                                 |                       |
+| font-size                  | `px`                    | size of the alt text when image is not rendered                                 | `13px`                |
 | height                     | `px`                    | image height                                                                    | `auto`                |
 | href                       | string                  | link to redirect to on click, in URL format                                     |                       |
 | max-height                 | `px` `%`                | specify the maximum height of an image                                          |                       |

@@ -50,6 +50,7 @@ The `full-width` attribute will be used to manage the background width. Setting 
 | border-radius         | string                  | border radius                                                                                          |               |
 | border-right          | string                  | CSS border format                                                                                      |               |
 | border-top            | string                  | CSS border format                                                                                      |               |
+| column-align          | `left` `center` `right` | horizontal alignment of columns when they don't span full width                                        |               |
 | css-class             | string                  | class name, added to the root HTML element created                                                     |               |
 | direction             | `ltr` `rtl`             | set the display order of direct children                                                               |               |
 | full-width            | `full-width` `false`    | make the section full-width                                                                            |               |
@@ -58,7 +59,6 @@ The `full-width` attribute will be used to manage the background width. Setting 
 | padding-left          | `px` `%`                | section left padding                                                                                   |               |
 | padding-right         | `px` `%`                | section right padding                                                                                  |               |
 | padding-top           | `px` `%`                | section top padding                                                                                    |               |
-| column-align          | `left` `center` `right` | horizontal alignment of columns when they don't span full width                                        | `center`      |
 | text-align            | `left` `center` `right` | deprecated alias of `column-align` for backwards compatibility                                         | `center`      |
 
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/section">Try it live</a></p>

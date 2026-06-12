@@ -37,10 +37,11 @@ export default function mergeHeadStyleBlocks(html) {
   const tokens = []
   let pos = 0
   while (pos < headInner.length) {
-    let advanced = false
+    const remainingLength = headInner.length - pos
 
     // HTML comment (<!-- ... -->), including MSO conditionals and negations
     if (
+      remainingLength >= 4 &&
       headInner[pos] === '<' &&
       headInner[pos + 1] === '!' &&
       headInner[pos + 2] === '-' &&
@@ -50,51 +51,38 @@ export default function mergeHeadStyleBlocks(html) {
       if (end !== -1) {
         tokens.push({ type: 'other', raw: headInner.slice(pos, end + 3) })
         pos = end + 3
-        advanced = true
       }
-    }
-
     // Plain <style> with no attributes — eligible for merging
-    if (!advanced && headInner.startsWith('<style>', pos)) {
+    } else if (headInner.startsWith('<style>', pos)) {
       const end = headInner.indexOf('</style>', pos + 7)
       if (end !== -1) {
         const css = headInner.slice(pos + 7, end)
         tokens.push({ type: 'plain-style', css, raw: headInner.slice(pos, end + 8) })
         pos = end + 8
-        advanced = true
       }
-    }
-
     // <style> with attributes (e.g. media=) — not eligible for merging
-    if (
-      !advanced &&
-      headInner.startsWith('<style', pos) &&
-      pos + 6 < headInner.length &&
-      headInner[pos + 6] !== '>'
-    ) {
-      const tagEnd = headInner.indexOf('>', pos + 6)
-      if (tagEnd !== -1) {
-        const bodyEnd = headInner.indexOf('</style>', tagEnd + 1)
-        if (bodyEnd !== -1) {
-          tokens.push({ type: 'other', raw: headInner.slice(pos, bodyEnd + 8) })
-          pos = bodyEnd + 8
-          advanced = true
+    } else if (headInner.startsWith('<style', pos)) {
+      const openTagMarkerPos = pos + 6
+
+      if (openTagMarkerPos < headInner.length && headInner[openTagMarkerPos] !== '>') {
+        const tagEnd = headInner.indexOf('>', openTagMarkerPos)
+        if (tagEnd !== -1) {
+          const bodyEnd = headInner.indexOf('</style>', tagEnd + 1)
+          if (bodyEnd !== -1) {
+            tokens.push({ type: 'other', raw: headInner.slice(pos, bodyEnd + 8) })
+            pos = bodyEnd + 8
+          }
         }
       }
-    }
-
     // Text content between tags
-    if (!advanced && headInner[pos] !== '<') {
+    } else if (headInner[pos] !== '<') {
       const nextTag = headInner.indexOf('<', pos)
       const end = nextTag === -1 ? headInner.length : nextTag
       const raw = headInner.slice(pos, end)
       tokens.push({ type: raw.trim() === '' ? 'whitespace' : 'other', raw })
       pos = end
-      advanced = true
-    }
-
-    // Any other tag (<meta>, <title>, <link>, etc.)
-    if (!advanced) {
+    } else {
+      // Any other tag (<meta>, <title>, <link>, etc.)
       const tagEnd = headInner.indexOf('>', pos)
       if (tagEnd !== -1) {
         tokens.push({ type: 'other', raw: headInner.slice(pos, tagEnd + 1) })

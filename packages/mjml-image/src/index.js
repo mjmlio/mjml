@@ -42,6 +42,7 @@ export default class MjImage extends BodyComponent {
     alt: '',
     align: 'center',
     border: '0',
+    'font-size': '13px', 
     height: 'auto',
     padding: '10px 25px',
   }
@@ -66,6 +67,7 @@ export default class MjImage extends BodyComponent {
         'min-width': fullWidth ? '100%' : null,
         width: '100%',
         'max-width': fullWidth ? '100%' : null,
+        'font-size': this.getAttribute('font-size'),
       },
       td: {
         width: fullWidth ? null : `${parsedWidth}${unit}`,

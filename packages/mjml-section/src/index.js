@@ -36,6 +36,7 @@ export default class MjSection extends BodyComponent {
 
   static defaultAttributes = {
     'background-position': 'top center',
+    'background-size': 'auto',
     padding: '20px 0',
     'text-align': 'center',
     'text-padding': '4px 4px 4px 0',
@@ -47,6 +48,9 @@ export default class MjSection extends BodyComponent {
 
   getChildContext() {
     const { box } = this.getBoxWidths()
+    const globalData = this.context?.globalData
+    const supportOutlookClassic = globalData?.supportOutlookClassic !== false
+    const hasSectionBackgroundUrl = this.hasBackground() && supportOutlookClassic
 
     return {
       ...this.context,
@@ -54,6 +58,51 @@ export default class MjSection extends BodyComponent {
       gap: this.getAttribute('gap'),
       gutter: this.getAttribute('gutter'),
       direction: this.getAttribute('direction'),
+      hasSectionBackgroundUrl,
+      addVmlButtonStyle: (buttonClassName, leftPadding) => {
+        if (!hasSectionBackgroundUrl || !globalData || !buttonClassName) {
+          return
+        }
+
+        const effectiveLeftPadding =
+          typeof leftPadding === 'string' && leftPadding !== ''
+            ? leftPadding
+            : '0px'
+
+        globalData.vmlButtonStyleClassesEmitted = globalData.vmlButtonStyleClassesEmitted || {}
+
+        if (globalData.vmlButtonStyleClassesEmitted[buttonClassName]) {
+          return
+        }
+
+        globalData.vmlButtonStyleRules = Array.isArray(globalData.vmlButtonStyleRules)
+          ? globalData.vmlButtonStyleRules
+          : []
+
+        globalData.headRaw = Array.isArray(globalData.headRaw)
+          ? globalData.headRaw
+          : []
+
+        globalData.vmlButtonStyleRules.push(
+          `.vml .${buttonClassName} td { mso-para-margin-left:${effectiveLeftPadding}; }`,
+          `.vml .${buttonClassName} td td { mso-para-margin-left:0; }`,
+        )
+
+        const styleBlock = `<!--[if mso]>
+  <style>
+    ${globalData.vmlButtonStyleRules.join('\n    ')}
+  </style>
+<![endif]-->`
+
+        if (typeof globalData.vmlButtonStyleHeadRawIndex === 'number') {
+          globalData.headRaw[globalData.vmlButtonStyleHeadRawIndex] = styleBlock
+        } else {
+          globalData.headRaw.push(styleBlock)
+          globalData.vmlButtonStyleHeadRawIndex = globalData.headRaw.length - 1
+        }
+
+        globalData.vmlButtonStyleClassesEmitted[buttonClassName] = true
+      },
     }
   }
 
@@ -104,6 +153,7 @@ export default class MjSection extends BodyComponent {
         'padding-left': this.getAttribute('padding-left'),
         'padding-right': this.getAttribute('padding-right'),
         'padding-top': this.getAttribute('padding-top'),
+        ...(hasBackground && { 'mso-padding-alt': '0' }),
         'text-align': this.getColumnAlign(),
       },
       div: {
@@ -403,6 +453,14 @@ export default class MjSection extends BodyComponent {
       ] // also ensure that images are still cropped the same way
     }
 
+    const hasBackground = this.hasBackground()
+
+    const padding = `${this.getShorthandAttrValue('padding', 'left')}px,${this.getShorthandAttrValue('padding', 'top')}px,${this.getShorthandAttrValue('padding', 'right')}px,${this.getShorthandAttrValue('padding', 'bottom')}px`
+
+    const textboxInset = hasBackground
+      ? `${padding}`
+      : '0,0,0,0'
+
     return `
       ${msoConditionalTag(`
         <v:rect ${this.htmlAttributes({
@@ -421,7 +479,7 @@ export default class MjSection extends BodyComponent {
           type: vmlType,
           ...vSizeAttributes,
         })} />
-        <v:textbox style="mso-fit-shape-to-text:true" inset="0,0,0,0">
+        <v:textbox style="mso-fit-shape-to-text:true" inset="${textboxInset}">
       `)}
           ${content}
       ${msoConditionalTag(`
@@ -433,12 +491,7 @@ export default class MjSection extends BodyComponent {
 
   renderSection() {
     const hasBackground = this.hasBackground()
-
-    const paddingLeft = this.getShorthandAttrValue('padding', 'left')
-    const spacerTd = hasBackground
-      ? `${msoConditionalTag(`<td style="padding-left:${paddingLeft}px;"></td>`)}`
-      : ''
-
+    
     return `
       <div ${this.htmlAttributes({
         class: this.isFullWidth() ? null : this.getAttribute('css-class'),
@@ -453,12 +506,12 @@ export default class MjSection extends BodyComponent {
             border: '0',
             cellpadding: '0',
             cellspacing: '0',
+            ...(hasBackground && { 'class': 'vml' }),
             role: 'none',
             style: 'table',
           })}
         >
           <tr>
-            ${spacerTd}
             <td
               ${this.htmlAttributes({
                 style: 'td',

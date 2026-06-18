@@ -130,7 +130,7 @@ export default class MjHero extends BodyComponent {
       ...(this.getAttribute('background-url')
         ? [
             `url('${this.getAttribute('background-url')}')`,
-            `${this.getAttribute('background-position')}`,
+            `${this.getAttribute('background-position')} / cover`,
           ]
         : []),
     ])

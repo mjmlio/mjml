@@ -78,3 +78,26 @@ Let's take the following layout to illustrate this:
   </mj-body>
 </mjml>
 ```
+
+#### Section gutter
+
+To add consistent spacing around and between columns, set a `gutter` on `mj-section`. The gutter is declared on the section and applies to all of its columns.
+
+```html
+<mjml>
+  <mj-body>
+    <mj-section gutter="4%">
+      <mj-column>
+        <!-- First column content -->
+      </mj-column>
+      <mj-column>
+        <!-- Second column content -->
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>
+```
+
+When stacked in a single column on mobile, the gutter will display vertically between the columns.
+
+**Note:** the gutter is automatically removed from any declared width on `mj-column`. You do not need to work the values out yourself. e.g. if you declare a `4%` gutter and two `mj-column` instances with `50%` width each then the actual displayed width of the column will be 44% with 4% gutters between the two columns and 4% at each side.

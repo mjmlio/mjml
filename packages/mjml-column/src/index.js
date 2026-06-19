@@ -83,6 +83,9 @@ export default class MjColumn extends BodyComponent {
       ...(hasBorderRadius && { 'border-collapse': 'separate' }),
     }
 
+    const mobileGutterStyles = this.getMobileGutterStyles()
+    const outlookGutterStyles = this.getOutlookGutterStyles()
+
     return {
       div: {
         'font-size': '0px',
@@ -91,6 +94,7 @@ export default class MjColumn extends BodyComponent {
         display: 'inline-block',
         'vertical-align': this.getAttribute('vertical-align'),
         width: this.getMobileWidth(),
+        ...mobileGutterStyles,
       },
       table: {
         ...(this.hasGutter()
@@ -109,6 +113,7 @@ export default class MjColumn extends BodyComponent {
       tdOutlook: {
         'vertical-align': this.getAttribute('vertical-align'),
         width: this.getWidthAsPixel(),
+        ...outlookGutterStyles,
       },
       gutter: {
         ...tableStyle,
@@ -128,6 +133,12 @@ export default class MjColumn extends BodyComponent {
     const mobileWidth = this.getAttribute('mobileWidth')
 
     if (mobileWidth !== 'mobileWidth') {
+      const gutter = this.getNormalizedGutterValue('%')
+
+      if (gutter > 0) {
+          return `${MjColumn.normalizeUnitValue(100 - 2 * gutter)}%`
+      }
+
       return '100%'
     }
     if (width === undefined) {
@@ -139,11 +150,23 @@ export default class MjColumn extends BodyComponent {
     })
 
     switch (unit) {
-      case '%':
+      case '%': {
+        const gutter = this.getNormalizedGutterValue('%')
+
+        if (gutter > 0) {
+          return `${MjColumn.normalizeUnitValue(parsedWidth - 2 * gutter)}%`
+        }
+
         return width
+      }
       case 'px':
       default:
-        return `${(parsedWidth / parseInt(containerWidth, 10)) * 100}%`
+        return `${
+          MjColumn.normalizeUnitValue(
+            (parsedWidth / parseInt(containerWidth, 10)) * 100 -
+              2 * this.getNormalizedGutterValue('%'),
+          )
+        }%`
     }
   }
 
@@ -184,7 +207,9 @@ export default class MjColumn extends BodyComponent {
 
     let className = ''
 
-    const { parsedWidth, unit } = this.getParsedWidth()
+    const { parsedWidth, unit } = this.hasColumnGutter()
+      ? this.getDesktopWidth()
+      : this.getParsedWidth()
     const formattedClassNb = parsedWidth.toString().replace('.', '-')
 
     switch (unit) {
@@ -199,13 +224,186 @@ export default class MjColumn extends BodyComponent {
     }
 
     // Add className to media queries
-    addMediaQuery(className, {
-      parsedWidth,
-      unit,
-    })
+    if (this.hasColumnGutter()) {
+      addMediaQuery(className, {
+        parsedWidth,
+        unit,
+      })
+
+      addMediaQuery(this.getDesktopGutterClassName(), {
+        padding: this.getDesktopPadding(),
+      })
+    } else {
+      addMediaQuery(className, {
+        parsedWidth,
+        unit,
+      })
+    }
 
     return className
   }
+
+  getDesktopGutterClassName() {
+    const gutterUnit = this.getDesktopUnit()
+    const gutter = this.getNormalizedGutterValue(gutterUnit)
+    const gutterUnitToken = gutterUnit === '%' ? 'per' : gutterUnit
+
+    const gutterToken = MjColumn.normalizeUnitValue(gutter)
+      .toString()
+      .replace('.', '-')
+
+    return `mj-column-gutter-${this.props.sibling}-${this.props.index + 1}-${gutterUnitToken}-${gutterToken}`
+  }
+
+  getDesktopUnit() {
+    return this.getParsedWidth().unit
+  }
+
+  getDesktopWidth() {
+    const { sibling } = this.props
+    const { parsedWidth, unit } = this.getParsedWidth()
+
+    if (!this.hasColumnGutter()) {
+      return { parsedWidth, unit }
+    }
+
+    const gutter = this.getNormalizedGutterValue(unit)
+    const reduction = (gutter * (sibling + 1)) / sibling
+
+    return {
+      parsedWidth: Math.max(
+        0,
+        MjColumn.normalizeUnitValue(parsedWidth - reduction),
+      ),
+      unit,
+    }
+  }
+
+  static normalizeUnitValue(value) {
+    return Number(parseFloat(value).toFixed(6))
+  }
+
+  getNormalizedGutterValue(targetUnit) {
+    const { gutter } = this.context
+
+    if (!gutter) {
+      return 0
+    }
+
+    const { containerWidth } = this.context
+    const { unit, parsedWidth } = widthParser(gutter, {
+      parseFloatToInt: false,
+    })
+
+    if (unit === targetUnit) {
+      return parsedWidth
+    }
+
+    if (targetUnit === '%' && unit === 'px') {
+      return (parsedWidth / parseFloat(containerWidth)) * 100
+    }
+
+    if (targetUnit === 'px' && unit === '%') {
+      return (parseFloat(containerWidth) * parsedWidth) / 100
+    }
+
+    return parsedWidth
+  }
+
+  hasColumnGutter() {
+    const { gutter } = this.context
+
+    return gutter != null && gutter !== ''
+  }
+
+  getDesktopPaddingValues(unit) {
+    const { first, last, sibling } = this.props
+    const gutter = this.getNormalizedGutterValue(unit)
+    const half = gutter / 2
+
+    if (sibling === 1) {
+      return {
+        top: 0,
+        right: gutter,
+        bottom: 0,
+        left: gutter,
+      }
+    }
+
+    return {
+      top: 0,
+      right: last ? gutter : half,
+      bottom: 0,
+      left: first ? gutter : half,
+    }
+  }
+
+  getMobilePaddingValues() {
+    const { first, last, sibling } = this.props
+    const gutter = this.getNormalizedGutterValue('%')
+    const half = gutter / 2
+
+    if (sibling === 1) {
+      return {
+        top: 0,
+        right: gutter,
+        bottom: 0,
+        left: gutter,
+      }
+    }
+
+    return {
+      top: first ? 0 : half,
+      right: gutter,
+      bottom: last ? 0 : half,
+      left: gutter,
+    }
+  }
+
+  static formatPadding(top, right, bottom, left, unit) {
+    return `${MjColumn.normalizeUnitValue(top)}${unit} ${MjColumn.normalizeUnitValue(
+      right,
+    )}${unit} ${MjColumn.normalizeUnitValue(bottom)}${unit} ${
+      MjColumn.normalizeUnitValue(left)
+    }${unit}`
+  }
+
+  getDesktopPadding() {
+    const unit = this.getDesktopUnit()
+    const { top, right, bottom, left } = this.getDesktopPaddingValues(unit)
+
+    return MjColumn.formatPadding(top, right, bottom, left, unit)
+  }
+
+  getMobilePadding() {
+    const { top, right, bottom, left } = this.getMobilePaddingValues()
+
+    return MjColumn.formatPadding(top, right, bottom, left, '%')
+  }
+
+  getMobileGutterStyles() {
+    if (!this.hasColumnGutter()) {
+      return {}
+    }
+
+    return {
+      padding: this.getMobilePadding(),
+    }
+  }
+
+  getOutlookGutterStyles() {
+    if (!this.hasColumnGutter()) {
+      return {}
+    }
+
+    const { top, right, bottom, left } = this.getDesktopPaddingValues('px')
+
+    return {
+      padding: MjColumn.formatPadding(top, right, bottom, left, 'px'),
+    }
+  }
+
+
 
   hasBorderRadius() {
     const borderRadius = this.getAttribute('border-radius')
@@ -305,7 +503,15 @@ export default class MjColumn extends BodyComponent {
   }
 
   render() {
-    let classesName = `${this.getColumnClass()} mj-outlook-group-fix`
+    const defaultClass = this.getColumnClass()
+
+    let classesName = defaultClass
+
+    if (this.hasColumnGutter()) {
+      classesName += ` ${this.getDesktopGutterClassName()}`
+    }
+
+    classesName += ' mj-outlook-group-fix'
 
     if (this.getAttribute('css-class')) {
       classesName += ` ${this.getAttribute('css-class')}`

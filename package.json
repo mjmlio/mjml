@@ -5,17 +5,20 @@
     "build:watch": "lerna run build --parallel -- -- -w",
     "build": "lerna run build --parallel --ignore mjml-browser",
     "build-browser": "cd packages/mjml-browser && yarn build",
+    "smoke:cli-pack": "./scripts/smoke-cli-pack.sh",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "postinstall": "lerna bootstrap",
     "prettier": "prettier --write \"packages/**/{src,bin}/**/*.?(js|json)\"",
-    "test": "lerna run test"
+    "test": "lerna run test", 
+    "ci":"yarn install && yarn build && yarn test && yarn lint && yarn build-browser"
   },
   "workspaces": [
     "packages/*"
   ],
   "devDependencies": {
     "@babel/core": "^7.28.4",
+    "@babel/helper-hoist-variables": "^7.24.7",
     "@babel/plugin-proposal-class-properties": "^7.18.6",
     "@babel/plugin-transform-runtime": "^7.28.3",
     "@babel/preset-env": "^7.28.3",
@@ -31,11 +34,29 @@
     "lerna": "^3.22.1",
     "mocha": "10",
     "open": "^7.3.0",
-    "postcss": "^8.5.6",
+    "postcss": "^8.5.14",
     "prettier": "^3.2.4",
     "rimraf": "^3.0.2"
   },
   "resolutions": {
-    "@babel/runtime": "7.28.4"
+    "@babel/plugin-transform-modules-systemjs": "7.29.4",
+    "@babel/runtime": "7.28.4",
+    "cacache": "20.0.3",
+    "cipher-base": "1.0.6",
+    "cross-spawn": "7.0.6",
+    "diff": "5.2.2",
+    "elliptic": "6.6.1",
+    "fast-uri": "3.1.2",
+    "flatted": "3.4.2",
+    "form-data": "2.5.4",
+    "handlebars": "4.7.9",
+    "js-cookie": "3.0.7",
+    "parse-url": "8.1.0",
+    "pbkdf2": "3.1.5",
+    "picomatch": "2.3.2",
+    "qs": "6.14.2",
+    "sha.js": "2.4.12",
+    "svgo": "4.0.1",
+    "undici": "6.25.0"
   }
 }

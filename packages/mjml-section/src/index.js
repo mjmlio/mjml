@@ -202,11 +202,59 @@ export default class MjSection extends BodyComponent {
 
   getChildContext() {
     const { box } = this.getBoxWidths()
+    const globalData = this.context?.globalData
+    const supportOutlookClassic = globalData?.supportOutlookClassic !== false
+    const hasSectionBackgroundUrl = this.hasBackground() && supportOutlookClassic
 
     return {
       ...this.context,
       containerWidth: `${box}px`,
       gap: this.getAttribute('gap'),
+      hasSectionBackgroundUrl,
+      addVmlButtonStyle: (buttonClassName, leftPadding) => {
+        if (!hasSectionBackgroundUrl || !globalData || !buttonClassName) {
+          return
+        }
+
+        const effectiveLeftPadding =
+          typeof leftPadding === 'string' && leftPadding !== ''
+            ? leftPadding
+            : '0px'
+
+        globalData.vmlButtonStyleClassesEmitted = globalData.vmlButtonStyleClassesEmitted || {}
+
+        if (globalData.vmlButtonStyleClassesEmitted[buttonClassName]) {
+          return
+        }
+
+        globalData.vmlButtonStyleRules = Array.isArray(globalData.vmlButtonStyleRules)
+          ? globalData.vmlButtonStyleRules
+          : []
+
+        globalData.headRaw = Array.isArray(globalData.headRaw)
+          ? globalData.headRaw
+          : []
+
+        globalData.vmlButtonStyleRules.push(
+          `.vml .${buttonClassName} td { mso-para-margin-left:${effectiveLeftPadding}; }`,
+          `.vml .${buttonClassName} td td { mso-para-margin-left:0; }`,
+        )
+
+        const styleBlock = `<!--[if mso]>
+  <style>
+    ${globalData.vmlButtonStyleRules.join('\n    ')}
+  </style>
+<![endif]-->`
+
+        if (typeof globalData.vmlButtonStyleHeadRawIndex === 'number') {
+          globalData.headRaw[globalData.vmlButtonStyleHeadRawIndex] = styleBlock
+        } else {
+          globalData.headRaw.push(styleBlock)
+          globalData.vmlButtonStyleHeadRawIndex = globalData.headRaw.length - 1
+        }
+
+        globalData.vmlButtonStyleClassesEmitted[buttonClassName] = true
+      },
     }
   }
 

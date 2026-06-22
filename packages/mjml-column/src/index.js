@@ -4,6 +4,7 @@ import {
   emitDarkModeHeadStyle,
 } from 'mjml-core/lib/helpers/colorSchemeDarkMode'
 
+import genRandomHexString from 'mjml-core/lib/helpers/genRandomHexString'
 import widthParser from 'mjml-core/lib/helpers/widthParser'
 
 export default class MjColumn extends BodyComponent {
@@ -245,6 +246,9 @@ export default class MjColumn extends BodyComponent {
         'padding-right': this.getAttribute('padding-right'),
         'padding-bottom': this.getAttribute('padding-bottom'),
         'padding-left': this.getAttribute('padding-left'),
+        ...(this.context.hasSectionBackgroundUrl === true && {
+          'mso-para-margin-left': `${this.getShorthandAttrValue('padding', 'left')}px`,
+        }),
       },
     }
   }
@@ -407,10 +411,27 @@ export default class MjColumn extends BodyComponent {
         })}
       >
         ${this.renderChildren(children, {
-          renderer: (component) =>
-            component.constructor.isRawElement()
-              ? component.render()
-              : `<tr>
+          renderer: (component) => {
+            if (component.constructor.isRawElement()) {
+              return component.render()
+            }
+
+            const isButton = component.constructor.componentName === 'mj-button'
+            const hasSectionBackground = this.context.hasSectionBackgroundUrl === true
+            let trClass = ''
+
+            if (isButton && hasSectionBackground) {
+              const buttonClassName = `vml-button-${genRandomHexString(6)}`
+              const buttonLeftPadding = `${component.getShorthandAttrValue('padding', 'left')}px`
+
+              if (typeof this.context.addVmlButtonStyle === 'function') {
+                this.context.addVmlButtonStyle(buttonClassName, buttonLeftPadding)
+              }
+
+              trClass = ` class="${buttonClassName}"`
+            }
+
+            return `<tr${trClass}>
               <td
                 ${component.htmlAttributes({
                   align: component.getAttribute('align'),
@@ -432,7 +453,8 @@ export default class MjColumn extends BodyComponent {
               >
                 ${component.render()}
               </td>
-            </tr>`,
+            </tr>`
+          },
         })}
       </table>
     `

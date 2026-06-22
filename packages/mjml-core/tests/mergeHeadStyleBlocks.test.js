@@ -37,6 +37,12 @@ describe('mergeHeadStyleBlocks', () => {
       assert.strictEqual(mergeHeadStyleBlocks(html), html)
     })
 
+    it('does not throw on short malformed token inside <head> (e.g. "<!")', () => {
+      const html = head('<!')
+      assert.doesNotThrow(() => mergeHeadStyleBlocks(html))
+      assert.strictEqual(mergeHeadStyleBlocks(html), html)
+    })
+
     it('returns html unchanged when there are no <style> blocks at all', () => {
       const html = head('<title>T</title><meta charset="utf-8">')
       assert.strictEqual(mergeHeadStyleBlocks(html), html)

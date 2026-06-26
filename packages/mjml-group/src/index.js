@@ -43,6 +43,8 @@ export default class MjGroup extends BodyComponent {
       ...this.context,
       containerWidth,
       nonRawSiblings: children.length,
+      isInGroup: true,
+      direction: this.getAttribute('direction'),
     }
   }
 

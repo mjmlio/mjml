@@ -50,6 +50,7 @@ export default class MjSection extends BodyComponent {
       containerWidth: `${box}px`,
       gap: this.getAttribute('gap'),
       gutter: this.getAttribute('gutter'),
+      direction: this.getAttribute('direction'),
     }
   }
 

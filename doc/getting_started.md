@@ -81,7 +81,7 @@ Let's take the following layout to illustrate this:
 
 #### Section gutter
 
-To add consistent spacing around and between columns, set a `gutter` on `mj-section`. The gutter is declared on the section and applies to all of its columns.
+To add consistent spacing between columns, set a `gutter` on `mj-section`. The gutter is declared on the section and applies to all of its columns.
 
 ```html
 <mjml>
@@ -100,4 +100,6 @@ To add consistent spacing around and between columns, set a `gutter` on `mj-sect
 
 When stacked in a single column on mobile, the gutter will display vertically between the columns.
 
-**Note:** the gutter is automatically removed from any declared width on `mj-column`. You do not need to work the values out yourself. e.g. if you declare a `4%` gutter and two `mj-column` instances with `50%` width each then the actual displayed width of the column will be 44% with 4% gutters between the two columns and 4% at each side.
+**Note:** the gutter is automatically removed from any declared width on `mj-column`. You do not need to work the values out yourself. e.g. if you declare a `4%` gutter and two `mj-column` instances with `50%` width each then the actual displayed width of the column will be 48% with 2% gutters between the two columns.
+
+You can use the existing `padding` attribute to set spacing between the end columns and the edges.

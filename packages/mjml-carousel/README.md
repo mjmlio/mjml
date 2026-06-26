@@ -30,6 +30,12 @@ Displays a gallery of images or "carousel". Readers can interact by hovering and
 | border-radius              | string                         | border radius                                          | `6px`                             |
 | container-background-color | CSS color formats              | column background color                                |                                   |
 | css-class                  | string                         | class name, added to the root HTML element created     |                                   |
+| dark-container-background-color | CSS color formats              | column background color in dark mode                   |                                   |
+| dark-left-icon                  | string                         | dark-mode icon on the left of the main image           |                                   |
+| dark-right-icon                 | string                         | dark-mode icon on the right of the main image          |                                   |
+| dark-tb-border-color            | CSS color formats              | border color of the thumbnails in dark mode            |                                   |
+| dark-tb-hover-border-color      | CSS color formats              | border color of the hovered thumbnail in dark mode     |                                   |
+| dark-tb-selected-border-color   | CSS color formats              | border color of the selected thumbnail in dark mode    |                                   |
 | icon-width                 | `px` `%`                       | width of the icons on left and right of the main image | `44px`                            |
 | left-icon                  | string                         | icon on the left of the main image                     | `https://i.imgur.com/xTh3hln.png` |
 | padding                    | `px` `%`                       | carousel padding, supports up to 4 parameters          |                                   |
@@ -44,6 +50,8 @@ Displays a gallery of images or "carousel". Readers can interact by hovering and
 | tb-selected-border-color   | CSS color formats              | border color of the selected thumbnail                 | `#ccc`                            |
 | tb-width                   | `px` `%`                       | thumbnail width                                        |                                   |
 | thumbnails                 | `visible` `hidden` `supported` | display the thumbnails                                 | `hidden`                          |
+
+NOTE: All `dark-` prefixed attributes require `support-dark-mode="true"` to be set on the `<mjml>` tag to work effectively in all supported clients.
 
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/carousel">Try it live</a></p>
 
@@ -64,6 +72,9 @@ Enables you to add and style the images in the carousel.
 | alt              | string   | image description                                  | `''`          |
 | border-radius    | string   | border radius of the main image                    |               |
 | css-class        | string   | class name, added to the root HTML element created |               |
+| dark-src                 | string            | dark-mode main image in URL format                 |               |
+| dark-tb-border-color     | CSS color formats | border color of the thumbnail in dark mode         |               |
+| dark-thumbnails-src      | string            | dark-mode thumbnail image in URL format            |               |
 | href             | string   | link to redirect to on click, <br>URL format       |               |
 | rel              | string   | specify the rel attribute                          |               |
 | src              | string   | URL format                                         |               |

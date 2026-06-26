@@ -74,6 +74,8 @@ Readers can interact by clicking on the tabs to reveal the content, providing a 
 | padding-right              | `px` `%`                | accordion right padding                            |                                        |
 | padding-top                | `px` `%`                | accordion top padding                              |                                        |
 
+NOTE: All `dark-` prefixed attributes require `support-dark-mode="true"` to be set on the `<mjml>` tag to work effectively in all supported clients.
+
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/accordion">Try it live</a></p>
 
 #### mj-accordion-element
@@ -134,6 +136,10 @@ Displays the text in a title/text pair.
 | background-color | CSS color formats | background color                                    |               |
 | color            | CSS color formats | text color                                          |               |
 | css-class        | string            | class name, added to the root HTML element created  |               |
+| dark-background-color    | CSS color formats       | background color in dark mode                                                             |
+| dark-border-color        | CSS color formats       | border color in dark mode                                                                 |
+| dark-icon-unwrapped-url  | string                  | dark-mode icon when accordion is unwrapped                                                |
+| dark-icon-wrapped-url    | string                  | dark-mode icon when accordion is wrapped                                                  |
 | font-family      | string            | font family                                         |               |
 | font-size        | `px`              | font size                                           | `13px`        |
 | font-weight      | string            | text thickness                                      |               |

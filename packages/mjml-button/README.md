@@ -49,6 +49,14 @@ Displays a customizable button.
 | color                      | CSS color formats                  | text color                                            | `#ffffff`                              |
 | container-background-color | CSS color formats                  | button container background color                     |                                        |
 | css-class                  | string                             | class name, added to the root HTML element created    |                                        |
+| dark-background-color           | CSS color formats                  | button background-color in dark mode                  |                                        |
+| dark-border-color               | CSS color formats                  | button border color in dark mode                      |                                        |
+| dark-border-bottom-color        | CSS color formats                  | button bottom border color in dark mode               |                                        |
+| dark-border-left-color          | CSS color formats                  | button left border color in dark mode                 |                                        |
+| dark-border-right-color         | CSS color formats                  | button right border color in dark mode                |                                        |
+| dark-border-top-color           | CSS color formats                  | button top border color in dark mode                  |                                        |
+| dark-color                      | CSS color formats                  | button text color in dark mode                        |                                        |
+| dark-container-background-color | CSS color formats                  | button container background color in dark mode        |                                        |
 | font-family                | string                             | font name                                             | `Ubuntu, sans-serif`                   |
 | font-size                  | `px`                               | text size                                             | `13px`                                 |
 | font-style                 | string                             | CSS values, e.g. `normal` `italic` `oblique`          |                                        |
@@ -73,5 +81,7 @@ Displays a customizable button.
 | title                      | string                             | tooltip & accessibility                               |                                        |
 | vertical-align             | `top` `bottom` `middle` `vertical` | vertical alignment                                    | `middle`                               |
 | width                      | `px` `%`                           | button width                                          |                                        |
+
+NOTE: All `dark-` prefixed attributes require `support-dark-mode="true"` to be set on the `<mjml>` tag to work effectively in all supported clients.
 
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/button">Try it live</a></p>

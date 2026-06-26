@@ -45,6 +45,8 @@ Displays calls-to-action for various social networks with their associated logo.
 | color                      | CSS color formats       | text color                                         | `#333333`                              |
 | css-class                  | string                  | class name, added to the root HTML element created |                                        |
 | container-background-color | CSS color formats       | inner element background color                     |                                        |
+| dark-color                 | CSS color formats       | text color in dark mode                            |                                        |
+| dark-container-background-color | CSS color formats  | container background color in dark mode            |                                        |
 | font-family                | string                  | font name                                          | `Ubuntu, sans-serif`                   |
 | font-size                  | `px`                    | font size                                          | `13px`                                 |
 | font-style                 | string                  | font style                                         | normal                                 |
@@ -62,6 +64,8 @@ Displays calls-to-action for various social networks with their associated logo.
 | padding-top                | `px` `%`                | top padding                                        |                                        |
 | text-padding               | `px` `%`                | padding around the text                            |                                        |
 | text-decoration            | string                  | CSS values, e.g. `underline` `overline` `none`     | `none`                                 |
+
+NOTE: All `dark-` prefixed attributes require `support-dark-mode="true"` to be set on the `<mjml>` tag to work effectively in all supported clients.
 
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/social">Try it live</a></p>
 
@@ -87,6 +91,9 @@ Note that default icons are transparent, which allows `background-color` to actu
 | border-radius    | string                  | border radius                                                                   | `3px`                                  |
 | color            | CSS color formats       | text color                                                                      | `#000`                                 |
 | css-class        | string                  | class name, added to the root HTML element created                              |                                        |
+| dark-background-color | CSS color formats   | icon background color in dark mode                                              |                                        |
+| dark-color       | CSS color formats       | text color in dark mode                                                         |                                        |
+| dark-src         | string                  | image used for dark mode                                                        |                                        |
 | font-family      | string                  | font name                                                                       | `Ubuntu, sans-serif`                   |
 | font-size        | `px`                    | font size                                                                       | `13px`                                 |
 | font-style       | string                  | font style                                                                      |                                        |
@@ -107,6 +114,7 @@ Note that default icons are transparent, which allows `background-color` to actu
 | sizes            | string                  | set icon width based on query                                                   |                                        |
 | src              | string                  | image source, in URL format                                                     | Each social `name` has its own default |
 | srcset           | string                  | enables to set a different image source based on the viewport, using CSS syntax |                                        |
+| support-dark-mode-image  | `outlook`               | enables dark-mode image support for New Outlook, Outlook App and Outlook.com    |                                        |
 | target           | string                  | link target                                                                     |                                        |
 | text-decoration  | string                  | CSS values, e.g. `underline` `overline` `none`                                  | `none`                                 |
 | text-padding     | `px` `%`                | padding around the text                                                         | `4px 4px 4px 0`                        |

@@ -47,6 +47,9 @@ Display a data table. It only accepts plain HTML.
 | color                      | CSS color formats                  | text header & footer color                         | `#000000`                              |
 | container-background-color | CSS color formats                  | inner element background color                     |                                        |
 | css-class                  | string                             | class name, added to the root HTML element created |                                        |
+| dark-border-color          | CSS color formats                  | table border color in dark mode                    |                                        |
+| dark-color                 | CSS color formats                  | text header & footer color in dark mode            |                                        |
+| dark-container-background-color | CSS color formats             | inner element background color in dark mode        |                                        |
 | font-family                | string                             | font name                                          | `Ubuntu, sans-serif`                   |
 | font-size                  | `px`                               | font size                                          | `13px`                                 |
 | line-height                | `px` `%`                           | space between lines                                | `22px`                                 |
@@ -58,5 +61,7 @@ Display a data table. It only accepts plain HTML.
 | role                       | `none` `presentation`              | specify the role attribute                         |                                        |
 | table-layout               | `auto` `fixed` `initial` `inherit` | sets the table layout                              |                                        |
 | width                      | `px` `%` `auto`                    | table width                                        | `100%`                                 |
+
+NOTE: All `dark-` prefixed attributes require `support-dark-mode="true"` to be set on the `<mjml>` tag to work effectively in all supported clients.
 
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/table">Try it live</a></p>

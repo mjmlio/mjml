@@ -49,6 +49,18 @@ Every single column has to contain something because they are responsive contain
 | border-right           | string                  | CSS border format                                                                        |                                                |
 | border-top             | string                  | CSS border format                                                                        |                                                |
 | css-class              | string                  | class name, added to the root HTML element created                                       |                                                |
+| dark-background-color           | CSS color formats       | column background color in dark mode                                                     |                                        |
+| dark-border-color               | CSS color formats       | column border color in dark mode                                                         |                                        |
+| dark-border-bottom-color        | CSS color formats       | column bottom border color in dark mode                                                  |                                        |
+| dark-border-left-color          | CSS color formats       | column left border color in dark mode                                                    |                                        |
+| dark-border-right-color         | CSS color formats       | column right border color in dark mode                                                   |                                        |
+| dark-border-top-color           | CSS color formats       | column top border color in dark mode                                                     |                                        |
+| dark-inner-background-color     | CSS color formats       | inner column background color in dark mode; requires a padding                           |                                        |
+| dark-inner-border-color         | CSS color formats       | inner column border color in dark mode; requires a padding                               |                                        |
+| dark-inner-border-bottom-color  | CSS color formats       | inner column bottom border color in dark mode; requires a padding                        |                                        |
+| dark-inner-border-left-color    | CSS color formats       | inner column left border color in dark mode; requires a padding                          |                                        |
+| dark-inner-border-right-color   | CSS color formats       | inner column right border color in dark mode; requires a padding                         |                                        |
+| dark-inner-border-top-color     | CSS color formats       | inner column top border color in dark mode; requires a padding                           |                                        |
 | direction              | `ltr` `rtl`             | set the display order of direct children                                                 |                                                |
 | inner-background-color | CSS color formats       | inner background color for column; requires a padding                                    |                                                |
 | inner-border           | string                  | CSS border; requires a padding format                                                    |                                                |
@@ -64,5 +76,7 @@ Every single column has to contain something because they are responsive contain
 | padding-top            | `px` `%`                | column top padding                                                                       |                                                |
 | width                  | `px` `%`                | column width                                                                             | (100 / number of non-raw elements in section)% |
 | vertical-align         | `top` `middle` `bottom` | vertical alignment.<br>Note: `middle` only applies when all `mj-column` instances use it | `top`                                          |
+
+NOTE: All `dark-` prefixed attributes require `support-dark-mode="true"` to be set on the `<mjml>` tag to work effectively in all supported clients.
 
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/column">Try it live</a></p>

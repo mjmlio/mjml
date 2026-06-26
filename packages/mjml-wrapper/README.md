@@ -59,6 +59,13 @@ Setting it will change the width of the section from the default 600px to 100%.
 | border-right          | string                  | CSS border format                                                                                      |               |
 | border-top            | string                  | CSS border format                                                                                      |               |
 | css-class             | string                  | class name, added to the root HTML element created                                                     |               |
+| dark-background-color | CSS color formats       | background color to use in dark mode                                                                   |               |
+| dark-background-url   | string                  | background image to use in dark mode                                                                   |               |
+| dark-border-color     | CSS color formats       | border color to use in dark mode for all sides                                                         |               |
+| dark-border-bottom-color | CSS color formats    | bottom border color in dark mode - overrides `dark-border-color` for bottom only                       |               |
+| dark-border-left-color | CSS color formats      | left border color in dark mode - overrides `dark-border-color` for left only                           |               |
+| dark-border-right-color | CSS color formats     | right border color in dark mode - overrides `dark-border-color` for right only                         |               |
+| dark-border-top-color | CSS color formats       | top border color in dark mode - overrides `dark-border-color` for top only                             |               |
 | full-width            | `full-width` `false`    | make the section full-width                                                                            |               |
 | gap                   | `px`                    | applies a vertical gap between child `mj-section` instances                                            |               |
 | padding               | `px` `%`                | section padding, supports up to 4 parameters                                                           | `20px 0`      |
@@ -66,5 +73,7 @@ Setting it will change the width of the section from the default 600px to 100%.
 | padding-left          | `px` `%`                | section left padding                                                                                   |               |
 | padding-right         | `px` `%`                | section right padding                                                                                  |               |
 | padding-top           | `px` `%`                | section top padding                                                                                    |               |
+
+NOTE: All `dark-` prefixed attributes require `support-dark-mode="true"` to be set on the `<mjml>` tag to work effectively in all supported clients.
 
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/wrapper">Try it live</a></p>

@@ -93,6 +93,9 @@ Use `background-color` to provide a fallback color in case an email client doesn
 | background-width       | `px` `%`                | width of the image used, mandatory                                 | inherits parent element width |
 | border-radius          | string                  | border radius                                                      |                               |
 | css-class              | string                  | class name, added to the root HTML element created                 |                               |
+| dark-background-color  | CSS color formats       | hero background color in dark mode                                 |                               |
+| dark-background-url    | string                  | hero background image URL in dark mode                             |                               |
+| dark-inner-background-color | CSS color formats   | hero content background color in dark mode                         |                               |
 | height                 | `px` `%`                | hero section height, (required for `fixed-height` mode)            | `0px`                         |
 | inner-background-color | CSS color formats       | content background color                                           |                               |
 | inner-padding          | `px` `%`                | hero inner padding, supports up to 4 parameters                    |                               |
@@ -107,6 +110,8 @@ Use `background-color` to provide a fallback color in case an email client doesn
 | padding-right          | `px` `%`                | hero right padding                                                 |                               |
 | padding-top            | `px` `%`                | hero top padding                                                   |                               |
 | vertical-align         | `top` `middle` `bottom` | content vertical alignment                                         | `top`                         |
+
+NOTE: All `dark-` prefixed attributes require `support-dark-mode="true"` to be set on the `<mjml>` tag to work effectively in all supported clients.
 
 <ul class="cta-container">
   <li>Fixed height: <br><a class="cta" href="https://mjml.io/try-it-live/components/hero">Try it live</a></li>

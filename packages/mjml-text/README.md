@@ -32,6 +32,8 @@ Displays text which can be styled.
 | color                      | CSS color formats                 | text color                                                   | `#000000`                              |
 | container-background-color | CSS color formats                 | inner element background color                               |                                        |
 | css-class                  | string                            | class name, added to the root HTML element created           |                                        |
+| dark-color                 | CSS color formats                 | the text color in dark-mode                                  |                                        |
+| dark-container-background-color | CSS color formats            | the background color in dark-mode                            |                                        |
 | font-family                | string                            | font                                                         | `Ubuntu, sans-serif`                   |
 | font-size                  | `px`                              | text size                                                    | `13px`                                 |
 | font-style                 | string                            | CSS values, e.g. `normal` `italic` `oblique`                 |                                        |
@@ -46,5 +48,7 @@ Displays text which can be styled.
 | padding-top                | `px` `%`                          | top offset                                                   |                                        |
 | text-decoration            | string                            | CSS values, e.g. `underline` `overline` `none`               |                                        |
 | text-transform             | string                            | CSS values, i.e. `capitalize` `uppercase` `lowercase` `none` |                                        |
+
+NOTE: All `dark-` prefixed attributes require `support-dark-mode="true"` to be set on the `<mjml>` tag to work effectively in all supported clients.
 
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/text">Try it live</a></p>

@@ -55,6 +55,7 @@ Displays a navigation menu with an optional `hamburger` mode for mobile devices.
 | align               | `left`<br>`center`<br>`right` | align content                                                                                                           | `center`                               |
 | base-url            | string                        | base URL for child components                                                                                           | `null`                                 |
 | css-class           | string                        | class name, added to the root HTML element created                                                                      |                                        |
+| dark-ico-color      | CSS color formats             | hamburger icon color in dark mode                                                                                       |                                        |
 | hamburger           | string                        | activate the hamburger navigation on mobile if the value is hamburger                                                   | `null`                                 |
 | ico-align           | `left`<br>`center`<br>`right` | hamburger icon alignment<br> (`hamburger="hamburger"` required)                                                         | `center`                               |
 | ico-close           | string                        | char code for a custom close icon, e.g. ASCII code decimal<br> (`hamburger="hamburger"` required)                       | `&#8855;`                              |
@@ -75,6 +76,8 @@ Displays a navigation menu with an optional `hamburger` mode for mobile devices.
 | padding-left        | `px` `%`                      | navbar left padding                                                                                                     |                                        |
 | padding-right       | `px` `%`                      | navbar right padding                                                                                                    |                                        |
 | padding-top         | `px` `%`                      | navbar top padding                                                                                                      |                                        |
+
+NOTE: All `dark-` prefixed attributes require `support-dark-mode="true"` to be set on the `<mjml>` tag to work effectively in all supported clients.
 
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/navbar">Try it live</a></p>
 
@@ -99,6 +102,7 @@ Used to display an individual link in the navbar. Individual links of the menu s
 | --------------- | ----------------- | ------------------------------------------------------------ | -------------------------------------- |
 | color           | CSS color formats | text color                                                   | `#000000`                              |
 | css-class       | string            | class name, added to the root HTML element created           |                                        |
+| dark-color      | CSS color formats | text color in dark mode                                      |                                        |
 | font-family     | string            | font                                                         | `Ubuntu, sans-serif`                   |
 | font-size       | `px`              | text size                                                    | `13px`                                 |
 | font-style      | string            | CSS values, i.e. `normal` `italic` `oblique`                 |                                        |

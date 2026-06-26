@@ -52,6 +52,13 @@ The `full-width` attribute will be used to manage the background width. Setting 
 | border-top            | string                  | CSS border format                                                                                      |               |
 | column-align          | `left` `center` `right` | horizontal alignment of columns when they don't span full width                                        |               |
 | css-class             | string                  | class name, added to the root HTML element created                                                     |               |
+| dark-background-color | CSS color formats       | background color to use in dark mode                                                                   |               |
+| dark-background-url   | string                  | background image to use in dark mode                                                                   |               |
+| dark-border-color     | CSS color formats       | border color to use in dark mode for all sides                                                         |               |
+| dark-border-bottom-color | CSS color formats    | bottom border color in dark mode - overrides `dark-border-color` for bottom only                       |               |
+| dark-border-left-color | CSS color formats      | left border color in dark mode - overrides `dark-border-color` for left only                           |               |
+| dark-border-right-color | CSS color formats     | right border color in dark mode - overrides `dark-border-color` for right only                         |               |
+| dark-border-top-color | CSS color formats       | top border color in dark mode - overrides `dark-border-color` for top only                             |               |
 | direction             | `ltr` `rtl`             | set the display order of direct children                                                               |               |
 | full-width            | `full-width` `false`    | make the section full-width                                                                            |               |
 | padding               | `px` `%`                | section padding, supports up to 4 parameters                                                           | `20px 0`      |
@@ -60,5 +67,7 @@ The `full-width` attribute will be used to manage the background width. Setting 
 | padding-right         | `px` `%`                | section right padding                                                                                  |               |
 | padding-top           | `px` `%`                | section top padding                                                                                    |               |
 | text-align            | `left` `center` `right` | deprecated alias of `column-align` for backwards compatibility                                         | `center`      |
+
+NOTE: All `dark-` prefixed attributes require `support-dark-mode="true"` to be set on the `<mjml>` tag to work effectively in all supported clients.
 
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/section">Try it live</a></p>

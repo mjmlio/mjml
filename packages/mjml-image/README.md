@@ -45,7 +45,7 @@ Note that if no width is provided, the image will use the parent column width.
 | sizes                      | string                  | set width based on query                                                        |                       |
 | src                        | string                  | image source in URL format                                                      |                       |
 | srcset                     | string                  | enables to set a different image source based on the viewport, using CSS syntax |                       |
-| target                     | string                  | link target on click                                                            | `_blank`              |
+| target                     | string                  | link target on click                                                            |                       |
 | title                      | string                  | tooltip & accessibility                                                         |                       |
 | usemap                     | string                  | reference to image map, be careful, it isn't supported everywhere               |                       |
 | width                      | `px`                    | image width                                                                     | inherits parent width |

@@ -23,27 +23,27 @@ export default function buildMediaQueriesTags(
   const owaQueries = map(baseMediaQueries, (mq) => `[owa] ${mq}`)
 
   return `
-    <style type="text/css">
+    <style>
       @media only screen and (min-width:${breakpoint}) {
         ${baseMediaQueries.join('\n')}
       }
+${
+      forceOWADesktop
+        ? `\n${owaQueries.join('\n')}`
+        : ``
+    }
     </style>
     <style media="screen and (min-width:${breakpoint})">
-      ${thunderbirdMediaQueries.join('\n')}
+${thunderbirdMediaQueries.join('\n')}
     </style>
     ${
       printerSupport
-        ? `<style type="text/css">
+        ? `<style>
             @media only print {
               ${baseMediaQueries.join('\n')}
             }
           </style>`
         : ``
     }
-    ${
-      forceOWADesktop
-        ? `<style type="text/css">\n${owaQueries.join('\n')}\n</style>`
-        : ``
-    }
-  `
+    `
 }

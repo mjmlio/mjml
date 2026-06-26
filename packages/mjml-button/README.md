@@ -49,15 +49,16 @@ Displays a customizable button.
 | color                      | CSS color formats                  | text color                                            | `#ffffff`                              |
 | container-background-color | CSS color formats                  | button container background color                     |                                        |
 | css-class                  | string                             | class name, added to the root HTML element created    |                                        |
-| font-family                | string                             | font name                                             | `Ubuntu, Helvetica, Arial, sans-serif` |
+| font-family                | string                             | font name                                             | `Ubuntu, sans-serif`                   |
 | font-size                  | `px`                               | text size                                             | `13px`                                 |
 | font-style                 | string                             | CSS values, e.g. `normal` `italic` `oblique`          |                                        |
-| font-weight                | string                             | text thickness                                        | `normal`                               |
+| font-weight                | string                             | text thickness                                        |                                        |
 | height                     | `px` `%`                           | button height                                         |                                        |
 | href                       | string                             | URL format                                            |                                        |
 | inner-padding              | `px` `%`                           | inner button padding, <br>supports up to 4 parameters | `10px 25px`                            |
 | letter-spacing             | `px` `em`                          | letter-spacing                                        |                                        |
 | line-height                | `px` `%`                           | line-height on link                                   | `120%`                                 |
+| multiline                  | boolean                            | improve button display in Outlook classic             |                                        |
 | name                       | string                             | specify the name attribute for the button link        |                                        |
 | padding                    | `px` `%`                           | button container padding, supports up to 4 parameters | `10px 25px`                            |
 | padding-bottom             | `px` `%`                           | button container bottom padding                       |                                        |
@@ -65,10 +66,10 @@ Displays a customizable button.
 | padding-right              | `px` `%`                           | button container right padding                        |                                        |
 | padding-top                | `px` `%`                           | button container top padding                          |                                        |
 | rel                        | string                             | specify the rel attribute for the button link         |                                        |
-| target                     | string                             | specify the target attribute for the button link      | `_blank`                               |
+| target                     | string                             | specify the target attribute for the button link      |                                        |
 | text-align                 | `left` `center` `right`            | text-align button content                             |                                        |
 | text-decoration            | string                             | underline/overline/none                               | `none`                                 |
-| text-transform             | string                             | capitalize/uppercase/lowercase                        | `none`                                 |
+| text-transform             | string                             | capitalize/uppercase/lowercase                        |                                        |
 | title                      | string                             | tooltip & accessibility                               |                                        |
 | vertical-align             | `top` `bottom` `middle` `vertical` | vertical alignment                                    | `middle`                               |
 | width                      | `px` `%`                           | button width                                          |                                        |

@@ -5,18 +5,18 @@ const IMG_BASE_URL = 'https://www.mailjet.com/images/theme/v1/icons/ico-social/'
 
 const defaultSocialNetworks = {
   facebook: {
-    'share-url': 'https://www.facebook.com/sharer/sharer.php?u=[[URL]]',
+    'share-url': 'https://www.facebook.com/sharer.php?u=[[URL]]',
     'background-color': '#3b5998',
     src: `${IMG_BASE_URL}facebook.png`,
   },
   twitter: {
-    'share-url': 'https://twitter.com/intent/tweet?url=[[URL]]',
+    'share-url': 'https://x.com/intent/tweet?url=[[URL]]',
     'background-color': '#55acee',
     src: `${IMG_BASE_URL}twitter.png`,
   },
   x: {
-    'share-url': 'https://twitter.com/intent/tweet?url=[[URL]]',
-    'background-color': '#000000',
+    'share-url': 'https://x.com/intent/tweet?url=[[URL]]',
+    'background-color': '#030303',
     src: `${IMG_BASE_URL}twitter-x.png`,
   },
   google: {
@@ -26,13 +26,13 @@ const defaultSocialNetworks = {
   },
   pinterest: {
     'share-url':
-      'https://pinterest.com/pin/create/button/?url=[[URL]]&media=&description=',
+      'https://pinterest.com/pin/create/button/?url=[[URL]]',
     'background-color': '#bd081c',
     src: `${IMG_BASE_URL}pinterest.png`,
   },
   linkedin: {
     'share-url':
-      'https://www.linkedin.com/shareArticle?mini=true&url=[[URL]]&title=&summary=&source=',
+      'https://www.linkedin.com/sharing/share-offsite/?url=[[URL]]',
     'background-color': '#0077b5',
     src: `${IMG_BASE_URL}linkedin.png`,
   },
@@ -132,18 +132,15 @@ export default class MjSocialElement extends BodyComponent {
 
   static defaultAttributes = {
     alt: '',
-    align: 'left',
     'icon-position': 'left',
     color: '#000',
     'border-radius': '3px',
-    'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
+    'font-family': 'Ubuntu, sans-serif',
     'font-size': '13px',
     'line-height': '1',
     padding: '4px',
     'text-padding': '4px 4px 4px 0',
-    target: '_blank',
     'text-decoration': 'none',
-    'vertical-align': 'middle',
   }
 
   getStyles() {
@@ -165,21 +162,17 @@ export default class MjSocialElement extends BodyComponent {
       table: {
         background: backgroundColor,
         'border-radius': this.getAttribute('border-radius'),
-        width: iconSize,
       },
       icon: {
         padding: this.getAttribute('icon-padding'),
         'font-size': '0',
         height: iconHeight || iconSize,
-        'vertical-align': 'middle',
-        width: iconSize,
       },
       img: {
         'border-radius': this.getAttribute('border-radius'),
         display: 'block',
       },
       tdText: {
-        'vertical-align': 'middle',
         padding: this.getAttribute('text-padding'),
         'text-align': this.getAttribute('align'),
       },
@@ -236,53 +229,48 @@ export default class MjSocialElement extends BodyComponent {
     const hasLink = !!this.getAttribute('href')
     const iconPosition = this.getAttribute('icon-position')
 
-    const makeIcon = () => `
-        <td ${this.htmlAttributes({ style: 'td' })}>
+    const makeIcon = () => `<td ${this.htmlAttributes({ style: 'td' })}>
           <table
             ${this.htmlAttributes({
               border: '0',
               cellpadding: '0',
               cellspacing: '0',
-              role: 'presentation',
+              role: 'none',
               style: 'table',
             })}
           >
-            <tbody>
-              <tr>
-                <td ${this.htmlAttributes({ style: 'icon' })}>
-                  ${
-                    hasLink
-                      ? `<a ${this.htmlAttributes({
-                          href,
-                          rel: this.getAttribute('rel'),
-                          target: this.getAttribute('target'),
-                        })}>`
-                      : ''
-                  }
-                    <img
-                      ${this.htmlAttributes({
-                        alt: this.getAttribute('alt'),
-                        title: this.getAttribute('title'),
-                        src,
-                        style: 'img',
-                        width: parseInt(iconSize, 10),
-                        sizes,
-                        srcset,
-                      })}
-                    />
-                  ${hasLink ? `</a>` : ''}
-                </td>
-              </tr>
-            </tbody>
+            <tr>
+              <td ${this.htmlAttributes({ style: 'icon' })}>
+                ${
+                  hasLink
+                    ? `<a ${this.htmlAttributes({
+                        href,
+                        rel: this.getAttribute('rel'),
+                        target: this.getAttribute('target'),
+                      })}>`
+                    : ''
+                }
+                  <img
+                    ${this.htmlAttributes({
+                      alt: this.getAttribute('alt'),
+                      title: this.getAttribute('title'),
+                      src,
+                      style: 'img',
+                      width: parseInt(iconSize, 10),
+                      sizes,
+                      srcset,
+                    })}
+                  />
+                ${hasLink ? `</a>` : ''}
+              </td>
+            </tr>
           </table>
-        </td>
-      `
+        </td>`
 
     const makeContent = () => `
         ${
           this.getContent()
-            ? `
-          <td ${this.htmlAttributes({ style: 'tdText' })}>
+            ? `<td ${this.htmlAttributes({ style: 'tdText' })}>
             ${
               hasLink
                 ? `<a
@@ -299,8 +287,7 @@ export default class MjSocialElement extends BodyComponent {
             }
               ${this.getContent()}
             ${hasLink ? `</a>` : '</span>'}
-          </td>
-          `
+          </td>`
             : ''
         }
       `
@@ -308,14 +295,12 @@ export default class MjSocialElement extends BodyComponent {
     const renderLeft = () => `${makeIcon()} ${makeContent()}`
     const renderRight = () => `${makeContent()} ${makeIcon()}`
 
-    return `
-      <tr
+    return `<tr
         ${this.htmlAttributes({
           class: this.getAttribute('css-class'),
         })}
       >
         ${iconPosition === 'left' ? renderLeft() : renderRight()}
-      </tr>
-    `
+      </tr>`
   }
 }

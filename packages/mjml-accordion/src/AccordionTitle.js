@@ -28,7 +28,6 @@ export default class MjAccordionTitle extends BodyComponent {
     return {
       td: {
         width: '100%',
-        'background-color': this.getAttribute('background-color'),
         color: this.getAttribute('color'),
         'font-size': this.getAttribute('font-size'),
         'font-family': this.resolveFontFamily(),
@@ -41,11 +40,11 @@ export default class MjAccordionTitle extends BodyComponent {
       },
       table: {
         width: '100%',
-        'border-bottom': this.getAttribute('border'),
+        'background-color': this.getAttribute('background-color'),
+        ...(this.getAttribute('border') !== 'none' && this.getAttribute('border') !== '0' && this.getAttribute('border') !== '0px' && { 'border-bottom': this.getAttribute('border') }),
       },
       td2: {
         padding: '16px',
-        background: this.getAttribute('background-color'),
         'vertical-align': this.getAttribute('icon-align'),
       },
       img: {
@@ -82,8 +81,7 @@ export default class MjAccordionTitle extends BodyComponent {
         })}
       >
         ${this.getContent()}
-      </td>
-    `
+      </td>`
   }
 
   renderIcons() {
@@ -134,13 +132,10 @@ export default class MjAccordionTitle extends BodyComponent {
             style: 'table',
           })}
         >
-          <tbody>
-            <tr>
-              ${content}
-            </tr>
-          </tbody>
+          <tr>
+            ${content}
+          </tr>
         </table>
-      </div>
-    `
+      </div>`
   }
 }

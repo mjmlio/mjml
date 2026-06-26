@@ -56,11 +56,11 @@ describe('Beautify output', function () {
         }),
       expectedPlain: [
         '<div',
-        '         style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;"',
+        '         style="font-family:Ubuntu, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;"',
         '      >Hello beautify</div>',
       ].join('\n'),
       expectedBeautified:
-        '<div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;">Hello beautify</div>',
+        '<div style="font-family:Ubuntu, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;">Hello beautify</div>',
     },
     {
       name: 'reformats outlook conditional blocks without changing their content',
@@ -108,6 +108,36 @@ describe('Beautify output', function () {
         '    <![endif]-->',
       ].join('\n'),
     },
+    {
+      name: 'keeps raw html comment spacing while reindenting the surrounding block',
+      skipFragmentDiffCheck: true,
+      input: `
+        <mjml>
+          <mj-body>
+            <mj-section>
+              <mj-column>
+                <mj-raw>
+                  <div id="beautify-raw-comment"><!--   keep this spacing   --><span data-kind="raw">Raw</span></div>
+                </mj-raw>
+              </mj-column>
+            </mj-section>
+          </mj-body>
+        </mjml>
+      `,
+      extract: (html) =>
+        extractBlockAroundMarker(html, {
+          marker: 'id="beautify-raw-comment"',
+          startToken: '<div id="beautify-raw-comment"',
+          endToken: '</div>',
+          label: 'raw comment block',
+        }),
+      expectedPlain: [
+        '<div id="beautify-raw-comment"><!--   keep this spacing   --><span data-kind="raw">Raw</span></div>',
+      ].join('\n'),
+      expectedBeautified: [
+        '<div id="beautify-raw-comment"><!--   keep this spacing   --><span data-kind="raw">Raw</span></div>',
+      ].join('\n'),
+    },
   ]
 
   beautifyFixtures.forEach((fixture) => {
@@ -135,44 +165,6 @@ describe('Beautify output', function () {
         `${fixture.name} should change the overall document`,
       ).to.not.equal(plainHtml)
     })
-  })
-
-  it('keeps raw html comment spacing while reindenting the surrounding block', async function () {
-    const input = `
-      <mjml>
-        <mj-body>
-          <mj-section>
-            <mj-column>
-              <mj-raw>
-                <div id="beautify-raw-comment"><!--   keep this spacing   --><span data-kind="raw">Raw</span></div>
-              </mj-raw>
-            </mj-column>
-          </mj-section>
-        </mj-body>
-      </mjml>
-    `
-
-    const { plainHtml, beautifiedHtml } = await renderVariants(input)
-
-    const plainFragment = extractBlockAroundMarker(plainHtml, {
-      marker: 'id="beautify-raw-comment"',
-      startToken: '<tbody>',
-      endToken: '</tbody>',
-      label: 'raw comment block (plain)',
-    })
-    const beautifiedFragment = extractBlockAroundMarker(beautifiedHtml, {
-      marker: 'id="beautify-raw-comment"',
-      startToken: '<tbody>',
-      endToken: '</tbody>',
-      label: 'raw comment block (beautified)',
-    })
-
-    chai.expect(plainFragment).to.include('<!--   keep this spacing   -->')
-    chai.expect(beautifiedFragment).to.include('<!--   keep this spacing   -->')
-    chai.expect(beautifiedFragment).to.match(
-      /<!--\s{3}keep this spacing\s{3}-->\s*<span data-kind="raw">Raw<\/span>/,
-    )
-    chai.expect(beautifiedHtml).to.not.equal(plainHtml)
   })
 
   it('keeps long raw html start tags and attributes intact while beautifying', async function () {

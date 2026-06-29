@@ -102,6 +102,7 @@ export default class MjSocialElement extends BodyComponent {
     'icon-position': 'enum(left,right)',
     'background-color': 'color',
     color: 'color',
+    border: 'string',
     'border-radius': 'string',
     'font-family': 'string',
     'font-size': 'unit(px)',
@@ -135,6 +136,7 @@ export default class MjSocialElement extends BodyComponent {
     align: 'left',
     'icon-position': 'left',
     color: '#000',
+    border: '0',
     'border-radius': '3px',
     'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
     'font-size': '13px',
@@ -175,6 +177,7 @@ export default class MjSocialElement extends BodyComponent {
         width: iconSize,
       },
       img: {
+        border: this.getAttribute('border'),
         'border-radius': this.getAttribute('border-radius'),
         display: 'block',
       },

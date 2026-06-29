@@ -1,8 +1,6 @@
 import { BodyComponent } from 'mjml-core'
 import { flow, identity, join, filter } from 'lodash/fp'
 
-import widthParser from 'mjml-core/lib/helpers/widthParser'
-
 const makeBackgroundString = flow(filter(identity), join(' '))
 
 export default class MjHero extends BodyComponent {
@@ -46,29 +44,14 @@ export default class MjHero extends BodyComponent {
   }
 
   getChildContext() {
-    // Refactor -- removePaddingFor(width, ['padding', 'inner-padding'])
     const { containerWidth } = this.context
     const paddingSize =
       this.getShorthandAttrValue('padding', 'left') +
       this.getShorthandAttrValue('padding', 'right')
 
-    let currentContainerWidth = `${parseFloat(containerWidth)}px`
-
-    const { unit, parsedWidth } = widthParser(currentContainerWidth, {
-      parseFloatToInt: false,
-    })
-
-    if (unit === '%') {
-      currentContainerWidth = `${
-        (parseFloat(containerWidth) * parsedWidth) / 100 - paddingSize
-      }px`
-    } else {
-      currentContainerWidth = `${parsedWidth - paddingSize}px`
-    }
-
     return {
       ...this.context,
-      containerWidth: currentContainerWidth,
+      containerWidth: `${parseFloat(containerWidth) - paddingSize}px`,
     }
   }
 

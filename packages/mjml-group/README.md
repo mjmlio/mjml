@@ -52,15 +52,18 @@ Prevent adjacent `mj-column` instances from stacking on mobile by wrapping them 
 
 #### Attributes
 
-| attribute        | accepts           | description                                        | default attributes                             |
-| ---------------- | ----------------- | -------------------------------------------------- | ---------------------------------------------- |
-| background-color | CSS color formats | background color for a group                       |                                                |
-| css-class        | string            | class name, added to the root HTML element created |                                                |
+| attribute             | accepts           | description                                        | default attributes                             |
+| --------------------- | ----------------- | -------------------------------------------------- | ---------------------------------------------- |
+| background-color      | CSS color formats | background color for a group                       |                                                |
+| css-class             | string            | class name, added to the root HTML element created |                                                |
 | dark-background-color | CSS color formats | the background color in dark-mode                  |                                                |
-| direction        | `ltr` `rtl`       | set the display order of direct children           |                                                |
-| vertical-align   | string            | CSS values, e.g. `middle` `top` `bottom`           |                                                |
-| width            | `px` `%`          | group width                                        | (100 / number of non-raw elements in section)% |
+| direction             | `ltr` `rtl`       | set the display order of direct children           |                                                |
+| vertical-align        | string            | CSS values, e.g. `middle` `top` `bottom`           |                                                |
+| width                 | `px` `%`          | group width                                        | (100 / number of non-raw elements in section)% |
 
-NOTE: All `dark-` prefixed attributes require `support-dark-mode="true"` to be set on the `<mjml>` tag to work effectively in all supported clients.
+<div class="alert alert-note" role="alert">
+  <p>Note</p>
+  <p>All <code>dark-</code> prefixed attributes and <code>support-dark-image="outlook"</code> require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
+</div>
 
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/group">Try it live</a></p>

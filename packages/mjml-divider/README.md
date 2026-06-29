@@ -33,6 +33,9 @@ Displays a horizontal divider that can be customized like a HTML border.
 | padding-top                     | `px` `%`                | divider top padding                                |               |
 | width                           | `px` `%`                | divider width                                      | `100%`        |
 
-NOTE: All `dark-` prefixed attributes require `support-dark-mode="true"` to be set on the `<mjml>` tag to work effectively in all supported clients.
+<div class="alert alert-note" role="alert">
+  <p>Note</p>
+  <p>All <code>dark-</code> prefixed attributes require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
+</div>
 
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/divider">Try it live</a></p>

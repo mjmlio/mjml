@@ -77,7 +77,10 @@ Displays a navigation menu with an optional `hamburger` mode for mobile devices.
 | padding-right       | `px` `%`                      | navbar right padding                                                                                                    |                                        |
 | padding-top         | `px` `%`                      | navbar top padding                                                                                                      |                                        |
 
-NOTE: All `dark-` prefixed attributes require `support-dark-mode="true"` to be set on the `<mjml>` tag to work effectively in all supported clients.
+<div class="alert alert-note" role="alert">
+  <p>Note</p>
+  <p>All <code>dark-</code> prefixed attributes require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
+</div>
 
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/navbar">Try it live</a></p>
 

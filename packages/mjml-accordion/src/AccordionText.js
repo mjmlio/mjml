@@ -1,4 +1,9 @@
 import { BodyComponent } from 'mjml-core'
+import {
+  DARK_MODE_CLASS_PREFIX,
+  emitDarkModeHeadStyle,
+  registerDarkModeRule,
+} from 'mjml-core/lib/helpers/colorSchemeDarkMode'
 
 export default class MjAccordionText extends BodyComponent {
   static componentName = 'mj-accordion-text'
@@ -7,23 +12,115 @@ export default class MjAccordionText extends BodyComponent {
 
   static allowedAttributes = {
     'background-color': 'color',
-    'font-size': 'unit(px)',
+    color: 'color',
+    'dark-background-color': 'color',
+    'dark-color': 'color',
     'font-family': 'string',
+    'font-size': 'unit(px)',
     'font-weight': 'string',
     'letter-spacing': 'unitWithNegative(px,em)',
     'line-height': 'unit(px,%,)',
-    color: 'color',
+    padding: 'unit(px,%){1,4}',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
-    padding: 'unit(px,%){1,4}',
   }
 
   static defaultAttributes = {
     'font-size': '13px',
     'line-height': '1',
     padding: '16px',
+  }
+
+  darkClasses = null
+
+  registerDarkModeRuleGroup({
+    cssDeclarations,
+    supportOutlookDarkMode = false,
+  }) {
+    const globalData = this.context && this.context.globalData
+    const validDeclarations = Array.isArray(cssDeclarations)
+      ? cssDeclarations.filter(
+          ({ cssProperty, cssValue }) => Boolean(cssProperty && cssValue),
+        )
+      : []
+
+    if (!globalData || validDeclarations.length === 0) {
+      return null
+    }
+
+    if (typeof globalData.darkModeRuleCount !== 'number') {
+      globalData.darkModeRuleCount = 0
+    }
+
+    globalData.darkModeRuleCount += 1
+
+    const className = `${DARK_MODE_CLASS_PREFIX}-${globalData.darkModeRuleCount}`
+
+    if (!Array.isArray(globalData.darkModeRules)) {
+      globalData.darkModeRules = []
+    }
+
+    validDeclarations.forEach(({ cssProperty, cssValue }) => {
+      globalData.darkModeRules.push({
+        className,
+        cssProperty,
+        cssValue,
+        supportOutlookDarkMode: Boolean(supportOutlookDarkMode),
+      })
+    })
+
+    return className
+  }
+
+  getDarkClasses() {
+    if (this.darkClasses !== null) {
+      return this.darkClasses
+    }
+
+    this.darkClasses = {}
+
+    const globalData = this.context && this.context.globalData
+
+    const contentDeclarations = []
+
+    const darkBackgroundColor = this.getAttribute('dark-background-color')
+    if (darkBackgroundColor) {
+      contentDeclarations.push({
+        cssProperty: 'background-color',
+        cssValue: darkBackgroundColor,
+      })
+    }
+
+    const darkColor = this.getAttribute('dark-color')
+    if (darkColor) {
+      contentDeclarations.push({
+        cssProperty: 'color',
+        cssValue: darkColor,
+      })
+    }
+
+    this.darkClasses.content = this.registerDarkModeRuleGroup({
+      cssDeclarations: contentDeclarations,
+    })
+
+    // Inherited from mj-accordion-element; text borders are rendered on the
+    // inner table as border-bottom.
+    const darkBorderColor = this.getAttribute('dark-border-color')
+    if (darkBorderColor) {
+      this.darkClasses.border = registerDarkModeRule(globalData, {
+        cssProperty: 'border-bottom-color',
+        cssValue: darkBorderColor,
+      })
+    }
+
+    return this.darkClasses
+  }
+
+  componentHeadStyle = () => {
+    emitDarkModeHeadStyle(this.context && this.context.globalData)
+    return ''
   }
 
   getStyles() {
@@ -50,10 +147,14 @@ export default class MjAccordionText extends BodyComponent {
   }
 
   renderContent() {
+    const contentDarkClass = this.getDarkClasses().content
+
     return `
       <td
         ${this.htmlAttributes({
-          class: this.getAttribute('css-class'),
+          class: [this.getAttribute('css-class'), contentDarkClass]
+            .filter(Boolean)
+            .join(' ') || undefined,
           style: 'td',
         })}
       >
@@ -80,6 +181,8 @@ export default class MjAccordionText extends BodyComponent {
   }
 
   render() {
+    const borderDarkClass = this.getDarkClasses().border
+
     return `
       <div
         ${this.htmlAttributes({
@@ -90,6 +193,7 @@ export default class MjAccordionText extends BodyComponent {
           ${this.htmlAttributes({
             cellspacing: '0',
             cellpadding: '0',
+            class: borderDarkClass || undefined,
             style: 'table',
           })}
         >

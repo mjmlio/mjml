@@ -12,11 +12,17 @@ This is the starting point of your email. To aid accessibility, MJML automatical
 
 #### Attributes
 
-| attribute           | accepts           | description                                           | default value |
-| ------------------- | ----------------- | ----------------------------------------------------- | ------------- |
-| background-color    | CSS color formats | the general background color                          |               |
-| css-class           | string            | class, added to the `body` tag in the generated HTML. |               |
-| id                  | string            | id, added to the `body` tag in the generated HTML     |               |
-| width               | `px`              | email width                                           | `600px`       |
+| attribute             | accepts           | description                                           | default value |
+| --------------------- | ----------------- | ----------------------------------------------------- | ------------- |
+| background-color      | CSS color formats | the general background color                          |               |
+| css-class             | string            | class, added to the `body` tag in the generated HTML. |               |
+| dark-background-color | CSS color formats | the background color in dark-mode                     |               |
+| id                    | string            | id, added to the `body` tag in the generated HTML     |               |
+| width                 | `px`              | email width                                           | `600px`       |
+
+<div class="alert alert-note" role="alert">
+  <p>Note</p>
+  <p>All <code>dark-</code> prefixed attributes require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
+</div>
 
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/body">Try it live</a></p>

@@ -69,4 +69,38 @@ describe('skeleton', () => {
         .to.equal(outputStyleCount)
     })
   })
+
+  it('renders accordion style in its own type="text/css" block', () => {
+    const $ = load(
+      skeleton({
+        headStyle: {
+          'custom-component': () => '.custom-component { background: orange; }',
+          'mj-accordion': () => '@goodbye { @gmail }',
+        },
+      }),
+    )
+
+    chai.expect($('head style').get().length).to.equal(3)
+    chai.expect($('head style[type="text/css"]').get().length).to.equal(1)
+  })
+
+  describe('dark mode support', () => {
+    it('is opt-in: no meta tags by default', () => {
+      const $ = load(skeleton({}))
+
+      chai.expect($('meta[name="color-scheme"]').get().length).to.equal(0)
+      chai
+        .expect($('meta[name="supported-color-schemes"]').get().length)
+        .to.equal(0)
+    })
+
+    it('adds meta tags when supportDarkMode is true', () => {
+      const $ = load(skeleton({ supportDarkMode: true }))
+
+      chai.expect($('meta[name="color-scheme"]').get().length).to.equal(1)
+      chai
+        .expect($('meta[name="supported-color-schemes"]').get().length)
+        .to.equal(1)
+    })
+  })
 })

@@ -1,5 +1,9 @@
 import { BodyComponent } from 'mjml-core'
 import { isNil } from 'lodash'
+import {
+  emitDarkModeHeadStyle,
+  registerDarkModeRule,
+} from 'mjml-core/lib/helpers/colorSchemeDarkMode'
 import { msoConditionalTag } from 'mjml-core/lib/helpers/conditionalTag'
 
 export default class MjSocial extends BodyComponent {
@@ -8,8 +12,10 @@ export default class MjSocial extends BodyComponent {
   static allowedAttributes = {
     align: 'enum(left,right,center)',
     'border-radius': 'string',
-    'container-background-color': 'color',
     color: 'color',
+    'container-background-color': 'color',
+    'dark-color': 'color',
+    'dark-container-background-color': 'color',
     'font-family': 'string',
     'font-size': 'unit(px)',
     'font-style': 'string',
@@ -20,11 +26,11 @@ export default class MjSocial extends BodyComponent {
     'inner-padding': 'unit(px,%){1,4}',
     'line-height': 'unit(px,%,)',
     mode: 'enum(horizontal,vertical)',
+    padding: 'unit(px,%){1,4}',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
-    padding: 'unit(px,%){1,4}',
     'table-layout': 'enum(auto,fixed)',
     'text-padding': 'unit(px,%){1,4}',
     'text-decoration': 'string',
@@ -45,6 +51,46 @@ export default class MjSocial extends BodyComponent {
     'text-decoration': 'none',
   }
 
+  darkContainerClass = undefined
+
+  getDarkContainerClass() {
+    if (typeof this.darkContainerClass !== 'undefined') {
+      return this.darkContainerClass
+    }
+
+    const darkContainerBg = this.attributes['dark-container-background-color']
+
+    if (!darkContainerBg) {
+      this.darkContainerClass = null
+      return this.darkContainerClass
+    }
+
+    this.darkContainerClass = registerDarkModeRule(
+      this.context && this.context.globalData,
+      {
+        cssProperty: 'background-color',
+        cssValue: darkContainerBg,
+      },
+    )
+
+    return this.darkContainerClass
+  }
+
+  getAttribute(name) {
+    if (name === 'css-class') {
+      const base = this.attributes['css-class']
+      const darkClass = this.getDarkContainerClass()
+      return [base, darkClass].filter(Boolean).join(' ') || undefined
+    }
+
+    return this.attributes[name]
+  }
+
+  componentHeadStyle = () => {
+    emitDarkModeHeadStyle(this.context && this.context.globalData)
+    return ''
+  }
+
   // eslint-disable-next-line class-methods-use-this
   getStyles() {
     return {
@@ -60,9 +106,10 @@ export default class MjSocial extends BodyComponent {
       base.padding = this.getAttribute('inner-padding')
     }
 
-    return [
+    const attributes = [
       'border-radius',
       'color',
+      'dark-color',
       'font-family',
       'font-size',
       'font-weight',
@@ -79,6 +126,8 @@ export default class MjSocial extends BodyComponent {
         res[attr] = this.getAttribute(attr)
         return res
       }, base)
+
+    return attributes
   }
 
   renderHorizontal() {

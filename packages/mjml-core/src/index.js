@@ -662,6 +662,10 @@ export default async function mjml2html(mjml, options = {}) {
     carouselSharedStylesEmitted: false,
     navbarHamburgerStyleEmitted: false,
     imageFluidOnMobileStyleEmitted: false,
+    outlookDarkModeStyleEmitted: false,
+    darkModeStyleEmitted: false,
+    darkModeRuleCount: 0,
+    darkModeRules: [],
   }
 
   setSupportOutlookClassicFlag(globalData.supportOutlookClassic)
@@ -833,7 +837,10 @@ export default async function mjml2html(mjml, options = {}) {
     },
   }
 
-  globalData.headRaw = processing(mjHead, headHelpers)
+  {
+    const processedHeadRaw = processing(mjHead, headHelpers)
+    globalData.headRaw = Array.isArray(processedHeadRaw) ? processedHeadRaw : []
+  }
 
   content = processing(mjBody, bodyHelpers, applyAttributes)
 

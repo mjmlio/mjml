@@ -2,6 +2,10 @@ import { BodyComponent, makeLowerBreakpoint } from 'mjml-core'
 
 import conditionalTag from 'mjml-core/lib/helpers/conditionalTag'
 import genRandomHexString from 'mjml-core/lib/helpers/genRandomHexString'
+import {
+  emitDarkModeHeadStyle,
+  registerDarkModeRule,
+} from 'mjml-core/lib/helpers/colorSchemeDarkMode'
 
 export default class MjNavbar extends BodyComponent {
   static componentName = 'mj-navbar'
@@ -9,26 +13,27 @@ export default class MjNavbar extends BodyComponent {
   static allowedAttributes = {
     align: 'enum(left,center,right)',
     'base-url': 'string',
+    'dark-ico-color': 'color',
     hamburger: 'string',
     'ico-align': 'enum(left,center,right)',
-    'ico-open': 'string',
     'ico-close': 'string',
     'ico-color': 'color',
     'ico-font-size': 'unit(px,%)',
     'ico-font-family': 'string',
-    'ico-text-transform': 'string',
+    'ico-line-height': 'unit(px,%,)',
+    'ico-open': 'string',
     'ico-padding': 'unit(px,%){1,4}',
     'ico-padding-left': 'unit(px,%)',
     'ico-padding-top': 'unit(px,%)',
     'ico-padding-right': 'unit(px,%)',
     'ico-padding-bottom': 'unit(px,%)',
+    'ico-text-decoration': 'string',
+    'ico-text-transform': 'string',
     padding: 'unit(px,%){1,4}',
     'padding-left': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
     'padding-bottom': 'unit(px,%)',
-    'ico-text-decoration': 'string',
-    'ico-line-height': 'unit(px,%,)',
   }
 
   static defaultAttributes = {
@@ -46,12 +51,35 @@ export default class MjNavbar extends BodyComponent {
     'ico-line-height': '30px',
   }
 
+  darkClasses = null
+
+  getDarkClasses() {
+    if (this.darkClasses !== null) {
+      return this.darkClasses
+    }
+
+    this.darkClasses = {}
+
+    const globalData = this.context && this.context.globalData
+
+    const darkIcoColor = this.getAttribute('dark-ico-color')
+    if (darkIcoColor) {
+      this.darkClasses.icoColor = registerDarkModeRule(globalData, {
+        cssProperty: 'color',
+        cssValue: darkIcoColor,
+      })
+    }
+
+    return this.darkClasses
+  }
+
   componentHeadStyle = (breakpoint) => {
     const globalData = this.context && this.context.globalData
 
     const hasHamburger = this.getAttribute('hamburger') === 'hamburger'
 
     if (!hasHamburger) {
+      emitDarkModeHeadStyle(globalData)
       return ''
     }
 
@@ -59,6 +87,7 @@ export default class MjNavbar extends BodyComponent {
       !globalData || globalData.navbarHamburgerStyleEmitted === false
 
     if (!includeStyles) {
+      emitDarkModeHeadStyle(globalData)
       return ''
     }
 
@@ -66,6 +95,7 @@ export default class MjNavbar extends BodyComponent {
       globalData.navbarHamburgerStyleEmitted = true
     }
 
+    emitDarkModeHeadStyle(globalData)
     return `
       noinput.mj-menu-checkbox { display:block!important; max-height:none!important; visibility:visible!important; }
       @media only screen and (max-width:${makeLowerBreakpoint(breakpoint)}) {
@@ -163,7 +193,9 @@ export default class MjNavbar extends BodyComponent {
         <label
           ${this.htmlAttributes({
             for: labelKey,
-            class: 'mj-menu-label',
+            class: ['mj-menu-label', this.getDarkClasses().icoColor]
+              .filter(Boolean)
+              .join(' '),
             style: 'label',
             align: this.getAttribute('ico-align'),
           })}

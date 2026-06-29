@@ -1,4 +1,25 @@
-import { map, isEmpty } from 'lodash'
+import { isEmpty } from 'lodash'
+
+function groupMediaQueries(mediaQueries, prefix = '') {
+  const grouped = Object.entries(mediaQueries).reduce(
+    (result, [className, mediaQuery]) => {
+      const selector = `${prefix}.${className}`
+
+      if (!result[mediaQuery]) {
+        result[mediaQuery] = []
+      }
+
+      result[mediaQuery].push(selector)
+
+      return result
+    },
+    {},
+  )
+
+  return Object.entries(grouped).map(
+    ([mediaQuery, selectors]) => `${selectors.join(', ')} ${mediaQuery}`,
+  )
+}
 
 // eslint-disable-next-line import/prefer-default-export
 export default function buildMediaQueriesTags(
@@ -12,15 +33,9 @@ export default function buildMediaQueriesTags(
 
   const { forceOWADesktop = false, printerSupport = false } = options
 
-  const baseMediaQueries = map(
-    mediaQueries,
-    (mediaQuery, className) => `.${className} ${mediaQuery}`,
-  )
-  const thunderbirdMediaQueries = map(
-    mediaQueries,
-    (mediaQuery, className) => `.moz-text-html .${className} ${mediaQuery}`,
-  )
-  const owaQueries = map(baseMediaQueries, (mq) => `[owa] ${mq}`)
+  const baseMediaQueries = groupMediaQueries(mediaQueries)
+  const thunderbirdMediaQueries = groupMediaQueries(mediaQueries, '.moz-text-html ')
+  const owaQueries = baseMediaQueries.map((mq) => `[owa] ${mq}`)
 
   return `
     <style type="text/css">

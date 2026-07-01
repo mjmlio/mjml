@@ -56,9 +56,13 @@ The simplest way to use MJML in Django templates.
 
 [https://github.com/liminspace/django-mjml](https://github.com/liminspace/django-mjml)
 
-### PHP / Laravel: Laravel MJML
+### PHP: mjml-php
 
-Build responsive e-mails easily using MJML and Laravel Mailables.
+PHP implementation for MJML.
+
+<https://github.com/shyim/mjml-php>
+
+Framework integrations:
 
 - [https://github.com/EvanSchleret/lara-mjml](https://github.com/EvanSchleret/lara-mjml)
 - [https://github.com/asahasrabuddhe/laravel-mjml](https://github.com/asahasrabuddhe/laravel-mjml) (not maintained)

@@ -32,6 +32,12 @@ Ruby wrapper for MRML, the MJML markup language implementation in Rust.
 
 [https://github.com/hardpixel/mrml-ruby](https://github.com/hardpixel/mrml-ruby)
 
+### AMP for Email: mjml2amp
+
+Convert MJML markup into AMP for Email compliant HTML. Built on the MJML engine; outputs AMP-compliant HTML with automatic `<amp-img>` conversion and optional image dimension handling.
+
+- [https://github.com/Easy-Email-Pro/mjml2amp](https://github.com/Easy-Email-Pro/mjml2amp)
+
 ### React: mjml-react
 
 React components for MJML components.

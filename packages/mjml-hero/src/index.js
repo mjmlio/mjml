@@ -1,8 +1,7 @@
 import { BodyComponent } from 'mjml-core'
 import { flow, identity, join, filter } from 'lodash/fp'
-
-import widthParser from 'mjml-core/lib/helpers/widthParser'
 import { msoConditionalTag } from 'mjml-core/lib/helpers/conditionalTag'
+
 const makeBackgroundString = flow(filter(identity), join(' '))
 
 export default class MjHero extends BodyComponent {

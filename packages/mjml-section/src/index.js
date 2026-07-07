@@ -492,6 +492,19 @@ export default class MjSection extends BodyComponent {
 
   renderSection() {
     const hasBackground = this.hasBackground()
+    const supportOutlookClassic = this.context?.globalData?.supportOutlookClassic !== false
+    const globalData = this.context?.globalData
+    const initialVmlRuleCount = Array.isArray(globalData?.vmlButtonStyleRules)
+      ? globalData.vmlButtonStyleRules.length
+      : 0
+    const wrappedChildren = this.renderWrappedChildren()
+    const finalVmlRuleCount = Array.isArray(globalData?.vmlButtonStyleRules)
+      ? globalData.vmlButtonStyleRules.length
+      : 0
+    const shouldAddVmlClass =
+      hasBackground &&
+      supportOutlookClassic &&
+      finalVmlRuleCount > initialVmlRuleCount
     
     return `
       <div ${this.htmlAttributes({
@@ -507,7 +520,7 @@ export default class MjSection extends BodyComponent {
             border: '0',
             cellpadding: '0',
             cellspacing: '0',
-            ...(hasBackground && { 'class': 'vml' }),
+            ...(shouldAddVmlClass && { 'class': 'vml' }),
             role: 'none',
             style: 'table',
           })}
@@ -521,7 +534,7 @@ export default class MjSection extends BodyComponent {
               ${msoConditionalTag(`
                 <table role="none" border="0" cellpadding="0" cellspacing="0">
               `)}
-                ${this.renderWrappedChildren()}
+                ${wrappedChildren}
               ${msoConditionalTag(`
                 </table>
               `)}

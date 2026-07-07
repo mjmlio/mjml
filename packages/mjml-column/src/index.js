@@ -524,10 +524,11 @@ export default class MjColumn extends BodyComponent {
             }
 
             const isButton = component.constructor.componentName === 'mj-button'
+            const isLeftAlignedButton = isButton && component.getAttribute('align') === 'left'
             const hasSectionBackground = this.context.hasSectionBackgroundUrl === true
             let trClass = ''
 
-            if (isButton && hasSectionBackground) {
+            if (isLeftAlignedButton && hasSectionBackground) {
               const buttonClassName = `vml-button-${genRandomHexString(6)}`
               const buttonLeftPadding = `${component.getShorthandAttrValue('padding', 'left')}px`
 
@@ -575,8 +576,6 @@ export default class MjColumn extends BodyComponent {
     if (this.hasColumnGutter()) {
       classesName += ` ${this.getDesktopGutterClassName()}`
     }
-
-    classesName += ' mj-outlook-group-fix'
 
     if (this.getAttribute('css-class')) {
       classesName += ` ${this.getAttribute('css-class')}`

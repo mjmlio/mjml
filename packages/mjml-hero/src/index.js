@@ -7,7 +7,6 @@ import {
 } from 'mjml-core/lib/helpers/colorSchemeDarkMode'
 import { OUTLOOK_DARK_MODE_CLASS } from 'mjml-core/lib/helpers/outlookDarkMode'
 
-import widthParser from 'mjml-core/lib/helpers/widthParser'
 import { msoConditionalTag } from 'mjml-core/lib/helpers/conditionalTag'
 
 const makeBackgroundString = flow(filter(identity), join(' '))

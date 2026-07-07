@@ -17,7 +17,7 @@ describe('mj-section + mj-button outlook margin integration', function () {
         <mj-body>
           <mj-section background-url="https://example.com/bg.png">
             <mj-column background-color="black" padding="20px">
-              <mj-button padding="10px 25px">A</mj-button>
+              <mj-button align="left" padding="10px 25px">A</mj-button>
             </mj-column>
           </mj-section>
         </mj-body>
@@ -35,6 +35,8 @@ describe('mj-section + mj-button outlook margin integration', function () {
     chai.expect(html).to.match(
       /<td[^>]*style="[^"]*background-color:black;[^"]*padding:20px;[^"]*mso-para-margin-left:20px;[^"]*"/,
     )
+
+    chai.expect(html).to.include('class="vml"')
 
     chai
       .expect(html)
@@ -62,6 +64,7 @@ describe('mj-section + mj-button outlook margin integration', function () {
 
     chai.expect(html).to.not.match(/<tr class="vml-button-[a-f0-9]{6}">/)
     chai.expect(html).to.not.include('mso-para-margin-left')
+    chai.expect(html).to.not.include('class="vml"')
   })
 
   it('should not emit vml-button classes or mso margin styles when support-outlook-classic is false', async function () {
@@ -83,6 +86,30 @@ describe('mj-section + mj-button outlook margin integration', function () {
     chai.expect(html).to.not.include('mso-para-margin-left')
   })
 
+  it('should not emit vml-button classes or button-specific mso margin rules for center-aligned buttons', async function () {
+    const input = `
+      <mjml support-outlook-classic="true">
+        <mj-body>
+          <mj-section background-url="https://example.com/bg.png">
+            <mj-column background-color="black" padding="20px">
+              <mj-button align="center" padding="10px 25px">A</mj-button>
+            </mj-column>
+          </mj-section>
+        </mj-body>
+      </mjml>
+    `
+
+    const { html } = await mjml(input)
+
+    chai.expect(html).to.not.match(/<tr class="vml-button-[a-f0-9]{6}">/)
+    chai.expect(html).to.not.match(/\.vml \.vml-button-[a-f0-9]{6} td \{ mso-para-margin-left:\d+px; \}/)
+    chai.expect(html).to.not.match(/\.vml \.vml-button-[a-f0-9]{6} td td \{ mso-para-margin-left:0; \}/)
+    chai.expect(html).to.not.include('class="vml"')
+    chai.expect(html).to.match(
+      /<td[^>]*style="[^"]*background-color:black;[^"]*padding:20px;[^"]*mso-para-margin-left:20px;[^"]*"/,
+    )
+  })
+
   it('should consolidate multiple vml-button rules into a single mso style block', async function () {
     // Positive-path assertions force Outlook-classic on to avoid cross-test state effects.
     const input = `
@@ -90,9 +117,9 @@ describe('mj-section + mj-button outlook margin integration', function () {
         <mj-body>
           <mj-section background-url="https://example.com/bg.png">
             <mj-column background-color="black" padding="20px">
-              <mj-button padding="10px 25px">A</mj-button>
-              <mj-button padding="10px 30px">B</mj-button>
-              <mj-button padding="10px 40px">C</mj-button>
+              <mj-button align="left" padding="10px 25px">A</mj-button>
+              <mj-button align="left" padding="10px 30px">B</mj-button>
+              <mj-button align="left" padding="10px 40px">C</mj-button>
             </mj-column>
           </mj-section>
         </mj-body>
@@ -128,5 +155,30 @@ describe('mj-section + mj-button outlook margin integration', function () {
         .expect(vmlButtonStyleBlock)
         .to.include(`.vml .${className} td td { mso-para-margin-left:0; }`)
     })
+  })
+
+  it('should apply vml class only on sections that emit left-aligned button VML rules', async function () {
+    const input = `
+      <mjml support-outlook-classic="true">
+        <mj-body>
+          <mj-section background-url="https://example.com/bg.png">
+            <mj-column background-color="black" padding="20px">
+              <mj-button align="left" padding="10px 25px">A</mj-button>
+            </mj-column>
+          </mj-section>
+          <mj-section background-url="https://example.com/bg2.png">
+            <mj-column background-color="black" padding="20px">
+              <mj-button align="center" padding="10px 25px">B</mj-button>
+            </mj-column>
+          </mj-section>
+        </mj-body>
+      </mjml>
+    `
+
+    const { html } = await mjml(input)
+
+    const vmlClassOccurrences = (html.match(/class="vml"/g) || []).length
+
+    chai.expect(vmlClassOccurrences).to.equal(1)
   })
 })

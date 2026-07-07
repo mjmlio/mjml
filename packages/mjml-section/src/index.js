@@ -37,6 +37,7 @@ export default class MjSection extends BodyComponent {
     'dark-border-top-color': 'color',
     direction: 'enum(ltr,rtl)',
     'full-width': 'enum(full-width,false,)',
+    gutter: 'unit(px,%)',
     padding: 'unit(px,%){1,4}',
     'padding-top': 'unit(px,%)',
     'padding-bottom': 'unit(px,%)',
@@ -210,6 +211,8 @@ export default class MjSection extends BodyComponent {
       ...this.context,
       containerWidth: `${box}px`,
       gap: this.getAttribute('gap'),
+      gutter: this.getAttribute('gutter'),
+      direction: this.getAttribute('direction'),
       hasSectionBackgroundUrl,
       addVmlButtonStyle: (buttonClassName, leftPadding) => {
         if (!hasSectionBackgroundUrl || !globalData || !buttonClassName) {

@@ -5,3 +5,5 @@ type.js
 test-html-attributes.js
 test.js
 babel.config.js
+testing-manual/
+packages/mjml-browser/test

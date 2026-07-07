@@ -19,6 +19,7 @@ describe('Template syntax sanitization', function () {
     { prefix: '{{', suffix: '}}' },
     { prefix: '[[', suffix: ']]' },
     { prefix: '{%', suffix: '%}' },
+    { prefix: '<%=', suffix: '%>' },
   ]
 
   it('preserves CSS value variables in style attribute', async function () {
@@ -28,7 +29,7 @@ describe('Template syntax sanitization', function () {
           <mj-section>
             <mj-column>
               <mj-raw>
-                <div style="color: {{primaryColor}}; font-weight: [[ fontWeight ]];">Token</div>
+                <div style="color: {{primaryColor}}; font-weight: [[ fontWeight ]]; background-color: <%= backgroundColor %>;">Token</div>
               </mj-raw>
             </mj-column>
           </mj-section>
@@ -44,6 +45,7 @@ describe('Template syntax sanitization', function () {
     const doc = $.html()
     chai.expect(doc).to.include('color:{{primaryColor}};')
     chai.expect(doc).to.include('font-weight:[[ fontWeight ]]')
+    chai.expect(doc).to.include('background-color:<%= backgroundColor %>')
   })
 
   it('preserves CSS value variables inside <style> block', async function () {

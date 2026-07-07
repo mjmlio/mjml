@@ -61,6 +61,7 @@ The `full-width` attribute will be used to manage the background width. Setting 
 | dark-border-top-color    | CSS color formats       | top border color in dark mode - overrides `dark-border-color` for top only                             |               |
 | direction                | `ltr` `rtl`             | set the display order of direct children                                                               |               |
 | full-width               | `full-width` `false`    | make the section full-width                                                                            |               |
+| gutter                   | `px` `%`                | sets an equal spacing between each column                                                              |               |
 | padding                  | `px` `%`                | section padding, supports up to 4 parameters                                                           | `20px 0`      |
 | padding-bottom           | `px` `%`                | section bottom padding                                                                                 |               |
 | padding-left             | `px` `%`                | section left padding                                                                                   |               |

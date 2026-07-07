@@ -11,6 +11,7 @@ export default class MjSocial extends BodyComponent {
 
   static allowedAttributes = {
     align: 'enum(left,right,center)',
+    border: 'string',
     'border-radius': 'string',
     color: 'color',
     'container-background-color': 'color',
@@ -106,7 +107,8 @@ export default class MjSocial extends BodyComponent {
       base.padding = this.getAttribute('inner-padding')
     }
 
-    const attributes = [
+    return [
+      'border',
       'border-radius',
       'color',
       'dark-color',
@@ -126,8 +128,6 @@ export default class MjSocial extends BodyComponent {
         res[attr] = this.getAttribute(attr)
         return res
       }, base)
-
-    return attributes
   }
 
   renderHorizontal() {

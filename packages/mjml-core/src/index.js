@@ -784,18 +784,24 @@ export default async function mjml2html(mjml, options = {}) {
     components,
     globalData,
     addMediaQuery(className, { parsedWidth, unit, padding }) {
-      let rule = '{'
+      const declarations = []
 
       if (parsedWidth != null && unit != null) {
-        rule += ` width:${parsedWidth}${unit} !important; max-width: ${parsedWidth}${unit};`
+        const widthValue = `${parsedWidth}${unit}`
+
+        // Skip redundant width:100% !important when width is already 100%
+        if (parsedWidth !== 100 || unit !== '%') {
+          declarations.push(`width:${widthValue} !important;`)
+        }
+
+        declarations.push(`max-width: ${widthValue};`)
       }
 
       if (padding) {
-        rule += ` padding: ${padding} !important;`
+        declarations.push(`padding: ${padding} !important;`)
       }
 
-      rule += ` }`
-      globalData.mediaQueries[className] = rule
+      globalData.mediaQueries[className] = `{ ${declarations.join(' ')} }`
     },
     addHeadStyle(identifier, headStyle) {
       globalData.headStyle[identifier] = headStyle

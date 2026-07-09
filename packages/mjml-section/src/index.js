@@ -49,6 +49,7 @@ export default class MjSection extends BodyComponent {
 
   static defaultAttributes = {
     'background-position': 'top center',
+    'background-size': 'auto',
     padding: '20px 0',
     'text-align': 'center',
     'text-padding': '4px 4px 4px 0',
@@ -309,6 +310,7 @@ export default class MjSection extends BodyComponent {
         'padding-left': this.getAttribute('padding-left'),
         'padding-right': this.getAttribute('padding-right'),
         'padding-top': this.getAttribute('padding-top'),
+        ...(hasBackground && { 'mso-padding-alt': '0' }),
         'text-align': this.getColumnAlign(),
       },
       div: {
@@ -608,6 +610,14 @@ export default class MjSection extends BodyComponent {
       ] // also ensure that images are still cropped the same way
     }
 
+    const hasBackground = this.hasBackground()
+
+    const padding = `${this.getShorthandAttrValue('padding', 'left')}px,${this.getShorthandAttrValue('padding', 'top')}px,${this.getShorthandAttrValue('padding', 'right')}px,${this.getShorthandAttrValue('padding', 'bottom')}px`
+
+    const textboxInset = hasBackground
+      ? `${padding}`
+      : '0,0,0,0'
+
     return `
       ${msoConditionalTag(`
         <v:rect ${this.htmlAttributes({
@@ -626,7 +636,7 @@ export default class MjSection extends BodyComponent {
           type: vmlType,
           ...vSizeAttributes,
         })} />
-        <v:textbox style="mso-fit-shape-to-text:true" inset="0,0,0,0">
+        <v:textbox style="mso-fit-shape-to-text:true" inset="${textboxInset}">
       `)}
           ${content}
       ${msoConditionalTag(`
@@ -639,11 +649,6 @@ export default class MjSection extends BodyComponent {
   renderSection() {
     const hasBackground = this.hasBackground()
     const darkClasses = this.getDarkClasses()
-
-    const paddingLeft = this.getShorthandAttrValue('padding', 'left')
-    const spacerTd = hasBackground
-      ? `${msoConditionalTag(`<td style="padding-left:${paddingLeft}px;"></td>`)}`
-      : ''
 
     const borderDarkClasses = [
       darkClasses.border,
@@ -695,7 +700,6 @@ export default class MjSection extends BodyComponent {
           })}
         >
           <tr>
-            ${spacerTd}
             <td
               ${this.htmlAttributes({
               class: borderDarkClasses || undefined,

@@ -63,6 +63,7 @@ export default class MjImage extends BodyComponent {
     alt: '',
     align: 'center',
     border: '0',
+    'font-size': '13px',
     height: 'auto',
     padding: '10px 25px',
   }

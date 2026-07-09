@@ -327,6 +327,7 @@ export default class MjHero extends BodyComponent {
         background: this.getBackground(),
         'background-position': this.getAttribute('background-position'),
         'background-repeat': 'no-repeat',
+        'background-size': 'cover',
         'border-radius': this.getAttribute('border-radius'),
         padding: this.getAttribute('padding'),
         'padding-top': this.getAttribute('padding-top'),

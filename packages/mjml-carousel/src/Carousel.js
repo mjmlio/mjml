@@ -108,93 +108,6 @@ export default class MjCarousel extends BodyComponent {
 
     if (!length) return ''
 
-    const hideImageSelectors = range(0, length)
-      .map(
-        (i) =>
-          `.mj-carousel-${carouselId}-radio:checked ${repeat(
-            '+ * ',
-            i,
-          )}+ .mj-carousel-content .mj-carousel-image`,
-      )
-      .join(',\n')
-
-    const visibleImageSelectors = range(0, length)
-      .map(
-        (i) =>
-          `.mj-carousel-${carouselId}-radio-${i + 1}:checked ${repeat(
-            '+ * ',
-            length - i - 1,
-          )}+ .mj-carousel-content .mj-carousel-image-${i + 1}`,
-      )
-      .join(',\n')
-
-    const visibleNextSelectors = range(0, length)
-      .map(
-        (i) =>
-          `.mj-carousel-${carouselId}-radio-${i + 1}:checked ${repeat(
-            '+ * ',
-            length - i - 1,
-          )}+ .mj-carousel-content .mj-carousel-next-${
-            ((i + (1 % length) + length) % length) + 1
-          }`,
-      )
-      .join(',\n')
-
-    const visiblePreviousSelectors = range(0, length)
-      .map(
-        (i) =>
-          `.mj-carousel-${carouselId}-radio-${i + 1}:checked ${repeat(
-            '+ * ',
-            length - i - 1,
-          )}+ .mj-carousel-content .mj-carousel-previous-${
-            ((i - (1 % length) + length) % length) + 1
-          }`,
-      )
-      .join(',\n')
-
-    const selectedThumbnailSelectors = range(0, length)
-      .map(
-        (i) =>
-          `.mj-carousel-${carouselId}-radio-${i + 1}:checked ${repeat(
-            '+ * ',
-            length - i - 1,
-          )}+ .mj-carousel-content .mj-carousel-${carouselId}-thumbnail-${
-            i + 1
-          }`,
-      )
-      .join(',\n')
-
-    const visibleThumbnailSelectors = range(0, length)
-      .map(
-        (i) =>
-          `.mj-carousel-${carouselId}-radio-${i + 1}:checked ${repeat(
-            '+ * ',
-            length - i - 1,
-          )}+ .mj-carousel-content .mj-carousel-${carouselId}-thumbnail`,
-      )
-      .join(',\n')
-
-    const hoverHideImageSelectors = range(0, length)
-      .map(
-        (i) =>
-          `.mj-carousel-${carouselId}-thumbnail:hover ${repeat(
-            '+ * ',
-            length - i - 1,
-          )}+ .mj-carousel-main .mj-carousel-image`,
-      )
-      .join(',\n')
-
-    const hoverShowImageSelectors = range(0, length)
-      .map(
-        (i) =>
-          `.mj-carousel-${carouselId}-thumbnail-${i + 1}:hover ${repeat(
-            '+ * ',
-            length - i - 1,
-          )}+ .mj-carousel-main .mj-carousel-image-${i + 1}`,
-      )
-      .join(',\n')
-
-    const hoverBorderSelector = `.mj-carousel-${carouselId}-thumbnail:hover`
     const sharedCss = `
     .mj-carousel {
       -webkit-user-select: none;
@@ -234,30 +147,114 @@ export default class MjCarousel extends BodyComponent {
       display: table-cell !important;
       width: ${this.getAttribute('icon-width')} !important;
     }
-    ${hideImageSelectors} {
+    ${range(0, length)
+      .map(
+        (i) =>
+          `.mj-carousel-${carouselId}-radio:checked ${repeat(
+            '+ * ',
+            i,
+          )}+ .mj-carousel-content .mj-carousel-image`,
+      )
+      .join(',')} {
       display: none !important;
     }
-    ${visibleImageSelectors},
-    ${visibleNextSelectors},
-    ${visiblePreviousSelectors} {
+    ${range(0, length)
+      .map(
+        (i) =>
+          `.mj-carousel-${carouselId}-radio-${i + 1}:checked ${repeat(
+            '+ * ',
+            length - i - 1,
+          )}+ .mj-carousel-content .mj-carousel-image-${i + 1}`,
+      )
+      .join(',')},
+    ${range(0, length)
+      .map(
+        (i) =>
+          `.mj-carousel-${carouselId}-radio-${i + 1}:checked ${repeat(
+            '+ * ',
+            length - i - 1,
+          )}+ .mj-carousel-content .mj-carousel-next-${
+            ((i + (1 % length) + length) % length) + 1
+          }`,
+      )
+      .join(',')},
+    ${range(0, length)
+      .map(
+        (i) =>
+          `.mj-carousel-${carouselId}-radio-${i + 1}:checked ${repeat(
+            '+ * ',
+            length - i - 1,
+          )}+ .mj-carousel-content .mj-carousel-previous-${
+            ((i - (1 % length) + length) % length) + 1
+          }`,
+      )
+      .join(',')} {
       display: block !important;
     }
-    ${selectedThumbnailSelectors} {
+    ${range(0, length)
+      .map(
+        (i) =>
+          `.mj-carousel-${carouselId}-radio-${i + 1}:checked ${repeat(
+            '+ * ',
+            length - i - 1,
+          )}+ .mj-carousel-content .mj-carousel-${carouselId}-thumbnail-${
+            i + 1
+          }`,
+      )
+      .join(',')} {
       border-color: ${this.getAttribute('tb-selected-border-color')} !important;
     }
-    ${visibleThumbnailSelectors} {
+    ${range(0, length)
+      .map(
+        (i) =>
+          `.mj-carousel-${carouselId}-radio-${i + 1}:checked ${repeat(
+            '+ * ',
+            length - i - 1,
+          )}+ .mj-carousel-content .mj-carousel-${carouselId}-thumbnail`,
+      )
+      .join(',')} {
       display: inline-block !important;
     }
-    ${hoverHideImageSelectors} {
+    ${range(0, length)
+      .map(
+        (i) =>
+          `.mj-carousel-${carouselId}-thumbnail:hover ${repeat(
+            '+ * ',
+            length - i - 1,
+          )}+ .mj-carousel-main .mj-carousel-image`,
+      )
+      .join(',')} {
       display: none !important;
     }
-    ${hoverBorderSelector} {
+    .mj-carousel-${carouselId}-thumbnail:hover {
       border-color: ${this.getAttribute('tb-hover-border-color')} !important;
     }
-    ${hoverShowImageSelectors} {
+    ${range(0, length)
+      .map(
+        (i) =>
+          `.mj-carousel-${carouselId}-thumbnail-${i + 1}:hover ${repeat(
+            '+ * ',
+            length - i - 1,
+          )}+ .mj-carousel-main .mj-carousel-image-${i + 1}`,
+      )
+      .join(',')} {
       display: block !important;
     }
     `
+
+    const selectedThumbnailSelectors = range(0, length)
+      .map(
+        (i) =>
+          `.mj-carousel-${carouselId}-radio-${i + 1}:checked ${repeat(
+            '+ * ',
+            length - i - 1,
+          )}+ .mj-carousel-content .mj-carousel-${carouselId}-thumbnail-${
+            i + 1
+          }`,
+      )
+      .join(',')
+
+    const hoverBorderSelector = `.mj-carousel-${carouselId}-thumbnail:hover`
 
     const darkCss = []
     const darkSelectedBorderColor = this.getAttribute(

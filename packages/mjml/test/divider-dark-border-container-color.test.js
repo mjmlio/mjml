@@ -27,7 +27,7 @@ function wrapDivider(attrs = '') {
 `
 }
 
-describe('mj-divider dark-border-color / dark-container-background-color', function () {
+describe('mj-divider border-color--dark / container-background-color--dark', function () {
   it('should not emit dark-mode styles when no dark attributes are set', async function () {
     const { html } = await mjml(
       wrapDivider('container-background-color="#ffffff" border-color="#000000"'),
@@ -38,9 +38,9 @@ describe('mj-divider dark-border-color / dark-container-background-color', funct
     chai.expect(html).to.not.include('[data-ogsb] .mj-dark-')
   })
 
-  it('should emit a border-top-color dark-mode rule for dark-border-color', async function () {
+  it('should emit a border-top-color dark-mode rule for border-color--dark', async function () {
     const { html } = await mjml(
-      wrapDivider('border-color="#000000" dark-border-color="#ff0000"'),
+      wrapDivider('border-color="#000000" border-color--dark="#ff0000"'),
     )
     const styles = headStyles(html)
 
@@ -53,9 +53,9 @@ describe('mj-divider dark-border-color / dark-container-background-color', funct
       .to.not.include('[data-ogsb] .mj-dark-1 { border-top-color: #ff0000 !important; }')
   })
 
-  it('should apply dark-border-color class to the divider table, not the wrapper <td>', async function () {
+  it('should apply border-color--dark class to the divider table, not the wrapper <td>', async function () {
     const { html } = await mjml(
-      wrapDivider('dark-border-color="#ff0000"'),
+      wrapDivider('border-color--dark="#ff0000"'),
     )
     const $ = load(html)
 
@@ -63,9 +63,9 @@ describe('mj-divider dark-border-color / dark-container-background-color', funct
     chai.expect($('td.mj-dark-1').get().length).to.equal(0)
   })
 
-  it('should apply dark-container-background-color class to the wrapper <td>', async function () {
+  it('should apply container-background-color--dark class to the wrapper <td>', async function () {
     const { html } = await mjml(
-      wrapDivider('dark-container-background-color="#111111"'),
+      wrapDivider('container-background-color--dark="#111111"'),
     )
     const $ = load(html)
 
@@ -73,9 +73,9 @@ describe('mj-divider dark-border-color / dark-container-background-color', funct
     chai.expect($('table.mj-dark-1').get().length).to.equal(0)
   })
 
-  it('should preserve css-class while merging dark-container-background-color class', async function () {
+  it('should preserve css-class while merging container-background-color--dark class', async function () {
     const { html } = await mjml(
-      wrapDivider('css-class="my-divider" dark-container-background-color="#111111"'),
+      wrapDivider('css-class="my-divider" container-background-color--dark="#111111"'),
     )
     const $ = load(html)
 
@@ -84,7 +84,7 @@ describe('mj-divider dark-border-color / dark-container-background-color', funct
 
   it('should register separate classes for container and border dark rules', async function () {
     const { html } = await mjml(
-      wrapDivider('dark-container-background-color="#111111" dark-border-color="#ff0000"'),
+      wrapDivider('container-background-color--dark="#111111" border-color--dark="#ff0000"'),
     )
     const styles = headStyles(html)
     const $ = load(html)
@@ -106,8 +106,8 @@ describe('mj-divider dark-border-color / dark-container-background-color', funct
   <mj-body>
     <mj-section>
       <mj-column>
-        <mj-divider dark-container-background-color="#111111" />
-        <mj-divider dark-border-color="#ff0000" />
+        <mj-divider container-background-color--dark="#111111" />
+        <mj-divider border-color--dark="#ff0000" />
       </mj-column>
     </mj-section>
   </mj-body>

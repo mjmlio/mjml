@@ -66,10 +66,10 @@ describe('mj-accordion dark colors', function () {
     chai.expect(html).to.not.include('[data-ogsb] .mj-dark-')
   })
 
-  it('should inherit mj-accordion dark-border-color on title/text inner tables', async function () {
+  it('should inherit mj-accordion border-color--dark on title/text inner tables', async function () {
     const { html } = await mjml(
       wrapAccordion({
-        accordionAttrs: 'dark-border-color="#00ff00"',
+        accordionAttrs: 'border-color--dark="#00ff00"',
       }),
     )
     const styles = headStyles(html)
@@ -85,10 +85,10 @@ describe('mj-accordion dark colors', function () {
     chai.expect(textTableClass).to.match(/mj-dark-\d+/)
   })
 
-  it('should apply mj-accordion-element dark-border-color on title/text inner tables', async function () {
+  it('should apply mj-accordion-element border-color--dark on title/text inner tables', async function () {
     const { html } = await mjml(
       wrapAccordion({
-        elementAttrs: 'dark-border-color="#ababab"',
+        elementAttrs: 'border-color--dark="#ababab"',
       }),
     )
     const styles = headStyles(html)
@@ -103,11 +103,11 @@ describe('mj-accordion dark colors', function () {
     chai.expect(textTableClass).to.match(/mj-dark-\d+/)
   })
 
-  it('should let mj-accordion-element dark-border-color override inherited mj-accordion dark-border-color', async function () {
+  it('should let mj-accordion-element border-color--dark override inherited mj-accordion border-color--dark', async function () {
     const { html } = await mjml(
       wrapAccordion({
-        accordionAttrs: 'dark-border-color="#00ff00"',
-        elementAttrs: 'dark-border-color="#ababab"',
+        accordionAttrs: 'border-color--dark="#00ff00"',
+        elementAttrs: 'border-color--dark="#ababab"',
       }),
     )
     const styles = headStyles(html)
@@ -123,11 +123,11 @@ describe('mj-accordion dark colors', function () {
     chai.expect(textTableClass).to.match(/mj-dark-\d+/)
   })
 
-  it('should combine mj-accordion-title dark-background-color with inherited dark-border-color on one title table class', async function () {
+  it('should combine mj-accordion-title background-color--dark with inherited border-color--dark on one title table class', async function () {
     const { html } = await mjml(
       wrapAccordion({
-        elementAttrs: 'dark-border-color="#ababab"',
-        titleAttrs: 'dark-background-color="#1a1a1a"',
+        elementAttrs: 'border-color--dark="#ababab"',
+        titleAttrs: 'background-color--dark="#1a1a1a"',
       }),
     )
     const styles = headStyles(html)
@@ -141,10 +141,10 @@ describe('mj-accordion dark colors', function () {
     chai.expect((titleTableClass.match(/mj-dark-\d+/g) || []).length).to.equal(1)
   })
 
-  it('should apply mj-accordion-title dark-color on title td only', async function () {
+  it('should apply mj-accordion-title color--dark on title td only', async function () {
     const { html } = await mjml(
       wrapAccordion({
-        titleAttrs: 'dark-color="#fefefe"',
+        titleAttrs: 'color--dark="#fefefe"',
       }),
     )
     const styles = headStyles(html)
@@ -159,13 +159,13 @@ describe('mj-accordion dark colors', function () {
     chai.expect(textTdClass).to.equal('acc-text')
   })
 
-  it('should use dark icon sources when dark-icon-wrapped-url and dark-icon-unwrapped-url are set', async function () {
+  it('should use dark icon sources when icon-wrapped-url--dark and icon-unwrapped-url--dark are set', async function () {
     const darkWrapped = 'https://example.com/dark-more.png'
     const darkUnwrapped = 'https://example.com/dark-less.png'
 
     const { html } = await mjml(
       wrapAccordion({
-        titleAttrs: `dark-icon-wrapped-url="${darkWrapped}" dark-icon-unwrapped-url="${darkUnwrapped}"`,
+        titleAttrs: `icon-wrapped-url--dark="${darkWrapped}" icon-unwrapped-url--dark="${darkUnwrapped}"`,
       }),
     )
     const $ = load(html)
@@ -183,10 +183,10 @@ describe('mj-accordion dark colors', function () {
       .to.equal(darkUnwrapped)
   })
 
-  it('should apply mj-accordion-text dark-background-color and dark-color using a single dark class on text td', async function () {
+  it('should apply mj-accordion-text background-color--dark and color--dark using a single dark class on text td', async function () {
     const { html } = await mjml(
       wrapAccordion({
-        textAttrs: 'dark-background-color="#1b1b1b" dark-color="#eeeeee"',
+        textAttrs: 'background-color--dark="#1b1b1b" color--dark="#eeeeee"',
       }),
     )
     const styles = headStyles(html)

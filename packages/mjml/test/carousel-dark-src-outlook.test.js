@@ -3,8 +3,8 @@ const { load } = require('cheerio')
 
 const mjml = require('../lib')
 
-describe('mj-carousel-image dark-src Outlook head style', function () {
-  it('should not emit Outlook dark-mode head styles when no dark-src is present', async function () {
+describe('mj-carousel-image src--dark Outlook head style', function () {
+  it('should not emit Outlook dark-mode head styles when no src--dark is present', async function () {
     const input = `
 <mjml>
   <mj-body>
@@ -29,7 +29,7 @@ describe('mj-carousel-image dark-src Outlook head style', function () {
     chai.expect(html).to.not.include('.mj-dark-image-bg')
   })
 
-  it('should not emit Outlook dark-mode head styles when dark-src is present but support-dark-mode-image is not outlook', async function () {
+  it('should not emit Outlook dark-mode head styles when src--dark is present but support-dark-mode-image is not outlook', async function () {
     const darkUrl = 'https://example.com/carousel-dark.png'
 
     const input = `
@@ -40,7 +40,7 @@ describe('mj-carousel-image dark-src Outlook head style', function () {
         <mj-carousel>
           <mj-carousel-image
             src="https://example.com/carousel-light.png"
-            dark-src="${darkUrl}"
+            src--dark="${darkUrl}"
           />
         </mj-carousel>
       </mj-column>
@@ -61,7 +61,7 @@ describe('mj-carousel-image dark-src Outlook head style', function () {
     chai.expect(html).to.not.include('.mj-dark-image')
   })
 
-  it('should emit Outlook dark-mode head styles when support-dark-mode-image is outlook with dark-src', async function () {
+  it('should emit Outlook dark-mode head styles when support-dark-mode-image is outlook with src--dark', async function () {
     const darkUrl = 'https://example.com/carousel-dark.png'
 
     const input = `
@@ -72,7 +72,7 @@ describe('mj-carousel-image dark-src Outlook head style', function () {
         <mj-carousel support-dark-mode-image="outlook">
           <mj-carousel-image
             src="https://example.com/carousel-light.png"
-            dark-src="${darkUrl}"
+            src--dark="${darkUrl}"
           />
         </mj-carousel>
       </mj-column>
@@ -100,7 +100,7 @@ describe('mj-carousel-image dark-src Outlook head style', function () {
     chai.expect(html).to.include('.mj-dark-image')
   })
 
-  it('should reuse the same class for main and thumbnail when dark-thumbnails-src is omitted', async function () {
+  it('should reuse the same class for main and thumbnail when thumbnails-src--dark is omitted', async function () {
     const darkUrl = 'https://example.com/carousel-dark.png'
 
     const input = `
@@ -111,7 +111,7 @@ describe('mj-carousel-image dark-src Outlook head style', function () {
         <mj-carousel support-dark-mode-image="outlook">
           <mj-carousel-image
             src="https://example.com/carousel-light.png"
-            dark-src="${darkUrl}"
+            src--dark="${darkUrl}"
           />
         </mj-carousel>
       </mj-column>
@@ -123,7 +123,7 @@ describe('mj-carousel-image dark-src Outlook head style', function () {
     const { html } = await mjml(input)
     const $ = load(html)
 
-    // Thumbnail should reuse the main class when dark-thumbnails-src is omitted.
+    // Thumbnail should reuse the main class when thumbnails-src--dark is omitted.
     chai
       .expect(
         $(
@@ -148,7 +148,7 @@ describe('mj-carousel-image dark-src Outlook head style', function () {
     chai.expect(outlookStyle).to.include(darkUrl)
   })
 
-  it('should use different classes for main and thumbnail when dark-thumbnails-src differs', async function () {
+  it('should use different classes for main and thumbnail when thumbnails-src--dark differs', async function () {
     const darkMainUrl = 'https://example.com/carousel-dark.png'
     const darkThumbUrl = 'https://example.com/carousel-thumb-dark.png'
 
@@ -160,8 +160,8 @@ describe('mj-carousel-image dark-src Outlook head style', function () {
         <mj-carousel support-dark-mode-image="outlook">
           <mj-carousel-image
             src="https://example.com/carousel-light.png"
-            dark-src="${darkMainUrl}"
-            dark-thumbnails-src="${darkThumbUrl}"
+            src--dark="${darkMainUrl}"
+            thumbnails-src--dark="${darkThumbUrl}"
           />
         </mj-carousel>
       </mj-column>
@@ -173,7 +173,7 @@ describe('mj-carousel-image dark-src Outlook head style', function () {
     const { html } = await mjml(input)
     const $ = load(html)
 
-    // Thumbnail renders first and gets its own class when dark-thumbnails-src differs.
+    // Thumbnail renders first and gets its own class when thumbnails-src--dark differs.
     chai
       .expect(
         $(
@@ -199,7 +199,7 @@ describe('mj-carousel-image dark-src Outlook head style', function () {
     chai.expect(outlookStyle).to.include(darkMainUrl)
   })
 
-  it('should emit Outlook dark-mode styles when only dark-thumbnails-src is present', async function () {
+  it('should emit Outlook dark-mode styles when only thumbnails-src--dark is present', async function () {
     const darkThumbUrl = 'https://example.com/carousel-thumb-dark-only.png'
 
     const input = `
@@ -210,7 +210,7 @@ describe('mj-carousel-image dark-src Outlook head style', function () {
         <mj-carousel support-dark-mode-image="outlook">
           <mj-carousel-image
             src="https://example.com/carousel-light.png"
-            dark-thumbnails-src="${darkThumbUrl}"
+            thumbnails-src--dark="${darkThumbUrl}"
           />
         </mj-carousel>
       </mj-column>
@@ -247,7 +247,7 @@ describe('mj-carousel-image dark-src Outlook head style', function () {
         <mj-carousel support-dark-mode-image="outlook">
           <mj-carousel-image
             src="https://example.com/carousel-light-linked.png"
-            dark-src="${darkUrl}"
+            src--dark="${darkUrl}"
             href="${href}"
           />
         </mj-carousel>
@@ -287,13 +287,13 @@ describe('mj-carousel-image dark-src Outlook head style', function () {
         <mj-carousel support-dark-mode-image="outlook">
           <mj-carousel-image
             src="https://example.com/carousel-light-one.png"
-            dark-src="${darkUrlOne}"
+            src--dark="${darkUrlOne}"
           />
         </mj-carousel>
         <mj-carousel support-dark-mode-image="outlook">
           <mj-carousel-image
             src="https://example.com/carousel-light-two.png"
-            dark-src="${darkUrlTwo}"
+            src--dark="${darkUrlTwo}"
           />
         </mj-carousel>
       </mj-column>

@@ -29,7 +29,7 @@ function wrapNavbar(attrs = '', linkAttrs = '', linkText = 'Home') {
 `
 }
 
-describe('mj-navbar dark-ico-color / mj-navbar-link dark-color', function () {
+describe('mj-navbar ico-color--dark / mj-navbar-link color--dark', function () {
   it('should not emit dark-mode rules when no dark attributes are set', async function () {
     const { html } = await mjml(wrapNavbar())
 
@@ -38,8 +38,8 @@ describe('mj-navbar dark-ico-color / mj-navbar-link dark-color', function () {
     chai.expect(html).to.not.include('[data-ogsb] .mj-dark-')
   })
 
-  it('should apply dark-ico-color to the hamburger label', async function () {
-    const { html } = await mjml(wrapNavbar('dark-ico-color="#ff0000"'))
+  it('should apply ico-color--dark to the hamburger label', async function () {
+    const { html } = await mjml(wrapNavbar('ico-color--dark="#ff0000"'))
     const styles = headStyles(html)
     const $ = load(html)
 
@@ -56,8 +56,8 @@ describe('mj-navbar dark-ico-color / mj-navbar-link dark-color', function () {
     chai.expect(styles).to.not.include(`[data-ogsb] .${icoDarkClass}`)
   })
 
-  it('should apply dark-color to navbar links, not the hamburger label', async function () {
-    const { html } = await mjml(wrapNavbar('', 'dark-color="#00ff00"'))
+  it('should apply color--dark to navbar links, not the hamburger label', async function () {
+    const { html } = await mjml(wrapNavbar('', 'color--dark="#00ff00"'))
     const styles = headStyles(html)
     const $ = load(html)
 
@@ -73,9 +73,9 @@ describe('mj-navbar dark-ico-color / mj-navbar-link dark-color', function () {
     chai.expect(($('.mj-menu-label').attr('class') || '')).to.not.include(linkDarkClass)
   })
 
-  it('should use separate dark classes for dark-ico-color and dark-color', async function () {
+  it('should use separate dark classes for ico-color--dark and color--dark', async function () {
     const { html } = await mjml(
-      wrapNavbar('dark-ico-color="#ff0000"', 'dark-color="#00ff00"'),
+      wrapNavbar('ico-color--dark="#ff0000"', 'color--dark="#00ff00"'),
     )
     const styles = headStyles(html)
     const $ = load(html)
@@ -101,11 +101,11 @@ describe('mj-navbar dark-ico-color / mj-navbar-link dark-color', function () {
   <mj-body>
     <mj-section>
       <mj-column>
-        <mj-navbar hamburger="hamburger" dark-ico-color="#ff0000">
+        <mj-navbar hamburger="hamburger" ico-color--dark="#ff0000">
           <mj-navbar-link href="/one" color="#111111">One</mj-navbar-link>
         </mj-navbar>
         <mj-navbar hamburger="hamburger">
-          <mj-navbar-link href="/two" color="#111111" dark-color="#00ff00">Two</mj-navbar-link>
+          <mj-navbar-link href="/two" color="#111111" color--dark="#00ff00">Two</mj-navbar-link>
         </mj-navbar>
       </mj-column>
     </mj-section>

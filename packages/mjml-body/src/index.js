@@ -10,7 +10,7 @@ export default class MjBody extends BodyComponent {
 
   static allowedAttributes = {
     'background-color': 'color',
-    'dark-background-color': 'color',
+    'background-color--dark': 'color',
     id: 'string',
     width: 'unit(px)',
   }
@@ -39,7 +39,7 @@ export default class MjBody extends BodyComponent {
   }
 
   componentHeadStyle = () => {
-    const darkBgColor = this.getAttribute('dark-background-color')
+    const darkBgColor = this.getAttribute('background-color--dark')
     if (!darkBgColor) return ''
     emitDarkModeHeadStyle(this.context && this.context.globalData)
     return ''
@@ -50,7 +50,7 @@ export default class MjBody extends BodyComponent {
       globalData: { lang, dir, title, preview },
     } = this.context
 
-    const darkBgColor = this.getAttribute('dark-background-color')
+    const darkBgColor = this.getAttribute('background-color--dark')
     const darkClass = darkBgColor
       ? registerDarkModeRule(this.context && this.context.globalData, {
           cssProperty: 'background-color',

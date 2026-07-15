@@ -18,9 +18,9 @@ describe('mj-carousel-image dark sources', function () {
         <mj-carousel>
           <mj-carousel-image
             src="${lightSrc}"
-            dark-src="${darkSrc}"
+            src--dark="${darkSrc}"
             thumbnails-src="${lightThumbnailSrc}"
-            dark-thumbnails-src="${darkThumbnailSrc}"
+            thumbnails-src--dark="${darkThumbnailSrc}"
           />
         </mj-carousel>
       </mj-column>
@@ -60,7 +60,7 @@ describe('mj-carousel-image dark sources', function () {
     chai.expect(html).to.not.include('mj-dark-image-bg')
   })
 
-  it('falls back to dark-src for thumbnails when dark-thumbnails-src is omitted', async function () {
+  it('falls back to src--dark for thumbnails when thumbnails-src--dark is omitted', async function () {
     const lightSrc = 'https://example.com/carousel-light-fallback.png'
     const darkSrc = 'https://example.com/carousel-dark-fallback.png'
 
@@ -70,7 +70,7 @@ describe('mj-carousel-image dark sources', function () {
     <mj-section>
       <mj-column>
         <mj-carousel>
-          <mj-carousel-image src="${lightSrc}" dark-src="${darkSrc}" />
+          <mj-carousel-image src="${lightSrc}" src--dark="${darkSrc}" />
         </mj-carousel>
       </mj-column>
     </mj-section>
@@ -105,9 +105,9 @@ describe('mj-carousel-image dark sources', function () {
       <mj-column>
         <mj-carousel
           left-icon="${lightLeftIcon}"
-          dark-left-icon="${darkLeftIcon}"
+          left-icon--dark="${darkLeftIcon}"
           right-icon="${lightRightIcon}"
-          dark-right-icon="${darkRightIcon}"
+          right-icon--dark="${darkRightIcon}"
         >
           <mj-carousel-image src="https://example.com/carousel-light.png" />
         </mj-carousel>

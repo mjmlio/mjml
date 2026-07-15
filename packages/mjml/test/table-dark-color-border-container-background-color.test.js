@@ -29,7 +29,7 @@ function wrapTable(attrs = '') {
 `
 }
 
-describe('mj-table dark-color / dark-border-color / dark-container-background-color', function () {
+describe('mj-table color--dark / border-color--dark / container-background-color--dark', function () {
   it('should not emit dark-mode styles when no dark attributes are set', async function () {
     const { html } = await mjml(
       wrapTable('color="#000000" border="1px solid #000000" container-background-color="#ffffff"'),
@@ -42,7 +42,7 @@ describe('mj-table dark-color / dark-border-color / dark-container-background-co
 
   it('should emit a color dark-mode rule and apply its class to the inner table', async function () {
     const { html } = await mjml(
-      wrapTable('css-class="my-table" color="#000000" dark-color="#ffffff"'),
+      wrapTable('css-class="my-table" color="#000000" color--dark="#ffffff"'),
     )
 
     const styles = headStyles(html)
@@ -64,7 +64,7 @@ describe('mj-table dark-color / dark-border-color / dark-container-background-co
 
   it('should emit a border-color dark-mode rule and apply its class to the inner table', async function () {
     const { html } = await mjml(
-      wrapTable('css-class="my-table" border="2px solid #333333" dark-border-color="#ff0000"'),
+      wrapTable('css-class="my-table" border="2px solid #333333" border-color--dark="#ff0000"'),
     )
 
     const styles = headStyles(html)
@@ -83,9 +83,9 @@ describe('mj-table dark-color / dark-border-color / dark-container-background-co
     chai.expect($(`td.${darkClass}`).length).to.equal(0)
   })
 
-  it('should use a single dark class for dark-border-color and dark-color on table', async function () {
+  it('should use a single dark class for border-color--dark and color--dark on table', async function () {
     const { html } = await mjml(
-      wrapTable('css-class="my-table" dark-border-color="#ff0000" dark-color="#ffffff"'),
+      wrapTable('css-class="my-table" border-color--dark="#ff0000" color--dark="#ffffff"'),
     )
 
     const styles = headStyles(html)
@@ -105,9 +105,9 @@ describe('mj-table dark-color / dark-border-color / dark-container-background-co
     chai.expect($('td.my-table > table').attr('class')).to.equal(borderClassMatch[1])
   })
 
-  it('should apply dark-container-background-color class to wrapper td and preserve css-class', async function () {
+  it('should apply container-background-color--dark class to wrapper td and preserve css-class', async function () {
     const { html } = await mjml(
-      wrapTable('css-class="my-table" dark-container-background-color="#111111"'),
+      wrapTable('css-class="my-table" container-background-color--dark="#111111"'),
     )
 
     const styles = headStyles(html)
@@ -128,7 +128,7 @@ describe('mj-table dark-color / dark-border-color / dark-container-background-co
 
   it('should use separate classes for wrapper background and table border/color', async function () {
     const { html } = await mjml(
-      wrapTable('css-class="my-table" dark-border-color="#ff0000" dark-color="#ffffff" dark-container-background-color="#111111"'),
+      wrapTable('css-class="my-table" border-color--dark="#ff0000" color--dark="#ffffff" container-background-color--dark="#111111"'),
     )
 
     const styles = headStyles(html)
@@ -155,10 +155,10 @@ describe('mj-table dark-color / dark-border-color / dark-container-background-co
   <mj-body>
     <mj-section>
       <mj-column>
-        <mj-table dark-container-background-color="#111111">
+        <mj-table container-background-color--dark="#111111">
           <tr><td>One</td></tr>
         </mj-table>
-        <mj-table dark-border-color="#ff0000" dark-color="#ffffff">
+        <mj-table border-color--dark="#ff0000" color--dark="#ffffff">
           <tr><td>Two</td></tr>
         </mj-table>
       </mj-column>

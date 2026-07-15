@@ -15,22 +15,22 @@ export default class MjButton extends BodyComponent {
   static allowedAttributes = {
     align: 'enum(left,center,right)',
     'background-color': 'color',
+    'background-color--dark': 'color',
     border: 'string',
+    'border-color--dark': 'color',
     'border-bottom': 'string',
+    'border-bottom-color--dark': 'color',
     'border-left': 'string',
+    'border-left-color--dark': 'color',
     'border-radius': 'string',
     'border-right': 'string',
+    'border-right-color--dark': 'color',
     'border-top': 'string',
+    'border-top-color--dark': 'color',
     color: 'color',
+    'color--dark': 'color',
     'container-background-color': 'color',
-    'dark-background-color': 'color',
-    'dark-border-color': 'color',
-    'dark-border-bottom-color': 'color',
-    'dark-border-left-color': 'color',
-    'dark-border-right-color': 'color',
-    'dark-border-top-color': 'color',
-    'dark-color': 'color',
-    'dark-container-background-color': 'color',
+    'container-background-color--dark': 'color',
     'font-family': 'string',
     'font-size': 'unit(px)',
     'font-style': 'string',
@@ -123,7 +123,7 @@ export default class MjButton extends BodyComponent {
 
     const globalData = this.context && this.context.globalData
 
-    const darkContainerBg = this.attributes['dark-container-background-color']
+    const darkContainerBg = this.attributes['container-background-color--dark']
     if (darkContainerBg) {
       this.darkClasses.container = registerDarkModeRule(globalData, {
         cssProperty: 'background-color',
@@ -131,8 +131,8 @@ export default class MjButton extends BodyComponent {
       })
     }
 
-    const darkBackgroundColor = this.attributes['dark-background-color']
-    const darkBorderColor = this.attributes['dark-border-color']
+    const darkBackgroundColor = this.attributes['background-color--dark']
+    const darkBorderColor = this.attributes['border-color--dark']
     const buttonDarkDeclarations = []
 
     if (darkBackgroundColor) {
@@ -150,10 +150,10 @@ export default class MjButton extends BodyComponent {
     }
 
     ;[
-      ['border-top-color', this.attributes['dark-border-top-color']],
-      ['border-bottom-color', this.attributes['dark-border-bottom-color']],
-      ['border-left-color', this.attributes['dark-border-left-color']],
-      ['border-right-color', this.attributes['dark-border-right-color']],
+      ['border-top-color', this.attributes['border-top-color--dark']],
+      ['border-bottom-color', this.attributes['border-bottom-color--dark']],
+      ['border-left-color', this.attributes['border-left-color--dark']],
+      ['border-right-color', this.attributes['border-right-color--dark']],
     ].forEach(([cssProperty, cssValue]) => {
       if (!cssValue || (darkBorderColor && cssValue === darkBorderColor)) {
         return
@@ -180,7 +180,7 @@ export default class MjButton extends BodyComponent {
       },
       {
         cssProperty: 'color',
-        cssValue: this.attributes['dark-color'],
+        cssValue: this.attributes['color--dark'],
       },
     ]
 

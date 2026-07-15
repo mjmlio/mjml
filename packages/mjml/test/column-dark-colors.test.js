@@ -55,7 +55,7 @@ function wrapColumnNoGutter(attrs = '') {
 `
 }
 
-describe('mj-column dark-background-color / dark-border-color / dark-inner-background-color / dark-inner-border-color', function () {
+describe('mj-column background-color--dark / border-color--dark / inner-background-color--dark / inner-border-color--dark', function () {
   it('should not emit dark-mode styles when no dark attributes are set', async function () {
     const { html } = await mjml(wrapColumnGutter())
 
@@ -63,8 +63,8 @@ describe('mj-column dark-background-color / dark-border-color / dark-inner-backg
     chai.expect(html).to.not.include('.mj-dark-')
   })
 
-  it('should apply dark-background-color class to the gutter td (not the column table) when padding exists', async function () {
-    const { html } = await mjml(wrapColumnGutter('dark-background-color="#111111"'))
+  it('should apply background-color--dark class to the gutter td (not the column table) when padding exists', async function () {
+    const { html } = await mjml(wrapColumnGutter('background-color--dark="#111111"'))
     const styles = headStyles(html)
     const $ = load(html)
 
@@ -83,8 +83,8 @@ describe('mj-column dark-background-color / dark-border-color / dark-inner-backg
       .to.equal(0)
   })
 
-  it('should apply dark-background-color class to the column table (not a td) when no gutter', async function () {
-    const { html } = await mjml(wrapColumnNoGutter('dark-background-color="#111111"'))
+  it('should apply background-color--dark class to the column table (not a td) when no gutter', async function () {
+    const { html } = await mjml(wrapColumnNoGutter('background-color--dark="#111111"'))
     const styles = headStyles(html)
     const $ = load(html)
 
@@ -103,9 +103,9 @@ describe('mj-column dark-background-color / dark-border-color / dark-inner-backg
       .to.equal(0)
   })
 
-  it('should put dark-background-color and dark-border-color in the same outer class on the gutter td', async function () {
+  it('should put background-color--dark and border-color--dark in the same outer class on the gutter td', async function () {
     const { html } = await mjml(
-      wrapColumnGutter('dark-background-color="#111111" dark-border-color="#ff0000"'),
+      wrapColumnGutter('background-color--dark="#111111" border-color--dark="#ff0000"'),
     )
     const styles = headStyles(html)
     const $ = load(html)
@@ -131,7 +131,7 @@ describe('mj-column dark-background-color / dark-border-color / dark-inner-backg
   it('should group all outer border side overrides under the same class', async function () {
     const { html } = await mjml(
       wrapColumnGutter(
-        'dark-border-color="orange" dark-border-top-color="hotpink" dark-border-bottom-color="hotpink" dark-border-left-color="purple"',
+        'border-color--dark="orange" border-top-color--dark="hotpink" border-bottom-color--dark="hotpink" border-left-color--dark="purple"',
       ),
     )
     const styles = headStyles(html)
@@ -160,10 +160,10 @@ describe('mj-column dark-background-color / dark-border-color / dark-inner-backg
     chai.expect(borderLeftMatch[1]).to.equal(borderColorMatch[1])
   })
 
-  it('should not emit a side override when value equals dark-border-color', async function () {
+  it('should not emit a side override when value equals border-color--dark', async function () {
     const { html } = await mjml(
       wrapColumnGutter(
-        'dark-border-color="#ff0000" dark-border-top-color="#ff0000"',
+        'border-color--dark="#ff0000" border-top-color--dark="#ff0000"',
       ),
     )
     const styles = headStyles(html)
@@ -172,8 +172,8 @@ describe('mj-column dark-background-color / dark-border-color / dark-inner-backg
     chai.expect(styles).to.not.include('border-top-color: #ff0000 !important;')
   })
 
-  it('should apply dark-inner-background-color to the inner column table, not the gutter td', async function () {
-    const { html } = await mjml(wrapColumnGutter('dark-inner-background-color="#222222"'))
+  it('should apply inner-background-color--dark to the inner column table, not the gutter td', async function () {
+    const { html } = await mjml(wrapColumnGutter('inner-background-color--dark="#222222"'))
     const styles = headStyles(html)
     const $ = load(html)
 
@@ -192,10 +192,10 @@ describe('mj-column dark-background-color / dark-border-color / dark-inner-backg
       .to.equal(0)
   })
 
-  it('should put dark-inner-background-color and dark-inner-border-color in the same inner class', async function () {
+  it('should put inner-background-color--dark and inner-border-color--dark in the same inner class', async function () {
     const { html } = await mjml(
       wrapColumnGutter(
-        'dark-inner-background-color="#222222" dark-inner-border-color="#aaaaaa"',
+        'inner-background-color--dark="#222222" inner-border-color--dark="#aaaaaa"',
       ),
     )
     const styles = headStyles(html)
@@ -220,7 +220,7 @@ describe('mj-column dark-background-color / dark-border-color / dark-inner-backg
   it('should group all inner border side overrides under the same inner class', async function () {
     const { html } = await mjml(
       wrapColumnGutter(
-        'dark-inner-border-color="teal" dark-inner-border-top-color="lime" dark-inner-border-right-color="lime"',
+        'inner-border-color--dark="teal" inner-border-top-color--dark="lime" inner-border-right-color--dark="lime"',
       ),
     )
     const styles = headStyles(html)
@@ -246,7 +246,7 @@ describe('mj-column dark-background-color / dark-border-color / dark-inner-backg
   it('should use separate classes for outer and inner when both are provided', async function () {
     const { html } = await mjml(
       wrapColumnGutter(
-        'dark-background-color="#111111" dark-border-color="#ff0000" dark-inner-background-color="#222222" dark-inner-border-color="#aaaaaa"',
+        'background-color--dark="#111111" border-color--dark="#ff0000" inner-background-color--dark="#222222" inner-border-color--dark="#aaaaaa"',
       ),
     )
     const styles = headStyles(html)
@@ -271,15 +271,15 @@ describe('mj-column dark-background-color / dark-border-color / dark-inner-backg
     <mj-section>
       <mj-column
         padding="10px"
-        dark-background-color="#111111"
-        dark-inner-background-color="#222222"
+        background-color--dark="#111111"
+        inner-background-color--dark="#222222"
       >
         <mj-text>One</mj-text>
       </mj-column>
       <mj-column
         padding="10px"
-        dark-border-color="#ff0000"
-        dark-inner-border-color="#00ff00"
+        border-color--dark="#ff0000"
+        inner-border-color--dark="#00ff00"
       >
         <mj-text>Two</mj-text>
       </mj-column>

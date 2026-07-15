@@ -12,32 +12,32 @@ export default class MjColumn extends BodyComponent {
 
   static allowedAttributes = {
     'background-color': 'color',
+    'background-color--dark': 'color',
     border: 'string',
+    'border-color--dark': 'color',
     'border-bottom': 'string',
+    'border-bottom-color--dark': 'color',
     'border-left': 'string',
+    'border-left-color--dark': 'color',
     'border-radius': 'string',
     'border-right': 'string',
+    'border-right-color--dark': 'color',
     'border-top': 'string',
-    'dark-background-color': 'color',
-    'dark-border-color': 'color',
-    'dark-border-bottom-color': 'color',
-    'dark-border-left-color': 'color',
-    'dark-border-right-color': 'color',
-    'dark-border-top-color': 'color',
-    'dark-inner-background-color': 'color',
-    'dark-inner-border-color': 'color',
-    'dark-inner-border-bottom-color': 'color',
-    'dark-inner-border-left-color': 'color',
-    'dark-inner-border-right-color': 'color',
-    'dark-inner-border-top-color': 'color',
+    'border-top-color--dark': 'color',
     direction: 'enum(ltr,rtl)',
     'inner-background-color': 'color',
+    'inner-background-color--dark': 'color',
     'inner-border': 'string',
+    'inner-border-color--dark': 'color',
     'inner-border-bottom': 'string',
+    'inner-border-bottom-color--dark': 'color',
     'inner-border-left': 'string',
+    'inner-border-left-color--dark': 'color',
     'inner-border-radius': 'string',
     'inner-border-right': 'string',
+    'inner-border-right-color--dark': 'color',
     'inner-border-top': 'string',
+    'inner-border-top-color--dark': 'color',
     padding: 'unit(px,%){1,4}',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
@@ -103,21 +103,21 @@ export default class MjColumn extends BodyComponent {
     // or to the column table when no gutter).
     const outerDeclarations = []
 
-    const darkBgColor = this.attributes['dark-background-color']
+    const darkBgColor = this.attributes['background-color--dark']
     if (darkBgColor) {
       outerDeclarations.push({ cssProperty: 'background-color', cssValue: darkBgColor })
     }
 
-    const darkBorderColor = this.attributes['dark-border-color']
+    const darkBorderColor = this.attributes['border-color--dark']
     if (darkBorderColor) {
       outerDeclarations.push({ cssProperty: 'border-color', cssValue: darkBorderColor })
     }
 
     ;[
-      ['border-top-color', 'dark-border-top-color'],
-      ['border-bottom-color', 'dark-border-bottom-color'],
-      ['border-left-color', 'dark-border-left-color'],
-      ['border-right-color', 'dark-border-right-color'],
+      ['border-top-color', 'border-top-color--dark'],
+      ['border-bottom-color', 'border-bottom-color--dark'],
+      ['border-left-color', 'border-left-color--dark'],
+      ['border-right-color', 'border-right-color--dark'],
     ].forEach(([cssProperty, attrName]) => {
       const cssValue = this.attributes[attrName]
       if (!cssValue || (darkBorderColor && cssValue === darkBorderColor)) return
@@ -132,21 +132,21 @@ export default class MjColumn extends BodyComponent {
     // column table; only relevant when a gutter/padding exists).
     const innerDeclarations = []
 
-    const darkInnerBgColor = this.attributes['dark-inner-background-color']
+    const darkInnerBgColor = this.attributes['inner-background-color--dark']
     if (darkInnerBgColor) {
       innerDeclarations.push({ cssProperty: 'background-color', cssValue: darkInnerBgColor })
     }
 
-    const darkInnerBorderColor = this.attributes['dark-inner-border-color']
+    const darkInnerBorderColor = this.attributes['inner-border-color--dark']
     if (darkInnerBorderColor) {
       innerDeclarations.push({ cssProperty: 'border-color', cssValue: darkInnerBorderColor })
     }
 
     ;[
-      ['border-top-color', 'dark-inner-border-top-color'],
-      ['border-bottom-color', 'dark-inner-border-bottom-color'],
-      ['border-left-color', 'dark-inner-border-left-color'],
-      ['border-right-color', 'dark-inner-border-right-color'],
+      ['border-top-color', 'inner-border-top-color--dark'],
+      ['border-bottom-color', 'inner-border-bottom-color--dark'],
+      ['border-left-color', 'inner-border-left-color--dark'],
+      ['border-right-color', 'inner-border-right-color--dark'],
     ].forEach(([cssProperty, attrName]) => {
       const cssValue = this.attributes[attrName]
       if (!cssValue || (darkInnerBorderColor && cssValue === darkInnerBorderColor)) return

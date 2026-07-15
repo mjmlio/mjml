@@ -27,8 +27,8 @@ function wrapGroup(attrs = '', children = '') {
 `
 }
 
-describe('mj-group dark-background-color', function () {
-  it('should not emit dark-mode styles when no dark-background-color is set', async function () {
+describe('mj-group background-color--dark', function () {
+  it('should not emit dark-mode styles when no background-color--dark is set', async function () {
     const { html } = await mjml(wrapGroup('background-color="#ffffff"'))
 
     chai.expect(html).to.not.include('prefers-color-scheme')
@@ -36,9 +36,9 @@ describe('mj-group dark-background-color', function () {
     chai.expect(html).to.not.include('[data-ogsb] .mj-dark-')
   })
 
-  it('should emit a prefers-color-scheme dark style when dark-background-color is set', async function () {
+  it('should emit a prefers-color-scheme dark style when background-color--dark is set', async function () {
     const { html } = await mjml(
-      wrapGroup('background-color="#ffffff" dark-background-color="#000000"'),
+      wrapGroup('background-color="#ffffff" background-color--dark="#000000"'),
     )
     const styles = headStyles(html)
 
@@ -49,7 +49,7 @@ describe('mj-group dark-background-color', function () {
 
   it('should not emit a [data-ogsb] Outlook rule by default', async function () {
     const { html } = await mjml(
-      wrapGroup('background-color="#ffffff" dark-background-color="#000000"'),
+      wrapGroup('background-color="#ffffff" background-color--dark="#000000"'),
     )
     const styles = headStyles(html)
 
@@ -60,7 +60,7 @@ describe('mj-group dark-background-color', function () {
 
   it('should apply the mj-dark-N class to the group div', async function () {
     const { html } = await mjml(
-      wrapGroup('background-color="#ffffff" dark-background-color="#000000"'),
+      wrapGroup('background-color="#ffffff" background-color--dark="#000000"'),
     )
     const $ = load(html)
 
@@ -70,7 +70,7 @@ describe('mj-group dark-background-color', function () {
   it('should preserve an existing css-class when adding the dark class', async function () {
     const { html } = await mjml(
       wrapGroup(
-        'css-class="my-group" background-color="#ffffff" dark-background-color="#000000"',
+        'css-class="my-group" background-color="#ffffff" background-color--dark="#000000"',
       ),
     )
     const $ = load(html)
@@ -86,10 +86,10 @@ describe('mj-group dark-background-color', function () {
 <mjml>
   <mj-body>
     <mj-section>
-      <mj-group dark-background-color="#111111">
+      <mj-group background-color--dark="#111111">
         <mj-column><mj-text>First</mj-text></mj-column>
       </mj-group>
-      <mj-group dark-background-color="#222222">
+      <mj-group background-color--dark="#222222">
         <mj-column><mj-text>Second</mj-text></mj-column>
       </mj-group>
     </mj-section>

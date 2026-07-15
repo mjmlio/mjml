@@ -26,9 +26,9 @@ function wrapWrapper(attrs = '', content = '<mj-section><mj-column><mj-text>Wrap
 }
 
 describe('mj-wrapper dark-mode smoke', function () {
-  it('should emit a dark background-color rule when wrapper has dark-background-color', async function () {
+  it('should emit a dark background-color rule when wrapper has background-color--dark', async function () {
     const { html } = await mjml(
-      wrapWrapper('background-color="#ffffff" dark-background-color="#111111"'),
+      wrapWrapper('background-color="#ffffff" background-color--dark="#111111"'),
     )
     const styles = headStyles(html)
     const $ = load(html)
@@ -42,11 +42,11 @@ describe('mj-wrapper dark-mode smoke', function () {
     chai.expect($(`table.${backgroundClassMatch[1]}`).length).to.be.at.least(1)
   })
 
-  it('should emit a dark background-image rule when wrapper has dark-background-url', async function () {
+  it('should emit a dark background-image rule when wrapper has background-url--dark', async function () {
     const darkUrl = 'https://example.com/wrapper-dark.jpg'
     const { html } = await mjml(
       wrapWrapper(
-        `background-url="https://example.com/wrapper-light.jpg" dark-background-url="${darkUrl}"`,
+        `background-url="https://example.com/wrapper-light.jpg" background-url--dark="${darkUrl}"`,
       ),
     )
     const styles = headStyles(html)
@@ -64,8 +64,8 @@ describe('mj-wrapper dark-mode smoke', function () {
   it('should emit wrapper and nested section dark color rules under one prefers-color-scheme block', async function () {
     const { html } = await mjml(
       wrapWrapper(
-        'dark-background-color="#111111"',
-        '<mj-section dark-border-color="#444444"><mj-column><mj-text>Nested</mj-text></mj-column></mj-section>',
+        'background-color--dark="#111111"',
+        '<mj-section border-color--dark="#444444"><mj-column><mj-text>Nested</mj-text></mj-column></mj-section>',
       ),
     )
     const styles = headStyles(html)

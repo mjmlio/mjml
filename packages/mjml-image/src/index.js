@@ -24,19 +24,18 @@ export default class MjImage extends BodyComponent {
     align: 'enum(left,center,right)',
     alt: 'string',
     border: 'string',
+    'border-color--dark': 'color',
     'border-bottom': 'string',
+    'border-bottom-color--dark': 'color',
     'border-left': 'string',
-    'border-right': 'string',
-    'border-top': 'string',
+    'border-left-color--dark': 'color',
     'border-radius': 'string',
+    'border-right': 'string',
+    'border-right-color--dark': 'color',
+    'border-top': 'string',
+    'border-top-color--dark': 'color',
     'container-background-color': 'color',
-    'dark-border-color': 'color',
-    'dark-border-bottom-color': 'color',
-    'dark-border-left-color': 'color',
-    'dark-border-right-color': 'color',
-    'dark-border-top-color': 'color',
-    'dark-container-background-color': 'color',
-    'dark-src': 'string',
+    'container-background-color--dark': 'color',
     'fluid-on-mobile': 'boolean',
     'font-size': 'unit(px)',
     height: 'unit(px,auto)',
@@ -51,6 +50,7 @@ export default class MjImage extends BodyComponent {
     rel: 'string',
     sizes: 'string',
     src: 'string',
+    'src--dark': 'string',
     srcset: 'string',
     'support-dark-mode-image': 'enum(outlook)',
     target: 'string',
@@ -118,7 +118,7 @@ export default class MjImage extends BodyComponent {
 
     const globalData = this.context && this.context.globalData
 
-    const darkContainerBg = this.attributes['dark-container-background-color']
+    const darkContainerBg = this.attributes['container-background-color--dark']
     if (darkContainerBg) {
       this.darkClasses.container = registerDarkModeRule(globalData, {
         cssProperty: 'background-color',
@@ -126,7 +126,7 @@ export default class MjImage extends BodyComponent {
       })
     }
 
-    const darkBorderColor = this.attributes['dark-border-color']
+    const darkBorderColor = this.attributes['border-color--dark']
     const borderDarkDeclarations = []
 
     if (darkBorderColor) {
@@ -137,10 +137,10 @@ export default class MjImage extends BodyComponent {
     }
 
     ;[
-      ['border-top-color', this.attributes['dark-border-top-color']],
-      ['border-bottom-color', this.attributes['dark-border-bottom-color']],
-      ['border-left-color', this.attributes['dark-border-left-color']],
-      ['border-right-color', this.attributes['dark-border-right-color']],
+      ['border-top-color', this.attributes['border-top-color--dark']],
+      ['border-bottom-color', this.attributes['border-bottom-color--dark']],
+      ['border-left-color', this.attributes['border-left-color--dark']],
+      ['border-right-color', this.attributes['border-right-color--dark']],
     ].forEach(([cssProperty, cssValue]) => {
       if (!cssValue || (darkBorderColor && cssValue === darkBorderColor)) {
         return
@@ -269,7 +269,7 @@ export default class MjImage extends BodyComponent {
 
   renderImage() {
     const height = this.getAttribute('height')
-    const darkSrc = this.getAttribute('dark-src')
+    const darkSrc = this.getAttribute('src--dark')
     const supportOutlookDarkMode = this.supportOutlookDarkModeImage()
     const fluidOnMobile = this.getAttribute('fluid-on-mobile')
     const globalData = this.context && this.context.globalData
@@ -391,7 +391,7 @@ export default class MjImage extends BodyComponent {
       }
     }
 
-    const darkSrc = this.getAttribute('dark-src')
+    const darkSrc = this.getAttribute('src--dark')
     const supportOutlookDarkMode = this.supportOutlookDarkModeImage()
     const darkClasses = this.getDarkClasses()
 

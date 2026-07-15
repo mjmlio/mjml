@@ -1,26 +1,26 @@
 const chai = require('chai')
 const mjml = require('../lib')
 
-describe('validator - dark-src support-dark-mode', function () {
+describe('validator - src--dark support-dark-mode', function () {
   // NOTE: The validator rule is designed to support multiple dark-mode attributes
-  // Currently checking for: dark-src, dark-color, dark-background-color,
-  // dark-container-background-color, dark-border-color, dark-thumbnails-src
+  // Currently checking for: src--dark, color--dark, background-color--dark,
+  // container-background-color--dark, border-color--dark, thumbnails-src--dark
   // New attributes can be added to DARK_MODE_ATTRIBUTES in
   // mjml-validator/src/rules/requireSupportDarkModeForDarkSrc.js
   //
   // When multiple attributes are present on the same element,
   // the error message will format them with proper grammar:
-  // - 1 attribute: "Attribute dark-src requires..."
-  // - 2 attributes: "Attribute(s) dark-src and dark-color require..."
-  // - 3+ attributes: "Attribute(s) dark-src, dark-color and dark-background-color require..."
+  // - 1 attribute: "Attribute src--dark requires..."
+  // - 2 attributes: "Attribute(s) src--dark and color--dark require..."
+  // - 3+ attributes: "Attribute(s) src--dark, color--dark and background-color--dark require..."
 
-  it('warns when mj-image uses dark-src and root support-dark-mode is missing', async function () {
+  it('warns when mj-image uses src--dark and root support-dark-mode is missing', async function () {
     const input = `
       <mjml>
         <mj-body>
           <mj-section>
             <mj-column>
-              <mj-image src="https://example.com/light.png" dark-src="https://example.com/dark.png" width="100px" />
+              <mj-image src="https://example.com/light.png" src--dark="https://example.com/dark.png" width="100px" />
             </mj-column>
           </mj-section>
         </mj-body>
@@ -34,21 +34,21 @@ describe('validator - dark-src support-dark-mode', function () {
       .expect(
         errors.some((e) =>
           (e.message || '').includes(
-            'Attribute dark-src requires support-dark-mode="true" on the root <mjml> element',
+            'Attribute src--dark requires support-dark-mode="true" on the root <mjml> element',
           ),
         ),
-        'includes warning for missing root support-dark-mode when using dark-src on mj-image',
+        'includes warning for missing root support-dark-mode when using src--dark on mj-image',
       )
       .to.equal(true)
   })
 
-  it('warns when mj-image uses dark-border-color and root support-dark-mode is missing', async function () {
+  it('warns when mj-image uses border-color--dark and root support-dark-mode is missing', async function () {
     const input = `
       <mjml>
         <mj-body>
           <mj-section>
             <mj-column>
-              <mj-image src="https://example.com/light.png" dark-border-color="#ffffff" width="100px" />
+              <mj-image src="https://example.com/light.png" border-color--dark="#ffffff" width="100px" />
             </mj-column>
           </mj-section>
         </mj-body>
@@ -62,15 +62,15 @@ describe('validator - dark-src support-dark-mode', function () {
       .expect(
         errors.some((e) =>
           (e.message || '').includes(
-            'Attribute dark-border-color requires support-dark-mode="true" on the root <mjml> element',
+            'Attribute border-color--dark requires support-dark-mode="true" on the root <mjml> element',
           ),
         ),
-        'includes warning for missing root support-dark-mode when using dark-border-color on mj-image',
+        'includes warning for missing root support-dark-mode when using border-color--dark on mj-image',
       )
       .to.equal(true)
   })
 
-  it('warns when mj-social-element uses dark-src and root support-dark-mode is missing', async function () {
+  it('warns when mj-social-element uses src--dark and root support-dark-mode is missing', async function () {
     const input = `
       <mjml>
         <mj-body>
@@ -80,7 +80,7 @@ describe('validator - dark-src support-dark-mode', function () {
                 <mj-social-element
                   name="facebook"
                   href="https://example.com"
-                  dark-src="https://example.com/dark-social.png"
+                  src--dark="https://example.com/dark-social.png"
                   support-dark-mode-image="outlook"
                 >
                   Facebook
@@ -99,15 +99,15 @@ describe('validator - dark-src support-dark-mode', function () {
       .expect(
         errors.some((e) =>
           (e.message || '').includes(
-            'Attribute dark-src requires support-dark-mode="true" on the root <mjml> element',
+            'Attribute src--dark requires support-dark-mode="true" on the root <mjml> element',
           ),
         ),
-        'includes warning for missing root support-dark-mode when using dark-src on mj-social-element',
+        'includes warning for missing root support-dark-mode when using src--dark on mj-social-element',
       )
       .to.equal(true)
   })
 
-  it('warns when mj-carousel-image uses dark-thumbnails-src and root support-dark-mode is missing', async function () {
+  it('warns when mj-carousel-image uses thumbnails-src--dark and root support-dark-mode is missing', async function () {
     const input = `
       <mjml>
         <mj-body>
@@ -117,7 +117,7 @@ describe('validator - dark-src support-dark-mode', function () {
                 <mj-carousel-image
                   src="https://example.com/light.png"
                   thumbnails-src="https://example.com/light-thumb.png"
-                  dark-thumbnails-src="https://example.com/dark-thumb.png"
+                  thumbnails-src--dark="https://example.com/dark-thumb.png"
                 />
               </mj-carousel>
             </mj-column>
@@ -133,21 +133,21 @@ describe('validator - dark-src support-dark-mode', function () {
       .expect(
         errors.some((e) =>
           (e.message || '').includes(
-            'Attribute dark-thumbnails-src requires support-dark-mode="true" on the root <mjml> element',
+            'Attribute thumbnails-src--dark requires support-dark-mode="true" on the root <mjml> element',
           ),
         ),
-        'includes warning for missing root support-dark-mode when using dark-thumbnails-src on mj-carousel-image',
+        'includes warning for missing root support-dark-mode when using thumbnails-src--dark on mj-carousel-image',
       )
       .to.equal(true)
   })
 
-  it('warns when mj-carousel uses dark-container-background-color and root support-dark-mode is missing', async function () {
+  it('warns when mj-carousel uses container-background-color--dark and root support-dark-mode is missing', async function () {
     const input = `
       <mjml>
         <mj-body>
           <mj-section>
             <mj-column>
-              <mj-carousel dark-container-background-color="#111111">
+              <mj-carousel container-background-color--dark="#111111">
                 <mj-carousel-image src="https://example.com/light.png" />
               </mj-carousel>
             </mj-column>
@@ -163,21 +163,21 @@ describe('validator - dark-src support-dark-mode', function () {
       .expect(
         errors.some((e) =>
           (e.message || '').includes(
-            'Attribute dark-container-background-color requires support-dark-mode="true" on the root <mjml> element',
+            'Attribute container-background-color--dark requires support-dark-mode="true" on the root <mjml> element',
           ),
         ),
-        'includes warning for missing root support-dark-mode when using dark-container-background-color on mj-carousel',
+        'includes warning for missing root support-dark-mode when using container-background-color--dark on mj-carousel',
       )
       .to.equal(true)
   })
 
-  it('warns when mj-carousel uses dark-tb-border-color and root support-dark-mode is missing', async function () {
+  it('warns when mj-carousel uses tb-border-color--dark and root support-dark-mode is missing', async function () {
     const input = `
       <mjml>
         <mj-body>
           <mj-section>
             <mj-column>
-              <mj-carousel dark-tb-border-color="#aaaaaa">
+              <mj-carousel tb-border-color--dark="#aaaaaa">
                 <mj-carousel-image src="https://example.com/light.png" />
               </mj-carousel>
             </mj-column>
@@ -193,21 +193,21 @@ describe('validator - dark-src support-dark-mode', function () {
       .expect(
         errors.some((e) =>
           (e.message || '').includes(
-            'Attribute dark-tb-border-color requires support-dark-mode="true" on the root <mjml> element',
+            'Attribute tb-border-color--dark requires support-dark-mode="true" on the root <mjml> element',
           ),
         ),
-        'includes warning for missing root support-dark-mode when using dark-tb-border-color on mj-carousel',
+        'includes warning for missing root support-dark-mode when using tb-border-color--dark on mj-carousel',
       )
       .to.equal(true)
   })
 
-  it('warns when mj-carousel uses dark-tb-hover-border-color and root support-dark-mode is missing', async function () {
+  it('warns when mj-carousel uses tb-hover-border-color--dark and root support-dark-mode is missing', async function () {
     const input = `
       <mjml>
         <mj-body>
           <mj-section>
             <mj-column>
-              <mj-carousel dark-tb-hover-border-color="#00ff00">
+              <mj-carousel tb-hover-border-color--dark="#00ff00">
                 <mj-carousel-image src="https://example.com/light.png" />
               </mj-carousel>
             </mj-column>
@@ -223,21 +223,21 @@ describe('validator - dark-src support-dark-mode', function () {
       .expect(
         errors.some((e) =>
           (e.message || '').includes(
-            'Attribute dark-tb-hover-border-color requires support-dark-mode="true" on the root <mjml> element',
+            'Attribute tb-hover-border-color--dark requires support-dark-mode="true" on the root <mjml> element',
           ),
         ),
-        'includes warning for missing root support-dark-mode when using dark-tb-hover-border-color on mj-carousel',
+        'includes warning for missing root support-dark-mode when using tb-hover-border-color--dark on mj-carousel',
       )
       .to.equal(true)
   })
 
-  it('warns when mj-carousel uses dark-tb-selected-border-color and root support-dark-mode is missing', async function () {
+  it('warns when mj-carousel uses tb-selected-border-color--dark and root support-dark-mode is missing', async function () {
     const input = `
       <mjml>
         <mj-body>
           <mj-section>
             <mj-column>
-              <mj-carousel dark-tb-selected-border-color="#ff00ff">
+              <mj-carousel tb-selected-border-color--dark="#ff00ff">
                 <mj-carousel-image src="https://example.com/light.png" />
               </mj-carousel>
             </mj-column>
@@ -253,15 +253,15 @@ describe('validator - dark-src support-dark-mode', function () {
       .expect(
         errors.some((e) =>
           (e.message || '').includes(
-            'Attribute dark-tb-selected-border-color requires support-dark-mode="true" on the root <mjml> element',
+            'Attribute tb-selected-border-color--dark requires support-dark-mode="true" on the root <mjml> element',
           ),
         ),
-        'includes warning for missing root support-dark-mode when using dark-tb-selected-border-color on mj-carousel',
+        'includes warning for missing root support-dark-mode when using tb-selected-border-color--dark on mj-carousel',
       )
       .to.equal(true)
   })
 
-  it('warns when mj-carousel-image uses dark-tb-border-color and root support-dark-mode is missing', async function () {
+  it('warns when mj-carousel-image uses tb-border-color--dark and root support-dark-mode is missing', async function () {
     const input = `
       <mjml>
         <mj-body>
@@ -270,7 +270,7 @@ describe('validator - dark-src support-dark-mode', function () {
               <mj-carousel>
                 <mj-carousel-image
                   src="https://example.com/light.png"
-                  dark-tb-border-color="#aaaaaa"
+                  tb-border-color--dark="#aaaaaa"
                 />
               </mj-carousel>
             </mj-column>
@@ -286,21 +286,21 @@ describe('validator - dark-src support-dark-mode', function () {
       .expect(
         errors.some((e) =>
           (e.message || '').includes(
-            'Attribute dark-tb-border-color requires support-dark-mode="true" on the root <mjml> element',
+            'Attribute tb-border-color--dark requires support-dark-mode="true" on the root <mjml> element',
           ),
         ),
-        'includes warning for missing root support-dark-mode when using dark-tb-border-color on mj-carousel-image',
+        'includes warning for missing root support-dark-mode when using tb-border-color--dark on mj-carousel-image',
       )
       .to.equal(true)
   })
 
-  it('warns when mj-navbar uses dark-ico-color and root support-dark-mode is missing', async function () {
+  it('warns when mj-navbar uses ico-color--dark and root support-dark-mode is missing', async function () {
     const input = `
       <mjml>
         <mj-body>
           <mj-section>
             <mj-column>
-              <mj-navbar dark-ico-color="#00ff00">
+              <mj-navbar ico-color--dark="#00ff00">
                 <mj-navbar-link href="https://example.com">Test</mj-navbar-link>
               </mj-navbar>
             </mj-column>
@@ -316,21 +316,21 @@ describe('validator - dark-src support-dark-mode', function () {
       .expect(
         errors.some((e) =>
           (e.message || '').includes(
-            'Attribute dark-ico-color requires support-dark-mode="true" on the root <mjml> element',
+            'Attribute ico-color--dark requires support-dark-mode="true" on the root <mjml> element',
           ),
         ),
-        'includes warning for missing root support-dark-mode when using dark-ico-color on mj-navbar',
+        'includes warning for missing root support-dark-mode when using ico-color--dark on mj-navbar',
       )
       .to.equal(true)
   })
 
-  it('warns when mj-divider uses dark-border-color and root support-dark-mode is missing', async function () {
+  it('warns when mj-divider uses border-color--dark and root support-dark-mode is missing', async function () {
     const input = `
       <mjml>
         <mj-body>
           <mj-section>
             <mj-column>
-              <mj-divider border-color="#000000" dark-border-color="#ffffff" />
+              <mj-divider border-color="#000000" border-color--dark="#ffffff" />
             </mj-column>
           </mj-section>
         </mj-body>
@@ -344,21 +344,21 @@ describe('validator - dark-src support-dark-mode', function () {
       .expect(
         errors.some((e) =>
           (e.message || '').includes(
-            'Attribute dark-border-color requires support-dark-mode="true" on the root <mjml> element',
+            'Attribute border-color--dark requires support-dark-mode="true" on the root <mjml> element',
           ),
         ),
-        'includes warning for missing root support-dark-mode when using dark-border-color on mj-divider',
+        'includes warning for missing root support-dark-mode when using border-color--dark on mj-divider',
       )
       .to.equal(true)
   })
 
-  it('warns when mj-accordion uses dark-border-color and root support-dark-mode is missing', async function () {
+  it('warns when mj-accordion uses border-color--dark and root support-dark-mode is missing', async function () {
     const input = `
       <mjml>
         <mj-body>
           <mj-section>
             <mj-column>
-              <mj-accordion dark-border-color="#ffffff">
+              <mj-accordion border-color--dark="#ffffff">
                 <mj-accordion-element>
                   <mj-accordion-title>Title</mj-accordion-title>
                   <mj-accordion-text>Text</mj-accordion-text>
@@ -377,21 +377,21 @@ describe('validator - dark-src support-dark-mode', function () {
       .expect(
         errors.some((e) =>
           (e.message || '').includes(
-            'Attribute dark-border-color requires support-dark-mode="true" on the root <mjml> element',
+            'Attribute border-color--dark requires support-dark-mode="true" on the root <mjml> element',
           ),
         ),
-        'includes warning for missing root support-dark-mode when using dark-border-color on mj-accordion',
+        'includes warning for missing root support-dark-mode when using border-color--dark on mj-accordion',
       )
       .to.equal(true)
   })
 
-  it('warns when mj-accordion uses dark-container-background-color and root support-dark-mode is missing', async function () {
+  it('warns when mj-accordion uses container-background-color--dark and root support-dark-mode is missing', async function () {
     const input = `
       <mjml>
         <mj-body>
           <mj-section>
             <mj-column>
-              <mj-accordion dark-container-background-color="#111111">
+              <mj-accordion container-background-color--dark="#111111">
                 <mj-accordion-element>
                   <mj-accordion-title>Title</mj-accordion-title>
                   <mj-accordion-text>Text</mj-accordion-text>
@@ -410,22 +410,22 @@ describe('validator - dark-src support-dark-mode', function () {
       .expect(
         errors.some((e) =>
           (e.message || '').includes(
-            'Attribute dark-container-background-color requires support-dark-mode="true" on the root <mjml> element',
+            'Attribute container-background-color--dark requires support-dark-mode="true" on the root <mjml> element',
           ),
         ),
-        'includes warning for missing root support-dark-mode when using dark-container-background-color on mj-accordion',
+        'includes warning for missing root support-dark-mode when using container-background-color--dark on mj-accordion',
       )
       .to.equal(true)
   })
 
-  it('warns when mj-accordion-element uses dark-background-color and root support-dark-mode is missing', async function () {
+  it('warns when mj-accordion-element uses background-color--dark and root support-dark-mode is missing', async function () {
     const input = `
       <mjml>
         <mj-body>
           <mj-section>
             <mj-column>
               <mj-accordion>
-                <mj-accordion-element dark-background-color="#111111">
+                <mj-accordion-element background-color--dark="#111111">
                   <mj-accordion-title>Title</mj-accordion-title>
                   <mj-accordion-text>Text</mj-accordion-text>
                 </mj-accordion-element>
@@ -443,22 +443,22 @@ describe('validator - dark-src support-dark-mode', function () {
       .expect(
         errors.some((e) =>
           (e.message || '').includes(
-            'Attribute dark-background-color requires support-dark-mode="true" on the root <mjml> element',
+            'Attribute background-color--dark requires support-dark-mode="true" on the root <mjml> element',
           ),
         ),
-        'includes warning for missing root support-dark-mode when using dark-background-color on mj-accordion-element',
+        'includes warning for missing root support-dark-mode when using background-color--dark on mj-accordion-element',
       )
       .to.equal(true)
   })
 
-  it('warns when mj-accordion-element uses dark-border-color and root support-dark-mode is missing', async function () {
+  it('warns when mj-accordion-element uses border-color--dark and root support-dark-mode is missing', async function () {
     const input = `
       <mjml>
         <mj-body>
           <mj-section>
             <mj-column>
               <mj-accordion>
-                <mj-accordion-element border="1px solid #333333" dark-border-color="#ffffff">
+                <mj-accordion-element border="1px solid #333333" border-color--dark="#ffffff">
                   <mj-accordion-title>Title</mj-accordion-title>
                   <mj-accordion-text>Text</mj-accordion-text>
                 </mj-accordion-element>
@@ -476,15 +476,15 @@ describe('validator - dark-src support-dark-mode', function () {
       .expect(
         errors.some((e) =>
           (e.message || '').includes(
-            'Attribute dark-border-color requires support-dark-mode="true" on the root <mjml> element',
+            'Attribute border-color--dark requires support-dark-mode="true" on the root <mjml> element',
           ),
         ),
-        'includes warning for missing root support-dark-mode when using dark-border-color on mj-accordion-element',
+        'includes warning for missing root support-dark-mode when using border-color--dark on mj-accordion-element',
       )
       .to.equal(true)
   })
 
-  it('warns when mj-accordion-title uses dark-color and root support-dark-mode is missing', async function () {
+  it('warns when mj-accordion-title uses color--dark and root support-dark-mode is missing', async function () {
     const input = `
       <mjml>
         <mj-body>
@@ -492,7 +492,7 @@ describe('validator - dark-src support-dark-mode', function () {
             <mj-column>
               <mj-accordion>
                 <mj-accordion-element>
-                  <mj-accordion-title dark-color="#ffffff">Title</mj-accordion-title>
+                  <mj-accordion-title color--dark="#ffffff">Title</mj-accordion-title>
                   <mj-accordion-text>Text</mj-accordion-text>
                 </mj-accordion-element>
               </mj-accordion>
@@ -509,15 +509,15 @@ describe('validator - dark-src support-dark-mode', function () {
       .expect(
         errors.some((e) =>
           (e.message || '').includes(
-            'Attribute dark-color requires support-dark-mode="true" on the root <mjml> element',
+            'Attribute color--dark requires support-dark-mode="true" on the root <mjml> element',
           ),
         ),
-        'includes warning for missing root support-dark-mode when using dark-color on mj-accordion-title',
+        'includes warning for missing root support-dark-mode when using color--dark on mj-accordion-title',
       )
       .to.equal(true)
   })
 
-  it('warns when mj-accordion-text uses dark-background-color and root support-dark-mode is missing', async function () {
+  it('warns when mj-accordion-text uses background-color--dark and root support-dark-mode is missing', async function () {
     const input = `
       <mjml>
         <mj-body>
@@ -526,7 +526,7 @@ describe('validator - dark-src support-dark-mode', function () {
               <mj-accordion>
                 <mj-accordion-element>
                   <mj-accordion-title>Title</mj-accordion-title>
-                  <mj-accordion-text dark-background-color="#111111">Text</mj-accordion-text>
+                  <mj-accordion-text background-color--dark="#111111">Text</mj-accordion-text>
                 </mj-accordion-element>
               </mj-accordion>
             </mj-column>
@@ -542,20 +542,20 @@ describe('validator - dark-src support-dark-mode', function () {
       .expect(
         errors.some((e) =>
           (e.message || '').includes(
-            'Attribute dark-background-color requires support-dark-mode="true" on the root <mjml> element',
+            'Attribute background-color--dark requires support-dark-mode="true" on the root <mjml> element',
           ),
         ),
-        'includes warning for missing root support-dark-mode when using dark-background-color on mj-accordion-text',
+        'includes warning for missing root support-dark-mode when using background-color--dark on mj-accordion-text',
       )
       .to.equal(true)
   })
 
-  it('warns when mj-column uses dark-background-color and root support-dark-mode is missing', async function () {
+  it('warns when mj-column uses background-color--dark and root support-dark-mode is missing', async function () {
     const input = `
       <mjml>
         <mj-body>
           <mj-section>
-            <mj-column dark-background-color="#111111">
+            <mj-column background-color--dark="#111111">
               <mj-text>Test</mj-text>
             </mj-column>
           </mj-section>
@@ -570,20 +570,20 @@ describe('validator - dark-src support-dark-mode', function () {
       .expect(
         errors.some((e) =>
           (e.message || '').includes(
-            'Attribute dark-background-color requires support-dark-mode="true" on the root <mjml> element',
+            'Attribute background-color--dark requires support-dark-mode="true" on the root <mjml> element',
           ),
         ),
-        'includes warning for missing root support-dark-mode when using dark-background-color on mj-column',
+        'includes warning for missing root support-dark-mode when using background-color--dark on mj-column',
       )
       .to.equal(true)
   })
 
-  it('warns when mj-column uses dark-border-color and root support-dark-mode is missing', async function () {
+  it('warns when mj-column uses border-color--dark and root support-dark-mode is missing', async function () {
     const input = `
       <mjml>
         <mj-body>
           <mj-section>
-            <mj-column border="2px solid #333333" dark-border-color="#ffffff">
+            <mj-column border="2px solid #333333" border-color--dark="#ffffff">
               <mj-text>Test</mj-text>
             </mj-column>
           </mj-section>
@@ -598,21 +598,21 @@ describe('validator - dark-src support-dark-mode', function () {
       .expect(
         errors.some((e) =>
           (e.message || '').includes(
-            'Attribute dark-border-color requires support-dark-mode="true" on the root <mjml> element',
+            'Attribute border-color--dark requires support-dark-mode="true" on the root <mjml> element',
           ),
         ),
-        'includes warning for missing root support-dark-mode when using dark-border-color on mj-column',
+        'includes warning for missing root support-dark-mode when using border-color--dark on mj-column',
       )
       .to.equal(true)
   })
 
-  it('warns when mj-button uses dark-background-color and root support-dark-mode is missing', async function () {
+  it('warns when mj-button uses background-color--dark and root support-dark-mode is missing', async function () {
     const input = `
       <mjml>
         <mj-body>
           <mj-section>
             <mj-column>
-              <mj-button dark-background-color="#111111">Test</mj-button>
+              <mj-button background-color--dark="#111111">Test</mj-button>
             </mj-column>
           </mj-section>
         </mj-body>
@@ -626,21 +626,21 @@ describe('validator - dark-src support-dark-mode', function () {
       .expect(
         errors.some((e) =>
           (e.message || '').includes(
-            'Attribute dark-background-color requires support-dark-mode="true" on the root <mjml> element',
+            'Attribute background-color--dark requires support-dark-mode="true" on the root <mjml> element',
           ),
         ),
-        'includes warning for missing root support-dark-mode when using dark-background-color on mj-button',
+        'includes warning for missing root support-dark-mode when using background-color--dark on mj-button',
       )
       .to.equal(true)
   })
 
-  it('warns when mj-button uses dark-border-color and root support-dark-mode is missing', async function () {
+  it('warns when mj-button uses border-color--dark and root support-dark-mode is missing', async function () {
     const input = `
       <mjml>
         <mj-body>
           <mj-section>
             <mj-column>
-              <mj-button border="2px solid #333333" dark-border-color="#ffffff">Test</mj-button>
+              <mj-button border="2px solid #333333" border-color--dark="#ffffff">Test</mj-button>
             </mj-column>
           </mj-section>
         </mj-body>
@@ -654,21 +654,21 @@ describe('validator - dark-src support-dark-mode', function () {
       .expect(
         errors.some((e) =>
           (e.message || '').includes(
-            'Attribute dark-border-color requires support-dark-mode="true" on the root <mjml> element',
+            'Attribute border-color--dark requires support-dark-mode="true" on the root <mjml> element',
           ),
         ),
-        'includes warning for missing root support-dark-mode when using dark-border-color on mj-button',
+        'includes warning for missing root support-dark-mode when using border-color--dark on mj-button',
       )
       .to.equal(true)
   })
 
-  it('warns when mj-table uses dark-border-color and root support-dark-mode is missing', async function () {
+  it('warns when mj-table uses border-color--dark and root support-dark-mode is missing', async function () {
     const input = `
       <mjml>
         <mj-body>
           <mj-section>
             <mj-column>
-              <mj-table border="1px solid #000000" dark-border-color="#ffffff">
+              <mj-table border="1px solid #000000" border-color--dark="#ffffff">
                 <tr><td>Cell</td></tr>
               </mj-table>
             </mj-column>
@@ -684,19 +684,19 @@ describe('validator - dark-src support-dark-mode', function () {
       .expect(
         errors.some((e) =>
           (e.message || '').includes(
-            'Attribute dark-border-color requires support-dark-mode="true" on the root <mjml> element',
+            'Attribute border-color--dark requires support-dark-mode="true" on the root <mjml> element',
           ),
         ),
-        'includes warning for missing root support-dark-mode when using dark-border-color on mj-table',
+        'includes warning for missing root support-dark-mode when using border-color--dark on mj-table',
       )
       .to.equal(true)
   })
 
-  it('warns when mj-section uses dark-border-color and root support-dark-mode is missing', async function () {
+  it('warns when mj-section uses border-color--dark and root support-dark-mode is missing', async function () {
     const input = `
       <mjml>
         <mj-body>
-          <mj-section border="1px solid #000000" dark-border-color="#ffffff">
+          <mj-section border="1px solid #000000" border-color--dark="#ffffff">
             <mj-column>
               <mj-text>Test</mj-text>
             </mj-column>
@@ -712,19 +712,19 @@ describe('validator - dark-src support-dark-mode', function () {
       .expect(
         errors.some((e) =>
           (e.message || '').includes(
-            'Attribute dark-border-color requires support-dark-mode="true" on the root <mjml> element',
+            'Attribute border-color--dark requires support-dark-mode="true" on the root <mjml> element',
           ),
         ),
-        'includes warning for missing root support-dark-mode when using dark-border-color on mj-section',
+        'includes warning for missing root support-dark-mode when using border-color--dark on mj-section',
       )
       .to.equal(true)
   })
 
-  it('warns when mj-section uses dark-border-top-color and root support-dark-mode is missing', async function () {
+  it('warns when mj-section uses border-top-color--dark and root support-dark-mode is missing', async function () {
     const input = `
       <mjml>
         <mj-body>
-          <mj-section border-top="1px solid #000000" dark-border-top-color="#ffffff">
+          <mj-section border-top="1px solid #000000" border-top-color--dark="#ffffff">
             <mj-column>
               <mj-text>Test</mj-text>
             </mj-column>
@@ -740,19 +740,19 @@ describe('validator - dark-src support-dark-mode', function () {
       .expect(
         errors.some((e) =>
           (e.message || '').includes(
-            'Attribute dark-border-top-color requires support-dark-mode="true" on the root <mjml> element',
+            'Attribute border-top-color--dark requires support-dark-mode="true" on the root <mjml> element',
           ),
         ),
-        'includes warning for missing root support-dark-mode when using dark-border-top-color on mj-section',
+        'includes warning for missing root support-dark-mode when using border-top-color--dark on mj-section',
       )
       .to.equal(true)
   })
 
-  it('warns when mj-section uses dark-background-color and root support-dark-mode is missing', async function () {
+  it('warns when mj-section uses background-color--dark and root support-dark-mode is missing', async function () {
     const input = `
       <mjml>
         <mj-body>
-          <mj-section background-color="#cccccc" dark-background-color="#111111">
+          <mj-section background-color="#cccccc" background-color--dark="#111111">
             <mj-column>
               <mj-text>Test</mj-text>
             </mj-column>
@@ -768,21 +768,21 @@ describe('validator - dark-src support-dark-mode', function () {
       .expect(
         errors.some((e) =>
           (e.message || '').includes(
-            'Attribute dark-background-color requires support-dark-mode="true" on the root <mjml> element',
+            'Attribute background-color--dark requires support-dark-mode="true" on the root <mjml> element',
           ),
         ),
-        'includes warning for missing root support-dark-mode when using dark-background-color on mj-section',
+        'includes warning for missing root support-dark-mode when using background-color--dark on mj-section',
       )
       .to.equal(true)
   })
 
-  it('warns when mj-section uses dark-background-url and root support-dark-mode is missing', async function () {
+  it('warns when mj-section uses background-url--dark and root support-dark-mode is missing', async function () {
     const input = `
       <mjml>
         <mj-body>
           <mj-section
             background-url="https://example.com/section-light.jpg"
-            dark-background-url="https://example.com/section-dark.jpg"
+            background-url--dark="https://example.com/section-dark.jpg"
           >
             <mj-column>
               <mj-text>Test</mj-text>
@@ -799,15 +799,15 @@ describe('validator - dark-src support-dark-mode', function () {
       .expect(
         errors.some((e) =>
           (e.message || '').includes(
-            'Attribute dark-background-url requires support-dark-mode="true" on the root <mjml> element',
+            'Attribute background-url--dark requires support-dark-mode="true" on the root <mjml> element',
           ),
         ),
-        'includes warning for missing root support-dark-mode when using dark-background-url on mj-section',
+        'includes warning for missing root support-dark-mode when using background-url--dark on mj-section',
       )
       .to.equal(true)
   })
 
-  it('warns when mj-hero uses dark-background-color and root support-dark-mode is missing', async function () {
+  it('warns when mj-hero uses background-color--dark and root support-dark-mode is missing', async function () {
     const input = `
       <mjml>
         <mj-body>
@@ -817,7 +817,7 @@ describe('validator - dark-src support-dark-mode', function () {
             background-width="600px"
             background-height="300px"
             background-color="#cccccc"
-            dark-background-color="#111111"
+            background-color--dark="#111111"
           >
             <mj-text>Test</mj-text>
           </mj-hero>
@@ -832,15 +832,15 @@ describe('validator - dark-src support-dark-mode', function () {
       .expect(
         errors.some((e) =>
           (e.message || '').includes(
-            'Attribute dark-background-color requires support-dark-mode="true" on the root <mjml> element',
+            'Attribute background-color--dark requires support-dark-mode="true" on the root <mjml> element',
           ),
         ),
-        'includes warning for missing root support-dark-mode when using dark-background-color on mj-hero',
+        'includes warning for missing root support-dark-mode when using background-color--dark on mj-hero',
       )
       .to.equal(true)
   })
 
-  it('warns when mj-hero uses dark-background-url and root support-dark-mode is missing', async function () {
+  it('warns when mj-hero uses background-url--dark and root support-dark-mode is missing', async function () {
     const input = `
       <mjml>
         <mj-body>
@@ -850,7 +850,7 @@ describe('validator - dark-src support-dark-mode', function () {
             background-width="600px"
             background-height="300px"
             background-url="https://example.com/hero-light.jpg"
-            dark-background-url="https://example.com/hero-dark.jpg"
+            background-url--dark="https://example.com/hero-dark.jpg"
           >
             <mj-text>Test</mj-text>
           </mj-hero>
@@ -865,15 +865,15 @@ describe('validator - dark-src support-dark-mode', function () {
       .expect(
         errors.some((e) =>
           (e.message || '').includes(
-            'Attribute dark-background-url requires support-dark-mode="true" on the root <mjml> element',
+            'Attribute background-url--dark requires support-dark-mode="true" on the root <mjml> element',
           ),
         ),
-        'includes warning for missing root support-dark-mode when using dark-background-url on mj-hero',
+        'includes warning for missing root support-dark-mode when using background-url--dark on mj-hero',
       )
       .to.equal(true)
   })
 
-  it('warns when mj-hero uses dark-inner-background-color and root support-dark-mode is missing', async function () {
+  it('warns when mj-hero uses inner-background-color--dark and root support-dark-mode is missing', async function () {
     const input = `
       <mjml>
         <mj-body>
@@ -883,7 +883,7 @@ describe('validator - dark-src support-dark-mode', function () {
             background-width="600px"
             background-height="300px"
             inner-background-color="#cccccc"
-            dark-inner-background-color="#111111"
+            inner-background-color--dark="#111111"
           >
             <mj-text>Test</mj-text>
           </mj-hero>
@@ -898,10 +898,10 @@ describe('validator - dark-src support-dark-mode', function () {
       .expect(
         errors.some((e) =>
           (e.message || '').includes(
-            'Attribute dark-inner-background-color requires support-dark-mode="true" on the root <mjml> element',
+            'Attribute inner-background-color--dark requires support-dark-mode="true" on the root <mjml> element',
           ),
         ),
-        'includes warning for missing root support-dark-mode when using dark-inner-background-color on mj-hero',
+        'includes warning for missing root support-dark-mode when using inner-background-color--dark on mj-hero',
       )
       .to.equal(true)
   })
@@ -912,7 +912,7 @@ describe('validator - dark-src support-dark-mode', function () {
         <mj-body>
           <mj-section>
             <mj-column>
-              <mj-button dark-border-color="#ffffff" dark-color="#00ff00">Test</mj-button>
+              <mj-button border-color--dark="#ffffff" color--dark="#00ff00">Test</mj-button>
             </mj-column>
           </mj-section>
         </mj-body>
@@ -925,7 +925,7 @@ describe('validator - dark-src support-dark-mode', function () {
 
     const matchingErrors = errors.filter((e) =>
       (e.message || '').includes(
-        'Attributes dark-border-color and dark-color require support-dark-mode="true" on the root <mjml> element',
+        'Attributes border-color--dark and color--dark require support-dark-mode="true" on the root <mjml> element',
       ),
     )
 
@@ -939,9 +939,9 @@ describe('validator - dark-src support-dark-mode', function () {
           <mj-section>
             <mj-column>
               <mj-button
-                dark-background-color="#111111"
-                dark-border-color="#ffffff"
-                dark-color="#00ff00"
+                background-color--dark="#111111"
+                border-color--dark="#ffffff"
+                color--dark="#00ff00"
               >
                 Test
               </mj-button>
@@ -957,7 +957,7 @@ describe('validator - dark-src support-dark-mode', function () {
 
     const matchingErrors = errors.filter((e) =>
       (e.message || '').includes(
-        'Attributes dark-background-color, dark-border-color and dark-color require support-dark-mode="true" on the root <mjml> element',
+        'Attributes background-color--dark, border-color--dark and color--dark require support-dark-mode="true" on the root <mjml> element',
       ),
     )
 
@@ -972,10 +972,10 @@ describe('validator - dark-src support-dark-mode', function () {
             <mj-column>
               <mj-image
                 src="https://example.com/light.png"
-                dark-src="https://example.com/dark.png"
+                src--dark="https://example.com/dark.png"
                 width="100px"
               />
-              <mj-button dark-background-color="#111111">Test</mj-button>
+              <mj-button background-color--dark="#111111">Test</mj-button>
             </mj-column>
           </mj-section>
         </mj-body>
@@ -988,13 +988,13 @@ describe('validator - dark-src support-dark-mode', function () {
 
     const imageWarningCount = errors.filter((e) =>
       (e.message || '').includes(
-        'Attribute dark-src requires support-dark-mode="true" on the root <mjml> element',
+        'Attribute src--dark requires support-dark-mode="true" on the root <mjml> element',
       ),
     ).length
 
     const buttonWarningCount = errors.filter((e) =>
       (e.message || '').includes(
-        'Attribute dark-background-color requires support-dark-mode="true" on the root <mjml> element',
+        'Attribute background-color--dark requires support-dark-mode="true" on the root <mjml> element',
       ),
     ).length
 
@@ -1008,7 +1008,7 @@ describe('validator - dark-src support-dark-mode', function () {
         <mj-body>
           <mj-section>
             <mj-column>
-              <mj-image src="https://example.com/light.png" dark-src="https://example.com/dark.png" width="100px" />
+              <mj-image src="https://example.com/light.png" src--dark="https://example.com/dark.png" width="100px" />
             </mj-column>
           </mj-section>
         </mj-body>
@@ -1022,7 +1022,7 @@ describe('validator - dark-src support-dark-mode', function () {
       .expect(
         errors.some((e) =>
           (e.message || '').includes(
-            'Attribute dark-src requires support-dark-mode="true" on the root <mjml> element',
+            'Attribute src--dark requires support-dark-mode="true" on the root <mjml> element',
           ),
         ),
         'does not include warning when root support-dark-mode is true',

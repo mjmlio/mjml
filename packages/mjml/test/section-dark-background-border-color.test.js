@@ -13,7 +13,7 @@ function headStyles(html) {
     .join('\n')
 }
 
-describe('mj-section dark-background-color / dark-border-*-color', () => {
+describe('mj-section background-color--dark / dark-border-*-color', () => {
   it('should not emit dark-mode styles when no dark attributes are set', async () => {
     const input = `
       <mjml>
@@ -31,11 +31,11 @@ describe('mj-section dark-background-color / dark-border-*-color', () => {
     chai.expect(html).not.to.contain('prefers-color-scheme')
   })
 
-  it('should emit a background-color dark-mode rule for dark-background-color', async () => {
+  it('should emit a background-color dark-mode rule for background-color--dark', async () => {
     const input = `
       <mjml support-dark-mode="true">
         <mj-body>
-          <mj-section dark-background-color="#111111">
+          <mj-section background-color--dark="#111111">
             <mj-column>
               <mj-text>Test</mj-text>
             </mj-column>
@@ -62,11 +62,11 @@ describe('mj-section dark-background-color / dark-border-*-color', () => {
     chai.expect($(`table.${backgroundClassName}`).length).to.equal(1)
   })
 
-  it('should apply dark-border-color to all sides when no specific side colors are set', async () => {
+  it('should apply border-color--dark to all sides when no specific side colors are set', async () => {
     const input = `
       <mjml support-dark-mode="true">
         <mj-body>
-          <mj-section dark-border-color="#ff00ff">
+          <mj-section border-color--dark="#ff00ff">
             <mj-column>
               <mj-text>Test</mj-text>
             </mj-column>
@@ -85,11 +85,11 @@ describe('mj-section dark-background-color / dark-border-*-color', () => {
     chai.expect(styles).to.not.contain('border-right-color: #ff00ff !important;')
   })
 
-  it('should allow specific border-*-color to override dark-border-color', async () => {
+  it('should allow specific border-*-color to override border-color--dark', async () => {
     const input = `
       <mjml support-dark-mode="true">
         <mj-body>
-          <mj-section dark-border-color="#ff00ff" dark-border-top-color="#00ff00">
+          <mj-section border-color--dark="#ff00ff" border-top-color--dark="#00ff00">
             <mj-column>
               <mj-text>Test</mj-text>
             </mj-column>
@@ -112,11 +112,11 @@ describe('mj-section dark-background-color / dark-border-*-color', () => {
       <mjml support-dark-mode="true">
         <mj-body>
           <mj-section
-            dark-border-color="orange"
-            dark-border-top-color="green"
-            dark-border-right-color="yellow"
-            dark-border-left-color="pink"
-            dark-border-bottom-color="pink"
+            border-color--dark="orange"
+            border-top-color--dark="green"
+            border-right-color--dark="yellow"
+            border-left-color--dark="pink"
+            border-bottom-color--dark="pink"
           >
             <mj-column>
               <mj-text>Test</mj-text>
@@ -168,7 +168,7 @@ describe('mj-section dark-background-color / dark-border-*-color', () => {
     const input = `
       <mjml support-dark-mode="true">
         <mj-body>
-          <mj-section dark-border-top-color="#ff0000">
+          <mj-section border-top-color--dark="#ff0000">
             <mj-column>
               <mj-text>Test</mj-text>
             </mj-column>
@@ -197,8 +197,8 @@ describe('mj-section dark-background-color / dark-border-*-color', () => {
       <mjml support-dark-mode="true">
         <mj-body>
           <mj-section
-            dark-background-color="#1a1a1a"
-            dark-border-color="#444444"
+            background-color--dark="#1a1a1a"
+            border-color--dark="#444444"
           >
             <mj-column>
               <mj-text>Test</mj-text>
@@ -223,8 +223,8 @@ describe('mj-section dark-background-color / dark-border-*-color', () => {
       <mjml support-dark-mode="true">
         <mj-body>
           <mj-section
-            dark-background-color="#111111"
-            dark-border-color="#444444"
+            background-color--dark="#111111"
+            border-color--dark="#444444"
           >
             <mj-column>
               <mj-text>Test</mj-text>
@@ -251,12 +251,12 @@ describe('mj-section dark-background-color / dark-border-*-color', () => {
     const input = `
       <mjml support-dark-mode="true">
         <mj-body>
-          <mj-section dark-background-color="#111111">
+          <mj-section background-color--dark="#111111">
             <mj-column>
               <mj-text>One</mj-text>
             </mj-column>
           </mj-section>
-          <mj-section dark-border-color="#444444">
+          <mj-section border-color--dark="#444444">
             <mj-column>
               <mj-text>Two</mj-text>
             </mj-column>

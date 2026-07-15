@@ -15,25 +15,25 @@ export default class MjCarousel extends BodyComponent {
     align: 'enum(left,center,right)',
     'border-radius': 'string',
     'container-background-color': 'color',
-    'dark-container-background-color': 'color',
-    'dark-left-icon': 'string',
-    'dark-right-icon': 'string',
-    'dark-tb-border-color': 'color',
-    'dark-tb-hover-border-color': 'color',
-    'dark-tb-selected-border-color': 'color',
+    'container-background-color--dark': 'color',
     'icon-width': 'unit(px,%)',
     'left-icon': 'string',
+    'left-icon--dark': 'string',
     padding: 'unit(px,%){1,4}',
     'padding-top': 'unit(px,%)',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
     'right-icon': 'string',
+    'right-icon--dark': 'string',
     'support-dark-mode-image': 'enum(outlook)',
     'tb-border': 'string',
+    'tb-border-color--dark': 'color',
     'tb-border-radius': 'string',
     'tb-hover-border-color': 'color',
+    'tb-hover-border-color--dark': 'color',
     'tb-selected-border-color': 'color',
+    'tb-selected-border-color--dark': 'color',
     'tb-width': 'unit(px,%)',
     thumbnails: 'enum(visible,hidden,supported)',
   }
@@ -68,7 +68,7 @@ export default class MjCarousel extends BodyComponent {
     const globalData = this.context && this.context.globalData
 
     const darkContainerBackgroundColor =
-      this.attributes['dark-container-background-color']
+      this.attributes['container-background-color--dark']
     if (darkContainerBackgroundColor) {
       this.darkClasses.container = registerDarkModeRule(globalData, {
         cssProperty: 'background-color',
@@ -258,7 +258,7 @@ export default class MjCarousel extends BodyComponent {
 
     const darkCss = []
     const darkSelectedBorderColor = this.getAttribute(
-      'dark-tb-selected-border-color',
+      'tb-selected-border-color--dark',
     )
 
     if (darkSelectedBorderColor) {
@@ -271,7 +271,7 @@ export default class MjCarousel extends BodyComponent {
     `)
     }
 
-    const darkHoverBorderColor = this.getAttribute('dark-tb-hover-border-color')
+    const darkHoverBorderColor = this.getAttribute('tb-hover-border-color--dark')
 
     if (darkHoverBorderColor) {
       darkCss.push(`
@@ -376,7 +376,7 @@ export default class MjCarousel extends BodyComponent {
 
     return this.renderChildren(this.props.children, {
       attributes: {
-        'dark-tb-border-color': this.getAttribute('dark-tb-border-color'),
+        'tb-border-color--dark': this.getAttribute('tb-border-color--dark'),
         'tb-border': this.getAttribute('tb-border'),
         'tb-border-radius': this.getAttribute('tb-border-radius'),
         'tb-width': this.thumbnailsWidth(),
@@ -488,9 +488,9 @@ export default class MjCarousel extends BodyComponent {
         })}
       >
         <tr>
-          ${this.generateControls('previous', this.getAttribute('left-icon'), this.getAttribute('dark-left-icon'))}
+          ${this.generateControls('previous', this.getAttribute('left-icon'), this.getAttribute('left-icon--dark'))}
           ${this.generateImages()}
-          ${this.generateControls('next', this.getAttribute('right-icon'), this.getAttribute('dark-right-icon'))}
+          ${this.generateControls('next', this.getAttribute('right-icon'), this.getAttribute('right-icon--dark'))}
         </tr>
       </table>
     `

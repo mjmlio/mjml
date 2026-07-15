@@ -35,7 +35,7 @@ function wrapHero(attrs = '') {
   `
 }
 
-describe('mj-hero dark-background-color / dark-inner-background-color', () => {
+describe('mj-hero background-color--dark / inner-background-color--dark', () => {
   it('should not emit dark-mode styles when no dark attributes are set', async () => {
     const { html } = await mjml2html(wrapHero())
 
@@ -43,8 +43,8 @@ describe('mj-hero dark-background-color / dark-inner-background-color', () => {
     chai.expect(html).not.to.contain('prefers-color-scheme')
   })
 
-  it('should apply dark-background-color to the hero mode td, not the root div', async () => {
-    const { html } = await mjml2html(wrapHero('dark-background-color="#111111"'))
+  it('should apply background-color--dark to the hero mode td, not the root div', async () => {
+    const { html } = await mjml2html(wrapHero('background-color--dark="#111111"'))
     const styles = headStyles(html)
     const $ = load(html)
 
@@ -61,8 +61,8 @@ describe('mj-hero dark-background-color / dark-inner-background-color', () => {
     chai.expect($(`td.${backgroundClassName}`).length).to.equal(1)
   })
 
-  it('should apply dark-inner-background-color to the inner content div', async () => {
-    const { html } = await mjml2html(wrapHero('dark-inner-background-color="#222222"'))
+  it('should apply inner-background-color--dark to the inner content div', async () => {
+    const { html } = await mjml2html(wrapHero('inner-background-color--dark="#222222"'))
     const styles = headStyles(html)
     const $ = load(html)
 
@@ -84,7 +84,7 @@ describe('mj-hero dark-background-color / dark-inner-background-color', () => {
 
   it('should use separate classes for outer and inner hero backgrounds', async () => {
     const { html } = await mjml2html(
-      wrapHero('dark-background-color="#111111" dark-inner-background-color="#222222"'),
+      wrapHero('background-color--dark="#111111" inner-background-color--dark="#222222"'),
     )
     const styles = headStyles(html)
     const $ = load(html)
@@ -104,11 +104,11 @@ describe('mj-hero dark-background-color / dark-inner-background-color', () => {
     chai.expect($(`div.${innerBackgroundClassMatch[1]}`).length).to.equal(1)
   })
 
-  it('should apply dark-background-color and dark-background-url classes together on the hero mode td', async () => {
+  it('should apply background-color--dark and background-url--dark classes together on the hero mode td', async () => {
     const darkUrl = 'https://example.com/hero-dark-combined.jpg'
 
     const { html } = await mjml2html(
-      wrapHero(`dark-background-color="#111111" dark-background-url="${darkUrl}"`),
+      wrapHero(`background-color--dark="#111111" background-url--dark="${darkUrl}"`),
     )
     const styles = headStyles(html)
     const $ = load(html)

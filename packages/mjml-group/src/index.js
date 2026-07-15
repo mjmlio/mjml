@@ -13,7 +13,7 @@ export default class MjGroup extends BodyComponent {
 
   static allowedAttributes = {
     'background-color': 'color',
-    'dark-background-color': 'color',
+    'background-color--dark': 'color',
     direction: 'enum(ltr,rtl)',
     'vertical-align': 'enum(top,bottom,middle)',
     width: 'unit(px,%)',
@@ -23,7 +23,7 @@ export default class MjGroup extends BodyComponent {
   }
 
   componentHeadStyle = () => {
-    const darkBgColor = this.getAttribute('dark-background-color')
+    const darkBgColor = this.getAttribute('background-color--dark')
     if (!darkBgColor) return ''
     emitDarkModeHeadStyle(this.context && this.context.globalData)
     return ''
@@ -162,7 +162,7 @@ export default class MjGroup extends BodyComponent {
       return `${parsedWidth}${unit}`
     }
 
-    const darkBgColor = this.getAttribute('dark-background-color')
+    const darkBgColor = this.getAttribute('background-color--dark')
     const darkClass = darkBgColor
       ? registerDarkModeRule(this.context && this.context.globalData, {
           cssProperty: 'background-color',

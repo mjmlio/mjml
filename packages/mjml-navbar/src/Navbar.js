@@ -13,11 +13,11 @@ export default class MjNavbar extends BodyComponent {
   static allowedAttributes = {
     align: 'enum(left,center,right)',
     'base-url': 'string',
-    'dark-ico-color': 'color',
     hamburger: 'string',
     'ico-align': 'enum(left,center,right)',
     'ico-close': 'string',
     'ico-color': 'color',
+    'ico-color--dark': 'color',
     'ico-font-size': 'unit(px,%)',
     'ico-font-family': 'string',
     'ico-line-height': 'unit(px,%,)',
@@ -62,7 +62,7 @@ export default class MjNavbar extends BodyComponent {
 
     const globalData = this.context && this.context.globalData
 
-    const darkIcoColor = this.getAttribute('dark-ico-color')
+    const darkIcoColor = this.getAttribute('ico-color--dark')
     if (darkIcoColor) {
       this.darkClasses.icoColor = registerDarkModeRule(globalData, {
         cssProperty: 'color',

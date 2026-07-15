@@ -27,8 +27,8 @@ function wrapSpacer(attrs = '') {
 `
 }
 
-describe('mj-spacer dark-container-background-color', function () {
-  it('should not emit dark-mode styles when no dark-container-background-color is set', async function () {
+describe('mj-spacer container-background-color--dark', function () {
+  it('should not emit dark-mode styles when no container-background-color--dark is set', async function () {
     const { html } = await mjml(wrapSpacer('container-background-color="#ffffff"'))
 
     chai.expect(html).to.not.include('prefers-color-scheme')
@@ -38,7 +38,7 @@ describe('mj-spacer dark-container-background-color', function () {
 
   it('should emit only the media-query background-color rule by default', async function () {
     const { html } = await mjml(
-      wrapSpacer('container-background-color="#ffffff" dark-container-background-color="#1a1a1a"'),
+      wrapSpacer('container-background-color="#ffffff" container-background-color--dark="#1a1a1a"'),
     )
     const styles = headStyles(html)
     const classMatch = styles.match(
@@ -52,7 +52,7 @@ describe('mj-spacer dark-container-background-color', function () {
 
   it('should apply the dark class to the column wrapper <td>', async function () {
     const { html } = await mjml(
-      wrapSpacer('dark-container-background-color="#1a1a1a"'),
+      wrapSpacer('container-background-color--dark="#1a1a1a"'),
     )
     const styles = headStyles(html)
     const $ = load(html)
@@ -70,7 +70,7 @@ describe('mj-spacer dark-container-background-color', function () {
 
   it('should preserve an existing css-class when merging the dark class', async function () {
     const { html } = await mjml(
-      wrapSpacer('css-class="my-spacer" dark-container-background-color="#1a1a1a"'),
+      wrapSpacer('css-class="my-spacer" container-background-color--dark="#1a1a1a"'),
     )
     const styles = headStyles(html)
     const $ = load(html)
@@ -90,8 +90,8 @@ describe('mj-spacer dark-container-background-color', function () {
   <mj-body>
     <mj-section>
       <mj-column>
-        <mj-spacer dark-container-background-color="#111111" />
-        <mj-spacer dark-container-background-color="#222222" />
+        <mj-spacer container-background-color--dark="#111111" />
+        <mj-spacer container-background-color--dark="#222222" />
       </mj-column>
     </mj-section>
   </mj-body>

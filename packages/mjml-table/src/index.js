@@ -16,13 +16,13 @@ export default class MjTable extends BodyComponent {
   static allowedAttributes = {
     align: 'enum(left,right,center)',
     border: 'string',
+    'border-color--dark': 'color',
     cellpadding: 'integer',
     cellspacing: 'integer',
     color: 'color',
+    'color--dark': 'color',
     'container-background-color': 'color',
-    'dark-border-color': 'color',
-    'dark-color': 'color',
-    'dark-container-background-color': 'color',
+    'container-background-color--dark': 'color',
     'font-family': 'string',
     'font-size': 'unit(px)',
     'font-weight': 'string',
@@ -101,7 +101,7 @@ export default class MjTable extends BodyComponent {
 
     const globalData = this.context && this.context.globalData
 
-    const darkContainerBg = this.attributes['dark-container-background-color']
+    const darkContainerBg = this.attributes['container-background-color--dark']
     if (darkContainerBg) {
       this.darkClasses.container = registerDarkModeRule(globalData, {
         cssProperty: 'background-color',
@@ -112,11 +112,11 @@ export default class MjTable extends BodyComponent {
     const tableDarkDeclarations = [
       {
         cssProperty: 'border-color',
-        cssValue: this.attributes['dark-border-color'],
+        cssValue: this.attributes['border-color--dark'],
       },
       {
         cssProperty: 'color',
-        cssValue: this.attributes['dark-color'],
+        cssValue: this.attributes['color--dark'],
       },
     ]
 

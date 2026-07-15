@@ -34,8 +34,8 @@ function wrapHero(attrs = '') {
   `
 }
 
-describe('mj-hero dark-background-url', () => {
-  it('should not emit dark background-image styles when no dark-background-url is set', async () => {
+describe('mj-hero background-url--dark', () => {
+  it('should not emit dark background-image styles when no background-url--dark is set', async () => {
     const { html } = await mjml2html(wrapHero())
     const styles = headStyles(html)
 
@@ -44,9 +44,9 @@ describe('mj-hero dark-background-url', () => {
     chai.expect(styles).not.to.match(/\.mj-dark-image-\d+\s*\{\s*background-image:/)
   })
 
-  it('should apply dark-background-url to the hero mode td', async () => {
+  it('should apply background-url--dark to the hero mode td', async () => {
     const darkUrl = 'https://example.com/hero-dark.jpg'
-    const { html } = await mjml2html(wrapHero(`dark-background-url="${darkUrl}"`))
+    const { html } = await mjml2html(wrapHero(`background-url--dark="${darkUrl}"`))
     const styles = headStyles(html)
     const $ = load(html)
 

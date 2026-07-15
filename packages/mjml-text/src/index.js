@@ -14,16 +14,16 @@ export default class MjText extends BodyComponent {
   static allowedAttributes = {
     align: 'enum(left,right,center,justify)',
     color: 'color',
+    'color--dark': 'color',
     'container-background-color': 'color',
-    'dark-color': 'color',
-    'dark-container-background-color': 'color',
+    'container-background-color--dark': 'color',
     'font-family': 'string',
     'font-size': 'unit(px)',
     'font-style': 'string',
     'font-weight': 'string',
     height: 'unit(px,%)',
     'letter-spacing': 'unitWithNegative(px,em)',
-    'line-height': 'unit(px,%,)',
+    'line-height': 'unit(px,%)',
     padding: 'unit(px,%){1,4}',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
@@ -43,7 +43,7 @@ export default class MjText extends BodyComponent {
     this.darkClasses = {}
     const globalData = this.context && this.context.globalData
 
-    const darkContainerBg = this.attributes['dark-container-background-color']
+    const darkContainerBg = this.attributes['container-background-color--dark']
     if (darkContainerBg) {
       this.darkClasses.container = registerDarkModeRule(globalData, {
         cssProperty: 'background-color',
@@ -51,7 +51,7 @@ export default class MjText extends BodyComponent {
       })
     }
 
-    const darkColor = this.attributes['dark-color']
+    const darkColor = this.attributes['color--dark']
     if (darkColor) {
       this.darkClasses.color = registerDarkModeRule(globalData, {
         cssProperty: 'color',
@@ -69,7 +69,9 @@ export default class MjText extends BodyComponent {
     if (name === 'css-class') {
       const base = this.attributes['css-class']
       const containerDarkClass = this.getDarkClasses().container
-      return [base, containerDarkClass].filter(Boolean).join(' ') || undefined
+      return [base, containerDarkClass]
+        .filter(Boolean)
+        .join(' ') || undefined
     }
     return this.attributes[name]
   }

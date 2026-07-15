@@ -13,7 +13,7 @@ export default class MjNavbarLink extends BodyComponent {
 
   static allowedAttributes = {
     color: 'color',
-    'dark-color': 'color',
+    'color--dark': 'color',
     'font-family': 'string',
     'font-size': 'unit(px)',
     'font-style': 'string',
@@ -54,7 +54,7 @@ export default class MjNavbarLink extends BodyComponent {
 
     const globalData = this.context && this.context.globalData
 
-    const darkColor = this.getAttribute('dark-color')
+    const darkColor = this.getAttribute('color--dark')
     if (darkColor) {
       this.darkClasses.color = registerDarkModeRule(globalData, {
         cssProperty: 'color',

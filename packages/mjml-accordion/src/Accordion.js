@@ -9,19 +9,19 @@ export default class MjAccordion extends BodyComponent {
 
   static allowedAttributes = {
     border: 'string',
+    'border-color--dark': 'color',
     'container-background-color': 'color',
-    'dark-border-color': 'color',
-    'dark-container-background-color': 'color',
-    'dark-icon-wrapped-url': 'string',
-    'dark-icon-unwrapped-url': 'string',
+    'container-background-color--dark': 'color',
     'font-family': 'string',
     'icon-align': 'enum(top,middle,bottom)',
     'icon-height': 'unit(px,%)',
     'icon-position': 'enum(left,right)',
     'icon-width': 'unit(px,%)',
     'icon-wrapped-url': 'string',
+    'icon-wrapped-url--dark': 'string',
     'icon-wrapped-alt': 'string',
     'icon-unwrapped-url': 'string',
+    'icon-unwrapped-url--dark': 'string',
     'icon-unwrapped-alt': 'string',
     padding: 'unit(px,%){1,4}',
     'padding-bottom': 'unit(px,%)',
@@ -54,7 +54,7 @@ export default class MjAccordion extends BodyComponent {
 
     const globalData = this.context && this.context.globalData
 
-    const darkContainerBg = this.attributes['dark-container-background-color']
+    const darkContainerBg = this.attributes['container-background-color--dark']
     if (darkContainerBg) {
       this.darkClasses.container = registerDarkModeRule(globalData, {
         cssProperty: 'background-color',
@@ -62,7 +62,7 @@ export default class MjAccordion extends BodyComponent {
       })
     }
 
-    const darkBorderColor = this.attributes['dark-border-color']
+    const darkBorderColor = this.attributes['border-color--dark']
     if (darkBorderColor) {
       this.darkClasses.border = registerDarkModeRule(globalData, {
         cssProperty: 'border-color',
@@ -134,17 +134,17 @@ export default class MjAccordion extends BodyComponent {
 
     const childrenAttr = [
       'border',
-      'dark-border-color',
+      'border-color--dark',
       'icon-align',
-      'icon-width',
       'icon-height',
       'icon-position',
-      'icon-wrapped-url',
-      'icon-wrapped-alt',
-      'icon-unwrapped-url',
       'icon-unwrapped-alt',
-      'dark-icon-wrapped-url',
-      'dark-icon-unwrapped-url',
+      'icon-unwrapped-url',
+      'icon-unwrapped-url--dark',
+      'icon-width',
+      'icon-wrapped-alt',
+      'icon-wrapped-url',
+      'icon-wrapped-url--dark',
     ].reduce(
       (res, val) => ({
         ...res,

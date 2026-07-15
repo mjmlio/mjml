@@ -33,8 +33,8 @@ function wrapSection(attrs = '') {
   `
 }
 
-describe('mj-section dark-background-url', () => {
-  it('should not emit dark background-image styles when no dark-background-url is set', async () => {
+describe('mj-section background-url--dark', () => {
+  it('should not emit dark background-image styles when no background-url--dark is set', async () => {
     const { html } = await mjml2html(wrapSection())
     const styles = headStyles(html)
 
@@ -42,9 +42,9 @@ describe('mj-section dark-background-url', () => {
     chai.expect(styles).not.to.match(/\.mj-dark-image-\d+\s*\{\s*background-image:/)
   })
 
-  it('should apply dark-background-url to the regular section background table', async () => {
+  it('should apply background-url--dark to the regular section background table', async () => {
     const darkUrl = 'https://example.com/section-dark.jpg'
-    const { html } = await mjml2html(wrapSection(`dark-background-url="${darkUrl}"`))
+    const { html } = await mjml2html(wrapSection(`background-url--dark="${darkUrl}"`))
     const styles = headStyles(html)
     const $ = load(html)
 
@@ -61,11 +61,11 @@ describe('mj-section dark-background-url', () => {
     chai.expect(styles).to.not.contain(`[data-ogsb] .${backgroundImageClassName}`)
   })
 
-  it('should apply dark-background-url to the full-width section table and preserve css-class', async () => {
+  it('should apply background-url--dark to the full-width section table and preserve css-class', async () => {
     const darkUrl = 'https://example.com/section-dark.jpg'
     const { html } = await mjml2html(
       wrapSection(
-        `full-width="full-width" css-class="section-root" dark-background-url="${darkUrl}"`,
+        `full-width="full-width" css-class="section-root" background-url--dark="${darkUrl}"`,
       ),
     )
     const styles = headStyles(html)
@@ -89,13 +89,13 @@ describe('mj-section dark-background-url', () => {
         <mj-body>
           <mj-section
             background-url="https://example.com/section-light-one.jpg"
-            dark-background-url="${darkUrlOne}"
+            background-url--dark="${darkUrlOne}"
           >
             <mj-column><mj-text>One</mj-text></mj-column>
           </mj-section>
           <mj-section
             background-url="https://example.com/section-light-two.jpg"
-            dark-background-url="${darkUrlTwo}"
+            background-url--dark="${darkUrlTwo}"
           >
             <mj-column><mj-text>Two</mj-text></mj-column>
           </mj-section>

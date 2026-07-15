@@ -31,7 +31,7 @@ function wrapImage(attrs = '') {
 `
 }
 
-describe('mj-image dark-border-color / dark-container-background-color', function () {
+describe('mj-image border-color--dark / container-background-color--dark', function () {
   it('should not emit dark-mode styles when no dark attributes are set', async function () {
     const { html } = await mjml(
       wrapImage('container-background-color="#eeeeee" border="2px solid #333333"'),
@@ -42,9 +42,9 @@ describe('mj-image dark-border-color / dark-container-background-color', functio
     chai.expect(html).to.not.include('[data-ogsb] .mj-dark-')
   })
 
-  it('should apply dark-container-background-color class to the wrapper td', async function () {
+  it('should apply container-background-color--dark class to the wrapper td', async function () {
     const { html } = await mjml(
-      wrapImage('css-class="my-image" dark-container-background-color="#111111"'),
+      wrapImage('css-class="my-image" container-background-color--dark="#111111"'),
     )
 
     const styles = headStyles(html)
@@ -63,9 +63,9 @@ describe('mj-image dark-border-color / dark-container-background-color', functio
     chai.expect($(`img.${darkClass}`).length).to.equal(0)
   })
 
-  it('should apply dark-border-color class to the wrapper td, not the img element', async function () {
+  it('should apply border-color--dark class to the wrapper td, not the img element', async function () {
     const { html } = await mjml(
-      wrapImage('css-class="my-image" border="2px solid #333333" dark-border-color="#ff0000"'),
+      wrapImage('css-class="my-image" border="2px solid #333333" border-color--dark="#ff0000"'),
     )
 
     const styles = headStyles(html)
@@ -83,10 +83,10 @@ describe('mj-image dark-border-color / dark-container-background-color', functio
     chai.expect($(`img.${darkClass}`).length).to.equal(0)
   })
 
-  it('should use a single dark class for dark-border-color and side overrides on td', async function () {
+  it('should use a single dark class for border-color--dark and side overrides on td', async function () {
     const { html } = await mjml(
       wrapImage(
-        'border="2px solid #333333" dark-border-color="orange" dark-border-top-color="hotpink" dark-border-bottom-color="hotpink" dark-border-left-color="purple"',
+        'border="2px solid #333333" border-color--dark="orange" border-top-color--dark="hotpink" border-bottom-color--dark="hotpink" border-left-color--dark="purple"',
       ),
     )
 
@@ -118,7 +118,7 @@ describe('mj-image dark-border-color / dark-container-background-color', functio
   it('should not emit Outlook border rules when support-dark-mode-image is outlook', async function () {
     const { html } = await mjml(
       wrapImage(
-        'dark-src="https://example.com/dark.png" support-dark-mode-image="outlook" dark-border-color="#ff0000" dark-container-background-color="#111111"',
+        'src--dark="https://example.com/dark.png" support-dark-mode-image="outlook" border-color--dark="#ff0000" container-background-color--dark="#111111"',
       ),
     )
 
@@ -132,7 +132,7 @@ describe('mj-image dark-border-color / dark-container-background-color', functio
   it('should use separate classes for container background and image border', async function () {
     const { html } = await mjml(
       wrapImage(
-        'css-class="my-image" dark-container-background-color="#111111" dark-border-color="#ff0000"',
+        'css-class="my-image" container-background-color--dark="#111111" border-color--dark="#ff0000"',
       ),
     )
 

@@ -16,16 +16,16 @@ export default class MjHero extends BodyComponent {
 
   static allowedAttributes = {
     'background-color': 'color',
+    'background-color--dark': 'color',
     'background-height': 'unit(px,%)',
     'background-position': 'string',
     'background-url': 'string',
+    'background-url--dark': 'string',
     'background-width': 'unit(px,%)',
     'border-radius': 'string',
-    'dark-background-color': 'color',
-    'dark-background-url': 'string',
-    'dark-inner-background-color': 'color',
     height: 'unit(px,%)',
     'inner-background-color': 'color',
+    'inner-background-color--dark': 'color',
     'inner-padding': 'unit(px,%){1,4}',
     'inner-padding-top': 'unit(px,%)',
     'inner-padding-left': 'unit(px,%)',
@@ -67,7 +67,7 @@ export default class MjHero extends BodyComponent {
   }
 
   getDarkBackgroundImageCssValue() {
-    const darkBackgroundUrl = this.getAttribute('dark-background-url')
+    const darkBackgroundUrl = this.getAttribute('background-url--dark')
 
     return darkBackgroundUrl ? `url(${JSON.stringify(darkBackgroundUrl)})` : null
   }
@@ -103,19 +103,19 @@ export default class MjHero extends BodyComponent {
     }
 
     this.darkClasses = {
-      backgroundClass: this.getAttribute('dark-background-color')
+      backgroundClass: this.getAttribute('background-color--dark')
         ? registerDarkModeRule(this.context && this.context.globalData, {
             cssProperty: 'background-color',
-            cssValue: this.getAttribute('dark-background-color'),
+            cssValue: this.getAttribute('background-color--dark'),
           })
         : null,
-      backgroundImageClass: this.getAttribute('dark-background-url')
+      backgroundImageClass: this.getAttribute('background-url--dark')
         ? this.registerDarkBackgroundImageClass()
         : null,
-      innerBackgroundClass: this.getAttribute('dark-inner-background-color')
+      innerBackgroundClass: this.getAttribute('inner-background-color--dark')
         ? registerDarkModeRule(this.context && this.context.globalData, {
             cssProperty: 'background-color',
-            cssValue: this.getAttribute('dark-inner-background-color'),
+            cssValue: this.getAttribute('inner-background-color--dark'),
           })
         : null,
     }

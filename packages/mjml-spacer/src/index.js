@@ -14,13 +14,13 @@ export default class MjSpacer extends BodyComponent {
     'border-right': 'string',
     'border-top': 'string',
     'container-background-color': 'color',
-    'dark-container-background-color': 'color',
+    'container-background-color--dark': 'color',
+    height: 'unit(px,%)',
     padding: 'unit(px,%){1,4}',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
-    height: 'unit(px,%)',
   }
 
   static defaultAttributes = {
@@ -34,7 +34,7 @@ export default class MjSpacer extends BodyComponent {
       return this.darkContainerClass
     }
 
-    const darkContainerBg = this.attributes['dark-container-background-color']
+    const darkContainerBg = this.attributes['container-background-color--dark']
 
     if (!darkContainerBg) {
       this.darkContainerClass = null

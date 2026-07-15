@@ -2,31 +2,31 @@ import ruleError from './ruleError'
 
 // List of attributes that require support-dark-mode="true" to work properly
 const DARK_MODE_ATTRIBUTES = [
-  'dark-background-color',
-  'dark-background-url',
-  'dark-border-color',
-  'dark-border-bottom-color',
-  'dark-border-left-color',
-  'dark-border-right-color',
-  'dark-border-top-color',
-  'dark-color',
-  'dark-container-background-color',
-  'dark-inner-background-color',
-  'dark-inner-border-color',
-  'dark-inner-border-bottom-color',
-  'dark-inner-border-left-color',
-  'dark-inner-border-right-color',
-  'dark-inner-border-top-color',
-  'dark-ico-color',
-  'dark-icon-wrapped-url',
-  'dark-icon-unwrapped-url',
-  'dark-left-icon',
-  'dark-right-icon',
-  'dark-src',
-  'dark-tb-border-color',
-  'dark-tb-hover-border-color',
-  'dark-tb-selected-border-color',
-  'dark-thumbnails-src',
+  'background-color--dark',
+  'background-url--dark',
+  'border-color--dark',
+  'border-bottom-color--dark',
+  'border-left-color--dark',
+  'border-right-color--dark',
+  'border-top-color--dark',
+  'color--dark',
+  'container-background-color--dark',
+  'inner-background-color--dark',
+  'inner-border-color--dark',
+  'inner-border-bottom-color--dark',
+  'inner-border-left-color--dark',
+  'inner-border-right-color--dark',
+  'inner-border-top-color--dark',
+  'ico-color--dark',
+  'icon-wrapped-url--dark',
+  'icon-unwrapped-url--dark',
+  'left-icon--dark',
+  'right-icon--dark',
+  'src--dark',
+  'tb-border-color--dark',
+  'tb-hover-border-color--dark',
+  'tb-selected-border-color--dark',
+  'thumbnails-src--dark',
 ]
 
 function formatAttributeList(attributes) {
@@ -54,10 +54,16 @@ function getElementDarkModeAttributes(element, components) {
   const foundAttributes = []
 
   DARK_MODE_ATTRIBUTES.forEach((attrName) => {
-    if (
-      Object.prototype.hasOwnProperty.call(Component.allowedAttributes, attrName) &&
-      Object.prototype.hasOwnProperty.call(elementAttributes, attrName)
-    ) {
+    const supportsAttr = Object.prototype.hasOwnProperty.call(
+      Component.allowedAttributes,
+      attrName,
+    )
+    const hasAttribute = Object.prototype.hasOwnProperty.call(
+      elementAttributes,
+      attrName,
+    )
+
+    if (supportsAttr && hasAttribute) {
       foundAttributes.push(attrName)
     }
   })

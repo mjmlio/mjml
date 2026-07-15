@@ -38,40 +38,47 @@ Displays calls-to-action for various social networks with their associated logo.
 
 #### Attributes
 
-| attribute                       | accepts                 | description                                        | default value                          |
-| ------------------------------- | ----------------------- | -------------------------------------------------- | -------------------------------------- |
-| align                           | `left` `right` `center` | align content                                      | `center`                               |
-| border                          | string                  | icon border, applied to each `mj-social-element`   |                                        |
-| border-radius                   | `px` `%`                | border radius                                      | `3px`                                  |
-| color                           | CSS color formats       | text color                                         | `#333333`                              |
-| css-class                       | string                  | class name, added to the root HTML element created |                                        |
-| container-background-color      | CSS color formats       | inner element background color                     |                                        |
-| dark-color                      | CSS color formats       | text color in dark mode                            |                                        |
-| dark-container-background-color | CSS color formats       | container background color in dark mode            |                                        |
-| font-family                     | string                  | font name                                          | `Ubuntu, sans-serif`                   |
-| font-size                       | `px`                    | font size                                          | `13px`                                 |
-| font-style                      | string                  | font style                                         | normal                                 |
-| font-weight                     | string                  | font weight                                        | normal                                 |
-| icon-height                     | `px` `%`                | icon height, overrides `icon-size`                 | icon-size                              |
-| icon-padding                    | `px` `%`                | padding around the icons                           |                                        |
-| icon-size                       | `px` `%`                | icon size (width and height)                       | `20px`                                 |
-| inner-padding                   | `px` `%`                | social network surrounding padding                 | `null`                                 |
-| line-height                     | `px` `%`                | space between lines                                | `22px`                                 |
-| mode                            | `horizontal` `vertical` | direction of social elements                       | `horizontal`                           |
-| padding                         | `px` `%`                | social padding, supports up to 4 parameters        | `10px 25px`                            |
-| padding-bottom                  | `px` `%`                | bottom padding                                     |                                        |
-| padding-left                    | `px` `%`                | left padding                                       |                                        |
-| padding-right                   | `px` `%`                | right padding                                      |                                        |
-| padding-top                     | `px` `%`                | top padding                                        |                                        |
-| text-padding                    | `px` `%`                | padding around the text                            |                                        |
-| text-decoration                 | string                  | CSS values, e.g. `underline` `overline` `none`     | `none`                                 |
+| attribute                  | accepts                 | description                                        | default value        |
+| -------------------------- | ----------------------- | -------------------------------------------------- | -------------------- |
+| align                      | `left` `right` `center` | align content                                      | `center`             |
+| border                     | string                  | icon border, applied to each `mj-social-element`   |                      |
+| border-radius              | `px` `%`                | border radius                                      | `3px`                |
+| color                      | CSS color formats       | text color                                         | `#333333`            |
+| css-class                  | string                  | class name, added to the root HTML element created |                      |
+| container-background-color | CSS color formats       | inner element background color                     |                      |
+| font-family                | string                  | font name                                          | `Ubuntu, sans-serif` |
+| font-size                  | `px`                    | font size                                          | `13px`               |
+| font-style                 | string                  | font style                                         | normal               |
+| font-weight                | string                  | font weight                                        | normal               |
+| icon-height                | `px` `%`                | icon height, overrides `icon-size`                 | icon-size            |
+| icon-padding               | `px` `%`                | padding around the icons                           |                      |
+| icon-size                  | `px` `%`                | icon size (width and height)                       | `20px`               |
+| inner-padding              | `px` `%`                | social network surrounding padding                 | `null`               |
+| line-height                | `px` `%`                | space between lines                                | `22px`               |
+| mode                       | `horizontal` `vertical` | direction of social elements                       | `horizontal`         |
+| padding                    | `px` `%`                | social padding, supports up to 4 parameters        | `10px 25px`          |
+| padding-bottom             | `px` `%`                | bottom padding                                     |                      |
+| padding-left               | `px` `%`                | left padding                                       |                      |
+| padding-right              | `px` `%`                | right padding                                      |                      |
+| padding-top                | `px` `%`                | top padding                                        |                      |
+| text-padding               | `px` `%`                | padding around the text                            |                      |
+| text-decoration            | string                  | CSS values, e.g. `underline` `overline` `none`     | `none`               |
+
+<p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/social">Try it live</a></p>
+
+##### Modifiers
+
+###### Dark-mode
+
+| attribute                        | accepts           | description                             | default value |
+| -------------------------------- | ----------------- | --------------------------------------- | ------------- |
+| color--dark                      | CSS color formats | text color in dark mode                 |               |
+| container-background-color--dark | CSS color formats | container background color in dark mode |               |
 
 <div class="alert alert-note" role="alert">
   <p>Note</p>
-  <p>All <code>dark-</code> prefixed attributes and <code>support-dark-image="outlook"</code> require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
+  <p>All <code>--dark</code> modifier attributes and <code>support-dark-image="outlook"</code> require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
 </div>
-
-<p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/social">Try it live</a></p>
 
 #### mj-social-element
 
@@ -96,9 +103,6 @@ Note that default icons are transparent, which allows `background-color` to actu
 | border-radius           | string                  | border radius                                                                   | `3px`                                  |
 | color                   | CSS color formats       | text color                                                                      | `#000`                                 |
 | css-class               | string                  | class name, added to the root HTML element created                              |                                        |
-| dark-background-color   | CSS color formats       | icon background color in dark mode                                              |                                        |
-| dark-color              | CSS color formats       | text color in dark mode                                                         |                                        |
-| dark-src                | string                  | image used for dark mode                                                        |                                        |
 | font-family             | string                  | font name                                                                       | `Ubuntu, sans-serif`                   |
 | font-size               | `px`                    | font size                                                                       | `13px`                                 |
 | font-style              | string                  | font style                                                                      |                                        |
@@ -125,6 +129,21 @@ Note that default icons are transparent, which allows `background-color` to actu
 | text-padding            | `px` `%`                | padding around the text                                                         | `4px 4px 4px 0`                        |
 | title                   | string                  | image title attribute                                                           |                                        |
 | vertical-align          | `top` `middle` `bottom` | vertically align elements                                                       |                                        |
+
+##### Modifiers
+
+###### Dark-mode
+
+| attribute              | accepts           | description                        | default value |
+| ---------------------- | ----------------- | ---------------------------------- | ------------- |
+| background-color--dark | CSS color formats | icon background color in dark mode |               |
+| color--dark            | CSS color formats | text color in dark mode            |               |
+| src--dark              | string            | image used for dark mode           |               |
+
+<div class="alert alert-note" role="alert">
+  <p>Note</p>
+  <p>All <code>--dark</code> modifier attributes and <code>support-dark-image="outlook"</code> require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
+</div>
 
 Supported networks with a share url:
 

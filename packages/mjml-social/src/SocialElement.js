@@ -113,12 +113,11 @@ export default class MjSocialElement extends BodyComponent {
     align: 'enum(left,center,right)',
     alt: 'string',
     'background-color': 'color',
-    color: 'color',
+    'background-color--dark': 'color',
     border: 'string',
     'border-radius': 'string',
-    'dark-background-color': 'color',
-    'dark-color': 'color',
-    'dark-src': 'string',
+    color: 'color',
+    'color--dark': 'color',
     'font-family': 'string',
     'font-size': 'unit(px)',
     'font-style': 'string',
@@ -137,11 +136,12 @@ export default class MjSocialElement extends BodyComponent {
     'padding-top': 'unit(px,%)',
     rel: 'string',
     src: 'string',
+    'src--dark': 'string',
     srcset: 'string',
     sizes: 'string',
+    'support-dark-mode-image': 'enum(outlook)',
     target: 'string',
     title: 'string',
-    'support-dark-mode-image': 'enum(outlook)',
     'text-decoration': 'string',
     'text-padding': 'unit(px,%){1,4}',
     'vertical-align': 'enum(top,middle,bottom)',
@@ -195,7 +195,7 @@ export default class MjSocialElement extends BodyComponent {
 
     const globalData = this.context && this.context.globalData
 
-    const darkBackgroundColor = this.getAttribute('dark-background-color')
+    const darkBackgroundColor = this.getAttribute('background-color--dark')
     if (darkBackgroundColor) {
       this.darkClasses.background = registerDarkModeRule(globalData, {
         cssProperty: 'background-color',
@@ -203,7 +203,7 @@ export default class MjSocialElement extends BodyComponent {
       })
     }
 
-    const darkColor = this.getAttribute('dark-color')
+    const darkColor = this.getAttribute('color--dark')
     if (darkColor) {
       this.darkClasses.color = registerDarkModeRule(globalData, {
         cssProperty: 'color',
@@ -311,7 +311,7 @@ export default class MjSocialElement extends BodyComponent {
       emitDarkModeHeadStyle(globalData)
     }
 
-    const darkSrc = this.getAttribute('dark-src')
+    const darkSrc = this.getAttribute('src--dark')
     const supportOutlookDarkMode =
       this.getAttribute('support-dark-mode-image') === 'outlook'
 
@@ -341,12 +341,12 @@ export default class MjSocialElement extends BodyComponent {
 
     const hasLink = !!this.getAttribute('href')
     const iconPosition = this.getAttribute('icon-position')
-    const darkSrc = this.getAttribute('dark-src')
+    const darkSrc = this.getAttribute('src--dark')
     const supportOutlookDarkMode =
       this.getAttribute('support-dark-mode-image') === 'outlook'
     const globalData = this.context && this.context.globalData
     const darkClasses = this.getDarkClasses()
-    const darkBackgroundColor = this.getAttribute('dark-background-color')
+    const darkBackgroundColor = this.getAttribute('background-color--dark')
 
     const darkPictureClass =
       darkSrc && supportOutlookDarkMode
@@ -398,6 +398,7 @@ export default class MjSocialElement extends BodyComponent {
           class: [
             OUTLOOK_DARK_MODE_BACKGROUND_CLASS,
             darkBackgroundClass,
+            darkClasses.background,
           ]
             .filter(Boolean)
             .join(' '),

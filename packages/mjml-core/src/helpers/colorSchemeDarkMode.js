@@ -1,4 +1,19 @@
+import {
+  emitModifierHeadStyle as emitGenericModifierHeadStyle,
+  registerModifier as registerGenericModifier,
+  registerModifierRuleGroup as registerGenericModifierRuleGroup,
+  registerModifierRule as registerGenericModifierRule,
+} from './modifierEngine'
+
 export const DARK_MODE_CLASS_PREFIX = 'mj-dark'
+
+const DEFAULT_MODIFIER_DEFINITIONS = {
+  dark: {
+    mediaQuery: '(prefers-color-scheme: dark)',
+    classNamespace: 'dark',
+    outlookSelectorPrefix: '[data-ogsb] ',
+  },
+}
 
 function getDarkModeRules(globalData) {
   return Array.isArray(globalData && globalData.darkModeRules)
@@ -6,43 +21,21 @@ function getDarkModeRules(globalData) {
     : []
 }
 
-function formatGroupedRules(rules, selectorPrefix = '') {
-  const declarationGroups = new Map()
-
-  rules.forEach(({ className, cssProperty, cssValue }) => {
-    const declaration = `${cssProperty}: ${cssValue} !important;`
-    const selector = `${selectorPrefix}.${className}`
-
-    if (!declarationGroups.has(declaration)) {
-      declarationGroups.set(declaration, new Set())
-    }
-
-    declarationGroups.get(declaration).add(selector)
+function getModifierRules(globalData) {
+  return Array.isArray(globalData && globalData.modifierRules)
+    ? globalData.modifierRules
+    : []
+}
+export function registerModifier(globalData, definition = {}) {
+  return registerGenericModifier(globalData, definition, {
+    defaultDefinitions: DEFAULT_MODIFIER_DEFINITIONS,
   })
+}
 
-  const selectorGroups = new Map()
-
-  declarationGroups.forEach((selectorsSet, declaration) => {
-    const selectors = Array.from(selectorsSet)
-    const selectorsKey = selectors.join('\u0000')
-
-    if (!selectorGroups.has(selectorsKey)) {
-      selectorGroups.set(selectorsKey, {
-        selectors,
-        declarations: [],
-      })
-    }
-
-    selectorGroups.get(selectorsKey).declarations.push(declaration)
+export function registerModifierRule(globalData, options = {}) {
+  return registerGenericModifierRule(globalData, options, {
+    defaultDefinitions: DEFAULT_MODIFIER_DEFINITIONS,
   })
-
-  return Array.from(selectorGroups.values())
-    .map(({ selectors, declarations }) => {
-      const selectorList = selectors.join(',\n  ')
-      const declarationList = declarations.join(' ')
-      return `  ${selectorList} { ${declarationList} }`
-    })
-    .join('\n')
 }
 
 /**
@@ -57,30 +50,23 @@ export function registerDarkModeRule(
   globalData,
   { cssProperty, cssValue, supportOutlookDarkMode = false },
 ) {
-  if (!globalData || !cssValue) {
-    return null
-  }
+  return registerGenericModifierRuleGroup(globalData, {
+    modifier: 'dark',
+    cssDeclarations: [{ cssProperty, cssValue }],
+    supportModifierSelector: supportOutlookDarkMode,
+  }, {
+    defaultDefinitions: DEFAULT_MODIFIER_DEFINITIONS,
+    rulesKey: 'darkModeRules',
+    getClassName(data) {
+      if (typeof data.darkModeRuleCount !== 'number') {
+        data.darkModeRuleCount = 0
+      }
 
-  if (typeof globalData.darkModeRuleCount !== 'number') {
-    globalData.darkModeRuleCount = 0
-  }
+      data.darkModeRuleCount += 1
 
-  globalData.darkModeRuleCount += 1
-
-  const className = `${DARK_MODE_CLASS_PREFIX}-${globalData.darkModeRuleCount}`
-
-  if (!Array.isArray(globalData.darkModeRules)) {
-    globalData.darkModeRules = []
-  }
-
-  globalData.darkModeRules.push({
-    className,
-    cssProperty,
-    cssValue,
-    supportOutlookDarkMode: Boolean(supportOutlookDarkMode),
+      return `${DARK_MODE_CLASS_PREFIX}-${data.darkModeRuleCount}`
+    },
   })
-
-  return className
 }
 
 /**
@@ -94,32 +80,23 @@ export function registerDarkModeRule(
  *
  * Returns true if the block was emitted, false otherwise.
  */
-export function emitDarkModeHeadStyle(globalData) {
-  if (!globalData || globalData.darkModeStyleEmitted === true) {
-    return false
-  }
+export function emitModifierHeadStyle(globalData) {
+  const rules = [
+    ...getDarkModeRules(globalData).map((rule) => ({
+      ...rule,
+      modifier: 'dark',
+    })),
+    ...getModifierRules(globalData),
+  ]
+  const emitted = emitGenericModifierHeadStyle(globalData, {
+    defaultDefinitions: DEFAULT_MODIFIER_DEFINITIONS,
+    rules,
+    emittedFlag: 'darkModeStyleEmitted',
+  })
 
-  const rules = getDarkModeRules(globalData)
-
-  if (rules.length === 0) {
-    return false
-  }
-
-  const cssRules = formatGroupedRules(rules)
-
-  const outlookRules = formatGroupedRules(
-    rules.filter(({ supportOutlookDarkMode }) => supportOutlookDarkMode),
-    '[data-ogsb] ',
-  )
-
-  globalData.darkModeStyleEmitted = true
-
-  globalData.headRaw.push(`<style>
-@media (prefers-color-scheme: dark) {
-${cssRules}
+  return emitted
 }
-${outlookRules}
-</style>`)
 
-  return true
+export function emitDarkModeHeadStyle(globalData) {
+  return emitModifierHeadStyle(globalData)
 }

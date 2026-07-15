@@ -3,8 +3,8 @@ const { load } = require('cheerio')
 
 const mjml = require('../lib')
 
-describe('mj-social dark-src head style', function () {
-  it('should not emit dark-mode head styles when no dark-src is present', async function () {
+describe('mj-social src--dark head style', function () {
+  it('should not emit dark-mode head styles when no src--dark is present', async function () {
     const input = `
 <mjml>
   <mj-body>
@@ -48,7 +48,7 @@ describe('mj-social dark-src head style', function () {
             name="facebook"
             href="https://example.com"
             src="https://example.com/social-light.png"
-            dark-src="${darkUrl}"
+            src--dark="${darkUrl}"
           >
             Facebook
           </mj-social-element>
@@ -82,7 +82,7 @@ describe('mj-social dark-src head style', function () {
             name="facebook"
             href="https://example.com"
             src="https://example.com/social-light.png"
-            dark-src="${darkUrl}"
+            src--dark="${darkUrl}"
             support-dark-mode-image="outlook"
           >
             Facebook
@@ -112,7 +112,7 @@ describe('mj-social dark-src head style', function () {
     chai.expect(html).to.include('.mj-dark-image')
   })
 
-  it('should preserve social-element background-color and emit dark-background-color overrides on Outlook wrapper', async function () {
+  it('should preserve social-element background-color and emit background-color--dark overrides on Outlook wrapper', async function () {
     const darkUrl = 'https://example.com/social-dark.png'
 
     const input = `
@@ -126,8 +126,8 @@ describe('mj-social dark-src head style', function () {
             href="https://example.com"
             src="https://example.com/social-light.png"
             background-color="yellow"
-            dark-background-color="#123456"
-            dark-src="${darkUrl}"
+            background-color--dark="#123456"
+            src--dark="${darkUrl}"
             support-dark-mode-image="outlook"
           >
             Facebook
@@ -166,8 +166,8 @@ describe('mj-social dark-src head style', function () {
             href="https://example.com"
             src="https://example.com/social-light-f.png"
             background-color="yellow"
-            dark-background-color="green"
-            dark-src="https://email-placeholders.com/30x30/0000cc/transparent?text=F"
+            background-color--dark="green"
+            src--dark="https://email-placeholders.com/30x30/0000cc/transparent?text=F"
             support-dark-mode-image="outlook"
           >
             Facebook
@@ -177,8 +177,8 @@ describe('mj-social dark-src head style', function () {
             href="https://example.com"
             src="https://example.com/social-light-g.png"
             background-color="orange"
-            dark-background-color="blue"
-            dark-src="https://email-placeholders.com/30x30/0000cc/transparent?text=G"
+            background-color--dark="blue"
+            src--dark="https://email-placeholders.com/30x30/0000cc/transparent?text=G"
             support-dark-mode-image="outlook"
           >
             Google

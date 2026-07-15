@@ -12,9 +12,9 @@ export default class MjAccordionText extends BodyComponent {
 
   static allowedAttributes = {
     'background-color': 'color',
+    'background-color--dark': 'color',
     color: 'color',
-    'dark-background-color': 'color',
-    'dark-color': 'color',
+    'color--dark': 'color',
     'font-family': 'string',
     'font-size': 'unit(px)',
     'font-weight': 'string',
@@ -85,7 +85,7 @@ export default class MjAccordionText extends BodyComponent {
 
     const contentDeclarations = []
 
-    const darkBackgroundColor = this.getAttribute('dark-background-color')
+    const darkBackgroundColor = this.getAttribute('background-color--dark')
     if (darkBackgroundColor) {
       contentDeclarations.push({
         cssProperty: 'background-color',
@@ -93,7 +93,7 @@ export default class MjAccordionText extends BodyComponent {
       })
     }
 
-    const darkColor = this.getAttribute('dark-color')
+    const darkColor = this.getAttribute('color--dark')
     if (darkColor) {
       contentDeclarations.push({
         cssProperty: 'color',
@@ -107,7 +107,7 @@ export default class MjAccordionText extends BodyComponent {
 
     // Inherited from mj-accordion-element; text borders are rendered on the
     // inner table as border-bottom.
-    const darkBorderColor = this.getAttribute('dark-border-color')
+    const darkBorderColor = this.getAttribute('border-color--dark')
     if (darkBorderColor) {
       this.darkClasses.border = registerDarkModeRule(globalData, {
         cssProperty: 'border-bottom-color',

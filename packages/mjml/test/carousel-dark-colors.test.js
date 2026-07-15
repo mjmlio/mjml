@@ -50,10 +50,10 @@ describe('mj-carousel dark colors', function () {
     chai.expect(html).to.not.include('[data-ogsb] .mj-dark-')
   })
 
-  it('should apply dark-container-background-color class to the carousel wrapper td and preserve css-class', async function () {
+  it('should apply container-background-color--dark class to the carousel wrapper td and preserve css-class', async function () {
     const { html } = await mjml(
       wrapCarousel({
-        carouselAttrs: 'dark-container-background-color="#111111"',
+        carouselAttrs: 'container-background-color--dark="#111111"',
       }),
     )
     const styles = headStyles(html)
@@ -73,10 +73,10 @@ describe('mj-carousel dark colors', function () {
     chai.expect($(`table.mj-carousel-main.${darkClass}`).length).to.equal(0)
   })
 
-  it('should apply dark-tb-border-color class to the thumbnail anchor', async function () {
+  it('should apply tb-border-color--dark class to the thumbnail anchor', async function () {
     const { html } = await mjml(
       wrapCarousel({
-        carouselAttrs: 'dark-tb-border-color="#ababab"',
+        carouselAttrs: 'tb-border-color--dark="#ababab"',
       }),
     )
     const styles = headStyles(html)
@@ -95,11 +95,11 @@ describe('mj-carousel dark colors', function () {
     chai.expect($(`td.car-root.${darkClass}`).length).to.equal(0)
   })
 
-  it('should let mj-carousel-image dark-tb-border-color override the inherited carousel value', async function () {
+  it('should let mj-carousel-image tb-border-color--dark override the inherited carousel value', async function () {
     const { html } = await mjml(
       wrapCarousel({
-        carouselAttrs: 'dark-tb-border-color="#111111"',
-        imageAttrs: 'dark-tb-border-color="#222222"',
+        carouselAttrs: 'tb-border-color--dark="#111111"',
+        imageAttrs: 'tb-border-color--dark="#222222"',
       }),
     )
     const styles = headStyles(html)
@@ -112,7 +112,7 @@ describe('mj-carousel dark colors', function () {
     const { html } = await mjml(
       wrapCarousel({
         carouselAttrs:
-          'dark-tb-hover-border-color="#00ff00" dark-tb-selected-border-color="#ff00ff"',
+          'tb-hover-border-color--dark="#00ff00" tb-selected-border-color--dark="#ff00ff"',
       }),
     )
     const styles = headStyles(html)

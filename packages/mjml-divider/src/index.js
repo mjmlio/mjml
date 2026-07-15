@@ -10,11 +10,11 @@ export default class MjDivider extends BodyComponent {
   static allowedAttributes = {
     align: 'enum(left,center,right)',
     'border-color': 'color',
+    'border-color--dark': 'color',
     'border-style': 'string',
     'border-width': 'unit(px)',
     'container-background-color': 'color',
-    'dark-border-color': 'color',
-    'dark-container-background-color': 'color',
+    'container-background-color--dark': 'color',
     padding: 'unit(px,%){1,4}',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
@@ -43,7 +43,7 @@ export default class MjDivider extends BodyComponent {
 
     const globalData = this.context && this.context.globalData
 
-    const darkContainerBg = this.attributes['dark-container-background-color']
+    const darkContainerBg = this.attributes['container-background-color--dark']
     if (darkContainerBg) {
       this.darkClasses.container = registerDarkModeRule(globalData, {
         cssProperty: 'background-color',
@@ -51,7 +51,7 @@ export default class MjDivider extends BodyComponent {
       })
     }
 
-    const darkBorderColor = this.attributes['dark-border-color']
+    const darkBorderColor = this.attributes['border-color--dark']
     if (darkBorderColor) {
       this.darkClasses.border = registerDarkModeRule(globalData, {
         cssProperty: 'border-top-color',

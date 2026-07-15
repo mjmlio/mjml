@@ -15,26 +15,26 @@ export default class MjSection extends BodyComponent {
 
   static allowedAttributes = {
     'background-color': 'color',
+    'background-color--dark': 'color',
     'background-position': 'string',
     'background-position-x': 'string',
     'background-position-y': 'string',
     'background-repeat': 'enum(repeat,no-repeat)',
     'background-size': 'string',
     'background-url': 'string',
+    'background-url--dark': 'string',
     border: 'string',
+    'border-color--dark': 'color',
     'border-bottom': 'string',
+    'border-bottom-color--dark': 'color',
     'border-left': 'string',
+    'border-left-color--dark': 'color',
     'border-radius': 'string',
     'border-right': 'string',
+    'border-right-color--dark': 'color',
     'border-top': 'string',
+    'border-top-color--dark': 'color',
     'column-align': 'enum(left,center,right)',
-    'dark-background-color': 'color',
-    'dark-background-url': 'string',
-    'dark-border-color': 'color',
-    'dark-border-bottom-color': 'color',
-    'dark-border-left-color': 'color',
-    'dark-border-right-color': 'color',
-    'dark-border-top-color': 'color',
     direction: 'enum(ltr,rtl)',
     'full-width': 'enum(full-width,false,)',
     gutter: 'unit(px,%)',
@@ -74,7 +74,7 @@ export default class MjSection extends BodyComponent {
   }
 
   getDarkBackgroundImageCssValue() {
-    const darkBackgroundUrl = this.getAttribute('dark-background-url')
+    const darkBackgroundUrl = this.getAttribute('background-url--dark')
 
     return darkBackgroundUrl ? `url(${JSON.stringify(darkBackgroundUrl)})` : null
   }
@@ -130,7 +130,7 @@ export default class MjSection extends BodyComponent {
 
     const globalData = this.context && this.context.globalData
 
-    const darkBackgroundColor = this.attributes['dark-background-color']
+    const darkBackgroundColor = this.attributes['background-color--dark']
     if (darkBackgroundColor) {
       this.darkClasses.background = registerDarkModeRule(globalData, {
         cssProperty: 'background-color',
@@ -138,11 +138,11 @@ export default class MjSection extends BodyComponent {
       })
     }
 
-    if (this.attributes['dark-background-url']) {
+    if (this.attributes['background-url--dark']) {
       this.darkClasses.backgroundImage = this.registerDarkBackgroundImageClass()
     }
 
-    const darkBorderColor = this.attributes['dark-border-color']
+    const darkBorderColor = this.attributes['border-color--dark']
     const borderDarkDeclarations = []
 
     if (darkBorderColor) {
@@ -153,10 +153,10 @@ export default class MjSection extends BodyComponent {
     }
 
     const sideOverrides = [
-      ['border-top-color', this.attributes['dark-border-top-color']],
-      ['border-bottom-color', this.attributes['dark-border-bottom-color']],
-      ['border-left-color', this.attributes['dark-border-left-color']],
-      ['border-right-color', this.attributes['dark-border-right-color']],
+      ['border-top-color', this.attributes['border-top-color--dark']],
+      ['border-bottom-color', this.attributes['border-bottom-color--dark']],
+      ['border-left-color', this.attributes['border-left-color--dark']],
+      ['border-right-color', this.attributes['border-right-color--dark']],
     ]
 
     sideOverrides.forEach(([cssProperty, cssValue]) => {

@@ -13,20 +13,20 @@ export default class MjAccordionElement extends BodyComponent {
 
   static allowedAttributes = {
     'background-color': 'color',
+    'background-color--dark': 'color',
     border: 'string',
-    'dark-background-color': 'color',
-    'dark-border-color': 'color',
-    'dark-icon-wrapped-url': 'string',
-    'dark-icon-unwrapped-url': 'string',
+    'border-color--dark': 'color',
     'font-family': 'string',
     'icon-align': 'enum(top,middle,bottom)',
     'icon-height': 'unit(px,%)',
     'icon-position': 'enum(left,right)',
-    'icon-unwrapped-url': 'string',
     'icon-unwrapped-alt': 'string',
-    'icon-wrapped-url': 'string',
-    'icon-wrapped-alt': 'string',
+    'icon-unwrapped-url': 'string',
+    'icon-unwrapped-url--dark': 'string',
     'icon-width': 'unit(px,%)',
+    'icon-wrapped-alt': 'string',
+    'icon-wrapped-url': 'string',
+    'icon-wrapped-url--dark': 'string',
   }
 
   static defaultAttributes = {
@@ -49,7 +49,7 @@ export default class MjAccordionElement extends BodyComponent {
 
     const globalData = this.context && this.context.globalData
 
-    const darkBackgroundColor = this.getAttribute('dark-background-color')
+    const darkBackgroundColor = this.getAttribute('background-color--dark')
     if (darkBackgroundColor) {
       this.darkClasses.background = registerDarkModeRule(globalData, {
         cssProperty: 'background-color',
@@ -91,9 +91,9 @@ export default class MjAccordionElement extends BodyComponent {
       'icon-wrapped-alt',
       'icon-unwrapped-url',
       'icon-unwrapped-alt',
-      'dark-icon-wrapped-url',
-      'dark-icon-unwrapped-url',
-      'dark-border-color',
+      'icon-wrapped-url--dark',
+      'icon-unwrapped-url--dark',
+      'border-color--dark',
     ].reduce(
       (res, val) => ({
         ...res,

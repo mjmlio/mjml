@@ -20,17 +20,17 @@ export default class MjCarouselImage extends BodyComponent {
   static allowedAttributes = {
     alt: 'string',
     'border-radius': 'string',
-    'dark-src': 'string',
-    'dark-tb-border-color': 'color',
-    'dark-thumbnails-src': 'string',
     href: 'string',
     rel: 'string',
     src: 'string',
+    'src--dark': 'string',
     'support-dark-mode-image': 'enum(outlook)',
     target: 'string',
     'tb-border': 'string',
+    'tb-border-color--dark': 'color',
     'tb-border-radius': 'string',
     'thumbnails-src': 'string',
+    'thumbnails-src--dark': 'string',
     title: 'string',
   }
 
@@ -48,7 +48,7 @@ export default class MjCarouselImage extends BodyComponent {
     this.darkClasses = {}
 
     const globalData = this.context && this.context.globalData
-    const darkThumbnailBorderColor = this.getAttribute('dark-tb-border-color')
+    const darkThumbnailBorderColor = this.getAttribute('tb-border-color--dark')
 
     if (darkThumbnailBorderColor) {
       this.darkClasses.border = registerDarkModeRule(globalData, {
@@ -117,8 +117,8 @@ export default class MjCarouselImage extends BodyComponent {
       this.getAttribute('support-dark-mode-image') === 'outlook'
     const globalData = this.context && this.context.globalData
     const carouselId = this.getAttribute('carouselId')
-    const darkMainSrc = this.getAttribute('dark-src')
-    const darkThumbnailSrc = this.getAttribute('dark-thumbnails-src')
+    const darkMainSrc = this.getAttribute('src--dark')
+    const darkThumbnailSrc = this.getAttribute('thumbnails-src--dark')
 
     if (!supportOutlookDarkMode || !globalData || !darkSrc || !carouselId) {
       return null
@@ -198,7 +198,7 @@ export default class MjCarouselImage extends BodyComponent {
     )
     const thumbnailSrc = this.getAttribute('thumbnails-src') || src
     const darkThumbnailSrc =
-      this.getAttribute('dark-thumbnails-src') || this.getAttribute('dark-src')
+      this.getAttribute('thumbnails-src--dark') || this.getAttribute('src--dark')
     const outlookThumbnailClass = this.getOutlookDarkModeClass(
       'thumbnail',
       darkThumbnailSrc,
@@ -295,10 +295,10 @@ export default class MjCarouselImage extends BodyComponent {
       </div>`
     }
 
-    // Normal render with dark-src support
+    // Normal render with src--dark support
     const outlookMainClass = this.getOutlookDarkModeClass(
       'main',
-      this.getAttribute('dark-src'),
+      this.getAttribute('src--dark'),
     )
 
     const outlookLinkAttributes =
@@ -319,7 +319,7 @@ export default class MjCarouselImage extends BodyComponent {
         width: parseInt(this.context.containerWidth, 10),
         border: '0',
       },
-      this.getAttribute('dark-src'),
+      this.getAttribute('src--dark'),
       outlookMainClass,
       outlookLinkAttributes,
     )
@@ -345,8 +345,8 @@ export default class MjCarouselImage extends BodyComponent {
     const darkClasses = this.getDarkClasses()
     const supportOutlookDarkMode =
       this.getAttribute('support-dark-mode-image') === 'outlook'
-    const darkSrc = this.getAttribute('dark-src')
-    const darkThumbnailsSrc = this.getAttribute('dark-thumbnails-src')
+    const darkSrc = this.getAttribute('src--dark')
+    const darkThumbnailsSrc = this.getAttribute('thumbnails-src--dark')
 
     if (darkClasses.border) {
       emitDarkModeHeadStyle(globalData)

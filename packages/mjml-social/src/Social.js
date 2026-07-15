@@ -14,9 +14,9 @@ export default class MjSocial extends BodyComponent {
     border: 'string',
     'border-radius': 'string',
     color: 'color',
+    'color--dark': 'color',
     'container-background-color': 'color',
-    'dark-color': 'color',
-    'dark-container-background-color': 'color',
+    'container-background-color--dark': 'color',
     'font-family': 'string',
     'font-size': 'unit(px)',
     'font-style': 'string',
@@ -33,8 +33,8 @@ export default class MjSocial extends BodyComponent {
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
     'table-layout': 'enum(auto,fixed)',
-    'text-padding': 'unit(px,%){1,4}',
     'text-decoration': 'string',
+    'text-padding': 'unit(px,%){1,4}',
     'vertical-align': 'enum(top,bottom,middle)',
   }
 
@@ -59,7 +59,7 @@ export default class MjSocial extends BodyComponent {
       return this.darkContainerClass
     }
 
-    const darkContainerBg = this.attributes['dark-container-background-color']
+    const darkContainerBg = this.attributes['container-background-color--dark']
 
     if (!darkContainerBg) {
       this.darkContainerClass = null
@@ -111,7 +111,7 @@ export default class MjSocial extends BodyComponent {
       'border',
       'border-radius',
       'color',
-      'dark-color',
+      'color--dark',
       'font-family',
       'font-size',
       'font-weight',

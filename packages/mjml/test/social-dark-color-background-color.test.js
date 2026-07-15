@@ -44,8 +44,8 @@ describe('mj-social / mj-social-element dark color/background', function () {
     chai.expect(html).to.not.include('[data-ogsb] .mj-dark-')
   })
 
-  it('should apply mj-social dark-color to child text when mj-social-element has no dark-color', async function () {
-    const { html } = await mjml(wrapSocial('dark-color="#ffffff"'))
+  it('should apply mj-social color--dark to child text when mj-social-element has no color--dark', async function () {
+    const { html } = await mjml(wrapSocial('color--dark="#ffffff"'))
     const styles = headStyles(html)
     const $ = load(html)
 
@@ -54,8 +54,8 @@ describe('mj-social / mj-social-element dark color/background', function () {
     chai.expect($('a.mj-dark-1').get().length).to.be.at.least(1)
   })
 
-  it('should apply mj-social dark-container-background-color to the social container td', async function () {
-    const { html } = await mjml(wrapSocial('dark-container-background-color="#1a1a1a"'))
+  it('should apply mj-social container-background-color--dark to the social container td', async function () {
+    const { html } = await mjml(wrapSocial('container-background-color--dark="#1a1a1a"'))
     const styles = headStyles(html)
     const $ = load(html)
 
@@ -66,14 +66,14 @@ describe('mj-social / mj-social-element dark color/background', function () {
     chai.expect($('table.mj-dark-1').get().length).to.equal(0)
   })
 
-  it('should let mj-social-element dark-color override inherited mj-social dark-color', async function () {
+  it('should let mj-social-element color--dark override inherited mj-social color--dark', async function () {
     const input = `
 <mjml>
   <mj-body>
     <mj-section>
       <mj-column>
-        <mj-social dark-color="#ffffff">
-          <mj-social-element name="facebook" href="https://example.com" dark-color="#00ff00">
+        <mj-social color--dark="#ffffff">
+          <mj-social-element name="facebook" href="https://example.com" color--dark="#00ff00">
             First
           </mj-social-element>
           <mj-social-element name="twitter" href="https://example.com">
@@ -92,14 +92,14 @@ describe('mj-social / mj-social-element dark color/background', function () {
     chai.expect(styles).to.include('.mj-dark-2 { color: #ffffff !important; }')
   })
 
-  it('should keep mj-social dark-container-background-color distinct from mj-social-element dark-background-color', async function () {
+  it('should keep mj-social container-background-color--dark distinct from mj-social-element background-color--dark', async function () {
     const input = `
 <mjml>
   <mj-body>
     <mj-section>
       <mj-column>
-        <mj-social dark-container-background-color="#111111">
-          <mj-social-element name="facebook" href="https://example.com" dark-background-color="#222222">
+        <mj-social container-background-color--dark="#111111">
+          <mj-social-element name="facebook" href="https://example.com" background-color--dark="#222222">
             First
           </mj-social-element>
         </mj-social>
@@ -122,7 +122,7 @@ describe('mj-social / mj-social-element dark color/background', function () {
 
   it('should not emit [data-ogsb] dark rules by default', async function () {
     const { html } = await mjml(
-      wrapSocial('dark-container-background-color="#1a1a1a" dark-color="#ffffff"'),
+      wrapSocial('container-background-color--dark="#1a1a1a" color--dark="#ffffff"'),
     )
     const styles = headStyles(html)
 
@@ -137,7 +137,7 @@ describe('mj-social / mj-social-element dark color/background', function () {
   it('should not emit [data-ogsb] color rules when only support-dark-mode-image is outlook', async function () {
     const { html } = await mjml(
       wrapSocial(
-        'dark-container-background-color="#1a1a1a" dark-color="#ffffff"',
+        'container-background-color--dark="#1a1a1a" color--dark="#ffffff"',
         'support-dark-mode-image="outlook"',
       ),
     )

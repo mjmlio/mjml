@@ -3,8 +3,8 @@ const { load } = require('cheerio')
 
 const mjml = require('../lib')
 
-describe('mj-image dark-src head style', function () {
-  it('should not emit dark-mode head styles when no dark-src is present', async function () {
+describe('mj-image src--dark head style', function () {
+  it('should not emit dark-mode head styles when no src--dark is present', async function () {
     const input = `
 <mjml>
   <mj-body>
@@ -27,7 +27,7 @@ describe('mj-image dark-src head style', function () {
     chai.expect(html).to.not.include('.mj-dark-image-bg')
   })
 
-  it('should not emit Outlook dark-mode head styles when dark-src is present but support-dark-mode-image is not outlook', async function () {
+  it('should not emit Outlook dark-mode head styles when src--dark is present but support-dark-mode-image is not outlook', async function () {
     const darkUrl = 'https://example.com/dark.png'
 
     const input = `
@@ -35,7 +35,7 @@ describe('mj-image dark-src head style', function () {
   <mj-body>
     <mj-section>
       <mj-column>
-        <mj-image src="https://example.com/light.png" dark-src="${darkUrl}" width="100px" height="50px" />
+        <mj-image src="https://example.com/light.png" src--dark="${darkUrl}" width="100px" height="50px" />
       </mj-column>
     </mj-section>
   </mj-body>
@@ -62,7 +62,7 @@ describe('mj-image dark-src head style', function () {
   <mj-body>
     <mj-section>
       <mj-column>
-        <mj-image src="https://example.com/light.png" dark-src="${darkUrl}" support-dark-mode-image="outlook" width="100px" height="50px" />
+        <mj-image src="https://example.com/light.png" src--dark="${darkUrl}" support-dark-mode-image="outlook" width="100px" height="50px" />
       </mj-column>
     </mj-section>
   </mj-body>
@@ -99,13 +99,13 @@ describe('mj-image dark-src head style', function () {
       <mj-column>
         <mj-image
           src="https://example.com/light-one.png"
-          dark-src="${darkUrlOne}"
+          src--dark="${darkUrlOne}"
           support-dark-mode-image="outlook"
           width="100px"
         />
         <mj-image
           src="https://example.com/light-two.png"
-          dark-src="${darkUrlTwo}"
+          src--dark="${darkUrlTwo}"
           support-dark-mode-image="outlook"
           width="100px"
         />

@@ -35,7 +35,7 @@ function wrapButton(attrs = '', content = 'Click') {
 `
 }
 
-describe('mj-button dark-color / dark-background-color / dark-border-color / dark-container-background-color', function () {
+describe('mj-button color--dark / background-color--dark / border-color--dark / container-background-color--dark', function () {
   it('should not emit dark-mode styles when no dark attributes are set', async function () {
     const { html } = await mjml(wrapButton())
 
@@ -44,9 +44,9 @@ describe('mj-button dark-color / dark-background-color / dark-border-color / dar
     chai.expect(html).to.not.include('[data-ogsb] .mj-dark-')
   })
 
-  it('should apply dark-container-background-color class to the wrapper td and preserve css-class', async function () {
+  it('should apply container-background-color--dark class to the wrapper td and preserve css-class', async function () {
     const { html } = await mjml(
-      wrapButton('dark-container-background-color="#111111"'),
+      wrapButton('container-background-color--dark="#111111"'),
     )
     const styles = headStyles(html)
     const $ = load(html)
@@ -64,8 +64,8 @@ describe('mj-button dark-color / dark-background-color / dark-border-color / dar
     chai.expect($(`a.${darkClass}`).length).to.equal(0)
   })
 
-  it('should apply dark-color to the inner link, not the button td', async function () {
-    const { html } = await mjml(wrapButton('dark-color="#00ff00"'))
+  it('should apply color--dark to the inner link, not the button td', async function () {
+    const { html } = await mjml(wrapButton('color--dark="#00ff00"'))
     const styles = headStyles(html)
     const $ = load(html)
 
@@ -82,9 +82,9 @@ describe('mj-button dark-color / dark-background-color / dark-border-color / dar
     chai.expect($(`td.my-button.${darkClass}`).length).to.equal(0)
   })
 
-  it('should map dark-background-color and dark-border-color to button/content without leaking to wrapper', async function () {
+  it('should map background-color--dark and border-color--dark to button/content without leaking to wrapper', async function () {
     const { html } = await mjml(
-      wrapButton('dark-background-color="#111111" dark-border-color="#ff0000"'),
+      wrapButton('background-color--dark="#111111" border-color--dark="#ff0000"'),
     )
     const styles = headStyles(html)
     const $ = load(html)
@@ -101,10 +101,10 @@ describe('mj-button dark-color / dark-background-color / dark-border-color / dar
     chai.expect($('td.my-button').attr('class')).to.equal('my-button')
   })
 
-  it('should use a single dark class for dark-border-color and side overrides on the button td', async function () {
+  it('should use a single dark class for border-color--dark and side overrides on the button td', async function () {
     const { html } = await mjml(
       wrapButton(
-        'dark-border-color="orange" dark-border-top-color="hotpink" dark-border-bottom-color="hotpink" dark-border-left-color="purple"',
+        'border-color--dark="orange" border-top-color--dark="hotpink" border-bottom-color--dark="hotpink" border-left-color--dark="purple"',
       ),
     )
     const styles = headStyles(html)
@@ -135,7 +135,7 @@ describe('mj-button dark-color / dark-background-color / dark-border-color / dar
   it('should emit a single prefers-color-scheme block when multiple button dark rules are present', async function () {
     const { html } = await mjml(
       wrapButton(
-        'dark-container-background-color="#111111" dark-background-color="#222222" dark-border-color="#ff0000" dark-color="#00ff00"',
+        'container-background-color--dark="#111111" background-color--dark="#222222" border-color--dark="#ff0000" color--dark="#00ff00"',
       ),
     )
     const styles = headStyles(html)

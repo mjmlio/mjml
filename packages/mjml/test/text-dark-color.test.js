@@ -27,7 +27,7 @@ function wrapText(attrs, content = 'Hello dark world') {
 `
 }
 
-describe('mj-text dark-color / dark-container-background-color', function () {
+describe('mj-text color--dark / container-background-color--dark', function () {
   it('should not emit dark-mode styles when no dark attributes are set', async function () {
     const { html } = await mjml(wrapText('color="#000000"'))
 
@@ -36,9 +36,9 @@ describe('mj-text dark-color / dark-container-background-color', function () {
     chai.expect(html).to.not.include('[data-ogsb] .mj-dark-')
   })
 
-  describe('dark-color', function () {
+  describe('color--dark', function () {
     it('should emit a color rule in the dark-mode style block', async function () {
-      const { html } = await mjml(wrapText('color="#000000" dark-color="#ffffff"'))
+      const { html } = await mjml(wrapText('color="#000000" color--dark="#ffffff"'))
       const styles = headStyles(html)
       const colorClassMatch = styles.match(
         /\.(mj-dark-\d+) \{[^}]*color: #ffffff !important;[^}]*\}/,
@@ -50,7 +50,7 @@ describe('mj-text dark-color / dark-container-background-color', function () {
     })
 
     it('should apply the dark class to the inner content div', async function () {
-      const { html } = await mjml(wrapText('color="#000000" dark-color="#ffffff"'))
+      const { html } = await mjml(wrapText('color="#000000" color--dark="#ffffff"'))
       const styles = headStyles(html)
       const $ = load(html)
 
@@ -64,7 +64,7 @@ describe('mj-text dark-color / dark-container-background-color', function () {
     })
 
     it('should NOT add the dark class to the wrapper <td>', async function () {
-      const { html } = await mjml(wrapText('color="#000000" dark-color="#ffffff"'))
+      const { html } = await mjml(wrapText('color="#000000" color--dark="#ffffff"'))
       const styles = headStyles(html)
       const $ = load(html)
 
@@ -81,7 +81,7 @@ describe('mj-text dark-color / dark-container-background-color', function () {
   describe('dark-containerbackground-color', function () {
     it('should emit a background-color rule in the dark-mode style block', async function () {
       const { html } = await mjml(
-        wrapText('container-background-color="#ffffff" dark-container-background-color="#1a1a1a"'),
+        wrapText('container-background-color="#ffffff" container-background-color--dark="#1a1a1a"'),
       )
       const styles = headStyles(html)
       const containerClassMatch = styles.match(
@@ -94,7 +94,7 @@ describe('mj-text dark-color / dark-container-background-color', function () {
 
     it('should apply the dark class to the column wrapper <td>', async function () {
       const { html } = await mjml(
-        wrapText('dark-container-background-color="#1a1a1a"'),
+        wrapText('container-background-color--dark="#1a1a1a"'),
       )
       const styles = headStyles(html)
       const $ = load(html)
@@ -110,7 +110,7 @@ describe('mj-text dark-color / dark-container-background-color', function () {
 
     it('should NOT add the dark class to the inner content div', async function () {
       const { html } = await mjml(
-        wrapText('dark-container-background-color="#1a1a1a"'),
+        wrapText('container-background-color--dark="#1a1a1a"'),
       )
       const styles = headStyles(html)
       const $ = load(html)
@@ -126,7 +126,7 @@ describe('mj-text dark-color / dark-container-background-color', function () {
 
     it('should preserve an existing css-class when merging the dark class', async function () {
       const { html } = await mjml(
-        wrapText('css-class="my-text" dark-container-background-color="#1a1a1a"'),
+        wrapText('css-class="my-text" container-background-color--dark="#1a1a1a"'),
       )
       const styles = headStyles(html)
       const $ = load(html)
@@ -141,10 +141,10 @@ describe('mj-text dark-color / dark-container-background-color', function () {
     })
   })
 
-  describe('dark-color and dark-container-background-color together', function () {
+  describe('color--dark and container-background-color--dark together', function () {
     it('should assign sequential class numbers and emit both rules', async function () {
       const { html } = await mjml(
-        wrapText('dark-container-background-color="#1a1a1a" dark-color="#ffffff"'),
+        wrapText('container-background-color--dark="#1a1a1a" color--dark="#ffffff"'),
       )
       const styles = headStyles(html)
       const $ = load(html)
@@ -169,8 +169,8 @@ describe('mj-text dark-color / dark-container-background-color', function () {
   <mj-body>
     <mj-section>
       <mj-column>
-        <mj-text dark-color="#ffffff">First</mj-text>
-        <mj-text dark-color="#cccccc">Second</mj-text>
+        <mj-text color--dark="#ffffff">First</mj-text>
+        <mj-text color--dark="#cccccc">Second</mj-text>
       </mj-column>
     </mj-section>
   </mj-body>
@@ -195,9 +195,9 @@ describe('mj-text dark-color / dark-container-background-color', function () {
   <mj-body>
     <mj-section>
       <mj-column>
-        <mj-text dark-color="#ffffff">First</mj-text>
-        <mj-text dark-color="#ffffff">Second</mj-text>
-        <mj-text dark-color="#ffffff">Third</mj-text>
+        <mj-text color--dark="#ffffff">First</mj-text>
+        <mj-text color--dark="#ffffff">Second</mj-text>
+        <mj-text color--dark="#ffffff">Third</mj-text>
       </mj-column>
     </mj-section>
   </mj-body>

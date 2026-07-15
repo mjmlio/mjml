@@ -13,11 +13,9 @@ export default class MjAccordionTitle extends BodyComponent {
 
   static allowedAttributes = {
     'background-color': 'color',
+    'background-color--dark': 'color',
     color: 'color',
-    'dark-background-color': 'color',
-    'dark-color': 'color',
-    'dark-icon-wrapped-url': 'string',
-    'dark-icon-unwrapped-url': 'string',
+    'color--dark': 'color',
     'font-family': 'string',
     'font-size': 'unit(px)',
     'font-weight': 'string',
@@ -87,7 +85,7 @@ export default class MjAccordionTitle extends BodyComponent {
     // inner table, so emit one class for those table declarations.
     const tableDeclarations = []
 
-    const darkBackgroundColor = this.getAttribute('dark-background-color')
+    const darkBackgroundColor = this.getAttribute('background-color--dark')
     if (darkBackgroundColor) {
       tableDeclarations.push({
         cssProperty: 'background-color',
@@ -97,7 +95,7 @@ export default class MjAccordionTitle extends BodyComponent {
 
     // Inherited from mj-accordion-element; title borders are rendered on the
     // inner table as border-bottom.
-    const darkBorderColor = this.getAttribute('dark-border-color')
+    const darkBorderColor = this.getAttribute('border-color--dark')
     if (darkBorderColor) {
       tableDeclarations.push({
         cssProperty: 'border-bottom-color',
@@ -109,7 +107,7 @@ export default class MjAccordionTitle extends BodyComponent {
       cssDeclarations: tableDeclarations,
     })
 
-    const darkColor = this.getAttribute('dark-color')
+    const darkColor = this.getAttribute('color--dark')
     if (darkColor) {
       this.darkClasses.color = registerDarkModeRule(globalData, {
         cssProperty: 'color',
@@ -224,13 +222,13 @@ export default class MjAccordionTitle extends BodyComponent {
         ${this.renderIconImage(
           this.getAttribute('icon-wrapped-url'),
           this.getAttribute('icon-wrapped-alt'),
-          this.getAttribute('dark-icon-wrapped-url'),
+          this.getAttribute('icon-wrapped-url--dark'),
           'mj-accordion-more',
         )}
         ${this.renderIconImage(
           this.getAttribute('icon-unwrapped-url'),
           this.getAttribute('icon-unwrapped-alt'),
-          this.getAttribute('dark-icon-unwrapped-url'),
+          this.getAttribute('icon-unwrapped-url--dark'),
           'mj-accordion-less',
         )}
       </td>

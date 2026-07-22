@@ -47,14 +47,14 @@ Displays calls-to-action for various social networks with their associated logo.
 | css-class                  | string                  | class name, added to the root HTML element created |                      |
 | container-background-color | CSS color formats       | inner element background color                     |                      |
 | font-family                | string                  | font name                                          | `Ubuntu, sans-serif` |
-| font-size                  | `px`                    | font size                                          | `13px`               |
+| font-size                  | `px`                    | font size                                          | `16px`               |
 | font-style                 | string                  | font style                                         | normal               |
 | font-weight                | string                  | font weight                                        | normal               |
 | icon-height                | `px` `%`                | icon height, overrides `icon-size`                 | icon-size            |
 | icon-padding               | `px` `%`                | padding around the icons                           |                      |
 | icon-size                  | `px` `%`                | icon size (width and height)                       | `20px`               |
 | inner-padding              | `px` `%`                | social network surrounding padding                 | `null`               |
-| line-height                | `px` `%`                | space between lines                                | `22px`               |
+| line-height                | `px` `%`                | space between lines                                | `150%`               |
 | mode                       | `horizontal` `vertical` | direction of social elements                       | `horizontal`         |
 | padding                    | `px` `%`                | social padding, supports up to 4 parameters        | `10px 25px`          |
 | padding-bottom             | `px` `%`                | bottom padding                                     |                      |
@@ -104,7 +104,7 @@ Note that default icons are transparent, which allows `background-color` to actu
 | color                   | CSS color formats       | text color                                                                      | `#000`                                 |
 | css-class               | string                  | class name, added to the root HTML element created                              |                                        |
 | font-family             | string                  | font name                                                                       | `Ubuntu, sans-serif`                   |
-| font-size               | `px`                    | font size                                                                       | `13px`                                 |
+| font-size               | `px`                    | font size                                                                       | `16px`                                 |
 | font-style              | string                  | font style                                                                      |                                        |
 | font-weight             | string                  | font weight                                                                     |                                        |
 | href                    | string                  | button redirection, in URL format                                               |                                        |
@@ -112,7 +112,7 @@ Note that default icons are transparent, which allows `background-color` to actu
 | icon-padding            | `px` `%`                | padding around the icon                                                         |                                        |
 | icon-position           | `left` `right`          | sets the side of the icon                                                       |                                        |
 | icon-size               | `px` `%`                | icon size (width and height)                                                    |                                        |
-| line-height             | `px` `%`                | space between lines                                                             | `1`                                    |
+| line-height             | `px` `%`                | space between lines                                                             | `150%`                                 |
 | name                    | string                  | social network name, see supported list below                                   |                                        |
 | padding                 | `px` `%`                | social element padding, supports up to 4 parameters                             | `4px`                                  |
 | padding-bottom          | `px` `%`                | bottom padding                                                                  |                                        |

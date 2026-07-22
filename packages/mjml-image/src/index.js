@@ -23,6 +23,7 @@ export default class MjImage extends BodyComponent {
   static allowedAttributes = {
     align: 'enum(left,center,right)',
     alt: 'string',
+    'aria-hidden': 'string',
     border: 'string',
     'border-color--dark': 'color',
     'border-bottom': 'string',
@@ -63,7 +64,7 @@ export default class MjImage extends BodyComponent {
     alt: '',
     align: 'center',
     border: '0',
-    'font-size': '13px',
+    'font-size': '16px',
     height: 'auto',
     padding: '10px 25px',
   }
@@ -194,6 +195,7 @@ export default class MjImage extends BodyComponent {
         'max-height': this.getAttribute('max-height'),
         'min-width': fullWidth ? '100%' : null,
         width: '100%',
+        'font-size': this.getAttribute('font-size'),
       },
       td: {
         border: this.getAttribute('border'),
@@ -288,6 +290,7 @@ export default class MjImage extends BodyComponent {
       <img
         ${this.htmlAttributes({
           alt: this.getAttribute('alt'),
+          'aria-hidden': this.getAttribute('aria-hidden'),
           src: this.getAttribute('src'),
           srcset: this.getAttribute('srcset'),
           sizes: this.getAttribute('sizes'),

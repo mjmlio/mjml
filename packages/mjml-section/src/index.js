@@ -14,6 +14,8 @@ export default class MjSection extends BodyComponent {
   static componentName = 'mj-section'
 
   static allowedAttributes = {
+    'aria-label': 'string',
+    'aria-roledescription': 'string',
     'background-color': 'color',
     'background-color--dark': 'color',
     'background-position': 'string',
@@ -43,6 +45,7 @@ export default class MjSection extends BodyComponent {
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
+    'role': 'string',
     'text-align': 'enum(left,center,right)',
     'text-padding': 'unit(px,%){1,4}',
   }
@@ -683,6 +686,9 @@ export default class MjSection extends BodyComponent {
     return `
       <div ${this.htmlAttributes({
         class: this.isFullWidth() ? null : this.getAttribute('css-class'),
+        role: this.getAttribute('role'),
+        'aria-label': this.getAttribute('aria-label'),
+        'aria-roledescription': this.getAttribute('aria-roledescription'),
         style: 'div',
       })}>
         <table

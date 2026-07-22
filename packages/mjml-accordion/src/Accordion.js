@@ -8,6 +8,8 @@ export default class MjAccordion extends BodyComponent {
   static componentName = 'mj-accordion'
 
   static allowedAttributes = {
+    'aria-label': 'string',
+    'aria-roledescription': 'string',
     border: 'string',
     'border-color--dark': 'color',
     'container-background-color': 'color',
@@ -28,6 +30,7 @@ export default class MjAccordion extends BodyComponent {
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
+    role: 'string',
   }
 
   static defaultAttributes = {
@@ -96,7 +99,9 @@ export default class MjAccordion extends BodyComponent {
 
       @media yahoo, only screen and (min-width:0) {
         .mj-accordion-element { display:block; }
-        .mj-accordion-checkbox[type="checkbox"], .mj-accordion-less { display:none!important; }
+        .mj-accordion-checkbox[type="checkbox"] { display:block!important; position: absolute; opacity:0; pointer-events:none; }
+        .mj-accordion-checkbox[type="checkbox"]:focus-visible ~ div .mj-accordion-title { outline: 5px auto Highlight; outline-color:-webkit-focus-ring-color; }
+        .mj-accordion-less { display:none!important; }
         .mj-accordion-checkbox[type="checkbox"] + * .mj-accordion-title { cursor:pointer; touch-action:manipulation; -webkit-user-select:none; -moz-user-select:none; user-select:none; }
         .mj-accordion-checkbox[type="checkbox"] + * .mj-accordion-content { overflow:hidden; display:none; }
         .mj-accordion-checkbox[type="checkbox"] + * .mj-accordion-more { display:block!important; }
@@ -160,6 +165,9 @@ export default class MjAccordion extends BodyComponent {
           cellpadding: '0',
           class: ['mj-accordion', borderDarkClass].filter(Boolean).join(' '),
           style: 'table',
+          role: this.getAttribute('role'),
+          'aria-label': this.getAttribute('aria-label'),
+          'aria-roledescription': this.getAttribute('aria-roledescription'),
         })}
       >
         ${this.renderChildren(this.props.children, {

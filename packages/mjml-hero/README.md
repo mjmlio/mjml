@@ -86,7 +86,9 @@ Use `background-color` to provide a fallback color in case an email client doesn
 
 | attribute              | accepts                 | description                                                        | default value                 |
 | ---------------------- | ----------------------- | ------------------------------------------------------------------ | ----------------------------- |
-| background-color       | CSS color formats       | hero background color                                              | #ffffff                       |
+| aria-label             | string                  | adds an `aria-label` attribute to the hero container               |                               |
+| aria-roledescription   | string                  | adds an `aria-roledescription` attribute to the hero container     |                               |
+| background-color       | CSS color formats       | hero background color                                              | `#ffffff`                     |
 | background-height      | `px` `%`                | height of the image used, mandatory                                |                               |
 | background-position    | string                  | CSS values, i.e. `left` `center` `right` + `top` `center` `bottom` | `center`                      |
 | background-url         | string                  | absolute background in URL format                                  |                               |
@@ -106,6 +108,7 @@ Use `background-color` to provide a fallback color in case an email client doesn
 | padding-left           | `px` `%`                | hero left padding                                                  |                               |
 | padding-right          | `px` `%`                | hero right padding                                                 |                               |
 | padding-top            | `px` `%`                | hero top padding                                                   |                               |
+| role                   | string                  | adds a `role` attribute to the hero container                      |                               |
 | vertical-align         | `top` `middle` `bottom` | content vertical alignment                                         | `top`                         |
 
 <ul class="cta-container">

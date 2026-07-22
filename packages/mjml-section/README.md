@@ -37,6 +37,8 @@ The `full-width` attribute will be used to manage the background width. Setting 
 
 | attribute             | accepts                 | description                                                                                            | default value |
 | --------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------ | ------------- |
+| aria-label            | string                  | adds an `aria-label` attribute to the section container                                                |               |
+| aria-roledescription  | string                  | adds an `aria-roledescription` attribute to the section container                                      |               |
 | background-color      | CSS color formats       | section color                                                                                          |               |
 | background-position   | string                  | CSS values, i.e. `left` `center` `right` + `top` `center` `bottom` <br>(see outlook limitations below) | `top center`  |
 | background-position-x | string                  | CSS values, i.e. `left` `center` `right` <br>(see outlook limitations below)                           |               |
@@ -60,6 +62,7 @@ The `full-width` attribute will be used to manage the background width. Setting 
 | padding-left          | `px` `%`                | section left padding                                                                                   |               |
 | padding-right         | `px` `%`                | section right padding                                                                                  |               |
 | padding-top           | `px` `%`                | section top padding                                                                                    |               |
+| role                  | string                  | adds a `role` attribute to the section container                                                       |               |
 | text-align            | `left` `center` `right` | deprecated alias of `column-align` for backwards compatibility                                         | `center`      |
 
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/section">Try it live</a></p>

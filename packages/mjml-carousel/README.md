@@ -24,27 +24,30 @@ Displays a gallery of images or "carousel". Readers can interact by hovering and
 
 #### Attributes
 
-| attribute                  | accepts                        | description                                            | default value                     |
-| -------------------------- | ------------------------------ | ------------------------------------------------------ | --------------------------------- |
-| align                      | `left` `center` `right`        | horizontal alignment                                   | `center`                          |
-| border-radius              | string                         | border radius                                          | `6px`                             |
-| container-background-color | CSS color formats              | column background color                                |                                   |
-| css-class                  | string                         | class name, added to the root HTML element created     |                                   |
-| icon-width                 | `px` `%`                       | width of the icons on left and right of the main image | `44px`                            |
-| left-icon                  | string                         | icon on the left of the main image                     | `https://i.imgur.com/xTh3hln.png` |
-| padding                    | `px` `%`                       | carousel padding, supports up to 4 parameters          |                                   |
-| padding-bottom             | `px` `%`                       | carousel bottom padding                                |                                   |
-| padding-left               | `px` `%`                       | carousel left padding                                  |                                   |
-| padding-right              | `px` `%`                       | carousel right padding                                 |                                   |
-| padding-top                | `px` `%`                       | carousel top padding                                   |                                   |
-| right-icon                 | string                         | icon on the right of the main image                    | `https://i.imgur.com/os7o9kz.png` |
-| support-dark-mode-image    | `outlook`                      | enables Outlook dark-mode support for carousel icons   |                                   |
-| tb-border                  | string                         | border of the thumbnails in CSS border format          | `2px solid transparent`           |
-| tb-border-radius           | string                         | border-radius of the thumbnails                        | `6px`                             |
-| tb-hover-border-color      | CSS color formats              | border color of the hovered thumbnail                  | `#fead0d`                         |
-| tb-selected-border-color   | CSS color formats              | border color of the selected thumbnail                 | `#ccc`                            |
-| tb-width                   | `px` `%`                       | thumbnail width                                        |                                   |
-| thumbnails                 | `visible` `hidden` `supported` | display the thumbnails                                 | `hidden`                          |
+| attribute                  | accepts                        | description                                                     | default value                     |
+| -------------------------- | ------------------------------ | --------------------------------------------------------------- | --------------------------------- |
+| align                      | `left` `center` `right`        | horizontal alignment                                            | `center`                          |
+| aria-label                 | string                         | adds an `aria-label` attribute to the slide container           |                                   |
+| aria-roledescription       | string                         | adds an `aria-roledescription` attribute to the slide container |                                   |
+| border-radius              | string                         | border radius                                                   | `6px`                             |
+| container-background-color | CSS color formats              | column background color                                         |                                   |
+| css-class                  | string                         | class name, added to the root HTML element created              |                                   |
+| icon-width                 | `px` `%`                       | width of the icons on left and right of the main image          | `44px`                            |
+| left-icon                  | string                         | icon on the left of the main image                              | `https://i.imgur.com/xTh3hln.png` |
+| padding                    | `px` `%`                       | carousel padding, supports up to 4 parameters                   |                                   |
+| padding-bottom             | `px` `%`                       | carousel bottom padding                                         |                                   |
+| padding-left               | `px` `%`                       | carousel left padding                                           |                                   |
+| padding-right              | `px` `%`                       | carousel right padding                                          |                                   |
+| padding-top                | `px` `%`                       | carousel top padding                                            |                                   |
+| right-icon                 | string                         | icon on the right of the main image                             | `https://i.imgur.com/os7o9kz.png` |
+| role                       | string                         | adds a `role` attribute to the slide container                  |                                   |
+| support-dark-mode-image    | `outlook`                      | enables Outlook dark-mode support for carousel icons            |                                   |
+| tb-border                  | string                         | border of the thumbnails in CSS border format                   | `2px solid transparent`           |
+| tb-border-radius           | string                         | border-radius of the thumbnails                                 | `6px`                             |
+| tb-hover-border-color      | CSS color formats              | border color of the hovered thumbnail                           | `#fead0d`                         |
+| tb-selected-border-color   | CSS color formats              | border color of the selected thumbnail                          | `#ccc`                            |
+| tb-width                   | `px` `%`                       | thumbnail width                                                 |                                   |
+| thumbnails                 | `visible` `hidden` `supported` | display the thumbnails                                          | `hidden`                          |
 
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/carousel">Try it live</a></p>
 
@@ -78,20 +81,23 @@ Enables you to add and style the images in the carousel.
 
 #### Attributes
 
-| attribute               | accepts   | description                                           | default value |
-| ----------------------- | --------- | ----------------------------------------------------- | ------------- |
-| alt                     | string    | image description                                     | `''`          |
-| border-radius           | string    | border radius of the main image                       |               |
-| css-class               | string    | class name, added to the root HTML element created    |               |
-| href                    | string    | link to redirect to on click, <br>URL format          |               |
-| rel                     | string    | specify the rel attribute                             |               |
-| src                     | string    | URL format                                            |               |
-| support-dark-mode-image | `outlook` | enables Outlook dark-mode support for carousel images |               |
-| target                  | string    | link target on click                                  |               |
-| tb-border               | string    | CSS border format                                     |               |
-| tb-border-radius        | string    | border radius of the thumbnail                        |               |
-| thumbnails-src          | string    | specify a different thumbnail image in URL format     |               |
-| title                   | string    | tooltip & accessibility                               |               |
+| attribute               | accepts   | description                                                     | default value |
+| ----------------------- | --------- | --------------------------------------------------------------- | ------------- |
+| alt                     | string    | image description                                               | `''`          |
+| aria-label              | string    | adds an `aria-label` attribute to the slide container           | `slide`       |
+| aria-roledescription    | string    | adds an `aria-roledescription` attribute to the slide container | `X of X`      |
+| border-radius           | string    | border radius of the main image                                 |               |
+| css-class               | string    | class name, added to the root HTML element created              |               |
+| href                    | string    | link to redirect to on click, <br>URL format                    |               |
+| rel                     | string    | specify the rel attribute                                       |               |
+| role                    | string    | adds a `role` attribute to the slide container                  | `group`       |
+| src                     | string    | URL format                                                      |               |
+| support-dark-mode-image | `outlook` | enables Outlook dark-mode support for carousel images           |               |
+| target                  | string    | link target on click                                            |               |
+| tb-border               | string    | CSS border format                                               |               |
+| tb-border-radius        | string    | border radius of the thumbnail                                  |               |
+| thumbnails-src          | string    | specify a different thumbnail image in URL format               |               |
+| title                   | string    | tooltip & accessibility                                         |               |
 
 ##### Modifiers
 

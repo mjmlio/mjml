@@ -11,6 +11,8 @@ export default class MjColumn extends BodyComponent {
   static componentName = 'mj-column'
 
   static allowedAttributes = {
+    'aria-label': 'string',
+    'aria-roledescription': 'string',
     'background-color': 'color',
     'background-color--dark': 'color',
     border: 'string',
@@ -43,6 +45,7 @@ export default class MjColumn extends BodyComponent {
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
+    role: 'string',
     'vertical-align': 'enum(top,bottom,middle)',
     width: 'unit(px,%)',
   }
@@ -726,6 +729,9 @@ export default class MjColumn extends BodyComponent {
     return `
       <div
         ${this.htmlAttributes({
+          role: this.getAttribute('role'),
+          'aria-label': this.getAttribute('aria-label'),
+          'aria-roledescription': this.getAttribute('aria-roledescription'),
           class: classesName,
           style: 'div',
         })}

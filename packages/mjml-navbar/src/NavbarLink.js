@@ -36,8 +36,8 @@ export default class MjNavbarLink extends BodyComponent {
   static defaultAttributes = {
     color: '#000000',
     'font-family': 'Ubuntu, sans-serif',
-    'font-size': '13px',
-    'line-height': '22px',
+    'font-size': '16px',
+    'line-height': '150%',
     padding: '15px 10px',
     'text-decoration': 'none',
     'text-transform': 'uppercase',
@@ -81,6 +81,7 @@ export default class MjNavbarLink extends BodyComponent {
         'font-weight': this.getAttribute('font-weight'),
         'letter-spacing': this.getAttribute('letter-spacing'),
         'line-height': this.getAttribute('line-height'),
+        'mso-line-height-alt': '120%',
         'text-decoration': this.getAttribute('text-decoration'),
         'text-transform': this.getAttribute('text-transform'),
         padding: this.getAttribute('padding'),

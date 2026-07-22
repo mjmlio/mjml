@@ -12,6 +12,8 @@ export default class MjNavbar extends BodyComponent {
 
   static allowedAttributes = {
     align: 'enum(left,center,right)',
+    'aria-label': 'string',
+    'aria-roledescription': 'string',
     'base-url': 'string',
     hamburger: 'string',
     'ico-align': 'enum(left,center,right)',
@@ -29,11 +31,13 @@ export default class MjNavbar extends BodyComponent {
     'ico-padding-bottom': 'unit(px,%)',
     'ico-text-decoration': 'string',
     'ico-text-transform': 'string',
+    'responsive-mode': 'enum(block)',
     padding: 'unit(px,%){1,4}',
     'padding-left': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
     'padding-bottom': 'unit(px,%)',
+    role: 'string',
   }
 
   static defaultAttributes = {
@@ -52,6 +56,8 @@ export default class MjNavbar extends BodyComponent {
   }
 
   darkClasses = null
+
+  responsiveModeIndex = null
 
   getDarkClasses() {
     if (this.darkClasses !== null) {
@@ -78,25 +84,17 @@ export default class MjNavbar extends BodyComponent {
 
     const hasHamburger = this.getAttribute('hamburger') === 'hamburger'
 
-    if (!hasHamburger) {
-      emitDarkModeHeadStyle(globalData)
-      return ''
-    }
+    let hamburgerCss = ''
 
-    const includeStyles =
-      !globalData || globalData.navbarHamburgerStyleEmitted === false
+    if (hasHamburger) {
+      const includeStyles =
+        !globalData || globalData.navbarHamburgerStyleEmitted === false
 
-    if (!includeStyles) {
-      emitDarkModeHeadStyle(globalData)
-      return ''
-    }
-
-    if (globalData) {
-      globalData.navbarHamburgerStyleEmitted = true
-    }
-
-    emitDarkModeHeadStyle(globalData)
-    return `
+      if (includeStyles) {
+        if (globalData) {
+          globalData.navbarHamburgerStyleEmitted = true
+        }
+        hamburgerCss = `
       noinput.mj-menu-checkbox { display:block!important; max-height:none!important; visibility:visible!important; }
       @media only screen and (max-width:${makeLowerBreakpoint(breakpoint)}) {
         .mj-menu-checkbox[type="checkbox"] ~ .mj-inline-links,
@@ -107,6 +105,32 @@ export default class MjNavbar extends BodyComponent {
         .mj-menu-checkbox[type="checkbox"] ~ .mj-menu-trigger { display:block!important; max-width:none!important; max-height:none!important; font-size:inherit!important; }
       }
     `
+      }
+    }
+
+    emitDarkModeHeadStyle(globalData)
+
+    const { responsiveModeIndex } = this
+    if (responsiveModeIndex != null) {
+      const allIndices = (globalData && globalData.navbarresponsiveModeIndices) || [responsiveModeIndex]
+      const alreadyEmitted = globalData && globalData.navbarresponsiveModeStyleEmitted
+
+      if (!alreadyEmitted) {
+        if (globalData) {
+          globalData.navbarresponsiveModeStyleEmitted = true
+        }
+        const selectors = allIndices
+          .map((n) => `        .mj-inline-links-${n} .mj-link`)
+          .join(',\n')
+        return `${hamburgerCss}
+      @media only screen and (max-width:${makeLowerBreakpoint(breakpoint)}) {
+${selectors} { display: block !important }
+      }
+    `
+      }
+    }
+
+    return hamburgerCss
   }
 
   getStyles() {
@@ -218,6 +242,23 @@ export default class MjNavbar extends BodyComponent {
   }
 
   render() {
+    if (
+      this.getAttribute('responsive-mode') === 'block' &&
+      this.getAttribute('hamburger') !== 'hamburger' &&
+      this.responsiveModeIndex == null
+    ) {
+      const globalData = this.context && this.context.globalData
+      if (globalData) {
+        if (!Array.isArray(globalData.navbarresponsiveModeIndices)) {
+          globalData.navbarresponsiveModeIndices = []
+        }
+        this.responsiveModeIndex = globalData.navbarresponsiveModeIndices.length + 1
+        globalData.navbarresponsiveModeIndices.push(this.responsiveModeIndex)
+      } else {
+        this.responsiveModeIndex = 1
+      }
+    }
+
     const supportOutlookClassic =
       !this.context ||
       !this.context.globalData ||
@@ -242,7 +283,12 @@ export default class MjNavbar extends BodyComponent {
         }
         <div
           ${this.htmlAttributes({
-            class: 'mj-inline-links',
+            role: this.getAttribute('role'),
+            'aria-label': this.getAttribute('aria-label'),
+            'aria-roledescription': this.getAttribute('aria-roledescription'),
+            class: ['mj-inline-links', this.responsiveModeIndex != null ? `mj-inline-links-${this.responsiveModeIndex}` : null]
+              .filter(Boolean)
+              .join(' '),
             style: this.htmlAttributes('div'),
           })}
         >

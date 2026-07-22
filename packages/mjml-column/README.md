@@ -41,6 +41,8 @@ Every single column has to contain something because they are responsive contain
 
 | attribute              | accepts                 | description                                                                              | default attributes                             |
 | ---------------------- | ----------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------- |
+| aria-label             | string                  | adds an `aria-label` attribute to the column container                                   |                                                |
+| aria-roledescription   | string                  | adds an `aria-roledescription` attribute to the column container                         |                                                |
 | background-color       | CSS color formats       | background color for a column                                                            |                                                |
 | border                 | string                  | CSS border format                                                                        |                                                |
 | border-bottom          | string                  | CSS border format                                                                        |                                                |
@@ -62,6 +64,7 @@ Every single column has to contain something because they are responsive contain
 | padding-left           | `px` `%`                | column left padding                                                                      |                                                |
 | padding-right          | `px` `%`                | column right padding                                                                     |                                                |
 | padding-top            | `px` `%`                | column top padding                                                                       |                                                |
+| role                   | string                  | adds a `role` attribute to the column container                                          |                                                |
 | width                  | `px` `%`                | column width                                                                             | (100 / number of non-raw elements in section)% |
 | vertical-align         | `top` `middle` `bottom` | vertical alignment.<br>Note: `middle` only applies when all `mj-column` instances use it | `top`                                          |
 

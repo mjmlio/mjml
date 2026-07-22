@@ -8,6 +8,7 @@ export default class MjSpacer extends BodyComponent {
   static componentName = 'mj-spacer'
 
   static allowedAttributes = {
+    'aria-hidden': 'string',
     border: 'string',
     'border-bottom': 'string',
     'border-left': 'string',
@@ -24,6 +25,7 @@ export default class MjSpacer extends BodyComponent {
   }
 
   static defaultAttributes = {
+    'aria-hidden': 'true',
     height: '20px',
   }
 
@@ -80,6 +82,7 @@ export default class MjSpacer extends BodyComponent {
     return `
       <div
         ${this.htmlAttributes({
+          'aria-hidden': this.getAttribute('aria-hidden'),
           style: 'div',
         })}
       >&#8202;</div>

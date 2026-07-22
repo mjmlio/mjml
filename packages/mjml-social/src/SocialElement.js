@@ -154,8 +154,8 @@ export default class MjSocialElement extends BodyComponent {
     border: '0',
     'border-radius': '3px',
     'font-family': 'Ubuntu, sans-serif',
-    'font-size': '13px',
-    'line-height': '1',
+    'font-size': '16px',
+    'line-height': '150%',
     padding: '4px',
     'text-padding': '4px 4px 4px 0',
     'text-decoration': 'none',
@@ -255,6 +255,7 @@ export default class MjSocialElement extends BodyComponent {
         'font-style': this.getAttribute('font-style'),
         'font-family': this.getAttribute('font-family'),
         'line-height': this.getAttribute('line-height'),
+        'mso-line-height-alt': '120%',
         'text-decoration': this.getAttribute('text-decoration'),
       },
       outlookDarkBackground: {

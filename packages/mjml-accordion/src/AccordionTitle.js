@@ -27,7 +27,7 @@ export default class MjAccordionTitle extends BodyComponent {
   }
 
   static defaultAttributes = {
-    'font-size': '13px',
+    'font-size': '16px',
     padding: '16px',
   }
 

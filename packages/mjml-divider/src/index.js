@@ -9,6 +9,7 @@ export default class MjDivider extends BodyComponent {
 
   static allowedAttributes = {
     align: 'enum(left,center,right)',
+    'aria-hidden': 'string',
     'border-color': 'color',
     'border-color--dark': 'color',
     'border-style': 'string',
@@ -24,6 +25,7 @@ export default class MjDivider extends BodyComponent {
   }
 
   static defaultAttributes = {
+    'aria-hidden': 'true',
     'border-color': '#000000',
     'border-style': 'solid',
     'border-width': '4px',
@@ -84,21 +86,29 @@ export default class MjDivider extends BodyComponent {
     } else if (this.getAttribute('align') === 'right') {
       computeAlign = '0px 0px 0px auto'
     }
-    const p = {
+    const tableHr = {
       'border-top': ['style', 'width', 'color']
         .map((attr) => this.getAttribute(`border-${attr}`))
         .join(' '),
-      'font-size': '1px',
       margin: computeAlign,
       width: this.getAttribute('width'),
       'max-width': '100%',
     }
 
+    const hr = {
+      border: '0',
+      'border-top': ['style', 'width', 'color']
+        .map((attr) => this.getAttribute(`border-${attr}`))
+        .join(' '),
+      background: '0',
+      height: '0',
+      margin: computeAlign,
+      'max-width': this.getAttribute('width'),
+    }
+
     return {
-      p,
-      table: {
-        ...p,
-      },
+      hr,
+      tableHr,
     }
   }
 
@@ -115,32 +125,31 @@ export default class MjDivider extends BodyComponent {
       <table
         ${this.htmlAttributes({
           align: this.getAttribute('align'),
+          'aria-hidden': this.getAttribute('aria-hidden'),
           border: '0',
           cellpadding: '0',
           class: borderDarkClass,
           cellspacing: '0',
-          style: 'table',
+          style: 'tableHr',
           role: 'none',
           width: typeof this.getAttribute('width') === 'string' ? this.getAttribute('width').replace(/px$/, '') : this.getAttribute('width'),
         })}
       >
         <tr>
-          <td style="height:0;line-height:0;">
-            &nbsp;
-          </td>
+          <td><hr style="border:0;background:0;height:0;margin:0;" noshade /></td>
         </tr>
       </table>
     `
     }
 
     return `
-      <p
+      <hr
         ${this.htmlAttributes({
+          'aria-hidden': this.getAttribute('aria-hidden'),
           class: borderDarkClass,
-          style: 'p',
+          style: 'hr',
         })}
-      >
-      </p>
+      />
     `
   }
 }

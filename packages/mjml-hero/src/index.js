@@ -15,6 +15,8 @@ export default class MjHero extends BodyComponent {
   static componentName = 'mj-hero'
 
   static allowedAttributes = {
+    'aria-label': 'string',
+    'aria-roledescription': 'string',
     'background-color': 'color',
     'background-color--dark': 'color',
     'background-height': 'unit(px,%)',
@@ -37,6 +39,7 @@ export default class MjHero extends BodyComponent {
     'padding-left': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
+    role: 'string',
     'vertical-align': 'enum(top,bottom,middle)',
   }
 
@@ -403,6 +406,9 @@ export default class MjHero extends BodyComponent {
       `)}
       <div
         ${this.htmlAttributes({
+          role: this.getAttribute('role'),
+          'aria-label': this.getAttribute('aria-label'),
+          'aria-roledescription': this.getAttribute('aria-roledescription'),
           align: this.getAttribute('align'),
           class: this.getAttribute('css-class'),
           style: 'div',

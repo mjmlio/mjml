@@ -56,11 +56,11 @@ describe('Beautify output', function () {
         }),
       expectedPlain: [
         '<div',
-        '         style="font-family:Ubuntu, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;"',
+        '         style="font-family:Ubuntu, sans-serif;font-size:16px;line-height:150%;mso-line-height-alt:120%;text-align:left;color:#000000;"',
         '      >Hello beautify</div>',
       ].join('\n'),
       expectedBeautified:
-        '<div style="font-family:Ubuntu, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;">Hello beautify</div>',
+        '<div style="font-family:Ubuntu, sans-serif;font-size:16px;line-height:150%;mso-line-height-alt:120%;text-align:left;color:#000000;">Hello beautify</div>',
     },
     {
       name: 'reformats outlook conditional blocks without changing their content',

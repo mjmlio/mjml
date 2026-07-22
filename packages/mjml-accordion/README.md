@@ -102,20 +102,23 @@ Creates an accordion title/text pair. An accordion can have any number of these 
 
 ##### Attributes
 
-| attribute          | accepts                 | description                                                                               | default value |
-| ------------------ | ----------------------- | ----------------------------------------------------------------------------------------- | ------------- |
-| background-color   | CSS color formats       | background color                                                                          |               |
-| border             | string                  | CSS border format. <br>affects each horizontal border in the accordion except the top one |               |
-| css-class          | string                  | class name, added to the root HTML element created                                        |               |
-| font-family        | string                  | font                                                                                      |               |
-| icon-align         | `top` `middle` `bottom` | icon alignment                                                                            |               |
-| icon-height        | `px` `%`                | icon width                                                                                | `32px`        |
-| icon-position      | `left` `right`          | postion of icon                                                                           |               |
-| icon-unwrapped-alt | string                  | alt text when accordion is unwrapped                                                      |               |
-| icon-unwrapped-url | string                  | icon when accordion is unwrapped                                                          |               |
-| icon-width         | `px` `%`                | icon height                                                                               | `32px`        |
-| icon-wrapped-alt   | string                  | alt text when accordion is wrapped                                                        |               |
-| icon-wrapped-url   | string                  | icon when accordion is wrapped                                                            |               |
+| attribute            | accepts                 | description                                                                               | default value |
+| -------------------- | ----------------------- | ----------------------------------------------------------------------------------------- | ------------- |
+| aria-label           | string                  | adds an `aria-label` attribute to the slide container                                     |               |
+| aria-roledescription | string                  | adds an `aria-roledescription` attribute to the slide container                           |               |
+| background-color     | CSS color formats       | background color                                                                          |               |
+| border               | string                  | CSS border format. <br>affects each horizontal border in the accordion except the top one |               |
+| css-class            | string                  | class name, added to the root HTML element created                                        |               |
+| font-family          | string                  | font                                                                                      |               |
+| icon-align           | `top` `middle` `bottom` | icon alignment                                                                            |               |
+| icon-height          | `px` `%`                | icon width                                                                                | `32px`        |
+| icon-position        | `left` `right`          | postion of icon                                                                           |               |
+| icon-unwrapped-alt   | string                  | alt text when accordion is unwrapped                                                      |               |
+| icon-unwrapped-url   | string                  | icon when accordion is unwrapped                                                          |               |
+| icon-width           | `px` `%`                | icon height                                                                               | `32px`        |
+| icon-wrapped-alt     | string                  | alt text when accordion is wrapped                                                        |               |
+| icon-wrapped-url     | string                  | icon when accordion is wrapped                                                            |               |
+| role                 | string                  | adds a `role` attribute to the slide container                                            |               |
 
 ##### Modifiers
 
@@ -145,7 +148,7 @@ Displays the title in a title/text pair.
 | color            | CSS color formats | text color                                           |               |
 | css-class        | string            | class name, added to the root HTML element created   |               |
 | font-family      | string            | font family                                          |               |
-| font-size        | `px`              | font size                                            | `13px`        |
+| font-size        | `px`              | font size                                            | `16px`        |
 | font-weight      | string            | text thickness                                       |               |
 | padding          | `px` `%`          | accordion title padding, supports up to 4 parameters | `16px`        |
 | padding-bottom   | `px` `%`          | accordion title bottom padding                       |               |
@@ -181,15 +184,16 @@ Displays the text in a title/text pair.
 | color            | CSS color formats | text color                                          |               |
 | css-class        | string            | class name, added to the root HTML element created  |               |
 | font-family      | string            | font family                                         |               |
-| font-size        | `px`              | font size                                           | `13px`        |
+| font-size        | `px`              | font size                                           | `16px`        |
 | font-weight      | string            | text thickness                                      |               |
 | letter-spacing   | `px` `em`         | letter spacing                                      |               |
-| line-height      | `px` `%`          | space between the lines                             | `1`           |
+| line-height      | `px` `%`          | space between the lines                             | `150%`        |
 | padding          | `px` `%`          | accordion text padding, supports up to 4 parameters | `16px`        |
 | padding-bottom   | `px` `%`          | accordion text bottom padding                       |               |
 | padding-left     | `px` `%`          | accordion text left padding                         |               |
 | padding-right    | `px` `%`          | accordion text right padding                        |               |
 | padding-top      | `px` `%`          | accordion text top padding                          |               |
+| role             | string            | adds a `role` attribute to the slide container      | `region`      |
 
 ##### Modifiers
 

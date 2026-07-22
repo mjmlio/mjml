@@ -22,6 +22,7 @@ Note that if no width is provided, the image will use the parent column width.
 | -------------------------- | ----------------------- | ------------------------------------------------------------------------------- | --------------------- |
 | align                      | `left` `center` `right` | image alignment                                                                 | `center`              |
 | alt                        | string                  | image description                                                               | `''`                  |
+| aria-hidden                | string                  | adds an `aria-hidden` attribute to the rendered image                           |                       |
 | border                     | string                  | CSS border format                                                               | `0`                   |
 | border-bottom              | string                  | CSS border format                                                               |                       |
 | border-left                | string                  | CSS border format                                                               |                       |
@@ -31,7 +32,7 @@ Note that if no width is provided, the image will use the parent column width.
 | container-background-color | CSS color formats       | inner element background color                                                  |                       |
 | css-class                  | string                  | class name, added to the root HTML element created                              |                       |
 | fluid-on-mobile            | boolean                 | if `true`, will be full width on mobile even if `width` is set                  |                       |
-| font-size                  | `px`                    | size of the alt text when image is not rendered                                 | `13px`                |
+| font-size                  | `px`                    | size of the alt text when image is not rendered                                 | `16px`                |
 | height                     | `px`                    | image height                                                                    | `auto`                |
 | href                       | string                  | link to redirect to on click, in URL format                                     |                       |
 | max-height                 | `px` `%`                | specify the maximum height of an image                                          |                       |

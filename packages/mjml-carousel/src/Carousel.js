@@ -13,6 +13,8 @@ export default class MjCarousel extends BodyComponent {
 
   static allowedAttributes = {
     align: 'enum(left,center,right)',
+    'aria-label': 'string',
+    'aria-roledescription': 'string',
     'border-radius': 'string',
     'container-background-color': 'color',
     'container-background-color--dark': 'color',
@@ -26,6 +28,7 @@ export default class MjCarousel extends BodyComponent {
     'padding-right': 'unit(px,%)',
     'right-icon': 'string',
     'right-icon--dark': 'string',
+    role: 'string',
     'support-dark-mode-image': 'enum(outlook)',
     'tb-border': 'string',
     'tb-border-color--dark': 'color',
@@ -107,6 +110,28 @@ export default class MjCarousel extends BodyComponent {
     }
 
     if (!length) return ''
+
+    const focusVisibleThumbnailSelectors = range(0, length)
+      .map(
+        (i) =>
+          `.mj-carousel-${carouselId}-radio-${i + 1}:focus-visible ${repeat(
+            '+ * ',
+            length - i - 1,
+          )}+ .mj-carousel-content .mj-carousel-${carouselId}-thumbnail-${
+            i + 1
+          }`,
+      )
+      .join(',\n')
+
+    const hoverHideImageSelectors = range(0, length)
+      .map(
+        (i) =>
+          `.mj-carousel-${carouselId}-thumbnail:hover ${repeat(
+            '+ * ',
+            length - i - 1,
+          )}+ .mj-carousel-main .mj-carousel-image`,
+      )
+      .join(',\n')
 
     const sharedCss = `
     .mj-carousel {
@@ -215,15 +240,11 @@ export default class MjCarousel extends BodyComponent {
       .join(',')} {
       display: inline-block !important;
     }
-    ${range(0, length)
-      .map(
-        (i) =>
-          `.mj-carousel-${carouselId}-thumbnail:hover ${repeat(
-            '+ * ',
-            length - i - 1,
-          )}+ .mj-carousel-main .mj-carousel-image`,
-      )
-      .join(',')} {
+    ${focusVisibleThumbnailSelectors} {
+      outline: 5px auto Highlight;
+      outline-color: -webkit-focus-ring-color;
+    }
+    ${hoverHideImageSelectors} {
       display: none !important;
     }
     .mj-carousel-${carouselId}-thumbnail:hover {
@@ -284,6 +305,16 @@ export default class MjCarousel extends BodyComponent {
     }
 
     const instanceFallback = `
+      @media yahoo, only screen and (min-width:0) {
+          ${range(1, length + 1)
+            .map((i) => `.mj-carousel-${carouselId}-radio-${i}`)
+            .join(',\n          ')} {
+              display: block !important;
+              position: absolute;
+              opacity: 0;
+          }
+      }
+
       @media screen yahoo {
           .mj-carousel-${this.carouselId}-icons-cell {
               display: none !important;
@@ -512,6 +543,7 @@ export default class MjCarousel extends BodyComponent {
   getChildContext() {
     return {
       ...this.context,
+      carouselSlidesCount: this.props.children.length,
       thumbnails: this.getAttribute('thumbnails'),
     }
   }
@@ -523,6 +555,9 @@ export default class MjCarousel extends BodyComponent {
         <div
           ${this.htmlAttributes({
             class: 'mj-carousel',
+            role: this.getAttribute('role'),
+            'aria-label': this.getAttribute('aria-label'),
+            'aria-roledescription': this.getAttribute('aria-roledescription'),
           })}
         >
           ${this.generateRadios()}

@@ -12,9 +12,12 @@ export default class MjGroup extends BodyComponent {
   static componentName = 'mj-group'
 
   static allowedAttributes = {
+    'aria-label': 'string',
+    'aria-roledescription': 'string',
     'background-color': 'color',
     'background-color--dark': 'color',
     direction: 'enum(ltr,rtl)',
+    role: 'string',
     'vertical-align': 'enum(top,bottom,middle)',
     width: 'unit(px,%)',
   }
@@ -184,6 +187,9 @@ export default class MjGroup extends BodyComponent {
       <div
         ${this.htmlAttributes({
           class: classesName,
+          role: this.getAttribute('role'),
+          'aria-label': this.getAttribute('aria-label'),
+          'aria-roledescription': this.getAttribute('aria-roledescription'),
           style: 'div',
         })}
       >

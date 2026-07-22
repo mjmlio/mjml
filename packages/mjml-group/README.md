@@ -52,13 +52,16 @@ Prevent adjacent `mj-column` instances from stacking on mobile by wrapping them 
 
 #### Attributes
 
-| attribute        | accepts           | description                                        | default attributes                             |
-| ---------------- | ----------------- | -------------------------------------------------- | ---------------------------------------------- |
-| background-color | CSS color formats | background color for a group                       |                                                |
-| css-class        | string            | class name, added to the root HTML element created |                                                |
-| direction        | `ltr` `rtl`       | set the display order of direct children           |                                                |
-| vertical-align   | string            | CSS values, e.g. `middle` `top` `bottom`           |                                                |
-| width            | `px` `%`          | group width                                        | (100 / number of non-raw elements in section)% |
+| attribute             | accepts           | description                                                     | default attributes                             |
+| --------------------- | ----------------- | --------------------------------------------------------------- | ---------------------------------------------- |
+| aria-label            | string            | adds an `aria-label` attribute to the group container           |                                                |
+| aria-roledescription  | string            | adds an `aria-roledescription` attribute to the group container |                                                |
+| background-color      | CSS color formats | background color for a group                                    |                                                |
+| css-class             | string            | class name, added to the root HTML element created              |                                                |
+| direction             | `ltr` `rtl`       | set the display order of direct children                        |                                                |
+| role                  | string            | adds a `role` attribute to the group container                  |                                                |
+| vertical-align        | string            | CSS values, e.g. `middle` `top` `bottom`                        |                                                |
+| width                 | `px` `%`          | group width                                                     | (100 / number of non-raw elements in section)% |
 
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/group">Try it live</a></p>
 

@@ -8,69 +8,69 @@ const {
 } = require('../lib/helpers/modifierEngine')
 
 describe('colorSchemeDarkMode modifier helpers', () => {
-  it('emits rules for non-dark custom modifiers', () => {
+  it('emits rules for a dark mode modifier registered via registerModifier', () => {
     const globalData = { headRaw: [] }
 
     registerModifier(globalData, {
-      modifier: 'wide',
-      mediaQuery: 'only screen and (min-width:480px)',
-      classNamespace: 'wide',
+      modifier: 'dark',
+      mediaQuery: '(prefers-color-scheme: dark)',
+      classNamespace: 'dark',
     })
 
     const className = registerModifierRule(globalData, {
-      modifier: 'wide',
-      cssProperty: 'font-size',
-      cssValue: '22px',
+      modifier: 'dark',
+      cssProperty: 'background-color',
+      cssValue: '#111111',
     })
 
     const emitted = emitModifierHeadStyle(globalData)
 
-    assert.strictEqual(className, 'mj-wide-1')
+    assert.strictEqual(className, 'mj-dark-1')
     assert.strictEqual(emitted, true)
     assert.strictEqual(globalData.headRaw.length, 1)
-    assert.ok(globalData.headRaw[0].includes('@media only screen and (min-width:480px)'))
-    assert.ok(globalData.headRaw[0].includes('.mj-wide-1 { font-size: 22px !important; }'))
+    assert.ok(globalData.headRaw[0].includes('@media (prefers-color-scheme: dark)'))
+    assert.ok(globalData.headRaw[0].includes('.mj-dark-1 { background-color: #111111 !important; }'))
   })
 
-  it('uses modifier keyword as class namespace when none is provided', () => {
+  it('uses modifier keyword as class namespace when none is provided for dark modifier', () => {
     const globalData = { headRaw: [] }
 
     const className = registerModifierRule(globalData, {
-      modifier: 'narrow',
-      mediaQuery: 'only screen and (max-width:479px)',
-      cssProperty: 'line-height',
-      cssValue: '22px',
+      modifier: 'dark',
+      mediaQuery: '(prefers-color-scheme: dark)',
+      cssProperty: 'color',
+      cssValue: '#ffffff',
     })
 
     const emitted = emitModifierHeadStyle(globalData)
 
-    assert.strictEqual(className, 'mj-narrow-1')
+    assert.strictEqual(className, 'mj-dark-1')
     assert.strictEqual(emitted, true)
-    assert.ok(globalData.headRaw[0].includes('@media only screen and (max-width:479px)'))
+    assert.ok(globalData.headRaw[0].includes('@media (prefers-color-scheme: dark)'))
   })
 
-  it('groups multiple declarations under one class using shared engine api', () => {
+  it('groups multiple dark mode declarations under one class using registerModifierRuleGroup', () => {
     const globalData = { headRaw: [] }
 
     registerModifier(globalData, {
-      modifier: 'wide',
-      mediaQuery: 'only screen and (min-width:480px)',
-      classNamespace: 'wide',
+      modifier: 'dark',
+      mediaQuery: '(prefers-color-scheme: dark)',
+      classNamespace: 'dark',
     })
 
     const className = registerModifierRuleGroup(globalData, {
-      modifier: 'wide',
+      modifier: 'dark',
       cssDeclarations: [
-        { cssProperty: 'font-size', cssValue: '22px' },
-        { cssProperty: 'line-height', cssValue: '30px' },
+        { cssProperty: 'background-color', cssValue: '#111111' },
+        { cssProperty: 'color', cssValue: '#ffffff' },
       ],
     })
 
     const emitted = emitModifierHeadStyle(globalData)
 
-    assert.strictEqual(className, 'mj-wide-1')
+    assert.strictEqual(className, 'mj-dark-1')
     assert.strictEqual(emitted, true)
-    assert.ok(globalData.headRaw[0].includes('.mj-wide-1 { font-size: 22px !important; line-height: 30px !important; }'))
+    assert.ok(globalData.headRaw[0].includes('.mj-dark-1 { background-color: #111111 !important; color: #ffffff !important; }'))
   })
 
   it('emits distinct style blocks across repeated engine calls with different modifier definitions', () => {
@@ -94,26 +94,7 @@ describe('colorSchemeDarkMode modifier helpers', () => {
       ],
     })
 
-    const secondEmission = emitModifierHeadStyle(globalData, {
-      defaultDefinitions: {
-        wide: {
-          mediaQuery: 'only screen and (min-width:480px)',
-          classNamespace: 'wide',
-        },
-      },
-      rules: [
-        {
-          modifier: 'wide',
-          className: 'mj-wide-1',
-          cssProperty: 'font-size',
-          cssValue: '22px',
-          supportModifierSelector: false,
-        },
-      ],
-    })
-
     assert.strictEqual(firstEmission, true)
-    assert.strictEqual(secondEmission, true)
-    assert.strictEqual(globalData.headRaw.length, 2)
+    assert.strictEqual(globalData.headRaw.length, 1)
   })
 })

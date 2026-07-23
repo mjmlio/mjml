@@ -33,4 +33,6 @@ To use this component, you will likely have to look at the generated HTML to see
 
 You can use multiple `mj-selector` tags inside a `mj-html-attributes` tag, and multiple `mj-html-attribute` tags inside a `mj-selector` tag.
 
+Note: `mj-html-attributes` re-parses the generated HTML internally. Template tags that look like HTML or XML (for example EJS `<%= value %>`) can be altered or broken during that pass. Prefer running your templating engine after MJML rendering, or avoid combining those tags with `mj-html-attributes`.
+
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/head-html-attributes">Try it live</a></p>

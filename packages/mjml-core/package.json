@@ -28,12 +28,12 @@
     "cssnano-preset-lite": "^4.0.4",
     "detect-node": "^2.0.4",
     "htmlnano": "^3.3.1",
-    "js-beautify": "^1.15.4",
+    "js-beautify": "^2.0.3",
     "juice": "^11.0.0",
     "lodash": "^4.17.21",
     "mjml-parser-xml": "5.4.0",
     "mjml-validator": "5.4.0",
-    "postcss": "^8.5.8"
+    "postcss": "^8.5.18"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",

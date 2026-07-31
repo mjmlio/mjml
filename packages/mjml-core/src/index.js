@@ -12,6 +12,7 @@ import {
 } from 'lodash'
 import juice from 'juice'
 import { load } from 'cheerio'
+import render from 'dom-serializer'
 import minifier from 'htmlnano'
 import MJMLParser from 'mjml-parser-xml'
 import MJMLValidator, {
@@ -839,7 +840,18 @@ export default async function mjml2html(mjml, options = {}) {
       })
     })
 
-    content = $.root().html()
+    /*
+     * The document has to be parsed as XML, but it is HTML, so it is rendered
+     * back with the HTML serializer. Rendering it as XML would emit void
+     * elements as `<br/>` or, when the parser gave them children, as
+     * `<br></br>`, which means the mere presence of an mj-selector would
+     * change how they are written.
+     */
+    content = render($.root()[0], {
+      xmlMode: false,
+      decodeEntities: false, // same reason as above
+      emptyAttrs: true, // keeps `alt=""` instead of writing it `alt`
+    })
   }
 
   content = skeleton({

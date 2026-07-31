@@ -81,4 +81,75 @@ describe('html-attributes', function () {
       .expect(sortBy(indexes), 'Mj-raws kept same positions')
       .to.deep.eql(indexes)
   })
+
+  // https://github.com/mjmlio/mjml/issues/3112
+  describe('void elements', function () {
+    // The path matches nothing in the body on purpose: the bug was triggered
+    // by the mere presence of an mj-selector, wherever it points.
+    const head = `
+  <mj-head>
+    <mj-html-attributes>
+      <mj-selector path=".unrelated div">
+        <mj-html-attribute name="data-id">42</mj-html-attribute>
+      </mj-selector>
+    </mj-html-attributes>
+  </mj-head>`
+
+    const template = (withSelector, text) => `
+<mjml>${withSelector ? head : ''}
+  <mj-body>
+    <mj-section>
+      <mj-column>
+        <mj-text css-class="custom">${text}</mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>
+`
+
+    const bodies = {
+      'inside a <p>': `
+          <p>
+            Hello World!<br>
+          </p>
+        `,
+      'outside any <p>': `
+          Hello World!<br>
+        `,
+      'followed by another element': `
+          <p>Hello<br><span>World!</span></p>
+        `,
+    }
+
+    Object.entries(bodies).forEach(([position, text]) => {
+      it(`emits the same <br> with and without an mj-selector, ${position}`, async function () {
+        const [without, withSelector] = await Promise.all([
+          mjml(template(false, text)),
+          mjml(template(true, text)),
+        ])
+
+        const brs = (html) => html.match(/<br[^>]*>|<\/br\s*>/g) || []
+
+        chai
+          .expect(brs(withSelector.html), 'No closing tag on <br>')
+          .to.deep.equal(['<br>'])
+
+        chai
+          .expect(brs(withSelector.html), 'Same <br> as without a selector')
+          .to.deep.equal(brs(without.html))
+      })
+    })
+
+    it('does not add a closing tag to images', async function () {
+      const text = `
+          <p>Hello<br><img src="https://via.placeholder.com/150x30" /></p>
+        `
+      const { html } = await mjml(template(true, text))
+
+      chai.expect(html, 'No closing tag on <img>').to.not.include('</img>')
+      chai
+        .expect(html, 'Image src left untouched')
+        .to.include('src="https://via.placeholder.com/150x30"')
+    })
+  })
 })

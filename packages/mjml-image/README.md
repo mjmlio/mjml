@@ -72,3 +72,18 @@ Note that if no width is provided, the image will use the parent column width.
   <p>Note</p>
   <p>All <code>--dark</code> modifier attributes and <code>support-dark-image="outlook"</code> require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
 </div>
+
+###### Responsive
+
+| attribute                  | accepts                 | description                                     | default value |
+| -------------------------- | ----------------------- | ----------------------------------------------- | ------------- |
+| align--responsive          | `left` `center` `right` | image alignment                                 |               |
+| font-size--responsive      | `px`                    | size of the alt text when image is not rendered |               |
+| height--responsive         | `px` `auto`             | image height                                    |               |
+| max-height--responsive     | `px` `%`                | specify the maximum height of an image          |               |
+| padding--responsive        | `px` `%`                | image padding, supports up to 4 parameters      |               |
+| padding-bottom--responsive | `px` `%`                | image bottom padding                            |               |
+| padding-left--responsive   | `px` `%`                | image left padding                              |               |
+| padding-right--responsive  | `px` `%`                | image right padding                             |               |
+| padding-top--responsive    | `px` `%`                | image top padding                               |               |
+| width--responsive          | `px` `%`                | image width                                     |               |

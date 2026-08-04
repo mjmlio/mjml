@@ -62,7 +62,7 @@ Readers can interact by clicking on the tabs to reveal the content, providing a 
 | font-family                | string                  | font                                               | `Ubuntu, sans-serif`              |
 | icon-align                 | `top` `middle` `bottom` | icon alignment                                     |                                   |
 | icon-height                | `px` `%`                | icon height                                        | `32px`                            |
-| icon-position              | left,<br>right          | display icon left or right                         | `right`                           |
+| icon-position              | `left` `right`          | display icon left or right                         | `right`                           |
 | icon-unwrapped-alt         | string                  | alt text when accordion is unwrapped               | `-`                               |
 | icon-unwrapped-url         | string                  | icon when accordion is unwrapped                   | `https://i.imgur.com/w4uTygT.png` |
 | icon-width                 | `px` `%`                | icon width                                         | `32px`                            |
@@ -89,6 +89,19 @@ Readers can interact by clicking on the tabs to reveal the content, providing a 
   <p>Note</p>
   <p>All <code>--dark</code> modifier attributes require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
 </div>
+
+###### Responsive
+
+| attribute                  | accepts  | description                                    | default value |
+| -------------------------- | -------- | ---------------------------------------------- | ------------- |
+| icon-height--responsive    | `px` `%` | icon height                                    |               |
+| icon-width--responsive     | `px` `%` | icon width                                     |               |
+| padding--responsive        | `px` `%` | accordion padding, supports up to 4 parameters |               |
+| padding-bottom--responsive | `px` `%` | accordion bottom padding                       |               |
+| padding-left--responsive   | `px` `%` | accordion left padding                         |               |
+| padding-right--responsive  | `px` `%` | accordion right padding                        |               |
+| padding-top--responsive    | `px` `%` | accordion top padding                          |               |
+
 
 #### mj-accordion-element
 
@@ -136,6 +149,14 @@ Creates an accordion title/text pair. An accordion can have any number of these 
   <p>All <code>--dark</code> modifier attributes require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
 </div>
 
+###### Responsive
+
+| attribute               | accepts  | description | default value |
+| ----------------------- | -------- | ----------- | ------------- |
+| icon-height--responsive | `px` `%` | icon width  |               |
+| icon-width--responsive  | `px` `%` | icon height |               |
+
+
 #### mj-accordion-title
 
 Displays the title in a title/text pair.
@@ -171,6 +192,18 @@ Displays the title in a title/text pair.
   <p>Note</p>
   <p>All <code>--dark</code> modifier attributes require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
 </div>
+
+###### Responsive
+
+| attribute                  | accepts  | description                                          | default value |
+| -------------------------- | -------- | ---------------------------------------------------- | ------------- |
+| font-size--responsive      | `px`     | font size                                            |               |
+| padding--responsive        | `px` `%` | accordion title padding, supports up to 4 parameters |               |
+| padding-bottom--responsive | `px` `%` | accordion title bottom padding                       |               |
+| padding-left--responsive   | `px` `%` | accordion title left padding                         |               |
+| padding-right--responsive  | `px` `%` | accordion title right padding                        |               |
+| padding-top--responsive    | `px` `%` | accordion title top padding                          |               |
+
 
 #### mj-accordion-text
 
@@ -208,3 +241,15 @@ Displays the text in a title/text pair.
   <p>Note</p>
   <p>All <code>--dark</code> modifier attributes require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
 </div>
+
+###### Responsive
+
+| attribute                  | accepts  | description                                         | default value |
+| -------------------------- | -------- | --------------------------------------------------- | ------------- |
+| font-size--responsive      | `px`     | font size                                           |               |
+| line-height--responsive    | `px` `%` | space between the lines                             |               |
+| padding--responsive        | `px` `%` | accordion text padding, supports up to 4 parameters |               |
+| padding-bottom--responsive | `px` `%` | accordion text bottom padding                       |               |
+| padding-left--responsive   | `px` `%` | accordion text left padding                         |               |
+| padding-right--responsive  | `px` `%` | accordion text right padding                        |               |
+| padding-top--responsive    | `px` `%` | accordion text top padding                          |               |

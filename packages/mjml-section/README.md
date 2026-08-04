@@ -40,7 +40,7 @@ The `full-width` attribute will be used to manage the background width. Setting 
 | aria-label            | string                  | adds an `aria-label` attribute to the section container                                                |               |
 | aria-roledescription  | string                  | adds an `aria-roledescription` attribute to the section container                                      |               |
 | background-color      | CSS color formats       | section color                                                                                          |               |
-| background-position   | string                  | CSS values, i.e. `left` `center` `right` + `top` `center` `bottom` <br>(see outlook limitations below) | `top center`  |
+| background-position   | string                  | CSS values, i.e. `left` `center` `right` + `top` `center` `bottom` <br>(see outlook limitations above) | `top center`  |
 | background-position-x | string                  | CSS values, i.e. `left` `center` `right` <br>(see outlook limitations below)                           |               |
 | background-position-y | string                  | CSS values, i.e. `top` `center` `bottom` <br>(see outlook limitations below)                           |               |
 | background-repeat     | `repeat` `no-repeat`    | set the background image to repeat                                                                     |               |
@@ -85,3 +85,21 @@ The `full-width` attribute will be used to manage the background width. Setting 
   <p>Note</p>
   <p>All <code>--dark</code> modifier attributes require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
 </div>
+
+###### Responsive
+
+| attribute                         | accepts                 | description                                                         | default value |
+| --------------------------------- | ----------------------- | ------------------------------------------------------------------- | ------------- |
+| background-position--responsive   | string                  | CSS values, i.e. `left` `center` `right` + `top` `center` `bottom`  |               |
+| background-position-x--responsive | string                  | CSS values, i.e. `left` `center` `right`                            |               |
+| background-position-y--responsive | string                  | CSS values, i.e. `top` `center` `bottom`                            |               |
+| background-repeat--responsive     | `repeat` `no-repeat`    | set the background image to repeat                                  |               |
+| background-size--responsive       | string                  | CSS values e.g. `auto` `cover` `contain` `px` `%` size              |               |
+| column-align--responsive          | `left` `center` `right` | horizontal alignment of columns when they don't span full width     |               |
+| gutter--responsive                | `px` `%`                | sets an equal spacing between each column                           |               |
+| padding--responsive               | `px` `%`                | section padding, supports up to 4 parameters                        |               |
+| padding-bottom--responsive        | `px` `%`                | section bottom padding                                              |               |
+| padding-left--responsive          | `px` `%`                | section left padding                                                |               |
+| padding-right--responsive         | `px` `%`                | section right padding                                               |               |
+| padding-top--responsive           | `px` `%`                | section top padding                                                 |               |
+

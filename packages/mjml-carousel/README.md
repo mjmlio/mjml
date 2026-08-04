@@ -69,6 +69,19 @@ Displays a gallery of images or "carousel". Readers can interact by hovering and
   <p>All <code>--dark</code> modifier attributes and <code>support-dark-image="outlook"</code> require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
 </div>
 
+###### Responsive
+
+| attribute                  | accepts                 | description                                            | default value |
+| -------------------------- | ----------------------- | ------------------------------------------------------ | ------------- |
+| align--responsive          | `left` `center` `right` | horizontal alignment                                   |               |
+| icon-width--responsive     | `px` `%`                | width of the icons on left and right of the main image |               |
+| padding--responsive        | `px` `%`                | carousel padding, supports up to 4 parameters          |               |
+| padding-bottom--responsive | `px` `%`                | carousel bottom padding                                |               |
+| padding-left--responsive   | `px` `%`                | carousel left padding                                  |               |
+| padding-right--responsive  | `px` `%`                | carousel right padding                                 |               |
+| padding-top--responsive    | `px` `%`                | carousel top padding                                   |               |
+| tb-width--responsive       | `px` `%`                | thumbnail width                                        |               |
+
 #### mj-carousel-image
 
 Enables you to add and style the images in the carousel.

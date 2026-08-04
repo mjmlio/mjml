@@ -4,8 +4,20 @@ import {
   emitDarkModeHeadStyle,
   registerDarkModeRule,
 } from 'mjml-core/lib/helpers/colorSchemeDarkMode'
+import {
+  emitResponsiveHeadStyle,
+  buildResponsiveDeclarations,
+  registerResponsiveRuleGroup,
+  registerResponsivePaddingGroup,
+} from 'mjml-core/lib/helpers/responsiveMode'
 
 import widthParser from 'mjml-core/lib/helpers/widthParser'
+
+function computeAlignMargin(align) {
+  if (align === 'left') return '0 auto 0 0'
+  if (align === 'right') return '0 0 0 auto'
+  return '0 auto'
+}
 
 export default class MjButton extends BodyComponent {
   static componentName = 'mj-button'
@@ -14,6 +26,7 @@ export default class MjButton extends BodyComponent {
 
   static allowedAttributes = {
     align: 'enum(left,center,right)',
+    'align--responsive': 'enum(left,center,right)',
     'background-color': 'color',
     'background-color--dark': 'color',
     border: 'string',
@@ -33,20 +46,29 @@ export default class MjButton extends BodyComponent {
     'container-background-color--dark': 'color',
     'font-family': 'string',
     'font-size': 'unit(px)',
+    'font-size--responsive': 'unit(px)',
     'font-style': 'string',
     'font-weight': 'string',
     height: 'unit(px,%)',
+    'height--responsive': 'unit(px,%)',
     href: 'string',
     'inner-padding': 'unit(px,%){1,4}',
+    'inner-padding--responsive': 'unit(px,%){1,4}',
     'letter-spacing': 'unitWithNegative(px,em)',
     'line-height': 'unit(px,%,)',
+    'line-height--responsive': 'unit(px,%,)',
     multiline: 'boolean',
     name: 'string',
     padding: 'unit(px,%){1,4}',
+    'padding--responsive': 'unit(px,%){1,4}',
     'padding-bottom': 'unit(px,%)',
+    'padding-bottom--responsive': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
+    'padding-left--responsive': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
+    'padding-right--responsive': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
+    'padding-top--responsive': 'unit(px,%)',
     rel: 'string',
     target: 'string',
     'text-align': 'enum(left,right,center)',
@@ -55,6 +77,7 @@ export default class MjButton extends BodyComponent {
     title: 'string',
     'vertical-align': 'enum(top,bottom,middle)',
     width: 'unit(px,%)',
+    'width--responsive': 'unit(px,%)',
   }
 
   static defaultAttributes = {
@@ -74,6 +97,8 @@ export default class MjButton extends BodyComponent {
   }
 
   darkClasses = null
+
+  responsiveClasses = null
 
   registerDarkModeRuleGroup({
     cssDeclarations,
@@ -191,11 +216,60 @@ export default class MjButton extends BodyComponent {
     return this.darkClasses
   }
 
+  getResponsiveClasses() {
+    if (this.responsiveClasses !== null) return this.responsiveClasses
+
+    this.responsiveClasses = {
+      container: null,
+      table: null,
+      td: null,
+      content: null,
+    }
+
+    const globalData = this.context && this.context.globalData
+
+    this.responsiveClasses.container = registerResponsivePaddingGroup(globalData, this.attributes)
+
+    const alignResponsive = this.attributes['align--responsive']
+
+    this.responsiveClasses.table = registerResponsiveRuleGroup(globalData, {
+      cssDeclarations: buildResponsiveDeclarations([
+        ['margin', alignResponsive ? computeAlignMargin(alignResponsive) : null],
+      ]),
+    })
+
+    this.responsiveClasses.td = registerResponsiveRuleGroup(globalData, {
+      cssDeclarations: buildResponsiveDeclarations([
+        ['height', this.attributes['height--responsive']],
+      ]),
+    })
+
+    const innerPaddingResponsive = this.attributes['inner-padding--responsive']
+    const contentPaddingResponsive = innerPaddingResponsive
+      ? innerPaddingResponsive
+          .split(/\s+/)
+          .map((v) => this.constructor.subtractContentBorder(v))
+          .join(' ')
+      : null
+
+    this.responsiveClasses.content = registerResponsiveRuleGroup(globalData, {
+      cssDeclarations: buildResponsiveDeclarations([
+        ['font-size', this.attributes['font-size--responsive']],
+        ['line-height', this.attributes['line-height--responsive']],
+        ['width', this.attributes['width--responsive']],
+        ['padding', contentPaddingResponsive],
+      ]),
+    })
+
+    return this.responsiveClasses
+  }
+
   getAttribute(name) {
     if (name === 'css-class') {
       const base = this.attributes['css-class']
       const containerDarkClass = this.getDarkClasses().container
-      return [base, containerDarkClass].filter(Boolean).join(' ') || undefined
+      const containerResponsiveClass = this.getResponsiveClasses().container
+      return [base, containerDarkClass, containerResponsiveClass].filter(Boolean).join(' ') || undefined
     }
 
     return this.attributes[name]
@@ -203,6 +277,7 @@ export default class MjButton extends BodyComponent {
 
   componentHeadStyle = () => {
     emitDarkModeHeadStyle(this.context && this.context.globalData)
+    emitResponsiveHeadStyle(this.context && this.context.globalData)
     return ''
   }
 
@@ -292,6 +367,11 @@ export default class MjButton extends BodyComponent {
   render() {
     const tag = this.getAttribute('href') ? 'a' : 'p'
     const { button: buttonDarkClass, content: contentDarkClass } = this.getDarkClasses()
+    const {
+      table: tableResponsiveClass,
+      td: tdResponsiveClass,
+      content: contentResponsiveClass,
+    } = this.getResponsiveClasses()
 
     return `
       <table
@@ -301,6 +381,7 @@ export default class MjButton extends BodyComponent {
           cellspacing: '0',
           role: 'none',
           style: 'table',
+          class: tableResponsiveClass || null,
         })}
       >
         <tr>
@@ -311,7 +392,7 @@ export default class MjButton extends BodyComponent {
                 this.getAttribute('background-color') === 'none'
                   ? undefined
                   : this.getAttribute('background-color'),
-              class: buttonDarkClass || undefined,
+              class: [buttonDarkClass, tdResponsiveClass].filter(Boolean).join(' ') || undefined,
               role: 'none',
               style: 'td',
               valign: this.getAttribute('vertical-align'),
@@ -319,7 +400,7 @@ export default class MjButton extends BodyComponent {
           >
             <${tag}
               ${this.htmlAttributes({
-                class: contentDarkClass || undefined,
+                class: [contentDarkClass, contentResponsiveClass].filter(Boolean).join(' ') || undefined,
                 href: this.getAttribute('href'),
                 name: this.getAttribute('name'),
                 rel: this.getAttribute('rel'),

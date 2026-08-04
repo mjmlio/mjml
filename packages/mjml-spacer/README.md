@@ -44,3 +44,14 @@ Displays a blank space, that can be used to separate content.
   <p>Note</p>
   <p>All <code>--dark</code> modifier attributes require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
 </div>
+
+###### Responsive
+
+| attribute                  | accepts  | description                                 | default value |
+| -------------------------- | -------- | ------------------------------------------- | ------------- |
+| height--responsive         | `px` `%` | spacer height                               |               |
+| padding--responsive        | `px` `%` | spacer padding, supports up to 4 parameters |               |
+| padding-bottom--responsive | `px` `%` | bottom padding                              |               |
+| padding-left--responsive   | `px` `%` | left padding                                |               |
+| padding-right--responsive  | `px` `%` | right padding                               |               |
+| padding-top--responsive    | `px` `%` | top padding                                 |               |

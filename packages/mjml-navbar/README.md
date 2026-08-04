@@ -95,6 +95,19 @@ Displays a navigation menu with an optional `hamburger` mode for mobile devices.
   <p>All <code>--dark</code> modifier attributes require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
 </div>
 
+###### Responsive
+
+| attribute                  | accepts                       | description                                 | default value |
+| -------------------------- | ----------------------------- | ------------------------------------------- | ------------- |
+| align--responsive          | `left`<br>`center`<br>`right` | align content                               |               |
+| padding--responsive        | `px` `%`                      | navbar padding, supports up to 4 parameters |               |
+| padding-bottom--responsive | `px` `%`                      | navbar bottom padding                       |               |
+| padding-left--responsive   | `px` `%`                      | navbar left padding                         |               |
+| padding-right--responsive  | `px` `%`                      | navbar right padding                        |               |
+| padding-top--responsive    | `px` `%`                      | navbar top padding                          |               |
+
+
+
 #### mj-navbar-link
 
 Used to display an individual link in the navbar. Individual links of the menu should be wrapped inside `mj-navbar`.
@@ -146,3 +159,15 @@ Used to display an individual link in the navbar. Individual links of the menu s
   <p>Note</p>
   <p>All <code>--dark</code> modifier attributes require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
 </div>
+
+###### Responsive
+
+| attribute                  | accepts  | description                                 | default value |
+| -------------------------- | -------- | ------------------------------------------- | ------------- |
+| font-size--responsive      | `px`     | text size                                   |               |
+| line-height--responsive    | `px` `%` | space between the lines                     |               |
+| padding--responsive        | `px` `%` | navbar padding, supports up to 4 parameters |               |
+| padding-bottom--responsive | `px` `%` | navbar bottom padding                       |               |
+| padding-left--responsive   | `px` `%` | navbar left padding                         |               |
+| padding-right--responsive  | `px` `%` | navbar right padding                        |               |
+| padding-top--responsive    | `px` `%` | navbar top padding                          |               |

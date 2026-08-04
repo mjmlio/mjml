@@ -104,3 +104,17 @@ Display a data table. It only accepts plain HTML.
   <p>Note</p>
   <p>All <code>--dark</code> modifier attributes require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
 </div>
+
+###### Responsive
+
+| attribute                  | accepts                 | description                                      | default value |
+| -------------------------- | ----------------------- | ------------------------------------------------ | ------------- |
+| align--responsive          | `left` `right` `center` | table horizontal alignment                       |               |
+| font-size--responsive      | `px`                    | font size                                        |               |
+| line-height--responsive    | `px` `%`                | space between lines                              |               |
+| padding--responsive        | `px` `%`                | outer table padding, supports up to 4 parameters |               |
+| padding-bottom--responsive | `px` `%`                | bottom padding                                   |               |
+| padding-left--responsive   | `px` `%`                | left padding                                     |               |
+| padding-right--responsive  | `px` `%`                | right padding                                    |               |
+| padding-top--responsive    | `px` `%`                | top padding                                      |               |
+| width--responsive          | `px` `%`                | table width                                      |               |

@@ -68,3 +68,17 @@ Displays text which can be styled.
   <p>Note</p>
   <p>All <code>--dark</code> modifier attributes require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
 </div>
+
+###### Responsive
+
+| attribute                  | accepts                           | description                               | default value |
+| -------------------------- | --------------------------------- | ----------------------------------------- | ------------- |
+| align--responsive          | `left` `right` `center` `justify` | text-alignment                            |               |
+| font-size--responsive      | `px`                              | text size                                 |               |
+| height--responsive         | `px` `%`                          | height of the element                     |               |
+| line-height--responsive    | `px` `%`                          | space between the lines                   |               |
+| padding--responsive        | `px` `%`                          | text padding, supports up to 4 parameters |               |
+| padding-bottom--responsive | `px` `%`                          | bottom offset                             |               |
+| padding-left--responsive   | `px` `%`                          | left offset                               |               |
+| padding-right--responsive  | `px` `%`                          | right offset                              |               |
+| padding-top--responsive    | `px` `%`                          | top offset                                |               |

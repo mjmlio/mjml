@@ -6,12 +6,19 @@ import {
   emitDarkModeHeadStyle,
   registerDarkModeRule,
 } from 'mjml-core/lib/helpers/colorSchemeDarkMode'
+import {
+  emitResponsiveHeadStyle,
+  buildResponsiveDeclarations,
+  registerResponsiveRuleGroup,
+  registerResponsivePaddingGroup,
+} from 'mjml-core/lib/helpers/responsiveMode'
 
 export default class MjNavbar extends BodyComponent {
   static componentName = 'mj-navbar'
 
   static allowedAttributes = {
     align: 'enum(left,center,right)',
+    'align--responsive': 'enum(left,center,right)',
     'aria-label': 'string',
     'aria-roledescription': 'string',
     'base-url': 'string',
@@ -33,10 +40,15 @@ export default class MjNavbar extends BodyComponent {
     'ico-text-transform': 'string',
     'responsive-mode': 'enum(block)',
     padding: 'unit(px,%){1,4}',
+    'padding--responsive': 'unit(px,%){1,4}',
     'padding-left': 'unit(px,%)',
+    'padding-left--responsive': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
+    'padding-top--responsive': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
+    'padding-right--responsive': 'unit(px,%)',
     'padding-bottom': 'unit(px,%)',
+    'padding-bottom--responsive': 'unit(px,%)',
     role: 'string',
   }
 
@@ -56,6 +68,8 @@ export default class MjNavbar extends BodyComponent {
   }
 
   darkClasses = null
+
+  responsiveClasses = null
 
   responsiveModeIndex = null
 
@@ -109,6 +123,7 @@ export default class MjNavbar extends BodyComponent {
     }
 
     emitDarkModeHeadStyle(globalData)
+    emitResponsiveHeadStyle(globalData)
 
     const { responsiveModeIndex } = this
     if (responsiveModeIndex != null) {
@@ -131,6 +146,42 @@ ${selectors} { display: block !important }
     }
 
     return hamburgerCss
+  }
+
+  getResponsiveClasses() {
+    if (this.responsiveClasses !== null) {
+      return this.responsiveClasses
+    }
+
+    this.responsiveClasses = {
+      container: null,
+      inlineLinks: null,
+    }
+
+    const globalData = this.context && this.context.globalData
+
+    this.responsiveClasses.container = registerResponsivePaddingGroup(
+      globalData,
+      this.attributes,
+    )
+
+    this.responsiveClasses.inlineLinks = registerResponsiveRuleGroup(globalData, {
+      cssDeclarations: buildResponsiveDeclarations([
+        ['text-align', this.attributes['align--responsive']],
+      ]),
+    })
+
+    return this.responsiveClasses
+  }
+
+  getAttribute(name) {
+    if (name === 'css-class') {
+      const base = this.attributes['css-class']
+      const containerResponsiveClass = this.getResponsiveClasses().container
+      return [base, containerResponsiveClass].filter(Boolean).join(' ') || undefined
+    }
+
+    return this.attributes[name]
   }
 
   getStyles() {
@@ -158,7 +209,7 @@ ${selectors} { display: block !important }
 
     return {
       div: {
-        align: this.getAttribute('align'),
+        'text-align': this.getAttribute('align'),
         width: '100%',
       },
       label: {
@@ -217,7 +268,10 @@ ${selectors} { display: block !important }
         <label
           ${this.htmlAttributes({
             for: labelKey,
-            class: ['mj-menu-label', this.getDarkClasses().icoColor]
+            class: [
+              'mj-menu-label',
+              this.getDarkClasses().icoColor,
+            ]
               .filter(Boolean)
               .join(' '),
             style: 'label',
@@ -286,10 +340,16 @@ ${selectors} { display: block !important }
             role: this.getAttribute('role'),
             'aria-label': this.getAttribute('aria-label'),
             'aria-roledescription': this.getAttribute('aria-roledescription'),
-            class: ['mj-inline-links', this.responsiveModeIndex != null ? `mj-inline-links-${this.responsiveModeIndex}` : null]
+            class: [
+              'mj-inline-links',
+              this.responsiveModeIndex != null
+                ? `mj-inline-links-${this.responsiveModeIndex}`
+                : null,
+              this.getResponsiveClasses().inlineLinks,
+            ]
               .filter(Boolean)
               .join(' '),
-            style: this.htmlAttributes('div'),
+            style: 'div',
           })}
         >
         ${openTable}

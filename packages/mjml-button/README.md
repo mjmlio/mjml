@@ -95,3 +95,19 @@ Displays a customizable button.
   <p>Note</p>
   <p>All <code>--dark</code> modifier attributes require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
 </div>
+
+###### Responsive
+
+| attribute                  | accepts                 | description                                           | default value |
+| -------------------------- | ----------------------- | ----------------------------------------------------- | ------------- |
+| align--responsive          | `left` `center` `right` | horizontal alignment                                  |               |
+| font-size--responsive      | `px`                    | text size                                             |               |
+| height--responsive         | `px` `%`                | button height                                         |               |
+| inner-padding--responsive  | `px` `%`                | inner button padding, supports up to 4 parameters     |               |
+| line-height--responsive    | `px` `%`                | line-height on link                                   |               |
+| padding--responsive        | `px` `%`                | button container padding, supports up to 4 parameters |               |
+| padding-bottom--responsive | `px` `%`                | button container bottom padding                       |               |
+| padding-left--responsive   | `px` `%`                | button container left padding                         |               |
+| padding-right--responsive  | `px` `%`                | button container right padding                        |               |
+| padding-top--responsive    | `px` `%`                | button container top padding                          |               |
+| width--responsive          | `px` `%`                | button width                                          |               |

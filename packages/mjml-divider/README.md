@@ -47,3 +47,15 @@ Displays a horizontal divider that can be customized like a HTML border.
   <p>Note</p>
   <p>All <code>--dark</code> modifier attributes require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
 </div>
+
+###### Responsive
+
+| attribute                  | accepts                 | description                                  | default value |
+| -------------------------- | ----------------------- | -------------------------------------------- | ------------- |
+| align--responsive          | `left` `center` `right` | horizontal alignment                         |               |
+| padding--responsive        | `px` `%`                | divider padding, supports up to 4 parameters |               |
+| padding-bottom--responsive | `px` `%`                | divider bottom padding                       |               |
+| padding-left--responsive   | `px` `%`                | divider left padding                         |               |
+| padding-right--responsive  | `px` `%`                | divider right padding                        |               |
+| padding-top--responsive    | `px` `%`                | divider top padding                          |               |
+| width--responsive          | `px` `%`                | divider width                                |               |

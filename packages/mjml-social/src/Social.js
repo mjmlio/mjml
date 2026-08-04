@@ -4,6 +4,11 @@ import {
   emitDarkModeHeadStyle,
   registerDarkModeRule,
 } from 'mjml-core/lib/helpers/colorSchemeDarkMode'
+import {
+  emitResponsiveHeadStyle,
+  buildResponsiveDeclarations,
+  registerResponsiveRuleGroup,
+} from 'mjml-core/lib/helpers/responsiveMode'
 import { msoConditionalTag } from 'mjml-core/lib/helpers/conditionalTag'
 
 export default class MjSocial extends BodyComponent {
@@ -11,6 +16,7 @@ export default class MjSocial extends BodyComponent {
 
   static allowedAttributes = {
     align: 'enum(left,right,center)',
+    'align--responsive': 'enum(left,right,center)',
     border: 'string',
     'border-radius': 'string',
     color: 'color',
@@ -19,22 +25,34 @@ export default class MjSocial extends BodyComponent {
     'container-background-color--dark': 'color',
     'font-family': 'string',
     'font-size': 'unit(px)',
+    'font-size--responsive': 'unit(px)',
     'font-style': 'string',
     'font-weight': 'string',
     'icon-size': 'unit(px,%)',
+    'icon-size--responsive': 'unit(px,%)',
     'icon-height': 'unit(px,%)',
+    'icon-height--responsive': 'unit(px,%)',
     'icon-padding': 'unit(px,%){1,4}',
+    'icon-padding--responsive': 'unit(px,%){1,4}',
     'inner-padding': 'unit(px,%){1,4}',
+    'inner-padding--responsive': 'unit(px,%){1,4}',
     'line-height': 'unit(px,%,)',
+    'line-height--responsive': 'unit(px,%,)',
     mode: 'enum(horizontal,vertical)',
     padding: 'unit(px,%){1,4}',
+    'padding--responsive': 'unit(px,%){1,4}',
     'padding-bottom': 'unit(px,%)',
+    'padding-bottom--responsive': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
+    'padding-left--responsive': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
+    'padding-right--responsive': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
+    'padding-top--responsive': 'unit(px,%)',
     'table-layout': 'enum(auto,fixed)',
     'text-decoration': 'string',
     'text-padding': 'unit(px,%){1,4}',
+    'text-padding--responsive': 'unit(px,%){1,4}',
     'vertical-align': 'enum(top,bottom,middle)',
   }
 
@@ -53,6 +71,8 @@ export default class MjSocial extends BodyComponent {
   }
 
   darkContainerClass = undefined
+
+  responsiveClasses = null
 
   getDarkContainerClass() {
     if (typeof this.darkContainerClass !== 'undefined') {
@@ -77,11 +97,33 @@ export default class MjSocial extends BodyComponent {
     return this.darkContainerClass
   }
 
+  getResponsiveClasses() {
+    if (this.responsiveClasses !== null) return this.responsiveClasses
+
+    this.responsiveClasses = { container: null }
+
+    const globalData = this.context && this.context.globalData
+
+    this.responsiveClasses.container = registerResponsiveRuleGroup(globalData, {
+      cssDeclarations: buildResponsiveDeclarations([
+        ['padding', this.attributes['padding--responsive']],
+        ['padding-top', this.attributes['padding-top--responsive']],
+        ['padding-right', this.attributes['padding-right--responsive']],
+        ['padding-bottom', this.attributes['padding-bottom--responsive']],
+        ['padding-left', this.attributes['padding-left--responsive']],
+        ['text-align', this.attributes['align--responsive']],
+      ]),
+    })
+
+    return this.responsiveClasses
+  }
+
   getAttribute(name) {
     if (name === 'css-class') {
       const base = this.attributes['css-class']
       const darkClass = this.getDarkContainerClass()
-      return [base, darkClass].filter(Boolean).join(' ') || undefined
+      const containerResponsiveClass = this.getResponsiveClasses().container
+      return [base, darkClass, containerResponsiveClass].filter(Boolean).join(' ') || undefined
     }
 
     return this.attributes[name]
@@ -89,6 +131,7 @@ export default class MjSocial extends BodyComponent {
 
   componentHeadStyle = () => {
     emitDarkModeHeadStyle(this.context && this.context.globalData)
+    emitResponsiveHeadStyle(this.context && this.context.globalData)
     return ''
   }
 
@@ -106,6 +149,9 @@ export default class MjSocial extends BodyComponent {
     if (this.getAttribute('inner-padding')) {
       base.padding = this.getAttribute('inner-padding')
     }
+    if (this.attributes['inner-padding--responsive']) {
+      base['padding--responsive'] = this.attributes['inner-padding--responsive']
+    }
 
     return [
       'border',
@@ -114,13 +160,20 @@ export default class MjSocial extends BodyComponent {
       'color--dark',
       'font-family',
       'font-size',
+      'font-size--responsive',
       'font-weight',
       'font-style',
       'icon-size',
+      'icon-size--responsive',
       'icon-height',
+      'icon-height--responsive',
       'icon-padding',
+      'icon-padding--responsive',
       'text-padding',
+      'text-padding--responsive',
       'line-height',
+      'line-height--responsive',
+      'align--responsive',
       'text-decoration',
     ]
       .filter((e) => !isNil(this.getAttribute(e)))

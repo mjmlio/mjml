@@ -65,8 +65,8 @@ Every single column has to contain something because they are responsive contain
 | padding-right          | `px` `%`                | column right padding                                                                     |                                                |
 | padding-top            | `px` `%`                | column top padding                                                                       |                                                |
 | role                   | string                  | adds a `role` attribute to the column container                                          |                                                |
-| width                  | `px` `%`                | column width                                                                             | (100 / number of non-raw elements in section)% |
 | vertical-align         | `top` `middle` `bottom` | vertical alignment.<br>Note: `middle` only applies when all `mj-column` instances use it | `top`                                          |
+| width                  | `px` `%`                | column width                                                                             | (100 / number of non-raw elements in section)% |
 
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/column">Try it live</a></p>
 
@@ -92,4 +92,21 @@ Every single column has to contain something because they are responsive contain
 <div class="alert alert-note" role="alert">
   <p>Note</p>
   <p>All <code>--dark</code> modifier attributes require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
+</div>
+
+###### Responsive
+
+| attribute                  | accepts     | description                                                      | default value |
+| -------------------------- | ----------- | ---------------------------------------------------------------- | ------------- |
+| direction--responsive      | `ltr` `rtl` | set the display order of direct children                         |               |
+| padding--responsive        | `px` `%`    | column padding, supports up to 4 parameters. See the note below. |               |
+| padding-bottom--responsive | `px` `%`    | column bottom padding. See the note below.                       |               |
+| padding-left--responsive   | `px` `%`    | column left padding. See the note below.                         |               |
+| padding-right--responsive  | `px` `%`    | column right padding. See the note below.                        |               |
+| padding-top--responsive    | `px` `%`    | column top padding. See the note below.                          |               |
+| width--responsive          | `px` `%`    | column width                                                     |               |
+
+<div class="alert alert-note" role="alert">
+  <p>Note</p>
+  <p>All responsive <code>padding</code> modifier attributes require a base <code>padding</code> to be set. This can be <code>padding="0"</code></p>
 </div>

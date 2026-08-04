@@ -44,8 +44,8 @@ Displays calls-to-action for various social networks with their associated logo.
 | border                     | string                  | icon border, applied to each `mj-social-element`   |                      |
 | border-radius              | `px` `%`                | border radius                                      | `3px`                |
 | color                      | CSS color formats       | text color                                         | `#333333`            |
-| css-class                  | string                  | class name, added to the root HTML element created |                      |
 | container-background-color | CSS color formats       | inner element background color                     |                      |
+| css-class                  | string                  | class name, added to the root HTML element created |                      |
 | font-family                | string                  | font name                                          | `Ubuntu, sans-serif` |
 | font-size                  | `px`                    | font size                                          | `16px`               |
 | font-style                 | string                  | font style                                         | normal               |
@@ -61,8 +61,8 @@ Displays calls-to-action for various social networks with their associated logo.
 | padding-left               | `px` `%`                | left padding                                       |                      |
 | padding-right              | `px` `%`                | right padding                                      |                      |
 | padding-top                | `px` `%`                | top padding                                        |                      |
-| text-padding               | `px` `%`                | padding around the text                            |                      |
 | text-decoration            | string                  | CSS values, e.g. `underline` `overline` `none`     | `none`               |
+| text-padding               | `px` `%`                | padding around the text                            |                      |
 
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/social">Try it live</a></p>
 
@@ -79,6 +79,24 @@ Displays calls-to-action for various social networks with their associated logo.
   <p>Note</p>
   <p>All <code>--dark</code> modifier attributes and <code>support-dark-image="outlook"</code> require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
 </div>
+
+###### Responsive
+
+| attribute                  | accepts                 | description                                              | default value |
+| -------------------------- | ----------------------- | -------------------------------------------------------- | ------------- |
+| align--responsive          | `left` `right` `center` | align content                                     |               |
+| font-size--responsive      | `px`                    | font size (applied to all child elements)     |               |
+| icon-height--responsive    | `px` `%`                | icon height, overrides `icon-size` (applied to all child elements)   |               |
+| icon-padding--responsive   | `px` `%`                | padding around the icons (applied to all child elements)  |               |
+| icon-size--responsive      | `px` `%`                | icon size (width and height) (applied to all child elements)     |               |
+| inner-padding--responsive  | `px` `%`                | social network surrounding padding (applied to all child elements) |               |
+| line-height--responsive    | `px` `%`                | space between lines (applied to all child elements)   |               |
+| padding--responsive        | `px` `%`                | social padding, supports up to 4 parameters           |               |
+| padding-bottom--responsive | `px` `%`                | bottom padding                      |               |
+| padding-left--responsive   | `px` `%`                | left padding                        |               |
+| padding-right--responsive  | `px` `%`                | right padding                       |               |
+| padding-top--responsive    | `px` `%`                | top padding                         |               |
+| text-padding--responsive   | `px` `%`                | padding around the text (applied to all child elements)  |               |
 
 #### mj-social-element
 
@@ -108,7 +126,7 @@ Note that default icons are transparent, which allows `background-color` to actu
 | font-style              | string                  | font style                                                                      |                                        |
 | font-weight             | string                  | font weight                                                                     |                                        |
 | href                    | string                  | button redirection, in URL format                                               |                                        |
-| icon-height             | percent/px              | icon height, overrides icon-size                                                | `icon-size`                            |
+| icon-height             | `px` `%`                | icon height, overrides icon-size                                                | `icon-size`                            |
 | icon-padding            | `px` `%`                | padding around the icon                                                         |                                        |
 | icon-position           | `left` `right`          | sets the side of the icon                                                       |                                        |
 | icon-size               | `px` `%`                | icon size (width and height)                                                    |                                        |
@@ -144,6 +162,23 @@ Note that default icons are transparent, which allows `background-color` to actu
   <p>Note</p>
   <p>All <code>--dark</code> modifier attributes and <code>support-dark-image="outlook"</code> require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
 </div>
+
+###### Responsive
+
+| attribute                  | accepts                 | description                                                | default value |
+| -------------------------- | ----------------------- | ---------------------------------------------------------- | ------------- |
+| align--responsive          | `left` `center` `right` | align content                                              |               |
+| font-size--responsive      | `px`                    | font size                                                  |               |
+| icon-height--responsive    | `px` `%`                | icon height, overrides icon-size                           |               |
+| icon-padding--responsive   | `px` `%`                | padding around the icon                                    |               |
+| icon-size--responsive      | `px` `%`                | icon size; also overrides the icon image `width` attribute |               |
+| line-height--responsive    | `px` `%`                | space between lines                                        |               |
+| padding--responsive        | `px` `%`                | social element padding, supports up to 4 parameters        |               |
+| padding-bottom--responsive | `px` `%`                | bottom padding                                             |               |
+| padding-left--responsive   | `px` `%`                | left padding                                               |               |
+| padding-right--responsive  | `px` `%`                | right padding                                              |               |
+| padding-top--responsive    | `px` `%`                | top padding                                                |               |
+| text-padding--responsive   | `px` `%`                | padding around the text                                    |               |
 
 Supported networks with a share url:
 

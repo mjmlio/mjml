@@ -197,6 +197,8 @@ export default class MjCarouselImage extends BodyComponent {
     const { carouselId, src, alt, 'tb-width': width, target } = this.attributes
     const imgIndex = this.props.index + 1
     const borderDarkClass = this.getDarkClasses().border
+    const thumbnailResponsiveClass =
+      this.context && this.context.carouselThumbnailResponsiveClass
     const cssClass = suffixCssClasses(
       this.getAttribute('css-class'),
       'thumbnail',
@@ -232,6 +234,7 @@ export default class MjCarouselImage extends BodyComponent {
             `mj-carousel-${carouselId}-thumbnail`,
             `mj-carousel-${carouselId}-thumbnail-${imgIndex}`,
             cssClass,
+            thumbnailResponsiveClass,
             borderDarkClass,
           ]
             .filter(Boolean)

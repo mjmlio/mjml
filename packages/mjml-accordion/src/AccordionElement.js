@@ -5,6 +5,11 @@ import {
   emitDarkModeHeadStyle,
   registerDarkModeRule,
 } from 'mjml-core/lib/helpers/colorSchemeDarkMode'
+import {
+  emitResponsiveHeadStyle,
+  buildResponsiveDeclarations,
+  registerResponsiveRuleGroup,
+} from 'mjml-core/lib/helpers/responsiveMode'
 import AccordionText from './AccordionText'
 import AccordionTitle from './AccordionTitle'
 
@@ -19,11 +24,13 @@ export default class MjAccordionElement extends BodyComponent {
     'font-family': 'string',
     'icon-align': 'enum(top,middle,bottom)',
     'icon-height': 'unit(px,%)',
+    'icon-height--responsive': 'unit(px,%)',
     'icon-position': 'enum(left,right)',
     'icon-unwrapped-alt': 'string',
     'icon-unwrapped-url': 'string',
     'icon-unwrapped-url--dark': 'string',
     'icon-width': 'unit(px,%)',
+    'icon-width--responsive': 'unit(px,%)',
     'icon-wrapped-alt': 'string',
     'icon-wrapped-url': 'string',
     'icon-wrapped-url--dark': 'string',
@@ -39,6 +46,8 @@ export default class MjAccordionElement extends BodyComponent {
   }
 
   darkClasses = null
+
+  responsiveClasses = null
 
   getDarkClasses() {
     if (this.darkClasses !== null) {
@@ -62,7 +71,27 @@ export default class MjAccordionElement extends BodyComponent {
 
   componentHeadStyle = () => {
     emitDarkModeHeadStyle(this.context && this.context.globalData)
+    emitResponsiveHeadStyle(this.context && this.context.globalData)
     return ''
+  }
+
+  getResponsiveClasses() {
+    if (this.responsiveClasses !== null) {
+      return this.responsiveClasses
+    }
+
+    const globalData = this.context && this.context.globalData
+
+    this.responsiveClasses = {
+      icon: registerResponsiveRuleGroup(globalData, {
+        cssDeclarations: buildResponsiveDeclarations([
+          ['width', this.attributes['icon-width--responsive']],
+          ['height', this.attributes['icon-height--responsive']],
+        ]),
+      }),
+    }
+
+    return this.responsiveClasses
   }
 
   getStyles() {
@@ -85,7 +114,9 @@ export default class MjAccordionElement extends BodyComponent {
       'border',
       'icon-align',
       'icon-width',
+      'icon-width--responsive',
       'icon-height',
+      'icon-height--responsive',
       'icon-position',
       'icon-wrapped-url',
       'icon-wrapped-alt',
@@ -130,6 +161,7 @@ export default class MjAccordionElement extends BodyComponent {
   getChildContext() {
     return {
       ...this.context,
+      accordionIconResponsiveClass: this.getResponsiveClasses().icon,
       elementFontFamily: this.getAttribute('font-family'),
     }
   }

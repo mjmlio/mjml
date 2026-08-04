@@ -5,6 +5,12 @@ import {
   registerDarkModeRule,
 } from 'mjml-core/lib/helpers/colorSchemeDarkMode'
 import {
+  emitResponsiveHeadStyle,
+  buildResponsiveDeclarations,
+  registerResponsiveRuleGroup,
+  registerResponsivePaddingGroup,
+} from 'mjml-core/lib/helpers/responsiveMode'
+import {
   emitOutlookDarkModeHeadRaw,
   getOutlookDarkModeMediaQuery,
   OUTLOOK_DARK_MODE_BACKGROUND_CLASS,
@@ -111,6 +117,7 @@ export default class MjSocialElement extends BodyComponent {
 
   static allowedAttributes = {
     align: 'enum(left,center,right)',
+    'align--responsive': 'enum(left,center,right)',
     alt: 'string',
     'background-color': 'color',
     'background-color--dark': 'color',
@@ -120,20 +127,30 @@ export default class MjSocialElement extends BodyComponent {
     'color--dark': 'color',
     'font-family': 'string',
     'font-size': 'unit(px)',
+    'font-size--responsive': 'unit(px)',
     'font-style': 'string',
     'font-weight': 'string',
     href: 'string',
     'icon-height': 'unit(px,%)',
+    'icon-height--responsive': 'unit(px,%)',
     'icon-padding': 'unit(px,%){1,4}',
+    'icon-padding--responsive': 'unit(px,%){1,4}',
     'icon-position': 'enum(left,right)',
     'icon-size': 'unit(px,%)',
+    'icon-size--responsive': 'unit(px,%)',
     'line-height': 'unit(px,%,)',
+    'line-height--responsive': 'unit(px,%,)',
     name: 'string',
     padding: 'unit(px,%){1,4}',
+    'padding--responsive': 'unit(px,%){1,4}',
     'padding-bottom': 'unit(px,%)',
+    'padding-bottom--responsive': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
+    'padding-left--responsive': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
+    'padding-right--responsive': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
+    'padding-top--responsive': 'unit(px,%)',
     rel: 'string',
     src: 'string',
     'src--dark': 'string',
@@ -144,6 +161,7 @@ export default class MjSocialElement extends BodyComponent {
     title: 'string',
     'text-decoration': 'string',
     'text-padding': 'unit(px,%){1,4}',
+    'text-padding--responsive': 'unit(px,%){1,4}',
     'vertical-align': 'enum(top,middle,bottom)',
   }
 
@@ -162,6 +180,8 @@ export default class MjSocialElement extends BodyComponent {
   }
 
   darkClasses = null
+
+  responsiveClasses = null
 
   outlookDarkBackgroundClass = null
 
@@ -214,6 +234,59 @@ export default class MjSocialElement extends BodyComponent {
     return this.darkClasses
   }
 
+  getResponsiveClasses() {
+    if (this.responsiveClasses !== null) return this.responsiveClasses
+
+    this.responsiveClasses = {
+      td: null,
+      icon: null,
+      tdText: null,
+      text: null,
+    }
+
+    const globalData = this.context && this.context.globalData
+
+    this.responsiveClasses.td = registerResponsivePaddingGroup(globalData, this.attributes)
+
+    const iconHeightResponsive =
+      this.attributes['icon-height--responsive'] || this.attributes['icon-size--responsive']
+
+    this.responsiveClasses.icon = registerResponsiveRuleGroup(globalData, {
+      cssDeclarations: buildResponsiveDeclarations([
+        ['padding', this.attributes['icon-padding--responsive']],
+      ]).map((declaration) => ({
+        ...declaration,
+        selectorSuffix: ' td',
+      })).concat(buildResponsiveDeclarations([
+        ['height', iconHeightResponsive],
+      ]).map((declaration) => ({
+        ...declaration,
+        selectorSuffix: ['', ' td'],
+      }))).concat(buildResponsiveDeclarations([
+        ['width', this.attributes['icon-size--responsive']],
+      ]).map((declaration) => ({
+        ...declaration,
+        selectorSuffix: ' img',
+      }))),
+    })
+
+    this.responsiveClasses.tdText = registerResponsiveRuleGroup(globalData, {
+      cssDeclarations: buildResponsiveDeclarations([
+        ['padding', this.attributes['text-padding--responsive']],
+        ['text-align', this.attributes['align--responsive']],
+      ]),
+    })
+
+    this.responsiveClasses.text = registerResponsiveRuleGroup(globalData, {
+      cssDeclarations: buildResponsiveDeclarations([
+        ['font-size', this.attributes['font-size--responsive']],
+        ['line-height', this.attributes['line-height--responsive']],
+      ]),
+    })
+
+    return this.responsiveClasses
+  }
+
   getStyles() {
     const {
       'icon-size': iconSize,
@@ -233,6 +306,7 @@ export default class MjSocialElement extends BodyComponent {
       table: {
         background: backgroundColor,
         'border-radius': this.getAttribute('border-radius'),
+        height: iconHeight || iconSize,
       },
       icon: {
         padding: this.getAttribute('icon-padding'),
@@ -312,6 +386,8 @@ export default class MjSocialElement extends BodyComponent {
       emitDarkModeHeadStyle(globalData)
     }
 
+    emitResponsiveHeadStyle(globalData)
+
     const darkSrc = this.getAttribute('src--dark')
     const supportOutlookDarkMode =
       this.getAttribute('support-dark-mode-image') === 'outlook'
@@ -348,6 +424,12 @@ export default class MjSocialElement extends BodyComponent {
     const globalData = this.context && this.context.globalData
     const darkClasses = this.getDarkClasses()
     const darkBackgroundColor = this.getAttribute('background-color--dark')
+    const {
+      td: tdResponsiveClass,
+      icon: iconResponsiveClass,
+      tdText: tdTextResponsiveClass,
+      text: textResponsiveClass,
+    } = this.getResponsiveClasses()
 
     const darkPictureClass =
       darkSrc && supportOutlookDarkMode
@@ -427,7 +509,7 @@ export default class MjSocialElement extends BodyComponent {
 
     const content = darkImg || picture || img
 
-    const makeIcon = () => `<td ${this.htmlAttributes({ style: 'td' })}>
+    const makeIcon = () => `<td ${this.htmlAttributes({ style: 'td', class: tdResponsiveClass || undefined })}>
           <table
             ${this.htmlAttributes({
               border: '0',
@@ -435,11 +517,16 @@ export default class MjSocialElement extends BodyComponent {
               cellspacing: '0',
               role: 'none',
               style: 'table',
-              class: darkClasses.background || null,
+              class: [darkClasses.background, iconResponsiveClass]
+                .filter(Boolean)
+                .join(' ') || null,
             })}
           >
             <tr>
-              <td ${this.htmlAttributes({ style: 'icon' })}>
+              <td ${this.htmlAttributes({
+                style: 'icon',
+                class: undefined,
+              })}>
                 ${
                   hasLink && !darkImg
                     ? `<a ${this.htmlAttributes({
@@ -459,21 +546,21 @@ export default class MjSocialElement extends BodyComponent {
     const makeContent = () => `
         ${
           this.getContent()
-            ? `<td ${this.htmlAttributes({ style: 'tdText' })}>
+            ? `<td ${this.htmlAttributes({ style: 'tdText', class: tdTextResponsiveClass || undefined })}>
             ${
               hasLink
                 ? `<a
                 ${this.htmlAttributes({
                   href,
                   style: 'text',
-                  class: darkClasses.color || null,
+                  class: [darkClasses.color, textResponsiveClass].filter(Boolean).join(' ') || null,
                   rel: this.getAttribute('rel'),
                   target: this.getAttribute('target'),
                 })}>`
                 : `<span
                     ${this.htmlAttributes({
                       style: 'text',
-                      class: darkClasses.color || null,
+                      class: [darkClasses.color, textResponsiveClass].filter(Boolean).join(' ') || null,
                     })}>`
             }
               ${this.getContent()}

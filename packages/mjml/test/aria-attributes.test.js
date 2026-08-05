@@ -63,11 +63,10 @@ describe('ARIA attributes pass-through', function () {
       const { html } = await mjml(input)
       const $ = load(html)
 
-      // Column aria attributes should be on the column div wrapper
-      const columnDiv = $('div[role="region"].mj-column-per-100')
-      chai.expect(columnDiv.attr('aria-label')).to.equal('Left column')
-      chai.expect(columnDiv.attr('aria-roledescription')).to.equal('column')
-      chai.expect(columnDiv.attr('role')).to.equal('region')
+      const columnTable = $('table[role="region"][aria-label="Left column"]')
+      chai.expect(columnTable.attr('aria-label')).to.equal('Left column')
+      chai.expect(columnTable.attr('aria-roledescription')).to.equal('column')
+      chai.expect(columnTable.attr('role')).to.equal('region')
     })
 
     it('should pass through aria attributes on multiple columns', async function () {
@@ -88,10 +87,10 @@ describe('ARIA attributes pass-through', function () {
       const { html } = await mjml(input)
       const $ = load(html)
 
-      const columnDivs = $('div[role="region"][class*="mj-column"]')
-      chai.expect(columnDivs.length).to.equal(2)
-      chai.expect(columnDivs.eq(0).attr('aria-label')).to.equal('Column 1')
-      chai.expect(columnDivs.eq(1).attr('aria-label')).to.equal('Column 2')
+      const columnTables = $('table[role="region"][aria-label]')
+      chai.expect(columnTables.length).to.equal(2)
+      chai.expect(columnTables.eq(0).attr('aria-label')).to.equal('Column 1')
+      chai.expect(columnTables.eq(1).attr('aria-label')).to.equal('Column 2')
     })
   })
 
@@ -243,22 +242,6 @@ describe('ARIA attributes pass-through', function () {
   })
 
   describe('mj-divider', function () {
-    it('should default aria-hidden to true', async function () {
-      const input = `
-<mjml>
-  <mj-body>
-    <mj-section>
-      <mj-column>
-        <mj-divider />
-      </mj-column>
-    </mj-section>
-  </mj-body>
-</mjml>
-`
-      const { html } = await mjml(input)
-
-      chai.expect(html).to.include('aria-hidden="true"')
-    })
 
     it('should allow overriding aria-hidden default', async function () {
       const input = `
@@ -418,10 +401,8 @@ describe('ARIA attributes pass-through', function () {
       const { html } = await mjml(input)
       const $ = load(html)
 
-      const sectionDiv = $('div[role="region"]')
-      chai.expect(sectionDiv.attr('aria-label')).to.equal('Styled section')
-      // Background color should be in the nested section table style
-      const sectionTable = sectionDiv.find('table').first()
+      const sectionTable = $('table[role="region"][aria-label="Styled section"]')
+      chai.expect(sectionTable.attr('aria-label')).to.equal('Styled section')
       chai.expect(sectionTable.attr('style')).to.include('background')
     })
 

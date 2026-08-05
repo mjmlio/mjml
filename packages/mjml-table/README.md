@@ -50,8 +50,8 @@ Display a data table. It only accepts plain HTML.
 | container-background-color | CSS color formats                  | inner element background color                        |                      |
 | css-class                  | string                             | class name, added to the root HTML element created    |                      |
 | font-family                | string                             | font name                                             | `Ubuntu, sans-serif` |
-| font-size                  | `px`                               | font size                                             | `16px`               |
-| line-height                | `px` `%`                           | space between lines                                   | `150%`               |
+| font-size                  | `px` `rem`                         | font size                                             | `16px`               |
+| line-height                | `px` `%` `em` `rem`                | space between lines                                   | `150%`               |
 | padding                    | `px` `%`                           | outer table padding, supports up to 4 parameters      | `10px 25px`          |
 | padding-bottom             | `px` `%`                           | bottom padding                                        |                      |
 | padding-left               | `px` `%`                           | left padding                                          |                      |

@@ -406,9 +406,6 @@ export default class MjHero extends BodyComponent {
       `)}
       <div
         ${this.htmlAttributes({
-          role: this.getAttribute('role'),
-          'aria-label': this.getAttribute('aria-label'),
-          'aria-roledescription': this.getAttribute('aria-roledescription'),
           align: this.getAttribute('align'),
           class: this.getAttribute('css-class'),
           style: 'div',
@@ -419,8 +416,10 @@ export default class MjHero extends BodyComponent {
             border: '0',
             cellpadding: '0',
             cellspacing: '0',
-            role: 'none',
             style: 'table',
+            role: this.getAttribute('role') ? this.getAttribute('role') : 'none',
+            'aria-label': this.getAttribute('aria-label'),
+            'aria-roledescription': this.getAttribute('aria-roledescription'),
           })}
         >
           <tr

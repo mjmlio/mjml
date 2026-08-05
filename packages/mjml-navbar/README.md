@@ -112,27 +112,27 @@ Used to display an individual link in the navbar. Individual links of the menu s
 
 #### Attributes
 
-| attribute       | accepts           | description                                                  | default value        |
-| --------------- | ----------------- | ------------------------------------------------------------ | -------------------- |
-| color           | CSS color formats | text color                                                   | `#000000`            |
-| css-class       | string            | class name, added to the root HTML element created           |                      |
-| font-family     | string            | font                                                         | `Ubuntu, sans-serif` |
-| font-size       | `px`              | text size                                                    | `16px`               |
-| font-style      | string            | CSS values, i.e. `normal` `italic` `oblique`                 |                      |
-| font-weight     | string            | text thickness                                               |                      |
-| href            | string            | link to redirect to on click, in URL format                  |                      |
-| letter-spacing  | `px` `em`         | letter-spacing                                               |                      |
-| line-height     | `px` `%`          | space between the lines                                      | `150%`               |
-| name            | string            | specify the link name attribute                              |                      |
-| padding         | `px` `%`          | navbar link padding, supports up to 4 parameters             | `15px 10px`          |
-| padding-bottom  | `px` `%`          | bottom padding                                               |                      |
-| padding-left    | `px` `%`          | left padding                                                 |                      |
-| padding-right   | `px` `%`          | right padding                                                |                      |
-| padding-top     | `px` `%`          | top padding                                                  |                      |
-| rel             | string            | specify the rel attribute                                    |                      |
-| target          | string            | link target on click                                         |                      |
-| text-decoration | string            | CSS values, i.e. `underline` `overline` `none`               | `none`               |
-| text-transform  | string            | CSS values, i.e. `capitalize` `uppercase` `lowercase` `none` | `uppercase`          |
+| attribute       | accepts             | description                                                  | default value        |
+| --------------- | ------------------- | ------------------------------------------------------------ | -------------------- |
+| color           | CSS color formats   | text color                                                   | `#000000`            |
+| css-class       | string              | class name, added to the root HTML element created           |                      |
+| font-family     | string              | font                                                         | `Ubuntu, sans-serif` |
+| font-size       | `px` `rem`          | text size                                                    | `16px`               |
+| font-style      | string              | CSS values, i.e. `normal` `italic` `oblique`                 |                      |
+| font-weight     | string              | text thickness                                               |                      |
+| href            | string              | link to redirect to on click, in URL format                  |                      |
+| letter-spacing  | `px` `em`           | letter-spacing                                               |                      |
+| line-height     | `px` `%` `em` `rem` | space between the lines                                      | `150%`               |
+| name            | string              | specify the link name attribute                              |                      |
+| padding         | `px` `%`            | navbar link padding, supports up to 4 parameters             | `15px 10px`          |
+| padding-bottom  | `px` `%`            | bottom padding                                               |                      |
+| padding-left    | `px` `%`            | left padding                                                 |                      |
+| padding-right   | `px` `%`            | right padding                                                |                      |
+| padding-top     | `px` `%`            | top padding                                                  |                      |
+| rel             | string              | specify the rel attribute                                    |                      |
+| target          | string              | link target on click                                         |                      |
+| text-decoration | string              | CSS values, i.e. `underline` `overline` `none`               | `none`               |
+| text-transform  | string              | CSS values, i.e. `capitalize` `uppercase` `lowercase` `none` | `uppercase`          |
 
 ##### Modifiers
 

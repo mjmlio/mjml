@@ -38,7 +38,7 @@ export default class MjImage extends BodyComponent {
     'container-background-color': 'color',
     'container-background-color--dark': 'color',
     'fluid-on-mobile': 'boolean',
-    'font-size': 'unit(px)',
+    'font-size': 'unit(px,rem)',
     height: 'unit(px,auto)',
     href: 'string',
     'max-height': 'unit(px,%)',

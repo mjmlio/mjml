@@ -16,10 +16,10 @@ export default class MjAccordionText extends BodyComponent {
     color: 'color',
     'color--dark': 'color',
     'font-family': 'string',
-    'font-size': 'unit(px)',
+    'font-size': 'unit(px,rem)',
     'font-weight': 'string',
     'letter-spacing': 'unitWithNegative(px,em)',
-    'line-height': 'unit(px,%,)',
+    'line-height': 'unit(px,%,em,rem)',
     padding: 'unit(px,%){1,4}',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
@@ -190,7 +190,6 @@ export default class MjAccordionText extends BodyComponent {
       <div
         ${this.htmlAttributes({
           class: 'mj-accordion-content',
-          role: this.getAttribute('role'),
         })}
       >
         <table
@@ -199,6 +198,7 @@ export default class MjAccordionText extends BodyComponent {
             cellpadding: '0',
             class: borderDarkClass || undefined,
             style: 'table',
+            role: this.getAttribute('role'),
           })}
         >
           <tr>

@@ -699,10 +699,12 @@ export default class MjColumn extends BodyComponent {
           border: '0',
           cellpadding: '0',
           cellspacing: '0',
-          role: 'none',
           class: columnTableDarkClass,
           style: 'table',
           width: '100%',
+          role: this.getAttribute('role') ? this.getAttribute('role') : 'none',
+          'aria-label': this.getAttribute('aria-label'),
+          'aria-roledescription': this.getAttribute('aria-roledescription'),
         })}
       >
         ${this.renderChildren(children, {
@@ -777,9 +779,6 @@ export default class MjColumn extends BodyComponent {
     return `
       <div
         ${this.htmlAttributes({
-          role: this.getAttribute('role'),
-          'aria-label': this.getAttribute('aria-label'),
-          'aria-roledescription': this.getAttribute('aria-roledescription'),
           class: classesName,
           style: 'div',
         })}

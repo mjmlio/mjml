@@ -44,7 +44,6 @@ export default class MjDivider extends BodyComponent {
   }
 
   static defaultAttributes = {
-    'aria-hidden': 'true',
     'border-color': '#000000',
     'border-style': 'solid',
     'border-width': '4px',

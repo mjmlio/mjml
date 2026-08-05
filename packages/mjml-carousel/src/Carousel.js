@@ -589,8 +589,10 @@ export default class MjCarousel extends BodyComponent {
           cellpadding: '0',
           cellspacing: '0',
           width: '100%',
-          role: 'none',
           class: 'mj-carousel-main',
+          role: this.getAttribute('role') ? this.getAttribute('role') : 'none',
+          'aria-label': this.getAttribute('aria-label'),
+          'aria-roledescription': this.getAttribute('aria-roledescription'),
         })}
       >
         <tr>
@@ -631,9 +633,6 @@ export default class MjCarousel extends BodyComponent {
         <div
           ${this.htmlAttributes({
             class: 'mj-carousel',
-            role: this.getAttribute('role'),
-            'aria-label': this.getAttribute('aria-label'),
-            'aria-roledescription': this.getAttribute('aria-roledescription'),
           })}
         >
           ${this.generateRadios()}

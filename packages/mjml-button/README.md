@@ -50,14 +50,14 @@ Displays a customizable button.
 | container-background-color | CSS color formats                  | button container background color                     |                      |
 | css-class                  | string                             | class name, added to the root HTML element created    |                      |
 | font-family                | string                             | font name                                             | `Ubuntu, sans-serif` |
-| font-size                  | `px`                               | text size                                             | `16px`               |
+| font-size                  | `px` `rem`                         | text size                                             | `16px`               |
 | font-style                 | string                             | CSS values, e.g. `normal` `italic` `oblique`          |                      |
 | font-weight                | string                             | text thickness                                        |                      |
 | height                     | `px` `%`                           | button height                                         |                      |
 | href                       | string                             | URL format                                            |                      |
 | inner-padding              | `px` `%`                           | inner button padding, <br>supports up to 4 parameters | `10px 25px`          |
 | letter-spacing             | `px` `em`                          | letter-spacing                                        |                      |
-| line-height                | `px` `%`                           | line-height on link                                   | `150%`               |
+| line-height                | `px` `%` `em` `rem`                | line-height on link                                   | `150%`               |
 | multiline                  | boolean                            | improve button display in Outlook classic             |                      |
 | name                       | string                             | specify the name attribute for the button link        |                      |
 | padding                    | `px` `%`                           | button container padding, supports up to 4 parameters | `10px 25px`          |

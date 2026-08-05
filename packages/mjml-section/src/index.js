@@ -774,9 +774,6 @@ export default class MjSection extends BodyComponent {
           this.isFullWidth() ? null : this.getAttribute('css-class'),
           responsiveGapClass,
         ].filter(Boolean).join(' ') || undefined,
-        role: this.getAttribute('role'),
-        'aria-label': this.getAttribute('aria-label'),
-        'aria-roledescription': this.getAttribute('aria-roledescription'),
         style: 'div',
       })}>
         <table
@@ -789,8 +786,10 @@ export default class MjSection extends BodyComponent {
             cellpadding: '0',
             cellspacing: '0',
             class: tableClass,
-            role: 'none',
             style: 'table',
+            role: this.getAttribute('role') ? this.getAttribute('role') : 'none',
+            'aria-label': this.getAttribute('aria-label'),
+            'aria-roledescription': this.getAttribute('aria-roledescription'),
           })}
         >
           <tr>

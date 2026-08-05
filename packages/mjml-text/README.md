@@ -33,12 +33,12 @@ Displays text which can be styled.
 | container-background-color | CSS color formats                 | inner element background color                               |                      |
 | css-class                  | string                            | class name, added to the root HTML element created           |                      |
 | font-family                | string                            | font                                                         | `Ubuntu, sans-serif` |
-| font-size                  | `px`                              | text size                                                    | `16px`               |
+| font-size                  | `px` `rem`                        | text size                                                    | `16px`               |
 | font-style                 | string                            | CSS values, e.g. `normal` `italic` `oblique`                 |                      |
 | font-weight                | string                            | text thickness                                               |                      |
 | height                     | `px`                              | height of the element                                        |                      |
 | letter-spacing             | `px` `em`                         | letter spacing                                               |                      |
-| line-height                | `px` `%`                          | space between the lines                                      | `150%`               |
+| line-height                | `px` `%` `em` `rem`               | space between the lines                                      | `150%`               |
 | normalize-elements         | `ol` and/or `ul` (comma delimted) | normalizes the margin and padding for the specified element  |                      |
 | padding                    | `px` `%`                          | text padding, supports up to 4 parameters                    | `10px 25px`          |
 | padding-bottom             | `px` `%`                          | bottom offset                                                |                      |

@@ -19,7 +19,7 @@ Displays a horizontal divider that can be customized like a HTML border.
 | attribute                  | accepts                 | description                                            | default value |
 | -------------------------- | ----------------------- | ------------------------------------------------------ | ------------- |
 | align                      | `left` `center` `right` | horizontal alignment                                   | `center`      |
-| aria-hidden                | string                  | adds an `aria-hidden` attribute to the divider element | `true`        |
+| aria-hidden                | string                  | adds an `aria-hidden` attribute to the divider element |               |
 | border-color               | CSS color formats       | divider color                                          | `#000000`     |
 | border-style               | string                  | CSS values, e.g. `dashed` `dotted` `solid`             | `solid`       |
 | border-width               | `px`                    | divider's border width                                 | `4px`         |

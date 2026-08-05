@@ -47,14 +47,14 @@ Displays calls-to-action for various social networks with their associated logo.
 | container-background-color | CSS color formats       | inner element background color                     |                      |
 | css-class                  | string                  | class name, added to the root HTML element created |                      |
 | font-family                | string                  | font name                                          | `Ubuntu, sans-serif` |
-| font-size                  | `px`                    | font size                                          | `16px`               |
+| font-size                  | `px` `rem`              | font size                                          | `16px`               |
 | font-style                 | string                  | font style                                         | normal               |
 | font-weight                | string                  | font weight                                        | normal               |
 | icon-height                | `px` `%`                | icon height, overrides `icon-size`                 | icon-size            |
 | icon-padding               | `px` `%`                | padding around the icons                           |                      |
 | icon-size                  | `px` `%`                | icon size (width and height)                       | `20px`               |
 | inner-padding              | `px` `%`                | social network surrounding padding                 | `null`               |
-| line-height                | `px` `%`                | space between lines                                | `150%`               |
+| line-height                | `px` `%` `em` `rem`     | space between lines                                | `150%`               |
 | mode                       | `horizontal` `vertical` | direction of social elements                       | `horizontal`         |
 | padding                    | `px` `%`                | social padding, supports up to 4 parameters        | `10px 25px`          |
 | padding-bottom             | `px` `%`                | bottom padding                                     |                      |
@@ -82,21 +82,21 @@ Displays calls-to-action for various social networks with their associated logo.
 
 ###### Responsive
 
-| attribute                  | accepts                 | description                                              | default value |
-| -------------------------- | ----------------------- | -------------------------------------------------------- | ------------- |
-| align--responsive          | `left` `right` `center` | align content                                     |               |
-| font-size--responsive      | `px`                    | font size (applied to all child elements)     |               |
-| icon-height--responsive    | `px` `%`                | icon height, overrides `icon-size` (applied to all child elements)   |               |
-| icon-padding--responsive   | `px` `%`                | padding around the icons (applied to all child elements)  |               |
-| icon-size--responsive      | `px` `%`                | icon size (width and height) (applied to all child elements)     |               |
+| attribute                  | accepts                 | description                                                        | default value |
+| -------------------------- | ----------------------- | ------------------------------------------------------------------ | ------------- |
+| align--responsive          | `left` `right` `center` | align content                                                      |               |
+| font-size--responsive      | `px`                    | font size (applied to all child elements)                          |               |
+| icon-height--responsive    | `px` `%`                | icon height, overrides `icon-size` (applied to all child elements) |               |
+| icon-padding--responsive   | `px` `%`                | padding around the icons (applied to all child elements)           |               |
+| icon-size--responsive      | `px` `%`                | icon size (width and height) (applied to all child elements)       |               |
 | inner-padding--responsive  | `px` `%`                | social network surrounding padding (applied to all child elements) |               |
-| line-height--responsive    | `px` `%`                | space between lines (applied to all child elements)   |               |
-| padding--responsive        | `px` `%`                | social padding, supports up to 4 parameters           |               |
-| padding-bottom--responsive | `px` `%`                | bottom padding                      |               |
-| padding-left--responsive   | `px` `%`                | left padding                        |               |
-| padding-right--responsive  | `px` `%`                | right padding                       |               |
-| padding-top--responsive    | `px` `%`                | top padding                         |               |
-| text-padding--responsive   | `px` `%`                | padding around the text (applied to all child elements)  |               |
+| line-height--responsive    | `px` `%`                | space between lines (applied to all child elements)                |               |
+| padding--responsive        | `px` `%`                | social padding, supports up to 4 parameters                        |               |
+| padding-bottom--responsive | `px` `%`                | bottom padding                                                     |               |
+| padding-left--responsive   | `px` `%`                | left padding                                                       |               |
+| padding-right--responsive  | `px` `%`                | right padding                                                      |               |
+| padding-top--responsive    | `px` `%`                | top padding                                                        |               |
+| text-padding--responsive   | `px` `%`                | padding around the text (applied to all child elements)            |               |
 
 #### mj-social-element
 
@@ -122,7 +122,7 @@ Note that default icons are transparent, which allows `background-color` to actu
 | color                   | CSS color formats       | text color                                                                      | `#000`                                 |
 | css-class               | string                  | class name, added to the root HTML element created                              |                                        |
 | font-family             | string                  | font name                                                                       | `Ubuntu, sans-serif`                   |
-| font-size               | `px`                    | font size                                                                       | `16px`                                 |
+| font-size               | `px` `em`               | font size                                                                       | `16px`                                 |
 | font-style              | string                  | font style                                                                      |                                        |
 | font-weight             | string                  | font weight                                                                     |                                        |
 | href                    | string                  | button redirection, in URL format                                               |                                        |
@@ -130,7 +130,7 @@ Note that default icons are transparent, which allows `background-color` to actu
 | icon-padding            | `px` `%`                | padding around the icon                                                         |                                        |
 | icon-position           | `left` `right`          | sets the side of the icon                                                       |                                        |
 | icon-size               | `px` `%`                | icon size (width and height)                                                    |                                        |
-| line-height             | `px` `%`                | space between lines                                                             | `150%`                                 |
+| line-height             | `px` `%` `em` `rem`     | space between lines                                                             | `150%`                                 |
 | name                    | string                  | social network name, see supported list below                                   |                                        |
 | padding                 | `px` `%`                | social element padding, supports up to 4 parameters                             | `4px`                                  |
 | padding-bottom          | `px` `%`                | bottom padding                                                                  |                                        |

@@ -169,7 +169,7 @@ Displays the title in a title/text pair.
 | color            | CSS color formats | text color                                           |               |
 | css-class        | string            | class name, added to the root HTML element created   |               |
 | font-family      | string            | font family                                          |               |
-| font-size        | `px`              | font size                                            | `16px`        |
+| font-size        | `px` `rem`        | font size                                            | `16px`        |
 | font-weight      | string            | text thickness                                       |               |
 | padding          | `px` `%`          | accordion title padding, supports up to 4 parameters | `16px`        |
 | padding-bottom   | `px` `%`          | accordion title bottom padding                       |               |
@@ -211,22 +211,22 @@ Displays the text in a title/text pair.
 
 ##### Attributes
 
-| attribute        | accepts           | description                                         | default value |
-| ---------------- | ----------------- | --------------------------------------------------- | ------------- |
-| background-color | CSS color formats | background color                                    |               |
-| color            | CSS color formats | text color                                          |               |
-| css-class        | string            | class name, added to the root HTML element created  |               |
-| font-family      | string            | font family                                         |               |
-| font-size        | `px`              | font size                                           | `16px`        |
-| font-weight      | string            | text thickness                                      |               |
-| letter-spacing   | `px` `em`         | letter spacing                                      |               |
-| line-height      | `px` `%`          | space between the lines                             | `150%`        |
-| padding          | `px` `%`          | accordion text padding, supports up to 4 parameters | `16px`        |
-| padding-bottom   | `px` `%`          | accordion text bottom padding                       |               |
-| padding-left     | `px` `%`          | accordion text left padding                         |               |
-| padding-right    | `px` `%`          | accordion text right padding                        |               |
-| padding-top      | `px` `%`          | accordion text top padding                          |               |
-| role             | string            | adds a `role` attribute to the slide container      | `region`      |
+| attribute        | accepts             | description                                         | default value |
+| ---------------- | ------------------- | --------------------------------------------------- | ------------- |
+| background-color | CSS color formats   | background color                                    |               |
+| color            | CSS color formats   | text color                                          |               |
+| css-class        | string              | class name, added to the root HTML element created  |               |
+| font-family      | string              | font family                                         |               |
+| font-size        | `px` `rem`          | font size                                           | `16px`        |
+| font-weight      | string              | text thickness                                      |               |
+| letter-spacing   | `px` `em`           | letter spacing                                      |               |
+| line-height      | `px` `%` `em` `rem` | space between the lines                             | `150%`        |
+| padding          | `px` `%`            | accordion text padding, supports up to 4 parameters | `16px`        |
+| padding-bottom   | `px` `%`            | accordion text bottom padding                       |               |
+| padding-left     | `px` `%`            | accordion text left padding                         |               |
+| padding-right    | `px` `%`            | accordion text right padding                        |               |
+| padding-top      | `px` `%`            | accordion text top padding                          |               |
+| role             | string              | adds a `role` attribute to the slide container      | `region`      |
 
 ##### Modifiers
 

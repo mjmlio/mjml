@@ -109,7 +109,7 @@ export default class MjNavbar extends BodyComponent {
           globalData.navbarHamburgerStyleEmitted = true
         }
         hamburgerCss = `
-      noinput.mj-menu-checkbox { display:block!important; max-height:none!important; visibility:visible!important; }
+      noinput.mj-menu-checkbox { display: block !important; position: absolute; opacity: 0; pointer-events: none; }
       @media only screen and (max-width:${makeLowerBreakpoint(breakpoint)}) {
         .mj-menu-checkbox[type="checkbox"] ~ .mj-inline-links,
         .mj-menu-checkbox[type="checkbox"]:checked ~ .mj-menu-trigger .mj-menu-icon-open { display:none!important; }
@@ -117,6 +117,10 @@ export default class MjNavbar extends BodyComponent {
         .mj-menu-checkbox[type="checkbox"]:checked ~ .mj-menu-trigger .mj-menu-icon-close { display:block!important; }
         .mj-menu-checkbox[type="checkbox"]:checked ~ .mj-inline-links,
         .mj-menu-checkbox[type="checkbox"] ~ .mj-menu-trigger { display:block!important; max-width:none!important; max-height:none!important; font-size:inherit!important; }
+        .mj-menu-checkbox[type="checkbox"]:focus-visible~.mj-menu-trigger {
+        outline: 5px auto Highlight;
+        outline-color: -webkit-focus-ring-color;
+    }
       }
     `
       }
@@ -251,7 +255,7 @@ ${selectors} { display: block !important }
       !this.context.globalData ||
       this.context.globalData.supportOutlookClassic !== false
 
-    const checkbox = `<input type="checkbox" id="${labelKey}" class="mj-menu-checkbox" style="display:none !important; max-height:0; visibility:hidden;" />\n      `
+    const checkbox = `<input type="checkbox" id="${labelKey}" class="mj-menu-checkbox" style="display: block !important; position: absolute; opacity: 0; pointer-events: none;" />\n      `
 
     const checkboxOutput = supportOutlookClassic
       ? conditionalTag(checkbox, true)

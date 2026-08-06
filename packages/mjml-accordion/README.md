@@ -195,14 +195,14 @@ Displays the title in a title/text pair.
 
 ###### Responsive
 
-| attribute                  | accepts  | description                                          | default value |
-| -------------------------- | -------- | ---------------------------------------------------- | ------------- |
-| font-size--responsive      | `px`     | font size                                            |               |
-| padding--responsive        | `px` `%` | accordion title padding, supports up to 4 parameters |               |
-| padding-bottom--responsive | `px` `%` | accordion title bottom padding                       |               |
-| padding-left--responsive   | `px` `%` | accordion title left padding                         |               |
-| padding-right--responsive  | `px` `%` | accordion title right padding                        |               |
-| padding-top--responsive    | `px` `%` | accordion title top padding                          |               |
+| attribute                  | accepts    | description                                          | default value |
+| -------------------------- | ---------- | ---------------------------------------------------- | ------------- |
+| font-size--responsive      | `px` `rem` | font size                                            |               |
+| padding--responsive        | `px` `%`   | accordion title padding, supports up to 4 parameters |               |
+| padding-bottom--responsive | `px` `%`   | accordion title bottom padding                       |               |
+| padding-left--responsive   | `px` `%`   | accordion title left padding                         |               |
+| padding-right--responsive  | `px` `%`   | accordion title right padding                        |               |
+| padding-top--responsive    | `px` `%`   | accordion title top padding                          |               |
 
 
 #### mj-accordion-text
@@ -244,12 +244,12 @@ Displays the text in a title/text pair.
 
 ###### Responsive
 
-| attribute                  | accepts  | description                                         | default value |
-| -------------------------- | -------- | --------------------------------------------------- | ------------- |
-| font-size--responsive      | `px`     | font size                                           |               |
-| line-height--responsive    | `px` `%` | space between the lines                             |               |
-| padding--responsive        | `px` `%` | accordion text padding, supports up to 4 parameters |               |
-| padding-bottom--responsive | `px` `%` | accordion text bottom padding                       |               |
-| padding-left--responsive   | `px` `%` | accordion text left padding                         |               |
-| padding-right--responsive  | `px` `%` | accordion text right padding                        |               |
-| padding-top--responsive    | `px` `%` | accordion text top padding                          |               |
+| attribute                  | accepts             | description                                         | default value |
+| -------------------------- | ------------------- | --------------------------------------------------- | ------------- |
+| font-size--responsive      | `px` `rem`          | font size                                           |               |
+| line-height--responsive    | `px` `%` `em` `rem` | space between the lines                             |               |
+| padding--responsive        | `px` `%`            | accordion text padding, supports up to 4 parameters |               |
+| padding-bottom--responsive | `px` `%`            | accordion text bottom padding                       |               |
+| padding-left--responsive   | `px` `%`            | accordion text left padding                         |               |
+| padding-right--responsive  | `px` `%`            | accordion text right padding                        |               |
+| padding-top--responsive    | `px` `%`            | accordion text top padding                          |               |

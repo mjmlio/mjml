@@ -78,7 +78,7 @@ Note that if no width is provided, the image will use the parent column width.
 | attribute                  | accepts                 | description                                     | default value |
 | -------------------------- | ----------------------- | ----------------------------------------------- | ------------- |
 | align--responsive          | `left` `center` `right` | image alignment                                 |               |
-| font-size--responsive      | `px`                    | size of the alt text when image is not rendered |               |
+| font-size--responsive      | `px` `rem`              | size of the alt text when image is not rendered |               |
 | height--responsive         | `px` `auto`             | image height                                    |               |
 | max-height--responsive     | `px` `%`                | specify the maximum height of an image          |               |
 | padding--responsive        | `px` `%`                | image padding, supports up to 4 parameters      |               |

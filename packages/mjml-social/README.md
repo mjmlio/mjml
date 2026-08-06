@@ -85,12 +85,12 @@ Displays calls-to-action for various social networks with their associated logo.
 | attribute                  | accepts                 | description                                                        | default value |
 | -------------------------- | ----------------------- | ------------------------------------------------------------------ | ------------- |
 | align--responsive          | `left` `right` `center` | align content                                                      |               |
-| font-size--responsive      | `px`                    | font size (applied to all child elements)                          |               |
+| font-size--responsive      | `px` `rem`              | font size (applied to all child elements)                          |               |
 | icon-height--responsive    | `px` `%`                | icon height, overrides `icon-size` (applied to all child elements) |               |
 | icon-padding--responsive   | `px` `%`                | padding around the icons (applied to all child elements)           |               |
 | icon-size--responsive      | `px` `%`                | icon size (width and height) (applied to all child elements)       |               |
 | inner-padding--responsive  | `px` `%`                | social network surrounding padding (applied to all child elements) |               |
-| line-height--responsive    | `px` `%`                | space between lines (applied to all child elements)                |               |
+| line-height--responsive    | `px` `%` `em` `rem`     | space between lines (applied to all child elements)                |               |
 | padding--responsive        | `px` `%`                | social padding, supports up to 4 parameters                        |               |
 | padding-bottom--responsive | `px` `%`                | bottom padding                                                     |               |
 | padding-left--responsive   | `px` `%`                | left padding                                                       |               |
@@ -168,11 +168,11 @@ Note that default icons are transparent, which allows `background-color` to actu
 | attribute                  | accepts                 | description                                                | default value |
 | -------------------------- | ----------------------- | ---------------------------------------------------------- | ------------- |
 | align--responsive          | `left` `center` `right` | align content                                              |               |
-| font-size--responsive      | `px`                    | font size                                                  |               |
+| font-size--responsive      | `px` `rem`              | font size                                                  |               |
 | icon-height--responsive    | `px` `%`                | icon height, overrides icon-size                           |               |
 | icon-padding--responsive   | `px` `%`                | padding around the icon                                    |               |
 | icon-size--responsive      | `px` `%`                | icon size; also overrides the icon image `width` attribute |               |
-| line-height--responsive    | `px` `%`                | space between lines                                        |               |
+| line-height--responsive    | `px` `%` `em` `rem`     | space between lines                                        |               |
 | padding--responsive        | `px` `%`                | social element padding, supports up to 4 parameters        |               |
 | padding-bottom--responsive | `px` `%`                | bottom padding                                             |               |
 | padding-left--responsive   | `px` `%`                | left padding                                               |               |

@@ -110,8 +110,8 @@ Display a data table. It only accepts plain HTML.
 | attribute                  | accepts                 | description                                      | default value |
 | -------------------------- | ----------------------- | ------------------------------------------------ | ------------- |
 | align--responsive          | `left` `right` `center` | table horizontal alignment                       |               |
-| font-size--responsive      | `px`                    | font size                                        |               |
-| line-height--responsive    | `px` `%`                | space between lines                              |               |
+| font-size--responsive      | `px` `rem`              | font size                                        |               |
+| line-height--responsive    | `px` `%` `em` `rem`     | space between lines                              |               |
 | padding--responsive        | `px` `%`                | outer table padding, supports up to 4 parameters |               |
 | padding-bottom--responsive | `px` `%`                | bottom padding                                   |               |
 | padding-left--responsive   | `px` `%`                | left padding                                     |               |

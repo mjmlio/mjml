@@ -101,10 +101,10 @@ Displays a customizable button.
 | attribute                  | accepts                 | description                                           | default value |
 | -------------------------- | ----------------------- | ----------------------------------------------------- | ------------- |
 | align--responsive          | `left` `center` `right` | horizontal alignment                                  |               |
-| font-size--responsive      | `px`                    | text size                                             |               |
+| font-size--responsive      | `px`, `rem`             | text size                                             |               |
 | height--responsive         | `px` `%`                | button height                                         |               |
 | inner-padding--responsive  | `px` `%`                | inner button padding, supports up to 4 parameters     |               |
-| line-height--responsive    | `px` `%`                | line-height on link                                   |               |
+| line-height--responsive    | `px` `%` `em` `rem`     | line-height on link                                   |               |
 | padding--responsive        | `px` `%`                | button container padding, supports up to 4 parameters |               |
 | padding-bottom--responsive | `px` `%`                | button container bottom padding                       |               |
 | padding-left--responsive   | `px` `%`                | button container left padding                         |               |

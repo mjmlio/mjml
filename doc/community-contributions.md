@@ -50,8 +50,4 @@ The [Email Love Figma plugin](https://www.figma.com/community/plugin/13878912886
 
 ### Templatical
 
-[Templatical](https://templatical.com) is a drag-and-drop email editor you embed in your own web app with a single function call. Templates are stored as portable JSON, and [@templatical/renderer](https://www.npmjs.com/package/@templatical/renderer) converts that JSON to MJML, which you compile to HTML with the `mjml` package itself. Templatical emits MJML rather than reimplementing the compiler, and its renderer output is round-trip tested against `mjml`.
-
-The editor is framework-agnostic — embed it in React, Svelte, Angular or vanilla JS the same way — themeable through CSS variables, and ships a linter that flags accessibility, structure and link problems before a template goes out. Templates can also be generated from a coding agent through an MCP server or an Agent Skill, then previewed and hand-edited in the editor itself.
-
-Try it in the [playground](https://play.templatical.com), read the [documentation](https://docs.templatical.com), or browse the source on [GitHub](https://github.com/templatical/sdk).
+[Templatical](https://templatical.com) is a drag-and-drop email editor you embed in your own web app. Templates are stored as portable JSON and rendered to MJML by [@templatical/renderer](https://www.npmjs.com/package/@templatical/renderer), which you then compile to HTML with the `mjml` package. Framework-agnostic, themeable, and it can also generate templates from a coding agent via MCP.

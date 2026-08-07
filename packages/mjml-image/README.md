@@ -90,5 +90,5 @@ Note that if no width is provided, the image will use the parent column width.
 
 <div class="alert alert-note" role="alert">
   <p>Note</p>
-  <p>Outlook (Android) converts <code>height--responsive</code> declaration to a <code>min-height</code> in CSS. This can be fixed by adding the same value in <code>max-height--responsive</code> declaration.</p>
+  <p>Yahoo (iOS / Android) converts <code>height--responsive</code> declaration to a <code>min-height</code> in CSS. This can be fixed by adding the same value in <code>max-height--responsive</code> declaration.</p>
 </div>

@@ -195,7 +195,7 @@ export default class MjDivider extends BodyComponent {
         })}
       >
         <tr>
-          <td><hr style="border:0;background:0;height:0;margin:0;" noshade /></td>
+          <td><hr style="border:0;background:0;height:0;margin:0;" noshade width="0" /></td>
         </tr>
       </table>
     `

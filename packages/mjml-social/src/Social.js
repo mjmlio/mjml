@@ -25,7 +25,7 @@ export default class MjSocial extends BodyComponent {
     'container-background-color--dark': 'color',
     'font-family': 'string',
     'font-size': 'unit(px,rem)',
-    'font-size--responsive': 'unit(px.rem)',
+    'font-size--responsive': 'unit(px,rem)',
     'font-style': 'string',
     'font-weight': 'string',
     'icon-size': 'unit(px,%)',

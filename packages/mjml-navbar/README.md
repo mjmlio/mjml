@@ -77,7 +77,7 @@ Displays a navigation menu with an optional `hamburger` mode for mobile devices.
 | padding-left         | `px` `%`                      | navbar left padding                                                                                                     |                      |
 | padding-right        | `px` `%`                      | navbar right padding                                                                                                    |                      |
 | padding-top          | `px` `%`                      | navbar top padding                                                                                                      |                      |
-| responsive-mode      | `block`                       | display links on single lines below the breakpoint                                                                      |                      |
+| responsive-mode      | `stack`                       | stack links on single lines below the breakpoint                                                                        |                      |
 | role                 | string                        | adds a `role` attribute to the navbar container                                                                         |                      |
 
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/navbar">Try it live</a></p>

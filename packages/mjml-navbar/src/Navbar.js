@@ -31,7 +31,7 @@ export default class MjNavbar extends BodyComponent {
     'ico-padding-bottom': 'unit(px,%)',
     'ico-text-decoration': 'string',
     'ico-text-transform': 'string',
-    'responsive-mode': 'enum(block)',
+    'responsive-mode': 'enum(stack)',
     padding: 'unit(px,%){1,4}',
     'padding-left': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
@@ -247,7 +247,7 @@ ${selectors} { display: block !important }
 
   render() {
     if (
-      this.getAttribute('responsive-mode') === 'block' &&
+      this.getAttribute('responsive-mode') === 'stack' &&
       this.getAttribute('hamburger') !== 'hamburger' &&
       this.responsiveModeIndex == null
     ) {

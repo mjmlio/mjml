@@ -174,6 +174,7 @@ export default class MjText extends BodyComponent {
     'color--dark': 'color',
     'container-background-color': 'color',
     'container-background-color--dark': 'color',
+    'container-border-radius': 'string',
     'font-family': 'string',
     'font-size': 'unit(px,rem)',
     'font-size--responsive': 'unit(px,rem)',

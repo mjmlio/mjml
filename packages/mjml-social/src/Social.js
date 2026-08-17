@@ -23,19 +23,20 @@ export default class MjSocial extends BodyComponent {
     'color--dark': 'color',
     'container-background-color': 'color',
     'container-background-color--dark': 'color',
+    'container-border-radius': 'string',
     'font-family': 'string',
     'font-size': 'unit(px,rem)',
     'font-size--responsive': 'unit(px,rem)',
     'font-style': 'string',
     'font-weight': 'string',
+    'gutter': 'unit(px){1,4}',
+    'gutter--responsive': 'unit(px){1,4}',
     'icon-size': 'unit(px,%)',
     'icon-size--responsive': 'unit(px,%)',
     'icon-height': 'unit(px,%)',
     'icon-height--responsive': 'unit(px,%)',
     'icon-padding': 'unit(px,%){1,4}',
     'icon-padding--responsive': 'unit(px,%){1,4}',
-    'inner-padding': 'unit(px,%){1,4}',
-    'inner-padding--responsive': 'unit(px,%){1,4}',
     'line-height': 'unit(px,%,em,rem)',
     'line-height--responsive': 'unit(px,%,em,rem)',
     mode: 'enum(horizontal,vertical)',
@@ -49,10 +50,11 @@ export default class MjSocial extends BodyComponent {
     'padding-right--responsive': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
     'padding-top--responsive': 'unit(px,%)',
+    'responsive-mode': 'enum(stack)',
     'table-layout': 'enum(auto,fixed)',
     'text-decoration': 'string',
-    'text-padding': 'unit(px,%){1,4}',
-    'text-padding--responsive': 'unit(px,%){1,4}',
+    'text-spacing': 'unit(px){1,4}',
+    'text-spacing--responsive': 'unit(px){1,4}',
     'vertical-align': 'enum(top,bottom,middle)',
   }
 
@@ -63,11 +65,12 @@ export default class MjSocial extends BodyComponent {
     'font-family': 'Ubuntu, sans-serif',
     'font-size': '16px',
     'icon-size': '20px',
-    'inner-padding': null,
+    'gutter': null,
     'line-height': '150%',
     mode: 'horizontal',
     padding: '10px 25px',
     'text-decoration': 'none',
+    'text-spacing': '4px 4px 4px 0',
   }
 
   darkContainerClass = undefined
@@ -130,8 +133,22 @@ export default class MjSocial extends BodyComponent {
   }
 
   componentHeadStyle = () => {
-    emitDarkModeHeadStyle(this.context && this.context.globalData)
-    emitResponsiveHeadStyle(this.context && this.context.globalData)
+    const globalData = this.context && this.context.globalData
+    emitDarkModeHeadStyle(globalData)
+    emitResponsiveHeadStyle(globalData)
+
+    if (globalData && globalData.hasSocialStack && !globalData.socialStackStyleEmitted) {
+      globalData.socialStackStyleEmitted = true
+      globalData.headRaw.push(`<style>
+  @media only screen and (max-width:479px) {
+    .mj-social-stack {
+      display: table !important;
+      float: none !important;
+    }
+  }
+</style>`)
+    }
+
     return ''
   }
 
@@ -146,14 +163,14 @@ export default class MjSocial extends BodyComponent {
 
   getSocialElementAttributes() {
     const base = {}
-    if (this.getAttribute('inner-padding')) {
-      base.padding = this.getAttribute('inner-padding')
+    if (this.getAttribute('gutter')) {
+      base.padding = this.getAttribute('gutter')
     }
-    if (this.attributes['inner-padding--responsive']) {
-      base['padding--responsive'] = this.attributes['inner-padding--responsive']
+    if (this.attributes['gutter--responsive']) {
+      base['padding--responsive'] = this.attributes['gutter--responsive']
     }
-
     return [
+      'align--responsive',
       'border',
       'border-radius',
       'color',
@@ -161,20 +178,20 @@ export default class MjSocial extends BodyComponent {
       'font-family',
       'font-size',
       'font-size--responsive',
-      'font-weight',
       'font-style',
-      'icon-size',
-      'icon-size--responsive',
+      'font-weight',
       'icon-height',
       'icon-height--responsive',
       'icon-padding',
       'icon-padding--responsive',
-      'text-padding',
-      'text-padding--responsive',
+      'icon-size',
+      'icon-size--responsive',
       'line-height',
       'line-height--responsive',
-      'align--responsive',
+      'mode',
       'text-decoration',
+      'text-spacing',
+      'text-spacing--responsive',
     ]
       .filter((e) => !isNil(this.getAttribute(e)))
       .reduce((res, attr) => {
@@ -185,6 +202,12 @@ export default class MjSocial extends BodyComponent {
 
   renderHorizontal() {
     const { children } = this.props
+    const isStack = this.getAttribute('responsive-mode') === 'stack'
+    const globalData = this.context && this.context.globalData
+
+    if (isStack && globalData) {
+      globalData.hasSocialStack = true
+    }
 
     return `
       ${msoConditionalTag(`<table
@@ -218,6 +241,7 @@ export default class MjSocial extends BodyComponent {
                     float: 'none',
                     display: 'inline-table',
                   },
+                  class: isStack ? 'mj-social-stack' : null,
                 })}
               >
                 ${component.render()}

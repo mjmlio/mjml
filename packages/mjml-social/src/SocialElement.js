@@ -8,7 +8,6 @@ import {
   emitResponsiveHeadStyle,
   buildResponsiveDeclarations,
   registerResponsiveRuleGroup,
-  registerResponsivePaddingGroup,
 } from 'mjml-core/lib/helpers/responsiveMode'
 import {
   emitOutlookDarkModeHeadRaw,
@@ -110,6 +109,28 @@ each(defaultSocialNetworks, (val, key) => {
   }
 })
 
+// Expand CSS padding shorthand to [top, right, bottom, left] per CSS rules
+function expandPadding(padding) {
+  const parts = String(padding).trim().split(/\s+/)
+  const t = parts[0]
+  const r = parts[1] !== undefined ? parts[1] : t
+  const b = parts[2] !== undefined ? parts[2] : t
+  const l = parts[3] !== undefined ? parts[3] : r
+  return [t, r, b, l]
+}
+
+function applyGutterEdgeZero(padding, mode, first, last) {
+  if (!padding) return padding
+  if (!first && !last) return padding
+  const [t, r, b, l] = expandPadding(padding)
+  return [
+    mode === 'vertical' && first ? '0' : t,
+    mode === 'horizontal' && last ? '0' : r,
+    mode === 'vertical' && last ? '0' : b,
+    mode === 'horizontal' && first ? '0' : l,
+  ].join(' ')
+}
+
 export default class MjSocialElement extends BodyComponent {
   static componentName = 'mj-social-element'
 
@@ -133,24 +154,12 @@ export default class MjSocialElement extends BodyComponent {
     href: 'string',
     'icon-height': 'unit(px,%)',
     'icon-height--responsive': 'unit(px,%)',
-    'icon-padding': 'unit(px,%){1,4}',
-    'icon-padding--responsive': 'unit(px,%){1,4}',
     'icon-position': 'enum(left,right)',
     'icon-size': 'unit(px,%)',
     'icon-size--responsive': 'unit(px,%)',
     'line-height': 'unit(px,%,em,rem)',
     'line-height--responsive': 'unit(px,%,em,rem)',
     name: 'string',
-    padding: 'unit(px,%){1,4}',
-    'padding--responsive': 'unit(px,%){1,4}',
-    'padding-bottom': 'unit(px,%)',
-    'padding-bottom--responsive': 'unit(px,%)',
-    'padding-left': 'unit(px,%)',
-    'padding-left--responsive': 'unit(px,%)',
-    'padding-right': 'unit(px,%)',
-    'padding-right--responsive': 'unit(px,%)',
-    'padding-top': 'unit(px,%)',
-    'padding-top--responsive': 'unit(px,%)',
     rel: 'string',
     src: 'string',
     'src--dark': 'string',
@@ -160,8 +169,6 @@ export default class MjSocialElement extends BodyComponent {
     target: 'string',
     title: 'string',
     'text-decoration': 'string',
-    'text-padding': 'unit(px,%){1,4}',
-    'text-padding--responsive': 'unit(px,%){1,4}',
     'vertical-align': 'enum(top,middle,bottom)',
   }
 
@@ -174,8 +181,6 @@ export default class MjSocialElement extends BodyComponent {
     'font-family': 'Ubuntu, sans-serif',
     'font-size': '16px',
     'line-height': '150%',
-    padding: '4px',
-    'text-padding': '4px 4px 4px 0',
     'text-decoration': 'none',
   }
 
@@ -246,7 +251,16 @@ export default class MjSocialElement extends BodyComponent {
 
     const globalData = this.context && this.context.globalData
 
-    this.responsiveClasses.td = registerResponsivePaddingGroup(globalData, this.attributes)
+    this.responsiveClasses.td = registerResponsiveRuleGroup(globalData, {
+      cssDeclarations: buildResponsiveDeclarations([
+        ['padding', applyGutterEdgeZero(
+          this.attributes['padding--responsive'],
+          this.getAttribute('mode'),
+          this.props.first,
+          this.props.last,
+        )],
+      ]),
+    })
 
     const iconHeightResponsive =
       this.attributes['icon-height--responsive'] || this.attributes['icon-size--responsive']
@@ -272,7 +286,7 @@ export default class MjSocialElement extends BodyComponent {
 
     this.responsiveClasses.tdText = registerResponsiveRuleGroup(globalData, {
       cssDeclarations: buildResponsiveDeclarations([
-        ['padding', this.attributes['text-padding--responsive']],
+        ['padding-left', this.attributes['text-spacing--responsive']],
         ['text-align', this.attributes['align--responsive']],
       ]),
     })
@@ -296,22 +310,21 @@ export default class MjSocialElement extends BodyComponent {
 
     return {
       td: {
-        padding: this.getAttribute('padding'),
-        'padding-top': this.getAttribute('padding-top'),
-        'padding-right': this.getAttribute('padding-right'),
-        'padding-bottom': this.getAttribute('padding-bottom'),
-        'padding-left': this.getAttribute('padding-left'),
+        padding: applyGutterEdgeZero(
+          this.getAttribute('padding'),
+          this.getAttribute('mode'),
+          this.props.first,
+          this.props.last,
+        ),
         'vertical-align': this.getAttribute('vertical-align'),
       },
-      table: {
-        background: backgroundColor,
-        'border-radius': this.getAttribute('border-radius'),
-        height: iconHeight || iconSize,
-      },
+      table: {},
       icon: {
         padding: this.getAttribute('icon-padding'),
         'font-size': '0',
         height: iconHeight || iconSize,
+        background: backgroundColor,
+        'border-radius': this.getAttribute('border-radius'),
       },
       img: {
         border: this.getAttribute('border'),
@@ -319,7 +332,7 @@ export default class MjSocialElement extends BodyComponent {
         display: 'block',
       },
       tdText: {
-        padding: this.getAttribute('text-padding'),
+        'padding-left': this.getAttribute('text-spacing'),
         'text-align': this.getAttribute('align'),
       },
       text: {
@@ -509,24 +522,10 @@ export default class MjSocialElement extends BodyComponent {
 
     const content = darkImg || picture || img
 
-    const makeIcon = () => `<td ${this.htmlAttributes({ style: 'td', class: tdResponsiveClass || undefined })}>
-          <table
-            ${this.htmlAttributes({
-              border: '0',
-              cellpadding: '0',
-              cellspacing: '0',
-              role: 'none',
-              style: 'table',
-              class: [darkClasses.background, iconResponsiveClass]
-                .filter(Boolean)
-                .join(' ') || null,
-            })}
-          >
-            <tr>
-              <td ${this.htmlAttributes({
-                style: 'icon',
-                class: undefined,
-              })}>
+    const iconTd = `<td ${this.htmlAttributes({
+          style: 'icon',
+          class: darkClasses.background || undefined,
+        })}>
                 ${
                   hasLink && !darkImg
                     ? `<a ${this.htmlAttributes({
@@ -538,15 +537,10 @@ export default class MjSocialElement extends BodyComponent {
                 }
                   ${content}
                 ${hasLink && !darkImg ? `</a>` : ''}
-              </td>
-            </tr>
-          </table>
-        </td>`
+              </td>`
 
-    const makeContent = () => `
-        ${
-          this.getContent()
-            ? `<td ${this.htmlAttributes({ style: 'tdText', class: tdTextResponsiveClass || undefined })}>
+    const textTd = this.getContent()
+      ? `<td ${this.htmlAttributes({ style: 'tdText', class: tdTextResponsiveClass || undefined })}>
             ${
               hasLink
                 ? `<a
@@ -566,19 +560,35 @@ export default class MjSocialElement extends BodyComponent {
               ${this.getContent()}
             ${hasLink ? `</a>` : '</span>'}
           </td>`
-            : ''
-        }
-      `
+      : ''
 
-    const renderLeft = () => `${makeIcon()} ${makeContent()}`
-    const renderRight = () => `${makeContent()} ${makeIcon()}`
+    const innerRow = iconPosition === 'left'
+      ? `${iconTd} ${textTd}`
+      : `${textTd} ${iconTd}`
 
     return `<tr
         ${this.htmlAttributes({
           class: this.getAttribute('css-class'),
         })}
       >
-        ${iconPosition === 'left' ? renderLeft() : renderRight()}
+        <td ${this.htmlAttributes({
+          style: 'td',
+          class: tdResponsiveClass || undefined,
+        })}>
+          <table
+            ${this.htmlAttributes({
+              border: '0',
+              cellpadding: '0',
+              cellspacing: '0',
+              role: 'none',
+              class: iconResponsiveClass || null,
+            })}
+          >
+            <tr>
+              ${innerRow}
+            </tr>
+          </table>
+        </td>
       </tr>`
   }
 }

@@ -47,7 +47,8 @@ Displays a customizable button.
 | border-right               | string                             | CSS border format                                     |                      |
 | border-top                 | string                             | CSS border format                                     |                      |
 | color                      | CSS color formats                  | text color                                            | `#ffffff`            |
-| container-background-color | CSS color formats                  | button container background color                     |                      |
+| container-background-color | CSS color formats                  | background color of the container                     |                      |
+| container-border-radius    | string                             | border radius of the container                        |                      |
 | css-class                  | string                             | class name, added to the root HTML element created    |                      |
 | font-family                | string                             | font name                                             | `Ubuntu, sans-serif` |
 | font-size                  | `px` `rem`                         | text size                                             | `16px`               |
@@ -89,7 +90,7 @@ Displays a customizable button.
 | border-right-color--dark         | CSS color formats | button right border color in dark mode         |               |
 | border-top-color--dark           | CSS color formats | button top border color in dark mode           |               |
 | color--dark                      | CSS color formats | button text color in dark mode                 |               |
-| container-background-color--dark | CSS color formats | button container background color in dark mode |               |
+| container-background-color--dark | CSS color formats | background color of the container in dark mode |               |
 
 <div class="alert alert-note" role="alert">
   <p>Note</p>

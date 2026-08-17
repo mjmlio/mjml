@@ -57,7 +57,8 @@ Readers can interact by clicking on the tabs to reveal the content, providing a 
 | attribute                  | accepts                 | description                                        | default value                     |
 | -------------------------- | ----------------------- | -------------------------------------------------- | --------------------------------- |
 | border                     | string                  | CSS border format                                  | `2px solid black`                 |
-| container-background-color | CSS color formats       | background-color of the cell                       |                                   |
+| container-background-color | CSS color formats       | background color of the container                  |                                   |
+| container-border-radius    | string                  | border radius of the container                     |                                   |
 | css-class                  | string                  | class name, added to the root HTML element created |                                   |
 | font-family                | string                  | font                                               | `Ubuntu, sans-serif`              |
 | icon-align                 | `top` `middle` `bottom` | icon alignment                                     |                                   |
@@ -80,10 +81,11 @@ Readers can interact by clicking on the tabs to reveal the content, providing a 
 
 ###### Dark-mode
 
-| attribute                | accepts | description                                | default value |
-| ------------------------ | ------- | ------------------------------------------ | ------------- |
-| icon-unwrapped-url--dark | string  | dark-mode icon when accordion is unwrapped |               |
-| icon-wrapped-url--dark   | string  | dark-mode icon when accordion is wrapped   |               |
+| attribute                  | accepts           | description                                    | default value |
+| -------------------------- | ----------------- | ---------------------------------------------- | ------------- |
+| container-background-color | CSS color formats | background color of the container in dark mode |               |
+| icon-unwrapped-url--dark   | string            | dark-mode icon when accordion is unwrapped     |               |
+| icon-wrapped-url--dark     | string            | dark-mode icon when accordion is wrapped       |               |
 
 <div class="alert alert-note" role="alert">
   <p>Note</p>

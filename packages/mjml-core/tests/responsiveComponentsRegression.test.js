@@ -56,7 +56,8 @@ describe('responsive regression coverage', () => {
       </mjml>
     `)
 
-    const tableMatch = html.match(/<table[^>]*style="[^"]*background:orange[^"]*"[^>]*class="([^"]*mj-responsive-\d+[^"]*)"/)
+    // background/border-radius moved to icon <td>; table now carries only the responsive class
+    const tableMatch = html.match(/<table[^>]*role="none"[^>]*class="([^"]*mj-responsive-\d+[^"]*)"/)
     assert.ok(tableMatch, 'expected responsive class on icon table')
 
     const iconClass = tableMatch[1].split(/\s+/).find((className) => /^mj-responsive-\d+$/.test(className))
@@ -65,7 +66,7 @@ describe('responsive regression coverage', () => {
     assert.ok(html.includes(`.${iconClass},`))
     assert.ok(html.includes(`.${iconClass} td`))
     assert.ok(html.includes(`.${iconClass} img`))
-    assert.ok(/<td style="padding:20px;font-size:0;height:60px;">/.test(html))
+    assert.ok(/<td style="padding:20px;font-size:0;height:60px;background:orange;border-radius:3px;">/.test(html))
   })
 
   it('mj-table emits stack CSS in a dedicated style tag after responsive/scroll styles', async () => {

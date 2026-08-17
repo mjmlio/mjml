@@ -22,6 +22,7 @@ export default class MjSpacer extends BodyComponent {
     'border-top': 'string',
     'container-background-color': 'color',
     'container-background-color--dark': 'color',
+    'container-border-radius': 'string',
     height: 'unit(px,%)',
     'height--responsive': 'unit(px,%)',
     padding: 'unit(px,%){1,4}',

@@ -29,6 +29,7 @@ export default class MjDivider extends BodyComponent {
     'border-width': 'unit(px)',
     'container-background-color': 'color',
     'container-background-color--dark': 'color',
+    'container-border-radius': 'string',
     padding: 'unit(px,%){1,4}',
     'padding--responsive': 'unit(px,%){1,4}',
     'padding-bottom': 'unit(px,%)',

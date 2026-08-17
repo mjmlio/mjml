@@ -21,7 +21,8 @@ Displays a blank space, that can be used to separate content.
 | attribute                  | accepts           | description                                           | default value |
 | -------------------------- | ----------------- | ----------------------------------------------------- | ------------- |
 | aria-hidden                | string            | adds an `aria-hidden` attribute to the spacer element | `true`        |
-| container-background-color | CSS color formats | inner element background color                        |               |
+| container-background-color | CSS color formats | background color of the container                     |               |
+| container-border-radius    | string            | border radius of the container                        |               |
 | css-class                  | string            | class name, added to the root HTML element created    |               |
 | height                     | `px` `%`          | spacer height                                         | `0px`         |
 | padding                    | `px` `%`          | spacer padding, supports up to 4 parameters           |               |
@@ -36,9 +37,9 @@ Displays a blank space, that can be used to separate content.
 
 ###### Dark-mode
 
-| attribute                        | accepts           | description                       | default value |
-| -------------------------------- | ----------------- | --------------------------------- | ------------- |
-| container-background-color--dark | CSS color formats | the background color in dark-mode |               |
+| attribute                        | accepts           | description                                    | default value |
+| -------------------------------- | ----------------- | ---------------------------------------------- | ------------- |
+| container-background-color--dark | CSS color formats | background color of the container in dark-mode |               |
 
 <div class="alert alert-note" role="alert">
   <p>Note</p>

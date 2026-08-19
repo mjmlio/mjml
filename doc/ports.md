@@ -28,9 +28,9 @@ Native Implemented Function (NIF) bindings for the MJML Rust implementation (mrm
 
 ### Ruby: Emjay
 
-A pure-Ruby MJML parser and processor based on Nokogiri. Comes with a builtin ActionMailer interceptor for rendering Rails emails.
+A pure-Ruby MJML parser and processor based on Nokogiri, with feature parity for MJML 5.4. Comes with a builtin ActionMailer interceptor for rendering Rails emails.
 
-[https://github.com/julik/emjay]([https://github.com/hardpixel/mrml-ruby](https://github.com/julik/emjay)
+[https://github.com/julik/emjay](https://github.com/julik/emjay)
 
 ### Ruby: MRML Ruby
 

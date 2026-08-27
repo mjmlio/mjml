@@ -124,7 +124,11 @@ export default class MjDivider extends BodyComponent {
       <table
         ${this.htmlAttributes({
           align: this.getAttribute('align'),
-          'aria-hidden': this.getAttribute('aria-hidden'),
+          ...(this.getAttribute('aria-hidden') === 'true'
+            ? {
+                'aria-hidden': 'true',
+              }
+            : {}),
           border: '0',
           cellpadding: '0',
           class: borderDarkClass,
@@ -144,7 +148,11 @@ export default class MjDivider extends BodyComponent {
     return `
       <hr
         ${this.htmlAttributes({
-          'aria-hidden': this.getAttribute('aria-hidden'),
+          ...(this.getAttribute('aria-hidden') === 'true'
+            ? {
+                'aria-hidden': 'true',
+              }
+            : {}),
           class: borderDarkClass,
           style: 'hr',
         })}

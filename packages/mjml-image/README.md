@@ -18,39 +18,39 @@ Note that if no width is provided, the image will use the parent column width.
 
 #### Attributes
 
-| attribute                  | accepts                 | description                                                                     | default value         |
-| -------------------------- | ----------------------- | ------------------------------------------------------------------------------- | --------------------- |
-| align                      | `left` `center` `right` | image alignment                                                                 | `center`              |
-| alt                        | string                  | image description                                                               | `''`                  |
-| aria-hidden                | string                  | adds an `aria-hidden` attribute to the rendered image                           |                       |
-| border                     | string                  | CSS border format                                                               | `0`                   |
-| border-bottom              | string                  | CSS border format                                                               |                       |
-| border-left                | string                  | CSS border format                                                               |                       |
-| border-radius              | string                  | border radius                                                                   |                       |
-| border-right               | string                  | CSS border format                                                               |                       |
-| border-top                 | string                  | CSS border format                                                               |                       |
-| container-background-color | CSS color formats       | inner element background color                                                  |                       |
-| css-class                  | string                  | class name, added to the root HTML element created                              |                       |
-| fluid-on-mobile            | boolean                 | if `true`, will be full width on mobile even if `width` is set                  |                       |
-| font-size                  | `px` `rem`              | size of the alt text when image is not rendered                                 | `16px`                |
-| height                     | `px`                    | image height                                                                    | `auto`                |
-| href                       | string                  | link to redirect to on click, in URL format                                     |                       |
-| max-height                 | `px` `%`                | specify the maximum height of an image                                          |                       |
-| name                       | string                  | specify the link name attribute                                                 |                       |
-| padding                    | `px` `%`                | hero padding, supports up to 4 parameters                                       | `10px 25px`           |
-| padding-bottom             | `px` `%`                | hero bottom padding                                                             |                       |
-| padding-left               | `px` `%`                | hero left padding                                                               |                       |
-| padding-right              | `px` `%`                | hero right padding                                                              |                       |
-| padding-top                | `px` `%`                | hero top padding                                                                |                       |
-| rel                        | string                  | specify the rel attribute                                                       |                       |
-| sizes                      | string                  | set width based on query                                                        |                       |
-| src                        | string                  | image source in URL format                                                      |                       |
-| srcset                     | string                  | enables to set a different image source based on the viewport, using CSS syntax |                       |
-| support-dark-mode-image    | `outlook`               | enables dark-mode image support for New Outlook, Outlook App and Outlook.com    |                       |
-| target                     | string                  | link target on click                                                            |                       |
-| title                      | string                  | tooltip & accessibility                                                         |                       |
-| usemap                     | string                  | reference to image map, be careful, it isn't supported everywhere               |                       |
-| width                      | `px`                    | image width                                                                     | inherits parent width |
+| attribute                  | accepts                 | description                                                                                                                                   | default value         |
+| -------------------------- | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
+| align                      | `left` `center` `right` | image alignment                                                                                                                               | `center`              |
+| alt                        | string                  | image description                                                                                                                             | `''`                  |
+| aria-hidden                | string                  | when set to `true` adds an `aria-hidden` attribute to the rendered image or `aria-hidden` and `tabindex` to the parent `<a>` if `href` is set |                       |
+| border                     | string                  | CSS border format                                                                                                                             | `0`                   |
+| border-bottom              | string                  | CSS border format                                                                                                                             |                       |
+| border-left                | string                  | CSS border format                                                                                                                             |                       |
+| border-radius              | string                  | border radius                                                                                                                                 |                       |
+| border-right               | string                  | CSS border format                                                                                                                             |                       |
+| border-top                 | string                  | CSS border format                                                                                                                             |                       |
+| container-background-color | CSS color formats       | inner element background color                                                                                                                |                       |
+| css-class                  | string                  | class name, added to the root HTML element created                                                                                            |                       |
+| fluid-on-mobile            | boolean                 | if `true`, will be full width on mobile even if `width` is set                                                                                |                       |
+| font-size                  | `px` `rem`              | size of the alt text when image is not rendered                                                                                               | `16px`                |
+| height                     | `px`                    | image height                                                                                                                                  | `auto`                |
+| href                       | string                  | link to redirect to on click, in URL format                                                                                                   |                       |
+| max-height                 | `px` `%`                | specify the maximum height of an image                                                                                                        |                       |
+| name                       | string                  | specify the link name attribute                                                                                                               |                       |
+| padding                    | `px` `%`                | hero padding, supports up to 4 parameters                                                                                                     | `10px 25px`           |
+| padding-bottom             | `px` `%`                | hero bottom padding                                                                                                                           |                       |
+| padding-left               | `px` `%`                | hero left padding                                                                                                                             |                       |
+| padding-right              | `px` `%`                | hero right padding                                                                                                                            |                       |
+| padding-top                | `px` `%`                | hero top padding                                                                                                                              |                       |
+| rel                        | string                  | specify the rel attribute                                                                                                                     |                       |
+| sizes                      | string                  | set width based on query                                                                                                                      |                       |
+| src                        | string                  | image source in URL format                                                                                                                    |                       |
+| srcset                     | string                  | enables to set a different image source based on the viewport, using CSS syntax                                                               |                       |
+| support-dark-mode-image    | `outlook`               | enables dark-mode image support for New Outlook, Outlook App and Outlook.com                                                                  |                       |
+| target                     | string                  | link target on click                                                                                                                          |                       |
+| title                      | string                  | tooltip & accessibility                                                                                                                       |                       |
+| usemap                     | string                  | reference to image map, be careful, it isn't supported everywhere                                                                             |                       |
+| width                      | `px`                    | image width                                                                                                                                   | inherits parent width |
 
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/image">Try it live</a></p>
 

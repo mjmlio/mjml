@@ -82,7 +82,11 @@ export default class MjSpacer extends BodyComponent {
     return `
       <div
         ${this.htmlAttributes({
-          'aria-hidden': this.getAttribute('aria-hidden'),
+          ...(this.getAttribute('aria-hidden') === 'true'
+            ? {
+                'aria-hidden': 'true',
+              }
+            : {}),
           style: 'div',
         })}
       >&#8202;</div>

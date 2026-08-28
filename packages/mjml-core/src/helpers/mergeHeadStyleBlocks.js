@@ -51,6 +51,9 @@ export default function mergeHeadStyleBlocks(html) {
       if (end !== -1) {
         tokens.push({ type: 'other', raw: headInner.slice(pos, end + 3) })
         pos = end + 3
+      } else {
+        tokens.push({ type: 'other', raw: headInner.slice(pos) })
+        pos = headInner.length
       }
     // Plain <style> with no attributes — eligible for merging
     } else if (headInner.startsWith('<style>', pos)) {
@@ -59,6 +62,9 @@ export default function mergeHeadStyleBlocks(html) {
         const css = headInner.slice(pos + 7, end)
         tokens.push({ type: 'plain-style', css, raw: headInner.slice(pos, end + 8) })
         pos = end + 8
+      } else {
+        tokens.push({ type: 'other', raw: headInner.slice(pos) })
+        pos = headInner.length
       }
     // <style> with attributes (e.g. media=) — not eligible for merging
     } else if (headInner.startsWith('<style', pos)) {
@@ -71,7 +77,13 @@ export default function mergeHeadStyleBlocks(html) {
           if (bodyEnd !== -1) {
             tokens.push({ type: 'other', raw: headInner.slice(pos, bodyEnd + 8) })
             pos = bodyEnd + 8
+          } else {
+            tokens.push({ type: 'other', raw: headInner.slice(pos) })
+            pos = headInner.length
           }
+        } else {
+          tokens.push({ type: 'other', raw: headInner.slice(pos) })
+          pos = headInner.length
         }
       }
     // Text content between tags
@@ -113,6 +125,9 @@ export default function mergeHeadStyleBlocks(html) {
           trailingWhitespace += nt.raw
           j += 1
         } else if (nt.type === 'plain-style') {
+          if (/^\s*@(?:charset|import)\b/i.test(nt.css)) {
+            break
+          }
           combinedCss += `\n${nt.css}`
           trailingWhitespace = ''
           j += 1

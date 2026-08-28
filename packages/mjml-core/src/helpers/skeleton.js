@@ -47,7 +47,7 @@ export default function skeleton(options) {
       .join('\n')
     }
     <style>
-      #outlook a { padding:0; }
+      ${supportOutlookClassic ? '#outlook a { padding:0; }' : ''}
       body { margin:0;padding:0;text-size-adjust:100%;${supportOutlookClassic ? ' -ms-text-size-adjust:100%;' : ''} }
       table, td { border-collapse:collapse;${supportOutlookClassic ? ' mso-table-lspace:0pt;mso-table-rspace:0pt;' : ''}}
       img { border:0;height:auto;line-height:100%; outline:none;text-decoration:none;${supportOutlookClassic ? ' -ms-interpolation-mode:bicubic;' : ''}}

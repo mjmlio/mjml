@@ -53,11 +53,11 @@ export default class MjCarousel extends BodyComponent {
     const includeSharedStyles =
       !globalData || globalData.carouselSharedStylesEmitted === false
 
+    if (!length) return ''
+
     if (globalData && includeSharedStyles) {
       globalData.carouselSharedStylesEmitted = true
     }
-
-    if (!length) return ''
     const sharedCss = `
     .mj-carousel {
       -webkit-user-select: none;

@@ -271,6 +271,8 @@ export default class MjSection extends BodyComponent {
 
     const hasBackground = this.hasBackground()
 
+    const supportOutlookClassic = this.context?.globalData?.supportOutlookClassic !== false
+
     const isFirstSection = this.props.index === 0
 
     const background = this.getAttribute('background-url')
@@ -310,7 +312,7 @@ export default class MjSection extends BodyComponent {
         'padding-left': this.getAttribute('padding-left'),
         'padding-right': this.getAttribute('padding-right'),
         'padding-top': this.getAttribute('padding-top'),
-        ...(hasBackground && { 'mso-padding-alt': '0' }),
+        ...(hasBackground && supportOutlookClassic && { 'mso-padding-alt': '0' }),
         'text-align': this.getColumnAlign(),
       },
       div: {

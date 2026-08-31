@@ -102,11 +102,11 @@ export default class MjCarousel extends BodyComponent {
       emitDarkModeHeadStyle(globalData)
     }
 
+    if (!length) return ''
+
     if (globalData && includeSharedStyles) {
       globalData.carouselSharedStylesEmitted = true
     }
-
-    if (!length) return ''
 
     const sharedCss = `
     .mj-carousel {

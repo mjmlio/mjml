@@ -23,7 +23,7 @@ export default class MjText extends BodyComponent {
     'font-weight': 'string',
     height: 'unit(px,%)',
     'letter-spacing': 'unitWithNegative(px,em)',
-    'line-height': 'unit(px,%)',
+    'line-height': 'unit(px,%,)',
     padding: 'unit(px,%){1,4}',
     'padding-bottom': 'unit(px,%)',
     'padding-left': 'unit(px,%)',

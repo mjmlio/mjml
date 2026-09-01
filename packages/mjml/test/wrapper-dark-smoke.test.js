@@ -53,7 +53,7 @@ describe('mj-wrapper dark-mode smoke', function () {
     const $ = load(html)
 
     const backgroundImageClassMatch = styles.match(
-      /\.(mj-dark-image-\d+) \{ background-image: url\("https:\/\/example\.com\/wrapper-dark\.jpg"\) !important; \}/,
+      /\.(mj-dark-\d+) \{ background-image: url\("https:\/\/example\.com\/wrapper-dark\.jpg"\) !important; \}/,
     )
 
     chai.expect(backgroundImageClassMatch).to.not.equal(null)

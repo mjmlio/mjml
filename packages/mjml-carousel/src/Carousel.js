@@ -5,6 +5,7 @@ import conditionalTag, { msoConditionalTag } from 'mjml-core/lib/helpers/conditi
 import {
   emitDarkModeHeadStyle,
   registerDarkModeRule,
+  registerDarkModeSelectorRule,
 } from 'mjml-core/lib/helpers/colorSchemeDarkMode'
 import genRandomHexString from 'mjml-core/lib/helpers/genRandomHexString'
 
@@ -76,6 +77,43 @@ export default class MjCarousel extends BodyComponent {
       })
     }
 
+    const { length } = this.props.children
+    const { carouselId } = this
+
+    if (length) {
+      const darkSelectedBorderColor = this.attributes['tb-selected-border-color--dark']
+
+      if (darkSelectedBorderColor) {
+        const selectedThumbnailSelectors = range(0, length)
+          .map(
+            (i) =>
+              `.mj-carousel-${carouselId}-radio-${i + 1}:checked ${repeat(
+                '+ * ',
+                length - i - 1,
+              )}+ .mj-carousel-content .mj-carousel-${carouselId}-thumbnail-${
+                i + 1
+              }`,
+          )
+          .join(',')
+
+        registerDarkModeSelectorRule(globalData, {
+          selector: selectedThumbnailSelectors,
+          cssProperty: 'border-color',
+          cssValue: darkSelectedBorderColor,
+        })
+      }
+
+      const darkHoverBorderColor = this.attributes['tb-hover-border-color--dark']
+
+      if (darkHoverBorderColor) {
+        registerDarkModeSelectorRule(globalData, {
+          selector: `.mj-carousel-${carouselId}-thumbnail:hover`,
+          cssProperty: 'border-color',
+          cssValue: darkHoverBorderColor,
+        })
+      }
+    }
+
     return this.darkClasses
   }
 
@@ -98,11 +136,13 @@ export default class MjCarousel extends BodyComponent {
       !globalData || globalData.carouselSharedStylesEmitted === false
     const darkClasses = this.getDarkClasses()
 
-    if (darkClasses.container) {
-      emitDarkModeHeadStyle(globalData)
-    }
+    if (!length) {
+      if (darkClasses.container) {
+        emitDarkModeHeadStyle(globalData)
+      }
 
-    if (!length) return ''
+      return ''
+    }
 
     if (globalData && includeSharedStyles) {
       globalData.carouselSharedStylesEmitted = true
@@ -242,45 +282,12 @@ export default class MjCarousel extends BodyComponent {
     }
     `
 
-    const selectedThumbnailSelectors = range(0, length)
-      .map(
-        (i) =>
-          `.mj-carousel-${carouselId}-radio-${i + 1}:checked ${repeat(
-            '+ * ',
-            length - i - 1,
-          )}+ .mj-carousel-content .mj-carousel-${carouselId}-thumbnail-${
-            i + 1
-          }`,
-      )
-      .join(',')
-
-    const hoverBorderSelector = `.mj-carousel-${carouselId}-thumbnail:hover`
-
-    const darkCss = []
-    const darkSelectedBorderColor = this.getAttribute(
-      'tb-selected-border-color--dark',
-    )
-
-    if (darkSelectedBorderColor) {
-      darkCss.push(`
-    @media (prefers-color-scheme: dark) {
-      ${selectedThumbnailSelectors} {
-        border-color: ${darkSelectedBorderColor} !important;
-      }
-    }
-    `)
-    }
-
-    const darkHoverBorderColor = this.getAttribute('tb-hover-border-color--dark')
-
-    if (darkHoverBorderColor) {
-      darkCss.push(`
-    @media (prefers-color-scheme: dark) {
-      ${hoverBorderSelector} {
-        border-color: ${darkHoverBorderColor} !important;
-      }
-    }
-    `)
+    if (
+      darkClasses.container ||
+      this.getAttribute('tb-selected-border-color--dark') ||
+      this.getAttribute('tb-hover-border-color--dark')
+    ) {
+      emitDarkModeHeadStyle(globalData)
     }
 
     const instanceFallback = `
@@ -298,7 +305,7 @@ export default class MjCarousel extends BodyComponent {
     `
     return `${includeSharedStyles ? sharedCss : ''}${instanceCss}${
       includeSharedStyles ? '\n' : ''
-    }${darkCss.join('\n')}${instanceFallback}`
+    }${instanceFallback}`
   }
 
   getStyles() {

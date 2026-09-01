@@ -6,7 +6,6 @@ import {
   emitDarkModeHeadStyle,
   registerDarkModeRule,
 } from 'mjml-core/lib/helpers/colorSchemeDarkMode'
-import { OUTLOOK_DARK_MODE_CLASS } from 'mjml-core/lib/helpers/outlookDarkMode'
 
 const makeBackgroundString = flow(filter(identity), join(' '))
 
@@ -56,22 +55,6 @@ export default class MjSection extends BodyComponent {
   }
 
   darkClasses = null
-
-  registerDarkBackgroundImageClass() {
-    const globalData = this.context && this.context.globalData
-
-    if (!globalData) {
-      return null
-    }
-
-    if (typeof globalData.outlookDarkModeImageCount !== 'number') {
-      globalData.outlookDarkModeImageCount = 0
-    }
-
-    globalData.outlookDarkModeImageCount += 1
-
-    return `${OUTLOOK_DARK_MODE_CLASS}-${globalData.outlookDarkModeImageCount}`
-  }
 
   getDarkBackgroundImageCssValue() {
     const darkBackgroundUrl = this.getAttribute('background-url--dark')
@@ -138,8 +121,12 @@ export default class MjSection extends BodyComponent {
       })
     }
 
-    if (this.attributes['background-url--dark']) {
-      this.darkClasses.backgroundImage = this.registerDarkBackgroundImageClass()
+    const darkBackgroundImageCssValue = this.getDarkBackgroundImageCssValue()
+    if (darkBackgroundImageCssValue) {
+      this.darkClasses.backgroundImage = registerDarkModeRule(globalData, {
+        cssProperty: 'background-image',
+        cssValue: darkBackgroundImageCssValue,
+      })
     }
 
     const darkBorderColor = this.attributes['border-color--dark']
@@ -179,23 +166,12 @@ export default class MjSection extends BodyComponent {
 
   componentHeadStyle = () => {
     const { background, backgroundImage, border } = this.getDarkClasses()
-    const styles = []
 
-    if (background || border) {
+    if (background || backgroundImage || border) {
       emitDarkModeHeadStyle(this.context && this.context.globalData)
     }
 
-    if (backgroundImage) {
-      const backgroundImageCssValue = this.getDarkBackgroundImageCssValue()
-
-      styles.push(`
-@media (prefers-color-scheme: dark) {
-  .${backgroundImage} { background-image: ${backgroundImageCssValue} !important; }
-}
-`)
-    }
-
-    return styles.join('\n')
+    return ''
   }
 
   getColumnAlign() {

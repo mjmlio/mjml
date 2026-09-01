@@ -63,7 +63,7 @@ Displays a gallery of images or "carousel". Readers can interact by hovering and
 
 <div class="alert alert-note" role="alert">
   <p>Note</p>
-  <p>All <code>--dark</code> modifier attributes and <code>support-dark-image="outlook"</code> require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
+  <p>All <code>--dark</code> modifier attributes and <code>support-dark-mode-image="outlook"</code> require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
 </div>
 
 #### mj-carousel-image

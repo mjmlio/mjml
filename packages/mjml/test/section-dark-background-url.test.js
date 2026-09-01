@@ -49,7 +49,7 @@ describe('mj-section background-url--dark', () => {
     const $ = load(html)
 
     const backgroundImageClassMatch = styles.match(
-      /\.(mj-dark-image-\d+) \{ background-image: url\("https:\/\/example\.com\/section-dark\.jpg"\) !important; \}/,
+      /\.(mj-dark-\d+) \{ background-image: url\("https:\/\/example\.com\/section-dark\.jpg"\) !important; \}/,
     )
 
     chai.expect(backgroundImageClassMatch).to.not.equal(null)
@@ -71,7 +71,7 @@ describe('mj-section background-url--dark', () => {
     const styles = headStyles(html)
 
     const backgroundImageClassMatch = styles.match(
-      /\.(mj-dark-image-\d+) \{ background-image: url\("https:\/\/example\.com\/section-dark\.jpg"\) !important; \}/,
+      /\.(mj-dark-\d+) \{ background-image: url\("https:\/\/example\.com\/section-dark\.jpg"\) !important; \}/,
     )
 
     chai.expect(backgroundImageClassMatch).to.not.equal(null)
@@ -107,8 +107,38 @@ describe('mj-section background-url--dark', () => {
     const styles = headStyles(html)
     const mediaMatches = styles.match(/@media \(prefers-color-scheme: dark\)/g) || []
 
-    chai.expect(mediaMatches.length).to.equal(2)
+    // Both sections' background-image rules must be coalesced into a single
+    // shared block, not one block per section.
+    chai.expect(mediaMatches.length).to.equal(1)
     chai.expect(styles).to.contain(darkUrlOne)
     chai.expect(styles).to.contain(darkUrlTwo)
+  })
+
+  it('should coalesce a background-image rule with another section\'s background-color rule', async () => {
+    const darkUrl = 'https://example.com/section-dark.jpg'
+
+    const input = `
+      <mjml support-dark-mode="true">
+        <mj-body>
+          <mj-section
+            background-url="https://example.com/section-light.jpg"
+            background-url--dark="${darkUrl}"
+          >
+            <mj-column><mj-text>One</mj-text></mj-column>
+          </mj-section>
+          <mj-section background-color="#ffffff" background-color--dark="#111111">
+            <mj-column><mj-text>Two</mj-text></mj-column>
+          </mj-section>
+        </mj-body>
+      </mjml>
+    `
+
+    const { html } = await mjml2html(input)
+    const styles = headStyles(html)
+    const mediaMatches = styles.match(/@media \(prefers-color-scheme: dark\)/g) || []
+
+    chai.expect(mediaMatches.length).to.equal(1)
+    chai.expect(styles).to.contain(darkUrl)
+    chai.expect(styles).to.contain('background-color: #111111 !important;')
   })
 })

@@ -5,7 +5,6 @@ import {
   emitDarkModeHeadStyle,
   registerDarkModeRule,
 } from 'mjml-core/lib/helpers/colorSchemeDarkMode'
-import { OUTLOOK_DARK_MODE_CLASS } from 'mjml-core/lib/helpers/outlookDarkMode'
 
 import { msoConditionalTag } from 'mjml-core/lib/helpers/conditionalTag'
 
@@ -50,22 +49,6 @@ export default class MjHero extends BodyComponent {
 
   darkClasses = null
 
-  registerDarkBackgroundImageClass() {
-    const globalData = this.context && this.context.globalData
-
-    if (!globalData) {
-      return null
-    }
-
-    if (typeof globalData.outlookDarkModeImageCount !== 'number') {
-      globalData.outlookDarkModeImageCount = 0
-    }
-
-    globalData.outlookDarkModeImageCount += 1
-
-    return `${OUTLOOK_DARK_MODE_CLASS}-${globalData.outlookDarkModeImageCount}`
-  }
-
   getDarkBackgroundImageCssValue() {
     const darkBackgroundUrl = this.getAttribute('background-url--dark')
 
@@ -78,23 +61,12 @@ export default class MjHero extends BodyComponent {
       backgroundImageClass,
       innerBackgroundClass,
     } = this.getDarkClasses()
-    const styles = []
 
-    if (backgroundClass || innerBackgroundClass) {
+    if (backgroundClass || backgroundImageClass || innerBackgroundClass) {
       emitDarkModeHeadStyle(this.context && this.context.globalData)
     }
 
-    if (backgroundImageClass) {
-      const backgroundImageCssValue = this.getDarkBackgroundImageCssValue()
-
-      styles.push(`
-@media (prefers-color-scheme: dark) {
-  .${backgroundImageClass} { background-image: ${backgroundImageCssValue} !important; }
-}
-`)
-    }
-
-    return styles.join('\n')
+    return ''
   }
 
   getDarkClasses() {
@@ -109,8 +81,11 @@ export default class MjHero extends BodyComponent {
             cssValue: this.getAttribute('background-color--dark'),
           })
         : null,
-      backgroundImageClass: this.getAttribute('background-url--dark')
-        ? this.registerDarkBackgroundImageClass()
+      backgroundImageClass: this.getDarkBackgroundImageCssValue()
+        ? registerDarkModeRule(this.context && this.context.globalData, {
+            cssProperty: 'background-image',
+            cssValue: this.getDarkBackgroundImageCssValue(),
+          })
         : null,
       innerBackgroundClass: this.getAttribute('inner-background-color--dark')
         ? registerDarkModeRule(this.context && this.context.globalData, {

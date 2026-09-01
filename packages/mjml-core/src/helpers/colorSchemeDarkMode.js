@@ -70,6 +70,27 @@ export function registerDarkModeRule(
 }
 
 /**
+ * Registers a CSS property/value pair scoped to an explicit selector (e.g. a
+ * :hover/:checked chain) for prefers-color-scheme dark mode, coalescing it
+ * with the other grouped dark rules instead of emitting its own media block.
+ */
+export function registerDarkModeSelectorRule(
+  globalData,
+  { selector, cssProperty, cssValue, supportOutlookDarkMode = false },
+) {
+  return registerGenericModifierRule(globalData, {
+    modifier: 'dark',
+    selector,
+    cssProperty,
+    cssValue,
+    supportModifierSelector: supportOutlookDarkMode,
+  }, {
+    defaultDefinitions: DEFAULT_MODIFIER_DEFINITIONS,
+    rulesKey: 'darkModeRules',
+  })
+}
+
+/**
  * Pushes the combined @media (prefers-color-scheme: dark) style block to
  * globalData.headRaw. This should be called from a component's
  * componentHeadStyle function (which runs during skeleton assembly, after all

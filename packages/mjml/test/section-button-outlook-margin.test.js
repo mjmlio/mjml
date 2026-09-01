@@ -47,6 +47,29 @@ describe('mj-section + mj-button outlook margin integration', function () {
       .to.include(`.vml .${buttonClassName} td td { mso-para-margin-left:0; }`)
   })
 
+  it('should preserve percentage padding in Outlook margin styles', async function () {
+    const input = `
+      <mjml support-outlook-classic="true">
+        <mj-body>
+          <mj-section background-url="https://example.com/bg.png">
+            <mj-column padding-left="10%">
+              <mj-button align="left" padding-left="25%">A</mj-button>
+            </mj-column>
+          </mj-section>
+        </mj-body>
+      </mjml>
+    `
+
+    const { html } = await mjml(input)
+    const classMatch = html.match(/<tr class="(vml-button-[a-f0-9]{6})">/)
+
+    chai.expect(html).to.match(/mso-para-margin-left:10%;/)
+    chai.expect(classMatch).to.not.equal(null)
+    chai
+      .expect(html)
+      .to.include(`.vml .${classMatch[1]} td { mso-para-margin-left:25%; }`)
+  })
+
   it('should not emit vml-button classes or mso margin styles without section background-url', async function () {
     const input = `
       <mjml>

@@ -369,7 +369,10 @@ export default class MjCarouselImage extends BodyComponent {
 
   componentHeadStyle = () => {
     const globalData = this.context && this.context.globalData
-    const darkClasses = this.getDarkClasses()
+    // Read whatever renderThumbnail() already registered instead of calling
+    // getDarkClasses(), which would register a duplicate, unused rule for
+    // the separate radio/fallback/main-image instances of this component.
+    const darkClasses = this.darkClasses || {}
     const supportOutlookDarkMode =
       this.getAttribute('support-dark-mode-image') === 'outlook'
     const darkSrc = this.getAttribute('src--dark')
@@ -394,7 +397,7 @@ export default class MjCarouselImage extends BodyComponent {
 
     if (includeDarkStyles) {
       emitOutlookDarkModeHeadRaw(globalData)
-      styles.push(getOutlookDarkModeMediaQuery())
+      styles.push(getOutlookDarkModeMediaQuery(globalData))
     }
 
     return styles.join('\n')

@@ -93,6 +93,15 @@ describe('mj-carousel dark colors', function () {
     chai.expect($(`a.mj-carousel-thumbnail.${darkClass}`).length).to.equal(1)
     chai.expect($(`table.mj-carousel-main.${darkClass}`).length).to.equal(0)
     chai.expect($(`td.car-root.${darkClass}`).length).to.equal(0)
+
+    // Only the thumbnail-rendering mj-carousel-image instance should own
+    // this rule; the radio/fallback/main instances must not register their
+    // own duplicate class for the same attribute.
+    const borderClassMatches = styles.match(/\.mj-dark-\d+ \{[^}]*border-color: #ababab !important;[^}]*\}/g) || []
+    chai.expect(borderClassMatches.length).to.equal(1)
+
+    const mediaMatches = styles.match(/@media \(prefers-color-scheme: dark\)/g) || []
+    chai.expect(mediaMatches.length).to.equal(1)
   })
 
   it('should let mj-carousel-image tb-border-color--dark override the inherited carousel value', async function () {
@@ -136,5 +145,24 @@ describe('mj-carousel dark colors', function () {
     chai.expect(styles).to.include('border-color: #00ff00 !important;')
     chai.expect(styles).to.include('border-color: #ff00ff !important;')
     chai.expect(styles).to.not.include('.mj-carousel-thumbnail:hover {')
+
+    const mediaMatches = styles.match(/@media \(prefers-color-scheme: dark\)/g) || []
+    chai.expect(mediaMatches.length).to.equal(1)
+  })
+
+  it('should coalesce scoped hover/selected border rules with an unrelated dark rule', async function () {
+    const { html } = await mjml(
+      wrapCarousel({
+        carouselAttrs:
+          'container-background-color--dark="#123456" tb-hover-border-color--dark="#00ff00" tb-selected-border-color--dark="#ff00ff"',
+      }),
+    )
+    const styles = headStyles(html)
+    const mediaMatches = styles.match(/@media \(prefers-color-scheme: dark\)/g) || []
+
+    chai.expect(mediaMatches.length).to.equal(1)
+    chai.expect(styles).to.include('background-color: #123456 !important;')
+    chai.expect(styles).to.include('border-color: #00ff00 !important;')
+    chai.expect(styles).to.include('border-color: #ff00ff !important;')
   })
 })

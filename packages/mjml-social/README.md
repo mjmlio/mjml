@@ -77,7 +77,7 @@ Displays calls-to-action for various social networks with their associated logo.
 
 <div class="alert alert-note" role="alert">
   <p>Note</p>
-  <p>All <code>--dark</code> modifier attributes and <code>support-dark-image="outlook"</code> require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
+  <p>All <code>--dark</code> modifier attributes require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
 </div>
 
 #### mj-social-element
@@ -143,7 +143,7 @@ Note that default icons are transparent, which allows `background-color` to actu
 
 <div class="alert alert-note" role="alert">
   <p>Note</p>
-  <p>All <code>--dark</code> modifier attributes and <code>support-dark-image="outlook"</code> require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
+  <p>All <code>--dark</code> modifier attributes and <code>support-dark-mode-image="outlook"</code> require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
 </div>
 
 Supported networks with a share url:

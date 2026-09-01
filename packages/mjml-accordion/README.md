@@ -80,10 +80,12 @@ Readers can interact by clicking on the tabs to reveal the content, providing a 
 
 ###### Dark-mode
 
-| attribute                | accepts | description                                | default value |
-| ------------------------ | ------- | ------------------------------------------ | ------------- |
-| icon-unwrapped-url--dark | string  | dark-mode icon when accordion is unwrapped |               |
-| icon-wrapped-url--dark   | string  | dark-mode icon when accordion is wrapped   |               |
+| attribute                        | accepts           | description                                | default value |
+| -------------------------------- | ----------------- | ------------------------------------------ | ------------- |
+| border--dark                     | string            | CSS border format                          |               |
+| container-background-color--dark | CSS color formats | background-color of the cell               |               |
+| icon-unwrapped-url--dark         | string            | dark-mode icon when accordion is unwrapped |               |
+| icon-wrapped-url--dark           | string            | dark-mode icon when accordion is wrapped   |               |
 
 <div class="alert alert-note" role="alert">
   <p>Note</p>
@@ -164,8 +166,6 @@ Displays the title in a title/text pair.
 | ------------------------ | ----------------- | ------------------------------------------ | ------------- |
 | background-color--dark   | CSS color formats | background color in dark mode              |               |
 | color--dark              | CSS color formats | text color in dark mode                    |               |
-| icon-unwrapped-url--dark | string            | dark-mode icon when accordion is unwrapped |               |
-| icon-wrapped-url--dark   | string            | dark-mode icon when accordion is wrapped   |               |
 
 <div class="alert alert-note" role="alert">
   <p>Note</p>

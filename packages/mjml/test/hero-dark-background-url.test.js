@@ -39,9 +39,9 @@ describe('mj-hero background-url--dark', () => {
     const { html } = await mjml2html(wrapHero())
     const styles = headStyles(html)
 
-    chai.expect(html).not.to.contain('mj-dark-image-')
+    chai.expect(html).not.to.contain('mj-dark-')
     chai.expect(styles).not.to.contain('@media (prefers-color-scheme: dark)')
-    chai.expect(styles).not.to.match(/\.mj-dark-image-\d+\s*\{\s*background-image:/)
+    chai.expect(styles).not.to.match(/\.mj-dark-\d+\s*\{\s*background-image:/)
   })
 
   it('should apply background-url--dark to the hero mode td', async () => {
@@ -51,7 +51,7 @@ describe('mj-hero background-url--dark', () => {
     const $ = load(html)
 
     const backgroundImageClassMatch = styles.match(
-      /\.(mj-dark-image-\d+) \{ background-image: url\("https:\/\/example\.com\/hero-dark\.jpg"\) !important; \}/,
+      /\.(mj-dark-\d+) \{ background-image: url\("https:\/\/example\.com\/hero-dark\.jpg"\) !important; \}/,
     )
 
     chai.expect(backgroundImageClassMatch).to.not.equal(null)
@@ -61,5 +61,41 @@ describe('mj-hero background-url--dark', () => {
     chai.expect($(`td.${backgroundImageClassName}`).length).to.equal(1)
     chai.expect($(`div.${backgroundImageClassName}`).length).to.equal(0)
     chai.expect(styles).to.not.contain(`[data-ogsb] .${backgroundImageClassName}`)
+  })
+
+  it('should coalesce dark background-image rules from multiple heroes into a single media block', async () => {
+    const darkUrlOne = 'https://example.com/hero-dark-one.jpg'
+    const darkUrlTwo = 'https://example.com/hero-dark-two.jpg'
+
+    const input = `
+      <mjml support-dark-mode="true">
+        <mj-body>
+          <mj-hero
+            mode="fixed-height"
+            height="200px"
+            background-url="https://example.com/hero-light-one.jpg"
+            background-url--dark="${darkUrlOne}"
+          >
+            <mj-text>One</mj-text>
+          </mj-hero>
+          <mj-hero
+            mode="fixed-height"
+            height="200px"
+            background-url="https://example.com/hero-light-two.jpg"
+            background-url--dark="${darkUrlTwo}"
+          >
+            <mj-text>Two</mj-text>
+          </mj-hero>
+        </mj-body>
+      </mjml>
+    `
+
+    const { html } = await mjml2html(input)
+    const styles = headStyles(html)
+    const mediaMatches = styles.match(/@media \(prefers-color-scheme: dark\)/g) || []
+
+    chai.expect(mediaMatches.length).to.equal(1)
+    chai.expect(styles).to.contain(darkUrlOne)
+    chai.expect(styles).to.contain(darkUrlTwo)
   })
 })

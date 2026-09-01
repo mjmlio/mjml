@@ -6,7 +6,6 @@ import {
   emitDarkModeHeadStyle,
   registerDarkModeRule,
 } from 'mjml-core/lib/helpers/colorSchemeDarkMode'
-import { OUTLOOK_DARK_MODE_CLASS } from 'mjml-core/lib/helpers/outlookDarkMode'
 
 const makeBackgroundString = flow(filter(identity), join(' '))
 
@@ -59,22 +58,6 @@ export default class MjSection extends BodyComponent {
   }
 
   darkClasses = null
-
-  registerDarkBackgroundImageClass() {
-    const globalData = this.context && this.context.globalData
-
-    if (!globalData) {
-      return null
-    }
-
-    if (typeof globalData.outlookDarkModeImageCount !== 'number') {
-      globalData.outlookDarkModeImageCount = 0
-    }
-
-    globalData.outlookDarkModeImageCount += 1
-
-    return `${OUTLOOK_DARK_MODE_CLASS}-${globalData.outlookDarkModeImageCount}`
-  }
 
   getDarkBackgroundImageCssValue() {
     const darkBackgroundUrl = this.getAttribute('background-url--dark')
@@ -141,8 +124,12 @@ export default class MjSection extends BodyComponent {
       })
     }
 
-    if (this.attributes['background-url--dark']) {
-      this.darkClasses.backgroundImage = this.registerDarkBackgroundImageClass()
+    const darkBackgroundImageCssValue = this.getDarkBackgroundImageCssValue()
+    if (darkBackgroundImageCssValue) {
+      this.darkClasses.backgroundImage = registerDarkModeRule(globalData, {
+        cssProperty: 'background-image',
+        cssValue: darkBackgroundImageCssValue,
+      })
     }
 
     const darkBorderColor = this.attributes['border-color--dark']
@@ -182,23 +169,12 @@ export default class MjSection extends BodyComponent {
 
   componentHeadStyle = () => {
     const { background, backgroundImage, border } = this.getDarkClasses()
-    const styles = []
 
-    if (background || border) {
+    if (background || backgroundImage || border) {
       emitDarkModeHeadStyle(this.context && this.context.globalData)
     }
 
-    if (backgroundImage) {
-      const backgroundImageCssValue = this.getDarkBackgroundImageCssValue()
-
-      styles.push(`
-@media (prefers-color-scheme: dark) {
-  .${backgroundImage} { background-image: ${backgroundImageCssValue} !important; }
-}
-`)
-    }
-
-    return styles.join('\n')
+    return ''
   }
 
   getColumnAlign() {
@@ -274,6 +250,8 @@ export default class MjSection extends BodyComponent {
 
     const hasBackground = this.hasBackground()
 
+    const supportOutlookClassic = this.context?.globalData?.supportOutlookClassic !== false
+
     const isFirstSection = this.props.index === 0
 
     const background = this.getAttribute('background-url')
@@ -313,7 +291,7 @@ export default class MjSection extends BodyComponent {
         'padding-left': this.getAttribute('padding-left'),
         'padding-right': this.getAttribute('padding-right'),
         'padding-top': this.getAttribute('padding-top'),
-        ...(hasBackground && { 'mso-padding-alt': '0' }),
+        ...(hasBackground && supportOutlookClassic && { 'mso-padding-alt': '0' }),
         'text-align': this.getColumnAlign(),
       },
       div: {

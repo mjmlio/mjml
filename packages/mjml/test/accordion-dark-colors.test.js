@@ -165,7 +165,7 @@ describe('mj-accordion dark colors', function () {
 
     const { html } = await mjml(
       wrapAccordion({
-        titleAttrs: `icon-wrapped-url--dark="${darkWrapped}" icon-unwrapped-url--dark="${darkUnwrapped}"`,
+        accordionAttrs: `icon-wrapped-url--dark="${darkWrapped}" icon-unwrapped-url--dark="${darkUnwrapped}"`,
       }),
     )
     const $ = load(html)
@@ -181,6 +181,44 @@ describe('mj-accordion dark colors', function () {
         $('picture source[media="(prefers-color-scheme: dark)"]').last().attr('srcset'),
       )
       .to.equal(darkUnwrapped)
+  })
+
+  it('should let mj-accordion-element icon-wrapped-url--dark override the inherited mj-accordion value', async function () {
+    const darkWrapped = 'https://example.com/element-dark-more.png'
+    const darkUnwrapped = 'https://example.com/element-dark-less.png'
+
+    const { html } = await mjml(
+      wrapAccordion({
+        accordionAttrs: 'icon-wrapped-url--dark="https://example.com/accordion-dark-more.png" icon-unwrapped-url--dark="https://example.com/accordion-dark-less.png"',
+        elementAttrs: `icon-wrapped-url--dark="${darkWrapped}" icon-unwrapped-url--dark="${darkUnwrapped}"`,
+      }),
+    )
+    const $ = load(html)
+
+    chai
+      .expect(
+        $('picture source[media="(prefers-color-scheme: dark)"]').first().attr('srcset'),
+      )
+      .to.equal(darkWrapped)
+    chai
+      .expect(
+        $('picture source[media="(prefers-color-scheme: dark)"]').last().attr('srcset'),
+      )
+      .to.equal(darkUnwrapped)
+  })
+
+  it('should not apply icon-wrapped-url--dark or icon-unwrapped-url--dark set directly on mj-accordion-title', async function () {
+    const { html, errors } = await mjml(
+      wrapAccordion({
+        titleAttrs: 'icon-wrapped-url--dark="https://example.com/title-dark-more.png" icon-unwrapped-url--dark="https://example.com/title-dark-less.png"',
+      }),
+    )
+    const $ = load(html)
+
+    chai.expect($('picture source[media="(prefers-color-scheme: dark)"]').length).to.equal(0)
+    chai
+      .expect(errors.map((error) => error.message))
+      .to.include('Attributes icon-wrapped-url--dark, icon-unwrapped-url--dark are illegal')
   })
 
   it('should apply mj-accordion-text background-color--dark and color--dark using a single dark class on text td', async function () {

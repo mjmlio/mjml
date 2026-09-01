@@ -222,13 +222,13 @@ export default class MjAccordionTitle extends BodyComponent {
         ${this.renderIconImage(
           this.getAttribute('icon-wrapped-url'),
           this.getAttribute('icon-wrapped-alt'),
-          this.getAttribute('icon-wrapped-url--dark'),
+          this.context && this.context.iconWrappedUrlDark,
           'mj-accordion-more',
         )}
         ${this.renderIconImage(
           this.getAttribute('icon-unwrapped-url'),
           this.getAttribute('icon-unwrapped-alt'),
-          this.getAttribute('icon-unwrapped-url--dark'),
+          this.context && this.context.iconUnwrappedUrlDark,
           'mj-accordion-less',
         )}
       </td>

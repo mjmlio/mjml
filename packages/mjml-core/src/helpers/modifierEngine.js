@@ -48,15 +48,17 @@ function getClassPrefixForModifier(definition = {}) {
 export function formatGroupedRules(rules, selectorPrefix = '') {
   const declarationGroups = new Map()
 
-  rules.forEach(({ className, cssProperty, cssValue }) => {
+  rules.forEach(({ className, selector, cssProperty, cssValue }) => {
     const declaration = `${cssProperty}: ${cssValue} !important;`
-    const selector = `${selectorPrefix}.${className}`
+    const targetSelector = selector
+      ? `${selectorPrefix}${selector}`
+      : `${selectorPrefix}.${className}`
 
     if (!declarationGroups.has(declaration)) {
       declarationGroups.set(declaration, new Set())
     }
 
-    declarationGroups.get(declaration).add(selector)
+    declarationGroups.get(declaration).add(targetSelector)
   })
 
   const selectorGroups = new Map()
@@ -124,6 +126,7 @@ export function registerModifierRule(
     modifier,
     cssProperty,
     cssValue,
+    selector,
     supportModifierSelector = false,
     mediaQuery,
     classNamespace,
@@ -155,24 +158,28 @@ export function registerModifierRule(
 
   let className = null
 
-  if (typeof getClassName === 'function') {
-    className = getClassName(globalData, modifierKeyword, modifierDefinition)
-  } else {
-    if (
-      !globalData[counterByModifierKey] ||
-      typeof globalData[counterByModifierKey] !== 'object'
-    ) {
-      globalData[counterByModifierKey] = {}
+  // An explicit selector (e.g. a :hover/:checked chain) targets markup
+  // directly, so no generated class name is needed.
+  if (!selector) {
+    if (typeof getClassName === 'function') {
+      className = getClassName(globalData, modifierKeyword, modifierDefinition)
+    } else {
+      if (
+        !globalData[counterByModifierKey] ||
+        typeof globalData[counterByModifierKey] !== 'object'
+      ) {
+        globalData[counterByModifierKey] = {}
+      }
+
+      if (typeof globalData[counterByModifierKey][modifierKeyword] !== 'number') {
+        globalData[counterByModifierKey][modifierKeyword] = 0
+      }
+
+      globalData[counterByModifierKey][modifierKeyword] += 1
+
+      const classPrefix = getClassPrefixForModifier(modifierDefinition)
+      className = `${classPrefix}-${globalData[counterByModifierKey][modifierKeyword]}`
     }
-
-    if (typeof globalData[counterByModifierKey][modifierKeyword] !== 'number') {
-      globalData[counterByModifierKey][modifierKeyword] = 0
-    }
-
-    globalData[counterByModifierKey][modifierKeyword] += 1
-
-    const classPrefix = getClassPrefixForModifier(modifierDefinition)
-    className = `${classPrefix}-${globalData[counterByModifierKey][modifierKeyword]}`
   }
 
   if (!Array.isArray(globalData[rulesKey])) {
@@ -182,12 +189,13 @@ export function registerModifierRule(
   globalData[rulesKey].push({
     modifier: modifierKeyword,
     className,
+    selector,
     cssProperty,
     cssValue,
     supportModifierSelector: Boolean(supportModifierSelector),
   })
 
-  return className
+  return selector || className
 }
 
 export function registerModifierRuleGroup(
@@ -195,6 +203,7 @@ export function registerModifierRuleGroup(
   {
     modifier,
     cssDeclarations,
+    selector,
     supportModifierSelector = false,
     mediaQuery,
     classNamespace,
@@ -216,6 +225,7 @@ export function registerModifierRuleGroup(
       modifier,
       cssProperty: validDeclarations[0].cssProperty,
       cssValue: validDeclarations[0].cssValue,
+      selector,
       supportModifierSelector,
       mediaQuery,
       classNamespace,
@@ -240,6 +250,7 @@ export function registerModifierRuleGroup(
     globalData[rulesKey].push({
       modifier: normalizeModifierKeyword(modifier),
       className,
+      selector,
       cssProperty,
       cssValue,
       supportModifierSelector: Boolean(supportModifierSelector),

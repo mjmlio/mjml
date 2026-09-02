@@ -320,7 +320,10 @@ export default class MjButton extends BodyComponent {
         'border-top': this.getAttribute('border-top'),
         'font-style': this.getAttribute('font-style'),
         height: this.getAttribute('height'),
-        ...(this.getAttribute('multiline') === true && { 'mso-padding-alt': this.getContentPadding() }),
+        ...(this.getAttribute('multiline') === true &&
+          this.context?.globalData?.supportOutlookClassic !== false && {
+            'mso-padding-alt': this.getContentPadding(),
+          }),
         'text-align': this.getAttribute('text-align'),
         background: this.getAttribute('background-color'),
       },
@@ -341,7 +344,10 @@ export default class MjButton extends BodyComponent {
         'text-transform': this.getAttribute('text-transform'),
         padding: this.getContentPadding(),
         border: `1px solid ${this.getAttribute('background-color')}`,
-        ...(this.getAttribute('multiline') === true && { 'mso-padding-alt': '0px' }),
+        ...(this.getAttribute('multiline') === true &&
+          this.context?.globalData?.supportOutlookClassic !== false && {
+            'mso-padding-alt': '0px',
+          }),
         'border-radius': this.getAttribute('border-radius'),
       },
     }

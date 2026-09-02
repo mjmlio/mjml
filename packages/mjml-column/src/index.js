@@ -13,6 +13,18 @@ import {
 import genRandomHexString from 'mjml-core/lib/helpers/genRandomHexString'
 import widthParser from 'mjml-core/lib/helpers/widthParser'
 
+function getPaddingLeft(component) {
+  const explicitPadding = component.getAttribute('padding-left')
+  if (explicitPadding) return explicitPadding
+
+  const padding = component.getAttribute('padding')
+  if (!padding) return '0px'
+
+  const values = padding.trim().split(/\s+/)
+  const leftIndex = [0, 1, 1, 3][values.length - 1] || 0
+  return values[leftIndex]
+}
+
 export default class MjColumn extends BodyComponent {
   static componentName = 'mj-column'
 
@@ -293,7 +305,7 @@ export default class MjColumn extends BodyComponent {
         'padding-bottom': this.getAttribute('padding-bottom'),
         'padding-left': this.getAttribute('padding-left'),
         ...(this.context.hasSectionBackgroundUrl === true && {
-          'mso-para-margin-left': `${this.getShorthandAttrValue('padding', 'left')}px`,
+          'mso-para-margin-left': getPaddingLeft(this),
         }),
       },
     }
@@ -720,7 +732,7 @@ export default class MjColumn extends BodyComponent {
 
             if (isLeftAlignedButton && hasSectionBackground) {
               const buttonClassName = `vml-button-${genRandomHexString(6)}`
-              const buttonLeftPadding = `${component.getShorthandAttrValue('padding', 'left')}px`
+              const buttonLeftPadding = getPaddingLeft(component)
 
               if (typeof this.context.addVmlButtonStyle === 'function') {
                 this.context.addVmlButtonStyle(buttonClassName, buttonLeftPadding)

@@ -117,11 +117,13 @@ describe('mj-hero background-color--dark / inner-background-color--dark', () => 
       /\.(mj-dark-\d+) \{ background-color: #111111 !important; \}/,
     )
     const backgroundImageClassMatch = styles.match(
-      /\.(mj-dark-image-\d+) \{ background-image: url\("https:\/\/example\.com\/hero-dark-combined\.jpg"\) !important; \}/,
+      /\.(mj-dark-\d+) \{ background-image: url\("https:\/\/example\.com\/hero-dark-combined\.jpg"\) !important; \}/,
     )
+    const mediaMatches = styles.match(/@media \(prefers-color-scheme: dark\)/g) || []
 
     chai.expect(backgroundClassMatch).to.not.equal(null)
     chai.expect(backgroundImageClassMatch).to.not.equal(null)
+    chai.expect(mediaMatches.length).to.equal(1)
 
     const modeTd = $('td').filter(function () {
       const className = $(this).attr('class') || ''

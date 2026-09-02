@@ -18,7 +18,7 @@ export default class MjPreview extends HeadComponent {
   handler() {
     const { add } = this.context
     const content = this.getContent() || ''
-    const repeat = parseInt(this.getAttribute('fill-space') || '0', 10) || 0
+    const repeat = Math.max(parseInt(this.getAttribute('fill-space') || '0', 10) || 0, 0)
     const fillSpaceUnit = this.getAttribute('fill-space-unit')
     const unit = ` ${fillSpaceUnit}`
     const useDefaultFillSpaceUnit =

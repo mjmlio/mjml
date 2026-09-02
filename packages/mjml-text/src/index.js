@@ -55,6 +55,58 @@ function setStyleAttr(attrs, newStyle) {
 }
 
 /**
+ * Scan the HTML string for tag boundaries, tracking quote state so that a
+ * `>` inside a quoted attribute value (e.g. `data-label="A > B"`) does not
+ * prematurely terminate the tag.
+ */
+function findTags(html) {
+  const tagStartRe = /^<(\/?)([a-zA-Z][a-zA-Z0-9]*)/
+  const tags = []
+  const { length } = html
+  let i = 0
+
+  while (i < length) {
+    let matched = false
+
+    if (html[i] === '<') {
+      const tagMatch = tagStartRe.exec(html.slice(i))
+      if (tagMatch) {
+        let j = i + tagMatch[0].length
+        let quote = null
+
+        while (j < length) {
+          const char = html[j]
+          if (quote) {
+            if (char === quote) quote = null
+          } else if (char === '"' || char === "'") {
+            quote = char
+          } else if (char === '>') {
+            break
+          }
+          j += 1
+        }
+
+        if (j < length) {
+          tags.push({
+            start: i,
+            end: j + 1,
+            isClose: tagMatch[1] === '/',
+            tagName: tagMatch[2].toLowerCase(),
+            attrs: html.slice(i + tagMatch[0].length, j),
+          })
+          i = j + 1
+          matched = true
+        }
+      }
+    }
+
+    if (!matched) i += 1
+  }
+
+  return tags
+}
+
+/**
  * Walk the HTML string and inject inline styles onto the
  * specified list elements (ul/ol) and their <li> descendants so that they
  * render consistently across email clients.
@@ -63,17 +115,7 @@ function setStyleAttr(attrs, newStyle) {
  * in browser environments where cheerio is not available.
  */
 function normalizeListContent(html, elements) {
-  const tagRe = /<(\/?)([a-zA-Z][a-zA-Z0-9]*)(\s[^>]*)?>/g
-  const foundTags = []
-  for (let m = tagRe.exec(html); m !== null; m = tagRe.exec(html)) {
-    foundTags.push({
-      start: m.index,
-      end: m.index + m[0].length,
-      isClose: m[1] === '/',
-      tagName: m[2].toLowerCase(),
-      attrs: m[3] || '',
-    })
-  }
+  const foundTags = findTags(html)
 
   // Stack tracks open lists; each entry owns its direct <li> children.
   const listStack = []
@@ -81,38 +123,49 @@ function normalizeListContent(html, elements) {
   const liItems = []
 
   for (const t of foundTags) {
-    if (!t.isClose && elements.includes(t.tagName)) {
-      // Opening a normalised list: schedule a patch and push onto the stack.
-      const existingStyle = extractStyleAttr(t.attrs)
-      const injected = []
-      if (!hasStyleProp(existingStyle, 'padding')) injected.push('padding: 0')
-      if (!hasStyleProp(existingStyle, 'margin')) injected.push('margin: 0')
+    const isListTag = VALID_NORMALIZE_ELEMENTS.includes(t.tagName)
 
-      let newAttrs = t.attrs
-      if (injected.length > 0) {
-        const base = existingStyle.trim().replace(/;\s*$/, '').trim()
-        const newStyle = base
-          ? `${injected.join('; ')}; ${base}`
-          : injected.join('; ')
-        newAttrs = setStyleAttr(t.attrs, newStyle)
+    if (!t.isClose && isListTag) {
+      const selected = elements.includes(t.tagName)
+
+      if (selected) {
+        // Opening a normalised list: schedule a patch for the tag itself.
+        const existingStyle = extractStyleAttr(t.attrs)
+        const injected = []
+        if (!hasStyleProp(existingStyle, 'padding')) injected.push('padding: 0')
+        if (!hasStyleProp(existingStyle, 'margin')) injected.push('margin: 0')
+
+        let newAttrs = t.attrs
+        if (injected.length > 0) {
+          const base = existingStyle.trim().replace(/;\s*$/, '').trim()
+          const newStyle = base
+            ? `${injected.join('; ')}; ${base}`
+            : injected.join('; ')
+          newAttrs = setStyleAttr(t.attrs, newStyle)
+        }
+
+        listPatches.push({
+          start: t.start,
+          end: t.end,
+          newContent: `<${t.tagName}${newAttrs}>`,
+        })
       }
 
-      listPatches.push({
-        start: t.start,
-        end: t.end,
-        newContent: `<${t.tagName}${newAttrs}>`,
-      })
-      listStack.push({ tag: t.tagName, liItems: [] })
-    } else if (t.isClose && elements.includes(t.tagName) && listStack.length > 0) {
-      // Closing a list: mark first/last among its direct <li> children.
+      // Track every ul/ol boundary, selected or not, so an unselected nested
+      // list shields its own <li> children from the outer selected list.
+      listStack.push({ tag: t.tagName, liItems: [], selected })
+    } else if (t.isClose && isListTag && listStack.length > 0) {
+      // Closing a list: only selected lists mark first/last among their direct <li> children.
       const list = listStack.pop()
-      list.liItems.forEach((li, i) => {
-        li.isFirst = i === 0
-        li.isLast = i === list.liItems.length - 1
-        liItems.push(li)
-      })
+      if (list.selected) {
+        list.liItems.forEach((li, i) => {
+          li.isFirst = i === 0
+          li.isLast = i === list.liItems.length - 1
+          liItems.push(li)
+        })
+      }
     } else if (!t.isClose && t.tagName === 'li' && listStack.length > 0) {
-      // Register this <li> with the innermost active list.
+      // Register this <li> with the innermost active list (selected or not).
       listStack[listStack.length - 1].liItems.push({
         start: t.start,
         end: t.end,
@@ -182,7 +235,7 @@ export default class MjText extends BodyComponent {
     height: 'unit(px,%)',
     'height--responsive': 'unit(px,%)',
     'letter-spacing': 'unitWithNegative(px,em)',
-    'line-height': 'unit(px,%,em,rem)',
+    'line-height': 'unit(px,%,em,rem,)',
     'line-height--responsive': 'unit(px,%,em.rem)',
     'normalize-elements': 'string',
     padding: 'unit(px,%){1,4}',

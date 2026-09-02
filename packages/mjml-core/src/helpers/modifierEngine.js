@@ -48,7 +48,7 @@ function getClassPrefixForModifier(definition = {}) {
 export function formatGroupedRules(rules, selectorPrefix = '') {
   const declarationGroups = new Map()
 
-  rules.forEach(({ className, cssProperty, cssValue, selectorSuffix }) => {
+  rules.forEach(({ className, selector, cssProperty, cssValue, selectorSuffix }) => {
     const declaration = `${cssProperty}: ${cssValue} !important;`
     const selectorSuffixes = Array.isArray(selectorSuffix)
       ? selectorSuffix
@@ -58,9 +58,13 @@ export function formatGroupedRules(rules, selectorPrefix = '') {
       declarationGroups.set(declaration, new Set())
     }
 
-    selectorSuffixes.forEach((suffix) => {
-      declarationGroups.get(declaration).add(`${selectorPrefix}.${className}${suffix}`)
-    })
+    if (selector) {
+      declarationGroups.get(declaration).add(`${selectorPrefix}${selector}`)
+    } else {
+      selectorSuffixes.forEach((suffix) => {
+        declarationGroups.get(declaration).add(`${selectorPrefix}.${className}${suffix}`)
+      })
+    }
   })
 
   const selectorGroups = new Map()
@@ -129,6 +133,7 @@ export function registerModifierRule(
     cssProperty,
     cssValue,
     selectorSuffix,
+    selector,
     supportModifierSelector = false,
     mediaQuery,
     classNamespace,
@@ -160,24 +165,28 @@ export function registerModifierRule(
 
   let className = null
 
-  if (typeof getClassName === 'function') {
-    className = getClassName(globalData, modifierKeyword, modifierDefinition)
-  } else {
-    if (
-      !globalData[counterByModifierKey] ||
-      typeof globalData[counterByModifierKey] !== 'object'
-    ) {
-      globalData[counterByModifierKey] = {}
+  // An explicit selector (e.g. a :hover/:checked chain) targets markup
+  // directly, so no generated class name is needed.
+  if (!selector) {
+    if (typeof getClassName === 'function') {
+      className = getClassName(globalData, modifierKeyword, modifierDefinition)
+    } else {
+      if (
+        !globalData[counterByModifierKey] ||
+        typeof globalData[counterByModifierKey] !== 'object'
+      ) {
+        globalData[counterByModifierKey] = {}
+      }
+
+      if (typeof globalData[counterByModifierKey][modifierKeyword] !== 'number') {
+        globalData[counterByModifierKey][modifierKeyword] = 0
+      }
+
+      globalData[counterByModifierKey][modifierKeyword] += 1
+
+      const classPrefix = getClassPrefixForModifier(modifierDefinition)
+      className = `${classPrefix}-${globalData[counterByModifierKey][modifierKeyword]}`
     }
-
-    if (typeof globalData[counterByModifierKey][modifierKeyword] !== 'number') {
-      globalData[counterByModifierKey][modifierKeyword] = 0
-    }
-
-    globalData[counterByModifierKey][modifierKeyword] += 1
-
-    const classPrefix = getClassPrefixForModifier(modifierDefinition)
-    className = `${classPrefix}-${globalData[counterByModifierKey][modifierKeyword]}`
   }
 
   if (!Array.isArray(globalData[rulesKey])) {
@@ -187,13 +196,14 @@ export function registerModifierRule(
   globalData[rulesKey].push({
     modifier: modifierKeyword,
     className,
+    selector,
     cssProperty,
     cssValue,
     selectorSuffix,
     supportModifierSelector: Boolean(supportModifierSelector),
   })
 
-  return className
+  return selector || className
 }
 
 export function registerModifierRuleGroup(
@@ -202,6 +212,7 @@ export function registerModifierRuleGroup(
     modifier,
     cssDeclarations,
     selectorSuffix,
+    selector,
     supportModifierSelector = false,
     mediaQuery,
     classNamespace,
@@ -226,6 +237,7 @@ export function registerModifierRuleGroup(
       selectorSuffix: Object.prototype.hasOwnProperty.call(validDeclarations[0], 'selectorSuffix')
         ? validDeclarations[0].selectorSuffix
         : selectorSuffix,
+      selector,
       supportModifierSelector,
       mediaQuery,
       classNamespace,
@@ -255,6 +267,7 @@ export function registerModifierRuleGroup(
       selectorSuffix: Object.prototype.hasOwnProperty.call(declaration, 'selectorSuffix')
         ? declaration.selectorSuffix
         : selectorSuffix,
+      selector,
       supportModifierSelector: Boolean(supportModifierSelector),
     })
   })

@@ -369,7 +369,11 @@ export default class MjImage extends BodyComponent {
       <img
         ${this.htmlAttributes({
           alt: this.getAttribute('alt'),
-          'aria-hidden': this.getAttribute('aria-hidden'),
+          ...(this.getAttribute('aria-hidden') === 'true' && this.getAttribute('href') === undefined
+          ? {
+              'aria-hidden': 'true',
+            }
+          : {}),
           src: this.getAttribute('src'),
           srcset: this.getAttribute('srcset'),
           sizes: this.getAttribute('sizes'),
@@ -432,7 +436,14 @@ export default class MjImage extends BodyComponent {
 
     if (hasLink && !darkImg) {
       return `
-        <a ${linkAttrs}>
+        <a ${linkAttrs} ${this.htmlAttributes({
+          ...(this.getAttribute('aria-hidden') === 'true'
+          ? {
+              'aria-hidden': 'true',
+              tabindex: '-1',
+            }
+          : {}),
+        })}>
           ${content}
         </a>
       `

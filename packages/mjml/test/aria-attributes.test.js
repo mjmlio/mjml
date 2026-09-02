@@ -239,11 +239,78 @@ describe('ARIA attributes pass-through', function () {
       chai.expect(imageDiv.attr('aria-roledescription')).to.equal('slide')
       chai.expect(imageDiv.attr('aria-label')).to.include('of')
     })
+
+    it('should default the first slide\'s dynamic aria-label to start with "1 of"', async function () {
+      const input = `
+<mjml>
+  <mj-body>
+    <mj-section>
+      <mj-column>
+        <mj-carousel>
+          <mj-carousel-image src="https://example.com/image.jpg" />
+          <mj-carousel-image src="https://example.com/image2.jpg" />
+          <mj-carousel-image src="https://example.com/image3.jpg" />
+        </mj-carousel>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>
+`
+      const { html } = await mjml(input)
+      const $ = load(html)
+
+      const firstImageDiv = $('.mj-carousel-image').eq(0)
+      chai.expect(firstImageDiv.attr('aria-label')).to.equal('1 of 3')
+    })
+
+    it('should omit aria-label on the Outlook fallback image when it is the dynamic default', async function () {
+      const input = `
+<mjml>
+  <mj-body>
+    <mj-section>
+      <mj-column>
+        <mj-carousel>
+          <mj-carousel-image src="https://example.com/image.jpg" />
+          <mj-carousel-image src="https://example.com/image2.jpg" />
+        </mj-carousel>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>
+`
+      const { html } = await mjml(input)
+      const fallbackBlocks = [...html.matchAll(/<!--\[if mso\]>([\s\S]*?)<!\[endif\]-->/g)]
+      const fallbackBlock = fallbackBlocks.map((m) => m[1]).find((block) => block.includes('<img'))
+      chai.expect(fallbackBlock).to.not.equal(undefined)
+      chai.expect(fallbackBlock).to.not.include('aria-label')
+    })
+
+    it('should keep an explicit aria-label on the Outlook fallback image', async function () {
+      const input = `
+<mjml>
+  <mj-body>
+    <mj-section>
+      <mj-column>
+        <mj-carousel>
+          <mj-carousel-image src="https://example.com/image.jpg" aria-label="Custom label" />
+          <mj-carousel-image src="https://example.com/image2.jpg" />
+        </mj-carousel>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>
+`
+      const { html } = await mjml(input)
+      const fallbackBlocks = [...html.matchAll(/<!--\[if mso\]>([\s\S]*?)<!\[endif\]-->/g)]
+      const fallbackBlock = fallbackBlocks.map((m) => m[1]).find((block) => block.includes('<img'))
+      chai.expect(fallbackBlock).to.not.equal(undefined)
+      chai.expect(fallbackBlock).to.include('aria-label="Custom label"')
+    })
   })
 
   describe('mj-divider', function () {
 
-    it('should allow overriding aria-hidden default', async function () {
+    it('should omit aria-hidden when explicitly set to false', async function () {
       const input = `
 <mjml>
   <mj-body>
@@ -258,10 +325,9 @@ describe('ARIA attributes pass-through', function () {
       const { html } = await mjml(input)
       const $ = load(html)
 
-      // Find divider's table element - it has border-top style
-      const dividerTable = $('table[aria-hidden="false"]')
-      chai.expect(dividerTable.length).to.be.greaterThan(0)
-      chai.expect(dividerTable.first().attr('aria-hidden')).to.equal('false')
+      // Find divider's table element - aria-hidden should be omitted when false
+      const dividerTable = $('table[aria-hidden]')
+      chai.expect(dividerTable.length).to.equal(0)
     })
   })
 
@@ -283,7 +349,7 @@ describe('ARIA attributes pass-through', function () {
       chai.expect(html).to.include('aria-hidden="true"')
     })
 
-    it('should allow overriding aria-hidden default', async function () {
+    it('should omit aria-hidden when explicitly set to false', async function () {
       const input = `
 <mjml>
   <mj-body>
@@ -298,10 +364,9 @@ describe('ARIA attributes pass-through', function () {
       const { html } = await mjml(input)
       const $ = load(html)
 
-      // Find spacer's div element with aria-hidden attribute
-      const spacerDiv = $('div[aria-hidden="false"]')
-      chai.expect(spacerDiv.length).to.be.greaterThan(0)
-      chai.expect(spacerDiv.first().attr('aria-hidden')).to.equal('false')
+      // aria-hidden should be omitted entirely when set to false
+      const spacerDiv = $('div[aria-hidden]')
+      chai.expect(spacerDiv.length).to.equal(0)
     })
   })
 
@@ -325,7 +390,7 @@ describe('ARIA attributes pass-through', function () {
       chai.expect(img.attr('aria-hidden')).to.equal('true')
     })
 
-    it('should allow aria-hidden false for decorative images', async function () {
+    it('should omit aria-hidden for images set to false', async function () {
       const input = `
 <mjml>
   <mj-body>
@@ -341,7 +406,7 @@ describe('ARIA attributes pass-through', function () {
       const $ = load(html)
 
       const img = $('img[src="https://example.com/image.jpg"]')
-      chai.expect(img.attr('aria-hidden')).to.equal('false')
+      chai.expect(img.attr('aria-hidden')).to.equal(undefined)
     })
   })
 

@@ -167,25 +167,14 @@ export default class MjHero extends BodyComponent {
       backgroundImageClass,
       innerBackgroundClass,
     } = this.getDarkClasses()
-    const styles = []
 
-    if (backgroundClass || innerBackgroundClass) {
+    if (backgroundClass || backgroundImageClass || innerBackgroundClass) {
       emitDarkModeHeadStyle(this.context && this.context.globalData)
-    }
-
-    if (backgroundImageClass) {
-      const backgroundImageCssValue = this.getDarkBackgroundImageCssValue()
-
-      styles.push(`
-@media (prefers-color-scheme: dark) {
-  .${backgroundImageClass} { background-image: ${backgroundImageCssValue} !important; }
-}
-`)
     }
 
     emitResponsiveHeadStyle(this.context && this.context.globalData)
 
-    return styles.join('\n')
+    return ''
   }
 
   getDarkClasses() {
@@ -200,8 +189,11 @@ export default class MjHero extends BodyComponent {
             cssValue: this.getAttribute('background-color--dark'),
           })
         : null,
-      backgroundImageClass: this.getAttribute('background-url--dark')
-        ? this.registerDarkBackgroundImageClass()
+      backgroundImageClass: this.getDarkBackgroundImageCssValue()
+        ? registerDarkModeRule(this.context && this.context.globalData, {
+            cssProperty: 'background-image',
+            cssValue: this.getDarkBackgroundImageCssValue(),
+          })
         : null,
       innerBackgroundClass: this.getAttribute('inner-background-color--dark')
         ? registerDarkModeRule(this.context && this.context.globalData, {

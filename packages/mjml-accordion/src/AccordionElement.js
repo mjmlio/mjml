@@ -163,6 +163,10 @@ export default class MjAccordionElement extends BodyComponent {
       ...this.context,
       accordionIconResponsiveClass: this.getResponsiveClasses().icon,
       elementFontFamily: this.getAttribute('font-family'),
+      // Resolved here so mj-accordion-title (which cannot legally override
+      // these) can't take effect if set directly on it.
+      iconWrappedUrlDark: this.getAttribute('icon-wrapped-url--dark'),
+      iconUnwrappedUrlDark: this.getAttribute('icon-unwrapped-url--dark'),
     }
   }
 

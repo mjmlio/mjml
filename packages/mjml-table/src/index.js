@@ -235,42 +235,78 @@ export default class MjTable extends BodyComponent {
   }
 
   static injectDataLabels(html) {
+    // Matches only the tags relevant to scoping and label injection; a
+    // nested <table> pushes tableDepth above 0 so its rows/cells are skipped.
+    const tagRe = /<table(?:\s[^>]*)?>|<\/table\s*>|<tr(?:\s[^>]*)?>|<\/tr\s*>|<th(?:\s[^>]*)?>|<\/th\s*>|<td(?:\s[^>]*)?>/gi
+
+    // Pass 1: collect <th> labels from the first top-level row that has them,
+    // ignoring any <th> that belongs to a nested table.
     const labels = []
-    // Only collect <th> labels from the first <tr> that contains them
-    html.replace(/<tr[^>]*>([\s\S]*?)<\/tr>/gi, (_, rowContent) => {
-      if (labels.length === 0 && /<th[\s>]/i.test(rowContent)) {
-        rowContent.replace(/<th(?:\s[^>]*)?>([^]*?)<\/th>/gi, (__, content) => {
-          labels.push(content.replace(/<[^>]+>/g, '').trim())
-        })
+    let tableDepth = 0
+    let foundLabelRow = false
+    let inLabelRow = false
+    let collecting = false
+    let labelStart = 0
+    for (let match = tagRe.exec(html); match !== null; match = tagRe.exec(html)) {
+      const tag = match[0]
+      if (/^<table/i.test(tag)) {
+        tableDepth += 1
+      } else if (/^<\/table/i.test(tag)) {
+        tableDepth = Math.max(0, tableDepth - 1)
+      } else if (tableDepth === 0 && /^<\/tr/i.test(tag)) {
+        if (inLabelRow) foundLabelRow = true
+        inLabelRow = false
+      } else if (tableDepth === 0 && /^<th/i.test(tag) && !foundLabelRow) {
+        collecting = true
+        inLabelRow = true
+        labelStart = match.index + tag.length
+      } else if (tableDepth === 0 && /^<\/th/i.test(tag) && collecting) {
+        labels.push(html.slice(labelStart, match.index).replace(/<[^>]+>/g, '').trim())
+        collecting = false
       }
-    })
+    }
 
     if (labels.length === 0) return html
 
+    // Pass 2: inject data-label onto top-level <td> cells only; nested tables
+    // are left untouched and don't affect colIndex.
+    tableDepth = 0
     let colIndex = 0
-    return html.replace(
-      /(<\/?\s*tr\b[^>]*>)|(<th(?:\s[^>]*)?>)|(<td(\s[^>]*)?>)/gi,
-      (match, trTag, thTag, _tdTag, tdAttrs) => {
-        if (trTag) {
-          if (!/^<\//.test(match)) colIndex = 0
-          return match
-        }
-        if (thTag !== undefined) {
-          // <th> in any row: advance colIndex but don't inject data-label
-          colIndex += 1
-          return match
-        }
-        // It's a <td>
-        if (tdAttrs && /\bdata-label\b/i.test(tdAttrs)) {
-          colIndex += 1
-          return match
-        }
-        const label = labels[colIndex] ?? ''
+    return html.replace(tagRe, (tag) => {
+      if (/^<table/i.test(tag)) {
+        tableDepth += 1
+        return tag
+      }
+      if (/^<\/table/i.test(tag)) {
+        tableDepth = Math.max(0, tableDepth - 1)
+        return tag
+      }
+      if (tableDepth !== 0) {
+        return tag
+      }
+      if (/^<tr/i.test(tag)) {
+        colIndex = 0
+        return tag
+      }
+      if (/^<\/tr/i.test(tag) || /^<\/th/i.test(tag)) {
+        return tag
+      }
+      if (/^<th/i.test(tag)) {
+        // <th> in any row: advance colIndex but don't inject data-label
         colIndex += 1
-        const escapedLabel = label.replace(/"/g, '&quot;')
-        return `<td${tdAttrs || ''}${label ? ` data-label="${escapedLabel}"` : ''}>`
-      },
-    )
+        return tag
+      }
+      // It's a top-level <td>
+      if (/\bdata-label\b/i.test(tag)) {
+        colIndex += 1
+        return tag
+      }
+      const label = labels[colIndex] ?? ''
+      colIndex += 1
+      if (!label) return tag
+      const escapedLabel = label.replace(/"/g, '&quot;')
+      return tag.replace(/>$/, ` data-label="${escapedLabel}">`)
+    })
   }
 
   render() {
@@ -308,12 +344,13 @@ export default class MjTable extends BodyComponent {
             cellpadding: '0',
             cellspacing: '0',
             class: 'mj-scroll-table-outer',
+            role: 'none',
             width: '100%',
           })}
         >
           <tr>
             <td>
-              <div class="mj-scroll-table-inner" role="region" tabindex="0">
+              <div class="mj-scroll-table-inner" tabindex="0">
                 <table
                   ${this.htmlAttributes({
                     ...tableAttributes,

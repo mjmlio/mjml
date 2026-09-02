@@ -300,6 +300,12 @@ export default class MjCarouselImage extends BodyComponent {
           style: 'images.img',
           width: parseInt(this.context.containerWidth, 10),
           border: '0',
+          ...(this.getAttribute('aria-label') !== undefined && {
+            'aria-label': this.getAriaLabel(),
+          }),
+          ...(this.getAttribute('aria-roledescription') !== 'slide' && {
+            'aria-roledescription': this.getAttribute('aria-roledescription'),
+          }),
         })}
       />`
 

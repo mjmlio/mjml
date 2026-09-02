@@ -26,31 +26,31 @@ Displays text which can be styled.
 
 #### Attributes
 
-| attribute                  | accepts                           | description                                                  | default value        |
-| -------------------------- | --------------------------------- | ------------------------------------------------------------ | -------------------- |
-| align                      | `left` `right` `center` `justify` | text-alignment                                               | `left`               |
-| color                      | CSS color formats                 | text color                                                   | `#000000`            |
-| container-background-color | CSS color formats                 | inner element background color                               |                      |
-| css-class                  | string                            | class name, added to the root HTML element created           |                      |
-| font-family                | string                            | font                                                         | `Ubuntu, sans-serif` |
-| font-size                  | `px` `rem`                        | text size                                                    | `16px`               |
-| font-style                 | string                            | CSS values, e.g. `normal` `italic` `oblique`                 |                      |
-| font-weight                | string                            | text thickness                                               |                      |
-| height                     | `px`                              | height of the element                                        |                      |
-| letter-spacing             | `px` `em`                         | letter spacing                                               |                      |
-| line-height                | `px` `%` `em` `rem`               | space between the lines                                      | `150%`               |
-| normalize-elements         | `ol` and/or `ul` (comma delimted) | normalizes the margin and padding for the specified element  |                      |
-| padding                    | `px` `%`                          | text padding, supports up to 4 parameters                    | `10px 25px`          |
-| padding-bottom             | `px` `%`                          | bottom offset                                                |                      |
-| padding-left               | `px` `%`                          | left offset                                                  |                      |
-| padding-right              | `px` `%`                          | right offset                                                 |                      |
-| padding-top                | `px` `%`                          | top offset                                                   |                      |
-| text-decoration            | string                            | CSS values, e.g. `underline` `overline` `none`               |                      |
-| text-transform             | string                            | CSS values, i.e. `capitalize` `uppercase` `lowercase` `none` |                      |
+| attribute                  | accepts                            | description                                                  | default value        |
+| -------------------------- | ---------------------------------- | ------------------------------------------------------------ | -------------------- |
+| align                      | `left` `right` `center` `justify`  | text-alignment                                               | `left`               |
+| color                      | CSS color formats                  | text color                                                   | `#000000`            |
+| container-background-color | CSS color formats                  | inner element background color                               |                      |
+| css-class                  | string                             | class name, added to the root HTML element created           |                      |
+| font-family                | string                             | font                                                         | `Ubuntu, sans-serif` |
+| font-size                  | `px` `rem`                         | text size                                                    | `16px`               |
+| font-style                 | string                             | CSS values, e.g. `normal` `italic` `oblique`                 |                      |
+| font-weight                | string                             | text thickness                                               |                      |
+| height                     | `px`                               | height of the element                                        |                      |
+| letter-spacing             | `px` `em`                          | letter spacing                                               |                      |
+| line-height                | `px` `%` `em` `rem`                | space between the lines                                      | `150%`               |
+| normalize-elements         | `ol` and/or `ul` (comma delimited) | normalizes the margin and padding for the specified element  |                      |
+| padding                    | `px` `%`                           | text padding, supports up to 4 parameters                    | `10px 25px`          |
+| padding-bottom             | `px` `%`                           | bottom offset                                                |                      |
+| padding-left               | `px` `%`                           | left offset                                                  |                      |
+| padding-right              | `px` `%`                           | right offset                                                 |                      |
+| padding-top                | `px` `%`                           | top offset                                                   |                      |
+| text-decoration            | string                             | CSS values, e.g. `underline` `overline` `none`               |                      |
+| text-transform             | string                             | CSS values, i.e. `capitalize` `uppercase` `lowercase` `none` |                      |
 
 <div class="alert alert-note" role="alert">
   <p>Note</p>
-  <p>For <code>normalize-elements</code> the HTML is compiled with inline margin and/or padding for each <code>ul</code>, <code>ol</code> and <code>li</code> tag, as well as adding <code>mso</code> specific CSS to the <code>&lt;head&lt;</code>. You can override this inline in the HTML, using any padding or margin attribute however it will not change in Outlook classic.</p>
+  <p>For <code>normalize-elements</code> the HTML is compiled with inline margin and/or padding for each <code>ul</code>, <code>ol</code> and <code>li</code> tag, as well as adding <code>mso</code> specific CSS to the <code>&lt;head&gt;</code>. You can override this inline in the HTML, using any padding or margin attribute however it will not change in Outlook classic.</p>
 </div>
 
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/text">Try it live</a></p>

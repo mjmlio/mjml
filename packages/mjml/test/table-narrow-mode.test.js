@@ -168,6 +168,33 @@ describe('mj-table responsive-mode="stack"', function () {
     const $ = load(html)
     chai.expect($('table.mj-stack-table td[data-label]').length).to.equal(0)
   })
+
+  it('does not inject data-label onto cells of a nested table, and does not let them shift outer colIndex', async function () {
+    const content = `
+      <tr><th>Year</th><th>Language</th></tr>
+      <tr>
+        <td>
+          <table><tr><td>Nested A</td><td>Nested B</td></tr></table>
+        </td>
+        <td>PHP</td>
+      </tr>
+    `
+    const { html } = await mjml(wrapTable('stack', content))
+
+    // Nested table cells must not receive data-label
+    chai.expect(html).to.not.include('data-label="Nested')
+
+    // The outer row's first <td> (wrapping the nested table) is still top-level
+    const wrapperCellMatch = html.match(/<td([^>]*)>\s*<table>/)
+    chai.expect(wrapperCellMatch).to.not.equal(null)
+    chai.expect(wrapperCellMatch[1]).to.include('data-label="Year"')
+
+    // The outer row's second <td> (PHP) must still be labelled "Language", not shifted
+    // by the nested table's two <td> cells resetting/advancing colIndex.
+    const phpCellMatch = html.match(/<td([^>]*)>\s*PHP\s*<\/td>/)
+    chai.expect(phpCellMatch).to.not.equal(null)
+    chai.expect(phpCellMatch[1]).to.include('data-label="Language"')
+  })
 })
 
 // ─── scroll ──────────────────────────────────────────────────────────────────

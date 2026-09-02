@@ -185,7 +185,12 @@ export default class MjDivider extends BodyComponent {
       return `
       <table
         ${this.htmlAttributes({
-          'aria-hidden': this.getAttribute('aria-hidden'),
+          align: this.getAttribute('align'),
+          ...(this.getAttribute('aria-hidden') === 'true'
+            ? {
+                'aria-hidden': 'true',
+              }
+            : {}),
           border: '0',
           cellpadding: '0',
           class: [borderDarkClass, tableResponsiveClass].filter(Boolean).join(' ') || undefined,
@@ -205,7 +210,11 @@ export default class MjDivider extends BodyComponent {
     return `
       <hr
         ${this.htmlAttributes({
-          'aria-hidden': this.getAttribute('aria-hidden'),
+          ...(this.getAttribute('aria-hidden') === 'true'
+            ? {
+                'aria-hidden': 'true',
+              }
+            : {}),
           class: [borderDarkClass, hrResponsiveClass].filter(Boolean).join(' ') || undefined,
           style: 'hr',
         })}

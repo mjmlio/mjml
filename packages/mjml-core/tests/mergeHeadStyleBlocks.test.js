@@ -43,6 +43,14 @@ describe('mergeHeadStyleBlocks', () => {
       assert.strictEqual(mergeHeadStyleBlocks(html), html)
     })
 
+    it('returns malformed comments and styles without looping', () => {
+      for (const inner of ['<!--', '<style>', '<style media="print">', '<style media="print"']) {
+        const html = head(inner)
+        assert.doesNotThrow(() => mergeHeadStyleBlocks(html))
+        assert.strictEqual(mergeHeadStyleBlocks(html), html)
+      }
+    })
+
     it('returns html unchanged when there are no <style> blocks at all', () => {
       const html = head('<title>T</title><meta charset="utf-8">')
       assert.strictEqual(mergeHeadStyleBlocks(html), html)
@@ -119,6 +127,20 @@ describe('mergeHeadStyleBlocks', () => {
       const html = head('<style>a{}</style>  <style>b{}</style>  <style>c{}</style>')
       const result = mergeHeadStyleBlocks(html)
       assert.strictEqual((result.match(/<style>/g) || []).length, 1)
+    })
+
+    it('does not place a later beginning-only at-rule after earlier CSS', () => {
+      const html = head('<style>a{}</style><style>@import url("theme.css");</style>')
+      const result = mergeHeadStyleBlocks(html)
+      assert.strictEqual((result.match(/<style>/g) || []).length, 2)
+      assert.ok(result.includes('@import url("theme.css");'), result)
+    })
+
+    it('does not place a later @charset at-rule after earlier CSS', () => {
+      const html = head('<style>a{}</style><style>@charset "UTF-8";</style>')
+      const result = mergeHeadStyleBlocks(html)
+      assert.strictEqual((result.match(/<style>/g) || []).length, 2)
+      assert.ok(result.includes('@charset "UTF-8";'), result)
     })
   })
 

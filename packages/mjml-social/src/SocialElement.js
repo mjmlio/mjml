@@ -140,6 +140,7 @@ export default class MjSocialElement extends BodyComponent {
     align: 'enum(left,center,right)',
     'align--responsive': 'enum(left,center,right)',
     alt: 'string',
+    'aria-hidden': 'string',
     'background-color': 'color',
     'background-color--dark': 'color',
     border: 'string',
@@ -471,6 +472,13 @@ export default class MjSocialElement extends BodyComponent {
           width: parseInt(iconSize, 10),
           sizes,
           srcset,
+          ...(this.getContent() &&
+          this.getAttribute('aria-hidden') !== 'false' &&
+          !hasLink
+          ? {
+              'aria-hidden': 'true',
+            }
+          : {}),
         })}
       />
     `
@@ -521,6 +529,8 @@ export default class MjSocialElement extends BodyComponent {
       : null
 
     const content = darkImg || picture || img
+    const ariaHidden =
+      this.getContent() && this.getAttribute('aria-hidden') !== 'false'
 
     const iconTd = `<td ${this.htmlAttributes({
           style: 'icon',
@@ -532,6 +542,12 @@ export default class MjSocialElement extends BodyComponent {
                         href,
                         rel: this.getAttribute('rel'),
                         target: this.getAttribute('target'),
+                        ...(ariaHidden
+                          ? {
+                              'aria-hidden': 'true',
+                              tabindex: '-1',
+                            }
+                          : {}),
                       })}>`
                     : ''
                 }

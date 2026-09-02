@@ -206,6 +206,32 @@ describe('mj-text normalize-elements', function () {
     })
   })
 
+  // ─── quote-aware tag scanning ──────────────────────────────────────────────
+
+  describe('attribute values containing >', function () {
+    it('does not split the tag on a > inside a quoted attribute value', async function () {
+      const { html } = await mjml(
+        wrapText('ul', '<ul data-label="A > B"><li>A</li></ul>'),
+      )
+      const $ = load(html)
+      const ul = $('ul')
+      chai.expect(ul.attr('data-label')).to.equal('A > B')
+      chai.expect(ul.attr('style')).to.match(/padding:\s*0/)
+      chai.expect(ul.attr('style')).to.match(/margin:\s*0/)
+      chai.expect($('li').attr('style')).to.match(/margin:\s*10px 0 10px 18px/)
+    })
+
+    it('does not split the tag on a > inside a single-quoted attribute value', async function () {
+      const { html } = await mjml(
+        wrapText('ul', "<ul data-label='A > B'><li>A</li></ul>"),
+      )
+      const $ = load(html)
+      const ul = $('ul')
+      chai.expect(ul.attr('data-label')).to.equal('A > B')
+      chai.expect(ul.attr('style')).to.match(/padding:\s*0/)
+    })
+  })
+
   // ─── li style and class injection ─────────────────────────────────────────
 
   describe('li style and class injection', function () {
@@ -273,6 +299,29 @@ describe('mj-text normalize-elements', function () {
       const $ = load(html)
       chai.expect($('ol').attr('style')).to.match(/padding:\s*0/)
       chai.expect($('ul').attr('style')).to.match(/padding:\s*0/)
+    })
+
+    it('does not treat an unselected nested list\'s li as a direct child of the outer selected list', async function () {
+      const { html } = await mjml(
+        wrapText('ul', '<ul><li>A</li><li>B<ol><li>Nested 1</li><li>Nested 2</li></ol></li><li>C</li></ul>'),
+      )
+      const $ = load(html)
+
+      // Outer ul should still be normalised
+      chai.expect($('ul').attr('style')).to.match(/padding:\s*0/)
+
+      // Unselected nested ol is untouched
+      chai.expect($('ol').attr('style')).to.equal(undefined)
+
+      // Direct <li> children of the outer ul: A, B, C - "C" is last, not the nested items
+      const outerItems = $('ul').children('li')
+      chai.expect(outerItems.eq(0).attr('style')).to.match(/margin:\s*10px 0 5px 18px/)
+      chai.expect(outerItems.eq(2).attr('style')).to.match(/margin:\s*0 0 10px 18px/)
+
+      // The nested ol's <li> elements are untouched (no injected style)
+      const nestedItems = $('ol').children('li')
+      chai.expect(nestedItems.eq(0).attr('style')).to.equal(undefined)
+      chai.expect(nestedItems.eq(1).attr('style')).to.equal(undefined)
     })
   })
 })

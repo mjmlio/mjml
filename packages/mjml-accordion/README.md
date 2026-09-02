@@ -81,11 +81,12 @@ Readers can interact by clicking on the tabs to reveal the content, providing a 
 
 ###### Dark-mode
 
-| attribute                  | accepts           | description                                    | default value |
-| -------------------------- | ----------------- | ---------------------------------------------- | ------------- |
-| container-background-color | CSS color formats | background color of the container in dark mode |               |
-| icon-unwrapped-url--dark   | string            | dark-mode icon when accordion is unwrapped     |               |
-| icon-wrapped-url--dark     | string            | dark-mode icon when accordion is wrapped       |               |
+| attribute                        | accepts           | description                                | default value |
+| -------------------------------- | ----------------- | ------------------------------------------ | ------------- |
+| border--dark                     | string            | CSS border format                          |               |
+| container-background-color--dark | CSS color formats | background color of the container          |               |
+| icon-unwrapped-url--dark         | string            | dark-mode icon when accordion is unwrapped |               |
+| icon-wrapped-url--dark           | string            | dark-mode icon when accordion is wrapped   |               |
 
 <div class="alert alert-note" role="alert">
   <p>Note</p>
@@ -119,8 +120,8 @@ Creates an accordion title/text pair. An accordion can have any number of these 
 
 | attribute            | accepts                 | description                                                                               | default value |
 | -------------------- | ----------------------- | ----------------------------------------------------------------------------------------- | ------------- |
-| aria-label           | string                  | adds an `aria-label` attribute to the slide container                                     |               |
-| aria-roledescription | string                  | adds an `aria-roledescription` attribute to the slide container                           |               |
+| aria-label           | string                  | adds an `aria-label` attribute to the accordion container                                 |               |
+| aria-roledescription | string                  | adds an `aria-roledescription` attribute to the accordion container                       |               |
 | background-color     | CSS color formats       | background color                                                                          |               |
 | border               | string                  | CSS border format. <br>affects each horizontal border in the accordion except the top one |               |
 | css-class            | string                  | class name, added to the root HTML element created                                        |               |
@@ -133,7 +134,7 @@ Creates an accordion title/text pair. An accordion can have any number of these 
 | icon-width           | `px` `%`                | icon height                                                                               | `32px`        |
 | icon-wrapped-alt     | string                  | alt text when accordion is wrapped                                                        |               |
 | icon-wrapped-url     | string                  | icon when accordion is wrapped                                                            |               |
-| role                 | string                  | adds a `role` attribute to the slide container                                            |               |
+| role                 | string                  | adds a `role` attribute to the accordion container                                        |               |
 
 ##### Modifiers
 
@@ -155,8 +156,8 @@ Creates an accordion title/text pair. An accordion can have any number of these 
 
 | attribute               | accepts  | description | default value |
 | ----------------------- | -------- | ----------- | ------------- |
-| icon-height--responsive | `px` `%` | icon width  |               |
-| icon-width--responsive  | `px` `%` | icon height |               |
+| icon-height--responsive | `px` `%` | icon height |               |
+| icon-width--responsive  | `px` `%` | icon width  |               |
 
 
 #### mj-accordion-title
@@ -187,8 +188,6 @@ Displays the title in a title/text pair.
 | ------------------------ | ----------------- | ------------------------------------------ | ------------- |
 | background-color--dark   | CSS color formats | background color in dark mode              |               |
 | color--dark              | CSS color formats | text color in dark mode                    |               |
-| icon-unwrapped-url--dark | string            | dark-mode icon when accordion is unwrapped |               |
-| icon-wrapped-url--dark   | string            | dark-mode icon when accordion is wrapped   |               |
 
 <div class="alert alert-note" role="alert">
   <p>Note</p>
@@ -213,22 +212,22 @@ Displays the text in a title/text pair.
 
 ##### Attributes
 
-| attribute        | accepts             | description                                         | default value |
-| ---------------- | ------------------- | --------------------------------------------------- | ------------- |
-| background-color | CSS color formats   | background color                                    |               |
-| color            | CSS color formats   | text color                                          |               |
-| css-class        | string              | class name, added to the root HTML element created  |               |
-| font-family      | string              | font family                                         |               |
-| font-size        | `px` `rem`          | font size                                           | `16px`        |
-| font-weight      | string              | text thickness                                      |               |
-| letter-spacing   | `px` `em`           | letter spacing                                      |               |
-| line-height      | `px` `%` `em` `rem` | space between the lines                             | `150%`        |
-| padding          | `px` `%`            | accordion text padding, supports up to 4 parameters | `16px`        |
-| padding-bottom   | `px` `%`            | accordion text bottom padding                       |               |
-| padding-left     | `px` `%`            | accordion text left padding                         |               |
-| padding-right    | `px` `%`            | accordion text right padding                        |               |
-| padding-top      | `px` `%`            | accordion text top padding                          |               |
-| role             | string              | adds a `role` attribute to the slide container      | `region`      |
+| attribute        | accepts             | description                                              | default value |
+| ---------------- | ------------------- | -------------------------------------------------------- | ------------- |
+| background-color | CSS color formats   | background color                                         |               |
+| color            | CSS color formats   | text color                                               |               |
+| css-class        | string              | class name, added to the root HTML element created       |               |
+| font-family      | string              | font family                                              |               |
+| font-size        | `px` `rem`          | font size                                                | `16px`        |
+| font-weight      | string              | text thickness                                           |               |
+| letter-spacing   | `px` `em`           | letter spacing                                           |               |
+| line-height      | `px` `%` `em` `rem` | space between the lines                                  | `150%`        |
+| padding          | `px` `%`            | accordion text padding, supports up to 4 parameters      | `16px`        |
+| padding-bottom   | `px` `%`            | accordion text bottom padding                            |               |
+| padding-left     | `px` `%`            | accordion text left padding                              |               |
+| padding-right    | `px` `%`            | accordion text right padding                             |               |
+| padding-top      | `px` `%`            | accordion text top padding                               |               |
+| role             | string              | adds a `role` attribute to the accordion text container  | `region`      |
 
 ##### Modifiers
 

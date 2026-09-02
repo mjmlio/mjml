@@ -120,8 +120,9 @@ export default class MjNavbar extends BodyComponent {
           globalData.navbarHamburgerStyleEmitted = true
         }
         hamburgerCss = `
-      noinput.mj-menu-checkbox { display: block !important; position: absolute; opacity: 0; pointer-events: none; }
+      noinput.mj-menu-checkbox { display:block!important; max-height:none!important; visibility:visible!important; }
       @media only screen and (max-width:${makeLowerBreakpoint(breakpoint)}) {
+        .mj-menu-checkbox[type="checkbox"] { display: block !important; max-height: auto !important; visibility: visible !important; position: absolute; opacity: 0; pointer-events: none; }
         .mj-menu-checkbox[type="checkbox"] ~ .mj-inline-links,
         .mj-menu-checkbox[type="checkbox"]:checked ~ .mj-menu-trigger .mj-menu-icon-open { display:none!important; }
         .mj-menu-checkbox[type="checkbox"] ~ .mj-inline-links > a,
@@ -267,7 +268,7 @@ ${selectors} { display: block !important }
       !this.context.globalData ||
       this.context.globalData.supportOutlookClassic !== false
 
-    const checkbox = `<input type="checkbox" id="${labelKey}" class="mj-menu-checkbox" style="display: block !important; position: absolute; opacity: 0; pointer-events: none;" />\n      `
+    const checkbox = `<input type="checkbox" id="${labelKey}" class="mj-menu-checkbox" style="display: none; max-height:0; visibility:hidden;" />\n      `
 
     const checkboxOutput = supportOutlookClassic
       ? conditionalTag(checkbox, true)

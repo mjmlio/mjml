@@ -23,7 +23,7 @@ export default class MjAccordionTitle extends BodyComponent {
     'color--dark': 'color',
     'font-family': 'string',
     'font-size': 'unit(px,rem)',
-    'font-size--responsive': 'unit(px, rem)',
+    'font-size--responsive': 'unit(px,rem)',
     'font-weight': 'string',
     padding: 'unit(px,%){1,4}',
     'padding--responsive': 'unit(px,%){1,4}',
@@ -265,13 +265,13 @@ export default class MjAccordionTitle extends BodyComponent {
         ${this.renderIconImage(
           this.getAttribute('icon-wrapped-url'),
           this.getAttribute('icon-wrapped-alt'),
-          this.getAttribute('icon-wrapped-url--dark'),
+          this.context && this.context.iconWrappedUrlDark,
           'mj-accordion-more',
         )}
         ${this.renderIconImage(
           this.getAttribute('icon-unwrapped-url'),
           this.getAttribute('icon-unwrapped-alt'),
-          this.getAttribute('icon-unwrapped-url--dark'),
+          this.context && this.context.iconUnwrappedUrlDark,
           'mj-accordion-less',
         )}
       </td>

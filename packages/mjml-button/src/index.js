@@ -236,6 +236,7 @@ export default class MjButton extends BodyComponent {
     this.responsiveClasses.table = registerResponsiveRuleGroup(globalData, {
       cssDeclarations: buildResponsiveDeclarations([
         ['margin', alignResponsive ? computeAlignMargin(alignResponsive) : null],
+        ['width', this.attributes['width--responsive']],
       ]),
     })
 
@@ -246,6 +247,8 @@ export default class MjButton extends BodyComponent {
     })
 
     const innerPaddingResponsive = this.attributes['inner-padding--responsive']
+    const responsiveInnerPadding =
+      innerPaddingResponsive || this.getAttribute('inner-padding')
     const contentPaddingResponsive = innerPaddingResponsive
       ? innerPaddingResponsive
           .split(/\s+/)
@@ -257,7 +260,13 @@ export default class MjButton extends BodyComponent {
       cssDeclarations: buildResponsiveDeclarations([
         ['font-size', this.attributes['font-size--responsive']],
         ['line-height', this.attributes['line-height--responsive']],
-        ['width', this.attributes['width--responsive']],
+        [
+          'width',
+          this.calculateAWidth(
+            this.attributes['width--responsive'],
+            responsiveInnerPadding,
+          ),
+        ],
         ['padding', contentPaddingResponsive],
       ]),
     })
@@ -321,7 +330,10 @@ export default class MjButton extends BodyComponent {
         'border-top': this.getAttribute('border-top'),
         'font-style': this.getAttribute('font-style'),
         height: this.getAttribute('height'),
-        ...(this.getAttribute('multiline') === true && { 'mso-padding-alt': this.getContentPadding() }),
+        ...(this.getAttribute('multiline') === true &&
+          this.context?.globalData?.supportOutlookClassic !== false && {
+            'mso-padding-alt': this.getContentPadding(),
+          }),
         'text-align': this.getAttribute('text-align'),
         background: this.getAttribute('background-color'),
       },
@@ -342,13 +354,16 @@ export default class MjButton extends BodyComponent {
         'text-transform': this.getAttribute('text-transform'),
         padding: this.getContentPadding(),
         border: `1px solid ${this.getAttribute('background-color')}`,
-        ...(this.getAttribute('multiline') === true && { 'mso-padding-alt': '0px' }),
+        ...(this.getAttribute('multiline') === true &&
+          this.context?.globalData?.supportOutlookClassic !== false && {
+            'mso-padding-alt': '0px',
+          }),
         'border-radius': this.getAttribute('border-radius'),
       },
     }
   }
 
-  calculateAWidth(width) {
+  calculateAWidth(width, innerPadding) {
     if (!width) return null
 
     const { parsedWidth, unit } = widthParser(width)
@@ -358,11 +373,21 @@ export default class MjButton extends BodyComponent {
 
     const { borders } = this.getBoxWidths()
 
-    const innerPaddings =
-      this.getShorthandAttrValue('inner-padding', 'left') +
-      this.getShorthandAttrValue('inner-padding', 'right')
+    const innerPaddings = innerPadding
+      ? this.constructor.getHorizontalPadding(innerPadding)
+      : this.getShorthandAttrValue('inner-padding', 'left') +
+        this.getShorthandAttrValue('inner-padding', 'right')
 
     return `${parsedWidth - innerPaddings - borders}px`
+  }
+
+  static getHorizontalPadding(padding) {
+    const values = String(padding).trim().split(/\s+/)
+
+    if (values.length === 1) return parseInt(values[0], 10) * 2
+    if (values.length <= 3) return parseInt(values[1], 10) * 2
+
+    return parseInt(values[1], 10) + parseInt(values[3], 10)
   }
 
   render() {

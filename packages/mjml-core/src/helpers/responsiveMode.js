@@ -4,6 +4,7 @@ import {
   registerModifierRuleGroup as registerGenericModifierRuleGroup,
   registerModifierRule as registerGenericModifierRule,
 } from './modifierEngine'
+import makeLowerBreakpoint from './makeLowerBreakpoint'
 
 export const RESPONSIVE_CLASS_PREFIX = 'mj-responsive'
 
@@ -91,6 +92,15 @@ export function registerResponsiveRuleGroup(globalData, { cssDeclarations, selec
  * Returns true if the block was emitted, false otherwise.
  */
 export function emitModifierHeadStyle(globalData) {
+  registerGenericModifier(globalData, {
+    modifier: 'responsive',
+    mediaQuery: `only screen and (max-width:${makeLowerBreakpoint(
+      (globalData && globalData.breakpoint) || '480px',
+    )})`,
+  }, {
+    defaultDefinitions: DEFAULT_MODIFIER_DEFINITIONS,
+  })
+
   const rules = [
     ...getResponsiveRules(globalData).map((rule) => ({
       ...rule,

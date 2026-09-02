@@ -155,8 +155,8 @@ Creates an accordion title/text pair. An accordion can have any number of these 
 
 | attribute               | accepts  | description | default value |
 | ----------------------- | -------- | ----------- | ------------- |
-| icon-height--responsive | `px` `%` | icon width  |               |
-| icon-width--responsive  | `px` `%` | icon height |               |
+| icon-height--responsive | `px` `%` | icon height |               |
+| icon-width--responsive  | `px` `%` | icon width  |               |
 
 
 #### mj-accordion-title

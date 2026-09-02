@@ -499,6 +499,16 @@ export default class MjCarousel extends BodyComponent {
     const iconWidth = parseInt(this.getAttribute('icon-width'), 10)
     const { iconsCell, iconImage } = this.getResponsiveClasses()
 
+    const img = `<img
+        ${this.htmlAttributes({
+          src: icon,
+          alt: direction,
+          class: iconImage,
+          style: 'controls.img',
+          width: iconWidth,
+        })}
+      />`
+
     const renderIcon = `${
       darkIcon
         ? `<picture>
@@ -506,24 +516,9 @@ export default class MjCarousel extends BodyComponent {
                     srcset: darkIcon,
                     media: '(prefers-color-scheme: dark)',
                   })} />
-                  <img
-                    ${this.htmlAttributes({
-                      src: icon,
-                      alt: direction,
-                      style: 'controls.img',
-                      width: iconWidth,
-                    })}
-                  />
+                  ${img}
                 </picture>`
-        : `<img
-                  ${this.htmlAttributes({
-                    src: icon,
-                    alt: direction,
-                    class: iconImage,
-                    style: 'controls.img',
-                    width: iconWidth,
-                  })}
-                />`
+        : `${img}`
     }`
 
     return `

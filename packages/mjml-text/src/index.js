@@ -236,7 +236,7 @@ export default class MjText extends BodyComponent {
     'height--responsive': 'unit(px,%)',
     'letter-spacing': 'unitWithNegative(px,em)',
     'line-height': 'unit(px,%,em,rem,)',
-    'line-height--responsive': 'unit(px,%,em.rem)',
+    'line-height--responsive': 'unit(px,%,em,rem)',
     'normalize-elements': 'string',
     padding: 'unit(px,%){1,4}',
     'padding--responsive': 'unit(px,%){1,4}',

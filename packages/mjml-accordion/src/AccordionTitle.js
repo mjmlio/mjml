@@ -23,7 +23,7 @@ export default class MjAccordionTitle extends BodyComponent {
     'color--dark': 'color',
     'font-family': 'string',
     'font-size': 'unit(px,rem)',
-    'font-size--responsive': 'unit(px, rem)',
+    'font-size--responsive': 'unit(px,rem)',
     'font-weight': 'string',
     padding: 'unit(px,%){1,4}',
     'padding--responsive': 'unit(px,%){1,4}',

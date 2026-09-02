@@ -162,12 +162,12 @@ Used to display an individual link in the navbar. Individual links of the menu s
 
 ###### Responsive
 
-| attribute                  | accepts    | description                                 | default value |
-| -------------------------- | ---------- | ------------------------------------------- | ------------- |
-| font-size--responsive      | `px` `rem` | text size                                   |               |
-| line-height--responsive    | `px` `%`   | space between the lines                     |               |
-| padding--responsive        | `px` `%`   | navbar padding, supports up to 4 parameters |               |
-| padding-bottom--responsive | `px` `%`   | navbar bottom padding                       |               |
-| padding-left--responsive   | `px` `%`   | navbar left padding                         |               |
-| padding-right--responsive  | `px` `%`   | navbar right padding                        |               |
-| padding-top--responsive    | `px` `%`   | navbar top padding                          |               |
+| attribute                  | accepts             | description                                 | default value |
+| -------------------------- | ------------------- | ------------------------------------------- | ------------- |
+| font-size--responsive      | `px` `rem`          | text size                                   |               |
+| line-height--responsive    | `px` `%` `em` `rem` | space between the lines                     |               |
+| padding--responsive        | `px` `%`            | navbar padding, supports up to 4 parameters |               |
+| padding-bottom--responsive | `px` `%`            | navbar bottom padding                       |               |
+| padding-left--responsive   | `px` `%`            | navbar left padding                         |               |
+| padding-right--responsive  | `px` `%`            | navbar right padding                        |               |
+| padding-top--responsive    | `px` `%`            | navbar top padding                          |               |

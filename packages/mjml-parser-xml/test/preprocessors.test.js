@@ -26,6 +26,9 @@ describe('mjml-parser-xml preprocessors', () => {
       })
 
     const xml = `<mjml>
+<mj-head>
+  <mj-title>Preprocessor Test</mj-title>
+</mj-head>
 <mj-body>
   <mj-section mj-class="content">
     <mj-column>

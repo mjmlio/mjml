@@ -1,6 +1,15 @@
 import { BodyComponent, suffixCssClasses } from 'mjml-core'
 
 import conditionalTag from 'mjml-core/lib/helpers/conditionalTag'
+import {
+  emitDarkModeHeadStyle,
+  registerDarkModeRule,
+} from 'mjml-core/lib/helpers/colorSchemeDarkMode'
+import {
+  emitResponsiveHeadStyle,
+  buildResponsiveDeclarations,
+  registerResponsiveRuleGroup,
+} from 'mjml-core/lib/helpers/responsiveMode'
 
 export default class MjNavbarLink extends BodyComponent {
   static componentName = 'mj-navbar-link'
@@ -9,35 +18,93 @@ export default class MjNavbarLink extends BodyComponent {
 
   static allowedAttributes = {
     color: 'color',
+    'color--dark': 'color',
     'font-family': 'string',
-    'font-size': 'unit(px)',
+    'font-size': 'unit(px,rem)',
+    'font-size--responsive': 'unit(px,rem)',
     'font-style': 'string',
     'font-weight': 'string',
     href: 'string',
-    name: 'string',
-    target: 'string',
-    rel: 'string',
     'letter-spacing': 'unitWithNegative(px,em)',
-    'line-height': 'unit(px,%,)',
-    'padding-bottom': 'unit(px,%)',
-    'padding-left': 'unit(px,%)',
-    'padding-right': 'unit(px,%)',
-    'padding-top': 'unit(px,%)',
+    'line-height': 'unit(px,%,em,rem)',
+    'line-height--responsive': 'unit(px,%,em,rem)',
+    name: 'string',
     padding: 'unit(px,%){1,4}',
+    'padding--responsive': 'unit(px,%){1,4}',
+    'padding-bottom': 'unit(px,%)',
+    'padding-bottom--responsive': 'unit(px,%)',
+    'padding-left': 'unit(px,%)',
+    'padding-left--responsive': 'unit(px,%)',
+    'padding-right': 'unit(px,%)',
+    'padding-right--responsive': 'unit(px,%)',
+    'padding-top': 'unit(px,%)',
+    'padding-top--responsive': 'unit(px,%)',
+    rel: 'string',
+    target: 'string',
     'text-decoration': 'string',
     'text-transform': 'string',
   }
 
   static defaultAttributes = {
     color: '#000000',
-    'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
-    'font-size': '13px',
-    'font-weight': 'normal',
-    'line-height': '22px',
+    'font-family': 'Ubuntu, sans-serif',
+    'font-size': '16px',
+    'line-height': '150%',
     padding: '15px 10px',
-    target: '_blank',
     'text-decoration': 'none',
     'text-transform': 'uppercase',
+  }
+
+  darkClasses = null
+
+  responsiveClass = null
+
+  getDarkClasses() {
+    if (this.darkClasses !== null) {
+      return this.darkClasses
+    }
+
+    this.darkClasses = {}
+
+    const globalData = this.context && this.context.globalData
+
+    const darkColor = this.getAttribute('color--dark')
+    if (darkColor) {
+      this.darkClasses.color = registerDarkModeRule(globalData, {
+        cssProperty: 'color',
+        cssValue: darkColor,
+      })
+    }
+
+    return this.darkClasses
+  }
+
+  componentHeadStyle = () => {
+    emitDarkModeHeadStyle(this.context && this.context.globalData)
+    emitResponsiveHeadStyle(this.context && this.context.globalData)
+    return ''
+  }
+
+  getResponsiveClass() {
+    if (this.responsiveClass !== null) {
+      return this.responsiveClass
+    }
+
+    const globalData = this.context && this.context.globalData
+
+    this.responsiveClass = registerResponsiveRuleGroup(globalData, {
+      cssDeclarations: buildResponsiveDeclarations([
+        ['font-size', this.attributes['font-size--responsive']],
+        ['line-height', this.attributes['line-height--responsive']],
+        ['padding', this.attributes['padding--responsive']],
+        ['padding-top', this.attributes['padding-top--responsive']],
+        ['padding-right', this.attributes['padding-right--responsive']],
+        ['padding-bottom', this.attributes['padding-bottom--responsive']],
+        ['padding-left', this.attributes['padding-left--responsive']],
+      ]),
+    })
+
+    return this.responsiveClass
   }
 
   getStyles() {
@@ -51,6 +118,7 @@ export default class MjNavbarLink extends BodyComponent {
         'font-weight': this.getAttribute('font-weight'),
         'letter-spacing': this.getAttribute('letter-spacing'),
         'line-height': this.getAttribute('line-height'),
+        'mso-line-height-alt': '120%',
         'text-decoration': this.getAttribute('text-decoration'),
         'text-transform': this.getAttribute('text-transform'),
         padding: this.getAttribute('padding'),
@@ -78,10 +146,13 @@ export default class MjNavbarLink extends BodyComponent {
       ? ` ${this.getAttribute('css-class')}`
       : ''
 
+    const darkClass = this.getDarkClasses().color ? ` ${this.getDarkClasses().color}` : ''
+    const responsiveClass = this.getResponsiveClass() ? ` ${this.getResponsiveClass()}` : ''
+
     return `
       <a
         ${this.htmlAttributes({
-          class: `mj-link${cssClass}`,
+          class: `mj-link${cssClass}${darkClass}${responsiveClass}`,
           href: link,
           rel: this.getAttribute('rel'),
           target: this.getAttribute('target'),
@@ -95,6 +166,15 @@ export default class MjNavbarLink extends BodyComponent {
   }
 
   render() {
+    const supportOutlookClassic =
+      !this.context ||
+      !this.context.globalData ||
+      this.context.globalData.supportOutlookClassic !== false
+
+    if (!supportOutlookClassic) {
+      return this.renderContent()
+    }
+
     return `
         ${conditionalTag(`
           <td
@@ -104,13 +184,9 @@ export default class MjNavbarLink extends BodyComponent {
                 this.getAttribute('css-class'),
                 'outlook',
               ),
-            })}
-          >
-        `)}
+            })}>`)}
         ${this.renderContent()}
-        ${conditionalTag(`
-          </td>
-        `)}
+        ${conditionalTag(`</td>`)}
       `
   }
 }

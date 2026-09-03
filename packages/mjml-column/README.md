@@ -41,6 +41,8 @@ Every single column has to contain something because they are responsive contain
 
 | attribute              | accepts                 | description                                                                              | default attributes                             |
 | ---------------------- | ----------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------- |
+| aria-label             | string                  | adds an `aria-label` attribute to the column container                                   |                                                |
+| aria-roledescription   | string                  | adds an `aria-roledescription` attribute to the column container                         |                                                |
 | background-color       | CSS color formats       | background color for a column                                                            |                                                |
 | border                 | string                  | CSS border format                                                                        |                                                |
 | border-bottom          | string                  | CSS border format                                                                        |                                                |
@@ -49,7 +51,7 @@ Every single column has to contain something because they are responsive contain
 | border-right           | string                  | CSS border format                                                                        |                                                |
 | border-top             | string                  | CSS border format                                                                        |                                                |
 | css-class              | string                  | class name, added to the root HTML element created                                       |                                                |
-| direction              | `ltr` `rtl`             | set the display order of direct children                                                 | `ltr`                                          |
+| direction              | `ltr` `rtl`             | set the display order of direct children                                                 |                                                |
 | inner-background-color | CSS color formats       | inner background color for column; requires a padding                                    |                                                |
 | inner-border           | string                  | CSS border; requires a padding format                                                    |                                                |
 | inner-border-bottom    | string                  | CSS border format; requires a padding                                                    |                                                |
@@ -62,7 +64,49 @@ Every single column has to contain something because they are responsive contain
 | padding-left           | `px` `%`                | column left padding                                                                      |                                                |
 | padding-right          | `px` `%`                | column right padding                                                                     |                                                |
 | padding-top            | `px` `%`                | column top padding                                                                       |                                                |
-| width                  | `px` `%`                | column width                                                                             | (100 / number of non-raw elements in section)% |
+| role                   | string                  | adds a `role` attribute to the column container                                          |                                                |
 | vertical-align         | `top` `middle` `bottom` | vertical alignment.<br>Note: `middle` only applies when all `mj-column` instances use it | `top`                                          |
+| width                  | `px` `%`                | column width                                                                             | (100 / number of non-raw elements in section)% |
 
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/column">Try it live</a></p>
+
+##### Modifiers
+
+###### Dark-mode
+
+| attribute                       | accepts           | description                                                       | default value |
+| ------------------------------- | ----------------- | ----------------------------------------------------------------- | ------------- |
+| background-color--dark          | CSS color formats | column background color in dark mode                              |               |
+| border-color--dark              | CSS color formats | column border color in dark mode                                  |               |
+| border-bottom-color--dark       | CSS color formats | column bottom border color in dark mode                           |               |
+| border-left-color--dark         | CSS color formats | column left border color in dark mode                             |               |
+| border-right-color--dark        | CSS color formats | column right border color in dark mode                            |               |
+| border-top-color--dark          | CSS color formats | column top border color in dark mode                              |               |
+| inner-background-color--dark    | CSS color formats | inner column background color in dark mode; requires a padding    |               |
+| inner-border-color--dark        | CSS color formats | inner column border color in dark mode; requires a padding        |               |
+| inner-border-bottom-color--dark | CSS color formats | inner column bottom border color in dark mode; requires a padding |               |
+| inner-border-left-color--dark   | CSS color formats | inner column left border color in dark mode; requires a padding   |               |
+| inner-border-right-color--dark  | CSS color formats | inner column right border color in dark mode; requires a padding  |               |
+| inner-border-top-color--dark    | CSS color formats | inner column top border color in dark mode; requires a padding    |               |
+
+<div class="alert alert-note" role="alert">
+  <p>Note</p>
+  <p>All <code>--dark</code> modifier attributes require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
+</div>
+
+###### Responsive
+
+| attribute                  | accepts     | description                                                      | default value |
+| -------------------------- | ----------- | ---------------------------------------------------------------- | ------------- |
+| direction--responsive      | `ltr` `rtl` | set the display order of direct children                         |               |
+| padding--responsive        | `px` `%`    | column padding, supports up to 4 parameters. See the note below. |               |
+| padding-bottom--responsive | `px` `%`    | column bottom padding. See the note below.                       |               |
+| padding-left--responsive   | `px` `%`    | column left padding. See the note below.                         |               |
+| padding-right--responsive  | `px` `%`    | column right padding. See the note below.                        |               |
+| padding-top--responsive    | `px` `%`    | column top padding. See the note below.                          |               |
+| width--responsive          | `px` `%`    | column width                                                     |               |
+
+<div class="alert alert-note" role="alert">
+  <p>Note</p>
+  <p>All responsive <code>padding</code> modifier attributes require a base <code>padding</code> to be set. This can be <code>padding="0"</code></p>
+</div>

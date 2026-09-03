@@ -50,33 +50,66 @@ Displays a navigation menu with an optional `hamburger` mode for mobile devices.
 
 #### Attributes
 
-| attribute           | accepts                       | description                                                                                                             | default value                          |
-| ------------------- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------- | -------------------------------------- |
-| align               | `left`<br>`center`<br>`right` | align content                                                                                                           | `center`                               |
-| base-url            | string                        | base URL for child components                                                                                           | `null`                                 |
-| css-class           | string                        | class name, added to the root HTML element created                                                                      |                                        |
-| hamburger           | string                        | activate the hamburger navigation on mobile if the value is hamburger                                                   | `null`                                 |
-| ico-align           | `left`<br>`center`<br>`right` | hamburger icon alignment<br> (`hamburger="hamburger"` required)                                                         | `center`                               |
-| ico-close           | string                        | char code for a custom close icon, e.g. ASCII code decimal<br> (`hamburger="hamburger"` required)                       | `&#8855;`                              |
-| ico-color           | CSS color formats             | hamburger icon color<br> (`hamburger="hamburger"` required)                                                             | `#000000`                              |
-| ico-font-family     | string                        | hamburger icon font<br> (`hamburger="hamburger"` required)                                                              | `Ubuntu, sans-serif`                   |
-| ico-font-size       | `px` `%`                      | hamburger icon size<br> (`hamburger="hamburger"` required)                                                              | `30px`                                 |
-| ico-line-height     | `px` `%`                      | hamburger icon line height<br> (`hamburger="hamburger"` required)                                                       | `30px`                                 |
-| ico-open            | string                        | char code for a custom open icon, e.g. ASCII code decimal<br> (`hamburger="hamburger"` required)                        | `&#9776;`                              |
-| ico-padding         | `px` `%`                      | hamburger icon padding, supports up to 4 parameters<br> (`hamburger="hamburger"` required)                              | `10px`                                 |
-| ico-padding-bottom  | `px` `%`                      | hamburger icon bottom padding<br> (`hamburger="hamburger"` required)                                                    |                                        |
-| ico-padding-left    | `px` `%`                      | hamburger icon left padding<br> (`hamburger="hamburger"` required)                                                      |                                        |
-| ico-padding-right   | `px` `%`                      | hamburger icon right padding<br> (`hamburger="hamburger"` required)                                                     |                                        |
-| ico-padding-top     | `px` `%`                      | hamburger icon top padding<br> (`hamburger="hamburger"` required)                                                       |                                        |
-| ico-text-decoration | string                        | hamburger icon text decoration e.g. `none` `underline` `overline` `line-through`<br> (`hamburger="hamburger"` required) |                                        |
-| ico-text-transform  | string                        | hamburger icon text transformation `none` `capitalize` `uppercase` `lowercase`<br> (`hamburger="hamburger"` required)   | `uppercase`                            |
-| padding             | `px` `%`                      | navbar padding, supports up to 4 parameters                                                                             |                                        |
-| padding-bottom      | `px` `%`                      | navbar bottom padding                                                                                                   |                                        |
-| padding-left        | `px` `%`                      | navbar left padding                                                                                                     |                                        |
-| padding-right       | `px` `%`                      | navbar right padding                                                                                                    |                                        |
-| padding-top         | `px` `%`                      | navbar top padding                                                                                                      |                                        |
+| attribute                  | accepts                       | description                                                                                                             | default value        |
+| -------------------------- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------- | -------------------- |
+| align                      | `left`<br>`center`<br>`right` | align content                                                                                                           | `center`             |
+| aria-label                 | string                        | adds an `aria-label` attribute to the navbar container                                                                  |                      |
+| aria-roledescription       | string                        | adds an `aria-roledescription` attribute to the navbar container                                                        |                      |
+| base-url                   | string                        | base URL for child components                                                                                           | `null`               |
+| container-background-color | CSS color formats             | background color of the container                                                                                       |                      |
+| container-border-radius    | string                        | border radius of the container                                                                                          |                      |
+| css-class                  | string                        | class name, added to the root HTML element created                                                                      |                      |
+| hamburger                  | string                        | activate the hamburger navigation on mobile if the value is hamburger                                                   | `null`               |
+| ico-align                  | `left`<br>`center`<br>`right` | hamburger icon alignment<br> (`hamburger="hamburger"` required)                                                         | `center`             |
+| ico-close                  | string                        | char code for a custom close icon, e.g. ASCII code decimal<br> (`hamburger="hamburger"` required)                       | `&#8855;`            |
+| ico-color                  | CSS color formats             | hamburger icon color<br> (`hamburger="hamburger"` required)                                                             | `#000000`            |
+| ico-font-family            | string                        | hamburger icon font<br> (`hamburger="hamburger"` required)                                                              | `Ubuntu, sans-serif` |
+| ico-font-size              | `px` `%`                      | hamburger icon size<br> (`hamburger="hamburger"` required)                                                              | `30px`               |
+| ico-line-height            | `px` `%`                      | hamburger icon line height<br> (`hamburger="hamburger"` required)                                                       | `30px`               |
+| ico-open                   | string                        | char code for a custom open icon, e.g. ASCII code decimal<br> (`hamburger="hamburger"` required)                        | `&#9776;`            |
+| ico-padding                | `px` `%`                      | hamburger icon padding, supports up to 4 parameters<br> (`hamburger="hamburger"` required)                              | `10px`               |
+| ico-padding-bottom         | `px` `%`                      | hamburger icon bottom padding<br> (`hamburger="hamburger"` required)                                                    |                      |
+| ico-padding-left           | `px` `%`                      | hamburger icon left padding<br> (`hamburger="hamburger"` required)                                                      |                      |
+| ico-padding-right          | `px` `%`                      | hamburger icon right padding<br> (`hamburger="hamburger"` required)                                                     |                      |
+| ico-padding-top            | `px` `%`                      | hamburger icon top padding<br> (`hamburger="hamburger"` required)                                                       |                      |
+| ico-text-decoration        | string                        | hamburger icon text decoration e.g. `none` `underline` `overline` `line-through`<br> (`hamburger="hamburger"` required) |                      |
+| ico-text-transform         | string                        | hamburger icon text transformation `none` `capitalize` `uppercase` `lowercase`<br> (`hamburger="hamburger"` required)   | `uppercase`          |
+| padding                    | `px` `%`                      | navbar padding, supports up to 4 parameters                                                                             |                      |
+| padding-bottom             | `px` `%`                      | navbar bottom padding                                                                                                   |                      |
+| padding-left               | `px` `%`                      | navbar left padding                                                                                                     |                      |
+| padding-right              | `px` `%`                      | navbar right padding                                                                                                    |                      |
+| padding-top                | `px` `%`                      | navbar top padding                                                                                                      |                      |
+| responsive-mode            | `stack`                       | stack links on single lines below the breakpoint                                                                        |                      |
+| role                       | string                        | adds a `role` attribute to the navbar container                                                                         |                      |
 
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/navbar">Try it live</a></p>
+
+##### Modifiers
+
+###### Dark-mode
+
+| attribute                        | accepts           | description                                    | default value |
+| -------------------------------- | ----------------- | ---------------------------------------------- | ------------- |
+| container-background-color--dark | CSS color formats | background color of the container in dark mode |               |
+| ico-color--dark                  | CSS color formats | hamburger icon color in dark mode              |               |
+
+<div class="alert alert-note" role="alert">
+  <p>Note</p>
+  <p>All <code>--dark</code> modifier attributes require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
+</div>
+
+###### Responsive
+
+| attribute                  | accepts                       | description                                 | default value |
+| -------------------------- | ----------------------------- | ------------------------------------------- | ------------- |
+| align--responsive          | `left`<br>`center`<br>`right` | align content                               |               |
+| padding--responsive        | `px` `%`                      | navbar padding, supports up to 4 parameters |               |
+| padding-bottom--responsive | `px` `%`                      | navbar bottom padding                       |               |
+| padding-left--responsive   | `px` `%`                      | navbar left padding                         |               |
+| padding-right--responsive  | `px` `%`                      | navbar right padding                        |               |
+| padding-top--responsive    | `px` `%`                      | navbar top padding                          |               |
+
+
 
 #### mj-navbar-link
 
@@ -95,24 +128,49 @@ Used to display an individual link in the navbar. Individual links of the menu s
 
 #### Attributes
 
-| attribute       | accepts           | description                                                  | default value                          |
-| --------------- | ----------------- | ------------------------------------------------------------ | -------------------------------------- |
-| color           | CSS color formats | text color                                                   | `#000000`                              |
-| css-class       | string            | class name, added to the root HTML element created           |                                        |
-| font-family     | string            | font                                                         | `Ubuntu, sans-serif`                   |
-| font-size       | `px`              | text size                                                    | `13px`                                 |
-| font-style      | string            | CSS values, i.e. `normal` `italic` `oblique`                 |                                        |
-| font-weight     | string            | text thickness                                               |                                        |
-| href            | string            | link to redirect to on click, in URL format                  |                                        |
-| letter-spacing  | `px` `em`         | letter-spacing                                               |                                        |
-| line-height     | `px` `%`          | space between the lines                                      | `22px`                                 |
-| name            | string            | specify the link name attribute                              |                                        |
-| padding         | `px` `%`          | navbar link padding, supports up to 4 parameters             | `15px 10px`                            |
-| padding-bottom  | `px` `%`          | bottom padding                                               |                                        |
-| padding-left    | `px` `%`          | left padding                                                 |                                        |
-| padding-right   | `px` `%`          | right padding                                                |                                        |
-| padding-top     | `px` `%`          | top padding                                                  |                                        |
-| rel             | string            | specify the rel attribute                                    |                                        |
-| target          | string            | link target on click                                         |                                        |
-| text-decoration | string            | CSS values, i.e. `underline` `overline` `none`               | `none`                                 |
-| text-transform  | string            | CSS values, i.e. `capitalize` `uppercase` `lowercase` `none` | `uppercase`                            |
+| attribute       | accepts             | description                                                  | default value        |
+| --------------- | ------------------- | ------------------------------------------------------------ | -------------------- |
+| color           | CSS color formats   | text color                                                   | `#000000`            |
+| css-class       | string              | class name, added to the root HTML element created           |                      |
+| font-family     | string              | font                                                         | `Ubuntu, sans-serif` |
+| font-size       | `px` `rem`          | text size                                                    | `16px`               |
+| font-style      | string              | CSS values, i.e. `normal` `italic` `oblique`                 |                      |
+| font-weight     | string              | text thickness                                               |                      |
+| href            | string              | link to redirect to on click, in URL format                  |                      |
+| letter-spacing  | `px` `em`           | letter-spacing                                               |                      |
+| line-height     | `px` `%` `em` `rem` | space between the lines                                      | `150%`               |
+| name            | string              | specify the link name attribute                              |                      |
+| padding         | `px` `%`            | navbar link padding, supports up to 4 parameters             | `15px 10px`          |
+| padding-bottom  | `px` `%`            | bottom padding                                               |                      |
+| padding-left    | `px` `%`            | left padding                                                 |                      |
+| padding-right   | `px` `%`            | right padding                                                |                      |
+| padding-top     | `px` `%`            | top padding                                                  |                      |
+| rel             | string              | specify the rel attribute                                    |                      |
+| target          | string              | link target on click                                         |                      |
+| text-decoration | string              | CSS values, i.e. `underline` `overline` `none`               | `none`               |
+| text-transform  | string              | CSS values, i.e. `capitalize` `uppercase` `lowercase` `none` | `uppercase`          |
+
+##### Modifiers
+
+###### Dark-mode
+
+| attribute   | accepts           | description             | default value |
+| ----------- | ----------------- | ----------------------- | ------------- |
+| color--dark | CSS color formats | text color in dark mode |               |
+
+<div class="alert alert-note" role="alert">
+  <p>Note</p>
+  <p>All <code>--dark</code> modifier attributes require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
+</div>
+
+###### Responsive
+
+| attribute                  | accepts             | description                                 | default value |
+| -------------------------- | ------------------- | ------------------------------------------- | ------------- |
+| font-size--responsive      | `px` `rem`          | text size                                   |               |
+| line-height--responsive    | `px` `%` `em` `rem` | space between the lines                     |               |
+| padding--responsive        | `px` `%`            | navbar padding, supports up to 4 parameters |               |
+| padding-bottom--responsive | `px` `%`            | navbar bottom padding                       |               |
+| padding-left--responsive   | `px` `%`            | navbar left padding                         |               |
+| padding-right--responsive  | `px` `%`            | navbar right padding                        |               |
+| padding-top--responsive    | `px` `%`            | navbar top padding                          |               |

@@ -37,6 +37,29 @@ For instance, the `mj-button` component is, on the inside, a complex HTML layout
 </table>
 ```
 
+### Modifiers
+
+Modifiers allow you to override supported attributes for a specific rendering context, for example dark-mode, without changing the base style.
+
+Where supported, you can use the same attribute name with a modifier suffix: `attribute--modifier="value"`.
+
+The base attribute remains the default, and MJML generates additional conditional CSS rules for the modifier so styles are applied only when that condition matches.
+
+All supported modifier attributes are listed for each component.
+
+### Dark mode
+
+Dark mode styles apply when the email client matches a dark color-scheme context (via `@media (prefers-color-scheme: dark)`). MJML compiles `--dark` attributes into class-based rules inside that media query. 
+
+Example: `color="#111111" color--dark="#ffffff"` keeps dark text by default and switches to light text when dark mode styles are active.
+
+For additional image compatibility in some versions of Outlook, you can add `support-dark-mode-image="outlook"`. This generates additional CSS to handle the image change in those clients.
+
+<div class="alert alert-note" role="alert">
+  <p>Note</p>
+  <p>All <code>--dark</code> modifier attributes require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
+</div>
+
 ### Which email clients/versions are supported?
 
 For full details of component support, [please visit our support matrix](https://mjml.io/compatibility).

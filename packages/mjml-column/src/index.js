@@ -1,4 +1,14 @@
 import { BodyComponent } from 'mjml-core'
+import {
+  DARK_MODE_CLASS_PREFIX,
+  emitDarkModeHeadStyle,
+} from 'mjml-core/lib/helpers/colorSchemeDarkMode'
+import {
+  emitResponsiveHeadStyle,
+  buildResponsiveDeclarations,
+  registerResponsiveRuleGroup,
+  registerResponsivePaddingGroup,
+} from 'mjml-core/lib/helpers/responsiveMode'
 
 import genRandomHexString from 'mjml-core/lib/helpers/genRandomHexString'
 import widthParser from 'mjml-core/lib/helpers/widthParser'
@@ -19,32 +29,193 @@ export default class MjColumn extends BodyComponent {
   static componentName = 'mj-column'
 
   static allowedAttributes = {
+    'aria-label': 'string',
+    'aria-roledescription': 'string',
     'background-color': 'color',
+    'background-color--dark': 'color',
     border: 'string',
+    'border-color--dark': 'color',
     'border-bottom': 'string',
+    'border-bottom-color--dark': 'color',
     'border-left': 'string',
+    'border-left-color--dark': 'color',
     'border-radius': 'string',
     'border-right': 'string',
+    'border-right-color--dark': 'color',
     'border-top': 'string',
+    'border-top-color--dark': 'color',
     direction: 'enum(ltr,rtl)',
+    'direction--responsive': 'enum(ltr,rtl)',
     'inner-background-color': 'color',
-    'padding-bottom': 'unit(px,%)',
-    'padding-left': 'unit(px,%)',
-    'padding-right': 'unit(px,%)',
-    'padding-top': 'unit(px,%)',
+    'inner-background-color--dark': 'color',
     'inner-border': 'string',
+    'inner-border-color--dark': 'color',
     'inner-border-bottom': 'string',
+    'inner-border-bottom-color--dark': 'color',
     'inner-border-left': 'string',
+    'inner-border-left-color--dark': 'color',
     'inner-border-radius': 'string',
     'inner-border-right': 'string',
+    'inner-border-right-color--dark': 'color',
     'inner-border-top': 'string',
+    'inner-border-top-color--dark': 'color',
     padding: 'unit(px,%){1,4}',
+    'padding--responsive': 'unit(px,%){1,4}',
+    'padding-bottom': 'unit(px,%)',
+    'padding-bottom--responsive': 'unit(px,%)',
+    'padding-left': 'unit(px,%)',
+    'padding-left--responsive': 'unit(px,%)',
+    'padding-right': 'unit(px,%)',
+    'padding-right--responsive': 'unit(px,%)',
+    'padding-top': 'unit(px,%)',
+    'padding-top--responsive': 'unit(px,%)',
+    role: 'string',
     'vertical-align': 'enum(top,bottom,middle)',
     width: 'unit(px,%)',
+    'width--responsive': 'unit(px,%)',
   }
 
   static defaultAttributes = {
     'vertical-align': 'top',
+  }
+
+  darkClasses = null
+
+  responsiveClasses = null
+
+  registerDarkModeRuleGroup({
+    cssDeclarations,
+    supportOutlookDarkMode = false,
+  }) {
+    const globalData = this.context && this.context.globalData
+    const validDeclarations = Array.isArray(cssDeclarations)
+      ? cssDeclarations.filter(
+          ({ cssProperty, cssValue }) => Boolean(cssProperty && cssValue),
+        )
+      : []
+
+    if (!globalData || validDeclarations.length === 0) {
+      return null
+    }
+
+    if (typeof globalData.darkModeRuleCount !== 'number') {
+      globalData.darkModeRuleCount = 0
+    }
+
+    globalData.darkModeRuleCount += 1
+
+    const className = `${DARK_MODE_CLASS_PREFIX}-${globalData.darkModeRuleCount}`
+
+    if (!Array.isArray(globalData.darkModeRules)) {
+      globalData.darkModeRules = []
+    }
+
+    validDeclarations.forEach(({ cssProperty, cssValue }) => {
+      globalData.darkModeRules.push({
+        className,
+        cssProperty,
+        cssValue,
+        supportOutlookDarkMode: Boolean(supportOutlookDarkMode),
+      })
+    })
+
+    return className
+  }
+
+  getDarkClasses() {
+    if (this.darkClasses !== null) {
+      return this.darkClasses
+    }
+
+    this.darkClasses = {}
+
+    // Outer: background-color + border (applied to gutter td when gutter exists,
+    // or to the column table when no gutter).
+    const outerDeclarations = []
+
+    const darkBgColor = this.attributes['background-color--dark']
+    if (darkBgColor) {
+      outerDeclarations.push({ cssProperty: 'background-color', cssValue: darkBgColor })
+    }
+
+    const darkBorderColor = this.attributes['border-color--dark']
+    if (darkBorderColor) {
+      outerDeclarations.push({ cssProperty: 'border-color', cssValue: darkBorderColor })
+    }
+
+    ;[
+      ['border-top-color', 'border-top-color--dark'],
+      ['border-bottom-color', 'border-bottom-color--dark'],
+      ['border-left-color', 'border-left-color--dark'],
+      ['border-right-color', 'border-right-color--dark'],
+    ].forEach(([cssProperty, attrName]) => {
+      const cssValue = this.attributes[attrName]
+      if (!cssValue || (darkBorderColor && cssValue === darkBorderColor)) return
+      outerDeclarations.push({ cssProperty, cssValue })
+    })
+
+    this.darkClasses.outer = this.registerDarkModeRuleGroup({
+      cssDeclarations: outerDeclarations,
+    })
+
+    // Inner: inner-background-color + inner-border (always applied to the inner
+    // column table; only relevant when a gutter/padding exists).
+    const innerDeclarations = []
+
+    const darkInnerBgColor = this.attributes['inner-background-color--dark']
+    if (darkInnerBgColor) {
+      innerDeclarations.push({ cssProperty: 'background-color', cssValue: darkInnerBgColor })
+    }
+
+    const darkInnerBorderColor = this.attributes['inner-border-color--dark']
+    if (darkInnerBorderColor) {
+      innerDeclarations.push({ cssProperty: 'border-color', cssValue: darkInnerBorderColor })
+    }
+
+    ;[
+      ['border-top-color', 'inner-border-top-color--dark'],
+      ['border-bottom-color', 'inner-border-bottom-color--dark'],
+      ['border-left-color', 'inner-border-left-color--dark'],
+      ['border-right-color', 'inner-border-right-color--dark'],
+    ].forEach(([cssProperty, attrName]) => {
+      const cssValue = this.attributes[attrName]
+      if (!cssValue || (darkInnerBorderColor && cssValue === darkInnerBorderColor)) return
+      innerDeclarations.push({ cssProperty, cssValue })
+    })
+
+    this.darkClasses.inner = this.registerDarkModeRuleGroup({
+      cssDeclarations: innerDeclarations,
+    })
+
+    return this.darkClasses
+  }
+
+  getResponsiveClasses() {
+    if (this.responsiveClasses !== null) return this.responsiveClasses
+
+    this.responsiveClasses = {
+      div: null,
+      gutter: null,
+    }
+
+    const globalData = this.context && this.context.globalData
+
+    this.responsiveClasses.div = registerResponsiveRuleGroup(globalData, {
+      cssDeclarations: buildResponsiveDeclarations([
+        ['direction', this.attributes['direction--responsive']],
+        ['width', this.attributes['width--responsive']],
+      ]),
+    })
+
+    this.responsiveClasses.gutter = registerResponsivePaddingGroup(globalData, this.attributes)
+
+    return this.responsiveClasses
+  }
+
+  componentHeadStyle = () => {
+    emitDarkModeHeadStyle(this.context && this.context.globalData)
+    emitResponsiveHeadStyle(this.context && this.context.globalData)
+    return ''
   }
 
   getChildContext() {
@@ -319,8 +490,8 @@ export default class MjColumn extends BodyComponent {
     return Math.round(parseFloat(value))
   }
 
-  getNormalizedGutterValue(targetUnit) {
-    const { gutter } = this.context
+  getNormalizedGutterValue(targetUnit, sourceGutter = this.context.gutter) {
+    const gutter = sourceGutter
 
     if (!gutter) {
       return 0
@@ -394,7 +565,12 @@ export default class MjColumn extends BodyComponent {
 
   getMobilePaddingValues() {
     const { first, last } = this.props
-    const gutter = this.getNormalizedGutterValue('%')
+    const responsiveGutter = this.context.gutterResponsive
+    const gutterSource =
+      responsiveGutter != null && responsiveGutter !== ''
+        ? responsiveGutter
+        : this.context.gutter
+    const gutter = this.getNormalizedGutterValue('%', gutterSource)
     const half = gutter / 2
 
     // On mobile: gutter appears as vertical spacing between stacked columns,
@@ -492,6 +668,7 @@ export default class MjColumn extends BodyComponent {
 
   renderGutter() {
     const hasBorderRadius = this.hasBorderRadius()
+    const { outer: outerDarkClass } = this.getDarkClasses()
 
     return `
       <table
@@ -507,7 +684,10 @@ export default class MjColumn extends BodyComponent {
         })}
       >
         <tr>
-          <td ${this.htmlAttributes({ style: 'gutter' })}>
+          <td ${this.htmlAttributes({
+            class: [outerDarkClass, this.getResponsiveClasses().gutter].filter(Boolean).join(' ') || undefined,
+            style: 'gutter',
+          })}>
             ${this.renderColumn()}
           </td>
         </tr>
@@ -517,6 +697,13 @@ export default class MjColumn extends BodyComponent {
 
   renderColumn() {
     const { children } = this.props
+    const { outer: outerDarkClass, inner: innerDarkClass } = this.getDarkClasses()
+    // When a gutter exists the outer dark class is on the gutter <td>;
+    // the column table carries the inner dark class instead.
+    // When there is no gutter the column table IS the outer element.
+    const columnTableDarkClass = this.hasGutter()
+      ? (innerDarkClass || undefined)
+      : (outerDarkClass || undefined)
 
     return `
       <table
@@ -524,9 +711,12 @@ export default class MjColumn extends BodyComponent {
           border: '0',
           cellpadding: '0',
           cellspacing: '0',
-          role: 'none',
+          class: columnTableDarkClass,
           style: 'table',
           width: '100%',
+          role: this.getAttribute('role') ? this.getAttribute('role') : 'none',
+          'aria-label': this.getAttribute('aria-label'),
+          'aria-roledescription': this.getAttribute('aria-roledescription'),
         })}
       >
         ${this.renderChildren(children, {
@@ -560,6 +750,7 @@ export default class MjColumn extends BodyComponent {
                     background: component.getAttribute(
                       'container-background-color',
                     ),
+                    'border-radius': component.getAttribute('container-border-radius'),
                     'font-size': '0px',
                     padding: component.getAttribute('padding'),
                     'padding-top': component.getAttribute('padding-top'),
@@ -591,6 +782,11 @@ export default class MjColumn extends BodyComponent {
 
     if (this.getAttribute('css-class')) {
       classesName += ` ${this.getAttribute('css-class')}`
+    }
+
+    const divResponsiveClass = this.getResponsiveClasses().div
+    if (divResponsiveClass) {
+      classesName += ` ${divResponsiveClass}`
     }
 
     return `

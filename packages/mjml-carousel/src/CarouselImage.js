@@ -19,6 +19,8 @@ export default class MjCarouselImage extends BodyComponent {
 
   static allowedAttributes = {
     alt: 'string',
+    'aria-label': 'string',
+    'aria-roledescription': 'string',
     'border-radius': 'string',
     href: 'string',
     rel: 'string',
@@ -26,6 +28,7 @@ export default class MjCarouselImage extends BodyComponent {
     'src--dark': 'string',
     'support-dark-mode-image': 'enum(outlook)',
     target: 'string',
+    role: 'string',
     'tb-border': 'string',
     'tb-border-color--dark': 'color',
     'tb-border-radius': 'string',
@@ -36,6 +39,8 @@ export default class MjCarouselImage extends BodyComponent {
 
   static defaultAttributes = {
     alt: '',
+    'aria-roledescription': 'slide',
+    role: 'group',
   }
 
   darkClasses = null
@@ -192,6 +197,8 @@ export default class MjCarouselImage extends BodyComponent {
     const { carouselId, src, alt, 'tb-width': width, target } = this.attributes
     const imgIndex = this.props.index + 1
     const borderDarkClass = this.getDarkClasses().border
+    const thumbnailResponsiveClass =
+      this.context && this.context.carouselThumbnailResponsiveClass
     const cssClass = suffixCssClasses(
       this.getAttribute('css-class'),
       'thumbnail',
@@ -221,11 +228,13 @@ export default class MjCarouselImage extends BodyComponent {
           style: 'thumbnails.a',
           href: `#${imgIndex}`,
           target,
+          tabindex: '-1',
           class: [
             'mj-carousel-thumbnail',
             `mj-carousel-${carouselId}-thumbnail`,
             `mj-carousel-${carouselId}-thumbnail-${imgIndex}`,
             cssClass,
+            thumbnailResponsiveClass,
             borderDarkClass,
           ]
             .filter(Boolean)
@@ -261,6 +270,24 @@ export default class MjCarouselImage extends BodyComponent {
     `
   }
 
+  getAriaLabel() {
+    const ariaLabel = this.getAttribute('aria-label')
+    const slideCount = this.context && this.context.carouselSlidesCount
+
+    // If explicitly set (not undefined), use it
+    if (ariaLabel !== undefined) {
+      return ariaLabel
+    }
+
+    // Generate dynamic label if slideCount available
+    if (slideCount) {
+      return `${this.props.index + 1} of ${slideCount}`
+    }
+
+    // Return undefined (won't render the attribute)
+    return undefined
+  }
+
   render() {
     const { src, alt, href, rel, target, title } = this.attributes
     const { index } = this.props
@@ -276,6 +303,12 @@ export default class MjCarouselImage extends BodyComponent {
           style: 'images.img',
           width: parseInt(this.context.containerWidth, 10),
           border: '0',
+          ...(this.getAttribute('aria-label') !== undefined && {
+            'aria-label': this.getAriaLabel(),
+          }),
+          ...(this.getAttribute('aria-roledescription') !== 'slide' && {
+            'aria-roledescription': this.getAttribute('aria-roledescription'),
+          }),
         })}
       />`
 
@@ -328,6 +361,9 @@ export default class MjCarouselImage extends BodyComponent {
 
     return `<div
         ${this.htmlAttributes({
+          role: this.getAttribute('role'),
+          'aria-label': this.getAriaLabel(),
+          'aria-roledescription': this.getAttribute('aria-roledescription'),
           class: `mj-carousel-image mj-carousel-image-${index + 1} ${cssClass}`,
           style: index === 0 ? 'images.firstImageDiv' : 'images.otherImageDiv',
         })}

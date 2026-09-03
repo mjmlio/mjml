@@ -6,6 +6,11 @@ import {
   emitDarkModeHeadStyle,
   registerDarkModeRule,
 } from 'mjml-core/lib/helpers/colorSchemeDarkMode'
+import {
+  emitResponsiveHeadStyle,
+  buildResponsiveDeclarations,
+  registerResponsiveRuleGroup,
+} from 'mjml-core/lib/helpers/responsiveMode'
 
 import {
   emitOutlookDarkModeHeadRaw,
@@ -17,12 +22,20 @@ import {
 } from 'mjml-core/lib/helpers/outlookDarkMode'
 import widthParser from 'mjml-core/lib/helpers/widthParser'
 
+function computeAlignMargin(align) {
+  if (align === 'left') return '0 auto 0 0'
+  if (align === 'right') return '0 0 0 auto'
+  return '0 auto'
+}
+
 export default class MjImage extends BodyComponent {
   static componentName = 'mj-image'
 
   static allowedAttributes = {
     align: 'enum(left,center,right)',
+    'align--responsive': 'enum(left,center,right)',
     alt: 'string',
+    'aria-hidden': 'string',
     border: 'string',
     'border-color--dark': 'color',
     'border-bottom': 'string',
@@ -36,17 +49,26 @@ export default class MjImage extends BodyComponent {
     'border-top-color--dark': 'color',
     'container-background-color': 'color',
     'container-background-color--dark': 'color',
+    'container-border-radius': 'string',
     'fluid-on-mobile': 'boolean',
-    'font-size': 'unit(px)',
+    'font-size': 'unit(px,rem)',
+    'font-size--responsive': 'unit(px,rem)',
     height: 'unit(px,auto)',
+    'height--responsive': 'unit(px,auto)',
     href: 'string',
     'max-height': 'unit(px,%)',
+    'max-height--responsive': 'unit(px,%)',
     name: 'string',
     padding: 'unit(px,%){1,4}',
+    'padding--responsive': 'unit(px,%){1,4}',
     'padding-bottom': 'unit(px,%)',
+    'padding-bottom--responsive': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
+    'padding-left--responsive': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
+    'padding-right--responsive': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
+    'padding-top--responsive': 'unit(px,%)',
     rel: 'string',
     sizes: 'string',
     src: 'string',
@@ -57,18 +79,21 @@ export default class MjImage extends BodyComponent {
     title: 'string',
     usemap: 'string',
     width: 'unit(px)',
+    'width--responsive': 'unit(px,%)',
   }
 
   static defaultAttributes = {
     alt: '',
     align: 'center',
     border: '0',
-    'font-size': '13px',
+    'font-size': '16px',
     height: 'auto',
     padding: '10px 25px',
   }
 
   darkClasses = null
+
+  responsiveClasses = null
 
   registerDarkModeRuleGroup({
     cssDeclarations,
@@ -169,11 +194,67 @@ export default class MjImage extends BodyComponent {
     return this.darkClasses
   }
 
+  getResponsiveClasses() {
+    if (this.responsiveClasses !== null) return this.responsiveClasses
+
+    this.responsiveClasses = {
+      container: null,
+      table: null,
+      img: null,
+    }
+
+    const globalData = this.context && this.context.globalData
+
+    this.responsiveClasses.container = registerResponsiveRuleGroup(globalData, {
+      cssDeclarations: buildResponsiveDeclarations([
+        ['padding', this.attributes['padding--responsive']],
+        ['padding-top', this.attributes['padding-top--responsive']],
+        ['padding-right', this.attributes['padding-right--responsive']],
+        ['padding-bottom', this.attributes['padding-bottom--responsive']],
+        ['padding-left', this.attributes['padding-left--responsive']],
+      ]),
+    })
+
+    const alignResponsive = this.attributes['align--responsive']
+    if (alignResponsive) {
+      this.responsiveClasses.table = registerResponsiveRuleGroup(globalData, {
+        cssDeclarations: [{ cssProperty: 'margin', cssValue: computeAlignMargin(alignResponsive) }],
+      })
+    }
+
+    const imageResponsiveDeclarations = this.getImageResponsiveDeclarations()
+
+    this.responsiveClasses.img = registerResponsiveRuleGroup(globalData, {
+      cssDeclarations: imageResponsiveDeclarations,
+      selectorSuffix: ' img',
+    })
+
+    return this.responsiveClasses
+  }
+
+  getImageResponsiveDeclarations() {
+    const rawAttrs = this.props && this.props.rawAttrs
+    const hasExplicitHeight =
+      rawAttrs && Object.prototype.hasOwnProperty.call(rawAttrs, 'height--responsive')
+    const maxHeight = this.attributes['max-height--responsive']
+    const widthResponsive = this.attributes['width--responsive']
+
+    return buildResponsiveDeclarations([
+      ['font-size', this.attributes['font-size--responsive']],
+      ['height', this.attributes['height--responsive']],
+      ['max-height', maxHeight],
+      ['min-height', maxHeight && !hasExplicitHeight ? maxHeight : null],
+      ['width', widthResponsive],
+      ['min-width', widthResponsive],
+    ])
+  }
+
   getAttribute(name) {
     if (name === 'css-class') {
       const base = this.attributes['css-class']
       const containerDarkClass = this.getDarkClasses().container
-      return [base, containerDarkClass].filter(Boolean).join(' ') || undefined
+      const containerResponsiveClass = this.getResponsiveClasses().container
+      return [base, containerDarkClass, containerResponsiveClass].filter(Boolean).join(' ') || undefined
     }
 
     return this.attributes[name]
@@ -194,6 +275,7 @@ export default class MjImage extends BodyComponent {
         'max-height': this.getAttribute('max-height'),
         'min-width': fullWidth ? '100%' : null,
         width: '100%',
+        'font-size': this.getAttribute('font-size'),
       },
       td: {
         border: this.getAttribute('border'),
@@ -288,6 +370,11 @@ export default class MjImage extends BodyComponent {
       <img
         ${this.htmlAttributes({
           alt: this.getAttribute('alt'),
+          ...(this.getAttribute('aria-hidden') === 'true' && this.getAttribute('href') === undefined
+          ? {
+              'aria-hidden': 'true',
+            }
+          : {}),
           src: this.getAttribute('src'),
           srcset: this.getAttribute('srcset'),
           sizes: this.getAttribute('sizes'),
@@ -350,7 +437,14 @@ export default class MjImage extends BodyComponent {
 
     if (hasLink && !darkImg) {
       return `
-        <a ${linkAttrs}>
+        <a ${linkAttrs} ${this.htmlAttributes({
+          ...(this.getAttribute('aria-hidden') === 'true'
+          ? {
+              'aria-hidden': 'true',
+              tabindex: '-1',
+            }
+          : {}),
+        })}>
           ${content}
         </a>
       `
@@ -399,6 +493,8 @@ export default class MjImage extends BodyComponent {
       emitDarkModeHeadStyle(globalData)
     }
 
+    emitResponsiveHeadStyle(globalData)
+
     if (darkSrc && supportOutlookDarkMode) {
       const includeDarkStyles =
         !globalData || globalData.outlookDarkModeStyleEmitted === false
@@ -414,6 +510,10 @@ export default class MjImage extends BodyComponent {
 
   render() {
     const borderDarkClass = this.getDarkClasses().border
+    const {
+      table: tableAlignClass,
+      img: imgResponsiveClass,
+    } = this.getResponsiveClasses()
 
     return `
       <table
@@ -423,15 +523,14 @@ export default class MjImage extends BodyComponent {
           cellspacing: '0',
           role: 'none',
           style: 'table',
-          class: this.getAttribute('fluid-on-mobile')
-            ? 'mj-full-width-mobile'
-            : null,
+          class: [this.getAttribute('fluid-on-mobile') ? 'mj-full-width-mobile' : null, tableAlignClass]
+            .filter(Boolean).join(' ') || null,
         })}
       >
         <tr>
           <td ${this.htmlAttributes({
             style: 'td',
-            class: borderDarkClass || undefined,
+            class: [borderDarkClass, imgResponsiveClass].filter(Boolean).join(' ') || undefined,
           })}>
             ${this.renderImage()}
           </td>

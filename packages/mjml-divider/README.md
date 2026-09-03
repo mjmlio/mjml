@@ -16,20 +16,22 @@ Displays a horizontal divider that can be customized like a HTML border.
 
 #### Attributes
 
-| attribute                  | accepts                 | description                                        | default value |
-| -------------------------- | ----------------------- | -------------------------------------------------- | ------------- |
-| align                      | `left` `center` `right` | horizontal alignment                               | `center`      |
-| border-color               | CSS color formats       | divider color                                      | `#000000`     |
-| border-style               | string                  | CSS values, e.g. `dashed` `dotted` `solid`         | `solid`       |
-| border-width               | `px`                    | divider's border width                             | `4px`         |
-| container-background-color | CSS color formats       | inner element background color                     |               |
-| css-class                  | string                  | class name, added to the root HTML element created |               |
-| padding                    | `px` `%`                | divider padding, supports up to 4 parameters       | `10px 25px`   |
-| padding-bottom             | `px` `%`                | divider bottom padding                             |               |
-| padding-left               | `px` `%`                | divider left padding                               |               |
-| padding-right              | `px` `%`                | divider right padding                              |               |
-| padding-top                | `px` `%`                | divider top padding                                |               |
-| width                      | `px` `%`                | divider width                                      | `100%`        |
+| attribute                  | accepts                 | description                                                               | default value |
+| -------------------------- | ----------------------- | ------------------------------------------------------------------------- | ------------- |
+| align                      | `left` `center` `right` | horizontal alignment                                                      | `center`      |
+| aria-hidden                | string                  | when set to `true` adds an `aria-hidden` attribute to the divider element |               |
+| border-color               | CSS color formats       | divider color                                                             | `#000000`     |
+| border-style               | string                  | CSS values, e.g. `dashed` `dotted` `solid`                                | `solid`       |
+| border-width               | `px`                    | divider's border width                                                    | `4px`         |
+| container-background-color | CSS color formats       | background color of the container                                         |               |
+| container-border-radius    | string                  | border radius of the container                                            |               |
+| css-class                  | string                  | class name, added to the root HTML element created                        |               |
+| padding                    | `px` `%`                | divider padding, supports up to 4 parameters                              | `10px 25px`   |
+| padding-bottom             | `px` `%`                | divider bottom padding                                                    |               |
+| padding-left               | `px` `%`                | divider left padding                                                      |               |
+| padding-right              | `px` `%`                | divider right padding                                                     |               |
+| padding-top                | `px` `%`                | divider top padding                                                       |               |
+| width                      | `px` `%`                | divider width                                                             | `100%`        |
 
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/divider">Try it live</a></p>
 
@@ -37,12 +39,24 @@ Displays a horizontal divider that can be customized like a HTML border.
 
 ###### Dark-mode
 
-| attribute                        | accepts           | description                                 | default value |
-| -------------------------------- | ----------------- | ------------------------------------------- | ------------- |
-| border-color--dark               | CSS color formats | divider color in dark mode                  |               |
-| container-background-color--dark | CSS color formats | inner element background color in dark mode |               |
+| attribute                        | accepts           | description                                    | default value |
+| -------------------------------- | ----------------- | ---------------------------------------------- | ------------- |
+| border-color--dark               | CSS color formats | divider color in dark mode                     |               |
+| container-background-color--dark | CSS color formats | background color of the container in dark mode |               |
 
 <div class="alert alert-note" role="alert">
   <p>Note</p>
   <p>All <code>--dark</code> modifier attributes require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
 </div>
+
+###### Responsive
+
+| attribute                  | accepts                 | description                                  | default value |
+| -------------------------- | ----------------------- | -------------------------------------------- | ------------- |
+| align--responsive          | `left` `center` `right` | horizontal alignment                         |               |
+| padding--responsive        | `px` `%`                | divider padding, supports up to 4 parameters |               |
+| padding-bottom--responsive | `px` `%`                | divider bottom padding                       |               |
+| padding-left--responsive   | `px` `%`                | divider left padding                         |               |
+| padding-right--responsive  | `px` `%`                | divider right padding                        |               |
+| padding-top--responsive    | `px` `%`                | divider top padding                          |               |
+| width--responsive          | `px` `%`                | divider width                                |               |

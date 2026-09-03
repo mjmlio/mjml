@@ -8,6 +8,7 @@ export default class MjWrapper extends MjSection {
   static allowedAttributes = {
     ...MjSection.allowedAttributes,
     gap: 'unit(px)',
+    'gap--responsive': 'unit(px)',
   }
 
   renderWrappedChildren() {

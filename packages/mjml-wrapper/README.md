@@ -45,6 +45,8 @@ Setting it will change the width of the section from the default 600px to 100%.
 
 | attribute             | accepts              | description                                                                                            | default value |
 | --------------------- | -------------------- | ------------------------------------------------------------------------------------------------------ | ------------- |
+| aria-label            | string               | adds an `aria-label` attribute to the wrapper container                                                |               |
+| aria-roledescription  | string               | adds an `aria-roledescription` attribute to the wrapper container                                      |               |
 | background-color      | CSS color formats    | section color                                                                                          |               |
 | background-position   | string               | CSS values, i.e. `left` `center` `right` + `top` `center` `bottom` <br>(see outlook limitations below) | `top center`  |
 | background-position-x | string               | CSS values, i.e. `left` `center` `right` <br>(see outlook limitations below)                           |               |
@@ -59,13 +61,14 @@ Setting it will change the width of the section from the default 600px to 100%.
 | border-right          | string               | CSS border format                                                                                      |               |
 | border-top            | string               | CSS border format                                                                                      |               |
 | css-class             | string               | class name, added to the root HTML element created                                                     |               |
-| full-width            | `full-width` `false` | make the section full-width                                                                            |               |
+| full-width            | `full-width` `false` | make the wrapper full-width                                                                            |               |
 | gap                   | `px`                 | applies a vertical gap between child `mj-section` instances                                            |               |
-| padding               | `px` `%`             | section padding, supports up to 4 parameters                                                           | `20px 0`      |
-| padding-bottom        | `px` `%`             | section bottom padding                                                                                 |               |
-| padding-left          | `px` `%`             | section left padding                                                                                   |               |
-| padding-right         | `px` `%`             | section right padding                                                                                  |               |
-| padding-top           | `px` `%`             | section top padding                                                                                    |               |
+| padding               | `px` `%`             | wrapper padding, supports up to 4 parameters                                                           | `20px 0`      |
+| padding-bottom        | `px` `%`             | wrapper bottom padding                                                                                 |               |
+| padding-left          | `px` `%`             | wrapper left padding                                                                                   |               |
+| padding-right         | `px` `%`             | wrapper right padding                                                                                  |               |
+| padding-top           | `px` `%`             | wrapper top padding                                                                                    |               |
+| role                  | string               | adds a `role` attribute to the wrapper container                                                       |               |
 
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/wrapper">Try it live</a></p>
 
@@ -87,3 +90,19 @@ Setting it will change the width of the section from the default 600px to 100%.
   <p>Note</p>
   <p>All <code>--dark</code> modifier attributes require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
 </div>
+
+###### Responsive
+
+| attribute                         | accepts                 | description                                                         | default value |
+| --------------------------------- | ----------------------- | ------------------------------------------------------------------- | ------------- |
+| background-position--responsive   | string                  | CSS values, i.e. `left` `center` `right` + `top` `center` `bottom`  |               |
+| background-position-x--responsive | string                  | CSS values, i.e. `left` `center` `right`                            |               |
+| background-position-y--responsive | string                  | CSS values, i.e. `top` `center` `bottom`                            |               |
+| background-repeat--responsive     | `repeat` `no-repeat`    | set the background image to repeat                                  |               |
+| background-size--responsive       | string                  | CSS values e.g. `auto` `cover` `contain` `px` `%` size              |               |
+| gap--responsive                   | `px`                    | applies a vertical gap between child `mj-section` instances         |               |
+| padding--responsive               | `px` `%`                | wrapper padding, supports up to 4 parameters                        |               |
+| padding-bottom--responsive        | `px` `%`                | wrapper bottom padding                                              |               |
+| padding-left--responsive          | `px` `%`                | wrapper left padding                                                |               |
+| padding-right--responsive         | `px` `%`                | wrapper right padding                                               |               |
+| padding-top--responsive           | `px` `%`                | wrapper top padding                                                 |               |

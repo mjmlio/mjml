@@ -6,13 +6,25 @@ import {
   emitDarkModeHeadStyle,
   registerDarkModeRule,
 } from 'mjml-core/lib/helpers/colorSchemeDarkMode'
+import {
+  emitResponsiveHeadStyle,
+  buildResponsiveDeclarations,
+  registerResponsiveRuleGroup,
+  registerResponsivePaddingGroup,
+} from 'mjml-core/lib/helpers/responsiveMode'
 
 export default class MjNavbar extends BodyComponent {
   static componentName = 'mj-navbar'
 
   static allowedAttributes = {
     align: 'enum(left,center,right)',
+    'align--responsive': 'enum(left,center,right)',
+    'aria-label': 'string',
+    'aria-roledescription': 'string',
     'base-url': 'string',
+    'container-background-color': 'color',
+    'container-background-color--dark': 'color',
+    'container-border-radius': 'string',
     hamburger: 'string',
     'ico-align': 'enum(left,center,right)',
     'ico-close': 'string',
@@ -29,11 +41,18 @@ export default class MjNavbar extends BodyComponent {
     'ico-padding-bottom': 'unit(px,%)',
     'ico-text-decoration': 'string',
     'ico-text-transform': 'string',
+    'responsive-mode': 'enum(stack)',
     padding: 'unit(px,%){1,4}',
+    'padding--responsive': 'unit(px,%){1,4}',
     'padding-left': 'unit(px,%)',
+    'padding-left--responsive': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
+    'padding-top--responsive': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
+    'padding-right--responsive': 'unit(px,%)',
     'padding-bottom': 'unit(px,%)',
+    'padding-bottom--responsive': 'unit(px,%)',
+    role: 'string',
   }
 
   static defaultAttributes = {
@@ -53,6 +72,10 @@ export default class MjNavbar extends BodyComponent {
 
   darkClasses = null
 
+  responsiveClasses = null
+
+  responsiveModeIndex = null
+
   getDarkClasses() {
     if (this.darkClasses !== null) {
       return this.darkClasses
@@ -61,6 +84,14 @@ export default class MjNavbar extends BodyComponent {
     this.darkClasses = {}
 
     const globalData = this.context && this.context.globalData
+
+    const darkContainerBg = this.attributes['container-background-color--dark']
+    if (darkContainerBg) {
+      this.darkClasses.container = registerDarkModeRule(globalData, {
+        cssProperty: 'background-color',
+        cssValue: darkContainerBg,
+      })
+    }
 
     const darkIcoColor = this.getAttribute('ico-color--dark')
     if (darkIcoColor) {
@@ -78,35 +109,96 @@ export default class MjNavbar extends BodyComponent {
 
     const hasHamburger = this.getAttribute('hamburger') === 'hamburger'
 
-    if (!hasHamburger) {
-      emitDarkModeHeadStyle(globalData)
-      return ''
-    }
+    let hamburgerCss = ''
 
-    const includeStyles =
-      !globalData || globalData.navbarHamburgerStyleEmitted === false
+    if (hasHamburger) {
+      const includeStyles =
+        !globalData || globalData.navbarHamburgerStyleEmitted === false
 
-    if (!includeStyles) {
-      emitDarkModeHeadStyle(globalData)
-      return ''
-    }
-
-    if (globalData) {
-      globalData.navbarHamburgerStyleEmitted = true
-    }
-
-    emitDarkModeHeadStyle(globalData)
-    return `
+      if (includeStyles) {
+        if (globalData) {
+          globalData.navbarHamburgerStyleEmitted = true
+        }
+        hamburgerCss = `
       noinput.mj-menu-checkbox { display:block!important; max-height:none!important; visibility:visible!important; }
       @media only screen and (max-width:${makeLowerBreakpoint(breakpoint)}) {
+        .mj-menu-checkbox[type="checkbox"] { display: block !important; max-height: auto !important; visibility: visible !important; position: absolute; opacity: 0; pointer-events: none; }
         .mj-menu-checkbox[type="checkbox"] ~ .mj-inline-links,
         .mj-menu-checkbox[type="checkbox"]:checked ~ .mj-menu-trigger .mj-menu-icon-open { display:none!important; }
         .mj-menu-checkbox[type="checkbox"] ~ .mj-inline-links > a,
         .mj-menu-checkbox[type="checkbox"]:checked ~ .mj-menu-trigger .mj-menu-icon-close { display:block!important; }
         .mj-menu-checkbox[type="checkbox"]:checked ~ .mj-inline-links,
         .mj-menu-checkbox[type="checkbox"] ~ .mj-menu-trigger { display:block!important; max-width:none!important; max-height:none!important; font-size:inherit!important; }
+        .mj-menu-checkbox[type="checkbox"]:focus-visible~.mj-menu-trigger {
+        outline: 5px auto Highlight;
+        outline-color: -webkit-focus-ring-color;
+    }
       }
     `
+      }
+    }
+
+    emitDarkModeHeadStyle(globalData)
+    emitResponsiveHeadStyle(globalData)
+
+    const { responsiveModeIndex } = this
+    if (responsiveModeIndex != null) {
+      const allIndices = (globalData && globalData.navbarresponsiveModeIndices) || [responsiveModeIndex]
+      const alreadyEmitted = globalData && globalData.navbarresponsiveModeStyleEmitted
+
+      if (!alreadyEmitted) {
+        if (globalData) {
+          globalData.navbarresponsiveModeStyleEmitted = true
+        }
+        const selectors = allIndices
+          .map((n) => `        .mj-inline-links-${n} .mj-link`)
+          .join(',\n')
+        return `${hamburgerCss}
+      @media only screen and (max-width:${makeLowerBreakpoint(breakpoint)}) {
+${selectors} { display: block !important }
+      }
+    `
+      }
+    }
+
+    return hamburgerCss
+  }
+
+  getResponsiveClasses() {
+    if (this.responsiveClasses !== null) {
+      return this.responsiveClasses
+    }
+
+    this.responsiveClasses = {
+      container: null,
+      inlineLinks: null,
+    }
+
+    const globalData = this.context && this.context.globalData
+
+    this.responsiveClasses.container = registerResponsivePaddingGroup(
+      globalData,
+      this.attributes,
+    )
+
+    this.responsiveClasses.inlineLinks = registerResponsiveRuleGroup(globalData, {
+      cssDeclarations: buildResponsiveDeclarations([
+        ['text-align', this.attributes['align--responsive']],
+      ]),
+    })
+
+    return this.responsiveClasses
+  }
+
+  getAttribute(name) {
+    if (name === 'css-class') {
+      const base = this.attributes['css-class']
+      const containerDarkClass = this.getDarkClasses().container
+      const containerResponsiveClass = this.getResponsiveClasses().container
+      return [base, containerDarkClass, containerResponsiveClass].filter(Boolean).join(' ') || undefined
+    }
+
+    return this.attributes[name]
   }
 
   getStyles() {
@@ -134,7 +226,7 @@ export default class MjNavbar extends BodyComponent {
 
     return {
       div: {
-        align: this.getAttribute('align'),
+        'text-align': this.getAttribute('align'),
         width: '100%',
       },
       label: {
@@ -176,7 +268,7 @@ export default class MjNavbar extends BodyComponent {
       !this.context.globalData ||
       this.context.globalData.supportOutlookClassic !== false
 
-    const checkbox = `<input type="checkbox" id="${labelKey}" class="mj-menu-checkbox" style="display:none !important; max-height:0; visibility:hidden;" />\n      `
+    const checkbox = `<input type="checkbox" id="${labelKey}" class="mj-menu-checkbox" style="display: none; max-height:0; visibility:hidden;" />\n      `
 
     const checkboxOutput = supportOutlookClassic
       ? conditionalTag(checkbox, true)
@@ -193,7 +285,10 @@ export default class MjNavbar extends BodyComponent {
         <label
           ${this.htmlAttributes({
             for: labelKey,
-            class: ['mj-menu-label', this.getDarkClasses().icoColor]
+            class: [
+              'mj-menu-label',
+              this.getDarkClasses().icoColor,
+            ]
               .filter(Boolean)
               .join(' '),
             style: 'label',
@@ -218,6 +313,23 @@ export default class MjNavbar extends BodyComponent {
   }
 
   render() {
+    if (
+      this.getAttribute('responsive-mode') === 'stack' &&
+      this.getAttribute('hamburger') !== 'hamburger' &&
+      this.responsiveModeIndex == null
+    ) {
+      const globalData = this.context && this.context.globalData
+      if (globalData) {
+        if (!Array.isArray(globalData.navbarresponsiveModeIndices)) {
+          globalData.navbarresponsiveModeIndices = []
+        }
+        this.responsiveModeIndex = globalData.navbarresponsiveModeIndices.length + 1
+        globalData.navbarresponsiveModeIndices.push(this.responsiveModeIndex)
+      } else {
+        this.responsiveModeIndex = 1
+      }
+    }
+
     const supportOutlookClassic =
       !this.context ||
       !this.context.globalData ||
@@ -242,8 +354,19 @@ export default class MjNavbar extends BodyComponent {
         }
         <div
           ${this.htmlAttributes({
-            class: 'mj-inline-links',
-            style: this.htmlAttributes('div'),
+            role: this.getAttribute('role'),
+            'aria-label': this.getAttribute('aria-label'),
+            'aria-roledescription': this.getAttribute('aria-roledescription'),
+            class: [
+              'mj-inline-links',
+              this.responsiveModeIndex != null
+                ? `mj-inline-links-${this.responsiveModeIndex}`
+                : null,
+              this.getResponsiveClasses().inlineLinks,
+            ]
+              .filter(Boolean)
+              .join(' '),
+            style: 'div',
           })}
         >
         ${openTable}

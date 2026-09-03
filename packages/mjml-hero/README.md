@@ -86,7 +86,9 @@ Use `background-color` to provide a fallback color in case an email client doesn
 
 | attribute              | accepts                 | description                                                        | default value                 |
 | ---------------------- | ----------------------- | ------------------------------------------------------------------ | ----------------------------- |
-| background-color       | CSS color formats       | hero background color                                              | #ffffff                       |
+| aria-label             | string                  | adds an `aria-label` attribute to the hero container               |                               |
+| aria-roledescription   | string                  | adds an `aria-roledescription` attribute to the hero container     |                               |
+| background-color       | CSS color formats       | hero background color                                              | `#ffffff`                     |
 | background-height      | `px` `%`                | height of the image used, mandatory                                |                               |
 | background-position    | string                  | CSS values, i.e. `left` `center` `right` + `top` `center` `bottom` | `center`                      |
 | background-url         | string                  | absolute background in URL format                                  |                               |
@@ -106,6 +108,7 @@ Use `background-color` to provide a fallback color in case an email client doesn
 | padding-left           | `px` `%`                | hero left padding                                                  |                               |
 | padding-right          | `px` `%`                | hero right padding                                                 |                               |
 | padding-top            | `px` `%`                | hero top padding                                                   |                               |
+| role                   | string                  | adds a `role` attribute to the hero container                      |                               |
 | vertical-align         | `top` `middle` `bottom` | content vertical alignment                                         | `top`                         |
 
 <ul class="cta-container">
@@ -127,3 +130,22 @@ Use `background-color` to provide a fallback color in case an email client doesn
   <p>Note</p>
   <p>All <code>--dark</code> modifier attributes require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
 </div>
+
+###### Responsive
+
+| attribute                        | accepts  | description                                                        | default value |
+| -------------------------------- | -------- | ------------------------------------------------------------------ | ------------- |
+| background-height--responsive    | `px` `%` | height of the image used, mandatory                                |               |
+| background-position--responsive  | string   | CSS values, i.e. `left` `center` `right` + `top` `center` `bottom` |               |
+| background-width--responsive     | `px` `%` | width of the image used, mandatory                                 |               |
+| height--responsive               | `px` `%` | hero section height, (required for `fixed-height` mode)            |               |
+| inner-padding--responsive        | `px` `%` | hero inner padding, supports up to 4 parameters                    |               |
+| inner-padding-bottom--responsive | `px` `%` | hero bottom inner padding                                          |               |
+| inner-padding-left--responsive   | `px` `%` | hero left inner padding                                            |               |
+| inner-padding-right--responsive  | `px` `%` | hero right inner padding                                           |               |
+| inner-padding-top--responsive    | `px` `%` | hero top inner padding                                             |               |
+| padding--responsive              | `px` `%` | hero padding, supports up to 4 parameters                          |               |
+| padding-bottom--responsive       | `px` `%` | hero bottom padding                                                |               |
+| padding-left--responsive         | `px` `%` | hero left padding                                                  |               |
+| padding-right--responsive        | `px` `%` | hero right padding                                                 |               |
+| padding-top--responsive          | `px` `%` | hero top padding                                                   |               |

@@ -7,6 +7,12 @@ import {
   registerDarkModeRule,
   registerDarkModeSelectorRule,
 } from 'mjml-core/lib/helpers/colorSchemeDarkMode'
+import {
+  emitResponsiveHeadStyle,
+  buildResponsiveDeclarations,
+  registerResponsiveRuleGroup,
+  registerResponsivePaddingGroup,
+} from 'mjml-core/lib/helpers/responsiveMode'
 import genRandomHexString from 'mjml-core/lib/helpers/genRandomHexString'
 
 export default class MjCarousel extends BodyComponent {
@@ -14,19 +20,30 @@ export default class MjCarousel extends BodyComponent {
 
   static allowedAttributes = {
     align: 'enum(left,center,right)',
+    'align--responsive': 'enum(left,center,right)',
+    'aria-label': 'string',
+    'aria-roledescription': 'string',
     'border-radius': 'string',
     'container-background-color': 'color',
     'container-background-color--dark': 'color',
+    'container-border-radius': 'string',
     'icon-width': 'unit(px,%)',
+    'icon-width--responsive': 'unit(px,%)',
     'left-icon': 'string',
     'left-icon--dark': 'string',
     padding: 'unit(px,%){1,4}',
+    'padding--responsive': 'unit(px,%){1,4}',
     'padding-top': 'unit(px,%)',
+    'padding-top--responsive': 'unit(px,%)',
     'padding-bottom': 'unit(px,%)',
+    'padding-bottom--responsive': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
+    'padding-left--responsive': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
+    'padding-right--responsive': 'unit(px,%)',
     'right-icon': 'string',
     'right-icon--dark': 'string',
+    role: 'string',
     'support-dark-mode-image': 'enum(outlook)',
     'tb-border': 'string',
     'tb-border-color--dark': 'color',
@@ -36,6 +53,7 @@ export default class MjCarousel extends BodyComponent {
     'tb-selected-border-color': 'color',
     'tb-selected-border-color--dark': 'color',
     'tb-width': 'unit(px,%)',
+    'tb-width--responsive': 'unit(px,%)',
     thumbnails: 'enum(visible,hidden,supported)',
   }
 
@@ -53,6 +71,8 @@ export default class MjCarousel extends BodyComponent {
   }
 
   darkClasses = null
+
+  responsiveClasses = null
 
   constructor(initialDatas = {}) {
     super(initialDatas)
@@ -121,10 +141,60 @@ export default class MjCarousel extends BodyComponent {
     if (name === 'css-class') {
       const base = this.attributes['css-class']
       const containerDarkClass = this.getDarkClasses().container
-      return [base, containerDarkClass].filter(Boolean).join(' ') || undefined
+      const containerResponsiveClass = this.getResponsiveClasses().container
+      return [base, containerDarkClass, containerResponsiveClass]
+        .filter(Boolean)
+        .join(' ') || undefined
     }
 
     return this.attributes[name]
+  }
+
+  getResponsiveClasses() {
+    if (this.responsiveClasses !== null) {
+      return this.responsiveClasses
+    }
+
+    this.responsiveClasses = {
+      container: null,
+      content: null,
+      iconsCell: null,
+      iconImage: null,
+      thumbnail: null,
+    }
+
+    const globalData = this.context && this.context.globalData
+
+    this.responsiveClasses.container = registerResponsivePaddingGroup(
+      globalData,
+      this.attributes,
+    )
+
+    this.responsiveClasses.content = registerResponsiveRuleGroup(globalData, {
+      cssDeclarations: buildResponsiveDeclarations([
+        ['text-align', this.attributes['align--responsive']],
+      ]),
+    })
+
+    this.responsiveClasses.iconsCell = registerResponsiveRuleGroup(globalData, {
+      cssDeclarations: buildResponsiveDeclarations([
+        ['width', this.attributes['icon-width--responsive']],
+      ]),
+    })
+
+    this.responsiveClasses.iconImage = registerResponsiveRuleGroup(globalData, {
+      cssDeclarations: buildResponsiveDeclarations([
+        ['width', this.attributes['icon-width--responsive']],
+      ]),
+    })
+
+    this.responsiveClasses.thumbnail = registerResponsiveRuleGroup(globalData, {
+      cssDeclarations: buildResponsiveDeclarations([
+        ['width', this.attributes['tb-width--responsive']],
+      ]),
+    })
+
+    return this.responsiveClasses
   }
 
   componentHeadStyle = () => {
@@ -144,9 +214,33 @@ export default class MjCarousel extends BodyComponent {
       return ''
     }
 
+    emitResponsiveHeadStyle(globalData)
+
     if (globalData && includeSharedStyles) {
       globalData.carouselSharedStylesEmitted = true
     }
+
+    const focusVisibleThumbnailSelectors = range(0, length)
+      .map(
+        (i) =>
+          `.mj-carousel-${carouselId}-radio-${i + 1}:focus-visible ${repeat(
+            '+ * ',
+            length - i - 1,
+          )}+ .mj-carousel-content .mj-carousel-${carouselId}-thumbnail-${
+            i + 1
+          }`,
+      )
+      .join(',\n')
+
+    const hoverHideImageSelectors = range(0, length)
+      .map(
+        (i) =>
+          `.mj-carousel-${carouselId}-thumbnail:hover ${repeat(
+            '+ * ',
+            length - i - 1,
+          )}+ .mj-carousel-main .mj-carousel-image`,
+      )
+      .join(',\n')
 
     const sharedCss = `
     .mj-carousel {
@@ -255,15 +349,11 @@ export default class MjCarousel extends BodyComponent {
       .join(',')} {
       display: inline-block !important;
     }
-    ${range(0, length)
-      .map(
-        (i) =>
-          `.mj-carousel-${carouselId}-thumbnail:hover ${repeat(
-            '+ * ',
-            length - i - 1,
-          )}+ .mj-carousel-main .mj-carousel-image`,
-      )
-      .join(',')} {
+    ${focusVisibleThumbnailSelectors} {
+      outline: 5px auto Highlight;
+      outline-color: -webkit-focus-ring-color;
+    }
+    ${hoverHideImageSelectors} {
       display: none !important;
     }
     .mj-carousel-${carouselId}-thumbnail:hover {
@@ -291,6 +381,17 @@ export default class MjCarousel extends BodyComponent {
     }
 
     const instanceFallback = `
+      @media only screen and (min-width:0) {
+        ${range(1, length + 1)
+          .map((i) => `.mj-carousel-${carouselId}-radio-${i}`)
+          .join(',\n          ')} {
+            display: block !important;
+            position: absolute;
+            opacity: 0;
+            height: 0;
+        }
+      }
+
       @media screen yahoo {
           .mj-carousel-${this.carouselId}-icons-cell {
               display: none !important;
@@ -315,7 +416,7 @@ export default class MjCarousel extends BodyComponent {
           display: 'table',
           width: '100%',
           'table-layout': 'fixed',
-          'text-align': 'center',
+          'text-align': this.getAttribute('align'),
           'font-size': '0px',
         },
         table: {
@@ -387,6 +488,7 @@ export default class MjCarousel extends BodyComponent {
         'tb-border': this.getAttribute('tb-border'),
         'tb-border-radius': this.getAttribute('tb-border-radius'),
         'tb-width': this.thumbnailsWidth(),
+        'tb-width--responsive': this.getAttribute('tb-width--responsive'),
         carouselId: this.carouselId,
         'support-dark-mode-image': supportDarkModeImage,
       },
@@ -396,6 +498,17 @@ export default class MjCarousel extends BodyComponent {
 
   generateControls(direction, icon, darkIcon) {
     const iconWidth = parseInt(this.getAttribute('icon-width'), 10)
+    const { iconsCell, iconImage } = this.getResponsiveClasses()
+
+    const img = `<img
+        ${this.htmlAttributes({
+          src: icon,
+          alt: direction,
+          class: iconImage,
+          style: 'controls.img',
+          width: iconWidth,
+        })}
+      />`
 
     const renderIcon = `${
       darkIcon
@@ -404,29 +517,18 @@ export default class MjCarousel extends BodyComponent {
                     srcset: darkIcon,
                     media: '(prefers-color-scheme: dark)',
                   })} />
-                  <img
-                    ${this.htmlAttributes({
-                      src: icon,
-                      alt: direction,
-                      style: 'controls.img',
-                      width: iconWidth,
-                    })}
-                  />
+                  ${img}
                 </picture>`
-        : `<img
-                  ${this.htmlAttributes({
-                    src: icon,
-                    alt: direction,
-                    style: 'controls.img',
-                    width: iconWidth,
-                  })}
-                />`
+        : `${img}`
     }`
 
     return `
       <td
         ${this.htmlAttributes({
-          class: `mj-carousel-${this.carouselId}-icons-cell`,
+          class: [
+            `mj-carousel-${this.carouselId}-icons-cell`,
+            iconsCell,
+          ].filter(Boolean).join(' '),
           style: 'controls.td',
         })}
       >
@@ -490,8 +592,10 @@ export default class MjCarousel extends BodyComponent {
           cellpadding: '0',
           cellspacing: '0',
           width: '100%',
-          role: 'none',
           class: 'mj-carousel-main',
+          role: this.getAttribute('role') ? this.getAttribute('role') : 'none',
+          'aria-label': this.getAttribute('aria-label'),
+          'aria-roledescription': this.getAttribute('aria-roledescription'),
         })}
       >
         <tr>
@@ -519,6 +623,8 @@ export default class MjCarousel extends BodyComponent {
   getChildContext() {
     return {
       ...this.context,
+      carouselThumbnailResponsiveClass: this.getResponsiveClasses().thumbnail,
+      carouselSlidesCount: this.props.children.length,
       thumbnails: this.getAttribute('thumbnails'),
     }
   }
@@ -535,7 +641,11 @@ export default class MjCarousel extends BodyComponent {
           ${this.generateRadios()}
           <div
             ${this.htmlAttributes({
-              class: `mj-carousel-content mj-carousel-${this.carouselId}-content`,
+              class: [
+                'mj-carousel-content',
+                `mj-carousel-${this.carouselId}-content`,
+                this.getResponsiveClasses().content,
+              ].filter(Boolean).join(' '),
               style: 'carousel.div',
             })}
           >

@@ -47,17 +47,18 @@ Displays a customizable button.
 | border-right               | string                             | CSS border format                                     |                      |
 | border-top                 | string                             | CSS border format                                     |                      |
 | color                      | CSS color formats                  | text color                                            | `#ffffff`            |
-| container-background-color | CSS color formats                  | button container background color                     |                      |
+| container-background-color | CSS color formats                  | background color of the container                     |                      |
+| container-border-radius    | string                             | border radius of the container                        |                      |
 | css-class                  | string                             | class name, added to the root HTML element created    |                      |
 | font-family                | string                             | font name                                             | `Ubuntu, sans-serif` |
-| font-size                  | `px`                               | text size                                             | `13px`               |
+| font-size                  | `px` `rem`                         | text size                                             | `16px`               |
 | font-style                 | string                             | CSS values, e.g. `normal` `italic` `oblique`          |                      |
 | font-weight                | string                             | text thickness                                        |                      |
 | height                     | `px` `%`                           | button height                                         |                      |
 | href                       | string                             | URL format                                            |                      |
 | inner-padding              | `px` `%`                           | inner button padding, <br>supports up to 4 parameters | `10px 25px`          |
 | letter-spacing             | `px` `em`                          | letter-spacing                                        |                      |
-| line-height                | `px` `%`                           | line-height on link                                   | `120%`               |
+| line-height                | `px` `%` `em` `rem`                | line-height on link                                   | `150%`               |
 | multiline                  | boolean                            | improve button display in Outlook classic             |                      |
 | name                       | string                             | specify the name attribute for the button link        |                      |
 | padding                    | `px` `%`                           | button container padding, supports up to 4 parameters | `10px 25px`          |
@@ -89,9 +90,25 @@ Displays a customizable button.
 | border-right-color--dark         | CSS color formats | button right border color in dark mode         |               |
 | border-top-color--dark           | CSS color formats | button top border color in dark mode           |               |
 | color--dark                      | CSS color formats | button text color in dark mode                 |               |
-| container-background-color--dark | CSS color formats | button container background color in dark mode |               |
+| container-background-color--dark | CSS color formats | background color of the container in dark mode |               |
 
 <div class="alert alert-note" role="alert">
   <p>Note</p>
   <p>All <code>--dark</code> modifier attributes require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
 </div>
+
+###### Responsive
+
+| attribute                  | accepts                 | description                                           | default value |
+| -------------------------- | ----------------------- | ----------------------------------------------------- | ------------- |
+| align--responsive          | `left` `center` `right` | horizontal alignment                                  |               |
+| font-size--responsive      | `px`, `rem`             | text size                                             |               |
+| height--responsive         | `px` `%`                | button height                                         |               |
+| inner-padding--responsive  | `px` `%`                | inner button padding, supports up to 4 parameters     |               |
+| line-height--responsive    | `px` `%` `em` `rem`     | line-height on link                                   |               |
+| padding--responsive        | `px` `%`                | button container padding, supports up to 4 parameters |               |
+| padding-bottom--responsive | `px` `%`                | button container bottom padding                       |               |
+| padding-left--responsive   | `px` `%`                | button container left padding                         |               |
+| padding-right--responsive  | `px` `%`                | button container right padding                        |               |
+| padding-top--responsive    | `px` `%`                | button container top padding                          |               |
+| width--responsive          | `px` `%`                | button width                                          |               |

@@ -38,6 +38,16 @@ export default class MjBody extends BodyComponent {
     }
   }
 
+  styles(styles) {
+    const output = super.styles(styles)
+
+    if (styles === 'div') {
+      return `${output}font-size:medium;font-size:max(16px, 1rem);`
+    }
+
+    return output
+  }
+
   componentHeadStyle = () => {
     const darkBgColor = this.getAttribute('background-color--dark')
     if (!darkBgColor) return ''

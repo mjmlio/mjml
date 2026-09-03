@@ -5,6 +5,11 @@ import {
   emitDarkModeHeadStyle,
   registerDarkModeRule,
 } from 'mjml-core/lib/helpers/colorSchemeDarkMode'
+import {
+  emitResponsiveHeadStyle,
+  buildResponsiveDeclarations,
+  registerResponsiveRuleGroup,
+} from 'mjml-core/lib/helpers/responsiveMode'
 
 export default class MjAccordionTitle extends BodyComponent {
   static componentName = 'mj-accordion-title'
@@ -17,21 +22,29 @@ export default class MjAccordionTitle extends BodyComponent {
     color: 'color',
     'color--dark': 'color',
     'font-family': 'string',
-    'font-size': 'unit(px)',
+    'font-size': 'unit(px,rem)',
+    'font-size--responsive': 'unit(px,rem)',
     'font-weight': 'string',
     padding: 'unit(px,%){1,4}',
+    'padding--responsive': 'unit(px,%){1,4}',
     'padding-bottom': 'unit(px,%)',
+    'padding-bottom--responsive': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
+    'padding-left--responsive': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
+    'padding-right--responsive': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
+    'padding-top--responsive': 'unit(px,%)',
   }
 
   static defaultAttributes = {
-    'font-size': '13px',
+    'font-size': '16px',
     padding: '16px',
   }
 
   darkClasses = null
+
+  responsiveClasses = null
 
   registerDarkModeRuleGroup({
     cssDeclarations,
@@ -120,7 +133,31 @@ export default class MjAccordionTitle extends BodyComponent {
 
   componentHeadStyle = () => {
     emitDarkModeHeadStyle(this.context && this.context.globalData)
+    emitResponsiveHeadStyle(this.context && this.context.globalData)
     return ''
+  }
+
+  getResponsiveClasses() {
+    if (this.responsiveClasses !== null) {
+      return this.responsiveClasses
+    }
+
+    const globalData = this.context && this.context.globalData
+
+    this.responsiveClasses = {
+      content: registerResponsiveRuleGroup(globalData, {
+        cssDeclarations: buildResponsiveDeclarations([
+          ['font-size', this.attributes['font-size--responsive']],
+          ['padding', this.attributes['padding--responsive']],
+          ['padding-top', this.attributes['padding-top--responsive']],
+          ['padding-right', this.attributes['padding-right--responsive']],
+          ['padding-bottom', this.attributes['padding-bottom--responsive']],
+          ['padding-left', this.attributes['padding-left--responsive']],
+        ]),
+      }),
+    }
+
+    return this.responsiveClasses
   }
 
   getStyles() {
@@ -155,11 +192,12 @@ export default class MjAccordionTitle extends BodyComponent {
   }
 
   renderIconImage(lightSrc, alt, darkSrc, toggleClass) {
+    const iconResponsiveClass = this.context && this.context.accordionIconResponsiveClass
     const img = `<img
           ${this.htmlAttributes({
             src: lightSrc,
             alt,
-            class: toggleClass,
+            class: [toggleClass, iconResponsiveClass].filter(Boolean).join(' '),
             style: 'img',
           })}
         />`
@@ -196,11 +234,16 @@ export default class MjAccordionTitle extends BodyComponent {
 
   renderTitle() {
     const colorDarkClass = this.getDarkClasses().color
+    const contentResponsiveClass = this.getResponsiveClasses().content
 
     return `
       <td
         ${this.htmlAttributes({
-          class: [this.getAttribute('css-class'), colorDarkClass]
+          class: [
+            this.getAttribute('css-class'),
+            colorDarkClass,
+            contentResponsiveClass,
+          ]
             .filter(Boolean)
             .join(' ') || undefined,
           style: 'td',

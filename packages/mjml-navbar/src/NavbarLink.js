@@ -5,6 +5,11 @@ import {
   emitDarkModeHeadStyle,
   registerDarkModeRule,
 } from 'mjml-core/lib/helpers/colorSchemeDarkMode'
+import {
+  emitResponsiveHeadStyle,
+  buildResponsiveDeclarations,
+  registerResponsiveRuleGroup,
+} from 'mjml-core/lib/helpers/responsiveMode'
 
 export default class MjNavbarLink extends BodyComponent {
   static componentName = 'mj-navbar-link'
@@ -15,18 +20,25 @@ export default class MjNavbarLink extends BodyComponent {
     color: 'color',
     'color--dark': 'color',
     'font-family': 'string',
-    'font-size': 'unit(px)',
+    'font-size': 'unit(px,rem)',
+    'font-size--responsive': 'unit(px,rem)',
     'font-style': 'string',
     'font-weight': 'string',
     href: 'string',
     'letter-spacing': 'unitWithNegative(px,em)',
-    'line-height': 'unit(px,%,)',
+    'line-height': 'unit(px,%,em,rem)',
+    'line-height--responsive': 'unit(px,%,em,rem)',
     name: 'string',
     padding: 'unit(px,%){1,4}',
+    'padding--responsive': 'unit(px,%){1,4}',
     'padding-bottom': 'unit(px,%)',
+    'padding-bottom--responsive': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
+    'padding-left--responsive': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
+    'padding-right--responsive': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
+    'padding-top--responsive': 'unit(px,%)',
     rel: 'string',
     target: 'string',
     'text-decoration': 'string',
@@ -36,14 +48,16 @@ export default class MjNavbarLink extends BodyComponent {
   static defaultAttributes = {
     color: '#000000',
     'font-family': 'Ubuntu, sans-serif',
-    'font-size': '13px',
-    'line-height': '22px',
+    'font-size': '16px',
+    'line-height': '150%',
     padding: '15px 10px',
     'text-decoration': 'none',
     'text-transform': 'uppercase',
   }
 
   darkClasses = null
+
+  responsiveClass = null
 
   getDarkClasses() {
     if (this.darkClasses !== null) {
@@ -67,7 +81,30 @@ export default class MjNavbarLink extends BodyComponent {
 
   componentHeadStyle = () => {
     emitDarkModeHeadStyle(this.context && this.context.globalData)
+    emitResponsiveHeadStyle(this.context && this.context.globalData)
     return ''
+  }
+
+  getResponsiveClass() {
+    if (this.responsiveClass !== null) {
+      return this.responsiveClass
+    }
+
+    const globalData = this.context && this.context.globalData
+
+    this.responsiveClass = registerResponsiveRuleGroup(globalData, {
+      cssDeclarations: buildResponsiveDeclarations([
+        ['font-size', this.attributes['font-size--responsive']],
+        ['line-height', this.attributes['line-height--responsive']],
+        ['padding', this.attributes['padding--responsive']],
+        ['padding-top', this.attributes['padding-top--responsive']],
+        ['padding-right', this.attributes['padding-right--responsive']],
+        ['padding-bottom', this.attributes['padding-bottom--responsive']],
+        ['padding-left', this.attributes['padding-left--responsive']],
+      ]),
+    })
+
+    return this.responsiveClass
   }
 
   getStyles() {
@@ -81,6 +118,7 @@ export default class MjNavbarLink extends BodyComponent {
         'font-weight': this.getAttribute('font-weight'),
         'letter-spacing': this.getAttribute('letter-spacing'),
         'line-height': this.getAttribute('line-height'),
+        'mso-line-height-alt': '120%',
         'text-decoration': this.getAttribute('text-decoration'),
         'text-transform': this.getAttribute('text-transform'),
         padding: this.getAttribute('padding'),
@@ -107,13 +145,14 @@ export default class MjNavbarLink extends BodyComponent {
     const cssClass = this.getAttribute('css-class')
       ? ` ${this.getAttribute('css-class')}`
       : ''
-    
+
     const darkClass = this.getDarkClasses().color ? ` ${this.getDarkClasses().color}` : ''
+    const responsiveClass = this.getResponsiveClass() ? ` ${this.getResponsiveClass()}` : ''
 
     return `
       <a
         ${this.htmlAttributes({
-          class: `mj-link${cssClass}${darkClass}`,
+          class: `mj-link${cssClass}${darkClass}${responsiveClass}`,
           href: link,
           rel: this.getAttribute('rel'),
           target: this.getAttribute('target'),

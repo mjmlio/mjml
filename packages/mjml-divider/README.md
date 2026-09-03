@@ -23,7 +23,8 @@ Displays a horizontal divider that can be customized like a HTML border.
 | border-color               | CSS color formats       | divider color                                                             | `#000000`     |
 | border-style               | string                  | CSS values, e.g. `dashed` `dotted` `solid`                                | `solid`       |
 | border-width               | `px`                    | divider's border width                                                    | `4px`         |
-| container-background-color | CSS color formats       | inner element background color                                            |               |
+| container-background-color | CSS color formats       | background color of the container                                         |               |
+| container-border-radius    | string                  | border radius of the container                                            |               |
 | css-class                  | string                  | class name, added to the root HTML element created                        |               |
 | padding                    | `px` `%`                | divider padding, supports up to 4 parameters                              | `10px 25px`   |
 | padding-bottom             | `px` `%`                | divider bottom padding                                                    |               |
@@ -38,10 +39,10 @@ Displays a horizontal divider that can be customized like a HTML border.
 
 ###### Dark-mode
 
-| attribute                        | accepts           | description                                 | default value |
-| -------------------------------- | ----------------- | ------------------------------------------- | ------------- |
-| border-color--dark               | CSS color formats | divider color in dark mode                  |               |
-| container-background-color--dark | CSS color formats | inner element background color in dark mode |               |
+| attribute                        | accepts           | description                                    | default value |
+| -------------------------------- | ----------------- | ---------------------------------------------- | ------------- |
+| border-color--dark               | CSS color formats | divider color in dark mode                     |               |
+| container-background-color--dark | CSS color formats | background color of the container in dark mode |               |
 
 <div class="alert alert-note" role="alert">
   <p>Note</p>

@@ -49,6 +49,7 @@ export default class MjImage extends BodyComponent {
     'border-top-color--dark': 'color',
     'container-background-color': 'color',
     'container-background-color--dark': 'color',
+    'container-border-radius': 'string',
     'fluid-on-mobile': 'boolean',
     'font-size': 'unit(px,rem)',
     'font-size--responsive': 'unit(px,rem)',

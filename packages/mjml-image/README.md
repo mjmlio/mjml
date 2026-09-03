@@ -29,7 +29,8 @@ Note that if no width is provided, the image will use the parent column width.
 | border-radius              | string                  | border radius                                                                                                                                 |                       |
 | border-right               | string                  | CSS border format                                                                                                                             |                       |
 | border-top                 | string                  | CSS border format                                                                                                                             |                       |
-| container-background-color | CSS color formats       | inner element background color                                                                                                                |                       |
+| container-background-color | CSS color formats       | background color of the container                                                                                                             |                       |
+| container-border-radius    | string                  | border radius of the container                                                                                                                |                       |
 | css-class                  | string                  | class name, added to the root HTML element created                                                                                            |                       |
 | fluid-on-mobile            | boolean                 | if `true`, will be full width on mobile even if `width` is set                                                                                |                       |
 | font-size                  | `px` `rem`              | size of the alt text when image is not rendered                                                                                               | `16px`                |
@@ -65,7 +66,7 @@ Note that if no width is provided, the image will use the parent column width.
 | border-left-color--dark          | CSS color formats | image left border color in dark mode                                       |               |
 | border-right-color--dark         | CSS color formats | image right border color in dark mode                                      |               |
 | border-top-color--dark           | CSS color formats | image top border color in dark mode                                        |               |
-| container-background-color--dark | CSS color formats | inner element background color in dark mode                                |               |
+| container-background-color--dark | CSS color formats | background color of the container in dark mode                             |               |
 | src--dark                        | string            | image used for dark mode (set `support-dark-mode="true"` in `<mjml>` tag). |               |
 
 <div class="alert alert-note" role="alert">

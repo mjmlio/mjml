@@ -16,6 +16,7 @@ export default class MjAccordion extends BodyComponent {
     'aria-roledescription': 'string',
     border: 'string',
     'border-color--dark': 'color',
+    'container-border-radius': 'string',
     'container-background-color': 'color',
     'container-background-color--dark': 'color',
     'font-family': 'string',

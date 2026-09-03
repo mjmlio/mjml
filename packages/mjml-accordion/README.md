@@ -57,7 +57,8 @@ Readers can interact by clicking on the tabs to reveal the content, providing a 
 | attribute                  | accepts                 | description                                        | default value                     |
 | -------------------------- | ----------------------- | -------------------------------------------------- | --------------------------------- |
 | border                     | string                  | CSS border format                                  | `2px solid black`                 |
-| container-background-color | CSS color formats       | background-color of the cell                       |                                   |
+| container-background-color | CSS color formats       | background color of the container                  |                                   |
+| container-border-radius    | string                  | border radius of the container                     |                                   |
 | css-class                  | string                  | class name, added to the root HTML element created |                                   |
 | font-family                | string                  | font                                               | `Ubuntu, sans-serif`              |
 | icon-align                 | `top` `middle` `bottom` | icon alignment                                     |                                   |
@@ -83,7 +84,7 @@ Readers can interact by clicking on the tabs to reveal the content, providing a 
 | attribute                        | accepts           | description                                | default value |
 | -------------------------------- | ----------------- | ------------------------------------------ | ------------- |
 | border--dark                     | string            | CSS border format                          |               |
-| container-background-color--dark | CSS color formats | background-color of the cell               |               |
+| container-background-color--dark | CSS color formats | background color of the container          |               |
 | icon-unwrapped-url--dark         | string            | dark-mode icon when accordion is unwrapped |               |
 | icon-wrapped-url--dark           | string            | dark-mode icon when accordion is wrapped   |               |
 

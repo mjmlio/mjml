@@ -30,7 +30,8 @@ Displays a gallery of images or "carousel". Readers can interact by hovering and
 | aria-label                 | string                         | adds an `aria-label` attribute to the carousel container           |                                   |
 | aria-roledescription       | string                         | adds an `aria-roledescription` attribute to the carousel container |                                   |
 | border-radius              | string                         | border radius                                                      | `6px`                             |
-| container-background-color | CSS color formats              | column background color                                            |                                   |
+| container-background-color | CSS color formats              | background color of the container                                  |                                   |
+| container-border-radius    | string                         | border radius of the container                                     |                                   |
 | css-class                  | string                         | class name, added to the root HTML element created                 |                                   |
 | icon-width                 | `px` `%`                       | width of the icons on left and right of the main image             | `44px`                            |
 | left-icon                  | string                         | icon on the left of the main image                                 | `https://i.imgur.com/xTh3hln.png` |
@@ -57,7 +58,7 @@ Displays a gallery of images or "carousel". Readers can interact by hovering and
 
 | attribute                        | accepts           | description                                         | default value |
 | -------------------------------- | ----------------- | --------------------------------------------------- | ------------- |
-| container-background-color--dark | CSS color formats | column background color in dark mode                |               |
+| container-background-color--dark | CSS color formats | background color of the container in dark mode      |               |
 | left-icon--dark                  | string            | dark-mode icon on the left of the main image        |               |
 | right-icon--dark                 | string            | dark-mode icon on the right of the main image       |               |
 | tb-border-color--dark            | CSS color formats | border color of the thumbnails in dark mode         |               |

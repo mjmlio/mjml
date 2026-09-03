@@ -26,6 +26,7 @@ export default class MjCarousel extends BodyComponent {
     'border-radius': 'string',
     'container-background-color': 'color',
     'container-background-color--dark': 'color',
+    'container-border-radius': 'string',
     'icon-width': 'unit(px,%)',
     'icon-width--responsive': 'unit(px,%)',
     'left-icon': 'string',

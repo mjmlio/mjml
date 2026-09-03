@@ -22,6 +22,9 @@ export default class MjNavbar extends BodyComponent {
     'aria-label': 'string',
     'aria-roledescription': 'string',
     'base-url': 'string',
+    'container-background-color': 'color',
+    'container-background-color--dark': 'color',
+    'container-border-radius': 'string',
     hamburger: 'string',
     'ico-align': 'enum(left,center,right)',
     'ico-close': 'string',
@@ -81,6 +84,14 @@ export default class MjNavbar extends BodyComponent {
     this.darkClasses = {}
 
     const globalData = this.context && this.context.globalData
+
+    const darkContainerBg = this.attributes['container-background-color--dark']
+    if (darkContainerBg) {
+      this.darkClasses.container = registerDarkModeRule(globalData, {
+        cssProperty: 'background-color',
+        cssValue: darkContainerBg,
+      })
+    }
 
     const darkIcoColor = this.getAttribute('ico-color--dark')
     if (darkIcoColor) {
@@ -182,8 +193,9 @@ ${selectors} { display: block !important }
   getAttribute(name) {
     if (name === 'css-class') {
       const base = this.attributes['css-class']
+      const containerDarkClass = this.getDarkClasses().container
       const containerResponsiveClass = this.getResponsiveClasses().container
-      return [base, containerResponsiveClass].filter(Boolean).join(' ') || undefined
+      return [base, containerDarkClass, containerResponsiveClass].filter(Boolean).join(' ') || undefined
     }
 
     return this.attributes[name]

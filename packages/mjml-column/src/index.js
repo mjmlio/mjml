@@ -750,6 +750,7 @@ export default class MjColumn extends BodyComponent {
                     background: component.getAttribute(
                       'container-background-color',
                     ),
+                    'border-radius': component.getAttribute('container-border-radius'),
                     'font-size': '0px',
                     padding: component.getAttribute('padding'),
                     'padding-top': component.getAttribute('padding-top'),

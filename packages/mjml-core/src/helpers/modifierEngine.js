@@ -48,17 +48,23 @@ function getClassPrefixForModifier(definition = {}) {
 export function formatGroupedRules(rules, selectorPrefix = '') {
   const declarationGroups = new Map()
 
-  rules.forEach(({ className, selector, cssProperty, cssValue }) => {
+  rules.forEach(({ className, selector, cssProperty, cssValue, selectorSuffix }) => {
     const declaration = `${cssProperty}: ${cssValue} !important;`
-    const targetSelector = selector
-      ? `${selectorPrefix}${selector}`
-      : `${selectorPrefix}.${className}`
+    const selectorSuffixes = Array.isArray(selectorSuffix)
+      ? selectorSuffix
+      : [selectorSuffix || '']
 
     if (!declarationGroups.has(declaration)) {
       declarationGroups.set(declaration, new Set())
     }
 
-    declarationGroups.get(declaration).add(targetSelector)
+    if (selector) {
+      declarationGroups.get(declaration).add(`${selectorPrefix}${selector}`)
+    } else {
+      selectorSuffixes.forEach((suffix) => {
+        declarationGroups.get(declaration).add(`${selectorPrefix}.${className}${suffix}`)
+      })
+    }
   })
 
   const selectorGroups = new Map()
@@ -126,6 +132,7 @@ export function registerModifierRule(
     modifier,
     cssProperty,
     cssValue,
+    selectorSuffix,
     selector,
     supportModifierSelector = false,
     mediaQuery,
@@ -192,6 +199,7 @@ export function registerModifierRule(
     selector,
     cssProperty,
     cssValue,
+    selectorSuffix,
     supportModifierSelector: Boolean(supportModifierSelector),
   })
 
@@ -203,6 +211,7 @@ export function registerModifierRuleGroup(
   {
     modifier,
     cssDeclarations,
+    selectorSuffix,
     selector,
     supportModifierSelector = false,
     mediaQuery,
@@ -225,6 +234,9 @@ export function registerModifierRuleGroup(
       modifier,
       cssProperty: validDeclarations[0].cssProperty,
       cssValue: validDeclarations[0].cssValue,
+      selectorSuffix: Object.prototype.hasOwnProperty.call(validDeclarations[0], 'selectorSuffix')
+        ? validDeclarations[0].selectorSuffix
+        : selectorSuffix,
       selector,
       supportModifierSelector,
       mediaQuery,
@@ -246,13 +258,16 @@ export function registerModifierRuleGroup(
     globalData[rulesKey] = []
   }
 
-  validDeclarations.slice(1).forEach(({ cssProperty, cssValue }) => {
+  validDeclarations.slice(1).forEach((declaration) => {
     globalData[rulesKey].push({
       modifier: normalizeModifierKeyword(modifier),
       className,
+      cssProperty: declaration.cssProperty,
+      cssValue: declaration.cssValue,
+      selectorSuffix: Object.prototype.hasOwnProperty.call(declaration, 'selectorSuffix')
+        ? declaration.selectorSuffix
+        : selectorSuffix,
       selector,
-      cssProperty,
-      cssValue,
       supportModifierSelector: Boolean(supportModifierSelector),
     })
   })

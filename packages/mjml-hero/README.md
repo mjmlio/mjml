@@ -130,3 +130,22 @@ Use `background-color` to provide a fallback color in case an email client doesn
   <p>Note</p>
   <p>All <code>--dark</code> modifier attributes require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
 </div>
+
+###### Responsive
+
+| attribute                        | accepts  | description                                                        | default value |
+| -------------------------------- | -------- | ------------------------------------------------------------------ | ------------- |
+| background-height--responsive    | `px` `%` | height of the image used, mandatory                                |               |
+| background-position--responsive  | string   | CSS values, i.e. `left` `center` `right` + `top` `center` `bottom` |               |
+| background-width--responsive     | `px` `%` | width of the image used, mandatory                                 |               |
+| height--responsive               | `px` `%` | hero section height, (required for `fixed-height` mode)            |               |
+| inner-padding--responsive        | `px` `%` | hero inner padding, supports up to 4 parameters                    |               |
+| inner-padding-bottom--responsive | `px` `%` | hero bottom inner padding                                          |               |
+| inner-padding-left--responsive   | `px` `%` | hero left inner padding                                            |               |
+| inner-padding-right--responsive  | `px` `%` | hero right inner padding                                           |               |
+| inner-padding-top--responsive    | `px` `%` | hero top inner padding                                             |               |
+| padding--responsive              | `px` `%` | hero padding, supports up to 4 parameters                          |               |
+| padding-bottom--responsive       | `px` `%` | hero bottom padding                                                |               |
+| padding-left--responsive         | `px` `%` | hero left padding                                                  |               |
+| padding-right--responsive        | `px` `%` | hero right padding                                                 |               |
+| padding-top--responsive          | `px` `%` | hero top padding                                                   |               |

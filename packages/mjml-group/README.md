@@ -77,3 +77,10 @@ Prevent adjacent `mj-column` instances from stacking on mobile by wrapping them 
   <p>Note</p>
   <p>All <code>--dark</code> modifier attributes require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
 </div>
+
+###### Responsive
+
+| attribute             | accepts     | description                              | default value |
+| --------------------- | ----------- | ---------------------------------------- | ------------- |
+| direction--responsive | `ltr` `rtl` | set the display order of direct children |               |
+| width--responsive     | `px` `%`    | group width                              |               |

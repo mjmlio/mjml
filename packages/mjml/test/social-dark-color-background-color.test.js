@@ -115,9 +115,9 @@ describe('mj-social / mj-social-element dark color/background', function () {
     chai.expect(styles).to.include('.mj-dark-1 { background-color: #111111 !important; }')
     chai.expect(styles).to.include('.mj-dark-2 { background-color: #222222 !important; }')
     chai.expect($('td.mj-dark-1').get().length).to.be.at.least(1)
-    chai.expect($('table.mj-dark-2').get().length).to.be.at.least(1)
+    chai.expect($('td.mj-dark-2').get().length).to.be.at.least(1)
     chai.expect($('table.mj-dark-1').get().length).to.equal(0)
-    chai.expect($('td.mj-dark-2').get().length).to.equal(0)
+    chai.expect($('table.mj-dark-2').get().length).to.equal(0)
   })
 
   it('should not emit [data-ogsb] dark rules by default', async function () {

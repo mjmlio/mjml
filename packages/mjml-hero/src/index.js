@@ -5,8 +5,14 @@ import {
   emitDarkModeHeadStyle,
   registerDarkModeRule,
 } from 'mjml-core/lib/helpers/colorSchemeDarkMode'
+import { OUTLOOK_DARK_MODE_CLASS } from 'mjml-core/lib/helpers/outlookDarkMode'
 
 import { msoConditionalTag } from 'mjml-core/lib/helpers/conditionalTag'
+import {
+  emitResponsiveHeadStyle,
+  buildResponsiveDeclarations,
+  registerResponsiveRuleGroup,
+} from 'mjml-core/lib/helpers/responsiveMode'
 
 const makeBackgroundString = flow(filter(identity), join(' '))
 
@@ -19,25 +25,39 @@ export default class MjHero extends BodyComponent {
     'background-color': 'color',
     'background-color--dark': 'color',
     'background-height': 'unit(px,%)',
+    'background-height--responsive': 'unit(px,%)',
     'background-position': 'string',
+    'background-position--responsive': 'string',
     'background-url': 'string',
     'background-url--dark': 'string',
     'background-width': 'unit(px,%)',
+    'background-width--responsive': 'unit(px,%)',
     'border-radius': 'string',
     height: 'unit(px,%)',
+    'height--responsive': 'unit(px,%)',
     'inner-background-color': 'color',
     'inner-background-color--dark': 'color',
     'inner-padding': 'unit(px,%){1,4}',
+    'inner-padding--responsive': 'unit(px,%){1,4}',
     'inner-padding-top': 'unit(px,%)',
+    'inner-padding-top--responsive': 'unit(px,%)',
     'inner-padding-left': 'unit(px,%)',
+    'inner-padding-left--responsive': 'unit(px,%)',
     'inner-padding-right': 'unit(px,%)',
+    'inner-padding-right--responsive': 'unit(px,%)',
     'inner-padding-bottom': 'unit(px,%)',
+    'inner-padding-bottom--responsive': 'unit(px,%)',
     mode: 'string',
     padding: 'unit(px,%){1,4}',
+    'padding--responsive': 'unit(px,%){1,4}',
     'padding-bottom': 'unit(px,%)',
+    'padding-bottom--responsive': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
+    'padding-left--responsive': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
+    'padding-right--responsive': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
+    'padding-top--responsive': 'unit(px,%)',
     role: 'string',
     'vertical-align': 'enum(top,bottom,middle)',
   }
@@ -51,6 +71,89 @@ export default class MjHero extends BodyComponent {
   }
 
   darkClasses = null
+
+  responsiveClasses = null
+
+  getResponsiveBackgroundRatio() {
+    const backgroundHeight =
+      this.attributes['background-height--responsive'] ||
+      this.getAttribute('background-height')
+    const backgroundWidth =
+      this.attributes['background-width--responsive'] ||
+      this.getAttribute('background-width')
+
+    const parsedHeight = parseFloat(backgroundHeight)
+    const parsedWidth = parseFloat(backgroundWidth)
+
+    if (!Number.isFinite(parsedHeight) || !Number.isFinite(parsedWidth) || parsedWidth <= 0) {
+      return null
+    }
+
+    return `${Math.round((parsedHeight / parsedWidth) * 100)}%`
+  }
+
+  getResponsiveClasses() {
+    if (this.responsiveClasses !== null) {
+      return this.responsiveClasses
+    }
+
+    this.responsiveClasses = {
+      outerTd: null,
+      fluidTd: null,
+      innerDiv: null,
+    }
+
+    const globalData = this.context && this.context.globalData
+    const isFluidMode = this.getAttribute('mode') === 'fluid-height'
+
+    this.responsiveClasses.outerTd = registerResponsiveRuleGroup(globalData, {
+      cssDeclarations: buildResponsiveDeclarations([
+        ['background-position', this.attributes['background-position--responsive']],
+        ['height', this.attributes['height--responsive']],
+        ['padding', this.attributes['padding--responsive']],
+        ['padding-top', this.attributes['padding-top--responsive']],
+        ['padding-right', this.attributes['padding-right--responsive']],
+        ['padding-bottom', this.attributes['padding-bottom--responsive']],
+        ['padding-left', this.attributes['padding-left--responsive']],
+      ]),
+    })
+
+    this.responsiveClasses.innerDiv = registerResponsiveRuleGroup(globalData, {
+      cssDeclarations: buildResponsiveDeclarations([
+        ['padding', this.attributes['inner-padding--responsive']],
+        ['padding-top', this.attributes['inner-padding-top--responsive']],
+        ['padding-right', this.attributes['inner-padding-right--responsive']],
+        ['padding-bottom', this.attributes['inner-padding-bottom--responsive']],
+        ['padding-left', this.attributes['inner-padding-left--responsive']],
+      ]),
+    })
+
+    this.responsiveClasses.fluidTd = isFluidMode
+      ? registerResponsiveRuleGroup(globalData, {
+          cssDeclarations: buildResponsiveDeclarations([
+            ['padding-bottom', this.getResponsiveBackgroundRatio()],
+          ]),
+        })
+      : null
+
+    return this.responsiveClasses
+  }
+
+  registerDarkBackgroundImageClass() {
+    const globalData = this.context && this.context.globalData
+
+    if (!globalData) {
+      return null
+    }
+
+    if (typeof globalData.outlookDarkModeImageCount !== 'number') {
+      globalData.outlookDarkModeImageCount = 0
+    }
+
+    globalData.outlookDarkModeImageCount += 1
+
+    return `${OUTLOOK_DARK_MODE_CLASS}-${globalData.outlookDarkModeImageCount}`
+  }
 
   getDarkBackgroundImageCssValue() {
     const darkBackgroundUrl = this.getAttribute('background-url--dark')
@@ -68,6 +171,8 @@ export default class MjHero extends BodyComponent {
     if (backgroundClass || backgroundImageClass || innerBackgroundClass) {
       emitDarkModeHeadStyle(this.context && this.context.globalData)
     }
+
+    emitResponsiveHeadStyle(this.context && this.context.globalData)
 
     return ''
   }
@@ -201,6 +306,7 @@ export default class MjHero extends BodyComponent {
     const { containerWidth: currentContainerWidth } = this.getChildContext()
     const { children } = this.props
     const { innerBackgroundClass } = this.getDarkClasses()
+    const { innerDiv } = this.getResponsiveClasses()
 
     return `
       ${msoConditionalTag(`
@@ -220,7 +326,7 @@ export default class MjHero extends BodyComponent {
       <div
         ${this.htmlAttributes({
           align: this.getAttribute('align'),
-          class: ['mj-hero-content', innerBackgroundClass].filter(Boolean).join(' '),
+          class: ['mj-hero-content', innerBackgroundClass, innerDiv].filter(Boolean).join(' '),
           style: 'inner-div',
         })}
       >
@@ -295,11 +401,12 @@ export default class MjHero extends BodyComponent {
 
   renderMode() {
     const { backgroundClass, backgroundImageClass } = this.getDarkClasses()
+    const { outerTd, fluidTd } = this.getResponsiveClasses()
 
     const commonAttributes = {
       background: this.getAttribute('background-url'),
       class:
-        [backgroundClass, backgroundImageClass].filter(Boolean).join(' ') ||
+        [backgroundClass, backgroundImageClass, outerTd].filter(Boolean).join(' ') ||
         undefined,
       style: {
         background: this.getBackground(),
@@ -319,7 +426,10 @@ export default class MjHero extends BodyComponent {
     /* eslint-disable no-alert, no-case-declarations */
     switch (this.getAttribute('mode')) {
       case 'fluid-height':
-        const magicTd = this.htmlAttributes({ style: `td-fluid` })
+        const magicTd = this.htmlAttributes({
+          class: fluidTd,
+          style: `td-fluid`,
+        })
 
         return `
           <td ${magicTd}></td>

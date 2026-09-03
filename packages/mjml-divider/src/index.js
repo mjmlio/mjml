@@ -3,12 +3,25 @@ import {
   emitDarkModeHeadStyle,
   registerDarkModeRule,
 } from 'mjml-core/lib/helpers/colorSchemeDarkMode'
+import {
+  emitResponsiveHeadStyle,
+  buildResponsiveDeclarations,
+  registerResponsiveRuleGroup,
+  registerResponsivePaddingGroup,
+} from 'mjml-core/lib/helpers/responsiveMode'
+
+function computeAlignMargin(align) {
+  if (align === 'left') return '0px'
+  if (align === 'right') return '0px 0px 0px auto'
+  return '0px auto'
+}
 
 export default class MjDivider extends BodyComponent {
   static componentName = 'mj-divider'
 
   static allowedAttributes = {
     align: 'enum(left,center,right)',
+    'align--responsive': 'enum(left,center,right)',
     'aria-hidden': 'string',
     'border-color': 'color',
     'border-color--dark': 'color',
@@ -16,12 +29,19 @@ export default class MjDivider extends BodyComponent {
     'border-width': 'unit(px)',
     'container-background-color': 'color',
     'container-background-color--dark': 'color',
+    'container-border-radius': 'string',
     padding: 'unit(px,%){1,4}',
+    'padding--responsive': 'unit(px,%){1,4}',
     'padding-bottom': 'unit(px,%)',
+    'padding-bottom--responsive': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
+    'padding-left--responsive': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
+    'padding-right--responsive': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
+    'padding-top--responsive': 'unit(px,%)',
     width: 'unit(px,%)',
+    'width--responsive': 'unit(px,%)',
   }
 
   static defaultAttributes = {
@@ -34,6 +54,8 @@ export default class MjDivider extends BodyComponent {
   }
 
   darkClasses = null
+
+  responsiveClasses = null
 
   getDarkClasses() {
     if (this.darkClasses !== null) {
@@ -63,11 +85,49 @@ export default class MjDivider extends BodyComponent {
     return this.darkClasses
   }
 
+  getResponsiveClasses() {
+    if (this.responsiveClasses !== null) return this.responsiveClasses
+
+    this.responsiveClasses = {
+      container: null,
+      table: null,
+      hr: null,
+    }
+
+    const globalData = this.context && this.context.globalData
+
+    this.responsiveClasses.container = registerResponsivePaddingGroup(globalData, this.attributes)
+
+    const alignResponsive = this.attributes['align--responsive']
+    const widthResponsive = this.attributes['width--responsive']
+
+    if (alignResponsive || widthResponsive) {
+      const computedMargin = alignResponsive ? computeAlignMargin(alignResponsive) : null
+
+      this.responsiveClasses.table = registerResponsiveRuleGroup(globalData, {
+        cssDeclarations: buildResponsiveDeclarations([
+          ['width', widthResponsive],
+          ['margin', computedMargin],
+        ]),
+      })
+
+      this.responsiveClasses.hr = registerResponsiveRuleGroup(globalData, {
+        cssDeclarations: buildResponsiveDeclarations([
+          ['max-width', widthResponsive],
+          ['margin', computedMargin],
+        ]),
+      })
+    }
+
+    return this.responsiveClasses
+  }
+
   getAttribute(name) {
     if (name === 'css-class') {
       const base = this.attributes['css-class']
       const containerDarkClass = this.getDarkClasses().container
-      return [base, containerDarkClass].filter(Boolean).join(' ') || undefined
+      const containerResponsiveClass = this.getResponsiveClasses().container
+      return [base, containerDarkClass, containerResponsiveClass].filter(Boolean).join(' ') || undefined
     }
 
     return this.attributes[name]
@@ -75,6 +135,7 @@ export default class MjDivider extends BodyComponent {
 
   componentHeadStyle = () => {
     emitDarkModeHeadStyle(this.context && this.context.globalData)
+    emitResponsiveHeadStyle(this.context && this.context.globalData)
     return ''
   }
 
@@ -118,6 +179,7 @@ export default class MjDivider extends BodyComponent {
       this.context.globalData.supportOutlookClassic !== false
 
     const borderDarkClass = this.getDarkClasses().border
+    const { table: tableResponsiveClass, hr: hrResponsiveClass } = this.getResponsiveClasses()
 
     if (supportOutlookClassic) {
       return `
@@ -131,7 +193,7 @@ export default class MjDivider extends BodyComponent {
             : {}),
           border: '0',
           cellpadding: '0',
-          class: borderDarkClass,
+          class: [borderDarkClass, tableResponsiveClass].filter(Boolean).join(' ') || undefined,
           cellspacing: '0',
           style: 'tableHr',
           role: 'none',
@@ -153,7 +215,7 @@ export default class MjDivider extends BodyComponent {
                 'aria-hidden': 'true',
               }
             : {}),
-          class: borderDarkClass,
+          class: [borderDarkClass, hrResponsiveClass].filter(Boolean).join(' ') || undefined,
           style: 'hr',
         })}
       />

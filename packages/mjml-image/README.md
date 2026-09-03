@@ -29,7 +29,8 @@ Note that if no width is provided, the image will use the parent column width.
 | border-radius              | string                  | border radius                                                                                                                                 |                       |
 | border-right               | string                  | CSS border format                                                                                                                             |                       |
 | border-top                 | string                  | CSS border format                                                                                                                             |                       |
-| container-background-color | CSS color formats       | inner element background color                                                                                                                |                       |
+| container-background-color | CSS color formats       | background color of the container                                                                                                             |                       |
+| container-border-radius    | string                  | border radius of the container                                                                                                                |                       |
 | css-class                  | string                  | class name, added to the root HTML element created                                                                                            |                       |
 | fluid-on-mobile            | boolean                 | if `true`, will be full width on mobile even if `width` is set                                                                                |                       |
 | font-size                  | `px` `rem`              | size of the alt text when image is not rendered                                                                                               | `16px`                |
@@ -65,10 +66,30 @@ Note that if no width is provided, the image will use the parent column width.
 | border-left-color--dark          | CSS color formats | image left border color in dark mode                                       |               |
 | border-right-color--dark         | CSS color formats | image right border color in dark mode                                      |               |
 | border-top-color--dark           | CSS color formats | image top border color in dark mode                                        |               |
-| container-background-color--dark | CSS color formats | inner element background color in dark mode                                |               |
+| container-background-color--dark | CSS color formats | background color of the container in dark mode                             |               |
 | src--dark                        | string            | image used for dark mode (set `support-dark-mode="true"` in `<mjml>` tag). |               |
 
 <div class="alert alert-note" role="alert">
   <p>Note</p>
   <p>All <code>--dark</code> modifier attributes and <code>support-dark-mode-image="outlook"</code> require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
+</div>
+
+###### Responsive
+
+| attribute                  | accepts                 | description                                     | default value |
+| -------------------------- | ----------------------- | ----------------------------------------------- | ------------- |
+| align--responsive          | `left` `center` `right` | image alignment                                 |               |
+| font-size--responsive      | `px` `rem`              | size of the alt text when image is not rendered |               |
+| height--responsive         | `px` `auto`             | image height                                    |               |
+| max-height--responsive     | `px` `%`                | specify the maximum height of an image          |               |
+| padding--responsive        | `px` `%`                | image padding, supports up to 4 parameters      |               |
+| padding-bottom--responsive | `px` `%`                | image bottom padding                            |               |
+| padding-left--responsive   | `px` `%`                | image left padding                              |               |
+| padding-right--responsive  | `px` `%`                | image right padding                             |               |
+| padding-top--responsive    | `px` `%`                | image top padding                               |               |
+| width--responsive          | `px` `%`                | image width                                     |               |
+
+<div class="alert alert-note" role="alert">
+  <p>Note</p>
+  <p>Yahoo (iOS / Android) converts <code>height--responsive</code> declaration to a <code>min-height</code> in CSS. This can be fixed by adding the same value in <code>max-height--responsive</code> declaration.</p>
 </div>

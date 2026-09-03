@@ -3,6 +3,12 @@ import {
   DARK_MODE_CLASS_PREFIX,
   emitDarkModeHeadStyle,
 } from 'mjml-core/lib/helpers/colorSchemeDarkMode'
+import {
+  emitResponsiveHeadStyle,
+  buildResponsiveDeclarations,
+  registerResponsiveRuleGroup,
+  registerResponsivePaddingGroup,
+} from 'mjml-core/lib/helpers/responsiveMode'
 
 import genRandomHexString from 'mjml-core/lib/helpers/genRandomHexString'
 import widthParser from 'mjml-core/lib/helpers/widthParser'
@@ -39,6 +45,7 @@ export default class MjColumn extends BodyComponent {
     'border-top': 'string',
     'border-top-color--dark': 'color',
     direction: 'enum(ltr,rtl)',
+    'direction--responsive': 'enum(ltr,rtl)',
     'inner-background-color': 'color',
     'inner-background-color--dark': 'color',
     'inner-border': 'string',
@@ -53,13 +60,19 @@ export default class MjColumn extends BodyComponent {
     'inner-border-top': 'string',
     'inner-border-top-color--dark': 'color',
     padding: 'unit(px,%){1,4}',
+    'padding--responsive': 'unit(px,%){1,4}',
     'padding-bottom': 'unit(px,%)',
+    'padding-bottom--responsive': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
+    'padding-left--responsive': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
+    'padding-right--responsive': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
+    'padding-top--responsive': 'unit(px,%)',
     role: 'string',
     'vertical-align': 'enum(top,bottom,middle)',
     width: 'unit(px,%)',
+    'width--responsive': 'unit(px,%)',
   }
 
   static defaultAttributes = {
@@ -67,6 +80,8 @@ export default class MjColumn extends BodyComponent {
   }
 
   darkClasses = null
+
+  responsiveClasses = null
 
   registerDarkModeRuleGroup({
     cssDeclarations,
@@ -175,8 +190,31 @@ export default class MjColumn extends BodyComponent {
     return this.darkClasses
   }
 
+  getResponsiveClasses() {
+    if (this.responsiveClasses !== null) return this.responsiveClasses
+
+    this.responsiveClasses = {
+      div: null,
+      gutter: null,
+    }
+
+    const globalData = this.context && this.context.globalData
+
+    this.responsiveClasses.div = registerResponsiveRuleGroup(globalData, {
+      cssDeclarations: buildResponsiveDeclarations([
+        ['direction', this.attributes['direction--responsive']],
+        ['width', this.attributes['width--responsive']],
+      ]),
+    })
+
+    this.responsiveClasses.gutter = registerResponsivePaddingGroup(globalData, this.attributes)
+
+    return this.responsiveClasses
+  }
+
   componentHeadStyle = () => {
     emitDarkModeHeadStyle(this.context && this.context.globalData)
+    emitResponsiveHeadStyle(this.context && this.context.globalData)
     return ''
   }
 
@@ -452,8 +490,8 @@ export default class MjColumn extends BodyComponent {
     return Math.round(parseFloat(value))
   }
 
-  getNormalizedGutterValue(targetUnit) {
-    const { gutter } = this.context
+  getNormalizedGutterValue(targetUnit, sourceGutter = this.context.gutter) {
+    const gutter = sourceGutter
 
     if (!gutter) {
       return 0
@@ -527,7 +565,12 @@ export default class MjColumn extends BodyComponent {
 
   getMobilePaddingValues() {
     const { first, last } = this.props
-    const gutter = this.getNormalizedGutterValue('%')
+    const responsiveGutter = this.context.gutterResponsive
+    const gutterSource =
+      responsiveGutter != null && responsiveGutter !== ''
+        ? responsiveGutter
+        : this.context.gutter
+    const gutter = this.getNormalizedGutterValue('%', gutterSource)
     const half = gutter / 2
 
     // On mobile: gutter appears as vertical spacing between stacked columns,
@@ -642,7 +685,7 @@ export default class MjColumn extends BodyComponent {
       >
         <tr>
           <td ${this.htmlAttributes({
-            class: outerDarkClass || undefined,
+            class: [outerDarkClass, this.getResponsiveClasses().gutter].filter(Boolean).join(' ') || undefined,
             style: 'gutter',
           })}>
             ${this.renderColumn()}
@@ -707,6 +750,7 @@ export default class MjColumn extends BodyComponent {
                     background: component.getAttribute(
                       'container-background-color',
                     ),
+                    'border-radius': component.getAttribute('container-border-radius'),
                     'font-size': '0px',
                     padding: component.getAttribute('padding'),
                     'padding-top': component.getAttribute('padding-top'),
@@ -738,6 +782,11 @@ export default class MjColumn extends BodyComponent {
 
     if (this.getAttribute('css-class')) {
       classesName += ` ${this.getAttribute('css-class')}`
+    }
+
+    const divResponsiveClass = this.getResponsiveClasses().div
+    if (divResponsiveClass) {
+      classesName += ` ${divResponsiveClass}`
     }
 
     return `

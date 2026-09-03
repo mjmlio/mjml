@@ -5,6 +5,12 @@ import {
   emitDarkModeHeadStyle,
   registerDarkModeRule,
 } from 'mjml-core/lib/helpers/colorSchemeDarkMode'
+import {
+  emitResponsiveHeadStyle,
+  registerResponsiveRuleGroup,
+  buildResponsiveDeclarations,
+  registerResponsivePaddingGroup,
+} from 'mjml-core/lib/helpers/responsiveMode'
 
 // ─── normalize-elements helpers ───────────────────────────────────────────────
 
@@ -216,23 +222,33 @@ export default class MjText extends BodyComponent {
 
   static allowedAttributes = {
     align: 'enum(left,right,center,justify)',
+    'align--responsive': 'enum(left,right,center,justify)',
     color: 'color',
     'color--dark': 'color',
     'container-background-color': 'color',
     'container-background-color--dark': 'color',
+    'container-border-radius': 'string',
     'font-family': 'string',
     'font-size': 'unit(px,rem)',
+    'font-size--responsive': 'unit(px,rem)',
     'font-style': 'string',
     'font-weight': 'string',
     height: 'unit(px,%)',
+    'height--responsive': 'unit(px,%)',
     'letter-spacing': 'unitWithNegative(px,em)',
     'line-height': 'unit(px,%,em,rem,)',
+    'line-height--responsive': 'unit(px,%,em,rem)',
     'normalize-elements': 'string',
     padding: 'unit(px,%){1,4}',
+    'padding--responsive': 'unit(px,%){1,4}',
     'padding-bottom': 'unit(px,%)',
+    'padding-bottom--responsive': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
+    'padding-left--responsive': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
+    'padding-right--responsive': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
+    'padding-top--responsive': 'unit(px,%)',
     'text-decoration': 'string',
     'text-transform': 'string',
     'vertical-align': 'enum(top,bottom,middle)',
@@ -241,6 +257,8 @@ export default class MjText extends BodyComponent {
   // Lazily register both dark-mode rules on first access so the sequential
   // counter is stable regardless of whether getAttribute or renderContent runs first.
   darkClasses = null
+
+  responsiveClasses = null
 
   getDarkClasses() {
     if (this.darkClasses !== null) return this.darkClasses
@@ -266,6 +284,30 @@ export default class MjText extends BodyComponent {
     return this.darkClasses
   }
 
+  getResponsiveClasses() {
+    if (this.responsiveClasses !== null) return this.responsiveClasses
+
+    this.responsiveClasses = {
+      container: null,
+      text: null,
+    }
+
+    const globalData = this.context && this.context.globalData
+
+    this.responsiveClasses.container = registerResponsivePaddingGroup(globalData, this.attributes)
+
+    this.responsiveClasses.text = registerResponsiveRuleGroup(globalData, {
+      cssDeclarations: buildResponsiveDeclarations([
+        ['font-size', this.attributes['font-size--responsive']],
+        ['line-height', this.attributes['line-height--responsive']],
+        ['text-align', this.attributes['align--responsive']],
+        ['height', this.attributes['height--responsive']],
+      ]),
+    })
+
+    return this.responsiveClasses
+  }
+
   // Merge the container dark class into css-class so the parent column applies
   // it to the wrapping <td> element (which is where container-background-color
   // is rendered as an inline style).
@@ -273,7 +315,8 @@ export default class MjText extends BodyComponent {
     if (name === 'css-class') {
       const base = this.attributes['css-class']
       const containerDarkClass = this.getDarkClasses().container
-      return [base, containerDarkClass]
+      const containerResponsiveClass = this.getResponsiveClasses().container
+      return [base, containerDarkClass, containerResponsiveClass]
         .filter(Boolean)
         .join(' ') || undefined
     }
@@ -291,6 +334,7 @@ export default class MjText extends BodyComponent {
 
   componentHeadStyle = () => {
     emitDarkModeHeadStyle(this.context && this.context.globalData)
+    emitResponsiveHeadStyle(this.context && this.context.globalData)
     if (this.getNormalizeElements().length > 0) {
       emitNormalizeHeadStyle(this.context && this.context.globalData)
     }
@@ -327,10 +371,11 @@ export default class MjText extends BodyComponent {
 
   renderContent() {
     const colorDarkClass = this.getDarkClasses().color
+    const textResponsiveClass = this.getResponsiveClasses().text
     const normalizeElements = this.getNormalizeElements()
     const hasNormalize = normalizeElements.length > 0
 
-    const classes = [colorDarkClass, hasNormalize ? 'normalize' : null]
+    const classes = [colorDarkClass, textResponsiveClass, hasNormalize ? 'normalize' : null]
       .filter(Boolean)
       .join(' ') || null
 

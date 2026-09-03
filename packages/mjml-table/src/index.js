@@ -6,7 +6,19 @@ import {
   emitDarkModeHeadStyle,
   registerDarkModeRule,
 } from 'mjml-core/lib/helpers/colorSchemeDarkMode'
+import {
+  emitResponsiveHeadStyle,
+  buildResponsiveDeclarations,
+  registerResponsiveRuleGroup,
+  registerResponsivePaddingGroup,
+} from 'mjml-core/lib/helpers/responsiveMode'
 import { reduce } from 'lodash'
+
+function computeTableAlignMargin(align) {
+  if (align === 'left') return '0 auto 0 0'
+  if (align === 'right') return '0 0 0 auto'
+  return '0 auto'
+}
 
 export default class MjTable extends BodyComponent {
   static componentName = 'mj-table'
@@ -15,6 +27,7 @@ export default class MjTable extends BodyComponent {
 
   static allowedAttributes = {
     align: 'enum(left,right,center)',
+    'align--responsive': 'enum(left,right,center)',
     'aria-label': 'string',
     'aria-roledescription': 'string',
     border: 'string',
@@ -25,20 +38,29 @@ export default class MjTable extends BodyComponent {
     'color--dark': 'color',
     'container-background-color': 'color',
     'container-background-color--dark': 'color',
+    'container-border-radius': 'string',
     'font-family': 'string',
     'font-size': 'unit(px,rem)',
+    'font-size--responsive': 'unit(px,rem)',
     'font-weight': 'string',
     'line-height': 'unit(px,%,em,rem)',
+    'line-height--responsive': 'unit(px,%,em,rem)',
     'responsive-mode': 'enum(stack,scroll)',
     padding: 'unit(px,%){1,4}',
+    'padding--responsive': 'unit(px,%){1,4}',
     'padding-bottom': 'unit(px,%)',
+    'padding-bottom--responsive': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
+    'padding-left--responsive': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
+    'padding-right--responsive': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
+    'padding-top--responsive': 'unit(px,%)',
     role: 'enum(none,presentation,table)',
     'table-layout': 'enum(auto,fixed,initial,inherit)',
     'vertical-align': 'enum(top,bottom,middle)',
     width: 'unit(px,%,auto)',
+    'width--responsive': 'unit(px,%)',
   }
 
   static defaultAttributes = {
@@ -55,6 +77,8 @@ export default class MjTable extends BodyComponent {
   }
 
   darkClasses = null
+
+  responsiveClasses = null
 
   registerDarkModeRuleGroup({
     cssDeclarations,
@@ -130,11 +154,38 @@ export default class MjTable extends BodyComponent {
     return this.darkClasses
   }
 
+  getResponsiveClasses() {
+    if (this.responsiveClasses !== null) return this.responsiveClasses
+
+    this.responsiveClasses = {
+      container: null,
+      table: null,
+    }
+
+    const globalData = this.context && this.context.globalData
+
+    this.responsiveClasses.container = registerResponsivePaddingGroup(globalData, this.attributes)
+
+    this.responsiveClasses.table = registerResponsiveRuleGroup(globalData, {
+      cssDeclarations: buildResponsiveDeclarations([
+        ['font-size', this.attributes['font-size--responsive']],
+        ['line-height', this.attributes['line-height--responsive']],
+        ['width', this.attributes['width--responsive']],
+        ['margin', this.attributes['align--responsive']
+          ? computeTableAlignMargin(this.attributes['align--responsive'])
+          : null],
+      ]),
+    })
+
+    return this.responsiveClasses
+  }
+
   getAttribute(name) {
     if (name === 'css-class') {
       const base = this.attributes['css-class']
       const containerDarkClass = this.getDarkClasses().container
-      return [base, containerDarkClass].filter(Boolean).join(' ') || undefined
+      const containerResponsiveClass = this.getResponsiveClasses().container
+      return [base, containerDarkClass, containerResponsiveClass].filter(Boolean).join(' ') || undefined
     }
 
     return this.attributes[name]
@@ -142,11 +193,31 @@ export default class MjTable extends BodyComponent {
 
   componentHeadStyle = () => {
     emitDarkModeHeadStyle(this.context && this.context.globalData)
+    emitResponsiveHeadStyle(this.context && this.context.globalData)
 
     const globalData = this.context && this.context.globalData
+    if (globalData && globalData.hasScrollTable && !globalData.scrollTableStyleEmitted) {
+      globalData.scrollTableStyleEmitted = true
+      globalData.headRaw.push(`<style>
+    .mj-scroll-table-outer {
+      table-layout: fixed;
+    }
+
+    .mj-scroll-table-inner {
+      overflow: auto;
+    }
+
+    .mj-scroll-table-inner table {
+      margin: 0;
+      border: none;
+      word-break: keep-all;
+    }
+  </style>`)
+    }
+
     if (globalData && globalData.hasStackTable && !globalData.stackTableStyleEmitted) {
       globalData.stackTableStyleEmitted = true
-      globalData.headRaw.push(`<style>
+      globalData.headRaw.push(`<style id="mj-stack-table">
     @media screen and (max-width: 479px) {
       .mj-stack-table :is(caption + tbody, tbody:first-child, thead) > tr:first-child,
       .mj-stack-table:is(table) tbody th {
@@ -174,25 +245,6 @@ export default class MjTable extends BodyComponent {
         float: left;
         font-weight: bold;
       }
-    }
-  </style>`)
-    }
-
-    if (globalData && globalData.hasScrollTable && !globalData.scrollTableStyleEmitted) {
-      globalData.scrollTableStyleEmitted = true
-      globalData.headRaw.push(`<style>
-    .mj-scroll-table-outer {
-      table-layout: fixed;
-    }
-
-    .mj-scroll-table-inner {
-      overflow: auto;
-    }
-
-    .mj-scroll-table-inner table {
-      margin: 0;
-      border: none;
-      word-break: keep-all;
     }
   </style>`)
     }
@@ -311,6 +363,7 @@ export default class MjTable extends BodyComponent {
 
   render() {
     const tableDarkClass = this.getDarkClasses().table
+    const tableResponsiveClass = this.getResponsiveClasses().table
     const responsiveMode = this.getAttribute('responsive-mode')
     const globalData = this.context && this.context.globalData
 
@@ -356,7 +409,7 @@ export default class MjTable extends BodyComponent {
                     ...tableAttributes,
                     width: this.getWidth(),
                     border: '0',
-                    class: tableDarkClass || undefined,
+                    class: [tableDarkClass, tableResponsiveClass].filter(Boolean).join(' ') || undefined,
                     style: 'table',
                   })}
                 >
@@ -370,7 +423,7 @@ export default class MjTable extends BodyComponent {
     }
 
     const tableClass =
-      [tableDarkClass, responsiveMode === 'stack' ? 'mj-stack-table' : null]
+      [tableDarkClass, tableResponsiveClass, responsiveMode === 'stack' ? 'mj-stack-table' : null]
         .filter(Boolean)
         .join(' ') || undefined
 

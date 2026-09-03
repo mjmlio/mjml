@@ -30,7 +30,8 @@ Displays text which can be styled.
 | -------------------------- | ---------------------------------- | ------------------------------------------------------------ | -------------------- |
 | align                      | `left` `right` `center` `justify`  | text-alignment                                               | `left`               |
 | color                      | CSS color formats                  | text color                                                   | `#000000`            |
-| container-background-color | CSS color formats                  | inner element background color                               |                      |
+| container-background-color | CSS color formats                  | background color of the container                            |                      |
+| container-border-radius    | string                             | border radius of the container                               |                      |
 | css-class                  | string                             | class name, added to the root HTML element created           |                      |
 | font-family                | string                             | font                                                         | `Ubuntu, sans-serif` |
 | font-size                  | `px` `rem`                         | text size                                                    | `16px`               |
@@ -59,12 +60,26 @@ Displays text which can be styled.
 
 ###### Dark-mode
 
-| attribute                        | accepts           | description                       | default value |
-| -------------------------------- | ----------------- | --------------------------------- | ------------- |
-| color--dark                      | CSS color formats | the text color in dark-mode       |               |
-| container-background-color--dark | CSS color formats | the background color in dark-mode |               |
+| attribute                        | accepts           | description                                    | default value |
+| -------------------------------- | ----------------- | ---------------------------------------------- | ------------- |
+| color--dark                      | CSS color formats | the text color in dark-mode                    |               |
+| container-background-color--dark | CSS color formats | background color of the container in dark-mode |               |
 
 <div class="alert alert-note" role="alert">
   <p>Note</p>
   <p>All <code>--dark</code> modifier attributes require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
 </div>
+
+###### Responsive
+
+| attribute                  | accepts                           | description                               | default value |
+| -------------------------- | --------------------------------- | ----------------------------------------- | ------------- |
+| align--responsive          | `left` `right` `center` `justify` | text-alignment                            |               |
+| font-size--responsive      | `px` `rem`                        | text size                                 |               |
+| height--responsive         | `px` `%`                          | height of the element                     |               |
+| line-height--responsive    | `px` `%` `em` `rem`               | space between the lines                   |               |
+| padding--responsive        | `px` `%`                          | text padding, supports up to 4 parameters |               |
+| padding-bottom--responsive | `px` `%`                          | bottom offset                             |               |
+| padding-left--responsive   | `px` `%`                          | left offset                               |               |
+| padding-right--responsive  | `px` `%`                          | right offset                              |               |
+| padding-top--responsive    | `px` `%`                          | top offset                                |               |

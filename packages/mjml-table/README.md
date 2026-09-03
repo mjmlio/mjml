@@ -47,7 +47,8 @@ Display a data table. It only accepts plain HTML.
 | cellpadding                | integer                            | space between cells                                   | `0`                  |
 | cellspacing                | integer                            | space between cell and border                         | `0`                  |
 | color                      | CSS color formats                  | text header & footer color                            | `#000000`            |
-| container-background-color | CSS color formats                  | inner element background color                        |                      |
+| container-background-color | CSS color formats                  | background color of the container                     |                      |
+| container-border-radius    | string                             | border radius of the container                        |                      |
 | css-class                  | string                             | class name, added to the root HTML element created    |                      |
 | font-family                | string                             | font name                                             | `Ubuntu, sans-serif` |
 | font-size                  | `px` `rem`                         | font size                                             | `16px`               |
@@ -94,13 +95,27 @@ Display a data table. It only accepts plain HTML.
 
 ###### Dark-mode
 
-| attribute                        | accepts           | description                                 | default value |
-| -------------------------------- | ----------------- | ------------------------------------------- | ------------- |
-| border-color--dark               | CSS color formats | table border color in dark mode             |               |
-| color--dark                      | CSS color formats | text header & footer color in dark mode     |               |
-| container-background-color--dark | CSS color formats | inner element background color in dark mode |               |
+| attribute                        | accepts           | description                                    | default value |
+| -------------------------------- | ----------------- | ---------------------------------------------- | ------------- |
+| border-color--dark               | CSS color formats | table border color in dark mode                |               |
+| color--dark                      | CSS color formats | text header & footer color in dark mode        |               |
+| container-background-color--dark | CSS color formats | background color of the container in dark-mode |               |
 
 <div class="alert alert-note" role="alert">
   <p>Note</p>
   <p>All <code>--dark</code> modifier attributes require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
 </div>
+
+###### Responsive
+
+| attribute                  | accepts                 | description                                      | default value |
+| -------------------------- | ----------------------- | ------------------------------------------------ | ------------- |
+| align--responsive          | `left` `right` `center` | table horizontal alignment                       |               |
+| font-size--responsive      | `px` `rem`              | font size                                        |               |
+| line-height--responsive    | `px` `%` `em` `rem`     | space between lines                              |               |
+| padding--responsive        | `px` `%`                | outer table padding, supports up to 4 parameters |               |
+| padding-bottom--responsive | `px` `%`                | bottom padding                                   |               |
+| padding-left--responsive   | `px` `%`                | left padding                                     |               |
+| padding-right--responsive  | `px` `%`                | right padding                                    |               |
+| padding-top--responsive    | `px` `%`                | top padding                                      |               |
+| width--responsive          | `px` `%`                | table width                                      |               |

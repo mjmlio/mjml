@@ -43,6 +43,7 @@ const isNode = require('detect-node')
 const fs = require('fs')
 const path = require('path')
 
+// eslint-disable-next-line import/no-unresolved
 const cssnanoLitePreset = require('cssnano-preset-lite')
 
 function normalizeMinifyCssOption(minifyCss) {

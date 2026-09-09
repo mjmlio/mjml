@@ -26,7 +26,7 @@
     "babel-eslint": "^10.1.0",
     "babel-plugin-add-module-exports": "^1.0.2",
     "babel-plugin-lodash": "^3.3.4",
-    "cssnano": "^7.1.2",
+    "cssnano": "^8.0.10",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-config-prettier": "^9.1.0",
@@ -34,13 +34,14 @@
     "lerna": "^3.22.1",
     "mocha": "10",
     "open": "^7.3.0",
-    "postcss": "^8.5.18",
+    "postcss": "^8.5.28",
     "prettier": "^3.2.4",
     "rimraf": "^3.0.2"
   },
   "resolutions": {
     "@babel/plugin-transform-modules-systemjs": "7.29.4",
     "@babel/runtime": "7.28.4",
+    "browserslist": "4.28.9",
     "cacache": "20.0.3",
     "cipher-base": "1.0.6",
     "cross-spawn": "7.0.6",
@@ -52,13 +53,15 @@
     "handlebars": "4.7.9",
     "cosmiconfig/js-yaml": "4.3.0",
     "js-cookie": "3.0.8",
+    "minimatch/brace-expansion": "5.0.9",
     "nopt": "9.0.0",
     "parse-url": "8.1.0",
     "pbkdf2": "3.1.5",
     "picomatch": "2.3.2",
+    "postcss-selector-parser": "7.1.6",
     "qs": "6.14.2",
     "sha.js": "2.4.12",
-    "svgo": "4.0.2",
-    "undici": "6.27.0"
+    "svgo": "4.1.0",
+    "undici": "6.28.1"
   }
 }

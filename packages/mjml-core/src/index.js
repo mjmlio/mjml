@@ -904,6 +904,12 @@ export default async function mjml2html(mjml, options = {}) {
       removeEmptyAttributes: true,
       minifyJs: false,
       removeComments: keepComments ? false : 'safe',
+      // htmlnano's safe preset decodes character references to raw UTF-8
+      // (`&nbsp;` -> U+00A0, `&#8202;` -> U+200A). Email output travels through
+      // ESP template engines and transports that re-encode payloads, where raw
+      // bytes turn into mojibake, so keep the references escaped. Callers can
+      // opt in through `minifyOptions`.
+      minifyCharacterReferences: false,
       ...minifyOptionsRest,
     }
 

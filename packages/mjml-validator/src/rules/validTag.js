@@ -2,6 +2,7 @@ import ruleError from './ruleError'
 
 // Tags that have no associated components but are allowed even so
 const componentLessTags = [
+  'mjml',
   'mj-all',
   'mj-class',
   'mj-selector',

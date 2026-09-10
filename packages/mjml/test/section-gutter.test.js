@@ -24,8 +24,8 @@ describe('mj-section gutter', function () {
     chai.expect(html).to.include('.mj-column-per-48 { width:48% !important; max-width: 48%; }')
     chai.expect(html).to.include('.mj-column-gutter-2-1-per-4 { padding: 0% 2% 0% 0% !important; }')
     chai.expect(html).to.include('.mj-column-gutter-2-2-per-4 { padding: 0% 0% 0% 2% !important; }')
-    chai.expect(html).to.include('class="mj-column-per-48 mj-column-gutter-2-1-per-4 mj-outlook-group-fix"')
-    chai.expect(html).to.include('class="mj-column-per-48 mj-column-gutter-2-2-per-4 mj-outlook-group-fix"')
+    chai.expect(html).to.include('class="mj-column-per-48 mj-column-gutter-2-1-per-4"')
+    chai.expect(html).to.include('class="mj-column-per-48 mj-column-gutter-2-2-per-4"')
   })
 
   it('should keep rtl gutter rules isolated from ltr section gutter rules', async function () {
@@ -57,10 +57,10 @@ describe('mj-section gutter', function () {
     const { html, errors } = await mjml(input)
 
     chai.expect(errors, 'rtl gutter should not produce validation errors').to.eql([])
-    chai.expect(html).to.include('class="mj-column-per-48 mj-column-gutter-2-1-per-4 mj-outlook-group-fix"')
-    chai.expect(html).to.include('class="mj-column-per-48 mj-column-gutter-2-2-per-4 mj-outlook-group-fix"')
-    chai.expect(html).to.include('class="mj-column-per-48 mj-column-gutter-2-1-per-4-rtl mj-outlook-group-fix"')
-    chai.expect(html).to.include('class="mj-column-per-48 mj-column-gutter-2-2-per-4-rtl mj-outlook-group-fix"')
+    chai.expect(html).to.include('class="mj-column-per-48 mj-column-gutter-2-1-per-4"')
+    chai.expect(html).to.include('class="mj-column-per-48 mj-column-gutter-2-2-per-4"')
+    chai.expect(html).to.include('class="mj-column-per-48 mj-column-gutter-2-1-per-4-rtl"')
+    chai.expect(html).to.include('class="mj-column-per-48 mj-column-gutter-2-2-per-4-rtl"')
     chai.expect(html).to.include('mj-column-gutter-2-1-per-4-rtl')
     chai.expect(html).to.include('mj-column-gutter-2-2-per-4-rtl')
   })
@@ -86,10 +86,10 @@ describe('mj-section gutter', function () {
     const { html, errors } = await mjml(input)
 
     chai.expect(errors, 'group gutter case should not produce validation errors').to.eql([])
-    chai.expect(html).to.include('class="mj-column-per-48 mj-column-gutter-2-1-per-4 mj-outlook-group-fix"')
-    chai.expect(html).to.include('class="mj-column-per-48 mj-column-gutter-2-2-per-4 mj-outlook-group-fix"')
-    chai.expect(html).to.include('style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:48%;padding:0% 2% 0% 0%;"')
-    chai.expect(html).to.include('style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:48%;padding:0% 0% 0% 2%;"')
+    chai.expect(html).to.include('class="mj-column-per-48 mj-column-gutter-2-1-per-4"')
+    chai.expect(html).to.include('class="mj-column-per-48 mj-column-gutter-2-2-per-4"')
+    chai.expect(html).to.include('style="font-size:0px;text-align:left;display:inline-block;vertical-align:top;width:48%;padding:0% 2% 0% 0%;"')
+    chai.expect(html).to.include('style="font-size:0px;text-align:left;display:inline-block;vertical-align:top;width:48%;padding:0% 0% 0% 2%;"')
     chai.expect(html).to.not.include('.mj-column-gutter-2-1-per-4 { padding: 0% 2% 0% 0% !important; }')
     chai.expect(html).to.not.include('.mj-column-gutter-2-2-per-4 { padding: 0% 0% 0% 2% !important; }')
   })
@@ -114,8 +114,8 @@ describe('mj-section gutter', function () {
       const { html, errors } = await mjml(input)
 
       chai.expect(errors, 'section full-width + border + rtl should not produce errors').to.eql([])
-      chai.expect(html).to.include('class="mj-column-per-48 mj-column-gutter-2-1-per-4-rtl mj-outlook-group-fix"')
-      chai.expect(html).to.include('class="mj-column-per-48 mj-column-gutter-2-2-per-4-rtl mj-outlook-group-fix"')
+      chai.expect(html).to.include('class="mj-column-per-48 mj-column-gutter-2-1-per-4-rtl"')
+      chai.expect(html).to.include('class="mj-column-per-48 mj-column-gutter-2-2-per-4-rtl"')
       chai.expect(html).to.include('.mj-column-gutter-2-1-per-4-rtl { padding: 0% 0% 0% 2% !important; }')
       chai.expect(html).to.include('.mj-column-gutter-2-2-per-4-rtl { padding: 0% 2% 0% 0% !important; }')
     })
@@ -144,9 +144,9 @@ describe('mj-section gutter', function () {
       const { html, errors } = await mjml(input)
 
       chai.expect(errors, 'group direction override should not produce errors').to.eql([])
-      chai.expect(html).to.include('class="mj-column-per-30-434783 mj-column-gutter-3-1-per-4-347826 mj-outlook-group-fix"')
-      chai.expect(html).to.include('class="mj-column-per-30-434783 mj-column-gutter-3-2-per-4-347826 mj-outlook-group-fix"')
-      chai.expect(html).to.include('class="mj-column-per-30-434783 mj-column-gutter-3-3-per-4-347826 mj-outlook-group-fix"')
+      chai.expect(html).to.include('class="mj-column-per-30-434783 mj-column-gutter-3-1-per-4-347826"')
+      chai.expect(html).to.include('class="mj-column-per-30-434783 mj-column-gutter-3-2-per-4-347826"')
+      chai.expect(html).to.include('class="mj-column-per-30-434783 mj-column-gutter-3-3-per-4-347826"')
       chai.expect(html).to.not.include('mj-column-gutter-3-1-per-4-347826-rtl')
     })
 
@@ -172,9 +172,9 @@ describe('mj-section gutter', function () {
       const { html, errors } = await mjml(input)
 
       chai.expect(errors, 'column-level border/padding/inner-border with gutter should not error').to.eql([])
-      chai.expect(html).to.include('class="mj-column-per-30-666667 mj-column-gutter-3-1-per-4 mj-outlook-group-fix"')
-      chai.expect(html).to.include('class="mj-column-per-30-666667 mj-column-gutter-3-2-per-4 mj-outlook-group-fix"')
-      chai.expect(html).to.include('class="mj-column-per-30-666667 mj-column-gutter-3-3-per-4 mj-outlook-group-fix"')
+      chai.expect(html).to.include('class="mj-column-per-30-666667 mj-column-gutter-3-1-per-4"')
+      chai.expect(html).to.include('class="mj-column-per-30-666667 mj-column-gutter-3-2-per-4"')
+      chai.expect(html).to.include('class="mj-column-per-30-666667 mj-column-gutter-3-3-per-4"')
     })
 
     it('should support four-column px widths with percentage gutter and balanced px rounding', async function () {
@@ -202,10 +202,10 @@ describe('mj-section gutter', function () {
       const { html, errors } = await mjml(input)
 
       chai.expect(errors, 'four-column px rounding scenario should not produce errors').to.eql([])
-      chai.expect(html).to.include('class="mj-column-px-111 mj-column-gutter-4-1-px-12 mj-outlook-group-fix"')
-      chai.expect(html).to.include('class="mj-column-px-111 mj-column-gutter-4-2-px-12 mj-outlook-group-fix"')
-      chai.expect(html).to.include('class="mj-column-px-111 mj-column-gutter-4-3-px-12 mj-outlook-group-fix"')
-      chai.expect(html).to.include('class="mj-column-px-111 mj-column-gutter-4-4-px-12 mj-outlook-group-fix"')
+      chai.expect(html).to.include('class="mj-column-px-111 mj-column-gutter-4-1-px-12"')
+      chai.expect(html).to.include('class="mj-column-px-111 mj-column-gutter-4-2-px-12"')
+      chai.expect(html).to.include('class="mj-column-px-111 mj-column-gutter-4-3-px-12"')
+      chai.expect(html).to.include('class="mj-column-px-111 mj-column-gutter-4-4-px-12"')
       chai.expect(html).to.include('.mj-column-gutter-4-1-px-12 { padding: 0px 6px 0px 0px !important; }')
       chai.expect(html).to.include('mj-column-gutter-4-2-px-12')
       chai.expect(html).to.include('.mj-column-gutter-4-4-px-12 { padding: 0px 0px 0px 6px !important; }')

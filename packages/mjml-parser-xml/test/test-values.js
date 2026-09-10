@@ -533,6 +533,67 @@ module.exports = [
                 attributes: {} } ],
            attributes: {} } ],
       attributes: {} }
+  },
+  {
+    test: 'Double-hyphen modifier attribute names',
+    mjml: `
+<mjml>
+  <mj-body>
+    <mj-section>
+      <mj-column>
+        <mj-text color="#000000" color--dark="#ffffff">Hello</mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>
+    `,
+    validJson: {
+      file: '.',
+      line: 2,
+      includedIn: [],
+      tagName: 'mjml',
+      children: [
+        {
+          file: '.',
+          line: 3,
+          includedIn: [],
+          tagName: 'mj-body',
+          children: [
+            {
+              file: '.',
+              line: 4,
+              includedIn: [],
+              tagName: 'mj-section',
+              children: [
+                {
+                  file: '.',
+                  line: 5,
+                  includedIn: [],
+                  tagName: 'mj-column',
+                  children: [
+                    {
+                      file: '.',
+                      line: 6,
+                      includedIn: [],
+                      tagName: 'mj-text',
+                      attributes: {
+                        color: '#000000',
+                        'color--dark': '#ffffff',
+                      },
+                      content: 'Hello',
+                    },
+                  ],
+                  attributes: {},
+                },
+              ],
+              attributes: {},
+            },
+          ],
+          attributes: {},
+        },
+      ],
+      attributes: {},
+    },
   }
 ]
 /* eslint-enable comma-dangle */

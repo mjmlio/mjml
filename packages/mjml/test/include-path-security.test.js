@@ -68,6 +68,18 @@ describe('include path security checks (absolute, UNC, drive, null, double-encod
     chai.expect(html).to.include('<!-- mj-include denied -->')
   })
 
+  it('does not throw in strict validation mode when an include is denied', async function () {
+    const template = buildTemplate('/etc/hosts', 'type="html"')
+    const { html } = await mjml(template, {
+      filePath: rootDir,
+      actualPath: path.join(rootDir, 'template.mjml'),
+      ignoreIncludes: false,
+      validationLevel: 'strict',
+      minify: false,
+    })
+    chai.expect(html).to.include('<!-- mj-include denied -->')
+  })
+
   it('denies UNC-like path', async function () {
     const template = buildTemplate('//server/share/file.mjml')
     const { html } = await mjml(template, {

@@ -5,18 +5,20 @@ export default function errorAttr(element) {
 
   if (!errors) return null
 
-  return errors.map((error) => {
-    switch (error.type) {
-      case 'include': {
-        const { file, partialPath } = error.params
+  return errors
+    .map((error) => {
+      switch (error.type) {
+        case 'include': {
+          const { file, partialPath } = error.params
 
-        return ruleError(
-          `mj-include fails to read file : ${file} at ${partialPath}`,
-          element,
-        )
+          return ruleError(
+            `mj-include fails to read file : ${file} at ${partialPath}`,
+            element,
+          )
+        }
+        default:
+          return null
       }
-      default:
-        return null
-    }
-  })
+    })
+    .filter(Boolean)
 }

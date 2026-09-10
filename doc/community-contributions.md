@@ -47,3 +47,7 @@ It is available on [packagist](https://packagist.org/packages/garagist/mjml).
 ### Email Love
 
 The [Email Love Figma plugin](https://www.figma.com/community/plugin/1387891288648822744/email-love-html-email-builder) takes the headache out of the email development process by enabling you to export responsive, production-ready email HTML or MJML directly from Figma.
+
+### Templatical
+
+[Templatical](https://templatical.com) is a drag-and-drop email editor you embed in your own web app. Templates are stored as portable JSON and rendered to MJML by [@templatical/renderer](https://www.npmjs.com/package/@templatical/renderer), which you then compile to HTML with the `mjml` package. Framework-agnostic, themeable, and it can also generate templates from a coding agent via skill or MCP.

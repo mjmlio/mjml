@@ -6,7 +6,7 @@ These components can contain both text and HTML content, which will remain unpro
 
 Since the content is not processed, this means that any text won't be escaped, so if you use characters that are used to define html tags in your text, like `<` or `>`, you should use the encoded characters `&lt;` and `&lt;`.
 
-There can also be issues if you use the `minify` option, `mj-html-attributes` or an inline `mj-style`, because these require the HTML to be re-parsed internally.
+There can also be issues if you use the `minify` option, `mj-html-attributes` or an inline `mj-style`, because these require the HTML to be re-parsed internally. In particular, `mj-html-attributes` can rewrite template tags that resemble HTML/XML (for example EJS `<%= value %>`).
 
 If you're just using the `minify` option, and need to use the `< >` characters, e.g for a templating language, you can also avoid this problem by wrapping the troublesome content between two `<!-- htmlmin:ignore -->` tags.
 

@@ -23,17 +23,17 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.28.4",
-    "cheerio": "1.0.0",
-    "cssnano": "^7.1.2",
-    "cssnano-preset-lite": "^4.0.4",
+    "cheerio": "^1.2.0",
+    "cssnano": "^7.1.9",
+    "cssnano-preset-lite": "^4.0.6",
     "detect-node": "^2.0.4",
-    "htmlnano": "^3.3.1",
-    "js-beautify": "^1.15.4",
-    "juice": "^11.0.0",
+    "htmlnano": "3.3.1",
+    "js-beautify": "^2.0.3",
+    "juice": "^11.1.1",
     "lodash": "^4.17.21",
     "mjml-parser-xml": "5.4.0",
     "mjml-validator": "5.4.0",
-    "postcss": "^8.5.8"
+    "postcss": "^8.5.28"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",

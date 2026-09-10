@@ -19,9 +19,27 @@ const flatMapKeyAndValues = flow(
   uniq,
 )
 
+// chokidar v4 no longer expands glob patterns itself, so watch the nearest
+// non-glob ancestor directory instead and let the existing add/change
+// handlers filter matches against the original input patterns.
+const hasMagic = (segment) => /[*?{}[\]!()]/.test(segment)
+const globBase = (pattern) => {
+  const segments = pattern.split('/')
+  const magicIndex = segments.findIndex(hasMagic)
+  if (magicIndex === -1) {
+    return pattern
+  }
+  return segments.slice(0, magicIndex).join('/') || '.'
+}
+
 export default (input, options) => {
   const dependencies = {}
   const outputToFile = makeOutputToFile(options.o)
+  const baseRoots = input.map((i) => path.resolve(globBase(i.replace(/\\/g, '/'))))
+  const isUnderBaseRoot = (filePath) =>
+    baseRoots.some(
+      (root) => filePath === root || filePath.startsWith(`${root}${path.sep}`),
+    )
   const getRelatedFiles = (file) =>
     flow(
       pickBy((v, k) => k === file || v.indexOf(file) !== -1),
@@ -39,7 +57,11 @@ export default (input, options) => {
     /* eslint-disable no-use-before-define */
     const files = {
       toWatch: flatMapKeyAndValues(dependencies),
-      watched: flatMapAndJoin(watcher.getWatched()),
+      // Never prune paths under the originally-watched roots: sibling input
+      // files not yet registered in `dependencies` must stay watched too.
+      watched: flatMapAndJoin(watcher.getWatched()).filter(
+        (p) => !isUnderBaseRoot(p),
+      ),
     }
 
     watcher.add(difference(files.toWatch, files.watched))
@@ -70,7 +92,7 @@ export default (input, options) => {
   }
 
   const watcher = chokidar
-    .watch(input.map((i) => i.replace(/\\/g, '/')))
+    .watch(input.map((i) => globBase(i.replace(/\\/g, '/'))))
     .on('change', (file) => synchronyzeWatcher(path.resolve(file)))
     .on('add', (file) => {
       const filePath = path.resolve(file)

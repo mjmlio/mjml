@@ -1,6 +1,6 @@
 import { Parser } from 'htmlparser2'
 
-import { isObject, findLastIndex, find } from 'lodash'
+import { isObject, find } from 'lodash'
 import { filter, map, flow } from 'lodash/fp'
 import path from 'path'
 import fs from 'fs'
@@ -20,6 +20,30 @@ const indexesForNewLine = (xml) => {
   }
 
   return indexes
+}
+
+// lineIndexes is sorted ascending (built by scanning the document once, in order), so the
+// last index <= startIndex can be found with a binary search instead of lodash's findLastIndex,
+// which scans linearly. Since this runs once per opened tag/comment, the linear scan makes
+// parsing effectively O(n^2) for documents with many small repeated elements (e.g. templates
+// rendering long, per-item loops), while this is O(log n) per tag.
+const findLastIndexOfLineStart = (sortedIndexes, startIndex) => {
+  let low = 0
+  let high = sortedIndexes.length - 1
+  let result = -1
+
+  while (low <= high) {
+    const mid = Math.floor((low + high) / 2)
+
+    if (sortedIndexes[mid] <= startIndex) {
+      result = mid
+      low = mid + 1
+    } else {
+      high = mid - 1
+    }
+  }
+
+  return result
 }
 
 const isSelfClosing = (indexes, parser) =>
@@ -340,7 +364,7 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
         }
 
         const line =
-          findLastIndex(lineIndexes, (i) => i <= parser.startIndex) + 1
+          findLastIndexOfLineStart(lineIndexes, parser.startIndex) + 1
 
         if (name === 'mj-include') {
           if (ignoreIncludes || !isNode) return
@@ -425,7 +449,7 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
 
         if (cur && keepComments) {
           cur.children.push({
-            line: findLastIndex(lineIndexes, (i) => i <= parser.startIndex) + 1,
+            line: findLastIndexOfLineStart(lineIndexes, parser.startIndex) + 1,
             tagName: 'mj-raw',
             content: `<!--${data}-->`,
             includedIn,

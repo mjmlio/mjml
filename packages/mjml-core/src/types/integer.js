@@ -7,6 +7,6 @@ export default () =>
     constructor(value) {
       super(value)
 
-      this.matchers = [/\d+/]
+      this.matchers = [/^\d+$/]
     }
   }

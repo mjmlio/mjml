@@ -12,7 +12,6 @@ import {
 } from 'lodash'
 import juice from 'juice'
 import { load } from 'cheerio'
-import render from 'dom-serializer'
 import minifier from 'htmlnano'
 import MJMLParser from 'mjml-parser-xml'
 import MJMLValidator, {
@@ -827,6 +826,19 @@ export default async function mjml2html(mjml, options = {}) {
   }
 
   if (!isEmpty(globalData.htmlAttributes)) {
+    // xmlMode has no notion of HTML void elements, so a <br> is parsed as an
+    // element that needs a closing tag and comes back as <br></br> or <br/>.
+    // Any mj-selector makes this block run, whatever its path points at.
+    // Lift each <br> out as an opaque token for the round trip, the same way
+    // template tags are kept out of beautify and minify, then put the
+    // original tag back. Parsing itself stays in xmlMode.
+    const brTags = []
+    content = content.replace(/<br(?:\s[^<>]*?)?\s*\/?>/gi, (tag) => {
+      const token = `MJMLBR${brTags.length}END`
+      brTags.push(tag)
+      return token
+    })
+
     const $ = load(content, {
       xmlMode: true, // otherwise it may move contents that aren't in any tag
       decodeEntities: false, // won't escape special characters
@@ -840,18 +852,14 @@ export default async function mjml2html(mjml, options = {}) {
       })
     })
 
-    /*
-     * The document has to be parsed as XML, but it is HTML, so it is rendered
-     * back with the HTML serializer. Rendering it as XML would emit void
-     * elements as `<br/>` or, when the parser gave them children, as
-     * `<br></br>`, which means the mere presence of an mj-selector would
-     * change how they are written.
-     */
-    content = render($.root()[0], {
-      xmlMode: false,
-      decodeEntities: false, // same reason as above
-      emptyAttrs: true, // keeps `alt=""` instead of writing it `alt`
-    })
+    content = $.root().html()
+
+    if (brTags.length > 0) {
+      content = content.replace(
+        /MJMLBR(\d+)END/g,
+        (_, index) => brTags[parseInt(index, 10)],
+      )
+    }
   }
 
   content = skeleton({

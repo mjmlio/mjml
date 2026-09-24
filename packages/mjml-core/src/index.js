@@ -826,12 +826,22 @@ export default async function mjml2html(mjml, options = {}) {
   }
 
   if (!isEmpty(globalData.htmlAttributes)) {
-    // <br> is not void in xmlMode, so keep it out of the round trip
-    const brTags = []
-    content = content.replace(/<br(?:\s[^<>]*?)?\s*\/?>/gi, (tag) => {
-      const token = `MJMLBR${brTags.length}END`
-      brTags.push(tag)
+    // xmlMode would treat <br> as a container. Close it so a selector can
+    // still match the <br>, and so it does not swallow what follows. Comments
+    // are lifted first because their contents are never parsed.
+    const comments = []
+    content = content.replace(/<!--[\s\S]*?-->/g, (comment) => {
+      const token = `MJMLCOMMENT${comments.length}END`
+      comments.push(comment)
       return token
+    })
+
+    const brTags = []
+    content = content.replace(/<br\b[^>]*>/gi, (tag) => {
+      const id = brTags.length
+      brTags.push(tag)
+      const open = tag.slice(0, tag.endsWith('/>') ? -2 : -1).trimEnd()
+      return `${open} data-mjml-br="${id}"></br>`
     })
 
     const $ = load(content, {
@@ -847,8 +857,32 @@ export default async function mjml2html(mjml, options = {}) {
       })
     })
 
+    $('br[data-mjml-br]').each(function () {
+      const id = $(this).attr('data-mjml-br')
+      $(this).removeAttr('data-mjml-br')
+      const attribs = { ...(this.attribs || {}) }
+      delete attribs['data-mjml-br']
+      const parsed = {}
+      const body = brTags[id].replace(/^<br\b/i, '').replace(/\s*\/?>$/, '')
+      const re = /([^\s="']+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|(\S+)))?/g
+      let match = re.exec(body)
+      while (match) {
+        parsed[match[1]] = match[2] || match[3] || match[4] || ''
+        match = re.exec(body)
+      }
+      const keys = Object.keys(attribs)
+      const same =
+        keys.length === Object.keys(parsed).length &&
+        keys.every((key) => attribs[key] === parsed[key])
+      if (!same) {
+        brTags[id] = `<br${keys.map((name) => ` ${name}="${attribs[name]}"`).join('')}>`
+      }
+      $(this).replaceWith(`MJMLBR${id}END`)
+    })
+
     content = $.root().html()
     content = content.replace(/MJMLBR(\d+)END/g, (_, i) => brTags[i])
+    content = content.replace(/MJMLCOMMENT(\d+)END/g, (_, i) => comments[i])
   }
 
   content = skeleton({

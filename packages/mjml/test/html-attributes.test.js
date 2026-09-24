@@ -163,6 +163,34 @@ describe('html-attributes', function () {
       })
     })
 
+    it('adds an attribute when the selector path is br', async function () {
+      const input = `
+<mjml>
+  <mj-head>
+    <mj-html-attributes>
+      <mj-selector path="br">
+        <mj-html-attribute name="class">break</mj-html-attribute>
+      </mj-selector>
+    </mj-html-attributes>
+  </mj-head>
+  <mj-body>
+    <mj-section>
+      <mj-column>
+        <mj-text>
+          <p>Hello<br>World!<br clear="all">Next</p>
+        </mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>
+`
+      const { html } = await mjml(input)
+
+      chai.expect(html).to.include('<br class="break">World!')
+      chai.expect(html).to.include('<br clear="all" class="break">')
+      chai.expect(html).to.not.include('</br>')
+    })
+
     it('leaves void elements inside a conditional comment alone', async function () {
       const comment = '<!--[if mso]><br><![endif]-->'
       const [without, withSelector] = await Promise.all([

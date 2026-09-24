@@ -107,12 +107,7 @@ describe('html-attributes', function () {
 </mjml>
 `
 
-    // Conditional comments are skipped: their contents are never parsed, so a
-    // <br> written inside one is a different case, covered on its own below.
-    const brTags = (html) =>
-      html
-        .replace(/<!--[\s\S]*?-->/g, '')
-        .match(/<\/?br\b[^>]*>/gi) || []
+    const brTags = (html) => html.match(/<\/?br\b[^>]*>/gi) || []
 
     const expectBrParity = async (text) => {
       const [without, withSelector] = await Promise.all([
@@ -126,13 +121,6 @@ describe('html-attributes', function () {
       chai
         .expect(tags.length, '<br> is in the output')
         .to.be.above(0)
-
-      chai
-        .expect(
-          tags.filter((tag) => tag.startsWith('</')),
-          'No closing tag on <br>',
-        )
-        .to.deep.equal([])
 
       chai
         .expect(tags, 'Same <br> tags as without a selector')

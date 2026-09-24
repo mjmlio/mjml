@@ -826,12 +826,7 @@ export default async function mjml2html(mjml, options = {}) {
   }
 
   if (!isEmpty(globalData.htmlAttributes)) {
-    // xmlMode has no notion of HTML void elements, so a <br> is parsed as an
-    // element that needs a closing tag and comes back as <br></br> or <br/>.
-    // Any mj-selector makes this block run, whatever its path points at.
-    // Lift each <br> out as an opaque token for the round trip, the same way
-    // template tags are kept out of beautify and minify, then put the
-    // original tag back. Parsing itself stays in xmlMode.
+    // <br> is not void in xmlMode, so keep it out of the round trip
     const brTags = []
     content = content.replace(/<br(?:\s[^<>]*?)?\s*\/?>/gi, (tag) => {
       const token = `MJMLBR${brTags.length}END`
@@ -853,13 +848,7 @@ export default async function mjml2html(mjml, options = {}) {
     })
 
     content = $.root().html()
-
-    if (brTags.length > 0) {
-      content = content.replace(
-        /MJMLBR(\d+)END/g,
-        (_, index) => brTags[parseInt(index, 10)],
-      )
-    }
+    content = content.replace(/MJMLBR(\d+)END/g, (_, i) => brTags[i])
   }
 
   content = skeleton({

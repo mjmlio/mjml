@@ -19,11 +19,9 @@ export default (params) => {
 
     // normalize valid px values to a unitless integer (e.g. "6px" -> "6")
     getValue() {
-      if (allowPx && /^\d+px$/.test(this.value)) {
-        return this.value.slice(0, -2)
-      }
-
-      return this.value
+      return allowPx && this.isValid()
+        ? `${this.value}`.replace(/px$/, '')
+        : this.value
     }
   }
 }

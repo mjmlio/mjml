@@ -44,8 +44,8 @@ Display a data table. It only accepts plain HTML.
 | aria-label                 | string                             | adds an `aria-label` attribute to the table           |                      |
 | aria-roledescription       | string                             | adds an `aria-roledescription` attribute to the table |                      |
 | border                     | string                             | CSS border format                                     | `none`               |
-| cellpadding                | integer                            | space between cells                                   | `0`                  |
-| cellspacing                | integer                            | space between cell and border                         | `0`                  |
+| cellpadding                | integer, `px`                      | space between cells                                   | `0`                  |
+| cellspacing                | integer, `px`                      | space between cell and border                         | `0`                  |
 | color                      | CSS color formats                  | text header & footer color                            | `#000000`            |
 | container-background-color | CSS color formats                  | background color of the container                     |                      |
 | container-border-radius    | string                             | border radius of the container                        |                      |

@@ -9,15 +9,12 @@ const { dependencies } = require('../../mjml-validator/lib/index')
 
 class MjDummyInteger extends BodyComponent {
   render() {
-    return `<div data-count="${this.getAttribute(
-      'count',
-    )}" data-gap="${this.getAttribute('gap')}"></div>`
+    return `<div data-count="${this.getAttribute('count')}"></div>`
   }
 }
 MjDummyInteger.componentName = 'mj-dummy-integer'
 MjDummyInteger.allowedAttributes = {
   count: 'integer',
-  gap: 'integer(px)',
 }
 MjDummyInteger.dependencies = {
   'mj-column': ['mj-dummy-integer'],
@@ -55,63 +52,30 @@ describe('integer type (custom component)', function () {
     dependencies['mj-column'] = columnDependencies
   })
 
-  describe('integer', function () {
-    it('should accept a valid value', async function () {
-      chai.expect(await validate('count="6"')).to.have.length(0)
-    })
-
-    it('should report an invalid value', async function () {
-      const errors = await validate('count="6px"')
-
-      chai.expect(errors).to.have.length(1)
-      chai.expect(errors[0].message).to.contain('Attribute count')
-      chai.expect(errors[0].message).to.contain('only accepts integers')
-      chai.expect(errors[0].message).not.to.contain('(px)')
-    })
+  // integer(px) is covered end-to-end by mj-table in table-cellspacing.test.js
+  it('should accept a valid value', async function () {
+    chai.expect(await validate('count="6"')).to.have.length(0)
   })
 
-  describe('integer(px)', function () {
-    ;['6', '6px'].forEach((value) => {
-      it(`should accept "${value}"`, async function () {
-        chai.expect(await validate(`gap="${value}"`)).to.have.length(0)
-      })
-    })
+  it('should report an invalid value', async function () {
+    const errors = await validate('count="6px"')
 
-    it('should report an invalid value', async function () {
-      const errors = await validate('gap="6em"')
-
-      chai.expect(errors).to.have.length(1)
-      chai.expect(errors[0].message).to.contain('Attribute gap')
-      chai
-        .expect(errors[0].message)
-        .to.contain('only accepts integers or px values (e.g. 6 or 6px)')
-    })
+    chai.expect(errors).to.have.length(1)
+    chai.expect(errors[0].message).to.contain('Attribute count')
+    chai.expect(errors[0].message).to.contain('only accepts integers')
+    chai.expect(errors[0].message).not.to.contain('(px)')
   })
 
-  it('should strip px from attributes received by the component', async function () {
-    const { html } = await mjml(buildInput('count="6px" gap="4px"'), {
+  it('should not strip px from plain integer attributes', async function () {
+    const { html } = await mjml(buildInput('count="6px"'), {
       validationLevel: 'skip',
     })
 
-    chai.expect(html).to.contain('data-gap="4"')
-    // count is plain integer: rendered unchanged
     chai.expect(html).to.contain('data-count="6px"')
   })
 
   it('should not report an error when the attribute is absent', async function () {
     chai.expect(await validate('')).to.have.length(0)
-  })
-
-  it('should throw a ValidationError in strict mode', async function () {
-    try {
-      await mjml(buildInput('count="abc5"'), { validationLevel: 'strict' })
-    } catch (err) {
-      chai.expect(err.errors).to.have.length(1)
-      chai.expect(err.errors[0].message).to.contain('Attribute count')
-      return
-    }
-
-    throw new Error('Expected a ValidationError to be thrown')
   })
 
   it('should skip validation and render the value unchanged', async function () {

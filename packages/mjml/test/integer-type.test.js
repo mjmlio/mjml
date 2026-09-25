@@ -27,13 +27,24 @@ describe('integer type', function () {
         chai.expect(new IntegerType(value).isValid()).to.equal(true)
       })
     })
-    ;['6em', '10%', '1.5px', 'px', 'abc5', '6PX', '6 px', ' 6', '6 '].forEach(
-      (value) => {
-        it(`should reject "${value}"`, function () {
-          chai.expect(new IntegerType(value).isValid()).to.equal(false)
-        })
-      },
-    )
+    ;[
+      '6em',
+      '10%',
+      '1.5',
+      '1.5px',
+      '-6',
+      'px',
+      'abc5',
+      '5abc',
+      '6PX',
+      '6 px',
+      ' 6',
+      '6 ',
+    ].forEach((value) => {
+      it(`should reject "${value}"`, function () {
+        chai.expect(new IntegerType(value).isValid()).to.equal(false)
+      })
+    })
   })
 
   it('should fall back to plain integer for unsupported parameters', function () {

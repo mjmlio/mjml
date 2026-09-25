@@ -11,8 +11,8 @@ export default class MjTable extends BodyComponent {
   static allowedAttributes = {
     align: 'enum(left,right,center)',
     border: 'string',
-    cellpadding: 'integer',
-    cellspacing: 'integer',
+    cellpadding: 'integer(px)',
+    cellspacing: 'integer(px)',
     'container-background-color': 'color',
     color: 'color',
     'font-family': 'string',

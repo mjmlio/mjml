@@ -42,8 +42,8 @@ Display a data table. It only accepts plain HTML.
 | -------------------------- | ---------------------------------- | -------------------------------------------------- | -------------------------------------- |
 | align                      | `left` `right` `center`            | table horizontal alignment                         | `left`                                 |
 | border                     | string                             | CSS border format                                  | `none`                                 |
-| cellpadding                | integer                            | space between cells                                | `0`                                    |
-| cellspacing                | integer                            | space between cell and border                      | `0`                                    |
+| cellpadding                | integer, `px`                      | space between cells                                | `0`                                    |
+| cellspacing                | integer, `px`                      | space between cell and border                      | `0`                                    |
 | color                      | CSS color formats                  | text header & footer color                         | `#000000`                              |
 | container-background-color | CSS color formats                  | inner element background color                     |                                        |
 | css-class                  | string                             | class name, added to the root HTML element created |                                        |

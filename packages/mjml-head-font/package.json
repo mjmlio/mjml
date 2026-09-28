@@ -12,6 +12,9 @@
     "directory": "packages/mjml-head-font"
   },
   "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
   "bugs": {
     "url": "https://github.com/mjmlio/mjml/issues"
   },

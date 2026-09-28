@@ -32,6 +32,7 @@ describe('integer type', function () {
       '10%',
       '1.5',
       '1.5px',
+      '-6px',
       '-6',
       'px',
       'abc5',

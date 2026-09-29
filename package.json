@@ -45,9 +45,9 @@
     "browserslist": "4.28.9",
     "cacache": "20.0.3",
     "cross-spawn": "7.0.6",
-    "form-data": "2.5.4",
+    "form-data": "2.5.6",
     "nopt": "9.0.0",
     "parse-url": "8.1.0",
-    "qs": "6.14.2"
+    "qs": "6.16.0"
   }
 }

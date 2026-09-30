@@ -62,7 +62,6 @@ Displays calls-to-action for various social networks with their associated logo.
 | padding-left               | `px` `%`                | left padding                                                                  |                      |
 | padding-right              | `px` `%`                | right padding                                                                 |                      |
 | padding-top                | `px` `%`                | top padding                                                                   |                      |
-| responsive-mode            | `stack`                 | stack mj-social-element instances below the breakpoint                        |                      |
 | text-decoration            | string                  | CSS values, e.g. `underline` `overline` `none`                                | `none`               |
 | text-spacing               | `px`                    | spacing between the text and the icon                                         |                      |
 
@@ -92,6 +91,7 @@ Displays calls-to-action for various social networks with their associated logo.
 | icon-padding--responsive   | `px` `%`                | padding around the icons (applied to all child elements)           |               |
 | icon-size--responsive      | `px` `%`                | icon size (width and height) (applied to all child elements)       |               |
 | gutter--responsive         | `px`                    | gutter around the whole element (applied to all child elements)    |               |
+| layout--responsive         | `stack`                 | stack mj-social-element instances below the breakpoint             |               |
 | line-height--responsive    | `px` `%` `em` `rem`     | space between lines (applied to all child elements)                |               |
 | padding--responsive        | `px` `%`                | social padding, supports up to 4 parameters                        |               |
 | padding-bottom--responsive | `px` `%`                | bottom padding                                                     |               |

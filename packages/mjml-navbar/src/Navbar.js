@@ -41,7 +41,7 @@ export default class MjNavbar extends BodyComponent {
     'ico-padding-bottom': 'unit(px,%)',
     'ico-text-decoration': 'string',
     'ico-text-transform': 'string',
-    'responsive-mode': 'enum(stack)',
+    'layout--responsive': 'enum(stack)',
     padding: 'unit(px,%){1,4}',
     'padding--responsive': 'unit(px,%){1,4}',
     'padding-left': 'unit(px,%)',
@@ -143,8 +143,10 @@ export default class MjNavbar extends BodyComponent {
 
     const { responsiveModeIndex } = this
     if (responsiveModeIndex != null) {
-      const allIndices = (globalData && globalData.navbarresponsiveModeIndices) || [responsiveModeIndex]
-      const alreadyEmitted = globalData && globalData.navbarresponsiveModeStyleEmitted
+      const allIndices = (globalData &&
+        globalData.navbarresponsiveModeIndices) || [responsiveModeIndex]
+      const alreadyEmitted =
+        globalData && globalData.navbarresponsiveModeStyleEmitted
 
       if (!alreadyEmitted) {
         if (globalData) {
@@ -181,11 +183,14 @@ ${selectors} { display: block !important }
       this.attributes,
     )
 
-    this.responsiveClasses.inlineLinks = registerResponsiveRuleGroup(globalData, {
-      cssDeclarations: buildResponsiveDeclarations([
-        ['text-align', this.attributes['align--responsive']],
-      ]),
-    })
+    this.responsiveClasses.inlineLinks = registerResponsiveRuleGroup(
+      globalData,
+      {
+        cssDeclarations: buildResponsiveDeclarations([
+          ['text-align', this.attributes['align--responsive']],
+        ]),
+      },
+    )
 
     return this.responsiveClasses
   }
@@ -195,7 +200,11 @@ ${selectors} { display: block !important }
       const base = this.attributes['css-class']
       const containerDarkClass = this.getDarkClasses().container
       const containerResponsiveClass = this.getResponsiveClasses().container
-      return [base, containerDarkClass, containerResponsiveClass].filter(Boolean).join(' ') || undefined
+      return (
+        [base, containerDarkClass, containerResponsiveClass]
+          .filter(Boolean)
+          .join(' ') || undefined
+      )
     }
 
     return this.attributes[name]
@@ -203,26 +212,38 @@ ${selectors} { display: block !important }
 
   getStyles() {
     const icoFontFamilySet =
-      this.props && this.props.rawAttrs &&
-      Object.prototype.hasOwnProperty.call(this.props.rawAttrs, 'ico-font-family')
+      this.props &&
+      this.props.rawAttrs &&
+      Object.prototype.hasOwnProperty.call(
+        this.props.rawAttrs,
+        'ico-font-family',
+      )
     const icoFontSizeSet =
-      this.props && this.props.rawAttrs &&
+      this.props &&
+      this.props.rawAttrs &&
       Object.prototype.hasOwnProperty.call(this.props.rawAttrs, 'ico-font-size')
     const icoLineHeightSet =
-      this.props && this.props.rawAttrs &&
-      Object.prototype.hasOwnProperty.call(this.props.rawAttrs, 'ico-line-height')
+      this.props &&
+      this.props.rawAttrs &&
+      Object.prototype.hasOwnProperty.call(
+        this.props.rawAttrs,
+        'ico-line-height',
+      )
 
     const effectiveFontFamily = icoFontFamilySet
       ? this.getAttribute('ico-font-family')
-      : (this.getAttribute('font-family') || this.constructor.defaultAttributes['ico-font-family'])
+      : this.getAttribute('font-family') ||
+        this.constructor.defaultAttributes['ico-font-family']
 
     const effectiveFontSize = icoFontSizeSet
       ? this.getAttribute('ico-font-size')
-      : (this.getAttribute('font-size') || this.constructor.defaultAttributes['ico-font-size'])
-    
+      : this.getAttribute('font-size') ||
+        this.constructor.defaultAttributes['ico-font-size']
+
     const effectiveLineHeight = icoLineHeightSet
       ? this.getAttribute('ico-line-height')
-      : (this.getAttribute('line-height') || this.constructor.defaultAttributes['ico-line-height'])
+      : this.getAttribute('line-height') ||
+        this.constructor.defaultAttributes['ico-line-height']
 
     return {
       div: {
@@ -252,8 +273,7 @@ ${selectors} { display: block !important }
         'font-size': '0px',
         overflow: 'hidden',
       },
-      icoOpen: {
-      },
+      icoOpen: {},
       icoClose: {
         display: 'none',
       },
@@ -285,10 +305,7 @@ ${selectors} { display: block !important }
         <label
           ${this.htmlAttributes({
             for: labelKey,
-            class: [
-              'mj-menu-label',
-              this.getDarkClasses().icoColor,
-            ]
+            class: ['mj-menu-label', this.getDarkClasses().icoColor]
               .filter(Boolean)
               .join(' '),
             style: 'label',
@@ -314,7 +331,7 @@ ${selectors} { display: block !important }
 
   render() {
     if (
-      this.getAttribute('responsive-mode') === 'stack' &&
+      this.getAttribute('layout--responsive') === 'stack' &&
       this.getAttribute('hamburger') !== 'hamburger' &&
       this.responsiveModeIndex == null
     ) {
@@ -323,7 +340,8 @@ ${selectors} { display: block !important }
         if (!Array.isArray(globalData.navbarresponsiveModeIndices)) {
           globalData.navbarresponsiveModeIndices = []
         }
-        this.responsiveModeIndex = globalData.navbarresponsiveModeIndices.length + 1
+        this.responsiveModeIndex =
+          globalData.navbarresponsiveModeIndices.length + 1
         globalData.navbarresponsiveModeIndices.push(this.responsiveModeIndex)
       } else {
         this.responsiveModeIndex = 1

@@ -58,18 +58,17 @@ Display a data table. It only accepts plain HTML.
 | padding-left               | `px` `%`                           | left padding                                          |                      |
 | padding-right              | `px` `%`                           | right padding                                         |                      |
 | padding-top                | `px` `%`                           | top padding                                           |                      |
-| responsive-mode            | `stack` `scroll`                   | layout options for the table below the breakpoint     |                      |
 | role                       | `none` `presentation` `table`      | specify the role attribute                            |                      |
 | table-layout               | `auto` `fixed` `initial` `inherit` | sets the table layout                                 |                      |
 | width                      | `px` `%` `auto`                    | table width                                           | `100%`               |
 
 <div class="alert alert-caution" role="alert">
   <p>Caution</p>
-  <p><code>responsive-mode="stack"</code> is only supported in email clients with full CSS support (Mac Mail/iOS Mail). It works best with a simple table where the first row uses <code>&lt;th&gt;</code> elements as column headers. See example:</p>
+  <p><code>layout--responsive="stack"</code> is only supported in email clients with full CSS support (Mac Mail/iOS Mail). It works best with a simple table where the first row uses <code>&lt;th&gt;</code> elements as column headers. See example:</p>
 </div>
 
 ```xml
-<mj-table responsive-mode="stack" border="1px solid grey" cellpadding="10">
+<mj-table layout--responsive="stack" border="1px solid grey" cellpadding="10">
           <caption>Caption</caption>
           <tr style="border-bottom: 1px solid grey;text-align:left;">
             <th>Year</th>
@@ -108,14 +107,15 @@ Display a data table. It only accepts plain HTML.
 
 ###### Responsive
 
-| attribute                  | accepts                 | description                                      | default value |
-| -------------------------- | ----------------------- | ------------------------------------------------ | ------------- |
-| align--responsive          | `left` `right` `center` | table horizontal alignment                       |               |
-| font-size--responsive      | `px` `rem`              | font size                                        |               |
-| line-height--responsive    | `px` `%` `em` `rem`     | space between lines                              |               |
-| padding--responsive        | `px` `%`                | outer table padding, supports up to 4 parameters |               |
-| padding-bottom--responsive | `px` `%`                | bottom padding                                   |               |
-| padding-left--responsive   | `px` `%`                | left padding                                     |               |
-| padding-right--responsive  | `px` `%`                | right padding                                    |               |
-| padding-top--responsive    | `px` `%`                | top padding                                      |               |
-| width--responsive          | `px` `%`                | table width                                      |               |
+| attribute                  | accepts                 | description                                       | default value |
+| -------------------------- | ----------------------- | ------------------------------------------------- | ------------- |
+| align--responsive          | `left` `right` `center` | table horizontal alignment                        |               |
+| font-size--responsive      | `px` `rem`              | font size                                         |               |
+| line-height--responsive    | `px` `%` `em` `rem`     | space between lines                               |               |
+| layout--responsive         | `stack` `scroll`        | layout options for the table below the breakpoint |               |
+| padding--responsive        | `px` `%`                | outer table padding, supports up to 4 parameters  |               |
+| padding-bottom--responsive | `px` `%`                | bottom padding                                    |               |
+| padding-left--responsive   | `px` `%`                | left padding                                      |               |
+| padding-right--responsive  | `px` `%`                | right padding                                     |               |
+| padding-top--responsive    | `px` `%`                | top padding                                       |               |
+| width--responsive          | `px` `%`                | table width                                       |               |

@@ -79,7 +79,6 @@ Displays a navigation menu with an optional `hamburger` mode for mobile devices.
 | padding-left               | `px` `%`                      | navbar left padding                                                                                                     |                      |
 | padding-right              | `px` `%`                      | navbar right padding                                                                                                    |                      |
 | padding-top                | `px` `%`                      | navbar top padding                                                                                                      |                      |
-| responsive-mode            | `stack`                       | stack links on single lines below the breakpoint                                                                        |                      |
 | role                       | string                        | adds a `role` attribute to the navbar container                                                                         |                      |
 
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/navbar">Try it live</a></p>
@@ -100,14 +99,15 @@ Displays a navigation menu with an optional `hamburger` mode for mobile devices.
 
 ###### Responsive
 
-| attribute                  | accepts                       | description                                 | default value |
-| -------------------------- | ----------------------------- | ------------------------------------------- | ------------- |
-| align--responsive          | `left`<br>`center`<br>`right` | align content                               |               |
-| padding--responsive        | `px` `%`                      | navbar padding, supports up to 4 parameters |               |
-| padding-bottom--responsive | `px` `%`                      | navbar bottom padding                       |               |
-| padding-left--responsive   | `px` `%`                      | navbar left padding                         |               |
-| padding-right--responsive  | `px` `%`                      | navbar right padding                        |               |
-| padding-top--responsive    | `px` `%`                      | navbar top padding                          |               |
+| attribute                  | accepts                       | description                                      | default value |
+| -------------------------- | ----------------------------- | ------------------------------------------------ | ------------- |
+| align--responsive          | `left`<br>`center`<br>`right` | align content                                    |               |
+| layout--responsive         | `stack`                       | stack links on single lines below the breakpoint |               |
+| padding--responsive        | `px` `%`                      | navbar padding, supports up to 4 parameters      |               |
+| padding-bottom--responsive | `px` `%`                      | navbar bottom padding                            |               |
+| padding-left--responsive   | `px` `%`                      | navbar left padding                              |               |
+| padding-right--responsive  | `px` `%`                      | navbar right padding                             |               |
+| padding-top--responsive    | `px` `%`                      | navbar top padding                               |               |
 
 
 

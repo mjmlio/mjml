@@ -18,7 +18,7 @@ function wrapTable(responsiveMode, content, extraAttrs = '') {
   <mj-body>
     <mj-section>
       <mj-column>
-        <mj-table responsive-mode="${responsiveMode}" ${extraAttrs}>
+        <mj-table layout--responsive="${responsiveMode}" ${extraAttrs}>
           ${content}
         </mj-table>
       </mj-column>
@@ -41,7 +41,19 @@ const BASIC_TABLE = `
 
 // ─── stack ───────────────────────────────────────────────────────────────────
 
-describe('mj-table responsive-mode="stack"', function () {
+describe('mj-table layout--responsive="stack"', function () {
+  it('rejects the old responsive-mode attribute', async function () {
+    const { errors } = await mjml(
+      wrapTable('stack', BASIC_TABLE).replace(
+        'layout--responsive',
+        'responsive-mode',
+      ),
+    )
+    chai
+      .expect(errors.map((error) => error.message))
+      .to.include('Attribute responsive-mode is illegal')
+  })
+
   it('adds mj-stack-table class to the table element', async function () {
     const { html } = await mjml(wrapTable('stack', BASIC_TABLE))
     const $ = load(html)
@@ -61,12 +73,12 @@ describe('mj-table responsive-mode="stack"', function () {
   <mj-body>
     <mj-section>
       <mj-column>
-        <mj-table responsive-mode="stack">${BASIC_TABLE}</mj-table>
+        <mj-table layout--responsive="stack">${BASIC_TABLE}</mj-table>
       </mj-column>
     </mj-section>
     <mj-section>
       <mj-column>
-        <mj-table responsive-mode="stack">${BASIC_TABLE}</mj-table>
+        <mj-table layout--responsive="stack">${BASIC_TABLE}</mj-table>
       </mj-column>
     </mj-section>
   </mj-body>
@@ -74,15 +86,18 @@ describe('mj-table responsive-mode="stack"', function () {
 `
     const { html } = await mjml(input)
     const styles = allHeadStyles(html)
-    const occurrences = (styles.match(/mj-stack-table:is\(table\)/g) || []).length
+    const occurrences = (styles.match(/mj-stack-table:is\(table\)/g) || [])
+      .length
     chai.expect(occurrences).to.be.greaterThan(0)
     // The block appears multiple times in the CSS (one rule per selector) but the
     // entire <style> tag is only injected once — verify there's only one @media block
-    const mediaOccurrences = (styles.match(/@media screen and \(max-width: 479px\)/g) || []).length
+    const mediaOccurrences = (
+      styles.match(/@media screen and \(max-width: 479px\)/g) || []
+    ).length
     chai.expect(mediaOccurrences).to.equal(1)
   })
 
-  it('does not add mj-stack-table class or emit stack CSS without responsive-mode', async function () {
+  it('does not add mj-stack-table class or emit stack CSS without layout--responsive', async function () {
     const { html } = await mjml(`
 <mjml>
   <mj-body>
@@ -105,7 +120,9 @@ describe('mj-table responsive-mode="stack"', function () {
     const { html } = await mjml(wrapTable('stack', BASIC_TABLE))
     const $ = load(html)
     const labels = $('table.mj-stack-table td[data-label]')
-      .map(function () { return $(this).attr('data-label') })
+      .map(function () {
+        return $(this).attr('data-label')
+      })
       .get()
     chai.expect(labels).to.eql(['Year', 'Language'])
   })
@@ -122,7 +139,9 @@ describe('mj-table responsive-mode="stack"', function () {
     const { html } = await mjml(wrapTable('stack', content))
     const $ = load(html)
     const labels = $('table.mj-stack-table td[data-label]')
-      .map(function () { return $(this).attr('data-label') })
+      .map(function () {
+        return $(this).attr('data-label')
+      })
       .get()
     chai.expect(labels).to.eql(['Year', 'Language', 'Inspired from'])
   })
@@ -141,7 +160,9 @@ describe('mj-table responsive-mode="stack"', function () {
 
     // The <td> cells should get labels offset by the row-header <th>
     const tdLabels = $('table.mj-stack-table td[data-label]')
-      .map(function () { return $(this).attr('data-label') })
+      .map(function () {
+        return $(this).attr('data-label')
+      })
       .get()
     chai.expect(tdLabels).to.eql(['Year', 'Language'])
   })
@@ -154,7 +175,9 @@ describe('mj-table responsive-mode="stack"', function () {
     const { html } = await mjml(wrapTable('stack', content))
     const $ = load(html)
     const labels = $('table.mj-stack-table td[data-label]')
-      .map(function () { return $(this).attr('data-label') })
+      .map(function () {
+        return $(this).attr('data-label')
+      })
       .get()
     chai.expect(labels[0]).to.equal('Custom')
     chai.expect(labels[1]).to.equal('Language')
@@ -199,7 +222,7 @@ describe('mj-table responsive-mode="stack"', function () {
 
 // ─── scroll ──────────────────────────────────────────────────────────────────
 
-describe('mj-table responsive-mode="scroll"', function () {
+describe('mj-table layout--responsive="scroll"', function () {
   it('wraps content in a table.mj-scroll-table-outer', async function () {
     const { html } = await mjml(wrapTable('scroll', BASIC_TABLE))
     const $ = load(html)
@@ -209,7 +232,9 @@ describe('mj-table responsive-mode="scroll"', function () {
   it('places a div.mj-scroll-table-inner inside the outer table', async function () {
     const { html } = await mjml(wrapTable('scroll', BASIC_TABLE))
     const $ = load(html)
-    chai.expect($('table.mj-scroll-table-outer div.mj-scroll-table-inner').length).to.equal(1)
+    chai
+      .expect($('table.mj-scroll-table-outer div.mj-scroll-table-inner').length)
+      .to.equal(1)
   })
 
   it('places the data table inside div.mj-scroll-table-inner', async function () {
@@ -235,12 +260,12 @@ describe('mj-table responsive-mode="scroll"', function () {
   <mj-body>
     <mj-section>
       <mj-column>
-        <mj-table responsive-mode="scroll">${BASIC_TABLE}</mj-table>
+        <mj-table layout--responsive="scroll">${BASIC_TABLE}</mj-table>
       </mj-column>
     </mj-section>
     <mj-section>
       <mj-column>
-        <mj-table responsive-mode="scroll">${BASIC_TABLE}</mj-table>
+        <mj-table layout--responsive="scroll">${BASIC_TABLE}</mj-table>
       </mj-column>
     </mj-section>
   </mj-body>
@@ -251,12 +276,10 @@ describe('mj-table responsive-mode="scroll"', function () {
     const occurrences = (styles.match(/mj-scroll-table-outer/g) || []).length
     // CSS rules reference the class multiple times, but the block is only injected once
     chai.expect(occurrences).to.be.greaterThan(0)
-    chai
-      .expect((styles.match(/table-layout: fixed/g) || []).length)
-      .to.equal(1)
+    chai.expect((styles.match(/table-layout: fixed/g) || []).length).to.equal(1)
   })
 
-  it('does not emit scroll CSS or wrapper without responsive-mode', async function () {
+  it('does not emit scroll CSS or wrapper without layout--responsive', async function () {
     const { html } = await mjml(`
 <mjml>
   <mj-body>

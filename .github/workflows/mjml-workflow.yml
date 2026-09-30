@@ -3,6 +3,8 @@ on:
   push:
     branches: [master]
   pull_request:
+permissions:
+  contents: read
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
@@ -14,6 +16,8 @@ jobs:
         node-version: [22.x, 24.x, 26.x]
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v7
         with:
@@ -29,6 +33,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: Use Node.js 22.x
         uses: actions/setup-node@v7
         with:

@@ -2,7 +2,7 @@
   "name": "mjml-master",
   "private": true,
   "engines": {
-    "node": ">=22"
+    "node": "^22.18 || >=24"
   },
   "scripts": {
     "build:watch": "lerna run build --parallel -- -- -w",

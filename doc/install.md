@@ -7,6 +7,8 @@ You can [install MJML](https://www.npmjs.com/package/mjml) with NPM to use it wi
 npm install mjml
 ```
 
+MJML requires Node.js `^22.18` or `>=24` (tested on 22, 24 and 26).
+
 ## Development
 
 To work on MJML, make changes and create pull requests, [download and

@@ -59,7 +59,7 @@ Displays a customizable button.
 | inner-padding              | `px` `%`                           | inner button padding, <br>supports up to 4 parameters | `10px 25px`          |
 | letter-spacing             | `px` `em`                          | letter-spacing                                        |                      |
 | line-height                | `px` `%` `em` `rem`                | line-height on link                                   | `150%`               |
-| multiline                  | boolean                            | improve button display in Outlook classic             |                      |
+| multiline                  | boolean                            | improve button display in Outlook classic             | `false`              |
 | name                       | string                             | specify the name attribute for the button link        |                      |
 | padding                    | `px` `%`                           | button container padding, supports up to 4 parameters | `10px 25px`          |
 | padding-bottom             | `px` `%`                           | button container bottom padding                       |                      |

@@ -54,7 +54,7 @@ Displays calls-to-action for various social networks with their associated logo.
 | icon-height                | `px` `%`                | icon height, overrides `icon-size`                                            | icon-size            |
 | icon-padding               | `px` `%`                | padding around the icons                                                      |                      |
 | icon-size                  | `px` `%`                | icon size (width and height)                                                  | `20px`               |
-| gutter                     | `px`                    | gutter around the whole element (icon and text). Excludes the outermost sides | `null`               |
+| gutter                     | `px`                    | gutter around the whole element (icon and text). Excludes the outermost sides | `10px`               |
 | line-height                | `px` `%` `em` `rem`     | space between lines                                                           | `150%`               |
 | mode                       | `horizontal` `vertical` | direction of social elements                                                  | `horizontal`         |
 | padding                    | `px` `%`                | social padding, supports up to 4 parameters                                   | `10px 25px`          |
@@ -63,7 +63,7 @@ Displays calls-to-action for various social networks with their associated logo.
 | padding-right              | `px` `%`                | right padding                                                                 |                      |
 | padding-top                | `px` `%`                | top padding                                                                   |                      |
 | text-decoration            | string                  | CSS values, e.g. `underline` `overline` `none`                                | `none`               |
-| text-spacing               | `px`                    | spacing between the text and the icon                                         |                      |
+| text-spacing               | `px`                    | spacing between the text and the icon                                         | `10px`               |
 
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/social">Try it live</a></p>
 
@@ -130,16 +130,10 @@ Note that default icons are transparent, which allows `background-color` to actu
 | font-weight             | string                  | font weight                                                                                                                                 |                                        |
 | href                    | string                  | button redirection, in URL format                                                                                                           |                                        |
 | icon-height             | `px` `%`                | icon height, overrides icon-size                                                                                                            | `icon-size`                            |
-| icon-padding            | `px` `%`                | padding around the icon                                                                                                                     |                                        |
 | icon-position           | `left` `right`          | sets the side of the icon                                                                                                                   |                                        |
 | icon-size               | `px` `%`                | icon size (width and height)                                                                                                                |                                        |
 | line-height             | `px` `%` `em` `rem`     | space between lines                                                                                                                         | `150%`                                 |
 | name                    | string                  | social network name, see supported list below                                                                                               |                                        |
-| padding                 | `px` `%`                | social element padding, supports up to 4 parameters                                                                                         | `4px`                                  |
-| padding-bottom          | `px` `%`                | bottom padding                                                                                                                              |                                        |
-| padding-left            | `px` `%`                | left padding                                                                                                                                |                                        |
-| padding-right           | `px` `%`                | right padding                                                                                                                               |                                        |
-| padding-top             | `px` `%`                | top padding                                                                                                                                 |                                        |
 | rel                     | string                  | specify the rel attribute for the link                                                                                                      |                                        |
 | sizes                   | string                  | set icon width based on query                                                                                                               |                                        |
 | src                     | string                  | image source, in URL format                                                                                                                 | Each social `name` has its own default |
@@ -147,7 +141,6 @@ Note that default icons are transparent, which allows `background-color` to actu
 | support-dark-mode-image | `outlook`               | enables dark-mode image support for New Outlook, Outlook App and Outlook.com                                                                |                                        |
 | target                  | string                  | link target                                                                                                                                 |                                        |
 | text-decoration         | string                  | CSS values, e.g. `underline` `overline` `none`                                                                                              | `none`                                 |
-| text-padding            | `px` `%`                | padding around the text                                                                                                                     | `4px 4px 4px 0`                        |
 | title                   | string                  | image title attribute                                                                                                                       |                                        |
 | vertical-align          | `top` `middle` `bottom` | vertically align elements                                                                                                                   |                                        |
 

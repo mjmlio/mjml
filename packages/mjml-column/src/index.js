@@ -89,8 +89,8 @@ export default class MjColumn extends BodyComponent {
   }) {
     const globalData = this.context && this.context.globalData
     const validDeclarations = Array.isArray(cssDeclarations)
-      ? cssDeclarations.filter(
-          ({ cssProperty, cssValue }) => Boolean(cssProperty && cssValue),
+      ? cssDeclarations.filter(({ cssProperty, cssValue }) =>
+          Boolean(cssProperty && cssValue),
         )
       : []
 
@@ -135,12 +135,18 @@ export default class MjColumn extends BodyComponent {
 
     const darkBgColor = this.attributes['background-color--dark']
     if (darkBgColor) {
-      outerDeclarations.push({ cssProperty: 'background-color', cssValue: darkBgColor })
+      outerDeclarations.push({
+        cssProperty: 'background-color',
+        cssValue: darkBgColor,
+      })
     }
 
     const darkBorderColor = this.attributes['border-color--dark']
     if (darkBorderColor) {
-      outerDeclarations.push({ cssProperty: 'border-color', cssValue: darkBorderColor })
+      outerDeclarations.push({
+        cssProperty: 'border-color',
+        cssValue: darkBorderColor,
+      })
     }
 
     ;[
@@ -164,12 +170,18 @@ export default class MjColumn extends BodyComponent {
 
     const darkInnerBgColor = this.attributes['inner-background-color--dark']
     if (darkInnerBgColor) {
-      innerDeclarations.push({ cssProperty: 'background-color', cssValue: darkInnerBgColor })
+      innerDeclarations.push({
+        cssProperty: 'background-color',
+        cssValue: darkInnerBgColor,
+      })
     }
 
     const darkInnerBorderColor = this.attributes['inner-border-color--dark']
     if (darkInnerBorderColor) {
-      innerDeclarations.push({ cssProperty: 'border-color', cssValue: darkInnerBorderColor })
+      innerDeclarations.push({
+        cssProperty: 'border-color',
+        cssValue: darkInnerBorderColor,
+      })
     }
 
     ;[
@@ -179,7 +191,11 @@ export default class MjColumn extends BodyComponent {
       ['border-right-color', 'inner-border-right-color--dark'],
     ].forEach(([cssProperty, attrName]) => {
       const cssValue = this.attributes[attrName]
-      if (!cssValue || (darkInnerBorderColor && cssValue === darkInnerBorderColor)) return
+      if (
+        !cssValue ||
+        (darkInnerBorderColor && cssValue === darkInnerBorderColor)
+      )
+        return
       innerDeclarations.push({ cssProperty, cssValue })
     })
 
@@ -207,7 +223,10 @@ export default class MjColumn extends BodyComponent {
       ]),
     })
 
-    this.responsiveClasses.gutter = registerResponsivePaddingGroup(globalData, this.attributes)
+    this.responsiveClasses.gutter = registerResponsivePaddingGroup(
+      globalData,
+      this.attributes,
+    )
 
     return this.responsiveClasses
   }
@@ -323,7 +342,8 @@ export default class MjColumn extends BodyComponent {
 
     // Group columns don't stack on mobile, so use gutter-reduced desktop width
     if (isInGroup && this.hasColumnGutter()) {
-      const { parsedWidth, unit } = this.getDesktopWidth()
+      const gutterSource = this.context.gutterResponsive || this.context.gutter
+      const { parsedWidth, unit } = this.getWidthWithGutter(gutterSource)
       if (unit === '%') {
         return `${parsedWidth}%`
       }
@@ -343,11 +363,9 @@ export default class MjColumn extends BodyComponent {
         return width
       case 'px':
       default:
-        return `${
-          MjColumn.normalizeUnitValue(
-            (parsedWidth / parseInt(containerWidth, 10)) * 100,
-          )
-        }%`
+        return `${MjColumn.normalizeUnitValue(
+          (parsedWidth / parseInt(containerWidth, 10)) * 100,
+        )}%`
     }
   }
 
@@ -414,8 +432,8 @@ export default class MjColumn extends BodyComponent {
         unit,
       })
 
-      // Group columns already carry gutter padding inline; avoid duplicate media-query rules
-      if (!isInGroup) {
+      // A group with a responsive override needs its desktop gutter restored.
+      if (!isInGroup || this.context.gutterResponsive) {
         addMediaQuery(this.getDesktopGutterClassName(), {
           padding: this.getDesktopPadding(),
         })
@@ -450,25 +468,36 @@ export default class MjColumn extends BodyComponent {
   }
 
   getDesktopWidth() {
+    return this.getWidthWithGutter(this.context.gutter)
+  }
+
+  getWidthWithGutter(gutterSource) {
     const { sibling, index } = this.props
     const { parsedWidth, unit } = this.getParsedWidth()
 
-    if (!this.hasColumnGutter()) {
+    if (!gutterSource) {
       return {
-        parsedWidth: unit === 'px' ? MjColumn.normalizePxValue(parsedWidth) : parsedWidth,
+        parsedWidth:
+          unit === 'px' ? MjColumn.normalizePxValue(parsedWidth) : parsedWidth,
         unit,
       }
     }
 
-    const gutter = this.getNormalizedGutterValue(unit)
+    const gutter = this.getNormalizedGutterValue(unit, gutterSource)
     const reduction = (gutter * (sibling - 1)) / sibling
 
-    const reducedWidth = Math.max(0, MjColumn.normalizeUnitValue(parsedWidth - reduction))
+    const reducedWidth = Math.max(
+      0,
+      MjColumn.normalizeUnitValue(parsedWidth - reduction),
+    )
 
     if (unit === 'px') {
       const floorWidth = Math.floor(reducedWidth)
       const fractional = reducedWidth - floorWidth
-      const extraPixels = Math.max(0, Math.min(sibling, Math.round(sibling * fractional)))
+      const extraPixels = Math.max(
+        0,
+        Math.min(sibling, Math.round(sibling * fractional)),
+      )
 
       return {
         parsedWidth: floorWidth + (index < extraPixels ? 1 : 0),
@@ -523,14 +552,16 @@ export default class MjColumn extends BodyComponent {
     return gutter != null && gutter !== ''
   }
 
-  getDesktopPaddingValues(unit) {
+  getDesktopPaddingValues(unit, gutterSource = this.context.gutter) {
     const { first, last, sibling } = this.props
     const { direction } = this.context
-    const gutter = this.getNormalizedGutterValue(unit)
+    const gutter = this.getNormalizedGutterValue(unit, gutterSource)
     const normalizedGutter =
       unit === 'px' ? MjColumn.normalizePxValue(gutter) : gutter
     const isPx = unit === 'px'
-    const halfLeading = isPx ? Math.ceil(normalizedGutter / 2) : normalizedGutter / 2
+    const halfLeading = isPx
+      ? Math.ceil(normalizedGutter / 2)
+      : normalizedGutter / 2
     const halfTrailing = isPx
       ? Math.floor(normalizedGutter / 2)
       : normalizedGutter / 2
@@ -570,8 +601,10 @@ export default class MjColumn extends BodyComponent {
       responsiveGutter != null && responsiveGutter !== ''
         ? responsiveGutter
         : this.context.gutter
-    const gutter = this.getNormalizedGutterValue('%', gutterSource)
-    const half = gutter / 2
+    const { unit, parsedWidth } = widthParser(gutterSource, {
+      parseFloatToInt: false,
+    })
+    const half = parsedWidth / 2
 
     // On mobile: gutter appears as vertical spacing between stacked columns,
     // but not on outer left/right edges
@@ -580,6 +613,7 @@ export default class MjColumn extends BodyComponent {
       right: 0,
       bottom: last ? 0 : half,
       left: 0,
+      unit,
     }
   }
 
@@ -594,9 +628,9 @@ export default class MjColumn extends BodyComponent {
 
     return `${MjColumn.normalizeUnitValue(top)}${unit} ${MjColumn.normalizeUnitValue(
       right,
-    )}${unit} ${MjColumn.normalizeUnitValue(bottom)}${unit} ${
-      MjColumn.normalizeUnitValue(left)
-    }${unit}`
+    )}${unit} ${MjColumn.normalizeUnitValue(bottom)}${unit} ${MjColumn.normalizeUnitValue(
+      left,
+    )}${unit}`
   }
 
   getDesktopPadding() {
@@ -607,9 +641,20 @@ export default class MjColumn extends BodyComponent {
   }
 
   getMobilePadding() {
-    const { top, right, bottom, left } = this.getMobilePaddingValues()
+    const { top, right, bottom, left, unit } = this.getMobilePaddingValues()
 
-    return MjColumn.formatPadding(top, right, bottom, left, '%')
+    return MjColumn.formatPadding(top, right, bottom, left, unit)
+  }
+
+  getGroupMobilePadding() {
+    const unit = this.getDesktopUnit()
+    const gutterSource = this.context.gutterResponsive || this.context.gutter
+    const { top, right, bottom, left } = this.getDesktopPaddingValues(
+      unit,
+      gutterSource,
+    )
+
+    return MjColumn.formatPadding(top, right, bottom, left, unit)
   }
 
   getMobileGutterStyles() {
@@ -622,7 +667,7 @@ export default class MjColumn extends BodyComponent {
     // Group columns don't stack on mobile, so maintain desktop horizontal padding
     if (isInGroup) {
       return {
-        padding: this.getDesktopPadding(),
+        padding: this.getGroupMobilePadding(),
       }
     }
 
@@ -643,8 +688,6 @@ export default class MjColumn extends BodyComponent {
       padding: MjColumn.formatPadding(top, right, bottom, left, 'px'),
     }
   }
-
-
 
   hasBorderRadius() {
     const borderRadius = this.getAttribute('border-radius')
@@ -685,7 +728,10 @@ export default class MjColumn extends BodyComponent {
       >
         <tr>
           <td ${this.htmlAttributes({
-            class: [outerDarkClass, this.getResponsiveClasses().gutter].filter(Boolean).join(' ') || undefined,
+            class:
+              [outerDarkClass, this.getResponsiveClasses().gutter]
+                .filter(Boolean)
+                .join(' ') || undefined,
             style: 'gutter',
           })}>
             ${this.renderColumn()}
@@ -697,13 +743,14 @@ export default class MjColumn extends BodyComponent {
 
   renderColumn() {
     const { children } = this.props
-    const { outer: outerDarkClass, inner: innerDarkClass } = this.getDarkClasses()
+    const { outer: outerDarkClass, inner: innerDarkClass } =
+      this.getDarkClasses()
     // When a gutter exists the outer dark class is on the gutter <td>;
     // the column table carries the inner dark class instead.
     // When there is no gutter the column table IS the outer element.
     const columnTableDarkClass = this.hasGutter()
-      ? (innerDarkClass || undefined)
-      : (outerDarkClass || undefined)
+      ? innerDarkClass || undefined
+      : outerDarkClass || undefined
 
     return `
       <table
@@ -726,8 +773,10 @@ export default class MjColumn extends BodyComponent {
             }
 
             const isButton = component.constructor.componentName === 'mj-button'
-            const isLeftAlignedButton = isButton && component.getAttribute('align') === 'left'
-            const hasSectionBackground = this.context.hasSectionBackgroundUrl === true
+            const isLeftAlignedButton =
+              isButton && component.getAttribute('align') === 'left'
+            const hasSectionBackground =
+              this.context.hasSectionBackgroundUrl === true
             let trClass = ''
 
             if (isLeftAlignedButton && hasSectionBackground) {
@@ -735,7 +784,10 @@ export default class MjColumn extends BodyComponent {
               const buttonLeftPadding = getPaddingLeft(component)
 
               if (typeof this.context.addVmlButtonStyle === 'function') {
-                this.context.addVmlButtonStyle(buttonClassName, buttonLeftPadding)
+                this.context.addVmlButtonStyle(
+                  buttonClassName,
+                  buttonLeftPadding,
+                )
               }
 
               trClass = ` class="${buttonClassName}"`
@@ -750,13 +802,14 @@ export default class MjColumn extends BodyComponent {
                     background: component.getAttribute(
                       'container-background-color',
                     ),
-                    'border-radius': component.getAttribute('container-border-radius'),
+                    'border-radius': component.getAttribute(
+                      'container-border-radius',
+                    ),
                     'font-size': '0px',
                     padding: component.getAttribute('padding'),
                     'padding-top': component.getAttribute('padding-top'),
                     'padding-right': component.getAttribute('padding-right'),
-                    'padding-bottom':
-                      component.getAttribute('padding-bottom'),
+                    'padding-bottom': component.getAttribute('padding-bottom'),
                     'padding-left': component.getAttribute('padding-left'),
                     'word-break': 'break-word',
                   },

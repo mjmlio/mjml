@@ -54,26 +54,29 @@ Readers can interact by clicking on the tabs to reveal the content, providing a 
 
 #### Attributes
 
-| attribute                  | accepts                 | description                                        | default value                     |
-| -------------------------- | ----------------------- | -------------------------------------------------- | --------------------------------- |
-| border                     | string                  | CSS border format                                  | `2px solid black`                 |
-| container-background-color | CSS color formats       | background color of the container                  |                                   |
-| container-border-radius    | string                  | border radius of the container                     |                                   |
-| css-class                  | string                  | class name, added to the root HTML element created |                                   |
-| font-family                | string                  | font                                               | `Ubuntu, sans-serif`              |
-| icon-align                 | `top` `middle` `bottom` | icon alignment                                     |                                   |
-| icon-height                | `px` `%`                | icon height                                        | `32px`                            |
-| icon-position              | `left` `right`          | display icon left or right                         | `right`                           |
-| icon-unwrapped-alt         | string                  | alt text when accordion is unwrapped               | `-`                               |
-| icon-unwrapped-url         | string                  | icon when accordion is unwrapped                   | `https://i.imgur.com/w4uTygT.png` |
-| icon-width                 | `px` `%`                | icon width                                         | `32px`                            |
-| icon-wrapped-alt           | string                  | alt text when accordion is wrapped                 | `+`                               |
-| icon-wrapped-url           | string                  | icon when accordion is wrapped                     | `https://i.imgur.com/bIXv1bk.png` |
-| padding                    | `px` `%`                | accordion padding, supports up to 4 parameters     | `10px 25px`                       |
-| padding-bottom             | `px` `%`                | accordion bottom padding                           |                                   |
-| padding-left               | `px` `%`                | accordion left padding                             |                                   |
-| padding-right              | `px` `%`                | accordion right padding                            |                                   |
-| padding-top                | `px` `%`                | accordion top padding                              |                                   |
+| attribute                  | accepts                 | description                                                        | default value                     |
+| -------------------------- | ----------------------- | ------------------------------------------------------------------ | --------------------------------- |
+| aria-label                 | string                  | adds an `aria-label` attribute to the carousel container           |                                   |
+| aria-roledescription       | string                  | adds an `aria-roledescription` attribute to the carousel container |                                   |
+| border                     | string                  | CSS border format                                                  | `2px solid black`                 |
+| container-background-color | CSS color formats       | background color of the container                                  |                                   |
+| container-border-radius    | string                  | border radius of the container                                     |                                   |
+| css-class                  | string                  | class name, added to the root HTML element created                 |                                   |
+| font-family                | string                  | font                                                               | `Ubuntu, sans-serif`              |
+| icon-align                 | `top` `middle` `bottom` | icon alignment                                                     |                                   |
+| icon-height                | `px` `%`                | icon height                                                        | `32px`                            |
+| icon-position              | `left` `right`          | display icon left or right                                         | `right`                           |
+| icon-unwrapped-alt         | string                  | alt text when accordion is unwrapped                               | `-`                               |
+| icon-unwrapped-url         | string                  | icon when accordion is unwrapped                                   | `https://i.imgur.com/w4uTygT.png` |
+| icon-width                 | `px` `%`                | icon width                                                         | `32px`                            |
+| icon-wrapped-alt           | string                  | alt text when accordion is wrapped                                 | `+`                               |
+| icon-wrapped-url           | string                  | icon when accordion is wrapped                                     | `https://i.imgur.com/bIXv1bk.png` |
+| padding                    | `px` `%`                | accordion padding, supports up to 4 parameters                     | `10px 25px`                       |
+| padding-bottom             | `px` `%`                | accordion bottom padding                                           |                                   |
+| padding-left               | `px` `%`                | accordion left padding                                             |                                   |
+| padding-right              | `px` `%`                | accordion right padding                                            |                                   |
+| padding-top                | `px` `%`                | accordion top padding                                              |                                   |
+| role                       | string                  | adds a `role` attribute to the carousel container                  |                                   |
 
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/accordion">Try it live</a></p>
 
@@ -83,7 +86,7 @@ Readers can interact by clicking on the tabs to reveal the content, providing a 
 
 | attribute                        | accepts           | description                                | default value |
 | -------------------------------- | ----------------- | ------------------------------------------ | ------------- |
-| border--dark                     | string            | CSS border format                          |               |
+| border-color--dark               | string            | CSS border format                          |               |
 | container-background-color--dark | CSS color formats | background color of the container          |               |
 | icon-unwrapped-url--dark         | string            | dark-mode icon when accordion is unwrapped |               |
 | icon-wrapped-url--dark           | string            | dark-mode icon when accordion is wrapped   |               |
@@ -120,8 +123,6 @@ Creates an accordion title/text pair. An accordion can have any number of these 
 
 | attribute            | accepts                 | description                                                                               | default value |
 | -------------------- | ----------------------- | ----------------------------------------------------------------------------------------- | ------------- |
-| aria-label           | string                  | adds an `aria-label` attribute to the accordion container                                 |               |
-| aria-roledescription | string                  | adds an `aria-roledescription` attribute to the accordion container                       |               |
 | background-color     | CSS color formats       | background color                                                                          |               |
 | border               | string                  | CSS border format. <br>affects each horizontal border in the accordion except the top one |               |
 | css-class            | string                  | class name, added to the root HTML element created                                        |               |
@@ -134,7 +135,6 @@ Creates an accordion title/text pair. An accordion can have any number of these 
 | icon-width           | `px` `%`                | icon height                                                                               | `32px`        |
 | icon-wrapped-alt     | string                  | alt text when accordion is wrapped                                                        |               |
 | icon-wrapped-url     | string                  | icon when accordion is wrapped                                                            |               |
-| role                 | string                  | adds a `role` attribute to the accordion container                                        |               |
 
 ##### Modifiers
 

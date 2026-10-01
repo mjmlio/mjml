@@ -46,6 +46,8 @@ You can install **MJML** with NPM to use it with NodeJS or the Command Line Inte
 npm install mjml
 ```
 
+MJML requires Node.js `^22.18` or `>=24` (tested on 22, 24 and 26).
+
 # Development
 
 To work on **MJML**, make changes and create pull requests, download and install [yarn](https://yarnpkg.com/lang/en/docs/install/) for easy development.

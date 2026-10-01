@@ -16,6 +16,9 @@
     "directory": "packages/mjml-cli"
   },
   "license": "MIT",
+  "engines": {
+    "node": "^22.18 || >=24"
+  },
   "bugs": {
     "url": "https://github.com/mjmlio/mjml/issues"
   },

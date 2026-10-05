@@ -96,18 +96,24 @@ export default class MjDivider extends BodyComponent {
 
     const globalData = this.context && this.context.globalData
 
-    this.responsiveClasses.container = registerResponsivePaddingGroup(globalData, this.attributes)
+    this.responsiveClasses.container = registerResponsivePaddingGroup(
+      globalData,
+      this.attributes,
+    )
 
     const alignResponsive = this.attributes['align--responsive']
     const widthResponsive = this.attributes['width--responsive']
 
     if (alignResponsive || widthResponsive) {
-      const computedMargin = alignResponsive ? computeAlignMargin(alignResponsive) : null
+      const computedMargin = alignResponsive
+        ? computeAlignMargin(alignResponsive)
+        : null
 
       this.responsiveClasses.table = registerResponsiveRuleGroup(globalData, {
         cssDeclarations: buildResponsiveDeclarations([
           ['width', widthResponsive],
           ['margin', computedMargin],
+          ['float', alignResponsive ? 'none' : null],
         ]),
       })
 
@@ -127,7 +133,11 @@ export default class MjDivider extends BodyComponent {
       const base = this.attributes['css-class']
       const containerDarkClass = this.getDarkClasses().container
       const containerResponsiveClass = this.getResponsiveClasses().container
-      return [base, containerDarkClass, containerResponsiveClass].filter(Boolean).join(' ') || undefined
+      return (
+        [base, containerDarkClass, containerResponsiveClass]
+          .filter(Boolean)
+          .join(' ') || undefined
+      )
     }
 
     return this.attributes[name]
@@ -179,7 +189,8 @@ export default class MjDivider extends BodyComponent {
       this.context.globalData.supportOutlookClassic !== false
 
     const borderDarkClass = this.getDarkClasses().border
-    const { table: tableResponsiveClass, hr: hrResponsiveClass } = this.getResponsiveClasses()
+    const { table: tableResponsiveClass, hr: hrResponsiveClass } =
+      this.getResponsiveClasses()
 
     if (supportOutlookClassic) {
       return `
@@ -193,11 +204,16 @@ export default class MjDivider extends BodyComponent {
             : {}),
           border: '0',
           cellpadding: '0',
-          class: [borderDarkClass, tableResponsiveClass].filter(Boolean).join(' ') || undefined,
+          class:
+            [borderDarkClass, tableResponsiveClass].filter(Boolean).join(' ') ||
+            undefined,
           cellspacing: '0',
           style: 'tableHr',
           role: 'none',
-          width: typeof this.getAttribute('width') === 'string' ? this.getAttribute('width').replace(/px$/, '') : this.getAttribute('width'),
+          width:
+            typeof this.getAttribute('width') === 'string'
+              ? this.getAttribute('width').replace(/px$/, '')
+              : this.getAttribute('width'),
         })}
       >
         <tr>
@@ -215,7 +231,9 @@ export default class MjDivider extends BodyComponent {
                 'aria-hidden': 'true',
               }
             : {}),
-          class: [borderDarkClass, hrResponsiveClass].filter(Boolean).join(' ') || undefined,
+          class:
+            [borderDarkClass, hrResponsiveClass].filter(Boolean).join(' ') ||
+            undefined,
           style: 'hr',
         })}
       />

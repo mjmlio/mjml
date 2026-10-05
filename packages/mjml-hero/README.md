@@ -135,9 +135,9 @@ Use `background-color` to provide a fallback color in case an email client doesn
 
 | attribute                        | accepts  | description                                                        | default value |
 | -------------------------------- | -------- | ------------------------------------------------------------------ | ------------- |
-| background-height--responsive    | `px` `%` | height of the image used, mandatory                                |               |
+| background-height--responsive    | `px` `%` | responsive background image height                                 |               |
 | background-position--responsive  | string   | CSS values, i.e. `left` `center` `right` + `top` `center` `bottom` |               |
-| background-width--responsive     | `px` `%` | width of the image used, mandatory                                 |               |
+| background-width--responsive     | `px` `%` | responsive background image width                                  |               |
 | height--responsive               | `px` `%` | hero section height, (required for `fixed-height` mode)            |               |
 | inner-padding--responsive        | `px` `%` | hero inner padding, supports up to 4 parameters                    |               |
 | inner-padding-bottom--responsive | `px` `%` | hero bottom inner padding                                          |               |
@@ -149,3 +149,8 @@ Use `background-color` to provide a fallback color in case an email client doesn
 | padding-left--responsive         | `px` `%` | hero left padding                                                  |               |
 | padding-right--responsive        | `px` `%` | hero right padding                                                 |               |
 | padding-top--responsive          | `px` `%` | hero top padding                                                   |               |
+
+<div class="alert alert-note" role="alert">
+  <p>Note</p>
+  <p>Responsive background dimensions override <code>background-size</code> in both modes. When only one dimension is set, the other uses its unmodified attribute value, or <code>auto</code> if absent. In <code>fluid-height</code> mode, these dimensions also determine the responsive aspect ratio. Use <code>height--responsive</code> to change the section height in <code>fixed-height</code> mode.</p>
+</div>

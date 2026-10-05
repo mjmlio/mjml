@@ -547,9 +547,11 @@ export default class MjColumn extends BodyComponent {
   }
 
   hasColumnGutter() {
-    const { gutter } = this.context
+    const { gutter, gutterResponsive } = this.context
 
-    return gutter != null && gutter !== ''
+    return [gutter, gutterResponsive].some(
+      (value) => value != null && value !== '',
+    )
   }
 
   getDesktopPaddingValues(unit, gutterSource = this.context.gutter) {
@@ -706,7 +708,11 @@ export default class MjColumn extends BodyComponent {
       'padding-left',
       'padding-right',
       'padding-top',
-    ].some((attr) => this.getAttribute(attr) != null)
+    ].some(
+      (attr) =>
+        this.getAttribute(attr) != null ||
+        this.getAttribute(`${attr}--responsive`) != null,
+    )
   }
 
   renderGutter() {

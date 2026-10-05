@@ -2,6 +2,38 @@ const chai = require('chai')
 const mjml = require('../lib')
 
 describe('mj-section gutter', function () {
+  it('should apply responsive-only gutter without adding desktop spacing', async function () {
+    const input = `
+      <mjml>
+        <mj-body>
+          <mj-section gutter--responsive="50px">
+            <mj-column>
+              <mj-text>Left</mj-text>
+            </mj-column>
+            <mj-column>
+              <mj-text>Right</mj-text>
+            </mj-column>
+          </mj-section>
+        </mj-body>
+      </mjml>
+    `
+
+    const { html, errors } = await mjml(input)
+
+    chai.expect(errors).to.eql([])
+    chai.expect(html).to.include('width:100%;padding:0px 0px 25px 0px;')
+    chai.expect(html).to.include('width:100%;padding:25px 0px 0px 0px;')
+    chai
+      .expect(html)
+      .to.include('.mj-column-per-50 { width:50% !important; max-width: 50%; }')
+    chai
+      .expect(html)
+      .to.include(
+        '.mj-column-gutter-2-1-per-0, .mj-column-gutter-2-2-per-0 { padding: 0% 0% 0% 0% !important; }',
+      )
+    chai.expect(html).to.include('width:300px;padding:0px 0px 0px 0px;')
+  })
+
   it('should preserve pixel units for responsive gutter spacing', async function () {
     const input = `
       <mjml>
@@ -25,6 +57,40 @@ describe('mj-section gutter', function () {
       .to.eql([])
     chai.expect(html).to.include('width:100%;padding:0px 0px 20px 0px;')
     chai.expect(html).to.include('width:100%;padding:20px 0px 0px 0px;')
+  })
+
+  it('should apply responsive-only gutter horizontally inside a group', async function () {
+    const input = `
+      <mjml>
+        <mj-body>
+          <mj-section gutter--responsive="40px">
+            <mj-group>
+              <mj-column>
+                <mj-text>Left</mj-text>
+              </mj-column>
+              <mj-column>
+                <mj-text>Right</mj-text>
+              </mj-column>
+            </mj-group>
+          </mj-section>
+        </mj-body>
+      </mjml>
+    `
+
+    const { html, errors } = await mjml(input)
+
+    chai.expect(errors).to.eql([])
+    chai.expect(html).to.include('width:46.666667%;padding:0% 3.333333% 0% 0%;')
+    chai.expect(html).to.include('width:46.666667%;padding:0% 0% 0% 3.333333%;')
+    chai
+      .expect(html)
+      .to.include('.mj-column-per-50 { width:50% !important; max-width: 50%; }')
+    chai
+      .expect(html)
+      .to.include(
+        '.mj-column-gutter-2-1-per-0, .mj-column-gutter-2-2-per-0 { padding: 0% 0% 0% 0% !important; }',
+      )
+    chai.expect(html).to.include('style="vertical-align:top;width:300px;"')
   })
 
   it('should apply responsive gutter horizontally inside a group', async function () {

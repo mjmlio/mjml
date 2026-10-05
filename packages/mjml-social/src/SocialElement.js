@@ -42,14 +42,12 @@ const defaultSocialNetworks = {
     src: `${IMG_BASE_URL}google-plus.png`,
   },
   pinterest: {
-    'share-url':
-      'https://pinterest.com/pin/create/button/?url=[[URL]]',
+    'share-url': 'https://pinterest.com/pin/create/button/?url=[[URL]]',
     'background-color': '#bd081c',
     src: `${IMG_BASE_URL}pinterest.png`,
   },
   linkedin: {
-    'share-url':
-      'https://www.linkedin.com/sharing/share-offsite/?url=[[URL]]',
+    'share-url': 'https://www.linkedin.com/sharing/share-offsite/?url=[[URL]]',
     'background-color': '#0077b5',
     src: `${IMG_BASE_URL}linkedin.png`,
   },
@@ -155,6 +153,8 @@ export default class MjSocialElement extends BodyComponent {
     href: 'string',
     'icon-height': 'unit(px,%)',
     'icon-height--responsive': 'unit(px,%)',
+    'icon-padding': 'unit(px,%){1,4}',
+    'icon-padding--responsive': 'unit(px,%){1,4}',
     'icon-position': 'enum(left,right)',
     'icon-size': 'unit(px,%)',
     'icon-size--responsive': 'unit(px,%)',
@@ -254,35 +254,46 @@ export default class MjSocialElement extends BodyComponent {
 
     this.responsiveClasses.td = registerResponsiveRuleGroup(globalData, {
       cssDeclarations: buildResponsiveDeclarations([
-        ['padding', applyGutterEdgeZero(
-          this.attributes['padding--responsive'],
-          this.getAttribute('mode'),
-          this.props.first,
-          this.props.last,
-        )],
+        [
+          'padding',
+          applyGutterEdgeZero(
+            this.attributes['padding--responsive'],
+            this.getAttribute('mode'),
+            this.props.first,
+            this.props.last,
+          ),
+        ],
       ]),
     })
 
     const iconHeightResponsive =
-      this.attributes['icon-height--responsive'] || this.attributes['icon-size--responsive']
+      this.attributes['icon-height--responsive'] ||
+      this.attributes['icon-size--responsive']
 
     this.responsiveClasses.icon = registerResponsiveRuleGroup(globalData, {
       cssDeclarations: buildResponsiveDeclarations([
         ['padding', this.attributes['icon-padding--responsive']],
-      ]).map((declaration) => ({
-        ...declaration,
-        selectorSuffix: ' td',
-      })).concat(buildResponsiveDeclarations([
-        ['height', iconHeightResponsive],
-      ]).map((declaration) => ({
-        ...declaration,
-        selectorSuffix: ['', ' td'],
-      }))).concat(buildResponsiveDeclarations([
-        ['width', this.attributes['icon-size--responsive']],
-      ]).map((declaration) => ({
-        ...declaration,
-        selectorSuffix: ' img',
-      }))),
+      ])
+        .map((declaration) => ({
+          ...declaration,
+          selectorSuffix: ' td',
+        }))
+        .concat(
+          buildResponsiveDeclarations([['height', iconHeightResponsive]]).map(
+            (declaration) => ({
+              ...declaration,
+              selectorSuffix: ['', ' td'],
+            }),
+          ),
+        )
+        .concat(
+          buildResponsiveDeclarations([
+            ['width', this.attributes['icon-size--responsive']],
+          ]).map((declaration) => ({
+            ...declaration,
+            selectorSuffix: ' img',
+          })),
+        ),
     })
 
     this.responsiveClasses.tdText = registerResponsiveRuleGroup(globalData, {
@@ -475,10 +486,10 @@ export default class MjSocialElement extends BodyComponent {
           ...(this.getContent() &&
           this.getAttribute('aria-hidden') !== 'false' &&
           !hasLink
-          ? {
-              'aria-hidden': 'true',
-            }
-          : {}),
+            ? {
+                'aria-hidden': 'true',
+              }
+            : {}),
         })}
       />
     `
@@ -495,8 +506,9 @@ export default class MjSocialElement extends BodyComponent {
       `
       : null
 
-    const darkImg = darkSrc && supportOutlookDarkMode
-      ? `
+    const darkImg =
+      darkSrc && supportOutlookDarkMode
+        ? `
         <div ${this.htmlAttributes({
           style: 'outlookDarkBackground',
           class: [
@@ -510,8 +522,8 @@ export default class MjSocialElement extends BodyComponent {
           <div ${this.htmlAttributes({
             style: 'outlookDarkPicture',
             class: `${OUTLOOK_DARK_MODE_CLASS}${
-            darkPictureClass ? ` ${darkPictureClass}` : ''
-          }`,
+              darkPictureClass ? ` ${darkPictureClass}` : ''
+            }`,
           })}>
             ${
               hasLink
@@ -519,23 +531,24 @@ export default class MjSocialElement extends BodyComponent {
                     href,
                     rel: this.getAttribute('rel'),
                     target: this.getAttribute('target'),
-                  })}>` : ''
+                  })}>`
+                : ''
             }
             ${picture}
             ${hasLink ? `</a>` : ''}
           </div>
         </div>
       `
-      : null
+        : null
 
     const content = darkImg || picture || img
     const ariaHidden =
       this.getContent() && this.getAttribute('aria-hidden') !== 'false'
 
     const iconTd = `<td ${this.htmlAttributes({
-          style: 'icon',
-          class: darkClasses.background || undefined,
-        })}>
+      style: 'icon',
+      class: darkClasses.background || undefined,
+    })}>
                 ${
                   hasLink && !darkImg
                     ? `<a ${this.htmlAttributes({
@@ -563,14 +576,20 @@ export default class MjSocialElement extends BodyComponent {
                 ${this.htmlAttributes({
                   href,
                   style: 'text',
-                  class: [darkClasses.color, textResponsiveClass].filter(Boolean).join(' ') || null,
+                  class:
+                    [darkClasses.color, textResponsiveClass]
+                      .filter(Boolean)
+                      .join(' ') || null,
                   rel: this.getAttribute('rel'),
                   target: this.getAttribute('target'),
                 })}>`
                 : `<span
                     ${this.htmlAttributes({
                       style: 'text',
-                      class: [darkClasses.color, textResponsiveClass].filter(Boolean).join(' ') || null,
+                      class:
+                        [darkClasses.color, textResponsiveClass]
+                          .filter(Boolean)
+                          .join(' ') || null,
                     })}>`
             }
               ${this.getContent()}
@@ -578,9 +597,8 @@ export default class MjSocialElement extends BodyComponent {
           </td>`
       : ''
 
-    const innerRow = iconPosition === 'left'
-      ? `${iconTd} ${textTd}`
-      : `${textTd} ${iconTd}`
+    const innerRow =
+      iconPosition === 'left' ? `${iconTd} ${textTd}` : `${textTd} ${iconTd}`
 
     return `<tr
         ${this.htmlAttributes({

@@ -8,6 +8,58 @@ async function render(mjml) {
 }
 
 describe('responsive regression coverage', () => {
+  for (const mode of ['fixed-height', 'fluid-height']) {
+    for (const [dimensions, modifiers, expectedSize] of [
+      [
+        'background-width="600px" background-height="100px"',
+        'background-width--responsive="400px" background-height--responsive="200px"',
+        '400px 200px',
+      ],
+      [
+        'background-width="600px" background-height="100px"',
+        'background-width--responsive="400px"',
+        '400px 100px',
+      ],
+      [
+        'background-width="600px" background-height="100px"',
+        'background-height--responsive="200px"',
+        '600px 200px',
+      ],
+      ['', 'background-width--responsive="80%"', '80% auto'],
+      ['', 'background-height--responsive="200px"', 'auto 200px'],
+      ['background-width="600px" background-height="100px"', '', null],
+    ]) {
+      it(`mj-hero applies ${expectedSize || 'default'} background dimensions in ${mode} mode with ${modifiers || 'no modifiers'}`, async () => {
+        const html = await render(`
+          <mjml>
+            <mj-body>
+              <mj-hero mode="${mode}" height="100px" ${dimensions} ${modifiers} background-url="https://example.com/hero.png">
+                <mj-text>Hero</mj-text>
+              </mj-hero>
+            </mj-body>
+          </mjml>
+        `)
+
+        assert.ok(html.includes('background-size:cover;'))
+        if (expectedSize) {
+          assert.ok(
+            html.includes(`background-size: ${expectedSize} !important;`),
+          )
+          assert.ok(
+            /<td[^>]*class="mj-responsive-1"[^>]*style="[^"]*background-size:cover;/.test(
+              html,
+            ),
+          )
+        } else {
+          assert.ok(!/background-size:[^;]*!important/.test(html))
+        }
+        if (mode === 'fluid-height' && expectedSize === '400px 200px') {
+          assert.ok(html.includes('padding-bottom: 50% !important;'))
+        }
+      })
+    }
+  }
+
   it('mj-image emits min-height only when max-height--responsive is set without height--responsive and keeps class on td', async () => {
     const maxOnlyHtml = await render(`
       <mjml>

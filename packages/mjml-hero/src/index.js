@@ -85,7 +85,11 @@ export default class MjHero extends BodyComponent {
     const parsedHeight = parseFloat(backgroundHeight)
     const parsedWidth = parseFloat(backgroundWidth)
 
-    if (!Number.isFinite(parsedHeight) || !Number.isFinite(parsedWidth) || parsedWidth <= 0) {
+    if (
+      !Number.isFinite(parsedHeight) ||
+      !Number.isFinite(parsedWidth) ||
+      parsedWidth <= 0
+    ) {
       return null
     }
 
@@ -105,10 +109,22 @@ export default class MjHero extends BodyComponent {
 
     const globalData = this.context && this.context.globalData
     const isFluidMode = this.getAttribute('mode') === 'fluid-height'
+    const responsiveBackgroundWidth =
+      this.attributes['background-width--responsive']
+    const responsiveBackgroundHeight =
+      this.attributes['background-height--responsive']
+    const responsiveBackgroundSize =
+      responsiveBackgroundWidth || responsiveBackgroundHeight
+        ? `${responsiveBackgroundWidth || this.getAttribute('background-width') || 'auto'} ${responsiveBackgroundHeight || this.getAttribute('background-height') || 'auto'}`
+        : null
 
     this.responsiveClasses.outerTd = registerResponsiveRuleGroup(globalData, {
       cssDeclarations: buildResponsiveDeclarations([
-        ['background-position', this.attributes['background-position--responsive']],
+        ['background-size', responsiveBackgroundSize],
+        [
+          'background-position',
+          this.attributes['background-position--responsive'],
+        ],
         ['height', this.attributes['height--responsive']],
         ['padding', this.attributes['padding--responsive']],
         ['padding-top', this.attributes['padding-top--responsive']],
@@ -158,15 +174,14 @@ export default class MjHero extends BodyComponent {
   getDarkBackgroundImageCssValue() {
     const darkBackgroundUrl = this.getAttribute('background-url--dark')
 
-    return darkBackgroundUrl ? `url(${JSON.stringify(darkBackgroundUrl)})` : null
+    return darkBackgroundUrl
+      ? `url(${JSON.stringify(darkBackgroundUrl)})`
+      : null
   }
 
   componentHeadStyle = () => {
-    const {
-      backgroundClass,
-      backgroundImageClass,
-      innerBackgroundClass,
-    } = this.getDarkClasses()
+    const { backgroundClass, backgroundImageClass, innerBackgroundClass } =
+      this.getDarkClasses()
 
     if (backgroundClass || backgroundImageClass || innerBackgroundClass) {
       emitDarkModeHeadStyle(this.context && this.context.globalData)
@@ -237,8 +252,7 @@ export default class MjHero extends BodyComponent {
       table: {
         width: '100%',
       },
-      tr: {
-      },
+      tr: {},
       'td-fluid': {
         width: `0.01%`,
         'padding-bottom': `${backgroundRatio}%`,
@@ -271,7 +285,9 @@ export default class MjHero extends BodyComponent {
         'padding-left': this.getAttribute('inner-padding-left'),
         'padding-right': this.getAttribute('inner-padding-right'),
         'padding-bottom': this.getAttribute('inner-padding-bottom'),
-        ...(!!this.getAttribute('background-url') && { 'width': currentContainerWidth }),
+        ...(!!this.getAttribute('background-url') && {
+          width: currentContainerWidth,
+        }),
       },
       'inner-div': {
         'background-color': this.getAttribute('inner-background-color'),
@@ -326,7 +342,9 @@ export default class MjHero extends BodyComponent {
       <div
         ${this.htmlAttributes({
           align: this.getAttribute('align'),
-          class: ['mj-hero-content', innerBackgroundClass, innerDiv].filter(Boolean).join(' '),
+          class: ['mj-hero-content', innerBackgroundClass, innerDiv]
+            .filter(Boolean)
+            .join(' '),
           style: 'inner-div',
         })}
       >
@@ -406,8 +424,9 @@ export default class MjHero extends BodyComponent {
     const commonAttributes = {
       background: this.getAttribute('background-url'),
       class:
-        [backgroundClass, backgroundImageClass, outerTd].filter(Boolean).join(' ') ||
-        undefined,
+        [backgroundClass, backgroundImageClass, outerTd]
+          .filter(Boolean)
+          .join(' ') || undefined,
       style: {
         background: this.getBackground(),
         'background-position': this.getAttribute('background-position'),
@@ -502,14 +521,15 @@ export default class MjHero extends BodyComponent {
             cellpadding: '0',
             cellspacing: '0',
             style: 'table',
-            role: this.getAttribute('role') ? this.getAttribute('role') : 'none',
+            role: this.getAttribute('role')
+              ? this.getAttribute('role')
+              : 'none',
             'aria-label': this.getAttribute('aria-label'),
             'aria-roledescription': this.getAttribute('aria-roledescription'),
           })}
         >
           <tr
-            ${this.htmlAttributes({
-            })}
+            ${this.htmlAttributes({})}
           >
             ${this.renderMode()}
           </tr>

@@ -48,22 +48,19 @@ describe('integer type', function () {
     })
   })
 
-  it('should fall back to plain integer for unsupported parameters', function () {
-    ;['integer(em)', 'integer(px,em)', 'integer '].forEach((typeConfig) => {
-      const IntegerType = initializeType(typeConfig)
-
-      chai.expect(new IntegerType('6').isValid(), typeConfig).to.equal(true)
-      chai.expect(new IntegerType('6px').isValid(), typeConfig).to.equal(false)
-      chai.expect(new IntegerType('6em').isValid(), typeConfig).to.equal(false)
+  it('should throw for unsupported type declarations', function () {
+    ;[
+      'integer(em)',
+      'integer(px,em)',
+      'integer ',
+      'integer (px)',
+      'Integer(PX)',
+      'integerfoo',
+    ].forEach((typeConfig) => {
+      chai
+        .expect(() => initializeType(typeConfig), typeConfig)
+        .to.throw('No type found')
     })
-  })
-
-  it('should read the (px) parameter of the type case-insensitively', function () {
-    const IntegerType = initializeType('Integer(PX)')
-
-    chai.expect(new IntegerType('6px').isValid()).to.equal(true)
-    // values themselves stay case-sensitive
-    chai.expect(new IntegerType('6PX').isValid()).to.equal(false)
   })
 
   describe('getValue', function () {

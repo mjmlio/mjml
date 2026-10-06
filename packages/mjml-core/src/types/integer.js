@@ -1,10 +1,10 @@
 import Type from './type'
 
 // `integer` or `integer(px)` (integer with an optional px unit)
-export const matcher = /^integer/gim
+export const matcher = /^integer(\(px\))?$/
 
 export default (params) => {
-  const allowPx = /\(px\)$/i.test(params)
+  const allowPx = params === 'integer(px)'
 
   return class NInteger extends Type {
     static errorMessage = `has invalid value: $value for type Integer, only accepts integers${

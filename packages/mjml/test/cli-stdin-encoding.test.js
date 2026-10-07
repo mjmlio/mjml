@@ -32,4 +32,23 @@ describe('mjml CLI stdin decoding', function () {
     const { mjml } = await result
     chai.expect(mjml).to.equal(input)
   })
+
+  it('rejects when stdin emits an error', async function () {
+    const fakeStdin = new PassThrough()
+    Object.defineProperty(process, 'stdin', {
+      value: fakeStdin,
+      configurable: true,
+    })
+
+    const result = readStream()
+    const error = new Error('EIO')
+    fakeStdin.destroy(error)
+
+    try {
+      await result
+      chai.expect.fail('readStream should have rejected')
+    } catch (err) {
+      chai.expect(err).to.equal(error)
+    }
+  })
 })

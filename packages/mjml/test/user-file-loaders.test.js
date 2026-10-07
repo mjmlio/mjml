@@ -158,6 +158,25 @@ describe('user file loaders (.mjmlconfig, components, skeleton)', function () {
       chai.expect(result.success).to.deep.equal(['./comp.mjs'])
       chai.expect(result.failures).to.deep.equal([])
     })
+
+    it('registers dependencies of a named-export ESM component', async function () {
+      write(
+        'comp-named-deps/comp.mjs',
+        esmComponent('mj-loader-comp-named-deps').replace(
+          'export default class',
+          'export class',
+        ),
+      )
+      const cfg = write(
+        'comp-named-deps/.mjmlconfig',
+        '{"packages":["./comp.mjs"]}',
+      )
+      const { html } = await mjml(template('mj-loader-comp-named-deps'), {
+        mjmlConfigPath: cfg,
+        validationLevel: 'strict',
+      })
+      chai.expect(html).to.include('mj-loader-comp-named-deps-rendered')
+    })
   })
 
   describe('skeleton', function () {

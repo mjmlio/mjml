@@ -10,7 +10,7 @@ export default function loadSkeleton(sk) {
   } catch (e) {
     // Node 26 loads extensionless files under "type": "module" as ESM
     if (e instanceof ReferenceError && /ES module scope/.test(e.message)) {
-      e.message = `Skeleton "${resolved}" was loaded as an ES module (the nearest package.json has "type": "module"). Use \`export default\` or rename it to \`.cjs\`. ${e.message}`
+      e.message = `Skeleton "${resolved}" was loaded as an ES module. Use \`export default\` or rename it to \`.cjs\`. ${e.message}`
     }
     throw e
   }

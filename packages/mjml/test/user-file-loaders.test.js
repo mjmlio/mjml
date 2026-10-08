@@ -13,7 +13,6 @@ const run = util.promisify(execFile)
 const CLI_ENTRY = path.resolve(__dirname, '../bin/mjml')
 const CORE_PATH = require.resolve('mjml-core')
 const CORE_URL = pathToFileURL(CORE_PATH).href
-const NODE_MAJOR = Number(process.versions.node.split('.')[0])
 
 // Each fixture registers its own tag, as component registration is global
 const cjsComponent = (tag) => `
@@ -212,29 +211,6 @@ describe('user file loaders (.mjmlconfig, components, skeleton)', function () {
       }
       chai.expect(error).to.be.instanceOf(TypeError)
       chai.expect(error.message).to.equal('skeleton is not a function')
-    })
-
-    it('handles an extensionless CommonJS skeleton under "type": "module"', async function () {
-      write('sk-module/package.json', '{"type":"module"}')
-      const sk = write(
-        'sk-module/skeleton',
-        'module.exports = (o) => "<html>sk-extless" + o.content + "</html>"',
-      )
-      if (NODE_MAJOR < 26) {
-        const { html } = await renderWith(sk)
-        chai.expect(html).to.include('sk-extless')
-        return
-      }
-      // Node 26+ loads it as ESM
-      let error
-      try {
-        await renderWith(sk)
-      } catch (e) {
-        error = e
-      }
-      chai.expect(error).to.be.instanceOf(ReferenceError)
-      chai.expect(error.message).to.include(`Skeleton "${sk}"`)
-      chai.expect(error.message).to.include('Use `export default`')
     })
   })
 

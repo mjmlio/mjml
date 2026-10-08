@@ -84,7 +84,6 @@ export function registerCustomComponent(
 ) {
   if (comp instanceof Function) {
     registerCompFn(comp)
-    registerDependencies(comp.dependencies || {})
   } else if (comp && typeof comp === 'object') {
     const compNames = Object.keys(comp) // this approach handles both an array and an object (like the mjml-accordion default export)
     compNames.forEach((compName) => {

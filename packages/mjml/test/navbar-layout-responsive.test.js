@@ -40,14 +40,21 @@ describe('mj-navbar layout--responsive="stack"', function () {
       .to.include('Attribute responsive-mode is illegal')
   })
 
-  it('does not stack hamburger navbars', async function () {
+  it('stacks hamburger navbar links as a fallback and retains hamburger controls', async function () {
     const { html } = await renderNavbar(
       'hamburger="hamburger" layout--responsive="stack"',
     )
     const $ = load(html)
-    chai.expect($('.mj-inline-links-1').length).to.equal(0)
+    chai.expect($('.mj-inline-links-1').length).to.equal(1)
+    chai.expect($('.mj-menu-checkbox').length).to.equal(1)
+    chai.expect($('.mj-menu-trigger').length).to.equal(1)
     chai
       .expect($('head style').text())
-      .to.not.include('.mj-inline-links-1 .mj-link')
+      .to.include('.mj-inline-links-1 .mj-link { display: block !important }')
+  })
+
+  it('does not add stack styles to hamburger navbars without the modifier', async function () {
+    const { html } = await renderNavbar('hamburger="hamburger"')
+    chai.expect(html).to.not.include('mj-inline-links-1')
   })
 })

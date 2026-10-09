@@ -1,7 +1,7 @@
 {
   "name": "mjml-parser-xml",
   "description": "mjml-parser-xml",
-  "version": "5.4.1",
+  "version": "6.0.0-alpha.1",
   "main": "lib/index.js",
   "files": [
     "lib"
@@ -12,6 +12,9 @@
     "directory": "packages/mjml-parser-xml"
   },
   "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
   "bugs": {
     "url": "https://github.com/mjmlio/mjml/issues"
   },
@@ -30,8 +33,8 @@
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "chai": "^4.1.1",
-    "mjml": "5.4.1",
-    "mjml-core": "5.4.1",
+    "mjml": "6.0.0-alpha.1",
+    "mjml-core": "6.0.0-alpha.1",
     "rimraf": "^3.0.2"
   }
 }

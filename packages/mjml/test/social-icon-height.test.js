@@ -27,7 +27,7 @@ describe('mj-social icon-height', function () {
     // height values should be correct
     chai
       .expect(
-        $('.my-social-element > td > table > tbody > tr > td')
+        $('.my-social-element > td > table > tbody > tr > td:first-child')
           .map(function getAttr() {
             const start = $(this).attr('style').indexOf('height:') + 7
             const end = $(this).attr('style').indexOf(';', start)
@@ -40,7 +40,7 @@ describe('mj-social icon-height', function () {
 
     chai
       .expect(
-        $('.my-social-element > td > table > tbody > tr > td img')
+        $('.my-social-element > td > table > tbody > tr > td:first-child img')
           .map(function getAttr() {
             return $(this).attr('height')
           })

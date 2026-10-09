@@ -6,7 +6,10 @@ import { mapValues } from 'lodash'
  */
 
 export default function convertBooleansOnAttrs(attrs) {
-  return mapValues(attrs, (val) => {
+  return mapValues(attrs, (val, key) => {
+    if (key.startsWith('aria-')) {
+      return val
+    }
     if (val === 'true') {
       return true
     }

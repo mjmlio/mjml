@@ -191,6 +191,64 @@ describe('Template syntax sanitization', function () {
     chai.expect(doc).to.include('font-weight:[[\n fontWeight \n]]')
   })
 
+  it('preserves value/property/multiline tokens across style attrs and blocks when minify + allowMixedSyntax are enabled', async function () {
+    const input = `
+      <mjml>
+        <mj-head>
+          <mj-style>
+            .token {
+              color: {{\nheadlineColor\n}};
+              [[ dynamicProp ]]: [[ dynamicValue ]];
+              padding: {%paddingValue%};
+            }
+          </mj-style>
+        </mj-head>
+        <mj-body>
+          <mj-section>
+            <mj-column>
+              <mj-raw>
+                <div
+                  style="
+                    color: {{primaryColor}};
+                    [[ fontTag ]]: [[\n fontWeight \n]];
+                    border-color: {%borderColor%};
+                  "
+                >Token</div>
+              </mj-raw>
+            </mj-column>
+          </mj-section>
+        </mj-body>
+      </mjml>
+    `
+
+    const { html } = await mjml(input, {
+      sanitizeStyles: true,
+      minify: true,
+      templateSyntax: syntaxes,
+      allowMixedSyntax: true,
+    })
+
+    const $ = load(html)
+
+    const styleText = $('style')
+      .map(function () { return $(this).text() })
+      .get()
+      .find((t) => t.includes('.token')) || ''
+
+    chai.expect(styleText).to.include('color:{{\nheadlineColor\n}}')
+    chai.expect(styleText).to.include('[[ dynamicProp ]]:[[ dynamicValue ]]')
+    chai.expect(styleText).to.include('padding:{%paddingValue%}')
+
+    const allStyles = $('[style]')
+      .map(function () { return $(this).attr('style') || '' })
+      .get()
+      .join(' ')
+
+    chai.expect(allStyles).to.include('color:{{primaryColor}}')
+    chai.expect(allStyles).to.include('[[ fontTag ]]:[[\n fontWeight \n]]')
+    chai.expect(allStyles).to.include('border-color:{%borderColor%}')
+  })
+
   it('throws clear error on broken delimiters inside CSS (pre-check)', async function () {
     const input = `
       <mjml>

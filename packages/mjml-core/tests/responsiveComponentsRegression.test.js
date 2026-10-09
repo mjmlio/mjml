@@ -8,6 +8,44 @@ async function render(mjml) {
 }
 
 describe('responsive regression coverage', () => {
+  it('mj-navbar stacks links independently of hamburger support', async () => {
+    const html = await render(`
+      <mjml>
+        <mj-body>
+          <mj-section>
+            <mj-column>
+              <mj-navbar layout--responsive="stack">
+                <mj-navbar-link href="https://example.com/plain">Plain</mj-navbar-link>
+              </mj-navbar>
+              <mj-navbar layout--responsive="stack" hamburger="hamburger">
+                <mj-navbar-link href="https://example.com/stack">Stack</mj-navbar-link>
+              </mj-navbar>
+              <mj-navbar hamburger="hamburger">
+                <mj-navbar-link href="https://example.com/inline">Inline</mj-navbar-link>
+              </mj-navbar>
+            </mj-column>
+          </mj-section>
+        </mj-body>
+      </mjml>
+    `)
+
+    assert.ok(/<div[^>]*class="mj-inline-links mj-inline-links-1"/.test(html))
+    assert.ok(/<div[^>]*class="mj-inline-links mj-inline-links-2"/.test(html))
+    assert.ok(/<div[^>]*class="mj-inline-links"/.test(html))
+    assert.ok(
+      /@media only screen and \(max-width:479px\)\s*\{\s*\.mj-inline-links-1 \.mj-link,\s*\.mj-inline-links-2 \.mj-link\s*\{\s*display: block !important\s*\}/.test(
+        html,
+      ),
+    )
+    assert.ok(!html.includes('mj-inline-links-3'))
+    assert.strictEqual((html.match(/<input\b/g) || []).length, 2)
+    assert.ok(
+      /\.mj-menu-checkbox\[type="checkbox"\]\s*~\s*\.mj-inline-links/.test(
+        html,
+      ),
+    )
+  })
+
   for (const mode of ['fixed-height', 'fluid-height']) {
     for (const [dimensions, modifiers, expectedSize] of [
       [

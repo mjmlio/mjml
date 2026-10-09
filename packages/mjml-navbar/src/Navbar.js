@@ -332,7 +332,6 @@ ${selectors} { display: block !important }
   render() {
     if (
       this.getAttribute('layout--responsive') === 'stack' &&
-      this.getAttribute('hamburger') !== 'hamburger' &&
       this.responsiveModeIndex == null
     ) {
       const globalData = this.context && this.context.globalData

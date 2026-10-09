@@ -3,6 +3,7 @@ import fs from 'fs'
 import { registerDependencies } from 'mjml-validator'
 
 import { registerComponent } from '../components'
+import interopDefault from './interopDefault'
 
 export function readMjmlConfig(configPathOrDir = process.cwd()) {
   let componentRootPath = process.cwd()
@@ -23,7 +24,7 @@ export function readMjmlConfig(configPathOrDir = process.cwd()) {
         mjmlConfig = { packages: [], options: {} }
       } else {
         delete require.cache[fullPath]
-        mjmlConfig = require(fullPath) // eslint-disable-line global-require, import/no-dynamic-require
+        mjmlConfig = interopDefault(require(fullPath)) // eslint-disable-line global-require, import/no-dynamic-require
       }
     } else {
       mjmlConfig = JSON.parse(fs.readFileSync(fullPath, 'utf8'))
@@ -83,7 +84,7 @@ export function registerCustomComponent(
 ) {
   if (comp instanceof Function) {
     registerCompFn(comp)
-  } else {
+  } else if (comp && typeof comp === 'object') {
     const compNames = Object.keys(comp) // this approach handles both an array and an object (like the mjml-accordion default export)
     compNames.forEach((compName) => {
       registerCustomComponent(comp[compName], registerCompFn)

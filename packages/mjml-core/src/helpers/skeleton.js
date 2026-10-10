@@ -21,9 +21,19 @@ export default function skeleton(options) {
     lang,
     dir,
     supportDarkMode = false,
+    gmailForceLightMode = false,
     supportOutlookClassic = true,
     usesVML = false,
   } = options
+
+  // gmail-force-light-mode only changes the meta tag (read by Gmail apps), so the
+  // :root CSS and --dark styles from support-dark-mode still apply elsewhere
+  let metaColorScheme = null
+  if (gmailForceLightMode) {
+    metaColorScheme = 'light only'
+  } else if (supportDarkMode) {
+    metaColorScheme = 'light dark'
+  }
 
   return `${beforeDoctype ? `${beforeDoctype}\n` : ''}<!doctype html>
 <html lang="${lang}" dir="${dir}"${
@@ -35,10 +45,16 @@ export default function skeleton(options) {
     <title>${title}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
-    ${
+    ${[
+      metaColorScheme
+        ? `<meta name="color-scheme" content="${metaColorScheme}">`
+        : '',
       supportDarkMode
-        ? '<meta name="color-scheme" content="light dark">\n    <meta name="supported-color-schemes" content="light dark">'
-        : ''
+        ? '<meta name="supported-color-schemes" content="light dark">'
+        : '',
+    ]
+      .filter(Boolean)
+      .join('\n    ')
     }
     ${[
       buildFontsTags(content, inlineStyle, fonts),

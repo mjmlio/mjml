@@ -103,4 +103,42 @@ describe('skeleton', () => {
         .to.equal(1)
     })
   })
+
+  describe('gmail force light mode', () => {
+    const getColorSchemeMeta = ($) =>
+      $('meta[name="color-scheme"]').attr('content')
+
+    const hasRootColorScheme = ($) =>
+      $('head style')
+        .text()
+        .includes(':root { color-scheme: light dark;')
+
+    it('uses "light dark" meta when only supportDarkMode is true', () => {
+      const $ = load(skeleton({ supportDarkMode: true }))
+
+      chai.expect(getColorSchemeMeta($)).to.equal('light dark')
+      chai.expect(hasRootColorScheme($)).to.equal(true)
+    })
+
+    it('uses "light only" meta but keeps :root dark mode CSS when both are true', () => {
+      const $ = load(skeleton({ supportDarkMode: true, gmailForceLightMode: true }))
+
+      chai.expect($('meta[name="color-scheme"]').get().length).to.equal(1)
+      chai.expect(getColorSchemeMeta($)).to.equal('light only')
+      chai
+        .expect($('meta[name="supported-color-schemes"]').attr('content'))
+        .to.equal('light dark')
+      chai.expect(hasRootColorScheme($)).to.equal(true)
+    })
+
+    it('uses "light only" meta without dark mode CSS when only gmailForceLightMode is true', () => {
+      const $ = load(skeleton({ gmailForceLightMode: true }))
+
+      chai.expect(getColorSchemeMeta($)).to.equal('light only')
+      chai
+        .expect($('meta[name="supported-color-schemes"]').get().length)
+        .to.equal(0)
+      chai.expect(hasRootColorScheme($)).to.equal(false)
+    })
+  })
 })

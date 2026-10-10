@@ -71,7 +71,7 @@ function getElementDarkModeAttributes(element, components) {
   return foundAttributes
 }
 
-function findElementsWithDarkModeAttributes(element, components, output = []) {
+export function findElementsWithDarkModeAttributes(element, components, output = []) {
   if (!element) {
     return output
   }

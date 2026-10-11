@@ -26,7 +26,7 @@ export default function skeleton(options) {
     usesVML = false,
   } = options
 
-  // gmail-force-light-mode only changes the meta tag (read by Gmail apps), so the
+  // gmail-force-light-mode only changes the meta tags (read by Gmail apps), so the
   // :root CSS and --dark styles from support-dark-mode still apply elsewhere
   let metaColorScheme = null
   if (gmailForceLightMode) {
@@ -49,7 +49,7 @@ export default function skeleton(options) {
       metaColorScheme
         ? `<meta name="color-scheme" content="${metaColorScheme}">`
         : '',
-      supportDarkMode
+      supportDarkMode && !gmailForceLightMode
         ? '<meta name="supported-color-schemes" content="light dark">'
         : '',
     ]

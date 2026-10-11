@@ -120,14 +120,14 @@ describe('skeleton', () => {
       chai.expect(hasRootColorScheme($)).to.equal(true)
     })
 
-    it('uses "light only" meta but keeps :root dark mode CSS when both are true', () => {
+    it('uses only the "light only" meta but keeps :root dark mode CSS when both are true', () => {
       const $ = load(skeleton({ supportDarkMode: true, gmailForceLightMode: true }))
 
       chai.expect($('meta[name="color-scheme"]').get().length).to.equal(1)
       chai.expect(getColorSchemeMeta($)).to.equal('light only')
       chai
-        .expect($('meta[name="supported-color-schemes"]').attr('content'))
-        .to.equal('light dark')
+        .expect($('meta[name="supported-color-schemes"]').get().length)
+        .to.equal(0)
       chai.expect(hasRootColorScheme($)).to.equal(true)
     })
 

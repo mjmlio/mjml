@@ -31,6 +31,7 @@ describe('gmail-force-light-mode attribute', function () {
     chai
       .expect($('meta[name="color-scheme"]').attr('content'))
       .to.equal('light only')
+    chai.expect($('meta[name="supported-color-schemes"]').get().length).to.equal(0)
     chai.expect(html).to.include(':root { color-scheme: light dark;')
     chai.expect(html).to.include('prefers-color-scheme: dark')
   })

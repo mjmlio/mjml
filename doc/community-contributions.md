@@ -51,3 +51,7 @@ The [Email Love Figma plugin](https://www.figma.com/community/plugin/13878912886
 ### Templatical
 
 [Templatical](https://templatical.com) is a drag-and-drop email editor you embed in your own web app. Templates are stored as portable JSON and rendered to MJML by [@templatical/renderer](https://www.npmjs.com/package/@templatical/renderer), which you then compile to HTML with the `mjml` package. Framework-agnostic, themeable, and it can also generate templates from a coding agent via skill or MCP.
+
+## HTML Test
+
+[htmltest.email](https://htmltest.email) is a free email send tool that you can paste MJML (or html) directly into and send yourself or coworkers a test. MJML errors are flagged pre-send to help you debug, along with tools to help you check your emails accessibility. 

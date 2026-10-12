@@ -54,4 +54,4 @@ The [Email Love Figma plugin](https://www.figma.com/community/plugin/13878912886
 
 ## HTML Test
 
-[htmltest.email](https://htmltest.email) is a free email send tool that you can paste MJML (or html) directly into and send yourself or coworkers a test. MJML errors are flagged pre-send to help you debug, along with tools to help you check your emails accessibility. 
+[htmltest.email](https://htmltest.email) is a free email send tool that you can paste MJML (or HTML) directly into and send yourself or coworkers a test. MJML errors are flagged pre-send to help you debug, along with tools to help you check your emails accessibility. 

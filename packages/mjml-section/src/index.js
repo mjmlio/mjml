@@ -23,6 +23,7 @@ export default class MjSection extends BodyComponent {
     direction: 'enum(ltr,rtl)',
     'full-width': 'enum(full-width,false,)',
     gutter: 'unit(px,%)',
+    overflow: 'enum(hidden)',
     padding: 'unit(px,%){1,4}',
     'padding-top': 'unit(px,%)',
     'padding-bottom': 'unit(px,%)',
@@ -84,6 +85,8 @@ export default class MjSection extends BodyComponent {
       table: {
         ...(fullWidth ? {} : background),
         width: '100%',
+        // Round the table's own background so the div needn't clip it
+        'border-radius': this.getAttribute('border-radius'),
         ...(hasBorderRadius && { 'border-collapse': 'separate' }),
       },
       td: {
@@ -107,7 +110,9 @@ export default class MjSection extends BodyComponent {
         margin: '0px auto',
         'max-width': containerWidth,
         'border-radius': this.getAttribute('border-radius'),
-        ...(hasBorderRadius && { overflow: 'hidden' }),
+        // Opt-in only: a clipped div next to a float (e.g. a disclaimer banner a
+        // mail server inserts) collapses to zero width in Chromium-based clients
+        overflow: this.getAttribute('overflow'),
         'margin-top': !isFirstSection ? this.context.gap : undefined,
       },
       innerDiv: {

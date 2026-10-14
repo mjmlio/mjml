@@ -61,6 +61,7 @@ Setting it will change the width of the section from the default 600px to 100%.
 | css-class             | string                  | class name, added to the root HTML element created                                                     |               |
 | full-width            | `full-width` `false`    | make the section full-width                                                                            |               |
 | gap                   | `px`                    | applies a vertical gap between child `mj-section` instances                                            |               |
+| overflow              | `hidden`                | `hidden` clips content to the `border-radius` (see below)                                              |               |
 | padding               | `px` `%`                | section padding, supports up to 4 parameters                                                           | `20px 0`      |
 | padding-bottom        | `px` `%`                | section bottom padding                                                                                 |               |
 | padding-left          | `px` `%`                | section left padding                                                                                   |               |
@@ -69,3 +70,7 @@ Setting it will change the width of the section from the default 600px to 100%.
 | text-align            | `left` `center` `right` | CSS text-align                                                                                         | `center`      |
 
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/wrapper">Try it live</a></p>
+
+### Clipping to the border radius
+
+A section with a `border-radius` rounds its own background without clipping its content. Set `overflow="hidden"` to clip content, such as an image flush with the edge, to the rounded corners. Avoid it when recipients may get a banner inserted by their mail server (for example an Exchange "external sender" disclaimer): when that banner is floated, Chromium-based clients like new Outlook collapse a clipped section to zero width and its content disappears.

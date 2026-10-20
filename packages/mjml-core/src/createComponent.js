@@ -15,6 +15,7 @@ import MJMLParser from 'mjml-parser-xml'
 
 import shorthandParser, { borderParser } from './helpers/shorthandParser'
 import formatAttributes from './helpers/formatAttributes'
+import mirrorAttributes from './helpers/mirrorAttributes'
 import jsonToXML from './helpers/jsonToXML'
 
 export function initComponent({ initialDatas, name }) {
@@ -67,9 +68,13 @@ class Component {
       rawAttrs,
     }
 
+    const isRtl = get(context, 'globalData.dir') === 'rtl'
+
     this.attributes = formatAttributes(
       {
-        ...this.constructor.defaultAttributes,
+        ...(isRtl
+          ? mirrorAttributes(this.constructor.defaultAttributes)
+          : this.constructor.defaultAttributes),
         ...globalAttributes,
         ...attributes,
       },

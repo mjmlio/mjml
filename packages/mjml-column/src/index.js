@@ -290,7 +290,7 @@ export default class MjColumn extends BodyComponent {
     return {
       div: {
         'font-size': '0px',
-        'text-align': 'left',
+        'text-align': this.context.globalData.dir === 'rtl' ? 'right' : 'left',
         direction: this.getAttribute('direction'),
         display: 'inline-block',
         'vertical-align': this.getAttribute('vertical-align'),

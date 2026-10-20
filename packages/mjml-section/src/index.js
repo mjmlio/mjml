@@ -330,7 +330,8 @@ export default class MjSection extends BodyComponent {
       gapResponsive: this.getAttribute('gap--responsive'),
       gutter: this.getAttribute('gutter'),
       gutterResponsive: this.getAttribute('gutter--responsive'),
-      direction: this.getAttribute('direction'),
+      // unset direction inherits <mjml dir>; gutters must mirror with it
+      direction: this.getAttribute('direction') || globalData?.dir,
       hasSectionBackgroundUrl,
       addVmlButtonStyle: (buttonClassName, leftPadding) => {
         if (!hasSectionBackgroundUrl || !globalData || !buttonClassName) {

@@ -60,6 +60,18 @@ For additional image compatibility in some versions of Outlook, you can add `sup
   <p>All <code>--dark</code> modifier attributes require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
 </div>
 
+#### Forcing light mode in Gmail apps
+
+The Gmail apps apply their own color changes in dark mode, which `--dark` styles cannot control. Adding `gmail-force-light-mode="true"` to the `<mjml>` tag changes the `color-scheme` meta tag to `light only`, which forces light mode in the Gmail apps.
+
+When used together with `support-dark-mode="true"`, the `:root` CSS and `--dark` styles are still output, so dark mode continues to work in email clients that support them.
+
+```xml
+<mjml support-dark-mode="true" gmail-force-light-mode="true">
+```
+
+The validator will show a warning when `--dark` attributes are used with `gmail-force-light-mode="true"`, as a reminder that those styles will not display in the Gmail apps.
+
 ### Which email clients/versions are supported?
 
 For full details of component support, [please visit our support matrix](https://mjml.io/compatibility).
@@ -73,6 +85,7 @@ An MJML document starts with an `mjml` tag. It can contain only `mj-head` and `m
 | attribute               | accepts | description                                                                                                                                                                                              | default value |
 | ----------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
 | dir                     | string  | adds a `dir` attribute in the `html` and `body > div` tags                                                                                                                                               | `auto`        |
+| gmail-force-light-mode  | boolean | setting to `true` will set the `color-scheme` `<meta>` tag to `light only` to force light mode in Gmail apps. Can be combined with `support-dark-mode`                                                     | `false`       |
 | lang                    | string  | adds a `lang` attribute in the `html` and `body > div` tags                                                                                                                                              | `und`         |
 | support-dark-mode       | boolean | setting to `true` will add `<meta>` tags and `:root` CSS to enable support                                                                                                                               | `false`       |
 | support-outlook-classic | boolean | setting to `false` will remove all Outlook specific code when compiled to HTML                                                                                                                           | `true`        |

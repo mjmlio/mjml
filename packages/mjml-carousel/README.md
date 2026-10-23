@@ -43,7 +43,7 @@ Displays a gallery of images or "carousel". Readers can interact by hovering and
 | tb-hover-border-color      | CSS color formats              | border color of the hovered thumbnail                  | `#fead0d`                         |
 | tb-selected-border-color   | CSS color formats              | border color of the selected thumbnail                 | `#ccc`                            |
 | tb-width                   | `px` `%`                       | thumbnail width                                        |                                   |
-| thumbnails                 | `visible` `hidden` `supported` | display the thumbnails                                 | `hidden`                          |
+| thumbnails                 | `visible` `hidden` `supported` | display the thumbnails                                 | `visible`                         |
 
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/carousel">Try it live</a></p>
 

@@ -22,7 +22,7 @@ Displays a blank space, that can be used to separate content.
 | -------------------------- | ----------------- | -------------------------------------------------- | ------------- |
 | container-background-color | CSS color formats | inner element background color                     |               |
 | css-class                  | string            | class name, added to the root HTML element created |               |
-| height                     | `px` `%`          | spacer height                                      | `0px`         |
+| height                     | `px` `%`          | spacer height                                      | `20px`        |
 | padding                    | `px` `%`          | spacer padding, supports up to 4 parameters        |               |
 | padding-bottom             | `px` `%`          | bottom padding                                     |               |
 | padding-left               | `px` `%`          | left padding                                       |               |

@@ -1,56 +1,381 @@
 import { BodyComponent, suffixCssClasses } from 'mjml-core'
 import { flow, identity, join, filter } from 'lodash/fp'
+import { msoConditionalTag } from 'mjml-core/lib/helpers/conditionalTag'
+import {
+  DARK_MODE_CLASS_PREFIX,
+  emitDarkModeHeadStyle,
+  registerDarkModeRule,
+} from 'mjml-core/lib/helpers/colorSchemeDarkMode'
+import { OUTLOOK_DARK_MODE_CLASS } from 'mjml-core/lib/helpers/outlookDarkMode'
+import {
+  emitResponsiveHeadStyle,
+  buildResponsiveDeclarations,
+  registerResponsiveRuleGroup,
+} from 'mjml-core/lib/helpers/responsiveMode'
 
 const makeBackgroundString = flow(filter(identity), join(' '))
+
+function parseBackgroundPositionValue(position = 'top center') {
+  const posSplit = String(position).split(' ')
+
+  if (posSplit.length === 1) {
+    const val = posSplit[0]
+
+    if (['top', 'bottom'].includes(val)) {
+      return {
+        x: 'center',
+        y: val,
+      }
+    }
+
+    return {
+      x: val,
+      y: 'center',
+    }
+  }
+
+  if (posSplit.length === 2) {
+    const val1 = posSplit[0]
+    const val2 = posSplit[1]
+
+    if (
+      ['top', 'bottom'].includes(val1) ||
+      (val1 === 'center' && ['left', 'right'].includes(val2))
+    ) {
+      return {
+        x: val2,
+        y: val1,
+      }
+    }
+
+    return {
+      x: val1,
+      y: val2,
+    }
+  }
+
+  return { x: 'center', y: 'top' }
+}
 
 export default class MjSection extends BodyComponent {
   static componentName = 'mj-section'
 
   static allowedAttributes = {
+    'aria-label': 'string',
+    'aria-roledescription': 'string',
     'background-color': 'color',
-    'background-url': 'string',
-    'background-repeat': 'enum(repeat,no-repeat)',
-    'background-size': 'string',
+    'background-color--dark': 'color',
     'background-position': 'string',
+    'background-position--responsive': 'string',
     'background-position-x': 'string',
+    'background-position-x--responsive': 'string',
     'background-position-y': 'string',
+    'background-position-y--responsive': 'string',
+    'background-repeat': 'enum(repeat,no-repeat)',
+    'background-repeat--responsive': 'enum(repeat,no-repeat)',
+    'background-size': 'string',
+    'background-size--responsive': 'string',
+    'background-url': 'string',
+    'background-url--dark': 'string',
     border: 'string',
+    'border-color--dark': 'color',
     'border-bottom': 'string',
+    'border-bottom-color--dark': 'color',
     'border-left': 'string',
+    'border-left-color--dark': 'color',
     'border-radius': 'string',
     'border-right': 'string',
+    'border-right-color--dark': 'color',
     'border-top': 'string',
+    'border-top-color--dark': 'color',
+    'column-align': 'enum(left,center,right)',
+    'column-align--responsive': 'enum(left,center,right)',
     direction: 'enum(ltr,rtl)',
     'full-width': 'enum(full-width,false,)',
     gutter: 'unit(px,%)',
+    'gutter--responsive': 'unit(px,%)',
     padding: 'unit(px,%){1,4}',
-    'padding-top': 'unit(px,%)',
+    'padding--responsive': 'unit(px,%){1,4}',
     'padding-bottom': 'unit(px,%)',
+    'padding-bottom--responsive': 'unit(px,%)',
     'padding-left': 'unit(px,%)',
+    'padding-left--responsive': 'unit(px,%)',
     'padding-right': 'unit(px,%)',
+    'padding-right--responsive': 'unit(px,%)',
+    'padding-top': 'unit(px,%)',
+    'padding-top--responsive': 'unit(px,%)',
+    'role': 'string',
     'text-align': 'enum(left,center,right)',
-    'text-padding': 'unit(px,%){1,4}',
   }
 
   static defaultAttributes = {
-    'background-repeat': 'repeat',
-    'background-size': 'auto',
     'background-position': 'top center',
-    direction: 'ltr',
+    'background-size': 'auto',
     padding: '20px 0',
     'text-align': 'center',
-    'text-padding': '4px 4px 4px 0',
+  }
+
+  darkClasses = null
+
+  responsiveClasses = null
+
+  registerDarkBackgroundImageClass() {
+    const globalData = this.context && this.context.globalData
+
+    if (!globalData) {
+      return null
+    }
+
+    if (typeof globalData.outlookDarkModeImageCount !== 'number') {
+      globalData.outlookDarkModeImageCount = 0
+    }
+
+    globalData.outlookDarkModeImageCount += 1
+
+    return `${OUTLOOK_DARK_MODE_CLASS}-${globalData.outlookDarkModeImageCount}`
+  }
+
+  getDarkBackgroundImageCssValue() {
+    const darkBackgroundUrl = this.getAttribute('background-url--dark')
+
+    return darkBackgroundUrl ? `url(${JSON.stringify(darkBackgroundUrl)})` : null
+  }
+
+  registerDarkModeRuleGroup({
+    cssDeclarations,
+    supportOutlookDarkMode = false,
+  }) {
+    const globalData = this.context && this.context.globalData
+    const validDeclarations = Array.isArray(cssDeclarations)
+      ? cssDeclarations.filter(
+          ({ cssProperty, cssValue }) => Boolean(cssProperty && cssValue),
+        )
+      : []
+
+    if (
+      !globalData ||
+      validDeclarations.length === 0
+    ) {
+      return null
+    }
+
+    if (typeof globalData.darkModeRuleCount !== 'number') {
+      globalData.darkModeRuleCount = 0
+    }
+
+    globalData.darkModeRuleCount += 1
+
+    const className = `${DARK_MODE_CLASS_PREFIX}-${globalData.darkModeRuleCount}`
+
+    if (!Array.isArray(globalData.darkModeRules)) {
+      globalData.darkModeRules = []
+    }
+
+    validDeclarations.forEach(({ cssProperty, cssValue }) => {
+      globalData.darkModeRules.push({
+        className,
+        cssProperty,
+        cssValue,
+        supportOutlookDarkMode: Boolean(supportOutlookDarkMode),
+      })
+    })
+
+    return className
+  }
+
+  getDarkClasses() {
+    if (this.darkClasses !== null) {
+      return this.darkClasses
+    }
+
+    this.darkClasses = {}
+
+    const globalData = this.context && this.context.globalData
+
+    const darkBackgroundColor = this.attributes['background-color--dark']
+    if (darkBackgroundColor) {
+      this.darkClasses.background = registerDarkModeRule(globalData, {
+        cssProperty: 'background-color',
+        cssValue: darkBackgroundColor,
+      })
+    }
+
+    const darkBackgroundImageCssValue = this.getDarkBackgroundImageCssValue()
+    if (darkBackgroundImageCssValue) {
+      this.darkClasses.backgroundImage = registerDarkModeRule(globalData, {
+        cssProperty: 'background-image',
+        cssValue: darkBackgroundImageCssValue,
+      })
+    }
+
+    const darkBorderColor = this.attributes['border-color--dark']
+    const borderDarkDeclarations = []
+
+    if (darkBorderColor) {
+      borderDarkDeclarations.push({
+        cssProperty: 'border-color',
+        cssValue: darkBorderColor,
+      })
+    }
+
+    const sideOverrides = [
+      ['border-top-color', this.attributes['border-top-color--dark']],
+      ['border-bottom-color', this.attributes['border-bottom-color--dark']],
+      ['border-left-color', this.attributes['border-left-color--dark']],
+      ['border-right-color', this.attributes['border-right-color--dark']],
+    ]
+
+    sideOverrides.forEach(([cssProperty, cssValue]) => {
+      if (!cssValue || (darkBorderColor && cssValue === darkBorderColor)) {
+        return
+      }
+
+      borderDarkDeclarations.push({
+        cssProperty,
+        cssValue,
+      })
+    })
+
+    this.darkClasses.border = this.registerDarkModeRuleGroup({
+      cssDeclarations: borderDarkDeclarations,
+    })
+
+    return this.darkClasses
+  }
+  
+  getResponsiveClasses() {
+    if (this.responsiveClasses !== null) return this.responsiveClasses
+
+    this.responsiveClasses = {
+      div: null,
+      table: null,
+      td: null,
+    }
+
+    const globalData = this.context && this.context.globalData
+    const responsiveGap = this.context && this.context.gapResponsive
+    const isFirstSection = this.props.index === 0
+
+    this.responsiveClasses.div = !isFirstSection
+      ? registerResponsiveRuleGroup(globalData, {
+          cssDeclarations: buildResponsiveDeclarations([
+            ['margin-top', responsiveGap],
+          ]),
+        })
+      : null
+
+    const bgPositionResponsive = this.attributes['background-position--responsive']
+    const bgPositionXResponsive = this.attributes['background-position-x--responsive']
+    const bgPositionYResponsive = this.attributes['background-position-y--responsive']
+    const responsiveBackgroundPosition = (() => {
+      if (!bgPositionResponsive && !bgPositionXResponsive && !bgPositionYResponsive) {
+        return null
+      }
+
+      const { x, y } = parseBackgroundPositionValue(
+        bgPositionResponsive || MjSection.defaultAttributes['background-position'],
+      )
+
+      return `${bgPositionXResponsive || x} ${bgPositionYResponsive || y}`
+    })()
+
+    this.responsiveClasses.table = registerResponsiveRuleGroup(globalData, {
+      cssDeclarations: buildResponsiveDeclarations([
+        ['background-position', responsiveBackgroundPosition],
+        ['background-repeat', this.attributes['background-repeat--responsive']],
+        ['background-size', this.attributes['background-size--responsive']],
+      ]),
+    })
+
+    this.responsiveClasses.td = registerResponsiveRuleGroup(globalData, {
+      cssDeclarations: buildResponsiveDeclarations([
+        ['padding', this.attributes['padding--responsive']],
+        ['padding-top', this.attributes['padding-top--responsive']],
+        ['padding-right', this.attributes['padding-right--responsive']],
+        ['padding-bottom', this.attributes['padding-bottom--responsive']],
+        ['padding-left', this.attributes['padding-left--responsive']],
+        ['text-align', this.attributes['column-align--responsive']],
+      ]),
+    })
+
+    return this.responsiveClasses
+  }
+
+  componentHeadStyle = () => {
+    const { background, backgroundImage, border } = this.getDarkClasses()
+
+    if (background || backgroundImage || border) {
+      emitDarkModeHeadStyle(this.context && this.context.globalData)
+    }
+
+    emitResponsiveHeadStyle(this.context && this.context.globalData)
+
+    return ''
+  }
+
+  getColumnAlign() {
+    return this.getAttribute('column-align') || this.getAttribute('text-align') || 'center'
   }
 
   getChildContext() {
     const { box } = this.getBoxWidths()
+    const globalData = this.context?.globalData
+    const supportOutlookClassic = globalData?.supportOutlookClassic !== false
+    const hasSectionBackgroundUrl = this.hasBackground() && supportOutlookClassic
 
     return {
       ...this.context,
       containerWidth: `${box}px`,
       gap: this.getAttribute('gap'),
+      gapResponsive: this.getAttribute('gap--responsive'),
       gutter: this.getAttribute('gutter'),
+      gutterResponsive: this.getAttribute('gutter--responsive'),
       direction: this.getAttribute('direction'),
+      hasSectionBackgroundUrl,
+      addVmlButtonStyle: (buttonClassName, leftPadding) => {
+        if (!hasSectionBackgroundUrl || !globalData || !buttonClassName) {
+          return
+        }
+
+        const effectiveLeftPadding =
+          typeof leftPadding === 'string' && leftPadding !== ''
+            ? leftPadding
+            : '0px'
+
+        globalData.vmlButtonStyleClassesEmitted = globalData.vmlButtonStyleClassesEmitted || {}
+
+        if (globalData.vmlButtonStyleClassesEmitted[buttonClassName]) {
+          return
+        }
+
+        globalData.vmlButtonStyleRules = Array.isArray(globalData.vmlButtonStyleRules)
+          ? globalData.vmlButtonStyleRules
+          : []
+
+        globalData.headRaw = Array.isArray(globalData.headRaw)
+          ? globalData.headRaw
+          : []
+
+        globalData.vmlButtonStyleRules.push(
+          `.vml .${buttonClassName} td { mso-para-margin-left:${effectiveLeftPadding}; }`,
+          `.vml .${buttonClassName} td td { mso-para-margin-left:0; }`,
+        )
+
+        const styleBlock = `<!--[if mso]>
+  <style>
+    ${globalData.vmlButtonStyleRules.join('\n    ')}
+  </style>
+<![endif]-->`
+
+        if (typeof globalData.vmlButtonStyleHeadRawIndex === 'number') {
+          globalData.headRaw[globalData.vmlButtonStyleHeadRawIndex] = styleBlock
+        } else {
+          globalData.headRaw.push(styleBlock)
+          globalData.vmlButtonStyleHeadRawIndex = globalData.headRaw.length - 1
+        }
+
+        globalData.vmlButtonStyleClassesEmitted[buttonClassName] = true
+      },
     }
   }
 
@@ -61,6 +386,10 @@ export default class MjSection extends BodyComponent {
 
     const hasBorderRadius = this.hasBorderRadius()
 
+    const hasBackground = this.hasBackground()
+
+    const supportOutlookClassic = this.context?.globalData?.supportOutlookClassic !== false
+
     const isFirstSection = this.props.index === 0
 
     const background = this.getAttribute('background-url')
@@ -70,10 +399,10 @@ export default class MjSection extends BodyComponent {
           'background-position': this.getBackgroundString(),
           'background-repeat': this.getAttribute('background-repeat'),
           'background-size': this.getAttribute('background-size'),
+          'background-color': this.getAttribute('background-color'),
         }
       : {
           background: this.getAttribute('background-color'),
-          'background-color': this.getAttribute('background-color'),
         }
 
     return {
@@ -100,19 +429,16 @@ export default class MjSection extends BodyComponent {
         'padding-left': this.getAttribute('padding-left'),
         'padding-right': this.getAttribute('padding-right'),
         'padding-top': this.getAttribute('padding-top'),
-        'text-align': this.getAttribute('text-align'),
+        ...(hasBackground && supportOutlookClassic && { 'mso-padding-alt': '0' }),
+        'text-align': this.getColumnAlign(),
       },
       div: {
-        ...(fullWidth ? {} : background),
         margin: '0px auto',
         'max-width': containerWidth,
         'border-radius': this.getAttribute('border-radius'),
         ...(hasBorderRadius && { overflow: 'hidden' }),
         'margin-top': !isFirstSection ? this.context.gap : undefined,
-      },
-      innerDiv: {
-        'line-height': '0',
-        'font-size': '0',
+        ...(hasBackground && { 'line-height': '0','font-size': '0' }),
       },
     }
   }
@@ -124,7 +450,7 @@ export default class MjSection extends BodyComponent {
         ? [
             `url('${this.getAttribute('background-url')}')`,
             this.getBackgroundString(),
-            `/ ${this.getAttribute('background-size')}`,
+            `/ ${this.getAttribute('background-size') || 'auto'}`,
             this.getAttribute('background-repeat'),
           ]
         : []),
@@ -146,47 +472,7 @@ export default class MjSection extends BodyComponent {
   }
 
   parseBackgroundPosition() {
-    const posSplit = this.getAttribute('background-position').split(' ')
-
-    if (posSplit.length === 1) {
-      const val = posSplit[0]
-      // here we must determine if x or y was provided ; other will be center
-      if (['top', 'bottom'].includes(val)) {
-        return {
-          x: 'center',
-          y: val,
-        }
-      }
-
-      return {
-        x: val,
-        y: 'center',
-      }
-    }
-
-    if (posSplit.length === 2) {
-      // x and y can be put in any order in background-position so we need to determine that based on values
-      const val1 = posSplit[0]
-      const val2 = posSplit[1]
-
-      if (
-        ['top', 'bottom'].includes(val1) ||
-        (val1 === 'center' && ['left', 'right'].includes(val2))
-      ) {
-        return {
-          x: val2,
-          y: val1,
-        }
-      }
-
-      return {
-        x: val1,
-        y: val2,
-      }
-    }
-
-    // more than 2 values is not supported, let's treat as default value
-    return { x: 'center', y: 'top' }
+    return parseBackgroundPositionValue(this.getAttribute('background-position'))
   }
 
   hasBackground() {
@@ -218,7 +504,7 @@ export default class MjSection extends BodyComponent {
     const hasGap = this.hasGap()
 
     return `
-      <!--[if mso | IE]>
+      ${msoConditionalTag(`
       <table
         ${this.htmlAttributes({
           align: 'center',
@@ -226,7 +512,7 @@ export default class MjSection extends BodyComponent {
           cellpadding: '0',
           cellspacing: '0',
           class: suffixCssClasses(this.getAttribute('css-class'), 'outlook'),
-          role: 'presentation',
+          role: 'none',
           style: {
             width: `${containerWidth}`,
             'padding-top': !isFirstSection ? this.context.gap : undefined,
@@ -237,18 +523,18 @@ export default class MjSection extends BodyComponent {
       >
         <tr>
           <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
-      <![endif]-->
+      `)}
     `
   }
 
   // eslint-disable-next-line class-methods-use-this
   renderAfter() {
     return `
-      <!--[if mso | IE]>
+      ${msoConditionalTag(`
           </td>
         </tr>
       </table>
-      <![endif]-->
+      `)}
     `
   }
 
@@ -256,15 +542,15 @@ export default class MjSection extends BodyComponent {
     const { children } = this.props
 
     return `
-      <!--[if mso | IE]>
+      ${msoConditionalTag(`
         <tr>
-      <![endif]-->
+      `)}
       ${this.renderChildren(children, {
         renderer: (component) =>
           component.constructor.isRawElement()
             ? component.render()
             : `
-          <!--[if mso | IE]>
+          ${msoConditionalTag(`
             <td
               ${component.htmlAttributes({
                 align: component.getAttribute('align'),
@@ -275,17 +561,17 @@ export default class MjSection extends BodyComponent {
                 style: 'tdOutlook',
               })}
             >
-          <![endif]-->
+          `)}
             ${component.render()}
-          <!--[if mso | IE]>
+          ${msoConditionalTag(`
             </td>
-          <![endif]-->
+          `)}
     `,
       })}
 
-      <!--[if mso | IE]>
+      ${msoConditionalTag(`
         </tr>
-      <![endif]-->
+      `)}
     `
   }
 
@@ -293,6 +579,8 @@ export default class MjSection extends BodyComponent {
     const fullWidth = this.isFullWidth()
 
     const { containerWidth } = this.context
+
+    const backgroundSize = this.getAttribute('background-size') || 'auto'
 
     const isPercentage = (str) => /^\d+(\.\d+)?%$/.test(str)
 
@@ -336,7 +624,8 @@ export default class MjSection extends BodyComponent {
     let [[vOriginX, vPosX], [vOriginY, vPosY]] = ['x', 'y'].map(
       (coordinate) => {
         const isX = coordinate === 'x'
-        const bgRepeat = this.getAttribute('background-repeat') === 'repeat'
+        const bgRepeat =
+          (this.getAttribute('background-repeat') ?? 'repeat') === 'repeat'
         let pos = isX ? bgPosX : bgPosY
         let origin = isX ? bgPosX : bgPosY
 
@@ -368,23 +657,18 @@ export default class MjSection extends BodyComponent {
 
     // If background size is either cover or contain, we tell VML to keep the aspect
     // and fill the entire element.
-    if (
-      this.getAttribute('background-size') === 'cover' ||
-      this.getAttribute('background-size') === 'contain'
-    ) {
+    if (backgroundSize === 'cover' || backgroundSize === 'contain') {
       vSizeAttributes = {
         size: '1,1',
         aspect:
-          this.getAttribute('background-size') === 'cover'
-            ? 'atleast'
-            : 'atmost',
+          backgroundSize === 'cover' ? 'atleast' : 'atmost',
       }
-    } else if (this.getAttribute('background-size') !== 'auto') {
-      const bgSplit = this.getAttribute('background-size').split(' ')
+    } else if (backgroundSize !== 'auto') {
+      const bgSplit = backgroundSize.split(' ')
 
       if (bgSplit.length === 1) {
         vSizeAttributes = {
-          size: this.getAttribute('background-size'),
+          size: backgroundSize,
           aspect: 'atmost', // reproduces height auto
         }
       } else {
@@ -397,7 +681,7 @@ export default class MjSection extends BodyComponent {
     let vmlType =
       this.getAttribute('background-repeat') === 'no-repeat' ? 'frame' : 'tile'
 
-    if (this.getAttribute('background-size') === 'auto') {
+    if (backgroundSize === 'auto') {
       vmlType = 'tile' // if no size provided, keep old behavior because outlook can't use original image size with "frame"
       ;[[vOriginX, vPosX], [vOriginY, vPosY]] = [
         [0.5, 0.5],
@@ -405,8 +689,16 @@ export default class MjSection extends BodyComponent {
       ] // also ensure that images are still cropped the same way
     }
 
+    const hasBackground = this.hasBackground()
+
+    const padding = `${this.getShorthandAttrValue('padding', 'left')}px,${this.getShorthandAttrValue('padding', 'top')}px,${this.getShorthandAttrValue('padding', 'right')}px,${this.getShorthandAttrValue('padding', 'bottom')}px`
+
+    const textboxInset = hasBackground
+      ? `${padding}`
+      : '0,0,0,0'
+
     return `
-      <!--[if mso | IE]>
+      ${msoConditionalTag(`
         <v:rect ${this.htmlAttributes({
           style: fullWidth
             ? { 'mso-width-percent': '1000' }
@@ -423,29 +715,62 @@ export default class MjSection extends BodyComponent {
           type: vmlType,
           ...vSizeAttributes,
         })} />
-        <v:textbox style="mso-fit-shape-to-text:true" inset="0,0,0,0">
-      <![endif]-->
+        <v:textbox style="mso-fit-shape-to-text:true" inset="${textboxInset}">
+      `)}
           ${content}
-        <!--[if mso | IE]>
+      ${msoConditionalTag(`
         </v:textbox>
       </v:rect>
-    <![endif]-->
+      `)}
     `
   }
 
   renderSection() {
     const hasBackground = this.hasBackground()
+    const isFirstSection = this.props.index === 0
+    const darkClasses = this.getDarkClasses()
+    const responsiveGapClass = !isFirstSection
+      ? this.getResponsiveClasses().div
+      : null
+
+    const borderDarkClasses = [
+      darkClasses.border,
+    ]
+      .filter(Boolean)
+      .join(' ')
+
+    const tableDarkClass = this.isFullWidth()
+      ? null
+      : [darkClasses.background, darkClasses.backgroundImage]
+        .filter(Boolean)
+        .join(' ') || undefined
+
+    const supportOutlookClassic = this.context?.globalData?.supportOutlookClassic !== false
+    const globalData = this.context?.globalData
+    const initialVmlRuleCount = Array.isArray(globalData?.vmlButtonStyleRules)
+      ? globalData.vmlButtonStyleRules.length
+      : 0
+    const wrappedChildren = this.renderWrappedChildren()
+    const finalVmlRuleCount = Array.isArray(globalData?.vmlButtonStyleRules)
+      ? globalData.vmlButtonStyleRules.length
+      : 0
+    const shouldAddVmlClass =
+      hasBackground &&
+      supportOutlookClassic &&
+      finalVmlRuleCount > initialVmlRuleCount
+
+    const tableClass = [tableDarkClass, shouldAddVmlClass ? 'vml' : null, this.getResponsiveClasses().table]
+      .filter(Boolean)
+      .join(' ') || undefined
 
     return `
       <div ${this.htmlAttributes({
-        class: this.isFullWidth() ? null : this.getAttribute('css-class'),
+        class: [
+          this.isFullWidth() ? null : this.getAttribute('css-class'),
+          responsiveGapClass,
+        ].filter(Boolean).join(' ') || undefined,
         style: 'div',
       })}>
-        ${
-          hasBackground
-            ? `<div ${this.htmlAttributes({ style: 'innerDiv' })}>`
-            : ''
-        }
         <table
           ${this.htmlAttributes({
             align: 'center',
@@ -455,34 +780,45 @@ export default class MjSection extends BodyComponent {
             border: '0',
             cellpadding: '0',
             cellspacing: '0',
-            role: 'presentation',
+            class: tableClass,
             style: 'table',
+            role: this.getAttribute('role') ? this.getAttribute('role') : 'none',
+            'aria-label': this.getAttribute('aria-label'),
+            'aria-roledescription': this.getAttribute('aria-roledescription'),
           })}
         >
-          <tbody>
-            <tr>
-              <td
-                ${this.htmlAttributes({
-                  style: 'td',
-                })}
-              >
-                <!--[if mso | IE]>
-                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                <![endif]-->
-                  ${this.renderWrappedChildren()}
-                <!--[if mso | IE]>
-                  </table>
-                <![endif]-->
-              </td>
-            </tr>
-          </tbody>
+          <tr>
+            <td
+              ${this.htmlAttributes({
+              class: [borderDarkClasses, this.getResponsiveClasses().td].filter(Boolean).join(' ') || undefined,
+                style: 'td',
+              })}
+            >
+              ${msoConditionalTag(`
+                <table role="none" border="0" cellpadding="0" cellspacing="0">
+              `)}
+                ${wrappedChildren}
+              ${msoConditionalTag(`
+                </table>
+              `)}
+            </td>
+          </tr>
         </table>
-        ${hasBackground ? '</div>' : ''}
       </div>
     `
   }
 
   renderFullWidth() {
+    const { background, backgroundImage } = this.getDarkClasses()
+    const fullWidthClass = [
+      this.getAttribute('css-class'),
+      background,
+      backgroundImage,
+      this.getResponsiveClasses().table,
+    ]
+      .filter(Boolean)
+      .join(' ') || undefined
+
     const content = this.hasBackground()
       ? this.renderWithBackground(`
         ${this.renderBefore()}
@@ -499,22 +835,20 @@ export default class MjSection extends BodyComponent {
       <table
         ${this.htmlAttributes({
           align: 'center',
-          class: this.getAttribute('css-class'),
+          class: fullWidthClass,
           background: this.getAttribute('background-url'),
           border: '0',
           cellpadding: '0',
           cellspacing: '0',
-          role: 'presentation',
+          role: 'none',
           style: 'tableFullwidth',
         })}
       >
-        <tbody>
-          <tr>
-            <td>
-              ${content}
-            </td>
-          </tr>
-        </tbody>
+        <tr>
+          <td>
+            ${content}
+          </td>
+        </tr>
       </table>
     `
   }

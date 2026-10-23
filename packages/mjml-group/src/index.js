@@ -1,19 +1,44 @@
 import { BodyComponent } from 'mjml-core'
+import {
+  emitDarkModeHeadStyle,
+  registerDarkModeRule,
+} from 'mjml-core/lib/helpers/colorSchemeDarkMode'
+import {
+  emitResponsiveHeadStyle,
+  buildResponsiveDeclarations,
+  registerResponsiveRuleGroup,
+} from 'mjml-core/lib/helpers/responsiveMode'
 
 import widthParser from 'mjml-core/lib/helpers/widthParser'
+
+import { msoConditionalTag } from 'mjml-core/lib/helpers/conditionalTag'
 
 export default class MjGroup extends BodyComponent {
   static componentName = 'mj-group'
 
   static allowedAttributes = {
+    'aria-label': 'string',
+    'aria-roledescription': 'string',
     'background-color': 'color',
+    'background-color--dark': 'color',
     direction: 'enum(ltr,rtl)',
+    'direction--responsive': 'enum(ltr,rtl)',
+    role: 'string',
     'vertical-align': 'enum(top,bottom,middle)',
     width: 'unit(px,%)',
+    'width--responsive': 'unit(px,%)',
   }
 
   static defaultAttributes = {
-    direction: 'ltr',
+  }
+
+  componentHeadStyle = () => {
+    const darkBgColor = this.getAttribute('background-color--dark')
+    if (darkBgColor) {
+      emitDarkModeHeadStyle(this.context && this.context.globalData)
+    }
+    emitResponsiveHeadStyle(this.context && this.context.globalData)
+    return ''
   }
 
   getChildContext() {
@@ -53,7 +78,6 @@ export default class MjGroup extends BodyComponent {
       div: {
         'font-size': '0',
         'line-height': '0',
-        'text-align': 'left',
         display: 'inline-block',
         width: '100%',
         direction: this.getAttribute('direction'),
@@ -150,20 +174,49 @@ export default class MjGroup extends BodyComponent {
       return `${parsedWidth}${unit}`
     }
 
-    let classesName = `${this.getColumnClass()} mj-outlook-group-fix`
+    const darkBgColor = this.getAttribute('background-color--dark')
+    const darkClass = darkBgColor
+      ? registerDarkModeRule(this.context && this.context.globalData, {
+          cssProperty: 'background-color',
+          cssValue: darkBgColor,
+        })
+      : null
+
+    const divResponsiveClass = registerResponsiveRuleGroup(
+      this.context && this.context.globalData,
+      {
+        cssDeclarations: buildResponsiveDeclarations([
+          ['direction', this.attributes['direction--responsive']],
+          ['width', this.attributes['width--responsive']],
+        ]),
+      },
+    )
+
+    let classesName = `${this.getColumnClass()}`
 
     if (this.getAttribute('css-class')) {
       classesName += ` ${this.getAttribute('css-class')}`
+    }
+
+    if (darkClass) {
+      classesName += ` ${darkClass}`
+    }
+
+    if (divResponsiveClass) {
+      classesName += ` ${divResponsiveClass}`
     }
 
     return `
       <div
         ${this.htmlAttributes({
           class: classesName,
+          role: this.getAttribute('role'),
+          'aria-label': this.getAttribute('aria-label'),
+          'aria-roledescription': this.getAttribute('aria-roledescription'),
           style: 'div',
         })}
       >
-        <!--[if mso | IE]>
+        ${msoConditionalTag(`
         <table
           ${this.htmlAttributes({
             bgcolor:
@@ -173,19 +226,19 @@ export default class MjGroup extends BodyComponent {
             border: '0',
             cellpadding: '0',
             cellspacing: '0',
-            role: 'presentation',
+            role: 'none',
           })}
         >
           <tr>
-        <![endif]-->
+      `)}
           ${this.renderChildren(children, {
             attributes: { mobileWidth: 'mobileWidth' },
             renderer: (component) =>
               component.constructor.isRawElement()
                 ? component.render()
                 : `
-              <!--[if mso | IE]>
-              <td
+              ${msoConditionalTag(`
+                <td
                 ${component.htmlAttributes({
                   style: {
                     align: component.getAttribute('align'),
@@ -198,17 +251,16 @@ export default class MjGroup extends BodyComponent {
                   },
                 })}
               >
-              <![endif]-->
+              `)}
                 ${component.render()}
-              <!--[if mso | IE]>
-              </td>
-              <![endif]-->
+              ${msoConditionalTag(`
+                </td>
+              `)}
           `,
           })}
-        <!--[if mso | IE]>
-          </tr>
-          </table>
-        <![endif]-->
+        ${msoConditionalTag(`
+                </tr>
+          </table>`)}
       </div>
     `
   }

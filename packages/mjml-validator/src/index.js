@@ -5,7 +5,7 @@ import dependencies, {
   assignDependencies,
 } from './dependencies'
 
-const SKIP_ELEMENTS = ['mjml']
+const SKIP_ELEMENTS = []
 
 export const formatValidationError = ruleError
 

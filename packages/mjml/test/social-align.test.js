@@ -28,7 +28,7 @@ describe('mj-social-element align', function () {
     // align values should be correct
     chai
       .expect(
-        $('.my-social-element > td:first-child')
+        $('.my-social-element > td > table td:first-child')
           .map(function getAttr() {
             const style = $(this).attr('style')
             return extractStyle(style, 'text-align')

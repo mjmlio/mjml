@@ -1,86 +1,304 @@
 import { min } from 'lodash'
 
 import { BodyComponent, makeLowerBreakpoint } from 'mjml-core'
+import {
+  DARK_MODE_CLASS_PREFIX,
+  emitDarkModeHeadStyle,
+  registerDarkModeRule,
+} from 'mjml-core/lib/helpers/colorSchemeDarkMode'
+import {
+  emitResponsiveHeadStyle,
+  buildResponsiveDeclarations,
+  registerResponsiveRuleGroup,
+} from 'mjml-core/lib/helpers/responsiveMode'
 
+import {
+  emitOutlookDarkModeHeadRaw,
+  getOutlookDarkModeMediaQuery,
+  hasOutlookDarkModeFluidImage,
+  OUTLOOK_DARK_MODE_BACKGROUND_CLASS,
+  OUTLOOK_DARK_MODE_CLASS,
+  registerOutlookDarkModeImage,
+} from 'mjml-core/lib/helpers/outlookDarkMode'
 import widthParser from 'mjml-core/lib/helpers/widthParser'
+
+function computeAlignMargin(align) {
+  if (align === 'left') return '0 auto 0 0'
+  if (align === 'right') return '0 0 0 auto'
+  return '0 auto'
+}
 
 export default class MjImage extends BodyComponent {
   static componentName = 'mj-image'
 
   static allowedAttributes = {
-    alt: 'string',
-    href: 'string',
-    name: 'string',
-    src: 'string',
-    srcset: 'string',
-    sizes: 'string',
-    title: 'string',
-    rel: 'string',
     align: 'enum(left,center,right)',
+    'align--responsive': 'enum(left,center,right)',
+    alt: 'string',
+    'aria-hidden': 'string',
     border: 'string',
+    'border-color--dark': 'color',
     'border-bottom': 'string',
+    'border-bottom-color--dark': 'color',
     'border-left': 'string',
-    'border-right': 'string',
-    'border-top': 'string',
+    'border-left-color--dark': 'color',
     'border-radius': 'string',
+    'border-right': 'string',
+    'border-right-color--dark': 'color',
+    'border-top': 'string',
+    'border-top-color--dark': 'color',
     'container-background-color': 'color',
+    'container-background-color--dark': 'color',
+    'container-border-radius': 'string',
     'fluid-on-mobile': 'boolean',
-    padding: 'unit(px,%){1,4}',
-    'padding-bottom': 'unit(px,%)',
-    'padding-left': 'unit(px,%)',
-    'padding-right': 'unit(px,%)',
-    'padding-top': 'unit(px,%)',
-    target: 'string',
-    width: 'unit(px)',
+    'font-size': 'unit(px,rem)',
+    'font-size--responsive': 'unit(px,rem)',
     height: 'unit(px,auto)',
+    'height--responsive': 'unit(px,auto)',
+    href: 'string',
     'max-height': 'unit(px,%)',
-    'font-size': 'unit(px)',
+    'max-height--responsive': 'unit(px,%)',
+    name: 'string',
+    padding: 'unit(px,%){1,4}',
+    'padding--responsive': 'unit(px,%){1,4}',
+    'padding-bottom': 'unit(px,%)',
+    'padding-bottom--responsive': 'unit(px,%)',
+    'padding-left': 'unit(px,%)',
+    'padding-left--responsive': 'unit(px,%)',
+    'padding-right': 'unit(px,%)',
+    'padding-right--responsive': 'unit(px,%)',
+    'padding-top': 'unit(px,%)',
+    'padding-top--responsive': 'unit(px,%)',
+    rel: 'string',
+    sizes: 'string',
+    src: 'string',
+    'src--dark': 'string',
+    srcset: 'string',
+    'support-dark-mode-image': 'enum(outlook)',
+    target: 'string',
+    title: 'string',
     usemap: 'string',
+    width: 'unit(px)',
+    'width--responsive': 'unit(px,%)',
   }
 
   static defaultAttributes = {
     alt: '',
     align: 'center',
     border: '0',
+    'font-size': '16px',
     height: 'auto',
     padding: '10px 25px',
-    target: '_blank',
-    'font-size': '13px',
+  }
+
+  darkClasses = null
+
+  responsiveClasses = null
+
+  registerDarkModeRuleGroup({
+    cssDeclarations,
+    supportOutlookDarkMode = false,
+  }) {
+    const globalData = this.context && this.context.globalData
+    const validDeclarations = Array.isArray(cssDeclarations)
+      ? cssDeclarations.filter(
+          ({ cssProperty, cssValue }) => Boolean(cssProperty && cssValue),
+        )
+      : []
+
+    if (!globalData || validDeclarations.length === 0) {
+      return null
+    }
+
+    if (typeof globalData.darkModeRuleCount !== 'number') {
+      globalData.darkModeRuleCount = 0
+    }
+
+    globalData.darkModeRuleCount += 1
+
+    const className = `${DARK_MODE_CLASS_PREFIX}-${globalData.darkModeRuleCount}`
+
+    if (!Array.isArray(globalData.darkModeRules)) {
+      globalData.darkModeRules = []
+    }
+
+    validDeclarations.forEach(({ cssProperty, cssValue }) => {
+      globalData.darkModeRules.push({
+        className,
+        cssProperty,
+        cssValue,
+        supportOutlookDarkMode: Boolean(supportOutlookDarkMode),
+      })
+    })
+
+    return className
+  }
+
+  getDarkClasses() {
+    if (this.darkClasses !== null) {
+      return this.darkClasses
+    }
+
+    this.darkClasses = {}
+
+    const globalData = this.context && this.context.globalData
+
+    const darkContainerBg = this.attributes['container-background-color--dark']
+    if (darkContainerBg) {
+      this.darkClasses.container = registerDarkModeRule(globalData, {
+        cssProperty: 'background-color',
+        cssValue: darkContainerBg,
+      })
+    }
+
+    const darkBorderColor = this.attributes['border-color--dark']
+    const borderDarkDeclarations = []
+
+    if (darkBorderColor) {
+      borderDarkDeclarations.push({
+        cssProperty: 'border-color',
+        cssValue: darkBorderColor,
+      })
+    }
+
+    ;[
+      ['border-top-color', this.attributes['border-top-color--dark']],
+      ['border-bottom-color', this.attributes['border-bottom-color--dark']],
+      ['border-left-color', this.attributes['border-left-color--dark']],
+      ['border-right-color', this.attributes['border-right-color--dark']],
+    ].forEach(([cssProperty, cssValue]) => {
+      if (!cssValue || (darkBorderColor && cssValue === darkBorderColor)) {
+        return
+      }
+
+      borderDarkDeclarations.push({
+        cssProperty,
+        cssValue,
+      })
+    })
+
+    const hasVisibleBorder = Boolean(
+      this.getAttribute('border') ||
+        this.getAttribute('border-left') ||
+        this.getAttribute('border-right') ||
+        this.getAttribute('border-top') ||
+        this.getAttribute('border-bottom'),
+    )
+
+    this.darkClasses.border = hasVisibleBorder
+      ? this.registerDarkModeRuleGroup({
+          cssDeclarations: borderDarkDeclarations,
+        })
+      : null
+
+    return this.darkClasses
+  }
+
+  getResponsiveClasses() {
+    if (this.responsiveClasses !== null) return this.responsiveClasses
+
+    this.responsiveClasses = {
+      container: null,
+      table: null,
+      img: null,
+    }
+
+    const globalData = this.context && this.context.globalData
+
+    this.responsiveClasses.container = registerResponsiveRuleGroup(globalData, {
+      cssDeclarations: buildResponsiveDeclarations([
+        ['padding', this.attributes['padding--responsive']],
+        ['padding-top', this.attributes['padding-top--responsive']],
+        ['padding-right', this.attributes['padding-right--responsive']],
+        ['padding-bottom', this.attributes['padding-bottom--responsive']],
+        ['padding-left', this.attributes['padding-left--responsive']],
+      ]),
+    })
+
+    const alignResponsive = this.attributes['align--responsive']
+    if (alignResponsive) {
+      this.responsiveClasses.table = registerResponsiveRuleGroup(globalData, {
+        cssDeclarations: [{ cssProperty: 'margin', cssValue: computeAlignMargin(alignResponsive) }],
+      })
+    }
+
+    const imageResponsiveDeclarations = this.getImageResponsiveDeclarations()
+
+    this.responsiveClasses.img = registerResponsiveRuleGroup(globalData, {
+      cssDeclarations: imageResponsiveDeclarations,
+      selectorSuffix: ' img',
+    })
+
+    return this.responsiveClasses
+  }
+
+  getImageResponsiveDeclarations() {
+    const rawAttrs = this.props && this.props.rawAttrs
+    const hasExplicitHeight =
+      rawAttrs && Object.prototype.hasOwnProperty.call(rawAttrs, 'height--responsive')
+    const maxHeight = this.attributes['max-height--responsive']
+    const widthResponsive = this.attributes['width--responsive']
+
+    return buildResponsiveDeclarations([
+      ['font-size', this.attributes['font-size--responsive']],
+      ['height', this.attributes['height--responsive']],
+      ['max-height', maxHeight],
+      ['min-height', maxHeight && !hasExplicitHeight ? maxHeight : null],
+      ['width', widthResponsive],
+      ['min-width', widthResponsive],
+    ])
+  }
+
+  getAttribute(name) {
+    if (name === 'css-class') {
+      const base = this.attributes['css-class']
+      const containerDarkClass = this.getDarkClasses().container
+      const containerResponsiveClass = this.getResponsiveClasses().container
+      return [base, containerDarkClass, containerResponsiveClass].filter(Boolean).join(' ') || undefined
+    }
+
+    return this.attributes[name]
   }
 
   getStyles() {
     const width = this.getContentWidth()
     const fullWidth = this.getAttribute('full-width') === 'full-width'
+    const horizontalBorderWidth = this.getHorizontalBorderWidth()
 
     const { parsedWidth, unit } = widthParser(width)
+    const tdWidth = parsedWidth - horizontalBorderWidth
 
     return {
       img: {
+        display: 'block',
+        height: this.getAttribute('height'),
+        'max-height': this.getAttribute('max-height'),
+        'min-width': fullWidth ? '100%' : null,
+        width: '100%',
+        'font-size': this.getAttribute('font-size'),
+      },
+      td: {
         border: this.getAttribute('border'),
         'border-left': this.getAttribute('border-left'),
         'border-right': this.getAttribute('border-right'),
         'border-top': this.getAttribute('border-top'),
         'border-bottom': this.getAttribute('border-bottom'),
         'border-radius': this.getAttribute('border-radius'),
-        display: 'block',
-        outline: 'none',
-        'text-decoration': 'none',
-        height: this.getAttribute('height'),
-        'max-height': this.getAttribute('max-height'),
-        'min-width': fullWidth ? '100%' : null,
-        width: '100%',
-        'max-width': fullWidth ? '100%' : null,
-        'font-size': this.getAttribute('font-size'),
-      },
-      td: {
-        width: fullWidth ? null : `${parsedWidth}${unit}`,
+        width: fullWidth ? null : `${Math.max(0, tdWidth)}${unit}`,
       },
       table: {
         'min-width': fullWidth ? '100%' : null,
         'max-width': fullWidth ? '100%' : null,
         width: fullWidth ? `${parsedWidth}${unit}` : null,
         'border-collapse': 'collapse',
-        'border-spacing': '0px',
+      },
+      outlookDarkBackground: {
+        'background-color': '#f7f7f7',
+      },
+      outlookDarkPicture: {
+        'text-align': 'center',
+        width: '100%',
+        height: 'auto',
       },
     }
   }
@@ -95,13 +313,68 @@ export default class MjImage extends BodyComponent {
     return min([box, width])
   }
 
+  static parseBorderWidthValue(value) {
+    if (!value) {
+      return 0
+    }
+
+    const normalizedValue = String(value).trim()
+    const pxMatch = normalizedValue.match(/(-?\d*\.?\d+)\s*px\b/i)
+
+    if (pxMatch) {
+      return Math.max(0, parseFloat(pxMatch[1]))
+    }
+
+    const numericMatch = normalizedValue.match(/^(-?\d*\.?\d+)$/)
+
+    if (numericMatch) {
+      return Math.max(0, parseFloat(numericMatch[1]))
+    }
+
+    return 0
+  }
+
+  getHorizontalBorderWidth() {
+    const border = this.getAttribute('border')
+    const borderLeft = this.getAttribute('border-left') || border
+    const borderRight = this.getAttribute('border-right') || border
+
+    return (
+      MjImage.parseBorderWidthValue(borderLeft) +
+      MjImage.parseBorderWidthValue(borderRight)
+    )
+  }
+
+  supportOutlookDarkModeImage() {
+    return this.getAttribute('support-dark-mode-image') === 'outlook'
+  }
+
   renderImage() {
     const height = this.getAttribute('height')
+    const darkSrc = this.getAttribute('src--dark')
+    const supportOutlookDarkMode = this.supportOutlookDarkModeImage()
+    const fluidOnMobile = this.getAttribute('fluid-on-mobile')
+    const globalData = this.context && this.context.globalData
+
+    let darkPictureClass = null
+
+    if (darkSrc && supportOutlookDarkMode) {
+      darkPictureClass = registerOutlookDarkModeImage(globalData, {
+        darkSrc,
+        fluidOnMobile: Boolean(fluidOnMobile),
+        backgroundTarget: 'child-div',
+      })
+    }
 
     const img = `
       <img
         ${this.htmlAttributes({
           alt: this.getAttribute('alt'),
+          ...(this.getAttribute('aria-hidden') === 'true' && this.getAttribute('href') === undefined
+          ? {
+              'aria-hidden': 'true',
+            }
+          : {}),
           src: this.getAttribute('src'),
           srcset: this.getAttribute('srcset'),
           sizes: this.getAttribute('sizes'),
@@ -116,58 +389,152 @@ export default class MjImage extends BodyComponent {
       />
     `
 
-    if (this.getAttribute('href')) {
-      return `
-        <a
-          ${this.htmlAttributes({
-            href: this.getAttribute('href'),
-            target: this.getAttribute('target'),
-            rel: this.getAttribute('rel'),
-            name: this.getAttribute('name'),
-            title: this.getAttribute('title'),
-          })}
-        >
+    const picture = darkSrc
+      ? `
+        <picture>
+          <source ${this.htmlAttributes({
+            srcset: darkSrc,
+            media: '(prefers-color-scheme: dark)',
+          })} />
           ${img}
+        </picture>
+      `
+      : null
+
+    const hasLink = !!this.getAttribute('href')
+
+    const linkAttrs = hasLink
+      ? this.htmlAttributes({
+          href: this.getAttribute('href'),
+          target: this.getAttribute('target'),
+          rel: this.getAttribute('rel'),
+          name: this.getAttribute('name'),
+          title: this.getAttribute('title'),
+        })
+      : null
+
+    const darkImg = darkSrc && supportOutlookDarkMode
+      ? `
+        <div ${this.htmlAttributes({
+          style: 'outlookDarkBackground',
+          class: `${OUTLOOK_DARK_MODE_BACKGROUND_CLASS}${
+            darkPictureClass ? ` ${darkPictureClass}` : ''
+          }`,
+        })}>
+          <div ${this.htmlAttributes({
+            style: 'outlookDarkPicture',
+            class: OUTLOOK_DARK_MODE_CLASS,
+          })}>
+            ${hasLink ? `<a ${linkAttrs}>` : ''}
+            ${picture}
+            ${hasLink ? `</a>` : ''}
+          </div>    
+        </div>
+      `
+      : null
+
+    const content = darkImg || picture || img
+
+    if (hasLink && !darkImg) {
+      return `
+        <a ${linkAttrs} ${this.htmlAttributes({
+          ...(this.getAttribute('aria-hidden') === 'true'
+          ? {
+              'aria-hidden': 'true',
+              tabindex: '-1',
+            }
+          : {}),
+        })}>
+          ${content}
         </a>
       `
     }
 
-    return img
+    return content
   }
 
-  headStyle = (breakpoint) => `
+  componentHeadStyle = (breakpoint) => {
+    const globalData = this.context && this.context.globalData
+
+    const styles = []
+
+    const fluidOnMobile = this.getAttribute('fluid-on-mobile')
+
+    if (fluidOnMobile) {
+      const includeFluidStyles =
+        !globalData || globalData.imageFluidOnMobileStyleEmitted === false
+
+      if (includeFluidStyles) {
+        if (globalData) {
+          globalData.imageFluidOnMobileStyleEmitted = true
+        }
+
+        const includeOutlookFluidPictureWidthRule =
+          globalData && hasOutlookDarkModeFluidImage(globalData)
+
+        const outlookFluidPictureWidthRule = includeOutlookFluidPictureWidthRule
+          ? '\n      .mj-full-width-mobile .mj-dark-image { width: 100% !important; }'
+          : ''
+
+        styles.push(`
     @media only screen and (max-width:${makeLowerBreakpoint(breakpoint)}) {
-      table.mj-full-width-mobile { width: 100% !important; }
-      td.mj-full-width-mobile { width: auto !important; }
+      .mj-full-width-mobile { width: 100% !important; }
+      .mj-full-width-mobile td { width: auto !important; }${outlookFluidPictureWidthRule}
     }
-  `
+  `)
+      }
+    }
+
+    const darkSrc = this.getAttribute('src--dark')
+    const supportOutlookDarkMode = this.supportOutlookDarkModeImage()
+    const darkClasses = this.getDarkClasses()
+
+    if (darkClasses.border || darkClasses.container) {
+      emitDarkModeHeadStyle(globalData)
+    }
+
+    emitResponsiveHeadStyle(globalData)
+
+    if (darkSrc && supportOutlookDarkMode) {
+      const includeDarkStyles =
+        !globalData || globalData.outlookDarkModeStyleEmitted === false
+
+      if (includeDarkStyles) {
+        emitOutlookDarkModeHeadRaw(globalData)
+        styles.push(getOutlookDarkModeMediaQuery(globalData))
+      }
+    }
+
+    return styles.join('\n')
+  }
 
   render() {
+    const borderDarkClass = this.getDarkClasses().border
+    const {
+      table: tableAlignClass,
+      img: imgResponsiveClass,
+    } = this.getResponsiveClasses()
+
     return `
       <table
         ${this.htmlAttributes({
           border: '0',
           cellpadding: '0',
           cellspacing: '0',
-          role: 'presentation',
+          role: 'none',
           style: 'table',
-          class: this.getAttribute('fluid-on-mobile')
-            ? 'mj-full-width-mobile'
-            : null,
+          class: [this.getAttribute('fluid-on-mobile') ? 'mj-full-width-mobile' : null, tableAlignClass]
+            .filter(Boolean).join(' ') || null,
         })}
       >
-        <tbody>
-          <tr>
-            <td ${this.htmlAttributes({
-              style: 'td',
-              class: this.getAttribute('fluid-on-mobile')
-                ? 'mj-full-width-mobile'
-                : null,
-            })}>
-              ${this.renderImage()}
-            </td>
-          </tr>
-        </tbody>
+        <tr>
+          <td ${this.htmlAttributes({
+            style: 'td',
+            class: [borderDarkClass, imgResponsiveClass].filter(Boolean).join(' ') || undefined,
+          })}>
+            ${this.renderImage()}
+          </td>
+        </tr>
       </table>
     `
   }

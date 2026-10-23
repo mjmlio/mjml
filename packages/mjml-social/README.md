@@ -49,8 +49,8 @@ Displays calls-to-action for various social networks with their associated logo.
 | css-class                  | string                  | class name, added to the root HTML element created                            |                      |
 | font-family                | string                  | font name                                                                     | `Ubuntu, sans-serif` |
 | font-size                  | `px` `rem`              | font size                                                                     | `16px`               |
-| font-style                 | string                  | font style                                                                    | normal               |
-| font-weight                | string                  | font weight                                                                   | normal               |
+| font-style                 | string                  | font style                                                                    |                      |
+| font-weight                | string                  | font weight                                                                   |                      |
 | icon-height                | `px` `%`                | icon height, overrides `icon-size`                                            | icon-size            |
 | icon-padding               | `px` `%`                | padding around the icons                                                      |                      |
 | icon-size                  | `px` `%`                | icon size (width and height)                                                  | `20px`               |
@@ -130,7 +130,7 @@ Note that default icons are transparent, which allows `background-color` to actu
 | font-weight             | string                  | font weight                                                                                                                                 |                                        |
 | href                    | string                  | button redirection, in URL format                                                                                                           |                                        |
 | icon-height             | `px` `%`                | icon height, overrides icon-size                                                                                                            | `icon-size`                            |
-| icon-position           | `left` `right`          | sets the side of the icon                                                                                                                   |                                        |
+| icon-position           | `left` `right`          | sets the side of the icon                                                                                                                   | `left`                                 |
 | icon-size               | `px` `%`                | icon size (width and height)                                                                                                                |                                        |
 | line-height             | `px` `%` `em` `rem`     | space between lines                                                                                                                         | `150%`                                 |
 | name                    | string                  | social network name, see supported list below                                                                                               |                                        |

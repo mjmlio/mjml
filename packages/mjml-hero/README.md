@@ -102,7 +102,7 @@ Use `background-color` to provide a fallback color in case an email client doesn
 | inner-padding-left     | `px` `%`                | hero left inner padding                                            |                               |
 | inner-padding-right    | `px` `%`                | hero right inner padding                                           |                               |
 | inner-padding-top      | `px` `%`                | hero top inner padding                                             |                               |
-| mode                   | string                  | `fluid-height` or `fixed-height`                                   | `fluid-height`                |
+| mode                   | string                  | `fluid-height` or `fixed-height`                                   | `fixed-height`                |
 | padding                | `px` `%`                | hero padding, supports up to 4 parameters                          |                               |
 | padding-bottom         | `px` `%`                | hero bottom padding                                                |                               |
 | padding-left           | `px` `%`                | hero left padding                                                  |                               |

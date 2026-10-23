@@ -23,11 +23,11 @@ describe('mj-wrapper and mj-section border-radius', function () {
 
     const $ = load(html)
 
-    // border radius values should be correct
+    // border radius values should be correct (div, table, and td)
     chai
       .expect(
         $(
-          'body > div > div > table:first-child > tbody > tr > td, body > div > div',
+          'body > div > div > table:first-child > tbody > tr > td, body > div > div > table:first-child, body > div > div',
         )
           .map(function getAttr() {
             const style = $(this).attr('style')
@@ -36,20 +36,13 @@ describe('mj-wrapper and mj-section border-radius', function () {
           .get(),
         'Border-radius in CSS style values on mj-wrapper',
       )
-      .to.eql(['10px', '10px'])
+      .to.eql(['10px', '10px', '10px'])
 
-    // overflow value should be correct
+    // no clipping by default: a clipped div next to a floated element (e.g. a
+    // disclaimer banner inserted by a mail server) collapses to zero width
     chai
-      .expect(
-        $('body > div > div')
-          .map(function getAttr() {
-            const style = $(this).attr('style')
-            return extractStyle(style, 'overflow')
-          })
-          .get(),
-        'Overflow in CSS style values on mj-wrapper',
-      )
-      .to.eql(['hidden'])
+      .expect($('body > div > div').attr('style'), 'Overflow on mj-wrapper')
+      .to.not.include('overflow')
 
     // border collapse values should be correct
     chai
@@ -63,5 +56,34 @@ describe('mj-wrapper and mj-section border-radius', function () {
         'Border-collapse in CSS style values on mj-wrapper',
       )
       .to.eql(['separate'])
+  })
+
+  it('should clip to the border-radius when overflow="hidden" is set', async function () {
+    const input = `
+    <mjml>
+      <mj-body>
+        <mj-wrapper border-radius="10px" overflow="hidden">
+          <mj-section>
+            <mj-column>
+              <mj-text>Hello World</mj-text>
+            </mj-column>
+          </mj-section>
+        </mj-wrapper>
+      </mj-body>
+    </mjml>
+    `
+
+    const { html, errors } = await mjml(input)
+
+    chai.expect(errors, 'Validation errors').to.eql([])
+
+    const $ = load(html)
+
+    chai
+      .expect(
+        extractStyle($('body > div > div').attr('style'), 'overflow'),
+        'Overflow on mj-wrapper',
+      )
+      .to.equal('hidden')
   })
 })

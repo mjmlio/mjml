@@ -188,6 +188,7 @@ export default class MjGroup extends BodyComponent {
               <td
                 ${component.htmlAttributes({
                   style: {
+                    ...(component.getOutlookGutterStyles?.() ?? {}),
                     align: component.getAttribute('align'),
                     'vertical-align': component.getAttribute('vertical-align'),
                     width: getElementWidth(

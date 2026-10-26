@@ -40,4 +40,10 @@ components using `mj-class="<name>"`.
   </ul>
 </div>
 
+<div class="alert alert-caution" role="alert">
+  <p>Shorthand and side-specific attributes</p>
+  <p>Attributes with a shorthand, such as <code>padding</code> and <code>padding-left</code>, or <code>border</code> and <code>border-top</code>, are separate attributes that are each resolved in the order above. A side-specific attribute always takes precedence over the shorthand, wherever each one is defined. The order of attributes within a tag does not matter either.</p>
+  <p>For example, with <code>&lt;mj-section padding-left="40px" /&gt;</code> in <code>mj-attributes</code>, an <code>&lt;mj-section padding="10px"&gt;</code> still gets a left padding of 40px: the inline <code>padding</code> only sets the top, right and bottom padding. To override a side-specific value, set that side-specific attribute, e.g. <code>padding-left="10px"</code>.</p>
+</div>
+
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/head-attributes">Try it live</a></p>

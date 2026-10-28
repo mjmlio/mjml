@@ -1,6 +1,6 @@
 import { Parser } from 'htmlparser2'
 
-import { isObject, findLastIndex, find } from 'lodash'
+import { isObject, find, sortedLastIndex } from 'lodash'
 import { filter, map, flow } from 'lodash/fp'
 import path from 'path'
 import fs from 'fs'
@@ -339,8 +339,7 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
           }
         }
 
-        const line =
-          findLastIndex(lineIndexes, (i) => i <= parser.startIndex) + 1
+        const line = sortedLastIndex(lineIndexes, parser.startIndex)
 
         if (name === 'mj-include') {
           if (ignoreIncludes || !isNode) return
@@ -425,7 +424,7 @@ export default function MJMLParser(xml, options = {}, includedIn = []) {
 
         if (cur && keepComments) {
           cur.children.push({
-            line: findLastIndex(lineIndexes, (i) => i <= parser.startIndex) + 1,
+            line: sortedLastIndex(lineIndexes, parser.startIndex),
             tagName: 'mj-raw',
             content: `<!--${data}-->`,
             includedIn,

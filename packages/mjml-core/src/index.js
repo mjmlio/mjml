@@ -619,7 +619,8 @@ export default async function mjml2html(mjml, options = {}) {
     classesDefault: {},
     defaultAttributes: {},
     htmlAttributes: {},
-    fonts,
+    // a copy, mj-font changes it and the fonts option belongs to the caller
+    fonts: { ...fonts },
     inlineStyle: [],
     headStyle: {},
     componentsHeadStyle: [],

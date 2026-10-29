@@ -1,15 +1,17 @@
-import { forEach, map } from 'lodash'
+import { castArray, forEach, map } from 'lodash'
 
 // eslint-disable-next-line import/prefer-default-export
 export function buildFontsTags(content, inlineStyle, fonts = {}) {
   const toImport = []
 
-  forEach(fonts, (url, name) => {
+  // a font maps to one stylesheet url, or to several when mj-font is used
+  // more than once with the same name
+  forEach(fonts, (urls, name) => {
     const regex = new RegExp(`"[^"]*font-family:[^"]*${name}[^"]*"`, 'gmi')
     const inlineRegex = new RegExp(`font-family:[^;}]*${name}`, 'gmi')
 
     if (content.match(regex) || inlineStyle.some((s) => s.match(inlineRegex))) {
-      toImport.push(url)
+      toImport.push(...castArray(urls))
     }
   })
 

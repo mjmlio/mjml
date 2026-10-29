@@ -31,6 +31,7 @@ import suffixCssClasses from './helpers/suffixCssClasses'
 import mergeOutlookConditionnals from './helpers/mergeOutlookConditionnals'
 import minifyOutlookConditionnals from './helpers/minifyOutlookConditionnals'
 import defaultSkeleton from './helpers/skeleton'
+import genRandomHexString from './helpers/genRandomHexString'
 import loadSkeletonFromFile from './node-only/skeleton-loader'
 import { initializeType } from './types/type'
 
@@ -826,10 +827,45 @@ export default async function mjml2html(mjml, options = {}) {
   }
 
   if (!isEmpty(globalData.htmlAttributes)) {
+    // xmlMode would treat <br> as a container. Close it so a selector can
+    // still match the <br>, and so it does not swallow what follows.
+    const hasBr = /<\/?br[\s/>]/i.test(content)
+    const brTags = []
+    const brToken = hasBr ? `MJMLBR${genRandomHexString(16)}_` : ''
+    const brAttr = hasBr ? `data-mjml-br-${genRandomHexString(16)}` : ''
+
+    if (hasBr) {
+      // Comments, CDATA sections and other tags are matched in the same pass
+      // and left as they are. Their contents are never parsed, and a "<br"
+      // inside an attribute value of another tag is text, not an element.
+      content = content.replace(
+        /<!\[CDATA\[[\s\S]*?(?:\]\]>|$)|<!--(?:-?>|[\s\S]*?(?:-->|$))|<\/br\s*>|<br(?=[\s/>])(?:"[^"]*"|'[^']*'|[^'"<>])*>|<[a-z/!?](?:"[^"]*"|'[^']*'|[^<>"'])*>/gi,
+        (match) => {
+          const isCloseTag = /^<\/br\s*>$/i.test(match)
+          if (!isCloseTag && !/^<br[\s/>]/i.test(match)) return match
+
+          const id = brTags.length
+          brTags.push(match)
+          if (isCloseTag) return `${brToken}${id}END`
+          const open = match.slice(0, match.endsWith('/>') ? -2 : -1).trimEnd()
+          return `<br ${brAttr}="${id}"${open.slice(3)}></br>`
+        },
+      )
+    }
+
     const $ = load(content, {
       xmlMode: true, // otherwise it may move contents that aren't in any tag
       decodeEntities: false, // won't escape special characters
     })
+
+    // Snapshot of each <br>'s attributes before the selectors run, to know
+    // which ones a selector changed.
+    const brEntries = (hasBr ? $(`br[${brAttr}]`).toArray() : []).map(
+      (element) => {
+        const { [brAttr]: id, ...attribs } = element.attribs
+        return { element, id, before: attribs }
+      },
+    )
 
     each(globalData.htmlAttributes, (data, selector) => {
       each(data, (value, attrName) => {
@@ -839,7 +875,25 @@ export default async function mjml2html(mjml, options = {}) {
       })
     })
 
+    brEntries.forEach(({ element, id, before }) => {
+      const { [brAttr]: _id, ...attribs } = element.attribs
+      const names = Object.keys(attribs)
+      const changed =
+        names.length !== Object.keys(before).length ||
+        names.some((name) => attribs[name] !== before[name])
+      if (changed) {
+        brTags[id] = `<br${names.map((name) => ` ${name}="${attribs[name].replace(/"/g, '&quot;')}"`).join('')}>`
+      }
+      $(element).replaceWith(`${brToken}${id}END`)
+    })
+
     content = $.root().html()
+    if (hasBr) {
+      content = content.replace(
+        new RegExp(`${brToken}(\\d+)END`, 'g'),
+        (token, id) => brTags[id] ?? token,
+      )
+    }
   }
 
   content = skeleton({

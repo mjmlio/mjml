@@ -184,10 +184,15 @@ function normalizeListContent(html, elements) {
 
     let { attrs } = li
     if (!hasStyleProp(extractStyleAttr(attrs), 'margin')) {
-      const existingStyle = extractStyleAttr(attrs).trim().replace(/;\s*$/, '').trim()
+      const existingStyle = extractStyleAttr(attrs)
+        .trim()
+        .replace(/;\s*$/, '')
+        .trim()
       const marginLeft = li.listType === 'ol' ? '21px' : '18px'
       const marginDecl = `margin: ${marginTop} 0 ${marginBottom} ${marginLeft}`
-      const newStyle = existingStyle ? `${marginDecl}; ${existingStyle}` : marginDecl
+      const newStyle = existingStyle
+        ? `${marginDecl}; ${existingStyle}`
+        : marginDecl
       attrs = setStyleAttr(attrs, newStyle)
     }
     patches.push({ start: li.start, end: li.end, newContent: `<li${attrs}>` })
@@ -197,7 +202,8 @@ function normalizeListContent(html, elements) {
   patches.sort((a, b) => b.start - a.start)
   let result = html
   for (const patch of patches) {
-    result = result.slice(0, patch.start) + patch.newContent + result.slice(patch.end)
+    result =
+      result.slice(0, patch.start) + patch.newContent + result.slice(patch.end)
   }
   return result
 }
@@ -251,7 +257,6 @@ export default class MjText extends BodyComponent {
     'padding-top--responsive': 'unit(px,%)',
     'text-decoration': 'string',
     'text-transform': 'string',
-    'vertical-align': 'enum(top,bottom,middle)',
   }
 
   // Lazily register both dark-mode rules on first access so the sequential
@@ -294,7 +299,10 @@ export default class MjText extends BodyComponent {
 
     const globalData = this.context && this.context.globalData
 
-    this.responsiveClasses.container = registerResponsivePaddingGroup(globalData, this.attributes)
+    this.responsiveClasses.container = registerResponsivePaddingGroup(
+      globalData,
+      this.attributes,
+    )
 
     this.responsiveClasses.text = registerResponsiveRuleGroup(globalData, {
       cssDeclarations: buildResponsiveDeclarations([
@@ -316,9 +324,11 @@ export default class MjText extends BodyComponent {
       const base = this.attributes['css-class']
       const containerDarkClass = this.getDarkClasses().container
       const containerResponsiveClass = this.getResponsiveClasses().container
-      return [base, containerDarkClass, containerResponsiveClass]
-        .filter(Boolean)
-        .join(' ') || undefined
+      return (
+        [base, containerDarkClass, containerResponsiveClass]
+          .filter(Boolean)
+          .join(' ') || undefined
+      )
     }
     return this.attributes[name]
   }
@@ -375,9 +385,10 @@ export default class MjText extends BodyComponent {
     const normalizeElements = this.getNormalizeElements()
     const hasNormalize = normalizeElements.length > 0
 
-    const classes = [colorDarkClass, textResponsiveClass, hasNormalize ? 'normalize' : null]
-      .filter(Boolean)
-      .join(' ') || null
+    const classes =
+      [colorDarkClass, textResponsiveClass, hasNormalize ? 'normalize' : null]
+        .filter(Boolean)
+        .join(' ') || null
 
     const content = hasNormalize
       ? normalizeListContent(this.getContent(), normalizeElements)

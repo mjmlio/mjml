@@ -51,11 +51,9 @@ export default class MjSocial extends BodyComponent {
     'padding-right--responsive': 'unit(px,%)',
     'padding-top': 'unit(px,%)',
     'padding-top--responsive': 'unit(px,%)',
-    'table-layout': 'enum(auto,fixed)',
     'text-decoration': 'string',
     'text-spacing': 'unit(px)',
     'text-spacing--responsive': 'unit(px)',
-    'vertical-align': 'enum(top,bottom,middle)',
   }
 
   static defaultAttributes = {

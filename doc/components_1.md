@@ -64,6 +64,11 @@ For additional image compatibility in some versions of Outlook, you can add `sup
 
 The Gmail apps apply their own color changes in dark mode, which `--dark` styles cannot control. Adding `gmail-force-light-mode="true"` to the `<mjml>` tag changes the `color-scheme` meta tag to `light only`, which forces light mode in the Gmail apps.
 
+<div class="alert alert-note" role="alert">
+  <p>Note</p>
+  <p>This functionality only applies to messages received through Google accounts (Gmail and Google Workspace). It does not apply to third-party email accounts accessed through the Gmail apps.</p>
+</div>
+
 When used together with `support-dark-mode="true"`, the `:root` CSS and `--dark` styles are still output, so dark mode continues to work in email clients that support them.
 
 ```xml

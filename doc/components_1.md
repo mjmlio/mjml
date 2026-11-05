@@ -75,7 +75,7 @@ When used together with `support-dark-mode="true"`, the `:root` CSS and `--dark`
 <mjml support-dark-mode="true" gmail-force-light-mode="true">
 ```
 
-The validator will show a warning when `--dark` attributes are used with `gmail-force-light-mode="true"`, as a reminder that those styles will not display in the Gmail apps.
+`--dark` attributes will not display in the Gmail apps when `gmail-force-light-mode="true"` is set.
 
 ### Which email clients/versions are supported?
 

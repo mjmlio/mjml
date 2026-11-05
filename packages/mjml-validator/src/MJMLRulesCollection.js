@@ -4,7 +4,6 @@ import validTag from './rules/validTag'
 import validTypes from './rules/validTypes'
 import errorAttr from './rules/errorAttr'
 import requireSupportDarkModeForDarkSrc from './rules/requireSupportDarkModeForDarkSrc'
-import gmailForceLightModeWithDarkAttributes from './rules/gmailForceLightModeWithDarkAttributes'
 
 const MJMLRulesCollection = {
   validAttributes,
@@ -13,7 +12,6 @@ const MJMLRulesCollection = {
   validTypes,
   errorAttr,
   requireSupportDarkModeForDarkSrc,
-  gmailForceLightModeWithDarkAttributes,
 }
 
 export function registerRule(rule, name) {

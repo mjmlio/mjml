@@ -59,42 +59,13 @@ describe('gmail-force-light-mode attribute', function () {
       .to.equal('light dark')
   })
 
-  describe('validator', function () {
-    const WARNING = 'gmail-force-light-mode="true" is set, so Gmail apps will show light mode'
+  it('should compile with --dark attributes in strict validation mode', async function () {
+    const { html, errors } = await mjml(
+      template('support-dark-mode="true" gmail-force-light-mode="true"'),
+      { validationLevel: 'strict' },
+    )
 
-    const hasWarning = (errors) =>
-      errors.some((e) => (e.message || '').includes(WARNING))
-
-    it('warns once when --dark attributes are used with gmail-force-light-mode="true"', async function () {
-      const { errors } = await mjml(
-        template('support-dark-mode="true" gmail-force-light-mode="true"'),
-      )
-
-      chai
-        .expect(errors.filter((e) => (e.message || '').includes(WARNING)))
-        .to.have.lengthOf(1)
-    })
-
-    it('does not warn without --dark attributes', async function () {
-      const { errors } = await mjml(`
-        <mjml support-dark-mode="true" gmail-force-light-mode="true">
-          <mj-body>
-            <mj-section>
-              <mj-column>
-                <mj-text color="#111111">Hello</mj-text>
-              </mj-column>
-            </mj-section>
-          </mj-body>
-        </mjml>
-      `)
-
-      chai.expect(hasWarning(errors)).to.equal(false)
-    })
-
-    it('does not warn when gmail-force-light-mode is not set', async function () {
-      const { errors } = await mjml(template('support-dark-mode="true"'))
-
-      chai.expect(hasWarning(errors)).to.equal(false)
-    })
+    chai.expect(errors).to.have.lengthOf(0)
+    chai.expect(html).to.include('light only')
   })
 })

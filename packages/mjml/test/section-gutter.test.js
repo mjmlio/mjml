@@ -1,7 +1,126 @@
 const chai = require('chai')
+const { load } = require('cheerio')
 const mjml = require('../lib')
 
 describe('mj-section gutter', function () {
+  describe('group Outlook ghost cells', function () {
+    const cases = [
+      {
+        name: 'pixel gutter',
+        section: 'gutter="20px"',
+        group: '',
+        columns: ['', ''],
+        widths: [300, 300],
+        paddings: ['0px 10px 0px 0px', '0px 0px 0px 10px'],
+      },
+      {
+        name: 'percentage gutter with mixed widths',
+        section: 'gutter="4%"',
+        group: '',
+        columns: ['width="60%"', 'width="40%"'],
+        widths: [360, 240],
+        paddings: ['0px 12px 0px 0px', '0px 0px 0px 12px'],
+      },
+      {
+        name: 'RTL group and section',
+        section: 'gutter="20px" direction="rtl"',
+        group: 'direction="rtl"',
+        columns: ['', ''],
+        widths: [300, 300],
+        paddings: ['0px 0px 0px 10px', '0px 10px 0px 0px'],
+      },
+      {
+        name: 'group LTR override',
+        section: 'gutter="20px" direction="rtl"',
+        group: 'direction="ltr"',
+        columns: ['', ''],
+        widths: [300, 300],
+        paddings: ['0px 10px 0px 0px', '0px 0px 0px 10px'],
+      },
+      {
+        name: 'group RTL override with odd pixel gutter',
+        section: 'gutter="21px"',
+        group: 'direction="rtl"',
+        columns: ['width="200px"', 'width="200px"', 'width="200px"'],
+        widths: [200, 200, 200],
+        paddings: [
+          '0px 0px 0px 11px',
+          '0px 10px 0px 11px',
+          '0px 10px 0px 0px',
+        ],
+      },
+      {
+        name: 'desktop gutter with responsive override',
+        section: 'gutter="20px" gutter--responsive="40px"',
+        group: '',
+        columns: ['', ''],
+        widths: [300, 300],
+        paddings: ['0px 10px 0px 0px', '0px 0px 0px 10px'],
+      },
+      {
+        name: 'responsive-only gutter',
+        section: 'gutter--responsive="40px"',
+        group: '',
+        columns: ['', ''],
+        widths: [300, 300],
+        paddings: ['0px 0px 0px 0px', '0px 0px 0px 0px'],
+      },
+      {
+        name: 'single column without outer spacing',
+        section: 'gutter="20px"',
+        group: '',
+        columns: [''],
+        widths: [600],
+        paddings: ['0px 0px 0px 0px'],
+      },
+      {
+        name: 'no gutter',
+        section: '',
+        group: '',
+        columns: ['', ''],
+        widths: [300, 300],
+        paddings: [undefined, undefined],
+      },
+    ]
+
+    cases.forEach(({ name, section, group, columns, widths, paddings }) => {
+      it(`should preserve column styles for ${name}`, async function () {
+        const { html, errors } = await mjml(`
+          <mjml>
+            <mj-body>
+              <mj-section ${section}>
+                <mj-group css-class="test-group" ${group}>
+                  ${columns
+                    .map(
+                      (attrs) => `
+                        <mj-column ${attrs} vertical-align="middle">
+                          <mj-text>Column</mj-text>
+                        </mj-column>
+                      `,
+                    )
+                    .join('')}
+                </mj-group>
+              </mj-section>
+            </mj-body>
+          </mjml>
+        `)
+
+        chai.expect(errors).to.eql([])
+        const $ = load(
+          html.replace(/<!--\[if mso\]>([\s\S]*?)<!\[endif\]-->/g, '$1'),
+        )
+        const cells = $('div.test-group > table > tbody > tr > td')
+
+        chai.expect(cells).to.have.length(columns.length)
+        cells.each((index, cell) => {
+          chai.expect($(cell).css('width')).to.equal(`${widths[index]}px`)
+          chai.expect($(cell).css('padding')).to.equal(paddings[index])
+          chai.expect($(cell).css('vertical-align')).to.equal('middle')
+        })
+      })
+    })
+  })
+
   it('should apply responsive-only gutter without adding desktop spacing', async function () {
     const input = `
       <mjml>
@@ -90,7 +209,9 @@ describe('mj-section gutter', function () {
       .to.include(
         '.mj-column-gutter-2-1-per-0, .mj-column-gutter-2-2-per-0 { padding: 0% 0% 0% 0% !important; }',
       )
-    chai.expect(html).to.include('style="vertical-align:top;width:300px;"')
+    chai
+      .expect(html)
+      .to.include('style="vertical-align:top;width:300px;padding:0px 0px 0px 0px;"')
   })
 
   it('should apply responsive gutter horizontally inside a group', async function () {

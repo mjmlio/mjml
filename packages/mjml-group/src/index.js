@@ -248,6 +248,7 @@ export default class MjGroup extends BodyComponent {
                         ? component.getWidthAsPixel()
                         : component.getAttribute('width'),
                     ),
+                    ...component.getStyles().tdOutlook,
                   },
                 })}
               >

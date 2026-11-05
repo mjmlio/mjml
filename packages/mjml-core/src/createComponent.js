@@ -68,11 +68,20 @@ class Component {
       rawAttrs,
     }
 
-    const isRtl = get(context, 'globalData.dir') === 'rtl'
+    const documentDir = get(context, 'globalData.dir')
+    // Nearest direction wins: the component's own, then, in an rtl document,
+    // its column's. Outside an rtl document a column's direction doesn't reach
+    // its children, so existing templates keep their alignment.
+    const direction =
+      attributes.direction ||
+      globalAttributes.direction ||
+      (documentDir === 'rtl' ? context.contentDirection || 'rtl' : undefined)
+
+    this.isRtl = direction === 'rtl'
 
     this.attributes = formatAttributes(
       {
-        ...(isRtl
+        ...(this.isRtl
           ? mirrorAttributes(this.constructor.defaultAttributes)
           : this.constructor.defaultAttributes),
         ...globalAttributes,
@@ -118,6 +127,16 @@ export class BodyComponent extends Component {
   // eslint-disable-next-line class-methods-use-this
   getStyles() {
     return {}
+  }
+
+  // Outlook classic ignores a direction inherited from the document or from a
+  // wrapper <div>, so a container's tables have to carry it themselves.
+  getOutlookDir() {
+    const { dir, supportOutlookClassic } = this.context.globalData
+
+    if (supportOutlookClassic === false) return undefined
+
+    return this.getAttribute('direction') || (dir === 'rtl' ? dir : undefined)
   }
 
   getShorthandAttrValue(attribute, direction) {

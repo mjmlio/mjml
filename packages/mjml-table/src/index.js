@@ -39,6 +39,7 @@ export default class MjTable extends BodyComponent {
     'container-background-color': 'color',
     'container-background-color--dark': 'color',
     'container-border-radius': 'string',
+    direction: 'enum(ltr,rtl)',
     'font-family': 'string',
     'font-size': 'unit(px,rem)',
     'font-size--responsive': 'unit(px,rem)',

@@ -25,6 +25,7 @@ export default class MjNavbar extends BodyComponent {
     'container-background-color': 'color',
     'container-background-color--dark': 'color',
     'container-border-radius': 'string',
+    direction: 'enum(ltr,rtl)',
     hamburger: 'string',
     'ico-align': 'enum(left,center,right)',
     'ico-close': 'string',

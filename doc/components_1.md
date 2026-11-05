@@ -78,6 +78,17 @@ An MJML document starts with an `mjml` tag. It can contain only `mj-head` and `m
 | support-outlook-classic | boolean | setting to `false` will remove all Outlook specific code when compiled to HTML                                                                                                                           | `true`        |
 | owa                     | string  | if set to `desktop`, this will force the desktop version for older (self-hosted) versions of Outlook.com that don't support media queries (cf. [this issue](https://github.com/mjmlio/mjml/issues/2241)) | `none`        |
 
+#### Right-to-left content
+
+Set `dir="rtl"` on `mjml` when the whole email is right-to-left. Default left and right values (alignment, four-value padding) are mirrored, and column order and gutters follow. Anything you set yourself is left as it is.
+
+`dir="auto"` is left for the email client to resolve, so it can't affect the compiled output: defaults stay left-aligned and gutters are computed for left-to-right. Set `dir="rtl"` explicitly for right-to-left layouts.
+
+To mix directions in one email, set `direction` on `mj-column`, `mj-hero`, `mj-accordion`, `mj-button`, `mj-navbar`, `mj-social`, `mj-table` or `mj-text`:
+
+- On a content component, it sets that component's text direction and mirrors its default alignment.
+- On `mj-column` or `mj-hero`, it sets the text direction of everything inside. Inside a `dir="rtl"` document its children's default alignment follows it too; otherwise set `align` on them.
+
 
 ### mj-head
 

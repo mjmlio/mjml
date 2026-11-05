@@ -33,6 +33,7 @@ Displays text which can be styled.
 | container-background-color | CSS color formats                  | background color of the container                            |                      |
 | container-border-radius    | string                             | border radius of the container                               |                      |
 | css-class                  | string                             | class name, added to the root HTML element created           |                      |
+| direction                  | `ltr` `rtl`                        | text direction of this component; overrides `dir` on `mjml`  |                      |
 | font-family                | string                             | font                                                         | `Ubuntu, sans-serif` |
 | font-size                  | `px` `rem`                         | text size                                                    | `16px`               |
 | font-style                 | string                             | CSS values, e.g. `normal` `italic` `oblique`                 |                      |

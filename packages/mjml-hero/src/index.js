@@ -33,6 +33,7 @@ export default class MjHero extends BodyComponent {
     'background-width': 'unit(px,%)',
     'background-width--responsive': 'unit(px,%)',
     'border-radius': 'string',
+    direction: 'enum(ltr,rtl)',
     height: 'unit(px,%)',
     'height--responsive': 'unit(px,%)',
     'inner-background-color': 'color',
@@ -230,6 +231,7 @@ export default class MjHero extends BodyComponent {
     return {
       ...this.context,
       containerWidth: `${parseFloat(containerWidth) - paddingSize}px`,
+      contentDirection: this.getAttribute('direction'),
     }
   }
 
@@ -291,6 +293,7 @@ export default class MjHero extends BodyComponent {
       },
       'inner-div': {
         'background-color': this.getAttribute('inner-background-color'),
+        direction: this.getAttribute('direction'),
         float: this.getAttribute('align'),
         margin: '0px auto',
         width: this.getAttribute('width'),
@@ -364,6 +367,7 @@ export default class MjHero extends BodyComponent {
                   border: '0',
                   cellpadding: '0',
                   cellspacing: '0',
+                  dir: this.getOutlookDir(),
                   role: 'none',
                   style: 'inner-table',
                 })}
@@ -381,10 +385,12 @@ export default class MjHero extends BodyComponent {
                             'container-background-color',
                           ),
                           class: component.getAttribute('css-class'),
+                          dir: component.getAttribute('direction'),
                           style: {
                             background: component.getAttribute(
                               'container-background-color',
                             ),
+                            direction: component.getAttribute('direction'),
                             'font-size': '0px',
                             padding: component.getAttribute('padding'),
                             'padding-top':

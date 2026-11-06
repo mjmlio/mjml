@@ -257,18 +257,30 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
-      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
-        with:
-          name: release
-          path: ${{ runner.temp }}/release
       - name: Commit & tag release
         env:
           TAG: v${{ needs.prepare.outputs.version }}
           BRANCH: ${{ github.ref_name }}
+          VERSION: ${{ needs.prepare.outputs.version }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git apply "$RUNNER_TEMP/release/release.patch"
+          # only the checked version is used, and the bump is done with jq alone.
+          if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]]; then
+            echo "::error::Invalid version: $VERSION"
+            exit 1
+          fi
+          jq --arg version "$VERSION" '.version = $version' lerna.json > lerna.json.new
+          mv lerna.json.new lerna.json
+          for PACKAGE_JSON_PATH in packages/*/package.json; do
+            jq --arg version "$VERSION" '
+              def bump_internal: with_entries(if .key | test("^mjml(-|$)") then .value = $version else . end);
+              .version = $version
+              | if .dependencies then .dependencies |= bump_internal else . end
+              | if .devDependencies then .devDependencies |= bump_internal else . end
+            ' "$PACKAGE_JSON_PATH" > "$PACKAGE_JSON_PATH.new"
+            mv "$PACKAGE_JSON_PATH.new" "$PACKAGE_JSON_PATH"
+          done
           git add lerna.json packages/*/package.json
           git commit -m "$TAG"
           # The tag marks exactly what was published, even if the branch moved.

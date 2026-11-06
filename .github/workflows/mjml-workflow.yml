@@ -16,7 +16,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Run linting & tests
         run: |
-          yarn install
+          yarn install --frozen-lockfile
           yarn build
           yarn lint
           yarn test
@@ -31,6 +31,6 @@ jobs:
           node-version: 20.x
       - name: Build browser bundle + smoke test
         run: |
-          yarn install
+          yarn install --frozen-lockfile
           yarn build
           yarn build-browser

@@ -1,9 +1,14 @@
 name: Publish Package to NPM
+run-name: Release ${{ inputs.version || inputs.release_type }}${{ inputs.dry_run && ' (dry run)' || '' }}
 on:
   workflow_dispatch:
     inputs:
+      version:
+        description: 'Exact version, e.g. 6.0.0-alpha.1. Overrides release_type and preid when set'
+        required: false
+        type: string
       release_type:
-        description: 'Version bump type'
+        description: 'Version bump type (pre* types and prerelease use preid)'
         required: true
         default: 'patch'
         type: choice
@@ -11,42 +16,296 @@ on:
           - patch
           - minor
           - major
+          - prepatch
+          - preminor
+          - premajor
+          - prerelease
+      preid:
+        description: 'Prerelease identifier'
+        required: true
+        default: 'beta'
+        type: choice
+        options:
+          - alpha
+          - beta
+          - rc
+      dist_tag:
+        description: 'npm dist-tag. Empty: latest for stable, experimental for alpha, beta for beta, next for rc'
+        required: false
+        type: string
+      dry_run:
+        description: 'Run npm publish --dry-run and skip the git push and GitHub Release'
+        required: true
+        default: false
+        type: boolean
+permissions: {}
+concurrency:
+  group: npm-publish
+  cancel-in-progress: false
+defaults:
+  run:
+    shell: bash
 jobs:
-  build:
+  # Builds the tarballs.
+  prepare:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     permissions:
-      contents: write
-      id-token: write
+      contents: read
+    outputs:
+      version: ${{ steps.bump.outputs.version }}
+      dist_tag: ${{ steps.dist_tag.outputs.dist_tag }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v4
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
-          node-version: '20.x'
-          registry-url: 'https://registry.npmjs.org'
-      - run: yarn install
+          node-version: '24.x'
+          package-manager-cache: false
+      - run: yarn install --frozen-lockfile --ignore-scripts
+      - name: Bump version
+        id: bump
+        env:
+          VERSION_INPUT: ${{ inputs.version }}
+          RELEASE_TYPE: ${{ inputs.release_type }}
+          PREID: ${{ inputs.preid }}
+        run: |
+          BUMP="$RELEASE_TYPE"
+          if [ -n "$VERSION_INPUT" ]; then
+            BUMP="${VERSION_INPUT#v}"
+            if [[ ! "$BUMP" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]]; then
+              echo "::error::Invalid version: $VERSION_INPUT"
+              exit 1
+            fi
+          fi
+          yarn -s lerna version "$BUMP" --preid "$PREID" --no-push --no-git-tag-version --yes --no-private --force-publish
+          NEW_VERSION=$(jq -r '.version' lerna.json)
+          if git rev-parse --quiet --verify "refs/tags/v$NEW_VERSION" > /dev/null; then
+            echo "::error::Tag v$NEW_VERSION already exists"
+            exit 1
+          fi
+          echo "version=$NEW_VERSION" >> "$GITHUB_OUTPUT"
+      - name: Resolve dist-tag
+        id: dist_tag
+        env:
+          VERSION: ${{ steps.bump.outputs.version }}
+          DIST_TAG_INPUT: ${{ inputs.dist_tag }}
+        run: |
+          # An explicit dist_tag input always wins.
+          if [ -n "$DIST_TAG_INPUT" ]; then
+            DIST_TAG="$DIST_TAG_INPUT"
+          # Prereleases contain a "-": pick the tag from the text after it.
+          elif [[ "$VERSION" == *-* ]]; then
+            case "${VERSION#*-}" in
+              alpha*) DIST_TAG=experimental ;;
+              beta*) DIST_TAG=beta ;;
+              *) DIST_TAG=next ;;
+            esac
+          # Stable versions go to latest.
+          else
+            # A maintenance release must not take latest from a newer version.
+            CURRENT_LATEST=$(npm view mjml dist-tags.latest)
+            NEWEST=$(printf '%s\n%s\n' "$CURRENT_LATEST" "$VERSION" | sort -V | tail -n 1)
+            if [ "$NEWEST" != "$VERSION" ]; then
+              echo "::error::$VERSION is older than latest ($CURRENT_LATEST): set dist_tag explicitly"
+              exit 1
+            fi
+            DIST_TAG=latest
+          fi
+          # Reject malformed tags, mainly from the free-text dist_tag input.
+          if [[ ! "$DIST_TAG" =~ ^[a-z][a-z0-9-]*$ ]]; then
+            echo "::error::Invalid dist-tag: $DIST_TAG"
+            exit 1
+          fi
+          # Never let a prerelease become the default install, even if requested.
+          if [[ "$VERSION" == *-* && "$DIST_TAG" == latest ]]; then
+            echo "::error::Prerelease $VERSION can't be published as latest"
+            exit 1
+          fi
+          echo "dist_tag=$DIST_TAG" >> "$GITHUB_OUTPUT"
+      - name: Summarize release
+        env:
+          VERSION: ${{ steps.bump.outputs.version }}
+          DIST_TAG: ${{ steps.dist_tag.outputs.dist_tag }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          {
+            echo "### Release v$VERSION"
+            echo "- npm dist-tag: \`$DIST_TAG\`"
+            echo "- Branch: \`$GITHUB_REF_NAME\`"
+            echo "- Dry run: $DRY_RUN"
+          } >> "$GITHUB_STEP_SUMMARY"
       - run: yarn build
       - run: yarn build-browser
-      - name: Configure git user
+      - name: Pack packages
+        run: |
+          mkdir release
+          git diff -- lerna.json packages > release/release.patch
+          yarn -s lerna ls --toposort --json --loglevel silent > packages.json
+          # lerna publish used to add the root license to each package.
+          jq -r '.[] | [.name, .version, .location] | @tsv' packages.json | while IFS=$'\t' read -r NAME VERSION LOCATION; do
+            cp LICENSE.md "$LOCATION/LICENSE.md"
+            TARBALL=$(cd "$LOCATION" && npm pack --silent --pack-destination "$GITHUB_WORKSPACE/release")
+            printf '%s\t%s\t%s\n' "$NAME" "$VERSION" "$TARBALL" >> release/manifest.tsv
+          done
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: release
+          path: release/
+          if-no-files-found: error
+          retention-days: 7
+
+  # Lint and tests verify the code but don't require the tarballs, so they run in a separate job.
+  verify:
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24.x'
+          package-manager-cache: false
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: release
+          path: ${{ runner.temp }}/release
+      - run: yarn install --frozen-lockfile --ignore-scripts
+      - name: Apply version bump
+        run: git apply "$RUNNER_TEMP/release/release.patch"
+      - run: yarn build
+      - run: yarn lint
+      - run: yarn test
+
+  publish:
+    needs: [prepare, verify]
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment: npm-publish
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: release
+          path: release
+      # npm 11.5.1+ is required. registry-url must stay unset: its .npmrc
+      # token entry interferes with the OIDC exchange.
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24.x'
+          package-manager-cache: false
+      - name: Publish packages to NPM
+        env:
+          DIST_TAG: ${{ needs.prepare.outputs.dist_tag }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          RELEASE_VERSION: ${{ needs.prepare.outputs.version }}
+        run: |
+          PUBLISH_FLAGS=(--tag "$DIST_TAG")
+          if [ "$DRY_RUN" = "true" ]; then
+            PUBLISH_FLAGS+=(--dry-run)
+          fi
+          # The manifest comes from the prepare job, where dependencies run, so
+          # don't trust it: npm runs lifecycle scripts when given a directory.
+          # Check every entry first, so a bad one can't leave a partial release.
+          while IFS=$'\t' read -r NAME VERSION TARBALL <&3; do
+            if [[ ! "$NAME" =~ ^mjml(-[a-z0-9-]+)?$ ]] || [ "$VERSION" != "$RELEASE_VERSION" ]; then
+              echo "::error::Invalid release manifest entry"
+              exit 1
+            fi
+            if [[ ! "$TARBALL" =~ ^[A-Za-z0-9][A-Za-z0-9._-]*\.tgz$ ]] || [ ! -f "./release/$TARBALL" ] || [ -L "./release/$TARBALL" ]; then
+              echo "::error::Invalid release tarball"
+              exit 1
+            fi
+            # A skipped package keeps its dist-tag, so it must already match:
+            # otherwise the run would succeed with npm on the wrong version.
+            PUBLISHED_VERSION=$(npm view "$NAME@$VERSION" version 2> /dev/null || true)
+            if [ "$PUBLISHED_VERSION" = "$VERSION" ]; then
+              TAGGED_VERSION=$(npm view "$NAME" "dist-tags.$DIST_TAG" 2> /dev/null || true)
+              if [ "$TAGGED_VERSION" != "$VERSION" ]; then
+                echo "::error::$NAME@$VERSION is already published, but $DIST_TAG points to ${TAGGED_VERSION:-nothing}"
+                exit 1
+              fi
+            fi
+          done 3< release/manifest.tsv
+          # Already published packages are skipped, so a failed run can resume
+          # with "Re-run failed jobs".
+          while IFS=$'\t' read -r NAME VERSION TARBALL <&3; do
+            PUBLISHED_VERSION=$(npm view "$NAME@$VERSION" version 2> /dev/null || true)
+            if [ "$PUBLISHED_VERSION" = "$VERSION" ]; then
+              echo "Skipping $NAME@$VERSION: already published"
+              continue
+            fi
+            npm publish "./release/$TARBALL" --ignore-scripts "${PUBLISH_FLAGS[@]}"
+          done 3< release/manifest.tsv
+
+  # Runs last so that a failed publish leaves no commit, tag or GitHub Release.
+  release:
+    needs: [prepare, publish]
+    if: ${{ !inputs.dry_run }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - name: Commit & tag release
+        env:
+          TAG: v${{ needs.prepare.outputs.version }}
+          BRANCH: ${{ github.ref_name }}
+          VERSION: ${{ needs.prepare.outputs.version }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-      - name: Bump version
-        id: bump
-        run: |
-          yarn lerna version ${{ github.event.inputs.release_type }} --no-push --no-git-tag-version --yes --no-private --force-publish
-          NEW_VERSION=$(jq -r '.version' lerna.json)
-          echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
-      - name: Commit & tag release
-        run: |
+          # only the checked version is used, and the bump is done with jq alone.
+          if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]]; then
+            echo "::error::Invalid version: $VERSION"
+            exit 1
+          fi
+          jq --arg version "$VERSION" '.version = $version' lerna.json > lerna.json.new
+          mv lerna.json.new lerna.json
+          for PACKAGE_JSON_PATH in packages/*/package.json; do
+            jq --arg version "$VERSION" '
+              def bump_internal: with_entries(if .key | test("^mjml(-|$)") then .value = $version else . end);
+              .version = $version
+              | if .dependencies then .dependencies |= bump_internal else . end
+              | if .devDependencies then .devDependencies |= bump_internal else . end
+            ' "$PACKAGE_JSON_PATH" > "$PACKAGE_JSON_PATH.new"
+            mv "$PACKAGE_JSON_PATH.new" "$PACKAGE_JSON_PATH"
+          done
           git add lerna.json packages/*/package.json
-          git commit -m "chore(release): v${{ steps.bump.outputs.version }}"
-          git push origin HEAD
+          git commit -m "$TAG"
+          # The tag marks exactly what was published, even if the branch moved.
+          if ! git ls-remote --exit-code --tags origin "refs/tags/$TAG" > /dev/null; then
+            git tag -a "$TAG" -m "$TAG"
+            git push origin "refs/tags/$TAG"
+          fi
+          git pull --rebase origin "$BRANCH"
+          git push origin "HEAD:$BRANCH"
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: v${{ steps.bump.outputs.version }}
-          generate_release_notes: true
-      - name: Publish packages to NPM
-        run: yarn lerna publish from-package --yes
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: v${{ needs.prepare.outputs.version }}
+          VERSION: ${{ needs.prepare.outputs.version }}
+          DIST_TAG: ${{ needs.prepare.outputs.dist_tag }}
+        run: |
+          RELEASE_FLAGS=(--verify-tag --generate-notes --title "$TAG")
+          if [ "$DIST_TAG" = "latest" ]; then
+            RELEASE_FLAGS+=(--latest)
+          else
+            RELEASE_FLAGS+=(--latest=false)
+          fi
+          if [[ "$VERSION" == *-* ]]; then
+            RELEASE_FLAGS+=(--prerelease)
+          fi
+          if ! gh release view "$TAG" > /dev/null 2>&1; then
+            gh release create "$TAG" "${RELEASE_FLAGS[@]}"
+          fi

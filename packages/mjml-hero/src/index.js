@@ -385,12 +385,12 @@ export default class MjHero extends BodyComponent {
                             'container-background-color',
                           ),
                           class: component.getAttribute('css-class'),
-                          dir: component.getAttribute('direction'),
+                          dir: component.getWrapperDirection(),
                           style: {
                             background: component.getAttribute(
                               'container-background-color',
                             ),
-                            direction: component.getAttribute('direction'),
+                            direction: component.getWrapperDirection(),
                             'font-size': '0px',
                             padding: component.getAttribute('padding'),
                             'padding-top':

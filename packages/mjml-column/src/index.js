@@ -291,11 +291,7 @@ export default class MjColumn extends BodyComponent {
     return {
       div: {
         'font-size': '0px',
-        'text-align':
-          this.context.globalData.dir === 'rtl' &&
-          this.getAttribute('direction') !== 'ltr'
-            ? 'right'
-            : 'left',
+        'text-align': this.isRtl ? 'right' : 'left',
         direction: this.getAttribute('direction'),
         display: 'inline-block',
         'vertical-align': this.getAttribute('vertical-align'),
@@ -811,7 +807,7 @@ export default class MjColumn extends BodyComponent {
                 ${component.htmlAttributes({
                   align: component.getAttribute('align'),
                   class: component.getAttribute('css-class'),
-                  dir: component.getAttribute('direction'),
+                  dir: component.getWrapperDirection(),
                   style: {
                     background: component.getAttribute(
                       'container-background-color',
@@ -819,7 +815,7 @@ export default class MjColumn extends BodyComponent {
                     'border-radius': component.getAttribute(
                       'container-border-radius',
                     ),
-                    direction: component.getAttribute('direction'),
+                    direction: component.getWrapperDirection(),
                     'font-size': '0px',
                     padding: component.getAttribute('padding'),
                     'padding-top': component.getAttribute('padding-top'),

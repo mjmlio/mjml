@@ -16,6 +16,8 @@ import {
 export default class MjNavbar extends BodyComponent {
   static componentName = 'mj-navbar'
 
+  static directionOnWrapper = true
+
   static allowedAttributes = {
     align: 'enum(left,center,right)',
     'align--responsive': 'enum(left,center,right)',
@@ -356,7 +358,7 @@ ${selectors} { display: block !important }
     const openTable = supportOutlookClassic
       ? conditionalTag(`<table role="none" border="0" cellpadding="0" cellspacing="0" align="${this.getAttribute(
           'align',
-        )}">
+        )}"${this.htmlAttributes({ dir: this.getOutlookDir() })}>
             <tr>`)
       : ''
 

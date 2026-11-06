@@ -80,14 +80,14 @@ An MJML document starts with an `mjml` tag. It can contain only `mj-head` and `m
 
 #### Right-to-left content
 
-Set `dir="rtl"` on `mjml` when the whole email is right-to-left. Default left and right values (alignment, four-value padding) are mirrored, and column order and gutters follow. Anything you set yourself is left as it is.
+For an email that is entirely right-to-left, set `dir="rtl"` on `mjml`. This mirrors the component defaults: left and right alignment, and the left and right values of four-value padding. Columns are laid out right to left and their gutters are mirrored to match. Values you set yourself, including through `mj-attributes` or `mj-class`, are not changed.
 
-`dir="auto"` is left for the email client to resolve, so it can't affect the compiled output: defaults stay left-aligned and gutters are computed for left-to-right. Set `dir="rtl"` explicitly for right-to-left layouts.
+`dir="auto"` is resolved by the email client, not by MJML, so it does not change the compiled output. Defaults stay left-aligned and gutters are calculated for left-to-right. For right-to-left layouts, set `dir="rtl"` explicitly.
 
-To mix directions in one email, set `direction` on `mj-column`, `mj-hero`, `mj-accordion`, `mj-button`, `mj-navbar`, `mj-social`, `mj-table` or `mj-text`:
+To mix directions within one email, set `direction` on `mj-accordion`, `mj-button`, `mj-column`, `mj-hero`, `mj-image`, `mj-navbar`, `mj-social`, `mj-table` or `mj-text`:
 
-- On a content component, it sets that component's text direction and mirrors its default alignment.
-- On `mj-column` or `mj-hero`, it sets the text direction of everything inside. Inside a `dir="rtl"` document its children's default alignment follows it too; otherwise set `align` on them.
+- On a content component, `direction` sets its text direction and mirrors its default alignment.
+- On `mj-column` or `mj-hero`, `direction` sets the text direction of everything inside it and mirrors the forced alignment of its children, the same way `<mjml dir="rtl">` does. A child that sets its own align keeps that value.
 
 
 ### mj-head

@@ -68,16 +68,15 @@ class Component {
       rawAttrs,
     }
 
-    const documentDir = get(context, 'globalData.dir')
-    // Nearest direction wins: the component's own, then, in an rtl document,
-    // its column's. Outside an rtl document a column's direction doesn't reach
-    // its children, so existing templates keep their alignment.
-    const direction =
+    // Nearest direction wins: the component's own, then its column's or hero's,
+    // then an rtl document. dir="auto" can't be resolved at compile time.
+    this.resolvedDirection =
       attributes.direction ||
       globalAttributes.direction ||
-      (documentDir === 'rtl' ? context.contentDirection || 'rtl' : undefined)
+      context.contentDirection ||
+      (get(context, 'globalData.dir') === 'rtl' ? 'rtl' : undefined)
 
-    this.isRtl = direction === 'rtl'
+    this.isRtl = this.resolvedDirection === 'rtl'
 
     this.attributes = formatAttributes(
       {
@@ -129,14 +128,20 @@ export class BodyComponent extends Component {
     return {}
   }
 
-  // Outlook classic ignores a direction inherited from the document or from a
-  // wrapper <div>, so a container's tables have to carry it themselves.
+  // Outlook classic resets direction at every <table>, so each table holding
+  // content has to carry it itself.
   getOutlookDir() {
-    const { dir, supportOutlookClassic } = this.context.globalData
+    return get(this.context, 'globalData.supportOutlookClassic') === false
+      ? undefined
+      : this.resolvedDirection
+  }
 
-    if (supportOutlookClassic === false) return undefined
-
-    return this.getAttribute('direction') || (dir === 'rtl' ? dir : undefined)
+  // For components without a <table> of their own to carry direction: the
+  // parent's wrapper <td> does it instead.
+  getWrapperDirection() {
+    return this.constructor.directionOnWrapper
+      ? this.getAttribute('direction')
+      : undefined
   }
 
   getShorthandAttrValue(attribute, direction) {

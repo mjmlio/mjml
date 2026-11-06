@@ -207,32 +207,135 @@ describe('Outlook classic direction on column tables', function () {
 })
 
 describe('direction on a component', function () {
-  const components = {
-    'mj-accordion': `<mj-accordion direction="rtl" css-class="x">
-        <mj-accordion-element>
-          <mj-accordion-title>t</mj-accordion-title>
-          <mj-accordion-text>b</mj-accordion-text>
-        </mj-accordion-element>
-      </mj-accordion>`,
-    'mj-button': '<mj-button direction="rtl" css-class="x" href="#">b</mj-button>',
-    'mj-navbar':
-      '<mj-navbar direction="rtl" css-class="x"><mj-navbar-link href="#">l</mj-navbar-link></mj-navbar>',
-    'mj-social':
-      '<mj-social direction="rtl" css-class="x"><mj-social-element name="x" href="#">X</mj-social-element></mj-social>',
-    'mj-table':
-      '<mj-table direction="rtl" css-class="x"><tr><td>c</td></tr></mj-table>',
-    'mj-text': '<mj-text direction="rtl" css-class="x">t</mj-text>',
+  const accordion = (attrs) => `<mj-accordion ${attrs}>
+      <mj-accordion-element>
+        <mj-accordion-title>t</mj-accordion-title>
+        <mj-accordion-text>b</mj-accordion-text>
+      </mj-accordion-element>
+    </mj-accordion>`
+
+  const tableComponents = {
+    'mj-button': (attrs) => `<mj-button ${attrs} href="#">b</mj-button>`,
+    'mj-image': (attrs) => `<mj-image ${attrs} src="a.png" alt="a" />`,
+    'mj-social': (attrs) =>
+      `<mj-social ${attrs}><mj-social-element name="x" href="#">X</mj-social-element></mj-social>`,
+    'mj-social vertical': (attrs) =>
+      `<mj-social mode="vertical" ${attrs}><mj-social-element name="x" href="#">X</mj-social-element></mj-social>`,
+    'mj-table': (attrs) => `<mj-table ${attrs}><tr><td>c</td></tr></mj-table>`,
+    'mj-table scroll': (attrs) =>
+      `<mj-table layout--responsive="scroll" ${attrs}><tr><td>c</td></tr></mj-table>`,
   }
 
-  Object.entries(components).forEach(([name, markup]) => {
-    it(`applies to ${name} in an ltr document, without validation errors`, async function () {
-      const { html, errors } = await mjml(body('', column(markup)))
+  const selectorFor = (name) =>
+    name === 'mj-table scroll' ? 'td.x .mj-scroll-table-inner table' : 'td.x table'
+
+  Object.entries(tableComponents).forEach(([name, markup]) => {
+    it(`puts direction on the table of ${name}`, async function () {
+      const { html, errors } = await mjml(
+        body('', column(markup('direction="rtl" css-class="x"'))),
+      )
       const $ = load(html)
+      const selector = selectorFor(name)
 
       expect(errors).to.deep.equal([])
-      expect($('td.x').attr('dir')).to.equal('rtl')
-      expect(style($, 'td.x', 'direction')).to.equal('rtl')
+      expect($(selector).first().attr('dir')).to.equal('rtl')
+      expect(extractStyle($(selector).first().attr('style'), 'direction')).to.equal(
+        'rtl',
+      )
+      // Horizontal mj-social has only inline tables, and their order comes from
+      // the direction around them.
+      const wrapper = name.startsWith('mj-social') ? 'rtl' : undefined
+      expect($('td.x').attr('dir')).to.equal(wrapper)
+      expect(style($, 'td.x', 'direction')).to.equal(wrapper)
     })
+
+    it(`carries the document direction on the table of ${name}`, async function () {
+      const $ = await render(body('dir="rtl"', column(markup('css-class="x"'))))
+
+      expect($(selectorFor(name)).first().attr('dir')).to.equal('rtl')
+    })
+
+    it(`keeps CSS direction but not dir on ${name} without Outlook classic`, async function () {
+      const $ = await render(
+        body(
+          'support-outlook-classic="false"',
+          column(markup('direction="rtl" css-class="x"')),
+        ),
+      )
+      const table = $(selectorFor(name)).first()
+
+      expect(table.attr('dir')).to.equal(undefined)
+      expect(extractStyle(table.attr('style'), 'direction')).to.equal('rtl')
+    })
+  })
+
+  it('applies to the wrapper of mj-text, which has no table', async function () {
+    const { html, errors } = await mjml(
+      body('', column('<mj-text direction="rtl" css-class="x">t</mj-text>')),
+    )
+    const $ = load(html)
+
+    expect(errors).to.deep.equal([])
+    expect($('td.x').attr('dir')).to.equal('rtl')
+    expect(style($, 'td.x', 'direction')).to.equal('rtl')
+  })
+
+  it('carries direction on the Outlook table of a fixed-height mj-text', async function () {
+    const { html } = await mjml(
+      body('dir="rtl"', column('<mj-text height="50px">t</mj-text>')),
+    )
+
+    expect(html).to.contain('cellspacing="0" dir="rtl"><tr><td height="50px"')
+  })
+
+  it('applies to the wrapper and ghost table of mj-navbar', async function () {
+    const { html, errors } = await mjml(
+      body(
+        '',
+        column(
+          '<mj-navbar direction="rtl" css-class="x"><mj-navbar-link href="#">l</mj-navbar-link></mj-navbar>',
+        ),
+      ),
+    )
+    const $ = load(html)
+
+    expect(errors).to.deep.equal([])
+    expect($('td.x').attr('dir')).to.equal('rtl')
+    expect(style($, 'td.x', 'direction')).to.equal('rtl')
+    expect(html).to.contain('align="center" dir="rtl">')
+  })
+
+  it('carries direction on the ghost table of a horizontal mj-social', async function () {
+    const { html } = await mjml(
+      body(
+        'dir="rtl"',
+        column(
+          '<mj-social><mj-social-element name="x" href="#">X</mj-social-element></mj-social>',
+        ),
+      ),
+    )
+
+    expect(html).to.match(/<!--\[if mso[^\]]*\]>\s*<table[^>]*align="center"[^>]*dir="rtl"/)
+  })
+
+  it('applies to the title and text tables of mj-accordion', async function () {
+    const { html, errors } = await mjml(
+      body('', column(accordion('direction="rtl" css-class="x"'))),
+    )
+    const $ = load(html)
+
+    expect(errors).to.deep.equal([])
+    expect($('.mj-accordion-title table').attr('dir')).to.equal('rtl')
+    expect($('.mj-accordion-content table').attr('dir')).to.equal('rtl')
+    expect(style($, '.mj-accordion', 'direction')).to.equal('rtl')
+    expect($('td.x').attr('dir')).to.equal(undefined)
+  })
+
+  it('carries the document direction on mj-accordion tables', async function () {
+    const $ = await render(body('dir="rtl"', column(accordion(''))))
+
+    expect($('.mj-accordion-title table').attr('dir')).to.equal('rtl')
+    expect($('.mj-accordion-content table').attr('dir')).to.equal('rtl')
   })
 
   it('mirrors the default alignment of the component only', async function () {
@@ -270,17 +373,10 @@ describe('direction on a component', function () {
   })
 
   it('aligns an accordion, which has no align attribute', async function () {
-    const accordion = (direction) => `<mj-accordion direction="${direction}">
-        <mj-accordion-element>
-          <mj-accordion-title>t</mj-accordion-title>
-          <mj-accordion-text>b</mj-accordion-text>
-        </mj-accordion-element>
-      </mj-accordion>`
-
-    const rtl = await render(body('', column(accordion('rtl'))))
+    const rtl = await render(body('', column(accordion('direction="rtl"'))))
     expect(style(rtl, '.mj-accordion', 'text-align')).to.equal('right')
 
-    const ltr = await render(body('dir="rtl"', column(accordion('ltr'))))
+    const ltr = await render(body('dir="rtl"', column(accordion('direction="ltr"'))))
     expect(style(ltr, '.mj-accordion', 'text-align')).to.equal('left')
   })
 
@@ -299,22 +395,58 @@ describe('direction on a component', function () {
 })
 
 describe('direction on a column', function () {
-  it('reaches its children in an rtl document', async function () {
-    const $ = await render(
-      body('dir="rtl"', column('<mj-text css-class="t">x</mj-text>', 'direction="ltr"')),
-    )
+  const children = `
+    <mj-text css-class="t">x</mj-text>
+    <mj-text css-class="kept" align="center">x</mj-text>
+    <mj-table css-class="tbl"><tr><td>c</td></tr></mj-table>
+    <mj-button css-class="b" href="#">b</mj-button>`
+
+  it('overrides an rtl document for its children', async function () {
+    const $ = await render(body('dir="rtl"', column(children, 'direction="ltr"')))
 
     expect(style($, '.t > div', 'text-align')).to.equal('left')
     expect($('.t').attr('align')).to.equal('left')
+    expect($('.tbl').attr('align')).to.equal('left')
+    expect($('.tbl table').attr('dir')).to.equal('ltr')
+    expect($('.b table').attr('dir')).to.equal('ltr')
+    expect(style($, '.kept > div', 'text-align')).to.equal('center')
   })
 
-  it('leaves child alignment alone outside an rtl document', async function () {
-    const $ = await render(
-      body('', column('<mj-text css-class="t">x</mj-text>', 'direction="rtl"')),
-    )
+  it('mirrors its children without an rtl document', async function () {
+    const $ = await render(body('', column(children, 'direction="rtl"')))
+
+    expect(style($, '.c', 'direction')).to.equal('rtl')
+    expect(style($, '.c', 'text-align')).to.equal('right')
+    expect(style($, '.t > div', 'text-align')).to.equal('right')
+    expect($('.t').attr('align')).to.equal('right')
+    expect($('.tbl').attr('align')).to.equal('right')
+    expect($('.tbl table').attr('dir')).to.equal('rtl')
+    expect($('.b table').attr('dir')).to.equal('rtl')
+    expect(style($, '.kept > div', 'text-align')).to.equal('center')
+  })
+
+  it('stops at the column', async function () {
+    const $ = await render(`
+      <mjml><mj-body><mj-section>
+        <mj-column direction="rtl"><mj-text css-class="r">r</mj-text></mj-column>
+        <mj-column><mj-text css-class="l">l</mj-text></mj-column>
+      </mj-section></mj-body></mjml>`)
+
+    expect(style($, '.r > div', 'text-align')).to.equal('right')
+    expect(style($, '.l > div', 'text-align')).to.equal('left')
+  })
+})
+
+describe('direction on a section', function () {
+  it('orders columns without changing text direction or alignment', async function () {
+    const $ = await render(`
+      <mjml><mj-body><mj-section direction="rtl">
+        <mj-column css-class="c"><mj-text css-class="t">x</mj-text></mj-column>
+      </mj-section></mj-body></mjml>`)
 
     expect(style($, '.t > div', 'text-align')).to.equal('left')
     expect(style($, '.c', 'text-align')).to.equal('left')
+    expect($('.c table').attr('dir')).to.equal(undefined)
   })
 })
 
@@ -345,6 +477,19 @@ describe('direction on mj-hero', function () {
 
     expect(style($, '.mj-hero-content', 'direction')).to.equal('ltr')
     expect(style($, '.t > div', 'text-align')).to.equal('left')
+  })
+
+  it('mirrors its children without an rtl document', async function () {
+    const $ = await render(hero('', 'direction="rtl"'))
+
+    expect(style($, '.t > div', 'text-align')).to.equal('right')
+    expect($('.t').attr('align')).to.equal('right')
+  })
+
+  it('keeps a child that sets its own align', async function () {
+    const $ = await render(hero('', 'direction="rtl"', 'align="center"'))
+
+    expect(style($, '.t > div', 'text-align')).to.equal('center')
   })
 
   it('passes a child direction to its wrapper', async function () {

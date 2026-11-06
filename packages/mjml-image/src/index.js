@@ -50,6 +50,7 @@ export default class MjImage extends BodyComponent {
     'container-background-color': 'color',
     'container-background-color--dark': 'color',
     'container-border-radius': 'string',
+    direction: 'enum(ltr,rtl)',
     'fluid-on-mobile': 'boolean',
     'font-size': 'unit(px,rem)',
     'font-size--responsive': 'unit(px,rem)',
@@ -291,6 +292,7 @@ export default class MjImage extends BodyComponent {
         'max-width': fullWidth ? '100%' : null,
         width: fullWidth ? `${parsedWidth}${unit}` : null,
         'border-collapse': 'collapse',
+        direction: this.getAttribute('direction'),
       },
       outlookDarkBackground: {
         'background-color': '#f7f7f7',
@@ -521,6 +523,7 @@ export default class MjImage extends BodyComponent {
           border: '0',
           cellpadding: '0',
           cellspacing: '0',
+          dir: this.getOutlookDir(),
           role: 'none',
           style: 'table',
           class: [this.getAttribute('fluid-on-mobile') ? 'mj-full-width-mobile' : null, tableAlignClass]

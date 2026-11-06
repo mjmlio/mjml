@@ -220,6 +220,8 @@ export default class MjText extends BodyComponent {
 
   static endingTag = true
 
+  static directionOnWrapper = true
+
   static allowedAttributes = {
     align: 'enum(left,right,center,justify)',
     'align--responsive': 'enum(left,right,center,justify)',
@@ -404,7 +406,7 @@ export default class MjText extends BodyComponent {
       return this.renderContent()
     }
 
-    return `${conditionalTag(`<table role="none" border="0" cellpadding="0" cellspacing="0"><tr><td height="${height}" style="vertical-align:top;height:${height};">`)}
+    return `${conditionalTag(`<table role="none" border="0" cellpadding="0" cellspacing="0"${this.htmlAttributes({ dir: this.getOutlookDir() })}><tr><td height="${height}" style="vertical-align:top;height:${height};">`)}
         ${this.renderContent()}
         ${conditionalTag(`</td></tr></table>`)}
       `

@@ -14,6 +14,8 @@ import { msoConditionalTag } from 'mjml-core/lib/helpers/conditionalTag'
 export default class MjSocial extends BodyComponent {
   static componentName = 'mj-social'
 
+  static directionOnWrapper = true
+
   static allowedAttributes = {
     align: 'enum(left,right,center)',
     'align--responsive': 'enum(left,right,center)',
@@ -160,10 +162,10 @@ export default class MjSocial extends BodyComponent {
     return ''
   }
 
-  // eslint-disable-next-line class-methods-use-this
   getStyles() {
     return {
       tableVertical: {
+        direction: this.getAttribute('direction'),
         margin: '0px',
       },
     }
@@ -225,6 +227,7 @@ export default class MjSocial extends BodyComponent {
           border: '0',
           cellpadding: '0',
           cellspacing: '0',
+          dir: this.getOutlookDir(),
           role: 'none',
         })}
       >
@@ -245,8 +248,10 @@ export default class MjSocial extends BodyComponent {
                   border: '0',
                   cellpadding: '0',
                   cellspacing: '0',
+                  dir: this.getOutlookDir(),
                   role: 'none',
                   style: {
+                    direction: this.getAttribute('direction'),
                     float: 'none',
                     display: 'inline-table',
                   },
@@ -272,6 +277,7 @@ export default class MjSocial extends BodyComponent {
           border: '0',
           cellpadding: '0',
           cellspacing: '0',
+          dir: this.getOutlookDir(),
           role: 'none',
           style: 'tableVertical',
         })}

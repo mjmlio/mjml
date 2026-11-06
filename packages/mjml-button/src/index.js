@@ -319,6 +319,7 @@ export default class MjButton extends BodyComponent {
     return {
       table: {
         'border-collapse': 'separate',
+        direction: this.getAttribute('direction'),
         width: this.getAttribute('width'),
         'line-height': '100%',
       },
@@ -406,6 +407,7 @@ export default class MjButton extends BodyComponent {
           border: '0',
           cellpadding: '0',
           cellspacing: '0',
+          dir: this.getOutlookDir(),
           role: 'none',
           style: 'table',
           class: tableResponsiveClass || null,

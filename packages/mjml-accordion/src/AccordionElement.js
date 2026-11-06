@@ -112,6 +112,7 @@ export default class MjAccordionElement extends BodyComponent {
     const { children } = this.props
     const childrenAttr = [
       'border',
+      'direction',
       'icon-align',
       'icon-width',
       'icon-width--responsive',

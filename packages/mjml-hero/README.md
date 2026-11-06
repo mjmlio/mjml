@@ -95,6 +95,7 @@ Use `background-color` to provide a fallback color in case an email client doesn
 | background-width       | `px` `%`                | width of the image used, mandatory                                 | inherits parent element width |
 | border-radius          | string                  | border radius                                                      |                               |
 | css-class              | string                  | class name, added to the root HTML element created                 |                               |
+| direction              | `ltr` `rtl`             | text direction of this component; overrides `dir` on `mjml`        |                               |
 | height                 | `px` `%`                | hero section height, (required for `fixed-height` mode)            | `0px`                         |
 | inner-background-color | CSS color formats       | content background color                                           |                               |
 | inner-padding          | `px` `%`                | hero inner padding, supports up to 4 parameters                    |                               |

@@ -62,6 +62,7 @@ Readers can interact by clicking on the tabs to reveal the content, providing a 
 | container-background-color | CSS color formats       | background color of the container                                  |                                   |
 | container-border-radius    | string                  | border radius of the container                                     |                                   |
 | css-class                  | string                  | class name, added to the root HTML element created                 |                                   |
+| direction                  | `ltr` `rtl`             | text direction of this component; overrides `dir` on `mjml`        |                                   |
 | font-family                | string                  | font                                                               | `Ubuntu, sans-serif`              |
 | icon-align                 | `top` `middle` `bottom` | icon alignment                                                     |                                   |
 | icon-height                | `px` `%`                | icon height                                                        | `32px`                            |

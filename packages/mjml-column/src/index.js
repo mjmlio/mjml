@@ -266,6 +266,7 @@ export default class MjColumn extends BodyComponent {
     return {
       ...this.context,
       containerWidth,
+      contentDirection: this.getAttribute('direction'),
     }
   }
 
@@ -290,7 +291,7 @@ export default class MjColumn extends BodyComponent {
     return {
       div: {
         'font-size': '0px',
-        'text-align': 'left',
+        'text-align': this.isRtl ? 'right' : 'left',
         direction: this.getAttribute('direction'),
         display: 'inline-block',
         'vertical-align': this.getAttribute('vertical-align'),
@@ -725,6 +726,7 @@ export default class MjColumn extends BodyComponent {
           border: '0',
           cellpadding: '0',
           cellspacing: '0',
+          dir: this.getOutlookDir(),
           role: 'none',
           width: '100%',
           ...(hasBorderRadius && {
@@ -765,6 +767,7 @@ export default class MjColumn extends BodyComponent {
           cellpadding: '0',
           cellspacing: '0',
           class: columnTableDarkClass,
+          dir: this.getOutlookDir(),
           style: 'table',
           width: '100%',
           role: this.getAttribute('role') ? this.getAttribute('role') : 'none',
@@ -804,6 +807,7 @@ export default class MjColumn extends BodyComponent {
                 ${component.htmlAttributes({
                   align: component.getAttribute('align'),
                   class: component.getAttribute('css-class'),
+                  dir: component.getWrapperDirection(),
                   style: {
                     background: component.getAttribute(
                       'container-background-color',
@@ -811,6 +815,7 @@ export default class MjColumn extends BodyComponent {
                     'border-radius': component.getAttribute(
                       'container-border-radius',
                     ),
+                    direction: component.getWrapperDirection(),
                     'font-size': '0px',
                     padding: component.getAttribute('padding'),
                     'padding-top': component.getAttribute('padding-top'),

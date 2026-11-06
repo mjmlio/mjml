@@ -241,6 +241,7 @@ export default class MjAccordionText extends BodyComponent {
             cellspacing: '0',
             cellpadding: '0',
             class: borderDarkClass || undefined,
+            dir: this.getOutlookDir(),
             style: 'table',
             role: this.getAttribute('role'),
           })}

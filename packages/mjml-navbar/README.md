@@ -59,6 +59,7 @@ Displays a navigation menu with an optional `hamburger` mode for mobile devices.
 | container-background-color | CSS color formats             | background color of the container                                                                                       |                      |
 | container-border-radius    | string                        | border radius of the container                                                                                          |                      |
 | css-class                  | string                        | class name, added to the root HTML element created                                                                      |                      |
+| direction                  | `ltr` `rtl`                   | text direction of this component; overrides `dir` on `mjml`                                                             |                      |
 | hamburger                  | string                        | activate the hamburger navigation on mobile if the value is hamburger                                                   | `null`               |
 | ico-align                  | `left`<br>`center`<br>`right` | hamburger icon alignment<br> (`hamburger="hamburger"` required)                                                         | `center`             |
 | ico-close                  | string                        | char code for a custom close icon, e.g. ASCII code decimal<br> (`hamburger="hamburger"` required)                       | `&#8855;`            |

@@ -80,7 +80,7 @@ jobs:
               exit 1
             fi
           fi
-          node_modules/.bin/lerna version "$BUMP" --preid "$PREID" --no-push --no-git-tag-version --yes --no-private --force-publish
+          yarn -s lerna version "$BUMP" --preid "$PREID" --no-push --no-git-tag-version --yes --no-private --force-publish
           NEW_VERSION=$(jq -r '.version' lerna.json)
           if git rev-parse --quiet --verify "refs/tags/v$NEW_VERSION" > /dev/null; then
             echo "::error::Tag v$NEW_VERSION already exists"
@@ -143,7 +143,7 @@ jobs:
         run: |
           mkdir release
           git diff -- lerna.json packages > release/release.patch
-          node_modules/.bin/lerna ls --toposort --json --loglevel silent > packages.json
+          yarn -s lerna ls --toposort --json --loglevel silent > packages.json
           # lerna publish used to add the root license to each package.
           jq -r '.[] | [.name, .version, .location] | @tsv' packages.json | while IFS=$'\t' read -r NAME VERSION LOCATION; do
             cp LICENSE.md "$LOCATION/LICENSE.md"

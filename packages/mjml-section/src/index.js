@@ -331,7 +331,9 @@ export default class MjSection extends BodyComponent {
       gutter: this.getAttribute('gutter'),
       gutterResponsive: this.getAttribute('gutter--responsive'),
       // unset direction inherits <mjml dir>; gutters must mirror with it
-      direction: this.getAttribute('direction') || globalData?.dir,
+      direction:
+        this.getAttribute('direction') ||
+        (globalData?.dir === 'rtl' ? 'rtl' : undefined),
       hasSectionBackgroundUrl,
       addVmlButtonStyle: (buttonClassName, leftPadding) => {
         if (!hasSectionBackgroundUrl || !globalData || !buttonClassName) {

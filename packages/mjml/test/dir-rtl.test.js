@@ -32,11 +32,13 @@ const render = async (input) => load((await mjml(input)).html)
 const style = ($, selector, prop) =>
   extractStyle($(selector).attr('style'), prop)
 
-const gutterCss = (html, className) =>
-  new RegExp(`\\.${className} \\{ padding: ([^;!]+)`).exec(html)[1].trim()
+const gutterCss = (html, className) => {
+  const match = new RegExp(`\\.${className} \\{ padding: ([^;!]+)`).exec(html)
+  return match && match[1].trim()
+}
 
 describe('<mjml dir="rtl">', function () {
-  it('sets the document direction that reverses the column order', async function () {
+  it('sets the document direction', async function () {
     const $ = await render(template('rtl'))
 
     expect($('html').attr('dir')).to.equal('rtl')
@@ -96,10 +98,16 @@ describe('<mjml dir="rtl">', function () {
   })
 
   it('leaves ltr and auto output unchanged', async function () {
-    const html = async (dir) =>
-      (await mjml(template(dir))).html.replace(/dir="[a-z]+"/g, '')
+    const html = async (dir) => (await mjml(template(dir))).html
+    const none = await html(undefined)
 
-    expect(await html('ltr')).to.equal(await html(undefined))
+    expect(await html('auto')).to.equal(none)
+    // only <html> and the body <div> carry the document dir
+    expect(
+      (await html('ltr'))
+        .replace('dir="ltr"', 'dir="auto"')
+        .replace('dir="ltr"', 'dir="auto"'),
+    ).to.equal(none)
     expect(style(await render(template()), '.t > div', 'text-align')).to.equal(
       'left',
     )
@@ -165,6 +173,8 @@ describe('mirrorAttributes', function () {
         'text-padding': '1px 2px',
         'icon-position': 'left',
         'vertical-align': 'top',
+        'left-icon': 'l.png',
+        'right-icon': 'r.png',
       }),
     ).to.deep.equal({
       align: 'right',
@@ -174,6 +184,8 @@ describe('mirrorAttributes', function () {
       'text-padding': '1px 2px',
       'icon-position': 'left',
       'vertical-align': 'top',
+      'left-icon': 'l.png',
+      'right-icon': 'r.png',
     })
   })
 
@@ -298,35 +310,72 @@ describe('direction on a component', function () {
   const cssOnlyComponents = {
     'mj-image': {
       markup: (attrs) => `<mj-image ${attrs} src="a.png" alt="a" />`,
-      table: 'td.x table',
+      element: 'td.x table',
     },
     'mj-carousel': {
       markup: (attrs) => `<mj-carousel ${attrs}>
           <mj-carousel-image src="a.png" alt="a" />
           <mj-carousel-image src="b.png" alt="b" />
         </mj-carousel>`,
-      table: '.mj-carousel-main',
+      // the wrapper, which holds the thumbnails as well as the main table
+      element: 'div.mj-carousel',
     },
   }
 
-  Object.entries(cssOnlyComponents).forEach(([name, { markup, table }]) => {
-    it(`sets CSS direction, but not dir, on the table of ${name}`, async function () {
+  Object.entries(cssOnlyComponents).forEach(([name, { markup, element }]) => {
+    it(`sets CSS direction, but not dir, on ${name}`, async function () {
       const { html, errors } = await mjml(
         body('', column(markup('direction="rtl" css-class="x"'))),
       )
       const $ = load(html)
 
       expect(errors).to.deep.equal([])
-      expect(style($, table, 'direction')).to.equal('rtl')
-      expect($(table).attr('dir')).to.equal(undefined)
+      expect(style($, element, 'direction')).to.equal('rtl')
+      expect($(element).attr('dir')).to.equal(undefined)
       expect($('td.x').attr('dir')).to.equal(undefined)
     })
 
     it(`adds no dir to ${name} in an rtl document`, async function () {
       const $ = await render(body('dir="rtl"', column(markup('css-class="x"'))))
 
-      expect($(table).attr('dir')).to.equal(undefined)
+      expect($(element).attr('dir')).to.equal(undefined)
     })
+  })
+
+  it('shows each carousel icon on its own side', async function () {
+    const carousel = (mjmlAttrs, attrs = '') =>
+      body(
+        mjmlAttrs,
+        column(`<mj-carousel ${attrs}>
+          <mj-carousel-image src="a.png" />
+          <mj-carousel-image src="b.png" />
+        </mj-carousel>`),
+      )
+    const icons = ($) => ({
+      previous: $('img[alt="previous"]').first().attr('src'),
+      next: $('img[alt="next"]').first().attr('src'),
+    })
+    const ltr = icons(await render(carousel('')))
+    // rtl puts previous on the right, which shows the right-hand icon
+    const swapped = { previous: ltr.next, next: ltr.previous }
+
+    expect(icons(await render(carousel('dir="rtl"')))).to.deep.equal(swapped)
+    expect(icons(await render(carousel('', 'direction="rtl"')))).to.deep.equal(
+      swapped,
+    )
+    expect(
+      icons(await render(carousel('dir="rtl"', 'left-icon="l.png" right-icon="r.png"'))),
+    ).to.deep.equal({ previous: 'r.png', next: 'l.png' })
+    expect(
+      icons(await render(carousel('dir="rtl"', 'left-icon="l.png"'))),
+    ).to.deep.equal({ previous: ltr.next, next: 'l.png' })
+
+    const dark = await render(
+      carousel('dir="rtl"', 'left-icon--dark="ld.png" right-icon--dark="rd.png"'),
+    )
+    expect(
+      dark('img[alt="previous"]').first().parent().find('source').attr('srcset'),
+    ).to.equal('rd.png')
   })
 
   it('applies to the wrapper of mj-text, which has no table', async function () {
@@ -517,6 +566,26 @@ describe('direction on a column', function () {
 
     expect(style($, '.r > div', 'text-align')).to.equal('right')
     expect(style($, '.l > div', 'text-align')).to.equal('left')
+  })
+})
+
+describe('direction--responsive on a column', function () {
+  it('stays CSS-only, so the mobile direction still applies', async function () {
+    const $ = await render(
+      body(
+        '',
+        column(
+          '<mj-text css-class="t">A</mj-text><mj-button css-class="b" href="#">b</mj-button>',
+          'direction="rtl" direction--responsive="ltr"',
+        ),
+      ),
+    )
+
+    expect($('.c table').first().attr('dir')).to.equal(undefined)
+    expect($('.b table').attr('dir')).to.equal(undefined)
+    expect($('.t').attr('align')).to.equal('left')
+    expect(style($, '.c', 'text-align')).to.equal('left')
+    expect(style($, '.c', 'direction')).to.equal('rtl')
   })
 })
 

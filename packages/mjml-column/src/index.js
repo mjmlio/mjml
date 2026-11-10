@@ -237,6 +237,16 @@ export default class MjColumn extends BodyComponent {
     return ''
   }
 
+  // direction--responsive switches at the breakpoint, which only CSS can do:
+  // a dir attribute or mirrored alignment would keep the desktop value.
+  hasResponsiveDirection() {
+    return Boolean(this.getAttribute('direction--responsive'))
+  }
+
+  getOutlookDir() {
+    return this.hasResponsiveDirection() ? undefined : super.getOutlookDir()
+  }
+
   getChildContext() {
     const { containerWidth: parentWidth } = this.context
     const { nonRawSiblings } = this.props
@@ -266,7 +276,9 @@ export default class MjColumn extends BodyComponent {
     return {
       ...this.context,
       containerWidth,
-      contentDirection: this.getAttribute('direction'),
+      contentDirection: this.hasResponsiveDirection()
+        ? undefined
+        : this.getAttribute('direction'),
     }
   }
 
@@ -291,7 +303,13 @@ export default class MjColumn extends BodyComponent {
     return {
       div: {
         'font-size': '0px',
-        'text-align': this.isRtl ? 'right' : 'left',
+        'text-align': (
+          this.hasResponsiveDirection()
+            ? this.context.globalData.dir === 'rtl'
+            : this.isRtl
+        )
+          ? 'right'
+          : 'left',
         direction: this.getAttribute('direction'),
         display: 'inline-block',
         'vertical-align': this.getAttribute('vertical-align'),

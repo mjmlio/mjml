@@ -32,8 +32,8 @@ Displays a gallery of images or "carousel". Readers can interact by hovering and
 | border-radius              | string                         | border radius                                                      | `6px`                             |
 | container-background-color | CSS color formats              | background color of the container                                  |                                   |
 | container-border-radius    | string                         | border radius of the container                                     |                                   |
-| direction                  | `ltr` `rtl`                    | text direction of this component; overrides `dir` on `mjml`        |                                   |
 | css-class                  | string                         | class name, added to the root HTML element created                 |                                   |
+| direction                  | `ltr` `rtl`                    | text direction; overrides `dir` on `mjml`                          |                                   |
 | icon-width                 | `px` `%`                       | width of the icons on left and right of the main image             | `44px`                            |
 | left-icon                  | string                         | icon on the left of the main image                                 | `https://i.imgur.com/xTh3hln.png` |
 | padding                    | `px` `%`                       | carousel padding, supports up to 4 parameters                      |                                   |

@@ -264,6 +264,7 @@ export default class MjSocialElement extends BodyComponent {
             this.getAttribute('mode'),
             this.props.first,
             this.props.last,
+            this.isRtl,
           ),
         ],
       ]),
@@ -626,6 +627,7 @@ export default class MjSocialElement extends BodyComponent {
               border: '0',
               cellpadding: '0',
               cellspacing: '0',
+              dir: this.getOutlookDir(),
               role: 'none',
               class: iconResponsiveClass || null,
             })}

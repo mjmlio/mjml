@@ -523,7 +523,6 @@ export default class MjImage extends BodyComponent {
           border: '0',
           cellpadding: '0',
           cellspacing: '0',
-          dir: this.getOutlookDir(),
           role: 'none',
           style: 'table',
           class: [this.getAttribute('fluid-on-mobile') ? 'mj-full-width-mobile' : null, tableAlignClass]

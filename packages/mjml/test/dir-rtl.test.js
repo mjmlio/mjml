@@ -122,6 +122,31 @@ describe('<mjml dir="rtl">', function () {
     expect(html).to.contain('padding:10px 0 10px 10px;')
     expect(html).to.contain('padding:10px 10px 10px 0;')
 
+    // and the same for the responsive gutter
+    const responsive = await mjml(
+      body(
+        'dir="rtl"',
+        column(`<mj-social gutter--responsive="20px">
+          <mj-social-element name="x" href="#" css-class="first">X</mj-social-element>
+          <mj-social-element name="facebook" href="#" css-class="last">F</mj-social-element>
+        </mj-social>`),
+      ),
+    )
+    const r$ = load(responsive.html)
+    const rule = (selector) => {
+      const className = r$(selector)
+        .find('td')
+        .first()
+        .attr('class')
+        .split(' ')
+        .find((c) => c.startsWith('mj-responsive-'))
+      return new RegExp(`\\.${className} \\{ padding: ([^;!]+)`)
+        .exec(responsive.html)[1]
+        .trim()
+    }
+    expect(rule('tr.first')).to.equal('20px 0 20px 20px')
+    expect(rule('tr.last')).to.equal('20px 20px 20px 0')
+
     // A trailing icon is on the left, with the text to its right.
     const trailing = await mjml(social('icon-position="right"'))
     expect(trailing.html).to.contain('padding-left:10px')
@@ -216,7 +241,6 @@ describe('direction on a component', function () {
 
   const tableComponents = {
     'mj-button': (attrs) => `<mj-button ${attrs} href="#">b</mj-button>`,
-    'mj-image': (attrs) => `<mj-image ${attrs} src="a.png" alt="a" />`,
     'mj-social': (attrs) =>
       `<mj-social ${attrs}><mj-social-element name="x" href="#">X</mj-social-element></mj-social>`,
     'mj-social vertical': (attrs) =>
@@ -269,6 +293,42 @@ describe('direction on a component', function () {
     })
   })
 
+  // Outlook classic shows no alt text, the only text these render, so they
+  // get CSS direction but no dir.
+  const cssOnlyComponents = {
+    'mj-image': {
+      markup: (attrs) => `<mj-image ${attrs} src="a.png" alt="a" />`,
+      table: 'td.x table',
+    },
+    'mj-carousel': {
+      markup: (attrs) => `<mj-carousel ${attrs}>
+          <mj-carousel-image src="a.png" alt="a" />
+          <mj-carousel-image src="b.png" alt="b" />
+        </mj-carousel>`,
+      table: '.mj-carousel-main',
+    },
+  }
+
+  Object.entries(cssOnlyComponents).forEach(([name, { markup, table }]) => {
+    it(`sets CSS direction, but not dir, on the table of ${name}`, async function () {
+      const { html, errors } = await mjml(
+        body('', column(markup('direction="rtl" css-class="x"'))),
+      )
+      const $ = load(html)
+
+      expect(errors).to.deep.equal([])
+      expect(style($, table, 'direction')).to.equal('rtl')
+      expect($(table).attr('dir')).to.equal(undefined)
+      expect($('td.x').attr('dir')).to.equal(undefined)
+    })
+
+    it(`adds no dir to ${name} in an rtl document`, async function () {
+      const $ = await render(body('dir="rtl"', column(markup('css-class="x"'))))
+
+      expect($(table).attr('dir')).to.equal(undefined)
+    })
+  })
+
   it('applies to the wrapper of mj-text, which has no table', async function () {
     const { html, errors } = await mjml(
       body('', column('<mj-text direction="rtl" css-class="x">t</mj-text>')),
@@ -316,6 +376,29 @@ describe('direction on a component', function () {
     )
 
     expect(html).to.match(/<!--\[if mso[^\]]*\]>\s*<table[^>]*align="center"[^>]*dir="rtl"/)
+  })
+
+  it('carries direction on the table of each mj-social-element', async function () {
+    for (const mode of ['horizontal', 'vertical']) {
+      // eslint-disable-next-line no-await-in-loop
+      const $ = await render(
+        body(
+          'dir="rtl"',
+          column(`<mj-social mode="${mode}" css-class="x">
+            <mj-social-element name="x" href="#">X</mj-social-element>
+            <mj-social-element name="facebook" href="#">F</mj-social-element>
+          </mj-social>`),
+        ),
+      )
+      const dirs = $('td.x table')
+        .map((_, el) => $(el).attr('dir'))
+        .get()
+
+      // horizontal: an inline table and an element table per element;
+      // vertical: the social table and an element table per element
+      expect(dirs.length).to.equal(mode === 'horizontal' ? 4 : 3)
+      expect(dirs.every((dir) => dir === 'rtl')).to.equal(true)
+    }
   })
 
   it('applies to the title and text tables of mj-accordion', async function () {

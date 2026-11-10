@@ -27,6 +27,7 @@ export default class MjCarousel extends BodyComponent {
     'container-background-color': 'color',
     'container-background-color--dark': 'color',
     'container-border-radius': 'string',
+    direction: 'enum(ltr,rtl)',
     'icon-width': 'unit(px,%)',
     'icon-width--responsive': 'unit(px,%)',
     'left-icon': 'string',
@@ -421,6 +422,7 @@ export default class MjCarousel extends BodyComponent {
         },
         table: {
           'caption-side': 'top',
+          direction: this.getAttribute('direction'),
           display: 'table-caption',
           'table-layout': 'fixed',
           width: '100%',

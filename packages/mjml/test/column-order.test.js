@@ -7,13 +7,21 @@ describe('column-order', function () {
       const input = `
         <mjml>
           <mj-body>
-            <mj-section ${attribute}="rtl">
-              <mj-group ${attribute}="ltr">
+            <mj-section ${attribute}="rtl" gutter="24px">
+              <mj-column>
+                <mj-text>Section first</mj-text>
+              </mj-column>
+              <mj-column>
+                <mj-text>Section second</mj-text>
+              </mj-column>
+            </mj-section>
+            <mj-section ${attribute}="ltr" gutter="24px">
+              <mj-group ${attribute}="rtl">
                 <mj-column>
-                  <mj-text>First</mj-text>
+                  <mj-text>Group first</mj-text>
                 </mj-column>
                 <mj-column>
-                  <mj-text>Second</mj-text>
+                  <mj-text>Group second</mj-text>
                 </mj-column>
               </mj-group>
             </mj-section>
@@ -32,5 +40,6 @@ describe('column-order', function () {
     chai.expect(columnOrderErrors).to.eql([])
     chai.expect(directionErrors).to.eql([])
     chai.expect(columnOrderHtml).to.equal(directionHtml)
+    chai.expect(columnOrderHtml).to.match(/mj-column-gutter-[^"]*-rtl/)
   })
 })

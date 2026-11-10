@@ -21,6 +21,7 @@ export default class MjGroup extends BodyComponent {
     'aria-roledescription': 'string',
     'background-color': 'color',
     'background-color--dark': 'color',
+    'column-order': 'enum(ltr,rtl)',
     direction: 'enum(ltr,rtl)',
     'direction--responsive': 'enum(ltr,rtl)',
     role: 'string',
@@ -39,6 +40,10 @@ export default class MjGroup extends BodyComponent {
     }
     emitResponsiveHeadStyle(this.context && this.context.globalData)
     return ''
+  }
+
+  getColumnOrder() {
+    return this.getAttribute('column-order') || this.getAttribute('direction')
   }
 
   getChildContext() {
@@ -69,7 +74,7 @@ export default class MjGroup extends BodyComponent {
       containerWidth,
       nonRawSiblings: children.length,
       isInGroup: true,
-      direction: this.getAttribute('direction'),
+      direction: this.getColumnOrder(),
     }
   }
 
@@ -80,7 +85,7 @@ export default class MjGroup extends BodyComponent {
         'line-height': '0',
         display: 'inline-block',
         width: '100%',
-        direction: this.getAttribute('direction'),
+        direction: this.getColumnOrder(),
         'vertical-align': this.getAttribute('vertical-align'),
         'background-color': this.getAttribute('background-color'),
       },

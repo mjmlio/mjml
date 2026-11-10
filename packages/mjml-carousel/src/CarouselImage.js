@@ -33,6 +33,7 @@ export default class MjCarouselImage extends BodyComponent {
           width: this.context.containerWidth,
           'max-width': '100%',
           height: 'auto',
+          'font-size': '16px',
         },
         firstImageDiv: {},
         otherImageDiv: {
@@ -58,6 +59,7 @@ export default class MjCarouselImage extends BodyComponent {
           display: 'block',
           width: '100%',
           height: 'auto',
+          'font-size': '16px',
         },
       },
     }

@@ -598,7 +598,28 @@ describe('direction on a section', function () {
 
     expect(style($, '.t > div', 'text-align')).to.equal('left')
     expect(style($, '.c', 'text-align')).to.equal('left')
+    expect(style($, '.c', 'direction')).to.equal('ltr')
     expect($('.c table').attr('dir')).to.equal(undefined)
+  })
+
+  it('leaves column text in the document direction', async function () {
+    const columns = (mjmlAttrs) => `
+      <mjml ${mjmlAttrs}><mj-body><mj-section direction="rtl">
+        <mj-column css-class="c"><mj-text>x</mj-text></mj-column>
+        <mj-column css-class="d" direction="rtl"><mj-text>y</mj-text></mj-column>
+      </mj-section></mj-body></mjml>`
+
+    for (const [attrs, expected] of [
+      ['', 'ltr'],
+      ['dir="auto"', 'ltr'],
+      ['dir="ltr"', 'ltr'],
+      ['dir="rtl"', 'rtl'],
+    ]) {
+      // eslint-disable-next-line no-await-in-loop
+      const $ = await render(columns(attrs))
+      expect(style($, '.c', 'direction')).to.equal(expected)
+      expect(style($, '.d', 'direction')).to.equal('rtl')
+    }
   })
 })
 

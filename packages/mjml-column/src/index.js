@@ -310,7 +310,11 @@ export default class MjColumn extends BodyComponent {
         )
           ? 'right'
           : 'left',
-        direction: this.getAttribute('direction'),
+        // set even when unset: a section's direction orders the columns, and
+        // without this the text inside would reverse with them
+        direction:
+          this.getAttribute('direction') ||
+          (this.context.globalData.dir === 'rtl' ? 'rtl' : 'ltr'),
         display: 'inline-block',
         'vertical-align': this.getAttribute('vertical-align'),
         width: this.getMobileWidth(),

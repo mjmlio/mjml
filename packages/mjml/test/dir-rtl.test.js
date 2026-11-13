@@ -1,6 +1,8 @@
 const chai = require('chai')
 const { load } = require('cheerio')
 const mirrorAttributes = require('mjml-core/lib/helpers/mirrorAttributes')
+const { BodyComponent, components, registerComponent } = require('mjml-core')
+const { dependencies } = require('mjml-validator')
 const mjml = require('../lib')
 const { extractStyle } = require('./utils')
 
@@ -192,6 +194,86 @@ describe('mirrorAttributes', function () {
   it('leaves centred values alone', function () {
     expect(mirrorAttributes({ align: 'center' })).to.deep.equal({
       align: 'center',
+    })
+  })
+
+  it('swaps the values of left and right attributes', function () {
+    expect(
+      mirrorAttributes({
+        'padding-left': '10px',
+        'inner-padding-left': '1px',
+        'inner-padding-right': '2px',
+        'border-right': '1px solid red',
+      }),
+    ).to.deep.equal({
+      'padding-right': '10px',
+      'inner-padding-right': '1px',
+      'inner-padding-left': '2px',
+      'border-left': '1px solid red',
+    })
+  })
+
+  it('keeps calc() as one padding value', function () {
+    expect(
+      mirrorAttributes({
+        padding: '0 0 0 calc(10px + (2 * 5px))',
+        'inner-padding': '0 calc(10px + 5px)',
+      }),
+    ).to.deep.equal({
+      padding: '0 calc(10px + (2 * 5px)) 0 0',
+      'inner-padding': '0 calc(10px + 5px)',
+    })
+  })
+})
+
+describe('rtl defaults on a custom component', function () {
+  class MjDummyBox extends BodyComponent {
+    render() {
+      return `<div ${this.htmlAttributes({
+        class: 'box',
+        'data-align': this.getAttribute('align'),
+        'data-padding': this.getAttribute('padding'),
+        'data-padding-left': this.getAttribute('padding-left'),
+        'data-padding-right': this.getAttribute('padding-right'),
+      })}></div>`
+    }
+  }
+  MjDummyBox.componentName = 'mj-dummy-box'
+  MjDummyBox.allowedAttributes = {
+    align: 'enum(left,right,center)',
+    padding: 'unit(px,%){1,4}',
+    'padding-left': 'unit(px,%)',
+    'padding-right': 'unit(px,%)',
+  }
+  MjDummyBox.defaultAttributes = {
+    align: 'left',
+    padding: '0 0 0 4px',
+    'padding-left': '10px',
+  }
+  MjDummyBox.dependencies = {
+    'mj-column': ['mj-dummy-box'],
+    'mj-dummy-box': [],
+  }
+
+  let columnDependencies
+
+  before(function () {
+    columnDependencies = dependencies['mj-column']
+    registerComponent(MjDummyBox, { registerDependencies: true })
+  })
+
+  after(function () {
+    delete components['mj-dummy-box']
+    delete dependencies['mj-dummy-box']
+    dependencies['mj-column'] = columnDependencies
+  })
+
+  it('mirrors its defaults like a built-in one', async function () {
+    const { html } = await mjml(body('dir="rtl"', column('<mj-dummy-box />')))
+    expect(load(html)('.box').data()).to.deep.equal({
+      align: 'right',
+      padding: '0 4px 0 0',
+      paddingRight: '10px',
     })
   })
 })

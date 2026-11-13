@@ -15,6 +15,7 @@ import MJMLParser from 'mjml-parser-xml'
 
 import shorthandParser, { borderParser } from './helpers/shorthandParser'
 import formatAttributes from './helpers/formatAttributes'
+import mirrorAttributes from './helpers/mirrorAttributes'
 import jsonToXML from './helpers/jsonToXML'
 
 export function initComponent({ initialDatas, name }) {
@@ -67,9 +68,21 @@ class Component {
       rawAttrs,
     }
 
+    // Nearest direction wins: the component's own, then its column's or hero's,
+    // then an rtl document. dir="auto" can't be resolved at compile time.
+    this.resolvedDirection =
+      attributes.direction ||
+      globalAttributes.direction ||
+      context.contentDirection ||
+      (get(context, 'globalData.dir') === 'rtl' ? 'rtl' : undefined)
+
+    this.isRtl = this.resolvedDirection === 'rtl'
+
     this.attributes = formatAttributes(
       {
-        ...this.constructor.defaultAttributes,
+        ...(this.isRtl
+          ? mirrorAttributes(this.constructor.defaultAttributes)
+          : this.constructor.defaultAttributes),
         ...globalAttributes,
         ...attributes,
       },
@@ -113,6 +126,22 @@ export class BodyComponent extends Component {
   // eslint-disable-next-line class-methods-use-this
   getStyles() {
     return {}
+  }
+
+  // Outlook classic resets direction at every <table>, so each table holding
+  // content has to carry it itself.
+  getOutlookDir() {
+    return get(this.context, 'globalData.supportOutlookClassic') === false
+      ? undefined
+      : this.resolvedDirection
+  }
+
+  // For components without a <table> of their own to carry direction: the
+  // parent's wrapper <td> does it instead.
+  getWrapperDirection() {
+    return this.constructor.directionOnWrapper
+      ? this.getAttribute('direction')
+      : undefined
   }
 
   getShorthandAttrValue(attribute, direction) {

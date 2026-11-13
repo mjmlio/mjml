@@ -27,6 +27,7 @@ export default class MjCarousel extends BodyComponent {
     'container-background-color': 'color',
     'container-background-color--dark': 'color',
     'container-border-radius': 'string',
+    direction: 'enum(ltr,rtl)',
     'icon-width': 'unit(px,%)',
     'icon-width--responsive': 'unit(px,%)',
     'left-icon': 'string',
@@ -584,6 +585,11 @@ export default class MjCarousel extends BodyComponent {
   }
 
   generateCarousel() {
+    // rtl puts previous on the right, so it takes the icon drawn for that side
+    const [previousSide, nextSide] = this.isRtl
+      ? ['right', 'left']
+      : ['left', 'right']
+
     return `
       <table
         ${this.htmlAttributes({
@@ -599,9 +605,9 @@ export default class MjCarousel extends BodyComponent {
         })}
       >
         <tr>
-          ${this.generateControls('previous', this.getAttribute('left-icon'), this.getAttribute('left-icon--dark'))}
+          ${this.generateControls('previous', this.getAttribute(`${previousSide}-icon`), this.getAttribute(`${previousSide}-icon--dark`))}
           ${this.generateImages()}
-          ${this.generateControls('next', this.getAttribute('right-icon'), this.getAttribute('right-icon--dark'))}
+          ${this.generateControls('next', this.getAttribute(`${nextSide}-icon`), this.getAttribute(`${nextSide}-icon--dark`))}
         </tr>
       </table>
     `
@@ -636,6 +642,8 @@ export default class MjCarousel extends BodyComponent {
         <div
           ${this.htmlAttributes({
             class: 'mj-carousel',
+            // on the wrapper, so it reaches the thumbnails as well
+            style: { direction: this.getAttribute('direction') },
           })}
         >
           ${this.generateRadios()}

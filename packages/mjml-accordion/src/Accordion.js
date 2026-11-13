@@ -19,6 +19,7 @@ export default class MjAccordion extends BodyComponent {
     'container-border-radius': 'string',
     'container-background-color': 'color',
     'container-background-color--dark': 'color',
+    direction: 'enum(ltr,rtl)',
     'font-family': 'string',
     'icon-align': 'enum(top,middle,bottom)',
     'icon-height': 'unit(px,%)',
@@ -154,6 +155,12 @@ export default class MjAccordion extends BodyComponent {
         width: '100%',
         'border-collapse': 'collapse',
         border: this.getAttribute('border'),
+        direction: this.getAttribute('direction'),
+        // accordion has no align attribute, so without this the column's
+        // inherited text-align beats its own direction
+        ...(this.getAttribute('direction') && {
+          'text-align': this.isRtl ? 'right' : 'left',
+        }),
         ...(this.getAttribute('border') !== 'none' && this.getAttribute('border') !== '0' && this.getAttribute('border') !== '0px' && { 'border-bottom': '0' }),
       },
     }
@@ -172,6 +179,7 @@ export default class MjAccordion extends BodyComponent {
     const childrenAttr = [
       'border',
       'border-color--dark',
+      'direction',
       'icon-align',
       'icon-height',
       'icon-height--responsive',

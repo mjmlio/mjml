@@ -255,12 +255,12 @@ describe('mj-section gutter', function () {
     chai
       .expect(html)
       .to.include(
-        'style="font-size:0px;text-align:left;display:inline-block;vertical-align:top;width:48%;padding:0% 2% 0% 0%;"',
+        'style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:48%;padding:0% 2% 0% 0%;"',
       )
     chai
       .expect(html)
       .to.include(
-        'style="font-size:0px;text-align:left;display:inline-block;vertical-align:top;width:48%;padding:0% 0% 0% 2%;"',
+        'style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:48%;padding:0% 0% 0% 2%;"',
       )
     chai
       .expect(html)

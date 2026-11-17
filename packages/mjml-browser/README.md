@@ -7,9 +7,9 @@ This package allows MJML to be used client-side.
 It can be used as the regular mjml package :  
 
 ```javascript
-var mjml2html = require('mjml-browser')
+const mjml2html = require('mjml-browser')
 
-var result = mjml2html(mjml, options)
+const { html, errors } = await mjml2html(mjml, options)
 ```
 
 ### Unavailable features  

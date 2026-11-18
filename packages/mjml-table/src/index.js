@@ -1,10 +1,10 @@
 import widthParser from 'mjml-core/lib/helpers/widthParser'
 
-import { BodyComponent } from 'mjml-core'
+import { BodyComponent, makeLowerBreakpoint } from 'mjml-core'
 import {
-  DARK_MODE_CLASS_PREFIX,
   emitDarkModeHeadStyle,
   registerDarkModeRule,
+  registerDarkModeRuleGroup,
 } from 'mjml-core/lib/helpers/colorSchemeDarkMode'
 import {
   emitResponsiveHeadStyle,
@@ -80,45 +80,6 @@ export default class MjTable extends BodyComponent {
 
   responsiveClasses = null
 
-  registerDarkModeRuleGroup({
-    cssDeclarations,
-    supportOutlookDarkMode = false,
-  }) {
-    const globalData = this.context && this.context.globalData
-    const validDeclarations = Array.isArray(cssDeclarations)
-      ? cssDeclarations.filter(({ cssProperty, cssValue }) =>
-          Boolean(cssProperty && cssValue),
-        )
-      : []
-
-    if (!globalData || validDeclarations.length === 0) {
-      return null
-    }
-
-    if (typeof globalData.darkModeRuleCount !== 'number') {
-      globalData.darkModeRuleCount = 0
-    }
-
-    globalData.darkModeRuleCount += 1
-
-    const className = `${DARK_MODE_CLASS_PREFIX}-${globalData.darkModeRuleCount}`
-
-    if (!Array.isArray(globalData.darkModeRules)) {
-      globalData.darkModeRules = []
-    }
-
-    validDeclarations.forEach(({ cssProperty, cssValue }) => {
-      globalData.darkModeRules.push({
-        className,
-        cssProperty,
-        cssValue,
-        supportOutlookDarkMode: Boolean(supportOutlookDarkMode),
-      })
-    })
-
-    return className
-  }
-
   getDarkClasses() {
     if (this.darkClasses !== null) {
       return this.darkClasses
@@ -147,7 +108,7 @@ export default class MjTable extends BodyComponent {
       },
     ]
 
-    this.darkClasses.table = this.registerDarkModeRuleGroup({
+    this.darkClasses.table = registerDarkModeRuleGroup(globalData, {
       cssDeclarations: tableDarkDeclarations,
     })
 
@@ -201,7 +162,7 @@ export default class MjTable extends BodyComponent {
     return this.attributes[name]
   }
 
-  componentHeadStyle = () => {
+  componentHeadStyle = (breakpoint) => {
     emitDarkModeHeadStyle(this.context && this.context.globalData)
     emitResponsiveHeadStyle(this.context && this.context.globalData)
 
@@ -236,7 +197,7 @@ export default class MjTable extends BodyComponent {
     ) {
       globalData.stackTableStyleEmitted = true
       globalData.headRaw.push(`<style id="mj-stack-table">
-    @media screen and (max-width: 479px) {
+    @media screen and (max-width:${makeLowerBreakpoint(breakpoint)}) {
       .mj-stack-table :is(caption + tbody, tbody:first-child, thead) > tr:first-child,
       .mj-stack-table:is(table) tbody th {
         border: none;

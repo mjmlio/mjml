@@ -38,22 +38,17 @@ export function registerModifierRule(globalData, options = {}) {
   })
 }
 
-/**
- * Registers a CSS property/value pair for prefers-color-scheme dark mode.
- * Returns a unique CSS class name (e.g. "mj-dark-1") which should be applied
- * to the element in the rendered HTML so the rule targets it.
- *
- * Call this during a component's render() to ensure the class name is available
- * before the element HTML is constructed.
- */
-export function registerDarkModeRule(
+export function registerDarkModeRuleGroup(
   globalData,
-  { cssProperty, cssValue, supportOutlookDarkMode = false },
+  { cssDeclarations, supportOutlookDarkMode = false },
 ) {
   return registerGenericModifierRuleGroup(globalData, {
     modifier: 'dark',
-    cssDeclarations: [{ cssProperty, cssValue }],
+    cssDeclarations,
     supportModifierSelector: supportOutlookDarkMode,
+    outlookSelectorPrefix: supportOutlookDarkMode
+      ? DEFAULT_MODIFIER_DEFINITIONS.dark.outlookSelectorPrefix
+      : undefined,
   }, {
     defaultDefinitions: DEFAULT_MODIFIER_DEFINITIONS,
     rulesKey: 'darkModeRules',
@@ -66,6 +61,24 @@ export function registerDarkModeRule(
 
       return `${DARK_MODE_CLASS_PREFIX}-${data.darkModeRuleCount}`
     },
+  })
+}
+
+/**
+ * Registers a CSS property/value pair for prefers-color-scheme dark mode.
+ * Returns a unique CSS class name (e.g. "mj-dark-1") which should be applied
+ * to the element in the rendered HTML so the rule targets it.
+ *
+ * Call this during a component's render() to ensure the class name is available
+ * before the element HTML is constructed.
+ */
+export function registerDarkModeRule(
+  globalData,
+  { cssProperty, cssValue, supportOutlookDarkMode = false },
+) {
+  return registerDarkModeRuleGroup(globalData, {
+    cssDeclarations: [{ cssProperty, cssValue }],
+    supportOutlookDarkMode,
   })
 }
 

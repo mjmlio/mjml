@@ -16,6 +16,7 @@ import MJMLParser from 'mjml-parser-xml'
 import shorthandParser, { borderParser } from './helpers/shorthandParser'
 import formatAttributes from './helpers/formatAttributes'
 import jsonToXML from './helpers/jsonToXML'
+import { registerModifierClassTargets } from './helpers/modifierEngine'
 
 export function initComponent({ initialDatas, name }) {
   const Component = initialDatas.context.components[name]
@@ -159,6 +160,7 @@ export class BodyComponent extends Component {
   }
 
   htmlAttributes(attributes) {
+    registerModifierClassTargets(this.context.globalData, attributes.class)
     const specialAttributes = {
       style: (v) => this.styles(v),
       default: identity,

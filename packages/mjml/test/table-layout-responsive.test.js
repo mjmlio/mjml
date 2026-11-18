@@ -64,7 +64,7 @@ describe('mj-table layout--responsive="stack"', function () {
     const { html } = await mjml(wrapTable('stack', BASIC_TABLE))
     const styles = allHeadStyles(html)
     chai.expect(styles).to.include('mj-stack-table:is(table)')
-    chai.expect(styles).to.include('@media screen and (max-width: 479px)')
+    chai.expect(styles).to.include('@media screen and (max-width:479px)')
   })
 
   it('emits the stack CSS block only once when multiple stack tables are present', async function () {
@@ -92,7 +92,7 @@ describe('mj-table layout--responsive="stack"', function () {
     // The block appears multiple times in the CSS (one rule per selector) but the
     // entire <style> tag is only injected once — verify there's only one @media block
     const mediaOccurrences = (
-      styles.match(/@media screen and \(max-width: 479px\)/g) || []
+      styles.match(/@media screen and \(max-width:479px\)/g) || []
     ).length
     chai.expect(mediaOccurrences).to.equal(1)
   })

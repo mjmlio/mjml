@@ -6,8 +6,43 @@ const {
   registerModifierRuleGroup,
   emitModifierHeadStyle,
 } = require('../lib/helpers/modifierEngine')
+const {
+  registerDarkModeRuleGroup,
+  emitDarkModeHeadStyle,
+} = require('../lib/helpers/colorSchemeDarkMode')
 
 describe('colorSchemeDarkMode modifier helpers', () => {
+  it('maps Outlook dark-mode group support to modifier selectors', () => {
+    const globalData = { headRaw: [] }
+
+    const className = registerDarkModeRuleGroup(globalData, {
+      cssDeclarations: [
+        { cssProperty: 'background-color', cssValue: '#111111' },
+        { cssProperty: 'color', cssValue: '#ffffff' },
+      ],
+      supportOutlookDarkMode: true,
+    })
+    const emitted = emitDarkModeHeadStyle(globalData)
+
+    assert.strictEqual(className, 'mj-dark-1')
+    assert.strictEqual(emitted, true)
+    assert.ok(globalData.headRaw[0].includes(
+      '[data-ogsb] .mj-dark-1 { background-color: #111111 !important; color: #ffffff !important; }',
+    ))
+  })
+
+  it('does not emit Outlook dark-mode group rules unless explicitly requested', () => {
+    const globalData = { headRaw: [] }
+
+    registerDarkModeRuleGroup(globalData, {
+      cssDeclarations: [{ cssProperty: 'color', cssValue: '#ffffff' }],
+    })
+    emitDarkModeHeadStyle(globalData)
+
+    assert.ok(!globalData.headRaw[0].includes('[data-ogsb]'))
+    assert.ok(globalData.headRaw[0].includes('.mj-dark-1 { color: #ffffff !important; }'))
+  })
+
   it('emits rules for a dark mode modifier registered via registerModifier', () => {
     const globalData = { headRaw: [] }
 

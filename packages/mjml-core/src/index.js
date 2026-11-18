@@ -894,6 +894,9 @@ export default async function mjml2html(mjml, options = {}) {
     content = $.root().html()
   }
 
+  globalData.modifierUseClassTargets =
+    skeleton === defaultSkeleton && isEmpty(globalData.htmlAttributes)
+
   content = skeleton({
     content,
     ...globalData,

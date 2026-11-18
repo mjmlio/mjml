@@ -1,4 +1,4 @@
-import { BodyComponent } from 'mjml-core'
+import { BodyComponent, makeLowerBreakpoint } from 'mjml-core'
 import { isNil } from 'lodash'
 import {
   emitDarkModeHeadStyle,
@@ -135,7 +135,7 @@ export default class MjSocial extends BodyComponent {
     return this.attributes[name]
   }
 
-  componentHeadStyle = () => {
+  componentHeadStyle = (breakpoint) => {
     const globalData = this.context && this.context.globalData
     emitDarkModeHeadStyle(globalData)
     emitResponsiveHeadStyle(globalData)
@@ -147,7 +147,7 @@ export default class MjSocial extends BodyComponent {
     ) {
       globalData.socialStackStyleEmitted = true
       globalData.headRaw.push(`<style>
-  @media only screen and (max-width:479px) {
+  @media only screen and (max-width:${makeLowerBreakpoint(breakpoint)}) {
     .mj-social-stack {
       display: table !important;
       float: none !important;

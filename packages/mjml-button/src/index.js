@@ -1,8 +1,8 @@
 import { BodyComponent } from 'mjml-core'
 import {
-  DARK_MODE_CLASS_PREFIX,
   emitDarkModeHeadStyle,
   registerDarkModeRule,
+  registerDarkModeRuleGroup,
 } from 'mjml-core/lib/helpers/colorSchemeDarkMode'
 import {
   emitResponsiveHeadStyle,
@@ -101,45 +101,6 @@ export default class MjButton extends BodyComponent {
 
   responsiveClasses = null
 
-  registerDarkModeRuleGroup({
-    cssDeclarations,
-    supportOutlookDarkMode = false,
-  }) {
-    const globalData = this.context && this.context.globalData
-    const validDeclarations = Array.isArray(cssDeclarations)
-      ? cssDeclarations.filter(
-          ({ cssProperty, cssValue }) => Boolean(cssProperty && cssValue),
-        )
-      : []
-
-    if (!globalData || validDeclarations.length === 0) {
-      return null
-    }
-
-    if (typeof globalData.darkModeRuleCount !== 'number') {
-      globalData.darkModeRuleCount = 0
-    }
-
-    globalData.darkModeRuleCount += 1
-
-    const className = `${DARK_MODE_CLASS_PREFIX}-${globalData.darkModeRuleCount}`
-
-    if (!Array.isArray(globalData.darkModeRules)) {
-      globalData.darkModeRules = []
-    }
-
-    validDeclarations.forEach(({ cssProperty, cssValue }) => {
-      globalData.darkModeRules.push({
-        className,
-        cssProperty,
-        cssValue,
-        supportOutlookDarkMode: Boolean(supportOutlookDarkMode),
-      })
-    })
-
-    return className
-  }
-
   getDarkClasses() {
     if (this.darkClasses !== null) {
       return this.darkClasses
@@ -191,7 +152,7 @@ export default class MjButton extends BodyComponent {
       })
     })
 
-    this.darkClasses.button = this.registerDarkModeRuleGroup({
+    this.darkClasses.button = registerDarkModeRuleGroup(globalData, {
       cssDeclarations: buttonDarkDeclarations,
     })
 
@@ -210,7 +171,7 @@ export default class MjButton extends BodyComponent {
       },
     ]
 
-    this.darkClasses.content = this.registerDarkModeRuleGroup({
+    this.darkClasses.content = registerDarkModeRuleGroup(globalData, {
       cssDeclarations: contentDarkDeclarations,
     })
 

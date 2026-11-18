@@ -15,7 +15,11 @@ export function buildFontsTags(content, inlineStyle, fonts = {}) {
   })
 
   if (toImport.length > 0) {
-    const styleBlock = `<style>
+    const styleBlock = `${map(
+      toImport,
+      (url) => `<link href="${url}" rel="stylesheet">`,
+    ).join('\n')}
+      <style>
         ${map(toImport, (url) => `@import url(${url});`).join('\n')}
       </style>`
 

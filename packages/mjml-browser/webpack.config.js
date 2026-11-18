@@ -2,16 +2,28 @@ const path = require('path')
 const webpack = require('webpack')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
+// Fail the build if any import is left out of the bundle (webpack "external").
+const failOnExternalModules = {
+  apply(compiler) {
+    compiler.hooks.afterCompile.tap('FailOnExternalModules', (compilation) => {
+      const externalModules = compilation.modules
+        .filter((module) => module.external)
+        .map((module) => module.request)
+      if (externalModules.length > 0) {
+        compilation.errors.push(
+          new Error(
+            `mjml-browser must bundle all its imports, found external: ${externalModules.join(', ')}`,
+          ),
+        )
+      }
+    })
+  },
+}
 
 module.exports = {
   mode: 'production',
   entry: {
     "mjml": ['../mjml/lib/index'],
-  },
-  externals: {
-    'cheerio': 'cheerio',
-    'undici': 'undici',
-    'cosmiconfig': 'cosmiconfig',
   },
   resolve: {
     alias: {
@@ -29,6 +41,12 @@ module.exports = {
     },
   },
   plugins: [
+    // Bundle cheerio's slim (htmlparser2 only) entry.
+    // The default one pulls in Node-only unused code webpack 4 can't bundle.
+    new webpack.NormalModuleReplacementPlugin(
+      /^cheerio$/,
+      'cheerio/dist/browser/slim.js',
+    ),
     new webpack.ProvidePlugin({
       process: 'process/browser',
       Buffer: ['buffer', 'Buffer'],
@@ -36,6 +54,7 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.MJML_BROWSER': JSON.stringify('true'),
     }),
+    failOnExternalModules,
   ],
   node: {
     fs: false,

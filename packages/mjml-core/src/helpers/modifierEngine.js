@@ -156,19 +156,38 @@ function getGroupDependencies(groups, selectorTargets, classTargets) {
 
 function orderDeclarationGroups(groups, selectorTargets, classTargets) {
   const dependencies = getGroupDependencies(groups, selectorTargets, classTargets)
+  const remainingDependencies = dependencies.map((groupDependencies) => groupDependencies.size)
+  const dependents = groups.map(() => [])
+  dependencies.forEach((groupDependencies, groupIndex) => {
+    groupDependencies.forEach((dependency) => {
+      dependents[dependency].push(groupIndex)
+    })
+  })
   const pending = new Set(groups.map((group, index) => index))
   const ordered = []
   let previousSelectorsKey
 
   while (pending.size > 0) {
-    const ready = Array.from(pending).filter((index) =>
-      Array.from(dependencies[index]).every((dependency) => !pending.has(dependency)))
-    if (ready.length === 0) break
-    const selectorsKey = previousSelectorsKey
-    const next = ready.find((index) => groups[index].selectorsKey === selectorsKey) ?? ready[0]
+    let firstReady = null
+    let next = null
+    for (const index of pending) {
+      if (remainingDependencies[index] === 0) {
+        if (firstReady === null) firstReady = index
+        if (groups[index].selectorsKey === previousSelectorsKey) {
+          next = index
+          break
+        }
+      }
+    }
+    if (next === null) next = firstReady
+    if (next === null) break
+
     ordered.push(groups[next])
     previousSelectorsKey = groups[next].selectorsKey
     pending.delete(next)
+    dependents[next].forEach((dependent) => {
+      remainingDependencies[dependent] -= 1
+    })
   }
 
   return { ordered, pending, dependencies }

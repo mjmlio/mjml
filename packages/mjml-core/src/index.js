@@ -910,8 +910,8 @@ export default async function mjml2html(mjml, options = {}) {
       content,
     ].join('\n')
     const $ = load(markup, {
-      xmlMode: true,
-      decodeEntities: false,
+      xmlMode: false,
+      decodeEntities: true,
     })
 
     $('[class]').each((index, element) => {

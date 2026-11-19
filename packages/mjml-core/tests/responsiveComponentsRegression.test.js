@@ -30,42 +30,48 @@ describe('responsive regression coverage', () => {
     assert.ok(html.includes('padding-top: 5px !important;'))
   })
 
-  it('tracks modifier class overlap in raw markup', async () => {
-    const html = await render(`
-      <mjml>
-        <mj-body>
-          <mj-section>
-            <mj-column>
-              <mj-text font-size--responsive="14px">First</mj-text>
-              <mj-text font-size--responsive="18px">Second</mj-text>
-              <mj-text font-size--responsive="14px">Third</mj-text>
-              <mj-raw><div class="mj-responsive-2 mj-responsive-3">Raw</div></mj-raw>
-            </mj-column>
-          </mj-section>
-        </mj-body>
-      </mjml>
-    `)
-    const $ = load(html)
-    const declarations = []
+  for (const [description, classAttribute] of [
+    ['space-separated classes', 'class="mj-responsive-2 mj-responsive-3"'],
+    ['entity-encoded whitespace', 'class="mj-responsive-2&#32;mj-responsive-3"'],
+    ['uppercase class attribute', 'CLASS="mj-responsive-2 mj-responsive-3"'],
+  ]) {
+    it(`tracks modifier class overlap in raw markup with ${description}`, async () => {
+      const html = await render(`
+        <mjml>
+          <mj-body>
+            <mj-section>
+              <mj-column>
+                <mj-text font-size--responsive="14px">First</mj-text>
+                <mj-text font-size--responsive="18px">Second</mj-text>
+                <mj-text font-size--responsive="14px">Third</mj-text>
+                <mj-raw><div ${classAttribute}>Raw</div></mj-raw>
+              </mj-column>
+            </mj-section>
+          </mj-body>
+        </mjml>
+      `)
+      const $ = load(html)
+      const declarations = []
 
-    $('head style').each((index, element) => {
-      postcss.parse($(element).text()).walkAtRules('media', (media) => {
-        if (!media.params.includes('max-width:479px')) return
-        media.walkRules((rule) => {
-          if (!rule.selectors.some((selector) =>
-            ['.mj-responsive-2', '.mj-responsive-3'].includes(selector),
-          )) {
-            return
-          }
-          rule.walkDecls('font-size', (declaration) => {
-            declarations.push(declaration.value)
+      $('head style').each((index, element) => {
+        postcss.parse($(element).text()).walkAtRules('media', (media) => {
+          if (!media.params.includes('max-width:479px')) return
+          media.walkRules((rule) => {
+            if (!rule.selectors.some((selector) =>
+              ['.mj-responsive-2', '.mj-responsive-3'].includes(selector),
+            )) {
+              return
+            }
+            rule.walkDecls('font-size', (declaration) => {
+              declarations.push(declaration.value)
+            })
           })
         })
       })
-    })
 
-    assert.deepStrictEqual(declarations, ['18px', '14px'])
-  })
+      assert.deepStrictEqual(declarations, ['18px', '14px'])
+    })
+  }
 
   it('retains global concatenation across many components with alternating values', async () => {
     const components = Array.from({ length: 30 }, (value, index) => `

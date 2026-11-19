@@ -86,6 +86,21 @@ describe('modifier rule grouping', () => {
     ].join('\n'))
   })
 
+  it('preserves conservative order across many distinct declarations', () => {
+    const rules = Array.from({ length: 250 }, (value, index) => ({
+      className: `class-${index}`,
+      cssProperty: 'color',
+      cssValue: `value-${index}`,
+    }))
+    const root = postcss.parse(formatGroupedRules(rules))
+
+    assert.strictEqual(root.nodes.length, rules.length)
+    assert.deepStrictEqual(
+      root.nodes.map((rule) => rule.selectors[0]),
+      rules.map(({ className }) => `.${className}`),
+    )
+  })
+
   it('groups adjacent identical declarations and deduplicates selectors', () => {
     const css = formatGroupedRules([
       { className: 'a', cssProperty: 'color', cssValue: 'red' },

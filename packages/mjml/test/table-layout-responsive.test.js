@@ -67,6 +67,17 @@ describe('mj-table layout--responsive="stack"', function () {
     chai.expect(styles).to.include('@media screen and (max-width:479px)')
   })
 
+  it('uses the configured mj-breakpoint width for the stack CSS', async function () {
+    const input = wrapTable('stack', BASIC_TABLE).replace(
+      '<mjml>',
+      '<mjml><mj-head><mj-breakpoint width="600px" /></mj-head>',
+    )
+    const { html } = await mjml(input)
+    chai
+      .expect(allHeadStyles(html))
+      .to.include('@media screen and (max-width:599px)')
+  })
+
   it('emits the stack CSS block only once when multiple stack tables are present', async function () {
     const input = `
 <mjml>

@@ -173,12 +173,19 @@ export default class MjSocial extends BodyComponent {
 
   getSocialElementAttributes() {
     const base = {}
-    if (this.getAttribute('gutter')) {
-      base.padding = this.getAttribute('gutter')
-    }
-    if (this.attributes['gutter--responsive']) {
-      base['padding--responsive'] = this.attributes['gutter--responsive']
-    }
+    Object.entries({
+      padding: 'gutter',
+      'padding--responsive': 'gutter--responsive',
+    }).forEach(([padding, gutter]) => {
+      const value = this.getAttribute(gutter)
+      if (value) {
+        base[padding] = value
+          .trim()
+          .split(/\s+/)
+          .map((part) => `${parseFloat(part) / 2}px`)
+          .join(' ')
+      }
+    })
     return [
       'align--responsive',
       'border',

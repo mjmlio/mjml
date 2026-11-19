@@ -33,6 +33,55 @@ const ELEMENTS = `
   <mj-social-element name="twitter" href="https://mjml.io/">Twitter</mj-social-element>
 `
 
+describe('mj-social gutters', function () {
+  const elements = `
+    <mj-social-element name="facebook" css-class="first">Facebook</mj-social-element>
+    <mj-social-element name="x" css-class="middle">X</mj-social-element>
+    <mj-social-element name="twitter" css-class="last">Twitter</mj-social-element>
+  `
+
+  for (const mode of ['horizontal', 'vertical']) {
+    for (const direction of ['ltr', 'rtl']) {
+      it(`splits desktop and responsive gaps in ${direction} ${mode} mode`, async function () {
+        const { html, errors } = await mjml(
+          wrapSocial('gutter="40px" gutter--responsive="20px"', elements)
+            .replace('mode="horizontal"', `mode="${mode}"`)
+            .replace('<mjml>', `<mjml dir="${direction}">`),
+        )
+        const $ = load(html)
+        const styles = allHeadStyles(html)
+        let edges = ['0 20px 20px 20px', '20px 20px 0 20px']
+        if (mode === 'horizontal') {
+          edges = direction === 'rtl'
+            ? ['20px 0 20px 20px', '20px 20px 20px 0']
+            : ['20px 20px 20px 0', '20px 0 20px 20px']
+        }
+
+        chai.expect(errors).to.deep.equal([])
+        for (const [index, name] of ['first', 'last'].entries()) {
+          const cell = $(`tr.${name} > td`).first()
+          chai.expect(cell.attr('style')).to.include(`padding:${edges[index]};`)
+          const responsivePadding = edges[index].replace(/20px/g, '10px')
+          chai.expect(styles).to.include(
+            `.${cell.attr('class')} { padding: ${responsivePadding} !important; }`,
+          )
+        }
+        chai.expect($('tr.middle > td').attr('style')).to.include('padding:20px;')
+        chai.expect(styles).to.include(
+          `.${$('tr.middle > td').attr('class')} { padding: 10px !important; }`,
+        )
+      })
+    }
+  }
+
+  it('preserves fractional halves and padding shorthand', async function () {
+    const { html } = await mjml(wrapSocial('gutter="5px 9px 2.5px 0"', elements))
+    const $ = load(html)
+
+    chai.expect($('tr.middle > td').attr('style')).to.include('padding:2.5px 4.5px 1.25px 0px;')
+  })
+})
+
 describe('mj-social layout--responsive="stack"', function () {
   it('adds mj-social-stack class to each inline-table wrapper', async function () {
     const { html } = await mjml(

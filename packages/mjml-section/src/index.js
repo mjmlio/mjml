@@ -90,6 +90,7 @@ export default class MjSection extends BodyComponent {
     'border-top-color--dark': 'color',
     'column-align': 'enum(left,center,right)',
     'column-align--responsive': 'enum(left,center,right)',
+    'column-order': 'enum(ltr,rtl)',
     direction: 'enum(ltr,rtl)',
     'full-width': 'enum(full-width,false,)',
     gutter: 'unit(px,%)',
@@ -317,6 +318,10 @@ export default class MjSection extends BodyComponent {
     return this.getAttribute('column-align') || this.getAttribute('text-align') || 'center'
   }
 
+  getColumnOrder() {
+    return this.getAttribute('column-order') || this.getAttribute('direction')
+  }
+
   getChildContext() {
     const { box } = this.getBoxWidths()
     const globalData = this.context?.globalData
@@ -332,7 +337,7 @@ export default class MjSection extends BodyComponent {
       gutterResponsive: this.getAttribute('gutter--responsive'),
       // unset direction inherits <mjml dir>; gutters must mirror with it
       direction:
-        this.getAttribute('direction') ||
+        this.getColumnOrder() ||
         (globalData?.dir === 'rtl' ? 'rtl' : undefined),
       hasSectionBackgroundUrl,
       addVmlButtonStyle: (buttonClassName, leftPadding) => {
@@ -425,7 +430,7 @@ export default class MjSection extends BodyComponent {
         'border-right': this.getAttribute('border-right'),
         'border-top': this.getAttribute('border-top'),
         'border-radius': this.getAttribute('border-radius'),
-        direction: this.getAttribute('direction'),
+        direction: this.getColumnOrder(),
         'font-size': '0px',
         padding: this.getAttribute('padding'),
         'padding-bottom': this.getAttribute('padding-bottom'),

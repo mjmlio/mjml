@@ -16,7 +16,7 @@ The `full-width` attribute will be used to manage the background width. Setting 
 
 <div class="alert alert-note" role="alert">
   <p>Note</p>
-  <p>To invert the order in which columns display in the desktop view, first setup your columns in the order you want them to appear stacked in the mobile view and then add <code>direction="rtl"</code> to the <code>mj-section</code> tag.</p>
+  <p>To invert the order in which columns display in the desktop view, first setup your columns in the order you want them to appear stacked in the mobile view and then add <code>column-order="rtl"</code> to the <code>mj-section</code> tag.</p>
 </div>
 
 <div class="alert alert-caution" role="alert">
@@ -54,7 +54,8 @@ The `full-width` attribute will be used to manage the background width. Setting 
 | border-top            | string                  | CSS border format                                                                                      |               |
 | column-align          | `left` `center` `right` | horizontal alignment of columns when they don't span full width                                        |               |
 | css-class             | string                  | class name, added to the root HTML element created                                                     |               |
-| direction             | `ltr` `rtl`             | set the display order of direct children                                                               |               |
+| column-order          | `ltr` `rtl`             | set the display order of direct children                                                               |               |
+| direction             | `ltr` `rtl`             | deprecated alias of `column-order` for backwards compatibility                                         |               |
 | full-width            | `full-width` `false`    | make the section full-width                                                                            |               |
 | gutter                | `px` `%`                | sets an equal spacing between each column                                                              |               |
 | padding               | `px` `%`                | section padding, supports up to 4 parameters                                                           | `20px 0`      |
@@ -102,4 +103,3 @@ The `full-width` attribute will be used to manage the background width. Setting 
 | padding-left--responsive          | `px` `%`                | section left padding                                                |               |
 | padding-right--responsive         | `px` `%`                | section right padding                                               |               |
 | padding-top--responsive           | `px` `%`                | section top padding                                                 |               |
-

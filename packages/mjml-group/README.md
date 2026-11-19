@@ -58,7 +58,8 @@ Prevent adjacent `mj-column` instances from stacking on mobile by wrapping them 
 | aria-roledescription  | string            | adds an `aria-roledescription` attribute to the group container |                                                |
 | background-color      | CSS color formats | background color for a group                                    |                                                |
 | css-class             | string            | class name, added to the root HTML element created              |                                                |
-| direction             | `ltr` `rtl`       | set the display order of direct children                        |                                                |
+| column-order          | `ltr` `rtl`       | set the display order of direct children                        |                                                |
+| direction             | `ltr` `rtl`       | deprecated alias of `column-order` for backwards compatibility  |                                                |
 | role                  | string            | adds a `role` attribute to the group container                  |                                                |
 | vertical-align        | string            | CSS values, e.g. `middle` `top` `bottom`                        |                                                |
 | width                 | `px` `%`          | group width                                                     | (100 / number of non-raw elements in section)% |

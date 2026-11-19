@@ -1,5 +1,7 @@
 export const MODIFIER_SEPARATOR = '--'
 const EMITTED_STYLE_CONTENT_SET_KEY = 'modifierEmittedStyleContents'
+const MODIFIER_STYLE_REVISION_KEY = 'modifierStyleRevision'
+const MODIFIER_STYLE_EMISSION_REVISIONS_KEY = 'modifierStyleEmissionRevisions'
 const MODIFIER_SHORTHANDS = new Map([
   ['padding', ['padding-top', 'padding-right', 'padding-bottom', 'padding-left']],
   ['border-color', ['border-top-color', 'border-right-color', 'border-bottom-color', 'border-left-color']],
@@ -13,6 +15,17 @@ const MODIFIER_PROPERTIES = new Set([
   'color', 'direction', 'display', 'font-size', 'height', 'line-height',
   'max-height', 'min-height', 'min-width', 'text-align', 'width',
 ])
+
+function markModifierStyleDirty(globalData) {
+  globalData[MODIFIER_STYLE_REVISION_KEY] =
+    (globalData[MODIFIER_STYLE_REVISION_KEY] || 0) + 1
+}
+
+function sameShallowValues(first = {}, second = {}) {
+  const keys = new Set([...Object.keys(first), ...Object.keys(second)])
+
+  return Array.from(keys).every((key) => first[key] === second[key])
+}
 
 function getModifierRules(globalData, rulesKey = 'modifierRules') {
   return Array.isArray(globalData && globalData[rulesKey])
@@ -30,22 +43,31 @@ export function getModifierDefinitions(globalData, defaultDefinitions = {}) {
     typeof globalData.modifierDefinitions !== 'object'
   ) {
     globalData.modifierDefinitions = { ...defaultDefinitions }
+    markModifierStyleDirty(globalData)
     return globalData.modifierDefinitions
   }
 
+  let changed = false
   Object.entries(defaultDefinitions).forEach(([modifier, definition]) => {
     const existingDefinition = globalData.modifierDefinitions[modifier]
 
     if (!existingDefinition || typeof existingDefinition !== 'object') {
       globalData.modifierDefinitions[modifier] = { ...definition }
+      changed = true
       return
     }
 
-    globalData.modifierDefinitions[modifier] = {
+    const mergedDefinition = {
       ...definition,
       ...existingDefinition,
     }
+    if (!sameShallowValues(existingDefinition, mergedDefinition)) {
+      changed = true
+    }
+    globalData.modifierDefinitions[modifier] = mergedDefinition
   })
+
+  if (changed) markModifierStyleDirty(globalData)
 
   return globalData.modifierDefinitions
 }
@@ -79,6 +101,16 @@ export function registerModifierClassTargets(globalData, classNames) {
     }
     globalData.modifierClassTargets.get(className).add(target)
   })
+  markModifierStyleDirty(globalData)
+}
+
+function appendModifierRule(globalData, rulesKey, rule) {
+  if (!Array.isArray(globalData[rulesKey])) {
+    globalData[rulesKey] = []
+  }
+
+  globalData[rulesKey].push(rule)
+  markModifierStyleDirty(globalData)
 }
 
 function selectorsMayOverlap(first, second, selectorTargets, classTargets) {
@@ -258,7 +290,7 @@ export function registerModifier(
   const definitions = getModifierDefinitions(globalData, defaultDefinitions)
   const existing = definitions[modifier] || {}
 
-  definitions[modifier] = {
+  const updatedDefinition = {
     ...existing,
     ...(definition.mediaQuery
       ? { mediaQuery: definition.mediaQuery }
@@ -266,14 +298,19 @@ export function registerModifier(
     ...(definition.classNamespace
       ? { classNamespace: definition.classNamespace }
       : {}),
-    ...(Object.prototype.hasOwnProperty.call(definition, 'outlookSelectorPrefix')
+    ...(definition.outlookSelectorPrefix !== undefined
       ? { outlookSelectorPrefix: definition.outlookSelectorPrefix }
       : {}),
   }
 
-  if (!definitions[modifier].classNamespace) {
-    definitions[modifier].classNamespace = modifier
+  if (!updatedDefinition.classNamespace) {
+    updatedDefinition.classNamespace = modifier
   }
+
+  if (!sameShallowValues(existing, updatedDefinition)) {
+    markModifierStyleDirty(globalData)
+  }
+  definitions[modifier] = updatedDefinition
 
   return definitions[modifier]
 }
@@ -341,11 +378,7 @@ export function registerModifierRule(
     }
   }
 
-  if (!Array.isArray(globalData[rulesKey])) {
-    globalData[rulesKey] = []
-  }
-
-  globalData[rulesKey].push({
+  appendModifierRule(globalData, rulesKey, {
     modifier: modifierKeyword,
     className,
     selector,
@@ -406,12 +439,8 @@ export function registerModifierRuleGroup(
     rulesKey = 'modifierRules',
   } = options
 
-  if (!Array.isArray(globalData[rulesKey])) {
-    globalData[rulesKey] = []
-  }
-
   validDeclarations.slice(1).forEach((declaration) => {
-    globalData[rulesKey].push({
+    appendModifierRule(globalData, rulesKey, {
       modifier: normalizeModifierKeyword(modifier),
       className,
       cssProperty: declaration.cssProperty,
@@ -484,10 +513,34 @@ export function emitModifierHeadStyle(
     rules,
     rulesKey = 'modifierRules',
     emittedFlag = 'modifierStyleEmitted',
+    cacheKey,
   } = {},
 ) {
   if (!globalData) {
     return false
+  }
+
+  let emissionRevisions
+  if (cacheKey) {
+    if (!(globalData[MODIFIER_STYLE_EMISSION_REVISIONS_KEY] instanceof Map)) {
+      globalData[MODIFIER_STYLE_EMISSION_REVISIONS_KEY] = new Map()
+    }
+    emissionRevisions = globalData[MODIFIER_STYLE_EMISSION_REVISIONS_KEY]
+    if (
+      emissionRevisions.get(cacheKey) ===
+      (globalData[MODIFIER_STYLE_REVISION_KEY] || 0)
+    ) {
+      return false
+    }
+  }
+
+  const cacheRevision = () => {
+    if (emissionRevisions) {
+      emissionRevisions.set(
+        cacheKey,
+        globalData[MODIFIER_STYLE_REVISION_KEY] || 0,
+      )
+    }
   }
 
   const modifierRules = Array.isArray(rules)
@@ -495,6 +548,7 @@ export function emitModifierHeadStyle(
     : getModifierRules(globalData, rulesKey)
 
   if (modifierRules.length === 0) {
+    cacheRevision()
     return false
   }
 
@@ -506,6 +560,7 @@ export function emitModifierHeadStyle(
   )
 
   if (styleBlocks.length === 0) {
+    cacheRevision()
     return false
   }
 
@@ -516,6 +571,7 @@ export function emitModifierHeadStyle(
   }
 
   if (globalData[EMITTED_STYLE_CONTENT_SET_KEY].has(styleTag)) {
+    cacheRevision()
     return false
   }
 
@@ -530,6 +586,7 @@ export function emitModifierHeadStyle(
     : []
 
   globalData.headRaw.push(styleTag)
+  cacheRevision()
 
   return true
 }

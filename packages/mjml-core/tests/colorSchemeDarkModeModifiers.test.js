@@ -8,6 +8,8 @@ const {
 } = require('../lib/helpers/modifierEngine')
 const {
   registerDarkModeRuleGroup,
+  registerDarkModeRule,
+  registerDarkModeSelectorRule,
   emitDarkModeHeadStyle,
 } = require('../lib/helpers/colorSchemeDarkMode')
 
@@ -42,6 +44,59 @@ describe('colorSchemeDarkMode modifier helpers', () => {
     assert.ok(!globalData.headRaw[0].includes('[data-ogsb]'))
     assert.ok(globalData.headRaw[0].includes('.mj-dark-1 { color: #ffffff !important; }'))
   })
+
+  for (const outlookFirst of [true, false]) {
+    it(`preserves Outlook prefixes across mixed dark rules when Outlook registration is ${
+      outlookFirst ? 'first' : 'last'
+    }`, () => {
+      const globalData = { headRaw: [] }
+
+      const registerOutlookGroup = () =>
+        registerDarkModeRuleGroup(globalData, {
+          cssDeclarations: [
+            { cssProperty: 'background-color', cssValue: '#111111' },
+          ],
+          supportOutlookDarkMode: true,
+        })
+
+      const registerOrdinaryRules = () => {
+        const groupClass = registerDarkModeRuleGroup(globalData, {
+          cssDeclarations: [{ cssProperty: 'color', cssValue: '#ffffff' }],
+        })
+        const ruleClass = registerDarkModeRule(globalData, {
+          cssProperty: 'border-color',
+          cssValue: '#222222',
+        })
+        registerDarkModeSelectorRule(globalData, {
+          selector: '.ordinary-selector',
+          cssProperty: 'color',
+          cssValue: '#333333',
+        })
+
+        return { groupClass, ruleClass }
+      }
+
+      let outlookClass
+      let ordinaryClasses
+      if (outlookFirst) {
+        outlookClass = registerOutlookGroup()
+        ordinaryClasses = registerOrdinaryRules()
+      } else {
+        ordinaryClasses = registerOrdinaryRules()
+        outlookClass = registerOutlookGroup()
+      }
+
+      emitDarkModeHeadStyle(globalData)
+
+      const css = globalData.headRaw[0]
+      assert.ok(css.includes(
+        `[data-ogsb] .${outlookClass} { background-color: #111111 !important; }`,
+      ))
+      assert.ok(!css.includes(`[data-ogsb] .${ordinaryClasses.groupClass}`))
+      assert.ok(!css.includes(`[data-ogsb] .${ordinaryClasses.ruleClass}`))
+      assert.ok(!css.includes('[data-ogsb] .ordinary-selector'))
+    })
+  }
 
   it('emits rules for a dark mode modifier registered via registerModifier', () => {
     const globalData = { headRaw: [] }

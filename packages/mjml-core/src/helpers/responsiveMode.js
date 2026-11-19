@@ -112,6 +112,7 @@ export function emitModifierHeadStyle(globalData) {
     defaultDefinitions: DEFAULT_MODIFIER_DEFINITIONS,
     rules,
     emittedFlag: 'responsiveStyleEmitted',
+    cacheKey: 'responsive',
   })
 
   return emitted

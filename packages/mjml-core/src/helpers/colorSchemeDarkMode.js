@@ -46,9 +46,6 @@ export function registerDarkModeRuleGroup(
     modifier: 'dark',
     cssDeclarations,
     supportModifierSelector: supportOutlookDarkMode,
-    outlookSelectorPrefix: supportOutlookDarkMode
-      ? DEFAULT_MODIFIER_DEFINITIONS.dark.outlookSelectorPrefix
-      : undefined,
   }, {
     defaultDefinitions: DEFAULT_MODIFIER_DEFINITIONS,
     rulesKey: 'darkModeRules',
@@ -126,6 +123,7 @@ export function emitModifierHeadStyle(globalData) {
     defaultDefinitions: DEFAULT_MODIFIER_DEFINITIONS,
     rules,
     emittedFlag: 'darkModeStyleEmitted',
+    cacheKey: 'dark',
   })
 
   return emitted

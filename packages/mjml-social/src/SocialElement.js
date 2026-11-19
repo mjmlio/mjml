@@ -117,15 +117,18 @@ function expandPadding(padding) {
   return [t, r, b, l]
 }
 
-function applyGutterEdgeZero(padding, mode, first, last) {
+function applyGutterEdgeZero(padding, mode, first, last, isRtl) {
   if (!padding) return padding
   if (!first && !last) return padding
   const [t, r, b, l] = expandPadding(padding)
+  // rtl rows put the first element on the right
+  const rightEdge = isRtl ? first : last
+  const leftEdge = isRtl ? last : first
   return [
     mode === 'vertical' && first ? '0' : t,
-    mode === 'horizontal' && last ? '0' : r,
+    mode === 'horizontal' && rightEdge ? '0' : r,
     mode === 'vertical' && last ? '0' : b,
-    mode === 'horizontal' && first ? '0' : l,
+    mode === 'horizontal' && leftEdge ? '0' : l,
   ].join(' ')
 }
 
@@ -261,6 +264,7 @@ export default class MjSocialElement extends BodyComponent {
             this.getAttribute('mode'),
             this.props.first,
             this.props.last,
+            this.isRtl,
           ),
         ],
       ]),
@@ -298,7 +302,7 @@ export default class MjSocialElement extends BodyComponent {
 
     this.responsiveClasses.tdText = registerResponsiveRuleGroup(globalData, {
       cssDeclarations: buildResponsiveDeclarations([
-        ['padding-left', this.attributes['text-spacing--responsive']],
+        [this.getTextSpacingSide(), this.attributes['text-spacing--responsive']],
         ['text-align', this.attributes['align--responsive']],
       ]),
     })
@@ -327,6 +331,7 @@ export default class MjSocialElement extends BodyComponent {
           this.getAttribute('mode'),
           this.props.first,
           this.props.last,
+          this.isRtl,
         ),
         'vertical-align': this.getAttribute('vertical-align'),
       },
@@ -344,7 +349,7 @@ export default class MjSocialElement extends BodyComponent {
         display: 'block',
       },
       tdText: {
-        'padding-left': this.getAttribute('text-spacing'),
+        [this.getTextSpacingSide()]: this.getAttribute('text-spacing'),
         'text-align': this.getAttribute('align'),
       },
       text: {
@@ -371,6 +376,14 @@ export default class MjSocialElement extends BodyComponent {
         'mso-margin-bottom-alt': '0',
       },
     }
+  }
+
+  // The spacing belongs between icon and text, and rtl rows put an icon that
+  // comes first in source order on the right.
+  getTextSpacingSide() {
+    return this.isRtl && this.getAttribute('icon-position') === 'left'
+      ? 'padding-right'
+      : 'padding-left'
   }
 
   getSocialAttributes() {
@@ -614,6 +627,7 @@ export default class MjSocialElement extends BodyComponent {
               border: '0',
               cellpadding: '0',
               cellspacing: '0',
+              dir: this.getOutlookDir(),
               role: 'none',
               class: iconResponsiveClass || null,
             })}

@@ -33,6 +33,7 @@ Displays a gallery of images or "carousel". Readers can interact by hovering and
 | container-background-color | CSS color formats              | background color of the container                                  |                                   |
 | container-border-radius    | string                         | border radius of the container                                     |                                   |
 | css-class                  | string                         | class name, added to the root HTML element created                 |                                   |
+| direction                  | `ltr` `rtl`                    | text direction; overrides `dir` on `mjml`                          |                                   |
 | icon-width                 | `px` `%`                       | width of the icons on left and right of the main image             | `44px`                            |
 | left-icon                  | string                         | icon on the left of the main image                                 | `https://i.imgur.com/xTh3hln.png` |
 | padding                    | `px` `%`                       | carousel padding, supports up to 4 parameters                      |                                   |
@@ -48,7 +49,7 @@ Displays a gallery of images or "carousel". Readers can interact by hovering and
 | tb-hover-border-color      | CSS color formats              | border color of the hovered thumbnail                              | `#fead0d`                         |
 | tb-selected-border-color   | CSS color formats              | border color of the selected thumbnail                             | `#ccc`                            |
 | tb-width                   | `px` `%`                       | thumbnail width                                                    |                                   |
-| thumbnails                 | `visible` `hidden` `supported` | display the thumbnails                                             | `hidden`                          |
+| thumbnails                 | `visible` `hidden` `supported` | display the thumbnails                                             | `visible`                         |
 
 <p class="cta-container"><a class="cta" href="https://mjml.io/try-it-live/components/carousel">Try it live</a></p>
 

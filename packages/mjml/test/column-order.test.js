@@ -42,4 +42,21 @@ describe('column-order', function () {
     chai.expect(columnOrderHtml).to.equal(directionHtml)
     chai.expect(columnOrderHtml).to.match(/mj-column-gutter-[^"]*-rtl/)
   })
+
+  it('lets an explicit column-order override the document direction', async function () {
+    const { html, errors } = await mjml(`
+      <mjml dir="rtl">
+        <mj-body>
+          <mj-section column-order="ltr" gutter="24px">
+            <mj-column><mj-text>First</mj-text></mj-column>
+            <mj-column><mj-text>Second</mj-text></mj-column>
+          </mj-section>
+        </mj-body>
+      </mjml>
+    `)
+
+    chai.expect(errors).to.eql([])
+    chai.expect(html).to.include('mj-column-gutter-2-1-per-4"')
+    chai.expect(html).to.not.include('mj-column-gutter-2-1-per-4-rtl')
+  })
 })

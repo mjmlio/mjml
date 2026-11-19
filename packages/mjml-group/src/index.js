@@ -74,7 +74,7 @@ export default class MjGroup extends BodyComponent {
       containerWidth,
       nonRawSiblings: children.length,
       isInGroup: true,
-      direction: this.getColumnOrder(),
+      direction: this.getColumnOrder() || this.context.direction,
     }
   }
 

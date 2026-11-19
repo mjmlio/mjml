@@ -60,6 +60,23 @@ For additional image compatibility in some versions of Outlook, you can add `sup
   <p>All <code>--dark</code> modifier attributes require <code>support-dark-mode="true"</code> to be set on the <code>&lt;mjml&gt;</code> tag to work effectively in all supported clients.</p>
 </div>
 
+#### Forcing light mode in Gmail apps
+
+The Gmail apps apply their own color changes in dark mode, which `--dark` styles cannot control. Adding `gmail-force-light-mode="true"` to the `<mjml>` tag changes the `color-scheme` meta tag to `light only`, which forces light mode in the Gmail apps.
+
+<div class="alert alert-note" role="alert">
+  <p>Note</p>
+  <p>This functionality only applies to messages received through Google accounts (Gmail and Google Workspace). It does not apply to third-party email accounts accessed through the Gmail apps.</p>
+</div>
+
+When used together with `support-dark-mode="true"`, the `:root` CSS and `--dark` styles are still output, so dark mode continues to work in email clients that support them.
+
+```xml
+<mjml support-dark-mode="true" gmail-force-light-mode="true">
+```
+
+`--dark` attributes will not display in the Gmail apps when `gmail-force-light-mode="true"` is set.
+
 ### Which email clients/versions are supported?
 
 For full details of component support, [please visit our support matrix](https://mjml.io/compatibility).
@@ -73,10 +90,22 @@ An MJML document starts with an `mjml` tag. It can contain only `mj-head` and `m
 | attribute               | accepts | description                                                                                                                                                                                              | default value |
 | ----------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
 | dir                     | string  | adds a `dir` attribute in the `html` and `body > div` tags                                                                                                                                               | `auto`        |
+| gmail-force-light-mode  | boolean | setting to `true` will set the `color-scheme` `<meta>` tag to `light only` to force light mode in Gmail apps. Can be combined with `support-dark-mode`                                                     | `false`       |
 | lang                    | string  | adds a `lang` attribute in the `html` and `body > div` tags                                                                                                                                              | `und`         |
 | support-dark-mode       | boolean | setting to `true` will add `<meta>` tags and `:root` CSS to enable support                                                                                                                               | `false`       |
 | support-outlook-classic | boolean | setting to `false` will remove all Outlook specific code when compiled to HTML                                                                                                                           | `true`        |
 | owa                     | string  | if set to `desktop`, this will force the desktop version for older (self-hosted) versions of Outlook.com that don't support media queries (cf. [this issue](https://github.com/mjmlio/mjml/issues/2241)) | `none`        |
+
+#### Right-to-left content
+
+For an email that is entirely right-to-left, set `dir="rtl"` on `mjml`. This mirrors the component defaults: left and right alignment, and the left and right values of four-value padding. Columns are laid out right to left and their gutters are mirrored to match. Values you set yourself, including through `mj-attributes` or `mj-class`, are not changed.
+
+`dir="auto"` is resolved by the email client, not by MJML, so it does not change the compiled output. Defaults stay left-aligned and gutters are calculated for left-to-right. For right-to-left layouts, set `dir="rtl"` explicitly.
+
+To mix directions within one email, set `direction` on `mj-accordion`, `mj-button`, `mj-carousel`, `mj-column`, `mj-hero`, `mj-image`, `mj-navbar`, `mj-social`, `mj-table` or `mj-text`:
+
+- On a content component, `direction` sets its text direction and mirrors its default alignment.
+- On `mj-column` or `mj-hero`, `direction` sets the text direction of everything inside it and mirrors the forced alignment of its children, the same way `<mjml dir="rtl">` does. A child that sets its own align keeps that value.
 
 
 ### mj-head

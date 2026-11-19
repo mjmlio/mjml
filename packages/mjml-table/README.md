@@ -50,6 +50,7 @@ Display a data table. It only accepts plain HTML.
 | container-background-color | CSS color formats                  | background color of the container                     |                      |
 | container-border-radius    | string                             | border radius of the container                        |                      |
 | css-class                  | string                             | class name, added to the root HTML element created    |                      |
+| direction                  | `ltr` `rtl`                        | text direction; overrides `dir` on `mjml`             |                      |
 | font-family                | string                             | font name                                             | `Ubuntu, sans-serif` |
 | font-size                  | `px` `rem`                         | font size                                             | `16px`               |
 | line-height                | `px` `%` `em` `rem`                | space between lines                                   | `150%`               |

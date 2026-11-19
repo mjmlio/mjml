@@ -237,6 +237,16 @@ export default class MjColumn extends BodyComponent {
     return ''
   }
 
+  // direction--responsive switches at the breakpoint, which only CSS can do:
+  // a dir attribute or mirrored alignment would keep the desktop value.
+  hasResponsiveDirection() {
+    return Boolean(this.getAttribute('direction--responsive'))
+  }
+
+  getOutlookDir() {
+    return this.hasResponsiveDirection() ? undefined : super.getOutlookDir()
+  }
+
   getChildContext() {
     const { containerWidth: parentWidth } = this.context
     const { nonRawSiblings } = this.props
@@ -266,6 +276,9 @@ export default class MjColumn extends BodyComponent {
     return {
       ...this.context,
       containerWidth,
+      contentDirection: this.hasResponsiveDirection()
+        ? undefined
+        : this.getAttribute('direction'),
     }
   }
 
@@ -290,8 +303,18 @@ export default class MjColumn extends BodyComponent {
     return {
       div: {
         'font-size': '0px',
-        'text-align': 'left',
-        direction: this.getAttribute('direction'),
+        'text-align': (
+          this.hasResponsiveDirection()
+            ? this.context.globalData.dir === 'rtl'
+            : this.isRtl
+        )
+          ? 'right'
+          : 'left',
+        // set even when unset: a section's direction orders the columns, and
+        // without this the text inside would reverse with them
+        direction:
+          this.getAttribute('direction') ||
+          (this.context.globalData.dir === 'rtl' ? 'rtl' : 'ltr'),
         display: 'inline-block',
         'vertical-align': this.getAttribute('vertical-align'),
         width: this.getMobileWidth(),
@@ -725,6 +748,7 @@ export default class MjColumn extends BodyComponent {
           border: '0',
           cellpadding: '0',
           cellspacing: '0',
+          dir: this.getOutlookDir(),
           role: 'none',
           width: '100%',
           ...(hasBorderRadius && {
@@ -765,6 +789,7 @@ export default class MjColumn extends BodyComponent {
           cellpadding: '0',
           cellspacing: '0',
           class: columnTableDarkClass,
+          dir: this.getOutlookDir(),
           style: 'table',
           width: '100%',
           role: this.getAttribute('role') ? this.getAttribute('role') : 'none',
@@ -804,6 +829,7 @@ export default class MjColumn extends BodyComponent {
                 ${component.htmlAttributes({
                   align: component.getAttribute('align'),
                   class: component.getAttribute('css-class'),
+                  dir: component.getWrapperDirection(),
                   style: {
                     background: component.getAttribute(
                       'container-background-color',
@@ -811,6 +837,7 @@ export default class MjColumn extends BodyComponent {
                     'border-radius': component.getAttribute(
                       'container-border-radius',
                     ),
+                    direction: component.getWrapperDirection(),
                     'font-size': '0px',
                     padding: component.getAttribute('padding'),
                     'padding-top': component.getAttribute('padding-top'),

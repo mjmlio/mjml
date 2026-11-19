@@ -656,6 +656,9 @@ export default async function mjml2html(mjml, options = {}) {
     supportDarkMode:
       String(get(mjml, 'attributes.support-dark-mode', false)).toLowerCase() ===
       'true',
+    gmailForceLightMode:
+      String(get(mjml, 'attributes.gmail-force-light-mode', false)).toLowerCase() ===
+      'true',
     supportOutlookClassic:
       String(get(mjml, 'attributes.support-outlook-classic', true)).toLowerCase() !== 'false',
     usesVML,

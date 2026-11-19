@@ -1,7 +1,7 @@
 {
   "name": "mjml-validator",
   "description": "mjml-validator",
-  "version": "5.4.1",
+  "version": "6.0.0-alpha.1",
   "main": "lib/index.js",
   "files": [
     "lib"
@@ -12,6 +12,9 @@
     "directory": "packages/mjml-validator"
   },
   "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
   "bugs": {
     "url": "https://github.com/mjmlio/mjml/issues"
   },

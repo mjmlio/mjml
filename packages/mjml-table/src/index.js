@@ -43,7 +43,6 @@ export default class MjTable extends BodyComponent {
     'font-family': 'string',
     'font-size': 'unit(px,rem)',
     'font-size--responsive': 'unit(px,rem)',
-    'font-weight': 'string',
     'line-height': 'unit(px,%,em,rem)',
     'line-height--responsive': 'unit(px,%,em,rem)',
     'layout--responsive': 'enum(stack,scroll)',
@@ -59,7 +58,6 @@ export default class MjTable extends BodyComponent {
     'padding-top--responsive': 'unit(px,%)',
     role: 'enum(none,presentation,table)',
     'table-layout': 'enum(auto,fixed,initial,inherit)',
-    'vertical-align': 'enum(top,bottom,middle)',
     width: 'unit(px,%,auto)',
     'width--responsive': 'unit(px,%)',
   }

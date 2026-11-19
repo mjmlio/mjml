@@ -45,6 +45,7 @@ export default class MjButton extends BodyComponent {
     'container-background-color': 'color',
     'container-background-color--dark': 'color',
     'container-border-radius': 'string',
+    direction: 'enum(ltr,rtl)',
     'font-family': 'string',
     'font-size': 'unit(px,rem)',
     'font-size--responsive': 'unit(px,rem)',
@@ -318,6 +319,7 @@ export default class MjButton extends BodyComponent {
     return {
       table: {
         'border-collapse': 'separate',
+        direction: this.getAttribute('direction'),
         width: this.getAttribute('width'),
         'line-height': '100%',
       },
@@ -405,6 +407,7 @@ export default class MjButton extends BodyComponent {
           border: '0',
           cellpadding: '0',
           cellspacing: '0',
+          dir: this.getOutlookDir(),
           role: 'none',
           style: 'table',
           class: tableResponsiveClass || null,

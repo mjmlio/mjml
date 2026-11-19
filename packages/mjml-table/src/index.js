@@ -39,6 +39,7 @@ export default class MjTable extends BodyComponent {
     'container-background-color': 'color',
     'container-background-color--dark': 'color',
     'container-border-radius': 'string',
+    direction: 'enum(ltr,rtl)',
     'font-family': 'string',
     'font-size': 'unit(px,rem)',
     'font-size--responsive': 'unit(px,rem)',
@@ -275,6 +276,7 @@ export default class MjTable extends BodyComponent {
     return {
       table: {
         color: this.getAttribute('color'),
+        direction: this.getAttribute('direction'),
         'font-family': this.getAttribute('font-family'),
         'font-size': this.getAttribute('font-size'),
         'line-height': this.getAttribute('line-height'),
@@ -419,7 +421,7 @@ export default class MjTable extends BodyComponent {
         ...acc,
         [v]: this.getAttribute(v),
       }),
-      {},
+      { dir: this.getOutlookDir() },
     )
 
     const content =

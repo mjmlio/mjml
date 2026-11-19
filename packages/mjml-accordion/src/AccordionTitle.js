@@ -297,6 +297,7 @@ export default class MjAccordionTitle extends BodyComponent {
             cellspacing: '0',
             cellpadding: '0',
             class: tableDarkClass || undefined,
+            dir: this.getOutlookDir(),
             style: 'table',
           })}
         >

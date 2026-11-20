@@ -74,11 +74,11 @@ export function hasOutlookDarkModeFluidImage(globalData) {
   )
 }
 
-export function registerOutlookDarkModeBackgroundRule(globalData, options = {}) {
-  const {
-    className,
-    backgroundColor,
-  } = options
+export function registerOutlookDarkModeBackgroundRule(
+  globalData,
+  options = {},
+) {
+  const { className, backgroundColor } = options
 
   if (!globalData || !className || !backgroundColor) {
     return false
@@ -117,32 +117,33 @@ export function emitOutlookDarkModeHeadRaw(globalData) {
   }
 
   const outlookBackgroundRules = darkSrcImages
-    .map(
-      ({ className, darkSrc, backgroundTarget }) => {
-        const selector = backgroundTarget === 'child-div'
+    .map(({ className, darkSrc, backgroundTarget }) => {
+      const selector =
+        backgroundTarget === 'child-div'
           ? `[data-ogsb] .${className} > div`
           : `[data-ogsb] .${className}`
 
-        return `    ${selector} { background:url(${JSON.stringify(
-          darkSrc,
-        )}) no-repeat center; background-size: 100% 100%; }`
-      },
-    )
+      return `    ${selector} { background:url(${JSON.stringify(
+        darkSrc,
+      )}) no-repeat center; background-size: 100% 100%; }`
+    })
     .join('\n')
 
   // Group background color rules by value
   const backgroundColorMap = {}
-  getOutlookDarkModeBackgroundRules(globalData).forEach(({ className, backgroundColor }) => {
-    if (!backgroundColorMap[backgroundColor]) {
-      backgroundColorMap[backgroundColor] = []
-    }
-    backgroundColorMap[backgroundColor].push(className)
-  })
+  getOutlookDarkModeBackgroundRules(globalData).forEach(
+    ({ className, backgroundColor }) => {
+      if (!backgroundColorMap[backgroundColor]) {
+        backgroundColorMap[backgroundColor] = []
+      }
+      backgroundColorMap[backgroundColor].push(className)
+    },
+  )
 
   const outlookBackgroundColorRules = Object.entries(backgroundColorMap)
     .map(([backgroundColor, classNames]) => {
       const selectors = classNames
-        .map(className => `[data-ogsb] .${className}`)
+        .map((className) => `[data-ogsb] .${className}`)
         .join(',\n      ')
       return `    ${selectors} {
         background-color: ${backgroundColor} !important;
@@ -154,7 +155,6 @@ export function emitOutlookDarkModeHeadRaw(globalData) {
 
   globalData.headRaw.push(`
 <style id="css-dark-mode-outlook-com">
-    [data-ogsb] { color:#fff !important; background-color:#1c1c1c !important; }
 ${outlookBackgroundRules}
 ${outlookBackgroundColorRules}
   [data-ogsb] .${OUTLOOK_DARK_MODE_CLASS} img { visibility:hidden; }
@@ -167,17 +167,22 @@ ${outlookBackgroundColorRules}
 export function getOutlookDarkModeMediaQuery(globalData) {
   // Group background color rules by value
   const backgroundColorMap = {}
-  getOutlookDarkModeBackgroundRules(globalData).forEach(({ className, backgroundColor }) => {
-    if (!backgroundColorMap[backgroundColor]) {
-      backgroundColorMap[backgroundColor] = []
-    }
-    backgroundColorMap[backgroundColor].push(className)
-  })
+  getOutlookDarkModeBackgroundRules(globalData).forEach(
+    ({ className, backgroundColor }) => {
+      if (!backgroundColorMap[backgroundColor]) {
+        backgroundColorMap[backgroundColor] = []
+      }
+      backgroundColorMap[backgroundColor].push(className)
+    },
+  )
 
   const outlookBackgroundColorMediaRules = Object.entries(backgroundColorMap)
     .map(([backgroundColor, classNames]) => {
       const selectors = classNames
-        .map(className => `.${OUTLOOK_DARK_MODE_BACKGROUND_CLASS}.${className}:not([class^="x_"])`)
+        .map(
+          (className) =>
+            `.${OUTLOOK_DARK_MODE_BACKGROUND_CLASS}.${className}:not([class^="x_"])`,
+        )
         .join(',\n      ')
       return `    ${selectors} {
       background-color: ${backgroundColor} !important;

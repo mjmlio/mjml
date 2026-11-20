@@ -1,4 +1,5 @@
 const assert = require('assert')
+const { execFileSync } = require('child_process')
 const mergeHeadStyleBlocks = require('../lib/helpers/mergeHeadStyleBlocks')
 
 // ---------------------------------------------------------------------------
@@ -49,6 +50,28 @@ describe('mergeHeadStyleBlocks', () => {
         assert.doesNotThrow(() => mergeHeadStyleBlocks(html))
         assert.strictEqual(mergeHeadStyleBlocks(html), html)
       }
+    })
+
+    it('preserves a trailing incomplete <style token without hanging', function incompleteStyleToken() {
+      this.timeout(5000)
+
+      const inputs = [
+        head('<style'),
+        head('\n<style'),
+        head('<style>a{}</style>\n<style'),
+      ]
+      const output = execFileSync(process.execPath, [
+        '-e',
+        `
+          const merge = require(process.argv[1])
+          const inputs = JSON.parse(process.argv[2])
+          process.stdout.write(JSON.stringify(inputs.map(merge)))
+        `,
+        require.resolve('../lib/helpers/mergeHeadStyleBlocks'),
+        JSON.stringify(inputs),
+      ], { timeout: 2000, encoding: 'utf8' })
+
+      assert.deepStrictEqual(JSON.parse(output), inputs)
     })
 
     it('returns html unchanged when there are no <style> blocks at all', () => {
@@ -141,6 +164,31 @@ describe('mergeHeadStyleBlocks', () => {
       const result = mergeHeadStyleBlocks(html)
       assert.strictEqual((result.match(/<style>/g) || []).length, 2)
       assert.ok(result.includes('@charset "UTF-8";'), result)
+    })
+
+    for (const prefix of ['/* fonts */', ' \n/* first */\t/* second */\n ']) {
+      for (const atRule of ['@import url("theme.css");', '@IMPORT url("theme.css");', '@charset "UTF-8";']) {
+        it(`keeps ${atRule} separate after leading comments ${JSON.stringify(prefix)}`, () => {
+          const css = `${prefix}${atRule}`
+          const html = head(`<style>a{}</style>\n<style>${css}</style>`)
+
+          assert.strictEqual(mergeHeadStyleBlocks(html), html)
+        })
+      }
+    }
+
+    it('still merges comment-prefixed ordinary CSS without changing the comments', () => {
+      const css = ' \n/* @import is only mentioned here */ /* second */ b{color:blue}'
+      const html = head(`<style>a{}</style><style>${css}</style>`)
+
+      assert.strictEqual(mergeHeadStyleBlocks(html), head(`<style>a{}\n${css}</style>`))
+    })
+
+    it('merges ordinary CSS after an import block while leaving the import before all rules', () => {
+      const css = '/* fonts */ @import url("theme.css");'
+      const html = head(`<style>a{}</style><style>${css}</style><style>b{}</style>`)
+
+      assert.strictEqual(mergeHeadStyleBlocks(html), head(`<style>a{}</style><style>${css}\nb{}</style>`))
     })
   })
 

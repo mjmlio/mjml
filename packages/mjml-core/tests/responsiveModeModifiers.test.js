@@ -9,6 +9,7 @@ const {
   registerDarkModeRule,
   emitDarkModeHeadStyle,
 } = require('../lib/helpers/colorSchemeDarkMode')
+const { registerModifierClassTargets } = require('../lib/helpers/modifierEngine')
 
 describe('responsiveMode modifier helpers', () => {
   it('registers responsive rules with dedicated class names and emits style', () => {
@@ -42,6 +43,60 @@ describe('responsiveMode modifier helpers', () => {
     assert.strictEqual(firstEmission, true)
     assert.strictEqual(secondEmission, false)
     assert.strictEqual(globalData.headRaw.length, 1)
+  })
+
+  it('does not rebuild style blocks when the modifier revision is unchanged', () => {
+    const classTargets = new Map()
+    const globalData = {
+      headRaw: [],
+      modifierUseClassTargets: true,
+      modifierClassTargets: classTargets,
+    }
+
+    const firstClass = registerResponsiveRule(globalData, {
+      cssProperty: 'font-size',
+      cssValue: '20px',
+    })
+    const secondClass = registerResponsiveRule(globalData, {
+      cssProperty: 'font-size',
+      cssValue: '22px',
+    })
+    registerModifierClassTargets(globalData, firstClass)
+    registerModifierClassTargets(globalData, secondClass)
+
+    let classTargetReads = 0
+    Object.defineProperty(globalData, 'modifierClassTargets', {
+      get() {
+        classTargetReads += 1
+        return classTargets
+      },
+    })
+
+    assert.strictEqual(emitResponsiveHeadStyle(globalData), true)
+    const readsAfterFirstEmission = classTargetReads
+    assert.ok(readsAfterFirstEmission > 0)
+
+    assert.strictEqual(emitResponsiveHeadStyle(globalData), false)
+    assert.strictEqual(classTargetReads, readsAfterFirstEmission)
+  })
+
+  it('rebuilds style blocks when rules are registered after an emission', () => {
+    const globalData = { headRaw: [] }
+
+    registerResponsiveRule(globalData, {
+      cssProperty: 'font-size',
+      cssValue: '20px',
+    })
+    assert.strictEqual(emitResponsiveHeadStyle(globalData), true)
+
+    registerResponsiveRule(globalData, {
+      cssProperty: 'font-size',
+      cssValue: '22px',
+    })
+    assert.strictEqual(emitResponsiveHeadStyle(globalData), true)
+    assert.strictEqual(globalData.headRaw.length, 2)
+    assert.ok(globalData.headRaw[1].includes('.mj-responsive-1 { font-size: 20px !important; }'))
+    assert.ok(globalData.headRaw[1].includes('.mj-responsive-2 { font-size: 22px !important; }'))
   })
 
   it('groups multiple declarations under one class when using rule groups', () => {

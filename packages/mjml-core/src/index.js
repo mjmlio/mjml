@@ -34,6 +34,7 @@ import defaultSkeleton from './helpers/skeleton'
 import loadSkeletonFromFile from './node-only/skeleton-loader'
 import mergeHeadStyleBlocks from './helpers/mergeHeadStyleBlocks'
 import { setSupportOutlookClassicFlag } from './helpers/conditionalTag'
+import { registerModifierClassTargets } from './helpers/modifierEngine'
 import { initializeType } from './types/type'
 
 import handleMjmlConfig, {
@@ -895,6 +896,30 @@ export default async function mjml2html(mjml, options = {}) {
     })
 
     content = $.root().html()
+  }
+
+  globalData.modifierUseClassTargets =
+    skeleton === defaultSkeleton && isEmpty(globalData.htmlAttributes)
+  const hasModifierRules = [
+    globalData.modifierRules,
+    globalData.responsiveRules,
+    globalData.darkModeRules,
+  ].some((rules) => Array.isArray(rules) && rules.length > 0)
+  if (globalData.modifierUseClassTargets && hasModifierRules) {
+    globalData.modifierClassTargets = new Map()
+    const markup = [
+      globalData.beforeDoctype,
+      ...globalData.headRaw,
+      content,
+    ].join('\n')
+    const $ = load(markup, {
+      xmlMode: false,
+      decodeEntities: true,
+    })
+
+    $('[class]').each((index, element) => {
+      registerModifierClassTargets(globalData, $(element).attr('class'))
+    })
   }
 
   content = skeleton({

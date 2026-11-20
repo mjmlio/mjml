@@ -12,7 +12,19 @@
 //
 // Consecutive runs of plain-style tokens (separated at most by whitespace)
 // are combined into a single <style> block.  All other tokens are emitted
-// verbatim.  Content outside <head>…</head> is never touched.
+// verbatim. Blocks starting with @import or @charset, including after CSS
+// comments, are not appended to earlier CSS.
+// Content outside <head>…</head> is never touched.
+function startsWithBeginningOnlyAtRule(css) {
+  let remaining = css.trimStart()
+  while (remaining.startsWith('/*')) {
+    const end = remaining.indexOf('*/', 2)
+    if (end === -1) return false
+    remaining = remaining.slice(end + 2).trimStart()
+  }
+  return /^@(?:charset|import)\b/i.test(remaining)
+}
+
 export default function mergeHeadStyleBlocks(html) {
   const headOpen = html.indexOf('<head')
   if (headOpen === -1) {
@@ -85,6 +97,9 @@ export default function mergeHeadStyleBlocks(html) {
           tokens.push({ type: 'other', raw: headInner.slice(pos) })
           pos = headInner.length
         }
+      } else {
+        tokens.push({ type: 'other', raw: headInner.slice(pos) })
+        pos = headInner.length
       }
     // Text content between tags
     } else if (headInner[pos] !== '<') {
@@ -125,7 +140,7 @@ export default function mergeHeadStyleBlocks(html) {
           trailingWhitespace += nt.raw
           j += 1
         } else if (nt.type === 'plain-style') {
-          if (/^\s*@(?:charset|import)\b/i.test(nt.css)) {
+          if (startsWithBeginningOnlyAtRule(nt.css)) {
             break
           }
           combinedCss += `\n${nt.css}`

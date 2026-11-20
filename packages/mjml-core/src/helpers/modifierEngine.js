@@ -216,6 +216,25 @@ function makeDeclarationGroup(declaration, property, selectors) {
   }
 }
 
+function formatRulesInRegistrationOrder(rules, selectorPrefix) {
+  return rules
+    .map(({ className, selector, cssProperty, cssValue, selectorSuffix }) => {
+      const suffixes = Array.isArray(selectorSuffix)
+        ? selectorSuffix
+        : [selectorSuffix || '']
+      const selectors = Array.from(new Set(
+        selector
+          ? [`${selectorPrefix}${selector}`]
+          : suffixes.map((suffix) => `${selectorPrefix}.${className}${suffix}`),
+      ))
+
+      if (selectors.length === 0) return null
+      return `  ${selectors.join(',\n  ')} { ${cssProperty}: ${cssValue} !important; }`
+    })
+    .filter(Boolean)
+    .join('\n')
+}
+
 export function formatGroupedRules(rules, selectorPrefix = '', classTargets) {
   const declarationGroups = new Map()
   const selectorTargets = new Map()
@@ -257,7 +276,7 @@ export function formatGroupedRules(rules, selectorPrefix = '', classTargets) {
       groups[index].selectors.size > 1 &&
       isInDependencyCycle(index, dependencies, pending))
     if (candidates.length === 0) {
-      throw new Error('Unable to preserve modifier CSS declaration order')
+      return formatRulesInRegistrationOrder(rules, selectorPrefix)
     }
     const splitIndex = candidates.reduce((best, index) =>
       groups[index].selectors.size > groups[best].selectors.size ? index : best)

@@ -123,33 +123,83 @@ function selectorsMayOverlap(first, second, selectorTargets, classTargets) {
   const firstElements = classTargets.get(firstTarget.className)
   const secondElements = classTargets.get(secondTarget.className)
   if (!firstElements || !secondElements) return true
-  return Array.from(firstElements).some((target) => secondElements.has(target))
+  for (const target of firstElements) {
+    if (secondElements.has(target)) return true
+  }
+  return false
+}
+
+function getOverlappingGroups(groups, selectorTargets, classTargets) {
+  if (!classTargets) return null
+
+  const groupsByTarget = new Map()
+  const overlaps = groups.map(() => new Set())
+  let overlapCount = 0
+
+  for (let index = 0; index < groups.length; index += 1) {
+    const targets = new Set()
+    for (const selector of groups[index].selectors.keys()) {
+      const selectorTarget = selectorTargets.get(selector)
+      if (!selectorTarget || selectorTarget.suffix) return null
+      const elements = classTargets.get(selectorTarget.className)
+      if (!elements) return null
+      elements.forEach((element) => targets.add(element))
+    }
+
+    for (const target of targets) {
+      if (!groupsByTarget.has(target)) groupsByTarget.set(target, [])
+      const previousGroups = groupsByTarget.get(target)
+      for (const previousIndex of previousGroups) {
+        if (!overlaps[previousIndex].has(index)) {
+          overlapCount += 1
+          // Avoid materializing a quadratic index when most groups overlap.
+          if (overlapCount > groups.length * 8) return null
+          overlaps[previousIndex].add(index)
+        }
+      }
+      previousGroups.push(index)
+    }
+  }
+
+  return overlaps
 }
 
 function getGroupDependencies(groups, selectorTargets, classTargets) {
   const dependencies = groups.map(() => new Set())
+  const overlappingGroups = getOverlappingGroups(groups, selectorTargets, classTargets)
 
-  groups.forEach((first, firstIndex) => {
-    groups.slice(firstIndex + 1).forEach((second, offset) => {
-      if (
-        first.declaration === second.declaration ||
-        !propertiesConflict(first.property, second.property)
-      ) return
+  const addDependencies = (firstIndex, secondIndex) => {
+    const first = groups[firstIndex]
+    const second = groups[secondIndex]
+    if (
+      first.declaration === second.declaration ||
+      !propertiesConflict(first.property, second.property)
+    ) return
 
-      const secondIndex = firstIndex + offset + 1
-      // Selectors may match the same element. For each possible pair, retain
-      // the last occurrence of each declaration on either matching selector.
-      first.selectors.forEach((firstPosition, firstSelector) => {
-        second.selectors.forEach((secondPosition, secondSelector) => {
-          if (!selectorsMayOverlap(firstSelector, secondSelector, selectorTargets, classTargets)) return
-          const firstLast = Math.max(firstPosition, first.selectors.get(secondSelector) ?? -1)
-          const secondLast = Math.max(secondPosition, second.selectors.get(firstSelector) ?? -1)
-          if (firstLast < secondLast) dependencies[secondIndex].add(firstIndex)
-          if (secondLast < firstLast) dependencies[firstIndex].add(secondIndex)
-        })
+    // Selectors may match the same element. For each possible pair, retain
+    // the last occurrence of each declaration on either matching selector.
+    first.selectors.forEach((firstPosition, firstSelector) => {
+      second.selectors.forEach((secondPosition, secondSelector) => {
+        if (!selectorsMayOverlap(firstSelector, secondSelector, selectorTargets, classTargets)) return
+        const firstLast = Math.max(firstPosition, first.selectors.get(secondSelector) ?? -1)
+        const secondLast = Math.max(secondPosition, second.selectors.get(firstSelector) ?? -1)
+        if (firstLast < secondLast) dependencies[secondIndex].add(firstIndex)
+        if (secondLast < firstLast) dependencies[firstIndex].add(secondIndex)
       })
     })
-  })
+  }
+
+  if (overlappingGroups) {
+    overlappingGroups.forEach((indices, firstIndex) => {
+      indices.forEach((secondIndex) => addDependencies(firstIndex, secondIndex))
+    })
+  } else {
+    for (let firstIndex = 0; firstIndex < groups.length; firstIndex += 1) {
+      for (let secondIndex = firstIndex + 1; secondIndex < groups.length; secondIndex += 1) {
+        addDependencies(firstIndex, secondIndex)
+      }
+    }
+  }
 
   return dependencies
 }
@@ -549,6 +599,7 @@ export function emitModifierHeadStyle(
   {
     defaultDefinitions = {},
     rules,
+    getRules,
     rulesKey = 'modifierRules',
     emittedFlag = 'modifierStyleEmitted',
     cacheKey,
@@ -581,9 +632,12 @@ export function emitModifierHeadStyle(
     }
   }
 
-  const modifierRules = Array.isArray(rules)
-    ? rules
-    : getModifierRules(globalData, rulesKey)
+  let modifierRules = rules
+  if (getRules) {
+    modifierRules = getRules()
+  } else if (!Array.isArray(modifierRules)) {
+    modifierRules = getModifierRules(globalData, rulesKey)
+  }
 
   if (modifierRules.length === 0) {
     cacheRevision()

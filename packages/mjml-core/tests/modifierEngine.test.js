@@ -194,6 +194,24 @@ describe('modifier rule grouping', () => {
     ].join('\n'))
   })
 
+  it('preserves conflicts when classes share multiple rendered targets', () => {
+    const globalData = {}
+    registerModifierClassTargets(globalData, 'a b')
+    registerModifierClassTargets(globalData, 'a b c')
+    registerModifierClassTargets(globalData, 'b c')
+    const css = formatGroupedRules([
+      { className: 'a', cssProperty: 'color', cssValue: 'red' },
+      { className: 'b', cssProperty: 'color', cssValue: 'blue' },
+      { className: 'c', cssProperty: 'color', cssValue: 'red' },
+    ], '', globalData.modifierClassTargets)
+
+    assert.strictEqual(css, [
+      '  .a { color: red !important; }',
+      '  .b { color: blue !important; }',
+      '  .c { color: red !important; }',
+    ].join('\n'))
+  })
+
   it('retains conservative ordering for explicit selectors even with known class targets', () => {
     const globalData = {}
     registerModifierClassTargets(globalData, 'a')

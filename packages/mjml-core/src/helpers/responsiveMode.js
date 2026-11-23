@@ -101,16 +101,15 @@ export function emitModifierHeadStyle(globalData) {
     defaultDefinitions: DEFAULT_MODIFIER_DEFINITIONS,
   })
 
-  const rules = [
-    ...getResponsiveRules(globalData).map((rule) => ({
-      ...rule,
-      modifier: 'responsive',
-    })),
-    ...getModifierRules(globalData),
-  ]
   const emitted = emitGenericModifierHeadStyle(globalData, {
     defaultDefinitions: DEFAULT_MODIFIER_DEFINITIONS,
-    rules,
+    getRules: () => [
+      ...getResponsiveRules(globalData).map((rule) => ({
+        ...rule,
+        modifier: 'responsive',
+      })),
+      ...getModifierRules(globalData),
+    ],
     emittedFlag: 'responsiveStyleEmitted',
     cacheKey: 'responsive',
   })

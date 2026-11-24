@@ -70,6 +70,22 @@ describe('skeleton', () => {
     })
   })
 
+  it('renders exactly one viewport meta tag with the device width', () => {
+    const $ = load(skeleton({}))
+    const viewport = $('meta[name="viewport"]')
+
+    chai.expect(viewport.length).to.equal(1)
+    chai.expect(viewport.attr('content')).to.equal('width=device-width')
+  })
+
+  it('renders exactly one Apple message reformatting meta tag', () => {
+    const $ = load(skeleton({}))
+
+    chai
+      .expect($('meta[name="x-apple-disable-message-reformatting"]').length)
+      .to.equal(1)
+  })
+
   it('renders accordion style in its own type="text/css" block', () => {
     const $ = load(
       skeleton({

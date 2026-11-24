@@ -30,7 +30,7 @@ const body = (mjmlAttrs, content) => `
 const column = (content, attrs = '') =>
   `<mj-column css-class="c" ${attrs}>${content}</mj-column>`
 
-const render = async (input) => load((await mjml(input)).html)
+const render = async (input, options) => load((await mjml(input, options)).html)
 const style = ($, selector, prop) =>
   extractStyle($(selector).attr('style'), prop)
 
@@ -39,7 +39,31 @@ const gutterCss = (html, className) => {
   return match && match[1].trim()
 }
 
-describe('<mjml dir="rtl">', function () {
+describe('document direction and the legacy <mjml dir> alias', function () {
+  it('sets the document direction with the direction attribute', async function () {
+    const $ = await render(`
+      <mjml direction="rtl"><mj-body><mj-section><mj-column>
+        <mj-text css-class="t">text</mj-text>
+      </mj-column></mj-section></mj-body></mjml>`, {
+      validationLevel: 'strict',
+    })
+
+    expect($('html').attr('dir')).to.equal('rtl')
+    expect($('body > div').attr('dir')).to.equal('rtl')
+    expect(style($, '.t > div', 'text-align')).to.equal('right')
+  })
+
+  it('prefers direction over the legacy dir attribute', async function () {
+    const $ = await render(`
+      <mjml direction="ltr" dir="rtl"><mj-body><mj-section><mj-column>
+        <mj-text css-class="t">text</mj-text>
+      </mj-column></mj-section></mj-body></mjml>`)
+
+    expect($('html').attr('dir')).to.equal('ltr')
+    expect($('body > div').attr('dir')).to.equal('ltr')
+    expect(style($, '.t > div', 'text-align')).to.equal('left')
+  })
+
   it('sets the document direction', async function () {
     const $ = await render(template('rtl'))
 

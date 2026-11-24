@@ -652,7 +652,8 @@ export default async function mjml2html(mjml, options = {}) {
     title: '',
     forceOWADesktop: get(mjml, 'attributes.owa', 'mobile') === 'desktop',
     lang: get(mjml, 'attributes.lang') || 'und',
-    dir: get(mjml, 'attributes.dir') || 'auto',
+    direction:
+      get(mjml, 'attributes.direction') || get(mjml, 'attributes.dir') || 'auto',
     supportDarkMode:
       String(get(mjml, 'attributes.support-dark-mode', false)).toLowerCase() ===
       'true',

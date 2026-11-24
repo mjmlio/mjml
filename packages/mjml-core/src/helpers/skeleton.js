@@ -19,7 +19,7 @@ export default function skeleton(options) {
     printerSupport,
     inlineStyle,
     lang,
-    dir,
+    direction,
     supportDarkMode = false,
     gmailForceLightMode = false,
     supportOutlookClassic = true,
@@ -36,7 +36,7 @@ export default function skeleton(options) {
   }
 
   return `${beforeDoctype ? `${beforeDoctype}\n` : ''}<!doctype html>
-<html lang="${lang}" dir="${dir}"${
+<html lang="${lang}" dir="${direction}"${
     supportOutlookClassic && usesVML
       ? ' xmlns:v="urn:schemas-microsoft-com:vml"'
       : ''

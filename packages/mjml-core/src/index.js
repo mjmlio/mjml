@@ -655,7 +655,6 @@ export default async function mjml2html(mjml, options = {}) {
     title: '',
     forceOWADesktop: get(mjml, 'attributes.owa', 'mobile') === 'desktop',
     lang: get(mjml, 'attributes.lang') || 'und',
-    dir: direction,
     direction,
     supportDarkMode:
       String(get(mjml, 'attributes.support-dark-mode', false)).toLowerCase() ===
@@ -904,6 +903,7 @@ export default async function mjml2html(mjml, options = {}) {
   content = skeleton({
     content,
     ...globalData,
+    dir: globalData.direction,
     printerSupport,
   })
   

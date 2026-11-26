@@ -1,4 +1,7 @@
 const assert = require('assert')
+const { load } = require('cheerio')
+const postcss = require('postcss')
+const defaultSkeleton = require('../lib/helpers/skeleton')
 
 const mjml2html = require('../../mjml/lib')
 
@@ -8,6 +11,137 @@ async function render(mjml) {
 }
 
 describe('responsive regression coverage', () => {
+  it('does not assume component class targets remain disjoint in a custom skeleton', async () => {
+    let called = false
+    const { html } = await mjml2html(`
+      <mjml><mj-body><mj-section><mj-column>
+        <mj-text padding-top--responsive="5px">Top only</mj-text>
+        <mj-text padding--responsive="0" padding-top--responsive="5px">Both</mj-text>
+      </mj-column></mj-section></mj-body></mjml>
+    `, {
+      skeleton(options) {
+        called = true
+        assert.strictEqual(options.modifierUseClassTargets, false)
+        return defaultSkeleton(options)
+      },
+    })
+
+    assert.strictEqual(called, true)
+    assert.ok(html.includes('padding-top: 5px !important;'))
+  })
+
+  for (const [description, classAttribute] of [
+    ['space-separated classes', 'class="mj-responsive-2 mj-responsive-3"'],
+    ['entity-encoded whitespace', 'class="mj-responsive-2&#32;mj-responsive-3"'],
+    ['uppercase class attribute', 'CLASS="mj-responsive-2 mj-responsive-3"'],
+  ]) {
+    it(`tracks modifier class overlap in raw markup with ${description}`, async () => {
+      const html = await render(`
+        <mjml>
+          <mj-body>
+            <mj-section>
+              <mj-column>
+                <mj-text font-size--responsive="14px">First</mj-text>
+                <mj-text font-size--responsive="18px">Second</mj-text>
+                <mj-text font-size--responsive="14px">Third</mj-text>
+                <mj-raw><div ${classAttribute}>Raw</div></mj-raw>
+              </mj-column>
+            </mj-section>
+          </mj-body>
+        </mjml>
+      `)
+      const $ = load(html)
+      const declarations = []
+
+      $('head style').each((index, element) => {
+        postcss.parse($(element).text()).walkAtRules('media', (media) => {
+          if (!media.params.includes('max-width:479px')) return
+          media.walkRules((rule) => {
+            if (!rule.selectors.some((selector) =>
+              ['.mj-responsive-2', '.mj-responsive-3'].includes(selector),
+            )) {
+              return
+            }
+            rule.walkDecls('font-size', (declaration) => {
+              declarations.push(declaration.value)
+            })
+          })
+        })
+      })
+
+      assert.deepStrictEqual(declarations, ['18px', '14px'])
+    })
+  }
+
+  it('retains global concatenation across many components with alternating values', async () => {
+    const components = Array.from({ length: 30 }, (value, index) => `
+      <mj-text padding--responsive="0" padding-top--responsive="5px"
+        font-size--responsive="${index % 2 ? '14px' : '18px'}"
+        color--dark="${index % 2 ? '#ffffff' : '#eeeeee'}">Card ${index}</mj-text>
+    `).join('')
+    const html = await render(`
+      <mjml support-dark-mode="true"><mj-body><mj-section><mj-column>
+        ${components}
+      </mj-column></mj-section></mj-body></mjml>
+    `)
+    const $ = load(html)
+    const responsive = []
+    const dark = []
+    $('head style').each((index, element) => {
+      postcss.parse($(element).text()).walkAtRules('media', (media) => {
+        if (media.params.includes('max-width:479px')) media.walkRules((rule) => responsive.push(rule))
+        if (media.params.includes('prefers-color-scheme: dark')) media.walkRules((rule) => dark.push(rule))
+      })
+    })
+
+    assert.strictEqual(responsive.length, 3)
+    assert.strictEqual(dark.length, 2)
+    assert.ok(responsive.some((rule) => rule.selectors.length === 30))
+    assert.ok(dark.every((rule) => rule.selectors.length === 15))
+  })
+
+  for (const reverse of [false, true]) {
+    it(`preserves responsive padding overrides across components in ${reverse ? 'reversed' : 'original'} order`, async () => {
+      const components = [
+        '<mj-text padding-top--responsive="5px">Top only</mj-text>',
+        '<mj-text padding--responsive="0" padding-top--responsive="5px">Shorthand and top</mj-text>',
+      ]
+      if (reverse) components.reverse()
+
+      const html = await render(`
+        <mjml>
+          <mj-body>
+            <mj-section>
+              <mj-column>${components.join('')}</mj-column>
+            </mj-section>
+          </mj-body>
+        </mjml>
+      `)
+      const $ = load(html)
+      const target = $('td').filter((index, element) =>
+        $(element).text().trim() === 'Shorthand and top').first()
+      const className = target.attr('class').split(/\s+/)
+        .find((value) => value.startsWith('mj-responsive-'))
+      assert.ok(className)
+
+      const declarations = []
+      $('head style').each((index, element) => {
+        postcss.parse($(element).text()).walkAtRules('media', (media) => {
+          if (!media.params.includes('max-width:479px')) return
+          media.walkRules((rule) => {
+            if (!rule.selectors.includes(`.${className}`)) return
+            rule.walkDecls(/^padding/, (declaration) => {
+              assert.strictEqual(declaration.important, true)
+              declarations.push([declaration.prop, declaration.value])
+            })
+          })
+        })
+      })
+
+      assert.deepStrictEqual(declarations, [['padding', '0'], ['padding-top', '5px']])
+    })
+  }
+
   it('mj-navbar stacks links independently of hamburger support and preserves stack indices', async () => {
     const html = await render(`
       <mjml>

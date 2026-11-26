@@ -9,6 +9,7 @@ const {
   registerDarkModeRule,
   emitDarkModeHeadStyle,
 } = require('../lib/helpers/colorSchemeDarkMode')
+const { registerModifierClassTargets } = require('../lib/helpers/modifierEngine')
 
 describe('responsiveMode modifier helpers', () => {
   it('registers responsive rules with dedicated class names and emits style', () => {
@@ -42,6 +43,105 @@ describe('responsiveMode modifier helpers', () => {
     assert.strictEqual(firstEmission, true)
     assert.strictEqual(secondEmission, false)
     assert.strictEqual(globalData.headRaw.length, 1)
+  })
+
+  it('does not rebuild style blocks when the modifier revision is unchanged', () => {
+    const classTargets = new Map()
+    const globalData = {
+      headRaw: [],
+      modifierUseClassTargets: true,
+      modifierClassTargets: classTargets,
+    }
+
+    const firstClass = registerResponsiveRule(globalData, {
+      cssProperty: 'font-size',
+      cssValue: '20px',
+    })
+    const secondClass = registerResponsiveRule(globalData, {
+      cssProperty: 'font-size',
+      cssValue: '22px',
+    })
+    registerModifierClassTargets(globalData, firstClass)
+    registerModifierClassTargets(globalData, secondClass)
+
+    let classTargetReads = 0
+    Object.defineProperty(globalData, 'modifierClassTargets', {
+      get() {
+        classTargetReads += 1
+        return classTargets
+      },
+    })
+
+    assert.strictEqual(emitResponsiveHeadStyle(globalData), true)
+    const readsAfterFirstEmission = classTargetReads
+    assert.ok(readsAfterFirstEmission > 0)
+
+    assert.strictEqual(emitResponsiveHeadStyle(globalData), false)
+    assert.strictEqual(classTargetReads, readsAfterFirstEmission)
+  })
+
+  it('only reads responsive rules on a cache miss, including after a breakpoint change', () => {
+    const globalData = { headRaw: [] }
+    registerResponsiveRule(globalData, {
+      cssProperty: 'font-size',
+      cssValue: '20px',
+    })
+    const rules = globalData.responsiveRules
+    let ruleReads = 0
+    Object.defineProperty(globalData, 'responsiveRules', {
+      get() {
+        ruleReads += 1
+        return rules
+      },
+    })
+
+    assert.strictEqual(emitResponsiveHeadStyle(globalData), true)
+    const readsAfterFirstEmission = ruleReads
+    assert.ok(readsAfterFirstEmission > 0)
+    assert.strictEqual(emitResponsiveHeadStyle(globalData), false)
+    assert.strictEqual(ruleReads, readsAfterFirstEmission)
+
+    globalData.breakpoint = '600px'
+    assert.strictEqual(emitResponsiveHeadStyle(globalData), true)
+    assert.ok(ruleReads > readsAfterFirstEmission)
+    assert.ok(globalData.headRaw[1].includes('max-width:599px'))
+  })
+
+  it('rebuilds style blocks when rules are registered after an emission', () => {
+    const globalData = { headRaw: [] }
+
+    registerResponsiveRule(globalData, {
+      cssProperty: 'font-size',
+      cssValue: '20px',
+    })
+    assert.strictEqual(emitResponsiveHeadStyle(globalData), true)
+
+    registerResponsiveRule(globalData, {
+      cssProperty: 'font-size',
+      cssValue: '22px',
+    })
+    assert.strictEqual(emitResponsiveHeadStyle(globalData), true)
+    assert.strictEqual(globalData.headRaw.length, 2)
+    assert.ok(globalData.headRaw[1].includes('.mj-responsive-1 { font-size: 20px !important; }'))
+    assert.ok(globalData.headRaw[1].includes('.mj-responsive-2 { font-size: 22px !important; }'))
+  })
+
+  it('rebuilds cached styles when newly registered class targets overlap', () => {
+    const globalData = { headRaw: [], modifierUseClassTargets: true }
+    const classes = ['14px', '18px', '14px'].map((value) =>
+      registerResponsiveRule(globalData, { cssProperty: 'font-size', cssValue: value }))
+    classes.forEach((className) => registerModifierClassTargets(globalData, className))
+
+    assert.strictEqual(emitResponsiveHeadStyle(globalData), true)
+    registerModifierClassTargets(globalData, `${classes[0]} ${classes[1]}`)
+    registerModifierClassTargets(globalData, `${classes[1]} ${classes[2]}`)
+    assert.strictEqual(emitResponsiveHeadStyle(globalData), true)
+
+    const css = globalData.headRaw[1]
+    const positions = ['14px', '18px', '14px'].map((value, index) =>
+      css.indexOf(`.${classes[index]} { font-size: ${value}`))
+    assert.ok(positions.every((position) => position >= 0))
+    assert.ok(positions[0] < positions[1] && positions[1] < positions[2])
   })
 
   it('groups multiple declarations under one class when using rule groups', () => {

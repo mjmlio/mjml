@@ -2,9 +2,9 @@ import { BodyComponent, suffixCssClasses } from 'mjml-core'
 import { flow, identity, join, filter } from 'lodash/fp'
 import { msoConditionalTag } from 'mjml-core/lib/helpers/conditionalTag'
 import {
-  DARK_MODE_CLASS_PREFIX,
   emitDarkModeHeadStyle,
   registerDarkModeRule,
+  registerDarkModeRuleGroup,
 } from 'mjml-core/lib/helpers/colorSchemeDarkMode'
 import { OUTLOOK_DARK_MODE_CLASS } from 'mjml-core/lib/helpers/outlookDarkMode'
 import {
@@ -142,48 +142,6 @@ export default class MjSection extends BodyComponent {
     return darkBackgroundUrl ? `url(${JSON.stringify(darkBackgroundUrl)})` : null
   }
 
-  registerDarkModeRuleGroup({
-    cssDeclarations,
-    supportOutlookDarkMode = false,
-  }) {
-    const globalData = this.context && this.context.globalData
-    const validDeclarations = Array.isArray(cssDeclarations)
-      ? cssDeclarations.filter(
-          ({ cssProperty, cssValue }) => Boolean(cssProperty && cssValue),
-        )
-      : []
-
-    if (
-      !globalData ||
-      validDeclarations.length === 0
-    ) {
-      return null
-    }
-
-    if (typeof globalData.darkModeRuleCount !== 'number') {
-      globalData.darkModeRuleCount = 0
-    }
-
-    globalData.darkModeRuleCount += 1
-
-    const className = `${DARK_MODE_CLASS_PREFIX}-${globalData.darkModeRuleCount}`
-
-    if (!Array.isArray(globalData.darkModeRules)) {
-      globalData.darkModeRules = []
-    }
-
-    validDeclarations.forEach(({ cssProperty, cssValue }) => {
-      globalData.darkModeRules.push({
-        className,
-        cssProperty,
-        cssValue,
-        supportOutlookDarkMode: Boolean(supportOutlookDarkMode),
-      })
-    })
-
-    return className
-  }
-
   getDarkClasses() {
     if (this.darkClasses !== null) {
       return this.darkClasses
@@ -237,7 +195,7 @@ export default class MjSection extends BodyComponent {
       })
     })
 
-    this.darkClasses.border = this.registerDarkModeRuleGroup({
+    this.darkClasses.border = registerDarkModeRuleGroup(globalData, {
       cssDeclarations: borderDarkDeclarations,
     })
 

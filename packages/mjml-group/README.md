@@ -83,5 +83,4 @@ Prevent adjacent `mj-column` instances from stacking on mobile by wrapping them 
 
 | attribute             | accepts     | description                              | default value |
 | --------------------- | ----------- | ---------------------------------------- | ------------- |
-| direction--responsive | `ltr` `rtl` | set the display order of direct children |               |
 | width--responsive     | `px` `%`    | group width                              |               |

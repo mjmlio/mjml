@@ -45,7 +45,6 @@ export default class MjColumn extends BodyComponent {
     'border-top': 'string',
     'border-top-color--dark': 'color',
     direction: 'enum(ltr,rtl)',
-    'direction--responsive': 'enum(ltr,rtl)',
     'inner-background-color': 'color',
     'inner-background-color--dark': 'color',
     'inner-border': 'string',
@@ -218,7 +217,6 @@ export default class MjColumn extends BodyComponent {
 
     this.responsiveClasses.div = registerResponsiveRuleGroup(globalData, {
       cssDeclarations: buildResponsiveDeclarations([
-        ['direction', this.attributes['direction--responsive']],
         ['width', this.attributes['width--responsive']],
       ]),
     })
@@ -235,16 +233,6 @@ export default class MjColumn extends BodyComponent {
     emitDarkModeHeadStyle(this.context && this.context.globalData)
     emitResponsiveHeadStyle(this.context && this.context.globalData)
     return ''
-  }
-
-  // direction--responsive switches at the breakpoint, which only CSS can do:
-  // a dir attribute or mirrored alignment would keep the desktop value.
-  hasResponsiveDirection() {
-    return Boolean(this.getAttribute('direction--responsive'))
-  }
-
-  getOutlookDir() {
-    return this.hasResponsiveDirection() ? undefined : super.getOutlookDir()
   }
 
   getChildContext() {
@@ -276,9 +264,7 @@ export default class MjColumn extends BodyComponent {
     return {
       ...this.context,
       containerWidth,
-      contentDirection: this.hasResponsiveDirection()
-        ? undefined
-        : this.getAttribute('direction'),
+      contentDirection: this.getAttribute('direction'),
     }
   }
 
@@ -303,13 +289,7 @@ export default class MjColumn extends BodyComponent {
     return {
       div: {
         'font-size': '0px',
-        'text-align': (
-          this.hasResponsiveDirection()
-            ? this.context.globalData.direction === 'rtl'
-            : this.isRtl
-        )
-          ? 'right'
-          : 'left',
+        'text-align': this.isRtl ? 'right' : 'left',
         // set even when unset: a section's direction orders the columns, and
         // without this the text inside would reverse with them
         direction:

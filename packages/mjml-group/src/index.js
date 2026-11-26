@@ -23,7 +23,6 @@ export default class MjGroup extends BodyComponent {
     'background-color--dark': 'color',
     'column-order': 'enum(ltr,rtl)',
     direction: 'enum(ltr,rtl)',
-    'direction--responsive': 'enum(ltr,rtl)',
     role: 'string',
     'vertical-align': 'enum(top,bottom,middle)',
     width: 'unit(px,%)',
@@ -191,7 +190,6 @@ export default class MjGroup extends BodyComponent {
       this.context && this.context.globalData,
       {
         cssDeclarations: buildResponsiveDeclarations([
-          ['direction', this.attributes['direction--responsive']],
           ['width', this.attributes['width--responsive']],
         ]),
       },

@@ -695,26 +695,6 @@ describe('direction on a column', function () {
   })
 })
 
-describe('direction--responsive on a column', function () {
-  it('stays CSS-only, so the mobile direction still applies', async function () {
-    const $ = await render(
-      body(
-        '',
-        column(
-          '<mj-text css-class="t">A</mj-text><mj-button css-class="b" href="#">b</mj-button>',
-          'direction="rtl" direction--responsive="ltr"',
-        ),
-      ),
-    )
-
-    expect($('.c table').first().attr('dir')).to.equal(undefined)
-    expect($('.b table').attr('dir')).to.equal(undefined)
-    expect($('.t').attr('align')).to.equal('left')
-    expect(style($, '.c', 'text-align')).to.equal('left')
-    expect(style($, '.c', 'direction')).to.equal('rtl')
-  })
-})
-
 describe('direction on a section', function () {
   it('orders columns without changing text direction or alignment', async function () {
     const $ = await render(`

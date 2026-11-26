@@ -98,7 +98,6 @@ Every single column has to contain something because they are responsive contain
 
 | attribute                  | accepts     | description                                                      | default value |
 | -------------------------- | ----------- | ---------------------------------------------------------------- | ------------- |
-| direction--responsive      | `ltr` `rtl` | set the display order of direct children                         |               |
 | padding--responsive        | `px` `%`    | column padding, supports up to 4 parameters. See the note below. |               |
 | padding-bottom--responsive | `px` `%`    | column bottom padding. See the note below.                       |               |
 | padding-left--responsive   | `px` `%`    | column left padding. See the note below.                         |               |

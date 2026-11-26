@@ -69,4 +69,89 @@ describe('skeleton', () => {
         .to.equal(outputStyleCount)
     })
   })
+
+  it('renders exactly one viewport meta tag with the device width', () => {
+    const $ = load(skeleton({}))
+    const viewport = $('meta[name="viewport"]')
+
+    chai.expect(viewport.length).to.equal(1)
+    chai.expect(viewport.attr('content')).to.equal('width=device-width')
+  })
+
+  it('renders exactly one Apple message reformatting meta tag', () => {
+    const $ = load(skeleton({}))
+
+    chai
+      .expect($('meta[name="x-apple-disable-message-reformatting"]').length)
+      .to.equal(1)
+  })
+
+  it('renders accordion style in its own type="text/css" block', () => {
+    const $ = load(
+      skeleton({
+        headStyle: {
+          'custom-component': () => '.custom-component { background: orange; }',
+          'mj-accordion': () => '@goodbye { @gmail }',
+        },
+      }),
+    )
+
+    chai.expect($('head style').get().length).to.equal(3)
+    chai.expect($('head style[type="text/css"]').get().length).to.equal(1)
+  })
+
+  describe('dark mode support', () => {
+    it('is opt-in: no meta tags by default', () => {
+      const $ = load(skeleton({}))
+
+      chai.expect($('meta[name="color-scheme"]').get().length).to.equal(0)
+      chai
+        .expect($('meta[name="supported-color-schemes"]').get().length)
+        .to.equal(0)
+    })
+
+    it('adds meta tags when supportDarkMode is true', () => {
+      const $ = load(skeleton({ supportDarkMode: true }))
+
+      chai.expect($('meta[name="color-scheme"]').get().length).to.equal(1)
+    })
+  })
+
+  describe('gmail force light mode', () => {
+    const getColorSchemeMeta = ($) =>
+      $('meta[name="color-scheme"]').attr('content')
+
+    const hasRootColorScheme = ($) =>
+      $('head style').text().includes(':root { color-scheme: light dark;')
+
+    it('uses "light dark" meta when only supportDarkMode is true', () => {
+      const $ = load(skeleton({ supportDarkMode: true }))
+
+      chai.expect(getColorSchemeMeta($)).to.equal('light dark')
+      chai.expect(hasRootColorScheme($)).to.equal(true)
+    })
+
+    it('uses only the "light only" meta but keeps :root dark mode CSS when both are true', () => {
+      const $ = load(
+        skeleton({ supportDarkMode: true, gmailForceLightMode: true }),
+      )
+
+      chai.expect($('meta[name="color-scheme"]').get().length).to.equal(1)
+      chai.expect(getColorSchemeMeta($)).to.equal('light only')
+      chai
+        .expect($('meta[name="supported-color-schemes"]').get().length)
+        .to.equal(0)
+      chai.expect(hasRootColorScheme($)).to.equal(true)
+    })
+
+    it('uses "light only" meta without dark mode CSS when only gmailForceLightMode is true', () => {
+      const $ = load(skeleton({ gmailForceLightMode: true }))
+
+      chai.expect(getColorSchemeMeta($)).to.equal('light only')
+      chai
+        .expect($('meta[name="supported-color-schemes"]').get().length)
+        .to.equal(0)
+      chai.expect(hasRootColorScheme($)).to.equal(false)
+    })
+  })
 })

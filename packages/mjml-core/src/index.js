@@ -32,6 +32,9 @@ import mergeOutlookConditionnals from './helpers/mergeOutlookConditionnals'
 import minifyOutlookConditionnals from './helpers/minifyOutlookConditionnals'
 import defaultSkeleton from './helpers/skeleton'
 import loadSkeletonFromFile from './node-only/skeleton-loader'
+import mergeHeadStyleBlocks from './helpers/mergeHeadStyleBlocks'
+import { setSupportOutlookClassicFlag } from './helpers/conditionalTag'
+import { registerModifierClassTargets } from './helpers/modifierEngine'
 import { initializeType } from './types/type'
 
 import handleMjmlConfig, {
@@ -612,6 +615,29 @@ export default async function mjml2html(mjml, options = {}) {
     })
   }
 
+  const usesVML = (() => {
+    const stack = [...(mjml.children || [])]
+
+    while (stack.length) {
+      const node = stack.pop()
+
+      if (node && ['mj-section', 'mj-hero', 'mj-wrapper'].includes(node.tagName)) {
+        const attrs = node.attributes || {}
+        const bg = attrs['background-url']
+        if (typeof bg === 'string' ? bg.trim().length > 0 : Boolean(bg)) return true
+      }
+
+      if (node && node.children && node.children.length) {
+        stack.push(...node.children)
+      }
+    }
+
+    return false
+  })()
+
+  const direction =
+    get(mjml, 'attributes.direction') || get(mjml, 'attributes.dir') || 'auto'
+
   const globalData = {
     beforeDoctype: '',
     breakpoint: '480px',
@@ -630,8 +656,26 @@ export default async function mjml2html(mjml, options = {}) {
     title: '',
     forceOWADesktop: get(mjml, 'attributes.owa', 'mobile') === 'desktop',
     lang: get(mjml, 'attributes.lang') || 'und',
-    dir: get(mjml, 'attributes.dir') || 'auto',
+    direction,
+    supportDarkMode:
+      String(get(mjml, 'attributes.support-dark-mode', false)).toLowerCase() ===
+      'true',
+    gmailForceLightMode:
+      String(get(mjml, 'attributes.gmail-force-light-mode', false)).toLowerCase() ===
+      'true',
+    supportOutlookClassic:
+      String(get(mjml, 'attributes.support-outlook-classic', true)).toLowerCase() !== 'false',
+    usesVML,
+    carouselSharedStylesEmitted: false,
+    navbarHamburgerStyleEmitted: false,
+    imageFluidOnMobileStyleEmitted: false,
+    outlookDarkModeStyleEmitted: false,
+    darkModeStyleEmitted: false,
+    darkModeRuleCount: 0,
+    darkModeRules: [],
   }
+
+  setSupportOutlookClassicFlag(globalData.supportOutlookClassic)
 
   const validatorOptions = {
     components,
@@ -732,7 +776,13 @@ export default async function mjml2html(mjml, options = {}) {
           ...defaultAttributesForClasses,
           ...omit(attributes, ['mj-class']),
         },
-        rawAttrs: { ...omit(attributes, ['mj-class']) },
+        rawAttrs: {
+          ...globalData.defaultAttributes['mj-all'],
+          ...globalData.defaultAttributes[tagName],
+          ...attributesClasses,
+          ...defaultAttributesForClasses,
+          ...omit(attributes, ['mj-class']),
+        },
         globalAttributes: {
           ...globalData.defaultAttributes['mj-all'],
         },
@@ -747,18 +797,24 @@ export default async function mjml2html(mjml, options = {}) {
     components,
     globalData,
     addMediaQuery(className, { parsedWidth, unit, padding }) {
-      let rule = '{'
+      const declarations = []
 
       if (parsedWidth != null && unit != null) {
-        rule += ` width:${parsedWidth}${unit} !important; max-width: ${parsedWidth}${unit};`
+        const widthValue = `${parsedWidth}${unit}`
+
+        // Skip redundant width:100% !important when width is already 100%
+        if (parsedWidth !== 100 || unit !== '%') {
+          declarations.push(`width:${widthValue} !important;`)
+        }
+
+        declarations.push(`max-width: ${widthValue};`)
       }
 
       if (padding) {
-        rule += ` padding: ${padding} !important;`
+        declarations.push(`padding: ${padding} !important;`)
       }
 
-      rule += ` }`
-      globalData.mediaQueries[className] = rule
+      globalData.mediaQueries[className] = `{ ${declarations.join(' ')} }`
     },
     addHeadStyle(identifier, headStyle) {
       globalData.headStyle[identifier] = headStyle
@@ -801,7 +857,10 @@ export default async function mjml2html(mjml, options = {}) {
     },
   }
 
-  globalData.headRaw = processing(mjHead, headHelpers)
+  {
+    const processedHeadRaw = processing(mjHead, headHelpers)
+    globalData.headRaw = Array.isArray(processedHeadRaw) ? processedHeadRaw : []
+  }
 
   content = processing(mjBody, bodyHelpers, applyAttributes)
 
@@ -842,11 +901,38 @@ export default async function mjml2html(mjml, options = {}) {
     content = $.root().html()
   }
 
+  globalData.modifierUseClassTargets =
+    skeleton === defaultSkeleton && isEmpty(globalData.htmlAttributes)
+  const hasModifierRules = [
+    globalData.modifierRules,
+    globalData.responsiveRules,
+    globalData.darkModeRules,
+  ].some((rules) => Array.isArray(rules) && rules.length > 0)
+  if (globalData.modifierUseClassTargets && hasModifierRules) {
+    globalData.modifierClassTargets = new Map()
+    const markup = [
+      globalData.beforeDoctype,
+      ...globalData.headRaw,
+      content,
+    ].join('\n')
+    const $ = load(markup, {
+      xmlMode: false,
+      decodeEntities: true,
+    })
+
+    $('[class]').each((index, element) => {
+      registerModifierClassTargets(globalData, $(element).attr('class'))
+    })
+  }
+
   content = skeleton({
     content,
     ...globalData,
+    dir: globalData.direction,
     printerSupport,
   })
+  
+  content = mergeHeadStyleBlocks(content)
 
   if (globalData.inlineStyle.length > 0) {
     if (juicePreserveTags) {
@@ -904,6 +990,12 @@ export default async function mjml2html(mjml, options = {}) {
       removeEmptyAttributes: true,
       minifyJs: false,
       removeComments: keepComments ? false : 'safe',
+      // htmlnano's safe preset decodes character references to raw UTF-8
+      // (`&nbsp;` -> U+00A0, `&#8202;` -> U+200A). Email output travels through
+      // ESP template engines and transports that re-encode payloads, where raw
+      // bytes turn into mojibake, so keep the references escaped. Callers can
+      // opt in through `minifyOptions`.
+      minifyCharacterReferences: false,
       ...minifyOptionsRest,
     }
 

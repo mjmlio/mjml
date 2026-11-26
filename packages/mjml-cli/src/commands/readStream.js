@@ -1,14 +1,16 @@
 const stdinSync = () =>
-  new Promise((res) => {
+  new Promise((res, rej) => {
     let buffer = ''
 
     const stream = process.stdin
+    stream.setEncoding('utf8')
 
-    stream.on('data', (chunck) => {
-      buffer += chunck
+    stream.on('data', (chunk) => {
+      buffer += chunk
     })
 
     stream.on('end', () => res(buffer))
+    stream.on('error', rej)
   })
 
 export default async () => {

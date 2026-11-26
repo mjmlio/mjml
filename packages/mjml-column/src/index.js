@@ -1,38 +1,200 @@
 import { BodyComponent } from 'mjml-core'
+import {
+  emitDarkModeHeadStyle,
+  registerDarkModeRuleGroup,
+} from 'mjml-core/lib/helpers/colorSchemeDarkMode'
+import {
+  emitResponsiveHeadStyle,
+  buildResponsiveDeclarations,
+  registerResponsiveRuleGroup,
+  registerResponsivePaddingGroup,
+} from 'mjml-core/lib/helpers/responsiveMode'
 
+import genRandomHexString from 'mjml-core/lib/helpers/genRandomHexString'
 import widthParser from 'mjml-core/lib/helpers/widthParser'
+
+function getPaddingLeft(component) {
+  const explicitPadding = component.getAttribute('padding-left')
+  if (explicitPadding) return explicitPadding
+
+  const padding = component.getAttribute('padding')
+  if (!padding) return '0px'
+
+  const values = padding.trim().split(/\s+/)
+  const leftIndex = [0, 1, 1, 3][values.length - 1] || 0
+  return values[leftIndex]
+}
 
 export default class MjColumn extends BodyComponent {
   static componentName = 'mj-column'
 
   static allowedAttributes = {
+    'aria-label': 'string',
+    'aria-roledescription': 'string',
     'background-color': 'color',
+    'background-color--dark': 'color',
     border: 'string',
+    'border-color--dark': 'color',
     'border-bottom': 'string',
+    'border-bottom-color--dark': 'color',
     'border-left': 'string',
+    'border-left-color--dark': 'color',
     'border-radius': 'string',
     'border-right': 'string',
+    'border-right-color--dark': 'color',
     'border-top': 'string',
+    'border-top-color--dark': 'color',
     direction: 'enum(ltr,rtl)',
     'inner-background-color': 'color',
-    'padding-bottom': 'unit(px,%)',
-    'padding-left': 'unit(px,%)',
-    'padding-right': 'unit(px,%)',
-    'padding-top': 'unit(px,%)',
+    'inner-background-color--dark': 'color',
     'inner-border': 'string',
+    'inner-border-color--dark': 'color',
     'inner-border-bottom': 'string',
+    'inner-border-bottom-color--dark': 'color',
     'inner-border-left': 'string',
+    'inner-border-left-color--dark': 'color',
     'inner-border-radius': 'string',
     'inner-border-right': 'string',
+    'inner-border-right-color--dark': 'color',
     'inner-border-top': 'string',
+    'inner-border-top-color--dark': 'color',
     padding: 'unit(px,%){1,4}',
+    'padding--responsive': 'unit(px,%){1,4}',
+    'padding-bottom': 'unit(px,%)',
+    'padding-bottom--responsive': 'unit(px,%)',
+    'padding-left': 'unit(px,%)',
+    'padding-left--responsive': 'unit(px,%)',
+    'padding-right': 'unit(px,%)',
+    'padding-right--responsive': 'unit(px,%)',
+    'padding-top': 'unit(px,%)',
+    'padding-top--responsive': 'unit(px,%)',
+    role: 'string',
     'vertical-align': 'enum(top,bottom,middle)',
     width: 'unit(px,%)',
+    'width--responsive': 'unit(px,%)',
   }
 
   static defaultAttributes = {
-    direction: 'ltr',
     'vertical-align': 'top',
+  }
+
+  darkClasses = null
+
+  responsiveClasses = null
+
+  getDarkClasses() {
+    if (this.darkClasses !== null) {
+      return this.darkClasses
+    }
+
+    this.darkClasses = {}
+    const globalData = this.context && this.context.globalData
+
+    // Outer: background-color + border (applied to gutter td when gutter exists,
+    // or to the column table when no gutter).
+    const outerDeclarations = []
+
+    const darkBgColor = this.attributes['background-color--dark']
+    if (darkBgColor) {
+      outerDeclarations.push({
+        cssProperty: 'background-color',
+        cssValue: darkBgColor,
+      })
+    }
+
+    const darkBorderColor = this.attributes['border-color--dark']
+    if (darkBorderColor) {
+      outerDeclarations.push({
+        cssProperty: 'border-color',
+        cssValue: darkBorderColor,
+      })
+    }
+
+    ;[
+      ['border-top-color', 'border-top-color--dark'],
+      ['border-bottom-color', 'border-bottom-color--dark'],
+      ['border-left-color', 'border-left-color--dark'],
+      ['border-right-color', 'border-right-color--dark'],
+    ].forEach(([cssProperty, attrName]) => {
+      const cssValue = this.attributes[attrName]
+      if (!cssValue || (darkBorderColor && cssValue === darkBorderColor)) return
+      outerDeclarations.push({ cssProperty, cssValue })
+    })
+
+    this.darkClasses.outer = registerDarkModeRuleGroup(globalData, {
+      cssDeclarations: outerDeclarations,
+    })
+
+    // Inner: inner-background-color + inner-border (always applied to the inner
+    // column table; only relevant when a gutter/padding exists).
+    const innerDeclarations = []
+
+    const darkInnerBgColor = this.attributes['inner-background-color--dark']
+    if (darkInnerBgColor) {
+      innerDeclarations.push({
+        cssProperty: 'background-color',
+        cssValue: darkInnerBgColor,
+      })
+    }
+
+    const darkInnerBorderColor = this.attributes['inner-border-color--dark']
+    if (darkInnerBorderColor) {
+      innerDeclarations.push({
+        cssProperty: 'border-color',
+        cssValue: darkInnerBorderColor,
+      })
+    }
+
+    ;[
+      ['border-top-color', 'inner-border-top-color--dark'],
+      ['border-bottom-color', 'inner-border-bottom-color--dark'],
+      ['border-left-color', 'inner-border-left-color--dark'],
+      ['border-right-color', 'inner-border-right-color--dark'],
+    ].forEach(([cssProperty, attrName]) => {
+      const cssValue = this.attributes[attrName]
+      if (
+        !cssValue ||
+        (darkInnerBorderColor && cssValue === darkInnerBorderColor)
+      )
+        return
+      innerDeclarations.push({ cssProperty, cssValue })
+    })
+
+    this.darkClasses.inner = registerDarkModeRuleGroup(globalData, {
+      cssDeclarations: innerDeclarations,
+    })
+
+    return this.darkClasses
+  }
+
+  getResponsiveClasses() {
+    if (this.responsiveClasses !== null) return this.responsiveClasses
+
+    this.responsiveClasses = {
+      div: null,
+      gutter: null,
+    }
+
+    const globalData = this.context && this.context.globalData
+
+    this.responsiveClasses.div = registerResponsiveRuleGroup(globalData, {
+      cssDeclarations: buildResponsiveDeclarations([
+        ['width', this.attributes['width--responsive']],
+      ]),
+    })
+
+    this.responsiveClasses.gutter = registerResponsivePaddingGroup(
+      globalData,
+      this.attributes,
+    )
+
+    return this.responsiveClasses
+  }
+
+  componentHeadStyle = () => {
+    emitDarkModeHeadStyle(this.context && this.context.globalData)
+    emitResponsiveHeadStyle(this.context && this.context.globalData)
+    return ''
   }
 
   getChildContext() {
@@ -64,6 +226,7 @@ export default class MjColumn extends BodyComponent {
     return {
       ...this.context,
       containerWidth,
+      contentDirection: this.getAttribute('direction'),
     }
   }
 
@@ -79,7 +242,6 @@ export default class MjColumn extends BodyComponent {
       'border-radius': this.getAttribute('border-radius'),
       'border-right': this.getAttribute('border-right'),
       'border-top': this.getAttribute('border-top'),
-      'vertical-align': this.getAttribute('vertical-align'),
       ...(hasBorderRadius && { 'border-collapse': 'separate' }),
     }
 
@@ -89,8 +251,12 @@ export default class MjColumn extends BodyComponent {
     return {
       div: {
         'font-size': '0px',
-        'text-align': 'left',
-        direction: this.getAttribute('direction'),
+        'text-align': this.isRtl ? 'right' : 'left',
+        // set even when unset: a section's direction orders the columns, and
+        // without this the text inside would reverse with them
+        direction:
+          this.getAttribute('direction') ||
+          (this.context.globalData.direction === 'rtl' ? 'rtl' : 'ltr'),
         display: 'inline-block',
         'vertical-align': this.getAttribute('vertical-align'),
         width: this.getMobileWidth(),
@@ -122,6 +288,9 @@ export default class MjColumn extends BodyComponent {
         'padding-right': this.getAttribute('padding-right'),
         'padding-bottom': this.getAttribute('padding-bottom'),
         'padding-left': this.getAttribute('padding-left'),
+        ...(this.context.hasSectionBackgroundUrl === true && {
+          'mso-para-margin-left': getPaddingLeft(this),
+        }),
       },
     }
   }
@@ -138,7 +307,8 @@ export default class MjColumn extends BodyComponent {
 
     // Group columns don't stack on mobile, so use gutter-reduced desktop width
     if (isInGroup && this.hasColumnGutter()) {
-      const { parsedWidth, unit } = this.getDesktopWidth()
+      const gutterSource = this.context.gutterResponsive || this.context.gutter
+      const { parsedWidth, unit } = this.getWidthWithGutter(gutterSource)
       if (unit === '%') {
         return `${parsedWidth}%`
       }
@@ -158,11 +328,9 @@ export default class MjColumn extends BodyComponent {
         return width
       case 'px':
       default:
-        return `${
-          MjColumn.normalizeUnitValue(
-            (parsedWidth / parseInt(containerWidth, 10)) * 100,
-          )
-        }%`
+        return `${MjColumn.normalizeUnitValue(
+          (parsedWidth / parseInt(containerWidth, 10)) * 100,
+        )}%`
     }
   }
 
@@ -229,8 +397,8 @@ export default class MjColumn extends BodyComponent {
         unit,
       })
 
-      // Group columns already carry gutter padding inline; avoid duplicate media-query rules
-      if (!isInGroup) {
+      // A group with a responsive override needs its desktop gutter restored.
+      if (!isInGroup || this.context.gutterResponsive) {
         addMediaQuery(this.getDesktopGutterClassName(), {
           padding: this.getDesktopPadding(),
         })
@@ -265,25 +433,36 @@ export default class MjColumn extends BodyComponent {
   }
 
   getDesktopWidth() {
+    return this.getWidthWithGutter(this.context.gutter)
+  }
+
+  getWidthWithGutter(gutterSource) {
     const { sibling, index } = this.props
     const { parsedWidth, unit } = this.getParsedWidth()
 
-    if (!this.hasColumnGutter()) {
+    if (!gutterSource) {
       return {
-        parsedWidth: unit === 'px' ? MjColumn.normalizePxValue(parsedWidth) : parsedWidth,
+        parsedWidth:
+          unit === 'px' ? MjColumn.normalizePxValue(parsedWidth) : parsedWidth,
         unit,
       }
     }
 
-    const gutter = this.getNormalizedGutterValue(unit)
+    const gutter = this.getNormalizedGutterValue(unit, gutterSource)
     const reduction = (gutter * (sibling - 1)) / sibling
 
-    const reducedWidth = Math.max(0, MjColumn.normalizeUnitValue(parsedWidth - reduction))
+    const reducedWidth = Math.max(
+      0,
+      MjColumn.normalizeUnitValue(parsedWidth - reduction),
+    )
 
     if (unit === 'px') {
       const floorWidth = Math.floor(reducedWidth)
       const fractional = reducedWidth - floorWidth
-      const extraPixels = Math.max(0, Math.min(sibling, Math.round(sibling * fractional)))
+      const extraPixels = Math.max(
+        0,
+        Math.min(sibling, Math.round(sibling * fractional)),
+      )
 
       return {
         parsedWidth: floorWidth + (index < extraPixels ? 1 : 0),
@@ -305,8 +484,8 @@ export default class MjColumn extends BodyComponent {
     return Math.round(parseFloat(value))
   }
 
-  getNormalizedGutterValue(targetUnit) {
-    const { gutter } = this.context
+  getNormalizedGutterValue(targetUnit, sourceGutter = this.context.gutter) {
+    const gutter = sourceGutter
 
     if (!gutter) {
       return 0
@@ -333,19 +512,23 @@ export default class MjColumn extends BodyComponent {
   }
 
   hasColumnGutter() {
-    const { gutter } = this.context
+    const { gutter, gutterResponsive } = this.context
 
-    return gutter != null && gutter !== ''
+    return [gutter, gutterResponsive].some(
+      (value) => value != null && value !== '',
+    )
   }
 
-  getDesktopPaddingValues(unit) {
+  getDesktopPaddingValues(unit, gutterSource = this.context.gutter) {
     const { first, last, sibling } = this.props
     const { direction } = this.context
-    const gutter = this.getNormalizedGutterValue(unit)
+    const gutter = this.getNormalizedGutterValue(unit, gutterSource)
     const normalizedGutter =
       unit === 'px' ? MjColumn.normalizePxValue(gutter) : gutter
     const isPx = unit === 'px'
-    const halfLeading = isPx ? Math.ceil(normalizedGutter / 2) : normalizedGutter / 2
+    const halfLeading = isPx
+      ? Math.ceil(normalizedGutter / 2)
+      : normalizedGutter / 2
     const halfTrailing = isPx
       ? Math.floor(normalizedGutter / 2)
       : normalizedGutter / 2
@@ -380,8 +563,15 @@ export default class MjColumn extends BodyComponent {
 
   getMobilePaddingValues() {
     const { first, last } = this.props
-    const gutter = this.getNormalizedGutterValue('%')
-    const half = gutter / 2
+    const responsiveGutter = this.context.gutterResponsive
+    const gutterSource =
+      responsiveGutter != null && responsiveGutter !== ''
+        ? responsiveGutter
+        : this.context.gutter
+    const { unit, parsedWidth } = widthParser(gutterSource, {
+      parseFloatToInt: false,
+    })
+    const half = parsedWidth / 2
 
     // On mobile: gutter appears as vertical spacing between stacked columns,
     // but not on outer left/right edges
@@ -390,6 +580,7 @@ export default class MjColumn extends BodyComponent {
       right: 0,
       bottom: last ? 0 : half,
       left: 0,
+      unit,
     }
   }
 
@@ -404,9 +595,9 @@ export default class MjColumn extends BodyComponent {
 
     return `${MjColumn.normalizeUnitValue(top)}${unit} ${MjColumn.normalizeUnitValue(
       right,
-    )}${unit} ${MjColumn.normalizeUnitValue(bottom)}${unit} ${
-      MjColumn.normalizeUnitValue(left)
-    }${unit}`
+    )}${unit} ${MjColumn.normalizeUnitValue(bottom)}${unit} ${MjColumn.normalizeUnitValue(
+      left,
+    )}${unit}`
   }
 
   getDesktopPadding() {
@@ -417,9 +608,20 @@ export default class MjColumn extends BodyComponent {
   }
 
   getMobilePadding() {
-    const { top, right, bottom, left } = this.getMobilePaddingValues()
+    const { top, right, bottom, left, unit } = this.getMobilePaddingValues()
 
-    return MjColumn.formatPadding(top, right, bottom, left, '%')
+    return MjColumn.formatPadding(top, right, bottom, left, unit)
+  }
+
+  getGroupMobilePadding() {
+    const unit = this.getDesktopUnit()
+    const gutterSource = this.context.gutterResponsive || this.context.gutter
+    const { top, right, bottom, left } = this.getDesktopPaddingValues(
+      unit,
+      gutterSource,
+    )
+
+    return MjColumn.formatPadding(top, right, bottom, left, unit)
   }
 
   getMobileGutterStyles() {
@@ -432,7 +634,7 @@ export default class MjColumn extends BodyComponent {
     // Group columns don't stack on mobile, so maintain desktop horizontal padding
     if (isInGroup) {
       return {
-        padding: this.getDesktopPadding(),
+        padding: this.getGroupMobilePadding(),
       }
     }
 
@@ -454,8 +656,6 @@ export default class MjColumn extends BodyComponent {
     }
   }
 
-
-
   hasBorderRadius() {
     const borderRadius = this.getAttribute('border-radius')
     return borderRadius !== '' && typeof borderRadius !== 'undefined'
@@ -473,11 +673,16 @@ export default class MjColumn extends BodyComponent {
       'padding-left',
       'padding-right',
       'padding-top',
-    ].some((attr) => this.getAttribute(attr) != null)
+    ].some(
+      (attr) =>
+        this.getAttribute(attr) != null ||
+        this.getAttribute(`${attr}--responsive`) != null,
+    )
   }
 
   renderGutter() {
     const hasBorderRadius = this.hasBorderRadius()
+    const { outer: outerDarkClass } = this.getDarkClasses()
 
     return `
       <table
@@ -485,26 +690,39 @@ export default class MjColumn extends BodyComponent {
           border: '0',
           cellpadding: '0',
           cellspacing: '0',
-          role: 'presentation',
+          dir: this.getOutlookDir(),
+          role: 'none',
           width: '100%',
           ...(hasBorderRadius && {
             style: { 'border-collapse': 'separate' },
           }),
         })}
       >
-        <tbody>
-          <tr>
-            <td ${this.htmlAttributes({ style: 'gutter' })}>
-              ${this.renderColumn()}
-            </td>
-          </tr>
-        </tbody>
+        <tr>
+          <td ${this.htmlAttributes({
+            class:
+              [outerDarkClass, this.getResponsiveClasses().gutter]
+                .filter(Boolean)
+                .join(' ') || undefined,
+            style: 'gutter',
+          })}>
+            ${this.renderColumn()}
+          </td>
+        </tr>
       </table>
     `
   }
 
   renderColumn() {
     const { children } = this.props
+    const { outer: outerDarkClass, inner: innerDarkClass } =
+      this.getDarkClasses()
+    // When a gutter exists the outer dark class is on the gutter <td>;
+    // the column table carries the inner dark class instead.
+    // When there is no gutter the column table IS the outer element.
+    const columnTableDarkClass = this.hasGutter()
+      ? innerDarkClass || undefined
+      : outerDarkClass || undefined
 
     return `
       <table
@@ -512,43 +730,71 @@ export default class MjColumn extends BodyComponent {
           border: '0',
           cellpadding: '0',
           cellspacing: '0',
-          role: 'presentation',
+          class: columnTableDarkClass,
+          dir: this.getOutlookDir(),
           style: 'table',
           width: '100%',
+          role: this.getAttribute('role') ? this.getAttribute('role') : 'none',
+          'aria-label': this.getAttribute('aria-label'),
+          'aria-roledescription': this.getAttribute('aria-roledescription'),
         })}
       >
-        <tbody>
-          ${this.renderChildren(children, {
-            renderer: (component) =>
-              component.constructor.isRawElement()
-                ? component.render()
-                : `
-              <tr>
-                <td
-                  ${component.htmlAttributes({
-                    align: component.getAttribute('align'),
-                    class: component.getAttribute('css-class'),
-                    style: {
-                      background: component.getAttribute(
-                        'container-background-color',
-                      ),
-                      'font-size': '0px',
-                      padding: component.getAttribute('padding'),
-                      'padding-top': component.getAttribute('padding-top'),
-                      'padding-right': component.getAttribute('padding-right'),
-                      'padding-bottom':
-                        component.getAttribute('padding-bottom'),
-                      'padding-left': component.getAttribute('padding-left'),
-                      'word-break': 'break-word',
-                    },
-                  })}
-                >
-                  ${component.render()}
-                </td>
-              </tr>
-            `,
-          })}
-        </tbody>
+        ${this.renderChildren(children, {
+          renderer: (component) => {
+            if (component.constructor.isRawElement()) {
+              return component.render()
+            }
+
+            const isButton = component.constructor.componentName === 'mj-button'
+            const isLeftAlignedButton =
+              isButton && component.getAttribute('align') === 'left'
+            const hasSectionBackground =
+              this.context.hasSectionBackgroundUrl === true
+            let trClass = ''
+
+            if (isLeftAlignedButton && hasSectionBackground) {
+              const buttonClassName = `vml-button-${genRandomHexString(6)}`
+              const buttonLeftPadding = getPaddingLeft(component)
+
+              if (typeof this.context.addVmlButtonStyle === 'function') {
+                this.context.addVmlButtonStyle(
+                  buttonClassName,
+                  buttonLeftPadding,
+                )
+              }
+
+              trClass = ` class="${buttonClassName}"`
+            }
+
+            return `<tr${trClass}>
+              <td
+                ${component.htmlAttributes({
+                  align: component.getAttribute('align'),
+                  class: component.getAttribute('css-class'),
+                  dir: component.getWrapperDirection(),
+                  style: {
+                    background: component.getAttribute(
+                      'container-background-color',
+                    ),
+                    'border-radius': component.getAttribute(
+                      'container-border-radius',
+                    ),
+                    direction: component.getWrapperDirection(),
+                    'font-size': '0px',
+                    padding: component.getAttribute('padding'),
+                    'padding-top': component.getAttribute('padding-top'),
+                    'padding-right': component.getAttribute('padding-right'),
+                    'padding-bottom': component.getAttribute('padding-bottom'),
+                    'padding-left': component.getAttribute('padding-left'),
+                    'word-break': 'break-word',
+                  },
+                })}
+              >
+                ${component.render()}
+              </td>
+            </tr>`
+          },
+        })}
       </table>
     `
   }
@@ -562,10 +808,13 @@ export default class MjColumn extends BodyComponent {
       classesName += ` ${this.getDesktopGutterClassName()}`
     }
 
-    classesName += ' mj-outlook-group-fix'
-
     if (this.getAttribute('css-class')) {
       classesName += ` ${this.getAttribute('css-class')}`
+    }
+
+    const divResponsiveClass = this.getResponsiveClasses().div
+    if (divResponsiveClass) {
+      classesName += ` ${divResponsiveClass}`
     }
 
     return `

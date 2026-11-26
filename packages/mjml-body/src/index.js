@@ -57,7 +57,7 @@ export default class MjBody extends BodyComponent {
 
   render() {
     const {
-      globalData: { lang, dir, title, preview },
+      globalData: { lang, direction, title, preview },
     } = this.context
 
     const darkBgColor = this.getAttribute('background-color--dark')
@@ -83,7 +83,7 @@ export default class MjBody extends BodyComponent {
         'aria-roledescription': 'email',
         role: 'article',
         lang,
-        dir,
+        dir: direction,
         style: 'div',
         class: darkClass,
       })}>

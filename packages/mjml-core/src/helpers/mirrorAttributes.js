@@ -33,7 +33,7 @@ function mirrorValue(name, value) {
   return value
 }
 
-// Mirrors a component's default attributes for <mjml dir="rtl">. Only
+// Mirrors a component's default attributes for <mjml direction="rtl">. Only
 // defaults pass through here, so anything the author set (inline,
 // mj-attributes, mj-class) still wins.
 // Physical sides only: icon-position is source order, which rtl table

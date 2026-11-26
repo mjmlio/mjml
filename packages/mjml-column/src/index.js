@@ -305,7 +305,7 @@ export default class MjColumn extends BodyComponent {
         'font-size': '0px',
         'text-align': (
           this.hasResponsiveDirection()
-            ? this.context.globalData.dir === 'rtl'
+            ? this.context.globalData.direction === 'rtl'
             : this.isRtl
         )
           ? 'right'
@@ -314,7 +314,7 @@ export default class MjColumn extends BodyComponent {
         // without this the text inside would reverse with them
         direction:
           this.getAttribute('direction') ||
-          (this.context.globalData.dir === 'rtl' ? 'rtl' : 'ltr'),
+          (this.context.globalData.direction === 'rtl' ? 'rtl' : 'ltr'),
         display: 'inline-block',
         'vertical-align': this.getAttribute('vertical-align'),
         width: this.getMobileWidth(),

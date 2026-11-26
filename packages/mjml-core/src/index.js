@@ -634,6 +634,9 @@ export default async function mjml2html(mjml, options = {}) {
     return false
   })()
 
+  const direction =
+    get(mjml, 'attributes.direction') || get(mjml, 'attributes.dir') || 'auto'
+
   const globalData = {
     beforeDoctype: '',
     breakpoint: '480px',
@@ -652,7 +655,7 @@ export default async function mjml2html(mjml, options = {}) {
     title: '',
     forceOWADesktop: get(mjml, 'attributes.owa', 'mobile') === 'desktop',
     lang: get(mjml, 'attributes.lang') || 'und',
-    dir: get(mjml, 'attributes.dir') || 'auto',
+    direction,
     supportDarkMode:
       String(get(mjml, 'attributes.support-dark-mode', false)).toLowerCase() ===
       'true',
@@ -900,6 +903,7 @@ export default async function mjml2html(mjml, options = {}) {
   content = skeleton({
     content,
     ...globalData,
+    dir: globalData.direction,
     printerSupport,
   })
   

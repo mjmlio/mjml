@@ -160,8 +160,11 @@ describe('user file loaders (.mjmlconfig, components, skeleton)', function () {
   })
 
   describe('skeleton', function () {
-    const renderWith = (skeleton) =>
-      mjml('<mjml><mj-body><mj-text>x</mj-text></mj-body></mjml>', {
+    const renderWith = (
+      skeleton,
+      input = '<mjml><mj-body><mj-text>x</mj-text></mj-body></mjml>',
+    ) =>
+      mjml(input, {
         skeleton,
         validationLevel: 'skip',
       })
@@ -169,6 +172,17 @@ describe('user file loaders (.mjmlconfig, components, skeleton)', function () {
     it('uses a skeleton function passed directly', async function () {
       const { html } = await renderWith((o) => `<html>sk-fn${o.content}</html>`)
       chai.expect(html).to.include('sk-fn')
+    })
+
+    it('preserves dir for custom skeletons with either root attribute', async function () {
+      for (const attribute of ['dir', 'direction']) {
+        // eslint-disable-next-line no-await-in-loop
+        const { html } = await renderWith(
+          ({ dir }) => `<html dir="${dir}"></html>`,
+          `<mjml ${attribute}="rtl"><mj-body><mj-text>x</mj-text></mj-body></mjml>`,
+        )
+        chai.expect(html).to.include('<html dir="rtl">')
+      }
     })
 
     it('loads a CommonJS skeleton file', async function () {

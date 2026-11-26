@@ -74,7 +74,7 @@ class Component {
       attributes.direction ||
       globalAttributes.direction ||
       context.contentDirection ||
-      (get(context, 'globalData.dir') === 'rtl' ? 'rtl' : undefined)
+      (get(context, 'globalData.direction') === 'rtl' ? 'rtl' : undefined)
 
     this.isRtl = this.resolvedDirection === 'rtl'
 

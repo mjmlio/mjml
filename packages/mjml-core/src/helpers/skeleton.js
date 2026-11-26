@@ -44,24 +44,16 @@ export default function skeleton(options) {
   <head>
     <title>${title}</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
-    ${[
+    <meta name="viewport" content="width=device-width">
+    <meta name="x-apple-disable-message-reformatting">
+    ${
       metaColorScheme
         ? `<meta name="color-scheme" content="${metaColorScheme}">`
-        : '',
-      supportDarkMode && !gmailForceLightMode
-        ? '<meta name="supported-color-schemes" content="light dark">'
-        : '',
-    ]
-      .filter(Boolean)
-      .join('\n    ')
+        : ''
     }
-    ${[
-      buildFontsTags(content, inlineStyle, fonts),
-    ]
+    ${[buildFontsTags(content, inlineStyle, fonts)]
       .filter((s) => s && String(s).trim().length > 0)
-      .join('\n')
-    }
+      .join('\n')}
     <style>
       ${supportOutlookClassic ? '#outlook a { padding:0; }' : ''}
       body { margin:0;padding:0;text-size-adjust:100%;${supportOutlookClassic ? ' -ms-text-size-adjust:100%;' : ''} }
@@ -69,9 +61,9 @@ export default function skeleton(options) {
       img { border:0;height:auto;line-height:100%; outline:none;text-decoration:none;${supportOutlookClassic ? ' -ms-interpolation-mode:bicubic;' : ''}}
       p { display:block;margin:1em 0; }
       ${
-      supportDarkMode
-        ? ':root { color-scheme: light dark; supported-color-schemes:light dark; }'
-        : ''
+        supportDarkMode
+          ? ':root { color-scheme: light dark; supported-color-schemes:light dark; }'
+          : ''
       }
       a[x-apple-data-detectors],
       u + #body a,
@@ -90,8 +82,7 @@ export default function skeleton(options) {
       headRaw.filter(negate(isNil)).join('\n'),
     ]
       .filter((s) => s && String(s).trim().length > 0)
-      .join('\n')
-    }
+      .join('\n')}
     ${
       supportOutlookClassic
         ? `<!--[if mso]>

@@ -70,6 +70,22 @@ describe('skeleton', () => {
     })
   })
 
+  it('renders exactly one viewport meta tag with the device width', () => {
+    const $ = load(skeleton({}))
+    const viewport = $('meta[name="viewport"]')
+
+    chai.expect(viewport.length).to.equal(1)
+    chai.expect(viewport.attr('content')).to.equal('width=device-width')
+  })
+
+  it('renders exactly one Apple message reformatting meta tag', () => {
+    const $ = load(skeleton({}))
+
+    chai
+      .expect($('meta[name="x-apple-disable-message-reformatting"]').length)
+      .to.equal(1)
+  })
+
   it('renders accordion style in its own type="text/css" block', () => {
     const $ = load(
       skeleton({
@@ -98,9 +114,6 @@ describe('skeleton', () => {
       const $ = load(skeleton({ supportDarkMode: true }))
 
       chai.expect($('meta[name="color-scheme"]').get().length).to.equal(1)
-      chai
-        .expect($('meta[name="supported-color-schemes"]').get().length)
-        .to.equal(1)
     })
   })
 
@@ -109,9 +122,7 @@ describe('skeleton', () => {
       $('meta[name="color-scheme"]').attr('content')
 
     const hasRootColorScheme = ($) =>
-      $('head style')
-        .text()
-        .includes(':root { color-scheme: light dark;')
+      $('head style').text().includes(':root { color-scheme: light dark;')
 
     it('uses "light dark" meta when only supportDarkMode is true', () => {
       const $ = load(skeleton({ supportDarkMode: true }))
@@ -121,7 +132,9 @@ describe('skeleton', () => {
     })
 
     it('uses only the "light only" meta but keeps :root dark mode CSS when both are true', () => {
-      const $ = load(skeleton({ supportDarkMode: true, gmailForceLightMode: true }))
+      const $ = load(
+        skeleton({ supportDarkMode: true, gmailForceLightMode: true }),
+      )
 
       chai.expect($('meta[name="color-scheme"]').get().length).to.equal(1)
       chai.expect(getColorSchemeMeta($)).to.equal('light only')

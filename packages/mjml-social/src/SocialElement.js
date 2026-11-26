@@ -378,12 +378,13 @@ export default class MjSocialElement extends BodyComponent {
     }
   }
 
-  // The spacing belongs between icon and text, and rtl rows put an icon that
-  // comes first in source order on the right.
+  // The spacing goes on the side of the text that faces the icon. An rtl row
+  // reverses the visual order, so the icon is on the text's left when it is
+  // placed on the right in an ltr row, and vice versa.
   getTextSpacingSide() {
-    return this.isRtl && this.getAttribute('icon-position') === 'left'
-      ? 'padding-right'
-      : 'padding-left'
+    const iconOnLeftOfText =
+      (this.getAttribute('icon-position') === 'left') !== this.isRtl
+    return iconOnLeftOfText ? 'padding-left' : 'padding-right'
   }
 
   getSocialAttributes() {

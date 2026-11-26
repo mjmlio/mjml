@@ -153,8 +153,8 @@ describe('document direction and the legacy <mjml dir> alias', function () {
     expect(html).to.contain('padding-right:10px')
     expect(html).to.not.contain('padding-left:10px')
     // The first element sits on the right, so its right edge is the flush one.
-    expect(html).to.contain('padding:10px 0 10px 10px;')
-    expect(html).to.contain('padding:10px 10px 10px 0;')
+    expect(html).to.contain('padding:5px 0 5px 5px;')
+    expect(html).to.contain('padding:5px 5px 5px 0;')
 
     // and the same for the responsive gutter
     const responsive = await mjml(
@@ -178,13 +178,33 @@ describe('document direction and the legacy <mjml dir> alias', function () {
         .exec(responsive.html)[1]
         .trim()
     }
-    expect(rule('tr.first')).to.equal('20px 0 20px 20px')
-    expect(rule('tr.last')).to.equal('20px 20px 20px 0')
+    expect(rule('tr.first')).to.equal('10px 0 10px 10px')
+    expect(rule('tr.last')).to.equal('10px 10px 10px 0')
 
     // A trailing icon is on the left, with the text to its right.
     const trailing = await mjml(social('icon-position="right"'))
     expect(trailing.html).to.contain('padding-left:10px')
     expect(trailing.html).to.not.contain('padding-right:10px')
+  })
+
+  it('puts social spacing between the text and the icon in an ltr document', async function () {
+    const social = (attrs) =>
+      body(
+        'dir="ltr"',
+        column(`<mj-social text-spacing="20px">
+          <mj-social-element name="x" href="#" ${attrs}>X</mj-social-element>
+        </mj-social>`),
+      )
+
+    // Icon on the right: the text's right side faces it.
+    const trailing = await mjml(social('icon-position="right"'))
+    expect(trailing.html).to.contain('padding-right:20px')
+    expect(trailing.html).to.not.contain('padding-left:20px')
+
+    // Icon on the left: the text's left side faces it.
+    const leading = await mjml(social(''))
+    expect(leading.html).to.contain('padding-left:20px')
+    expect(leading.html).to.not.contain('padding-right:20px')
   })
 })
 

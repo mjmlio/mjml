@@ -55,7 +55,7 @@ Displays calls-to-action for various social networks with their associated logo.
 | icon-height                | `px` `%`                | icon height, overrides `icon-size`                                            | icon-size            |
 | icon-padding               | `px` `%`                | padding around the icons                                                      |                      |
 | icon-size                  | `px` `%`                | icon size (width and height)                                                  | `20px`               |
-| gutter                     | `px`                    | gutter around the whole element (icon and text). Excludes the outermost sides | `10px`               |
+| gutter                     | `px`                    | gap between elements, split equally between adjacent sides. Excludes the outermost sides | `10px`               |
 | line-height                | `px` `%` `em` `rem`     | space between lines                                                           | `150%`               |
 | mode                       | `horizontal` `vertical` | direction of social elements                                                  | `horizontal`         |
 | padding                    | `px` `%`                | social padding, supports up to 4 parameters                                   | `10px 25px`          |
@@ -84,22 +84,22 @@ Displays calls-to-action for various social networks with their associated logo.
 
 ###### Responsive
 
-| attribute                  | accepts                 | description                                                        | default value |
-| -------------------------- | ----------------------- | ------------------------------------------------------------------ | ------------- |
-| align--responsive          | `left` `right` `center` | align content                                                      |               |
-| font-size--responsive      | `px` `rem`              | font size (applied to all child elements)                          |               |
-| icon-height--responsive    | `px` `%`                | icon height, overrides `icon-size` (applied to all child elements) |               |
-| icon-padding--responsive   | `px` `%`                | padding around the icons (applied to all child elements)           |               |
-| icon-size--responsive      | `px` `%`                | icon size (width and height) (applied to all child elements)       |               |
-| gutter--responsive         | `px`                    | gutter around the whole element (applied to all child elements)    |               |
-| layout--responsive         | `stack`                 | stack mj-social-element instances below the breakpoint             |               |
-| line-height--responsive    | `px` `%` `em` `rem`     | space between lines (applied to all child elements)                |               |
-| padding--responsive        | `px` `%`                | social padding, supports up to 4 parameters                        |               |
-| padding-bottom--responsive | `px` `%`                | bottom padding                                                     |               |
-| padding-left--responsive   | `px` `%`                | left padding                                                       |               |
-| padding-right--responsive  | `px` `%`                | right padding                                                      |               |
-| padding-top--responsive    | `px` `%`                | top padding                                                        |               |
-| text-spacing--responsive   | `px`                    | padding around the text (applied to all child elements)            |               |
+| attribute                  | accepts                 | description                                                                     | default value |
+| -------------------------- | ----------------------- | ------------------------------------------------------------------------------- | ------------- |
+| align--responsive          | `left` `right` `center` | align content                                                                   |               |
+| font-size--responsive      | `px` `rem`              | font size (applied to all child elements)                                       |               |
+| icon-height--responsive    | `px` `%`                | icon height, overrides `icon-size` (applied to all child elements)              |               |
+| icon-padding--responsive   | `px` `%`                | padding around the icons (applied to all child elements)                        |               |
+| icon-size--responsive      | `px` `%`                | icon size (width and height) (applied to all child elements)                    |               |
+| gutter--responsive         | `px`                    | gap between elements below the breakpoint, split equally between adjacent sides |               |
+| layout--responsive         | `stack`                 | stack mj-social-element instances below the breakpoint                          |               |
+| line-height--responsive    | `px` `%` `em` `rem`     | space between lines (applied to all child elements)                             |               |
+| padding--responsive        | `px` `%`                | social padding, supports up to 4 parameters                                     |               |
+| padding-bottom--responsive | `px` `%`                | bottom padding                                                                  |               |
+| padding-left--responsive   | `px` `%`                | left padding                                                                    |               |
+| padding-right--responsive  | `px` `%`                | right padding                                                                   |               |
+| padding-top--responsive    | `px` `%`                | top padding                                                                     |               |
+| text-spacing--responsive   | `px`                    | padding around the text (applied to all child elements)                         |               |
 
 #### mj-social-element
 
